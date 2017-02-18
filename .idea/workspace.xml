@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/flatten-js.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/classes/point.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils/constants.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,8 +26,8 @@
             <state relative-caret-position="525">
               <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
-                <marker date="1487412350409" expanded="true" signature="0:697" ph="{&quot;name&quot;: &quot;flatten-js&quot;...}" />
-                <marker date="1487412350409" expanded="true" signature="596:695" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+                <marker date="1487422902250" expanded="true" signature="0:697" ph="{&quot;name&quot;: &quot;flatten-js&quot;...}" />
+                <marker date="1487422902250" expanded="true" signature="596:695" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
               </folding>
             </state>
           </provider>
@@ -157,8 +144,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="337" />
-    <option name="y" value="24" />
+    <option name="x" value="331" />
+    <option name="y" value="28" />
     <option name="width" value="1578" />
     <option name="height" value="1002" />
   </component>
@@ -434,15 +421,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1487411133555</updated>
-      <workItem from="1487411134689" duration="10874000" />
+      <workItem from="1487411134689" duration="11522000" />
     </task>
+    <task id="LOCAL-00001" summary="some changes">
+      <created>1487422880939</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1487422880939</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10874000" />
+    <option name="totallyTimeSpent" value="11522000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="337" y="24" width="1578" height="1002" extended-state="0" />
+    <frame x="331" y="28" width="1578" height="1002" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23766233" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -471,7 +466,8 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="some changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -485,8 +481,8 @@
         <state relative-caret-position="525">
           <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
-            <marker date="1487412350409" expanded="true" signature="0:697" ph="{&quot;name&quot;: &quot;flatten-js&quot;...}" />
-            <marker date="1487412350409" expanded="true" signature="596:695" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+            <marker date="1487422902250" expanded="true" signature="0:697" ph="{&quot;name&quot;: &quot;flatten-js&quot;...}" />
+            <marker date="1487422902250" expanded="true" signature="596:695" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
           </folding>
         </state>
       </provider>
