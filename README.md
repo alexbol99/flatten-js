@@ -1,5 +1,4 @@
-# flatten-js
-Javascript library for 2d geometry
+# Javascript library for 2d geometry
 =========
 
 ## Installation
