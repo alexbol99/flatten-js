@@ -7,7 +7,7 @@
 
 ## Usage
 
-    var Flatten = require('@jdaudier/number-formatter');
+    var Flatten = require('flatten-js');
 
     var point = new Flatten.Point(1,1);
   

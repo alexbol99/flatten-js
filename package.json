@@ -1,0 +1,31 @@
+{
+  "name": "flatten-js",
+  "version": "0.0.1",
+  "description": "Javascript library for 2d geometry",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexbol99/flatten-js.git"
+  },
+  "keywords": [
+    "geometry",
+    "2d",
+    "polygon"
+  ],
+  "author": "Alex Bol <alexbol99@gmail.com> (https://github.com/alexbol99)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexbol99/flatten-js/issues"
+  },
+  "homepage": "https://github.com/alexbol99/flatten-js#readme",
+  "engines": {
+    "node": ">=4.2.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
