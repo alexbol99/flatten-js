@@ -4,17 +4,19 @@
 'use strict';
 
 let Utils = require("./utils/utils");
-let Point = require("./classes/point");
+let Errors = require("./utils/errors");
+let RegisterPoint = require("./classes/point");
+let RegisterVector = require("./classes/vector");
 
-const Flatten = class Flatten {
-    constructor() {
-        this.version = "0.0.1";
-        this.Point = Point;
-    }
-
-    get DP_TOL() {
-        return Utils.DP_TOL;
-    }
+let Flatten = {
+    version: "0.0.1",
+    DP_TOL: Utils.DP_TOL,
+    Utils: Utils,
+    Errors: Errors
 };
 
-module.exports = new Flatten();
+// let f = new Flatten();
+RegisterPoint(Flatten);
+RegisterVector(Flatten);
+
+module.exports = Flatten; // new Flatten();

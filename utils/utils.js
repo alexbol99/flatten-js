@@ -3,6 +3,7 @@
  */
 
 const DP_TOL = 0.000001;
+const DECIMALS = 3;
 
 module.exports = {
     DP_TOL: DP_TOL,
