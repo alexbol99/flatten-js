@@ -9,6 +9,10 @@ let RegisterPoint = function(Flatten) {
             this.y = y;
         }
 
+        /**
+         *
+         * @returns {Point|*}
+         */
         clone() {
             return new Flatten.Point(this.x, this.y);
         }
