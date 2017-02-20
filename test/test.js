@@ -45,6 +45,11 @@ describe('#Flatten.Point', function() {
         let equals = point.equalTo(zero);
         expect(equals).to.equal(true);
     });
+    it('Method distanceTo return distance between two points', function() {
+        let point1 = new Flatten.Point(1,1);
+        let point2 = new Flatten.Point(2,2);
+        expect(point1.distanceTo(point2)).to.equal(Math.sqrt(2));
+    });
     it('Method equalTo return true if points are equal up to DP_TOL tolerance', function() {
         let point1 = new Flatten.Point(1,1);
         let point2 = new Flatten.Point(1,1.000000999);
