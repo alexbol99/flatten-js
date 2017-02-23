@@ -51,6 +51,11 @@ describe('#Flatten.Point', function() {
         let equals = point1.equalTo(point2);
         expect(equals).to.equal(true);
     });
+    it('Method distanceTo return distance to other point ', function() {
+        let point1 = new Flatten.Point(1,1);
+        let point2 = new Flatten.Point(2,2);
+        expect(point1.distanceTo(point2)).to.equal(Math.sqrt(2));
+    });
     it ('Method translate returns new point translated by (dx, dy)', function() {
         let point = new Flatten.Point(1,1);
         let tpoint = point.translate(2,0);
