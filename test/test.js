@@ -68,7 +68,7 @@ describe('#Flatten.Point', function() {
         let equals = rotated_point.equalTo(expected_point);
         expect(equals).to.equal(true);
     });
-    it ('Method rotates returns new point rotated around center, counter clockwise', function() {
+    it ('Method rotate returns new point rotated around center, counter clockwise', function() {
         let point = new Flatten.Point(2,1);
         let center = new Flatten.Point(1,1);
         let rotated_point = point.rotate(Math.PI/2, center);
@@ -141,9 +141,87 @@ describe('#Flatten.Vector', function() {
         let v = new Flatten.Vector(1,1);
         expect(v.len()).to.equal(Math.sqrt(2));
     });
+    it('Method slope calculates angle in radians between vector and axe x', function() {
+        let v = new Flatten.Vector(1,1);
+        expect(v.slope()).to.equal(Math.PI/4);
+    });
     it('Method normalize returns unit vector', function() {
         let v = new Flatten.Vector(1,1);
         let equals = Flatten.Utils.EQ(v.normalize().len(), 1.0);
         expect(equals).to.equal(true);
     });
+    it('Method normalize throw error on zero length vector', function () {
+        let v = new Flatten.Vector(0,0);
+        let fn = function() { v.normalize() };
+        expect(fn).to.throw(Flatten.Errors.ZERO_DIVISION);
+    });
+    it ('Method rotate returns new vector rotated by given angle, positive angle defines rotation in counter clockwise direction', function() {
+        let vector = new Flatten.Vector(1,1);
+        let angle = Math.PI/2;
+        let rotated_vector = vector.rotate(angle);
+        let expected_vector = new Flatten.Vector(-1, 1);
+        let equals = rotated_vector.equalTo(expected_vector);
+        expect(equals).to.equal(true);
+    });
+    it ('Method rotate rotates clockwise when angle is negative', function() {
+        let vector = new Flatten.Vector(1,1);
+        let angle = -Math.PI/2;
+        let rotated_vector = vector.rotate(angle);
+        let expected_vector = new Flatten.Vector(1, -1);
+        let equals = rotated_vector.equalTo(expected_vector);
+        expect(equals).to.equal(true);
+    });
+});
+
+describe('#Flatten.Line', function() {
+    it('May create new instance of Line', function () {
+        let line = new Flatten.Line();
+        expect(line).to.be.an.instanceof(Flatten.Line);
+    });
+    it('Default constructor creates new line that is equal to axe x', function() {
+        let line = new Flatten.Line();
+        expect(line.pt).to.deep.equal({x:0, y:0});
+        expect(line.norm).to.deep.equal({x:0, y:1});
+    });
+    it('Constructor Line(pt1, pt2) creates line that passes through two points', function () {
+        let pt1 = new Flatten.Point(1,1);
+        let pt2 = new Flatten.Point(2,2);
+        let line = new Flatten.Line(pt1, pt2);
+        let equals = line.norm.equalTo(new Flatten.Vector(-1,1));
+        expect(line.pt).to.deep.equal({x:1, y:1});
+        expect(equals).to.equal(true);
+    });
+    it('Constructor Line(pt, norm) creates same line as Line(norm,pt)', function () {
+        let pt = new Flatten.Point(1,1);
+        let norm = new Flatten.Vector(-1,1);
+        let line1 = new Flatten.Line(pt, norm);
+        let line2 = new Flatten.Line(norm, pt);
+        expect(line1.pt).to.deep.equal(line2.pt);
+        expect(line1.norm).to.deep.equal(line2.norm);
+    });
+    it('Illegal Constructor throws error', function () {
+        let pt = new Flatten.Point(1, 1);
+        let fn1 = function() { new Flatten.Line(pt) };
+        let fn2 = function() { new Flatten.Line(pt, '123') };
+        let fn3 = function() { new Flatten.Line(pt, pt) };
+        let fn4 = function() { new Flatten.Line(pt, new Flatten.Vector(0,0)) };
+        expect(fn1).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
+        expect(fn2).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
+        expect(fn3).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
+        expect(fn4).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
+    });
+    it('Method slope calculates angle in radians between line and axe x', function() {
+        let pt1 = new Flatten.Point(1,1);
+        let pt2 = new Flatten.Point(2,2);
+        let line = new Flatten.Line(pt1, pt2);
+        expect(line.slope()).to.equal(Math.PI/4);
+    });
+    it('Method contains returns true if point belongs to the line', function () {
+        let pt1 = new Flatten.Point(1,1);
+        let pt2 = new Flatten.Point(2,2);
+        let pt3 = new Flatten.Point(3,3);
+        let line = new Flatten.Line(pt1, pt2);
+        expect(line.contains(pt3)).to.equal(true);
+    });
+
 });

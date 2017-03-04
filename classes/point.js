@@ -89,5 +89,3 @@ module.exports = function(Flatten) {
     };
 
 };
-
-// module.exports = RegisterPoint;

@@ -4,7 +4,8 @@
   "description": "Javascript library for 2d geometry",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "doc": "jsdoc -d ./docs ./classes"
   },
   "repository": {
     "type": "git",
