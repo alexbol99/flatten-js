@@ -18,7 +18,15 @@ module.exports = function(Flatten) {
          * @param {number} y - y-coordinate (float number)
          */
         constructor(x = 0, y = 0) {
+            /**
+             * x-coordinate (float number)
+             * @type {number}
+             */
             this.x = x;
+            /**
+             * y-coordinate (float number)
+             * @type {number}
+             */
             this.y = y;
         }
 
@@ -37,16 +45,6 @@ module.exports = function(Flatten) {
          */
         equalTo(pt) {
             return Flatten.Utils.EQ(this.x, pt.x) && Flatten.Utils.EQ(this.y, pt.y);
-        }
-
-        /**
-         * Returns distance between two points
-         * @param {Point} pt
-         * @returns {number}
-         */
-        distanceTo(pt) {
-            let vec = new Flatten.Vector(this,pt);
-            return vec.len();
         }
 
         /**
@@ -86,6 +84,50 @@ module.exports = function(Flatten) {
             throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
+        /**
+         * Returns projection point on given line
+         * @param {Line} line - line this point be projected on
+         * @returns {Point}
+         */
+        projectionOn(line) {
+            if (this.equalTo(line.pt))                   // this point equal to line anchor point
+                return this.clone();
+
+            let vec = new Flatten.Vector(this, line.pt);
+            if (Flatten.Utils.EQ_0(vec.cross(line.norm)))    // vector to point from anchor point collinear to normal vector
+                return this.clone();
+
+            let dist = vec.dot(line.norm);             // signed distance
+            let proj_vec = line.norm.multiply(dist);
+            return this.translate(proj_vec);
+        }
+
+        /**
+         * Returns distance between point and other shape
+         * @param {Shape} shape
+         * @returns {number}
+         */
+        distanceTo(shape) {
+            if (shape instanceof Point) {
+                let vec = new Flatten.Vector(this, shape);
+                return vec.len();
+            }
+
+            if (shape instanceof Flatten.Line) {
+                let vec = new Flatten.Vector(this, this.projectionOn(shape));
+                return vec.len();
+            }
+        }
+
+        on(shape) {
+            if (shape instanceof Flatten.Point) {
+                return this.equalTo(shape);
+            }
+
+            if (shape instanceof Flatten.Line) {
+                return shape.contains(this);
+            }
+        }
     };
 
 };

@@ -2,22 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: line.js</title>
+    <title>line.js - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-    <h1 class="page-title">Source: line.js</h1>
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#slope">slope</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#len">len</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#slope">slope</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">line.js</h1>
+    
 
     
 
@@ -43,7 +55,15 @@ module.exports = function(Flatten) {
          * @param {Vector} norm - normal vector to a line
          */
         constructor(...args) {
+            /**
+             * Point a line passes through
+             * @type {Point}
+             */
             this.pt = new Flatten.Point();
+            /**
+             * Normal unit vector to a line
+             * @type {Vector}
+             */
             this.norm = new Flatten.Vector(0,1);
 
             if (args.length == 0) {
@@ -113,12 +133,46 @@ module.exports = function(Flatten) {
             return Flatten.Utils.EQ_0(this.norm.dot(vec));
         }
 
+        /**
+         * Returns array of intersection points if intersection exists or zero-length array otherwise
+         * @param {Shape} shape - shape to intersect with
+         * @returns {Point[]}
+         */
+        intersect(shape) {
+            if (shape instanceof Flatten.Line) {
+                return Line.intersectLine2Line(this, shape);
+            }
+        }
+
         static points2norm(pt1, pt2) {
             if (pt1.equalTo(pt2)) {
                 throw Flatten.Errors.ILLEGAL_PARAMETERS;
             }
             let vec = new Flatten.Vector(pt1, pt2);
             return vec.rotate(Math.PI/2);
+        }
+
+        static intersectLine2Line(line1, line2) {
+            let ip = [];
+
+            let A1 = line1.norm.x;
+            let B1 = line1.norm.y;
+            let C1 = line1.norm.dot(line1.pt);
+
+            let A2 = line2.norm.x;
+            let B2 = line2.norm.y;
+            let C2 = line2.norm.dot(line2.pt);
+
+            /* Cramer's rule */
+            let det = A1*B2 - B1*A2;
+            let detX = C1*B2 - B1*C2;
+            let detY = A1*C2 - C1*A2;
+
+            if (!Flatten.Utils.EQ_0(det)) {
+                let new_ip = new Flatten.Point( detX/det, detY/det );
+                ip.push(new_ip);
+            }
+            return ip;
         }
     }
 };
@@ -131,17 +185,13 @@ module.exports = function(Flatten) {
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Line.html">Line</a></li><li><a href="Flatten.Point.html">Point</a></li><li><a href="Flatten.Vector.html">Vector</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Mar 04 2017 14:13:43 GMT+0200 (Jerusalem Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Mar 06 2017 23:21:58 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>

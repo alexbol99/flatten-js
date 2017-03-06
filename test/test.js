@@ -88,6 +88,44 @@ describe('#Flatten.Point', function() {
         let fn = function() { return point.translate(v,1) };
         expect(fn).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
     });
+    it ('Method returns projection point on given line', function() {
+        let anchor = new Flatten.Point(1,1);
+        let norm = new Flatten.Vector(0,1);
+        let line = new Flatten.Line(anchor, norm);
+        let pt = new Flatten.Point(2,2);
+        let proj_pt = pt.projectionOn(line);
+        expect(proj_pt).to.deep.equal({x:2,y:1});
+    });
+    it ('Method distanceTo calculates distance to given line', function() {
+        let anchor = new Flatten.Point(1,1);
+        let norm = new Flatten.Vector(0,1);
+        let line = new Flatten.Line(anchor, norm);
+        let pt = new Flatten.Point(2,2);
+        expect(pt.distanceTo(line)).to.equal(1);
+    });
+    it('Method "on" returns true if point belongs to given line', function () {
+        let pt1 = new Flatten.Point(1,1);
+        let pt2 = new Flatten.Point(2,2);
+        let pt3 = new Flatten.Point(3,3);
+        let line = new Flatten.Line(pt1, pt2);
+        expect(pt3.on(line)).to.equal(true);
+    });
+    it('Method intersect returns array of intersection points if intersection exist', function () {
+        let line1 = new Flatten.Line(new Flatten.Point(0,1), new Flatten.Point(2,1));
+        let line2 = new Flatten.Line(new Flatten.Point(1,0), new Flatten.Point(1,2));
+        let ip = line1.intersect(line2);
+        let expected_ip = new Flatten.Point(1,1);
+        expect(ip.length).to.equal(1);
+
+        let equals = ip[0].equalTo(expected_ip);
+        expect(equals).to.equal(true);
+    });
+    it('Method intersect returns zero length array if intersection does not exist', function () {
+        let line1 = new Flatten.Line(new Flatten.Point(0,1), new Flatten.Point(2,1));
+        let line2 = new Flatten.Line(new Flatten.Point(0,2), new Flatten.Point(2,2));
+        let ip = line1.intersect(line2);
+        expect(ip.length).to.equal(0);
+    });
 
 });
 

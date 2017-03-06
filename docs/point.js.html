@@ -2,22 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: point.js</title>
+    <title>point.js - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-    <h1 class="page-title">Source: point.js</h1>
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#slope">slope</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#len">len</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#slope">slope</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">point.js</h1>
+    
 
     
 
@@ -46,7 +58,15 @@ module.exports = function(Flatten) {
          * @param {number} y - y-coordinate (float number)
          */
         constructor(x = 0, y = 0) {
+            /**
+             * x-coordinate (float number)
+             * @type {number}
+             */
             this.x = x;
+            /**
+             * y-coordinate (float number)
+             * @type {number}
+             */
             this.y = y;
         }
 
@@ -65,16 +85,6 @@ module.exports = function(Flatten) {
          */
         equalTo(pt) {
             return Flatten.Utils.EQ(this.x, pt.x) &amp;&amp; Flatten.Utils.EQ(this.y, pt.y);
-        }
-
-        /**
-         * Returns distance between two points
-         * @param {Point} pt
-         * @returns {number}
-         */
-        distanceTo(pt) {
-            let vec = new Flatten.Vector(this,pt);
-            return vec.len();
         }
 
         /**
@@ -114,6 +124,50 @@ module.exports = function(Flatten) {
             throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
+        /**
+         * Returns projection point on given line
+         * @param {Line} line - line this point be projected on
+         * @returns {Point}
+         */
+        projectionOn(line) {
+            if (this.equalTo(line.pt))                   // this point equal to line anchor point
+                return this.clone();
+
+            let vec = new Flatten.Vector(this, line.pt);
+            if (Flatten.Utils.EQ_0(vec.cross(line.norm)))    // vector to point from anchor point collinear to normal vector
+                return this.clone();
+
+            let dist = vec.dot(line.norm);             // signed distance
+            let proj_vec = line.norm.multiply(dist);
+            return this.translate(proj_vec);
+        }
+
+        /**
+         * Returns distance between point and other shape
+         * @param {Shape} shape
+         * @returns {number}
+         */
+        distanceTo(shape) {
+            if (shape instanceof Point) {
+                let vec = new Flatten.Vector(this, shape);
+                return vec.len();
+            }
+
+            if (shape instanceof Flatten.Line) {
+                let vec = new Flatten.Vector(this, this.projectionOn(shape));
+                return vec.len();
+            }
+        }
+
+        on(shape) {
+            if (shape instanceof Flatten.Point) {
+                return this.equalTo(shape);
+            }
+
+            if (shape instanceof Flatten.Line) {
+                return shape.contains(this);
+            }
+        }
     };
 
 };
@@ -126,17 +180,13 @@ module.exports = function(Flatten) {
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Line.html">Line</a></li><li><a href="Flatten.Point.html">Point</a></li><li><a href="Flatten.Vector.html">Vector</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Mar 04 2017 14:13:43 GMT+0200 (Jerusalem Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Mar 06 2017 23:21:58 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>

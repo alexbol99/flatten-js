@@ -15,7 +15,15 @@ module.exports = function(Flatten) {
          * @param {Vector} norm - normal vector to a line
          */
         constructor(...args) {
+            /**
+             * Point a line passes through
+             * @type {Point}
+             */
             this.pt = new Flatten.Point();
+            /**
+             * Normal unit vector to a line
+             * @type {Vector}
+             */
             this.norm = new Flatten.Vector(0,1);
 
             if (args.length == 0) {
@@ -85,12 +93,46 @@ module.exports = function(Flatten) {
             return Flatten.Utils.EQ_0(this.norm.dot(vec));
         }
 
+        /**
+         * Returns array of intersection points if intersection exists or zero-length array otherwise
+         * @param {Shape} shape - shape to intersect with
+         * @returns {Point[]}
+         */
+        intersect(shape) {
+            if (shape instanceof Flatten.Line) {
+                return Line.intersectLine2Line(this, shape);
+            }
+        }
+
         static points2norm(pt1, pt2) {
             if (pt1.equalTo(pt2)) {
                 throw Flatten.Errors.ILLEGAL_PARAMETERS;
             }
             let vec = new Flatten.Vector(pt1, pt2);
             return vec.rotate(Math.PI/2);
+        }
+
+        static intersectLine2Line(line1, line2) {
+            let ip = [];
+
+            let A1 = line1.norm.x;
+            let B1 = line1.norm.y;
+            let C1 = line1.norm.dot(line1.pt);
+
+            let A2 = line2.norm.x;
+            let B2 = line2.norm.y;
+            let C2 = line2.norm.dot(line2.pt);
+
+            /* Cramer's rule */
+            let det = A1*B2 - B1*A2;
+            let detX = C1*B2 - B1*C2;
+            let detY = A1*C2 - C1*A2;
+
+            if (!Flatten.Utils.EQ_0(det)) {
+                let new_ip = new Flatten.Point( detX/det, detY/det );
+                ip.push(new_ip);
+            }
+            return ip;
         }
     }
 };

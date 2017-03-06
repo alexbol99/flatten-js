@@ -17,7 +17,15 @@ module.exports = function(Flatten) {
          * @param {Point} pe - end point
          */
         constructor(...args) {
+            /**
+             * x-coordinate of a vector (float number)
+             * @type {number}
+             */
             this.x = 0;
+            /**
+             * y-coordinate of a vector (float number)
+             * @type {number}
+             */
             this.y = 0;
 
             /* return zero vector */

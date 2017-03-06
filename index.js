@@ -9,6 +9,10 @@ let ClassPoint = require("./classes/point");
 let ClassVector = require("./classes/vector");
 let ClassLine = require("./classes/line");
 
+/**
+ * FlattenJS - library for 2d geometry
+ * @type {Flatten}
+ */
 let Flatten = class Flatten {
     constructor() {
         this.version =  "0.0.1";
