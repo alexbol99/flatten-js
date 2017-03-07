@@ -16,7 +16,7 @@
 
 ## Documentation
 
-    See [https://alexbol99.github.io/flatten-js/index.html](https://alexbol99.github.io/flatten-js/index.html)
+You can see documentation here https://alexbol99.github.io/flatten-js/index.html
 
 ## Contributing
 
