@@ -124,6 +124,11 @@ module.exports = function(Flatten) {
             }
         }
 
+        /**
+         * Returns true if point is on shape
+         * @param {Shape} shape
+         * @returns {boolean}
+         */
         on(shape) {
             if (shape instanceof Flatten.Point) {
                 return this.equalTo(shape);

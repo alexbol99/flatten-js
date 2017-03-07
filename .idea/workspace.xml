@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-Semibold-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-Semibold-webfont.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-Semibold-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-SemiboldItalic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-SemiboldItalic-webfont.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-SemiboldItalic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/classes/box.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/box.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/circle.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-Semibold-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-SemiboldItalic-webfont.svg" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/_config.yml" afterPath="" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Added Box class">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/circle.js" afterPath="$PROJECT_DIR$/classes/circle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/line.js" afterPath="$PROJECT_DIR$/classes/line.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/point.js" afterPath="$PROJECT_DIR$/classes/point.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Line.html" afterPath="$PROJECT_DIR$/docs/Flatten.Line.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Point.html" afterPath="$PROJECT_DIR$/docs/Flatten.Point.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Vector.html" afterPath="$PROJECT_DIR$/docs/Flatten.Vector.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/box.js.html" afterPath="$PROJECT_DIR$/docs/box.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/circle.js.html" afterPath="$PROJECT_DIR$/docs/circle.js.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/line.js.html" afterPath="$PROJECT_DIR$/docs/line.js.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/point.js.html" afterPath="$PROJECT_DIR$/docs/point.js.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/vector.js.html" afterPath="$PROJECT_DIR$/docs/vector.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test.js" afterPath="$PROJECT_DIR$/test/test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -71,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="point.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="point.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/point.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="136" column="44" lean-forward="false" selection-start-line="136" selection-start-column="44" selection-end-line="136" selection-end-column="44" />
+            <state relative-caret-position="242">
+              <caret line="127" column="44" lean-forward="false" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -147,7 +133,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="line.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/line.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="93">
@@ -191,12 +177,12 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/classes/vector.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/classes/point.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/classes/circle.js" />
         <option value="$PROJECT_DIR$/test/test.js" />
         <option value="$PROJECT_DIR$/classes/box.js" />
         <option value="$PROJECT_DIR$/classes/line.js" />
+        <option value="$PROJECT_DIR$/classes/point.js" />
       </list>
     </option>
   </component>
@@ -521,7 +507,7 @@
       <workItem from="1487873277140" duration="49000" />
       <workItem from="1488612837708" duration="11150000" />
       <workItem from="1488632420373" duration="4918000" />
-      <workItem from="1488829064350" duration="12802000" />
+      <workItem from="1488829064350" duration="13140000" />
     </task>
     <task id="LOCAL-00001" summary="some changes">
       <created>1487422880939</created>
@@ -600,11 +586,18 @@
       <option name="project" value="LOCAL" />
       <updated>1488835578202</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added Box class">
+      <created>1488926242810</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1488926242810</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68806000" />
+    <option name="totallyTimeSpent" value="69144000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="173" y="32" width="1547" height="985" extended-state="0" />
@@ -641,7 +634,8 @@
     <MESSAGE value="Line class started" />
     <MESSAGE value="Some jsdocs" />
     <MESSAGE value="Link to doc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Link to doc" />
+    <MESSAGE value="Added Box class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Box class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1002,14 +996,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="136" column="44" lean-forward="false" selection-start-line="136" selection-start-column="44" selection-end-line="136" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -1060,6 +1046,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
           <caret line="14" column="101" lean-forward="false" selection-start-line="14" selection-start-column="101" selection-end-line="14" selection-end-column="101" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/point.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="127" column="44" lean-forward="false" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
           <folding />
         </state>
       </provider>
