@@ -36,5 +36,26 @@ module.exports = function(Flatten) {
             return new Flatten.Circle(this.pc.clone(), this.r);
         }
 
+        /**
+         * Return true if circle contains point
+         * @param {Point} pt - test point
+         * @returns {boolean}
+         */
+        contains(pt) {
+            return Flatten.Utils.LE(pt.distanceTo(this), this.r);
+        }
+
+        /**
+         * Circle bounding box
+         * @returns {Box}
+         */
+        get box() {
+            return new Flatten.Box(
+                this.pc.x - this.r,
+                this.pc.y - this.r,
+                this.pc.x + this.r,
+                this.pc.y + this.r
+            );
+        }
     }
 };

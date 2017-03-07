@@ -12,7 +12,7 @@ module.exports = function(Flatten) {
         /**
          * Line may be constructed by point and normal vector or by two points that a line passes through
          * @param {Point} pt - point that a line passes through
-         * @param {Vector} norm - normal vector to a line
+         * @param {Vector|Point} norm - normal vector to a line or second point a line passes through
          */
         constructor(...args) {
             /**

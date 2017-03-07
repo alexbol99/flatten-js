@@ -8,6 +8,8 @@ let Errors = require("./utils/errors");
 let ClassPoint = require("./classes/point");
 let ClassVector = require("./classes/vector");
 let ClassLine = require("./classes/line");
+let ClassCircle = require("./classes/circle");
+let ClassBox = require("./classes/box");
 
 /**
  * FlattenJS - library for 2d geometry
@@ -30,5 +32,7 @@ let f = new Flatten();
 f.registerClass(ClassPoint);
 f.registerClass(ClassVector);
 f.registerClass(ClassLine);
+f.registerClass(ClassCircle);
+f.registerClass(ClassBox);
 
 module.exports = f; // new Flatten();

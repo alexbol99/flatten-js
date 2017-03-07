@@ -110,6 +110,11 @@ describe('#Flatten.Point', function() {
         let line = new Flatten.Line(pt1, pt2);
         expect(pt3.on(line)).to.equal(true);
     });
+    it('Method "on" returns true if point belongs to the circle', function () {
+        let pt = new Flatten.Point(0,1);
+        let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
+        expect(pt.on(circle)).to.equal(true);
+    });
     it('Method intersect returns array of intersection points if intersection exist', function () {
         let line1 = new Flatten.Line(new Flatten.Point(0,1), new Flatten.Point(2,1));
         let line2 = new Flatten.Line(new Flatten.Point(1,0), new Flatten.Point(1,2));
@@ -261,5 +266,50 @@ describe('#Flatten.Line', function() {
         let line = new Flatten.Line(pt1, pt2);
         expect(line.contains(pt3)).to.equal(true);
     });
+});
 
+describe('#Flatten.Circle', function() {
+    it('May create new instance of Circle', function () {
+        let circle = new Flatten.Circle(new Flatten.Point(0,0), 1);
+        expect(circle).to.be.an.instanceof(Flatten.Circle);
+    });
+    it('Constructor Circle(pt, r) creates new circle', function() {
+        let circle = new Flatten.Circle(new Flatten.Point(1,1), 2);
+        expect(circle.pc).to.deep.equal({x:1, y:1});
+        expect(circle.r).to.equal(2);
+    });
+    it('Method contains returns true if point belongs to the circle', function () {
+        let pt = new Flatten.Point(0,1);
+        let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
+        expect(circle.contains(pt)).to.equal(true);
+    });
+    it('Can return circle bounding box', function () {
+        let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
+        expect(circle.box).to.deep.equal({xmin:-2, ymin:-2, xmax:2, ymax:2});
+    });
+
+});
+
+describe('#Flatten.Box', function() {
+    it('May create new instance of Box', function () {
+        let box = new Flatten.Box();
+        expect(box).to.be.an.instanceof(Flatten.Box);
+    });
+    it('Default constructor creates box with infinite values', function () {
+        let box = new Flatten.Box();
+        expect(box.xmin).to.equal(-Infinity);
+        expect(box.ymin).to.equal(-Infinity);
+        expect(box.xmax).to.equal(Infinity);
+        expect(box.xmax).to.equal(Infinity);
+    });
+    it('Method intersect returns true if two boxes intersected', function () {
+        let box1 = new Flatten.Box(1, 1, 3, 3);
+        let box2 = new Flatten.Box(-3, -3, 2, 2);
+        expect(box1.intersect(box2)).to.equal(true);
+    });
+    it('Method expand expands current box with other', function () {
+        let box1 = new Flatten.Box(1, 1, 3, 3);
+        let box2 = new Flatten.Box(-3, -3, 2, 2);
+        expect(box1.merge(box2)).to.deep.equal({xmin:-3, ymin:-3, xmax:3, ymax:3});
+    });
 });

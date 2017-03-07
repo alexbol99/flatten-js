@@ -117,6 +117,11 @@ module.exports = function(Flatten) {
                 let vec = new Flatten.Vector(this, this.projectionOn(shape));
                 return vec.len();
             }
+
+            if (shape instanceof Flatten.Circle) {
+                let dist2pc = this.distanceTo(shape.pc);
+                return Math.abs(dist2pc - shape.r);
+            }
         }
 
         on(shape) {
@@ -125,6 +130,10 @@ module.exports = function(Flatten) {
             }
 
             if (shape instanceof Flatten.Line) {
+                return shape.contains(this);
+            }
+
+            if (shape instanceof Flatten.Circle) {
                 return shape.contains(this);
             }
         }
