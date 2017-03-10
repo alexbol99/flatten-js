@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>circle.js - Documentation</title>
+    <title>segment.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">circle.js</h1>
+    <h1 class="page-title">segment.js</h1>
     
 
     
@@ -39,73 +39,141 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Created by Alex Bol on 3/6/2017.
+ * Created by Alex Bol on 3/10/2017.
  */
 
 "use strict";
 
 module.exports = function(Flatten) {
     /**
-     * Class representing a circle
-     * @type {Circle}
+     * Class representing a segment
+     * @type {Segment}
      */
-    Flatten.Circle = class Circle {
+    Flatten.Segment = class Segment {
         /**
          *
-         * @param {Point} pc - circle center point
-         * @param {number} r - circle radius
+         * @param {Point} ps - start point
+         * @param {Point} pe - end point
          */
-        constructor(pc, r) {
+        constructor(ps = new Flatten.Point(), pe = new Flatten.Point()) {
             /**
-             * Circle center
+             * Start point
              * @type {Point}
              */
-            this.pc = pc;
+            this.ps = ps.clone();
             /**
-             * Circle radius
-             * @type {number}
+             * End Point
+             * @type {Point}
              */
-            this.r = r;
+            this.pe = pe.clone();
         }
 
         /**
-         * Method clone returns new instance of a Circle
-         * @returns {Circle}
+         * Method clone returns new instance of a Segment
+         * @returns {Segment}
          */
         clone() {
-            return new Flatten.Circle(this.pc.clone(), this.r);
+            return new Flatten.Segment(this.start, this.end);
         }
 
         /**
-         * Circle center
+         * Start point
          * @returns {Point}
          */
-        get center() {
-            return this.pc;
+        get start() {
+            return this.ps;
         }
 
         /**
-         * Circle bounding box
+         * Set start point
+         * @param {Point} pt
+         */
+        set start(pt) {
+            this.ps = pt;
+        }
+
+        /**
+         * End point
+         * @returns {Point}
+         */
+        get end() {
+            return this.pe;
+        }
+
+        /**
+         * Set end point
+         * @param {Point} pt
+         */
+        set end(pt) {
+            this.pe = pt;
+        }
+
+        /**
+         * Length of a segment
+         * @returns {number}
+         */
+        get length() {
+            return this.start.distanceTo(this.end);
+        }
+
+        /**
+         * Slope of the line - angle to axe x in radians from 0 to 2PI
+         * @returns {number}
+         */
+        get slope() {
+            let vec = new Flatten.Vector(this.start, this.end);
+            return vec.slope;
+        }
+
+        /**
+         * Bounding box
          * @returns {Box}
          */
         get box() {
             return new Flatten.Box(
-                this.pc.x - this.r,
-                this.pc.y - this.r,
-                this.pc.x + this.r,
-                this.pc.y + this.r
-            );
+                Math.min(this.start.x, this.end.x),
+                Math.min(this.start.y, this.end.y),
+                Math.max(this.start.x, this.end.x),
+                Math.max(this.start.y, this.end.y)
+            )
         }
 
         /**
-         * Return true if circle contains point
-         * @param {Point} pt - test point
+         * Function contains returns true if point belongs to segment
+         * @param {Point} pt
          * @returns {boolean}
          */
         contains(pt) {
-            return Flatten.Utils.LE(pt.distanceTo(this.center), this.r);
+            return Flatten.Utils.EQ_0(this.distanceToPoint(pt));
         }
 
+        distanceToPoint(pt) {
+            /* Degenerated case of zero-length segment */
+            if (this.start.equalTo(this.end)) {
+                return pt.distanceTo(this.start);
+            }
+
+            let v_seg = new Flatten.Vector(this.start, this.end);
+            let v_ps2pt = new Flatten.Vector(this.start, pt);
+            let v_pe2pt = new Flatten.Vector(this.end, pt);
+            let start_sp = v_seg.dot(v_ps2pt);    /* dot product v_seg * v_ps2pt */
+            let end_sp = -v_seg.dot(v_pe2pt);     /* minus dot product v_seg * v_pe2pt */
+
+            let dist;
+            if (Flatten.Utils.GE(start_sp, 0) &amp;&amp; Flatten.Utils.GE(end_sp, 0)) {    /* point inside segment scope */
+                let v_unit = new Flatten.Vector(v_seg.x / this.length, v_seg.y / this.length);
+                /* unit vector ||v_unit|| = 1 */
+                dist = Math.abs(v_unit.cross(v_ps2pt));
+                /* dist = abs(v_unit x v_ps2pt) */
+            }
+            else if (start_sp &lt; 0) {                                         /* point is out of scope closer to ps */
+                dist = pt.distanceTo(this.start);
+            }
+            else {                                                           /* point is out of scope closer to pe */
+                dist = pt.distanceTo(this.end);
+            }
+            return dist;
+        };
     }
 };</code></pre>
         </article>

@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#len">len</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -111,12 +111,25 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Slope of the line - angle in radians between line and axe y
+         * Slope of the line - angle in radians between line and axe x from 0 to 2PI
          * @returns {number} - slope of the line
          */
         get slope() {
             let vec = new Flatten.Vector(this.norm.y, -this.norm.x);
-            return vec.slope();
+            return vec.slope;
+        }
+
+        /**
+         * Standard line equation in the form Ax + By = C, get coefficients using es6 destructuring assignment:
+         * @code [A, B, C] = line.standard
+         * @returns {number[]} - array of coefficients
+         */
+        get standard() {
+            let A = this.norm.x;
+            let B = this.norm.y;
+            let C = this.norm.dot(this.pt);
+
+            return [A,B,C];
         }
 
         /**
@@ -155,13 +168,8 @@ module.exports = function(Flatten) {
         static intersectLine2Line(line1, line2) {
             let ip = [];
 
-            let A1 = line1.norm.x;
-            let B1 = line1.norm.y;
-            let C1 = line1.norm.dot(line1.pt);
-
-            let A2 = line2.norm.x;
-            let B2 = line2.norm.y;
-            let C2 = line2.norm.dot(line2.pt);
+            let [A1, B1, C1] = line1.standard;
+            let [A2, B2, C2] = line2.standard;
 
             /* Cramer's rule */
             let det = A1*B2 - B1*A2;
@@ -188,7 +196,7 @@ module.exports = function(Flatten) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Mar 10 2017 00:26:53 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Mar 10 2017 02:26:53 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

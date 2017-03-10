@@ -82,7 +82,7 @@ module.exports = function(Flatten) {
         /**
          * Standard line equation in the form Ax + By = C, get coefficients using es6 destructuring assignment:
          * @code [A, B, C] = line.standard
-         * @returns {[number,number,number]} - array of coefficients
+         * @returns {number[]} - array of coefficients
          */
         get standard() {
             let A = this.norm.x;
