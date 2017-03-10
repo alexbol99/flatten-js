@@ -110,17 +110,21 @@ module.exports = function(Flatten) {
         distanceTo(shape) {
             if (shape instanceof Point) {
                 let vec = new Flatten.Vector(this, shape);
-                return vec.len();
+                return vec.length;
             }
 
             if (shape instanceof Flatten.Line) {
                 let vec = new Flatten.Vector(this, this.projectionOn(shape));
-                return vec.len();
+                return vec.length;
             }
 
             if (shape instanceof Flatten.Circle) {
                 let dist2pc = this.distanceTo(shape.pc);
                 return Math.abs(dist2pc - shape.r);
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                return shape.distanceToPoint(this);
             }
         }
 
@@ -139,6 +143,10 @@ module.exports = function(Flatten) {
             }
 
             if (shape instanceof Flatten.Circle) {
+                return shape.contains(this);
+            }
+
+            if (shape instanceof  Flatten.Segment) {
                 return shape.contains(this);
             }
         }

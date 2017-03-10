@@ -131,7 +131,17 @@ describe('#Flatten.Point', function() {
         let ip = line1.intersect(line2);
         expect(ip.length).to.equal(0);
     });
-
+    it('Method distanceTo returns distance to segment', function () {
+        let ps = new Flatten.Point(-2,2);
+        let pe = new Flatten.Point(2,2);
+        let segment = new Flatten.Segment(ps, pe);
+        let pt1 = new Flatten.Point(2,4);            /* point in segment scope */
+        let pt2 = new Flatten.Point(-5,2);           /* point is out of segment scope */
+        let pt3 = new Flatten.Point(6,2);            /* point is out of segment scope */
+        expect(pt1.distanceTo(segment)).to.equal(2);
+        expect(pt2.distanceTo(segment)).to.equal(3);
+        expect(pt3.distanceTo(segment)).to.equal(4);
+    });
 });
 
 describe('#Flatten.Vector', function() {
@@ -180,17 +190,23 @@ describe('#Flatten.Vector', function() {
         let v2 = new Flatten.Vector(0,2);
         expect(v1.cross(v2)).to.equal(4);
     });
-    it('Method len calculates vector length', function() {
+    it('Method length calculates vector length', function() {
         let v = new Flatten.Vector(1,1);
-        expect(v.len()).to.equal(Math.sqrt(2));
+        expect(v.length).to.equal(Math.sqrt(2));
     });
-    it('Method slope calculates angle in radians between vector and axe x', function() {
-        let v = new Flatten.Vector(1,1);
-        expect(v.slope()).to.equal(Math.PI/4);
+    it('Get slope - angle in radians between vector and axe x', function() {
+        let v1 = new Flatten.Vector(1,1);
+        let v2 = new Flatten.Vector(-1,1);
+        let v3 = new Flatten.Vector(-1,-1);
+        let v4 = new Flatten.Vector(1,-1);
+        expect(v1.slope).to.equal(Math.PI/4);
+        expect(v2.slope).to.equal(3*Math.PI/4);
+        expect(v3.slope).to.equal(5*Math.PI/4);
+        expect(v4.slope).to.equal(7*Math.PI/4);
     });
     it('Method normalize returns unit vector', function() {
         let v = new Flatten.Vector(1,1);
-        let equals = Flatten.Utils.EQ(v.normalize().len(), 1.0);
+        let equals = Flatten.Utils.EQ(v.normalize().length, 1.0);
         expect(equals).to.equal(true);
     });
     it('Method normalize throw error on zero length vector', function () {
@@ -253,11 +269,11 @@ describe('#Flatten.Line', function() {
         expect(fn3).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
         expect(fn4).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
     });
-    it('Method slope calculates angle in radians between line and axe x', function() {
+    it('Get slope - angle in radians between line and axe x', function() {
         let pt1 = new Flatten.Point(1,1);
         let pt2 = new Flatten.Point(2,2);
         let line = new Flatten.Line(pt1, pt2);
-        expect(line.slope()).to.equal(Math.PI/4);
+        expect(line.slope).to.equal(Math.PI/4);
     });
     it('Method contains returns true if point belongs to the line', function () {
         let pt1 = new Flatten.Point(1,1);
@@ -288,6 +304,58 @@ describe('#Flatten.Circle', function() {
         expect(circle.box).to.deep.equal({xmin:-2, ymin:-2, xmax:2, ymax:2});
     });
 
+});
+
+describe('#Flatten.Segment', function() {
+    it('May create new instance of Segment', function () {
+        let segment = new Flatten.Segment();
+        expect(segment).to.be.an.instanceof(Flatten.Segment);
+    });
+    it('Constructor Segment(ps, pe) creates new instance of Segment', function () {
+        let ps = new Flatten.Point(1,1);
+        let pe = new Flatten.Point(2,3);
+        let segment = new Flatten.Segment(ps, pe);
+        expect(segment.start).to.deep.equal({x:1, y:1});
+        expect(segment.end).to.deep.equal({x:2, y:3});
+    });
+    it('Method clone copy to a new instance of Segment', function () {
+        let ps = new Flatten.Point(1,1);
+        let pe = new Flatten.Point(2,3);
+        let segment = new Flatten.Segment(ps, pe);
+        expect(segment.clone()).to.deep.equal(segment);
+    });
+    it('Method length returns length of segment', function () {
+        let ps = new Flatten.Point(1,1);
+        let pe = new Flatten.Point(5,4);
+        let segment = new Flatten.Segment(ps, pe);
+        expect(segment.length).to.equal(5.0);
+    });
+    it('Method box returns bounding box of segment', function () {
+        let ps = new Flatten.Point(1,1);
+        let pe = new Flatten.Point(5,4);
+        let segment = new Flatten.Segment(ps, pe);
+        expect(segment.box).to.deep.equal({xmin:1, ymin:1, xmax:5, ymax:4});
+    });
+    it('Method slope returns slope of segment', function () {
+        let ps = new Flatten.Point(1,1);
+        let pe = new Flatten.Point(5,5);
+        let segment = new Flatten.Segment(ps, pe);
+        expect(segment.slope).to.equal(Math.PI/4);
+    });
+    it('Method contains returns true if point belongs to segment', function () {
+        let ps = new Flatten.Point(-2,2);
+        let pe = new Flatten.Point(2,2);
+        let segment = new Flatten.Segment(ps, pe);
+        let pt = new Flatten.Point(1,2);
+        expect(segment.contains(pt)).to.equal(true);
+    });
+});
+
+describe('#Flatten.Arc', function() {
+    it('May create new instance of Arc', function () {
+        let arc = new Flatten.Arc();
+        expect(arc).to.be.an.instanceof(Flatten.Arc);
+    });
 });
 
 describe('#Flatten.Box', function() {

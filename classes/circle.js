@@ -37,12 +37,11 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Return true if circle contains point
-         * @param {Point} pt - test point
-         * @returns {boolean}
+         * Circle center
+         * @returns {Point}
          */
-        contains(pt) {
-            return Flatten.Utils.LE(pt.distanceTo(this), this.r);
+        get center() {
+            return this.pc;
         }
 
         /**
@@ -57,5 +56,15 @@ module.exports = function(Flatten) {
                 this.pc.y + this.r
             );
         }
+
+        /**
+         * Return true if circle contains point
+         * @param {Point} pt - test point
+         * @returns {boolean}
+         */
+        contains(pt) {
+            return Flatten.Utils.LE(pt.distanceTo(this.center), this.r);
+        }
+
     }
 };

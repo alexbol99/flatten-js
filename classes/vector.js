@@ -63,6 +63,24 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Slope of the vector in radians from 0 to 2PI
+         * @returns {number}
+         */
+        get slope() {
+            let angle = Math.atan2(this.y, this.x);
+            if (angle<0) angle = 2*Math.PI + angle;
+            return angle;
+        }
+
+        /**
+         * Length of vector
+         * @returns {number}
+         */
+        get length() {
+            return Math.sqrt(this.dot(this));
+        }
+
+        /**
          * Returns true if vectors are equal up to DP_TOL tolerance
          * @param {Vector} v
          * @returns {boolean}
@@ -99,30 +117,13 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns length of vector
-         * @returns {number}
-         */
-        len() {
-            return Math.sqrt(this.dot(this));
-        }
-
-        /**
-         * Returns slope of the vector in radians
-         * @returns {number}
-         */
-        slope() {
-            return Math.atan2(this.y, this.x);
-        }
-
-        /**
          * Returns unit vector.<br/>
          * Throw error if given vector has zero length
          * @returns {Vector}
          */
         normalize() {
-            let length = this.len();
-            if (!Flatten.Utils.EQ_0(length)) {
-                return ( new Vector(this.x / length, this.y / length) );
+            if (!Flatten.Utils.EQ_0(this.length)) {
+                return ( new Vector(this.x / this.length, this.y / this.length) );
             }
             throw Flatten.Errors.ZERO_DIVISION;
         }

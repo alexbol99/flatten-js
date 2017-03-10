@@ -71,12 +71,25 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns slope of the line - angle in radians between line and axe y
-         * @returns {number}
+         * Slope of the line - angle in radians between line and axe x from 0 to 2PI
+         * @returns {number} - slope of the line
          */
-        slope() {
+        get slope() {
             let vec = new Flatten.Vector(this.norm.y, -this.norm.x);
-            return vec.slope();
+            return vec.slope;
+        }
+
+        /**
+         * Standard line equation in the form Ax + By = C, get coefficients using es6 destructuring assignment:
+         * @code [A, B, C] = line.standard
+         * @returns {[number,number,number]} - array of coefficients
+         */
+        get standard() {
+            let A = this.norm.x;
+            let B = this.norm.y;
+            let C = this.norm.dot(this.pt);
+
+            return [A,B,C];
         }
 
         /**
@@ -115,13 +128,8 @@ module.exports = function(Flatten) {
         static intersectLine2Line(line1, line2) {
             let ip = [];
 
-            let A1 = line1.norm.x;
-            let B1 = line1.norm.y;
-            let C1 = line1.norm.dot(line1.pt);
-
-            let A2 = line2.norm.x;
-            let B2 = line2.norm.y;
-            let C2 = line2.norm.dot(line2.pt);
+            let [A1, B1, C1] = line1.standard;
+            let [A2, B2, C2] = line2.standard;
 
             /* Cramer's rule */
             let det = A1*B2 - B1*A2;
