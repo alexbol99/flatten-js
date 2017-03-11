@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Circle.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#incidentTo">incidentTo</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#parallelTo">parallelTo</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#leftTo">leftTo</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Segment.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#invert">invert</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CCW">rotate90CCW</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CW">rotate90CW</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -106,6 +106,90 @@ module.exports = function(Flatten) {
             return Flatten.Utils.LE(pt.distanceTo(this.center), this.r);
         }
 
+        /**
+         * Returns array of intersection points between circle and other shape
+         * @param shape
+         * @returns {Point[]}
+         */
+        intersect(shape) {
+            if (shape instanceof Flatten.Line) {
+                return shape.intersect(this);
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                return shape.intersect(this);
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                return Circle.intersectCirle2Circle(this, shape);
+            }
+        }
+
+        static intersectCirle2Circle(circle1, circle2) {
+            let ip = [];
+
+            if (circle1.box.notIntersect(circle2.box)) {
+                return ip;
+            }
+
+            let vec = new Flatten.Vector(circle1.pc, circle2.pc);
+
+            let r1 = circle1.r;
+            let r2 = circle2.r;
+
+            // Degenerated circle
+            if (Flatten.Utils.EQ_0(r1) || Flatten.Utils.EQ_0(r2))
+                return ip;
+
+            // In case of equal circles return one most left intersection points
+            if (Flatten.Utils.EQ_0(vec.x) &amp;&amp; Flatten.Utils.EQ_0(vec.y) &amp;&amp; Flatten.Utils.EQ(r1, r2)) {
+                ip.push(new Flatten.Point(circle1.x - r1, circle1.y));
+                return ip;
+            }
+
+            let dist = circle1.pc.distTo(circle2.pc);
+
+            if (Flatten.Utils.GT(dist, r1 + r2))               // circles too far, no intersections
+                return ip;
+
+            if (Flatten.Utils.LT(dist, Math.abs(r1 - r2)))     // one circle is contained within another, no intersections
+                return ip;
+
+            // Normalize vector.
+            vec.x /= dist;
+            vec.y /= dist;
+
+            let pt;
+
+            // Case of touching from outside or from inside - single intersection point
+            // TODO: check this specifically not sure if correct
+            if (Flatten.Utils.EQ(dist, r1 + r2) || Flatten.Utils.EQ(dist, Math.abs(r1 - r2))) {
+                pt = circle1.pc.translate(r1*vec.x, r1*vec.y);
+                ip.push(pt);
+                return ip;
+            }
+
+            // Case of two intersection points
+
+            // Distance from first center to center of common chord:
+            //   a = (r1^2 - r2^2 + d^2) / 2d
+            // Separate for better accuracy
+            let a = (r1*r1)/(2*dist) - (r2*r2)/(2*dist) + dist/2;
+
+            let mid_pt = circle1.pc.translate(a*vec.x, a*vec.y);
+            let h = Math.sqrt(r1*r1 - a*a);
+            // let norm;
+
+            // norm = vec.rotate90CCW().multiply(h);
+            pt = mid_pt.translate(vec.rotate90CCW().multiply(h));
+            ip.push(pt);
+
+            // norm = vec.rotate90CW();
+            pt = mid_pt.translate(vec.rotate90CW().multiply(h));
+            ip.push(pt);
+
+            return ip;
+        }
     }
 };</code></pre>
         </article>
@@ -119,7 +203,7 @@ module.exports = function(Flatten) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Mar 10 2017 02:26:53 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Mar 11 2017 14:37:50 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

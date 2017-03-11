@@ -138,5 +138,29 @@ module.exports = function(Flatten) {
             let rpoint = point.rotate(angle);
             return new Flatten.Vector(rpoint.x, rpoint.y);
         }
+
+        /**
+         * Special fast version of rotate. Returns vector rotated 90 degrees counter clockwise
+         * @returns {Vector}
+         */
+        rotate90CCW() {
+            return new Flatten.Vector(-this.y, this.x);
+        };
+
+        /**
+         * Special fast version of rotate. Returns vector rotated 90 degrees clockwise
+         * @returns {Vector}
+         */
+        rotate90CW() {
+            return new Flatten.Vector(this.y, -this.x);
+        };
+
+        /**
+         * Return inverted vector
+         * @returns {Vector}
+         */
+        invert() {
+            return new Flatten.Vector(-this.x, -this.y);
+        }
     };
 };

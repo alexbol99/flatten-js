@@ -93,6 +93,25 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Return true if parallel or incident to other line
+         * @param {Line} other_line - line to check
+         * @returns {boolean}
+         */
+        parallelTo(other_line) {
+            return this.norm.equalTo(other_line.norm);
+        }
+
+        /**
+         * Returns true if incident to other line
+         * @param {Line} other_line - line to check
+         * @returns {boolean}
+         */
+        incidentTo(other_line) {
+            return ( (this.norm.equalTo(other_line.norm) || this.norm.equalTo(other_line.norm.invert())) &&
+                this.pt.on(other_line));
+        }
+
+        /**
          * Returns true if point belongs to line
          * @param {Point} pt
          * @returns {boolean}
@@ -115,6 +134,10 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Line) {
                 return Line.intersectLine2Line(this, shape);
             }
+
+            if (shape instanceof Flatten.Circle) {
+                return Line.intersectLine2Circle(this, shape);
+            }
         }
 
         static points2norm(pt1, pt2) {
@@ -122,7 +145,8 @@ module.exports = function(Flatten) {
                 throw Flatten.Errors.ILLEGAL_PARAMETERS;
             }
             let vec = new Flatten.Vector(pt1, pt2);
-            return vec.rotate(Math.PI/2);
+            let unit = vec.normalize();
+            return unit.rotate90CCW();
         }
 
         static intersectLine2Line(line1, line2) {
@@ -141,6 +165,54 @@ module.exports = function(Flatten) {
                 ip.push(new_ip);
             }
             return ip;
+        }
+
+        static intersectLine2Circle(line, circle) {
+            let ip = [];
+            let prj = circle.pc.projectionOn(line);            // projection of circle center on line
+            let dist = circle.pc.distanceTo(prj);              // distance from circle center to projection
+
+            if (Flatten.Utils.EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
+                ip.push(prj);
+            }
+            else if (Flatten.Utils.LT(dist, circle.r)) {       // return two intersection points
+                var delta = Math.sqrt(circle.r*circle.r - dist*dist);
+                var v_trans, pt;
+
+                v_trans = line.norm.rotate90CCW().multiply(delta);
+                pt = prj.translate(v_trans);
+                ip.push(pt);
+
+                v_trans = line.norm.rotate90CW().multiply(delta);
+                pt = prj.translate(v_trans);
+                ip.push(pt);
+            }
+            return ip;
+        }
+
+        static intersectLine2Box(line, box) {
+            let pts = [
+                new Flatten.Point(box.xmin, box.ymin),
+                new Flatten.Point(box.xmax, box.ymin),
+                new Flatten.Point(box.xmax, box.ymax),
+                new Flatten.Point(box.xmin, box.ymax)
+            ];
+            let segs = [
+                new Flatten.Segment(pts[0], pts[1]),
+                new Flatten.Segment(pts[1], pts[2]),
+                new Flatten.Segment(pts[2], pts[3]),
+                new Flatten.Segment(pts[3], pts[0])
+            ];
+
+            let ips =  [];
+
+            for(let seg of segs) {
+                let ips_tmp = seg.intersect(line);
+                for (let ip of ips_tmp) {
+                    ips.push(ip);
+                }
+            };
+            return ips;
         }
     }
 };

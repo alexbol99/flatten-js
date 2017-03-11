@@ -22,12 +22,12 @@ module.exports = function(Flatten) {
              * x-coordinate (float number)
              * @type {number}
              */
-            this.x = x;
+            this.x = Number.isNaN(x) ? 0 : x;
             /**
              * y-coordinate (float number)
              * @type {number}
              */
-            this.y = y;
+            this.y = Number.isNaN(y) ? 0: y;
         }
 
         /**
@@ -103,6 +103,17 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Returns true if point is on "left" semi plane. Left semi plane is where line normal vector points to
+         * @param line
+         * @returns {boolean}
+         */
+        leftTo(line) {
+            let vec = new Flatten.Vector(line.pt, this);
+            let onLeftSemiPlane = Flatten.Utils.GT(vec.dot(line.norm), 0);
+            return onLeftSemiPlane;
+        }
+
+        /**
          * Returns distance between point and other shape
          * @param {Shape} shape
          * @returns {number}
@@ -150,6 +161,7 @@ module.exports = function(Flatten) {
                 return shape.contains(this);
             }
         }
+
     };
 
 };

@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Circle.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#incidentTo">incidentTo</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#parallelTo">parallelTo</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#leftTo">leftTo</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Segment.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#invert">invert</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CCW">rotate90CCW</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CW">rotate90CW</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -133,6 +133,25 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Return true if parallel or incident to other line
+         * @param {Line} other_line - line to check
+         * @returns {boolean}
+         */
+        parallelTo(other_line) {
+            return this.norm.equalTo(other_line.norm);
+        }
+
+        /**
+         * Returns true if incident to other line
+         * @param {Line} other_line - line to check
+         * @returns {boolean}
+         */
+        incidentTo(other_line) {
+            return ( (this.norm.equalTo(other_line.norm) || this.norm.equalTo(other_line.norm.invert())) &amp;&amp;
+                this.pt.on(other_line));
+        }
+
+        /**
          * Returns true if point belongs to line
          * @param {Point} pt
          * @returns {boolean}
@@ -155,6 +174,10 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Line) {
                 return Line.intersectLine2Line(this, shape);
             }
+
+            if (shape instanceof Flatten.Circle) {
+                return Line.intersectLine2Circle(this, shape);
+            }
         }
 
         static points2norm(pt1, pt2) {
@@ -162,7 +185,8 @@ module.exports = function(Flatten) {
                 throw Flatten.Errors.ILLEGAL_PARAMETERS;
             }
             let vec = new Flatten.Vector(pt1, pt2);
-            return vec.rotate(Math.PI/2);
+            let unit = vec.normalize();
+            return unit.rotate90CCW();
         }
 
         static intersectLine2Line(line1, line2) {
@@ -182,6 +206,54 @@ module.exports = function(Flatten) {
             }
             return ip;
         }
+
+        static intersectLine2Circle(line, circle) {
+            let ip = [];
+            let prj = circle.pc.projectionOn(line);            // projection of circle center on line
+            let dist = circle.pc.distanceTo(prj);              // distance from circle center to projection
+
+            if (Flatten.Utils.EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
+                ip.push(prj);
+            }
+            else if (Flatten.Utils.LT(dist, circle.r)) {       // return two intersection points
+                var delta = Math.sqrt(circle.r*circle.r - dist*dist);
+                var v_trans, pt;
+
+                v_trans = line.norm.rotate90CCW().multiply(delta);
+                pt = prj.translate(v_trans);
+                ip.push(pt);
+
+                v_trans = line.norm.rotate90CW().multiply(delta);
+                pt = prj.translate(v_trans);
+                ip.push(pt);
+            }
+            return ip;
+        }
+
+        static intersectLine2Box(line, box) {
+            let pts = [
+                new Flatten.Point(box.xmin, box.ymin),
+                new Flatten.Point(box.xmax, box.ymin),
+                new Flatten.Point(box.xmax, box.ymax),
+                new Flatten.Point(box.xmin, box.ymax)
+            ];
+            let segs = [
+                new Flatten.Segment(pts[0], pts[1]),
+                new Flatten.Segment(pts[1], pts[2]),
+                new Flatten.Segment(pts[2], pts[3]),
+                new Flatten.Segment(pts[3], pts[0])
+            ];
+
+            let ips =  [];
+
+            for(let seg of segs) {
+                let ips_tmp = seg.intersect(line);
+                for (let ip of ips_tmp) {
+                    ips.push(ip);
+                }
+            };
+            return ips;
+        }
     }
 };
 </code></pre>
@@ -196,7 +268,7 @@ module.exports = function(Flatten) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Mar 10 2017 02:26:53 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Mar 11 2017 14:37:50 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

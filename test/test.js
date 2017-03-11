@@ -51,11 +51,6 @@ describe('#Flatten.Point', function() {
         let equals = point1.equalTo(point2);
         expect(equals).to.equal(true);
     });
-    it('Method distanceTo return distance to other point ', function() {
-        let point1 = new Flatten.Point(1,1);
-        let point2 = new Flatten.Point(2,2);
-        expect(point1.distanceTo(point2)).to.equal(Math.sqrt(2));
-    });
     it ('Method translate returns new point translated by (dx, dy)', function() {
         let point = new Flatten.Point(1,1);
         let tpoint = point.translate(2,0);
@@ -96,51 +91,65 @@ describe('#Flatten.Point', function() {
         let proj_pt = pt.projectionOn(line);
         expect(proj_pt).to.deep.equal({x:2,y:1});
     });
-    it ('Method distanceTo calculates distance to given line', function() {
-        let anchor = new Flatten.Point(1,1);
-        let norm = new Flatten.Vector(0,1);
-        let line = new Flatten.Line(anchor, norm);
-        let pt = new Flatten.Point(2,2);
-        expect(pt.distanceTo(line)).to.equal(1);
+    describe('#Flatten.Point.Distance methods', function() {
+        it('Method distanceTo return distance to other point ', function() {
+            let point1 = new Flatten.Point(1,1);
+            let point2 = new Flatten.Point(2,2);
+            expect(point1.distanceTo(point2)).to.equal(Math.sqrt(2));
+        });
+        it('Method distanceTo calculates distance to given line', function () {
+            let anchor = new Flatten.Point(1, 1);
+            let norm = new Flatten.Vector(0, 1);
+            let line = new Flatten.Line(anchor, norm);
+            let pt = new Flatten.Point(2, 2);
+            expect(pt.distanceTo(line)).to.equal(1);
+        });
+        it('Method distanceTo returns distance to segment', function () {
+            let ps = new Flatten.Point(-2,2);
+            let pe = new Flatten.Point(2,2);
+            let segment = new Flatten.Segment(ps, pe);
+            let pt1 = new Flatten.Point(2,4);            /* point in segment scope */
+            let pt2 = new Flatten.Point(-5,2);           /* point is out of segment scope */
+            let pt3 = new Flatten.Point(6,2);            /* point is out of segment scope */
+            expect(pt1.distanceTo(segment)).to.equal(2);
+            expect(pt2.distanceTo(segment)).to.equal(3);
+            expect(pt3.distanceTo(segment)).to.equal(4);
+        });
+        it('Method distanceTo returns distance to circle', function () {
+            let circle = new Flatten.Circle(new Flatten.Point(), 3);
+            let pt1 = new Flatten.Point(5,0);
+            let pt2 = new Flatten.Point(0,2);
+            expect(pt1.distanceTo(circle)).to.equal(2);
+            expect(pt2.distanceTo(circle)).to.equal(1);
+        });
     });
-    it('Method "on" returns true if point belongs to given line', function () {
-        let pt1 = new Flatten.Point(1,1);
-        let pt2 = new Flatten.Point(2,2);
-        let pt3 = new Flatten.Point(3,3);
-        let line = new Flatten.Line(pt1, pt2);
-        expect(pt3.on(line)).to.equal(true);
+    describe('#Flatten.Point.On inclusion queries', function() {
+        it('Method "on" returns true if point belongs to given line', function () {
+            let pt1 = new Flatten.Point(1, 1);
+            let pt2 = new Flatten.Point(2, 2);
+            let pt3 = new Flatten.Point(3, 3);
+            let line = new Flatten.Line(pt1, pt2);
+            expect(pt3.on(line)).to.equal(true);
+        });
+        it('Method "on" returns true if point belongs to circle', function () {
+            let pt = new Flatten.Point(0, 1);
+            let circle = new Flatten.Circle(new Flatten.Point(0, 0), 2);
+            expect(pt.on(circle)).to.equal(true);
+        });
+        it('Method "on" returns true if point belongs to segment', function () {
+            let pt1 = new Flatten.Point(1, 1);
+            let pt2 = new Flatten.Point(2, 2);
+            let pt3 = new Flatten.Point(3, 3);
+            let segment = new Flatten.Line(pt1, pt3);
+            expect(pt2.on(segment)).to.equal(true);
+        });
     });
-    it('Method "on" returns true if point belongs to the circle', function () {
-        let pt = new Flatten.Point(0,1);
-        let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
-        expect(pt.on(circle)).to.equal(true);
-    });
-    it('Method intersect returns array of intersection points if intersection exist', function () {
-        let line1 = new Flatten.Line(new Flatten.Point(0,1), new Flatten.Point(2,1));
-        let line2 = new Flatten.Line(new Flatten.Point(1,0), new Flatten.Point(1,2));
-        let ip = line1.intersect(line2);
-        let expected_ip = new Flatten.Point(1,1);
-        expect(ip.length).to.equal(1);
-
-        let equals = ip[0].equalTo(expected_ip);
-        expect(equals).to.equal(true);
-    });
-    it('Method intersect returns zero length array if intersection does not exist', function () {
-        let line1 = new Flatten.Line(new Flatten.Point(0,1), new Flatten.Point(2,1));
-        let line2 = new Flatten.Line(new Flatten.Point(0,2), new Flatten.Point(2,2));
-        let ip = line1.intersect(line2);
-        expect(ip.length).to.equal(0);
-    });
-    it('Method distanceTo returns distance to segment', function () {
-        let ps = new Flatten.Point(-2,2);
-        let pe = new Flatten.Point(2,2);
-        let segment = new Flatten.Segment(ps, pe);
-        let pt1 = new Flatten.Point(2,4);            /* point in segment scope */
-        let pt2 = new Flatten.Point(-5,2);           /* point is out of segment scope */
-        let pt3 = new Flatten.Point(6,2);            /* point is out of segment scope */
-        expect(pt1.distanceTo(segment)).to.equal(2);
-        expect(pt2.distanceTo(segment)).to.equal(3);
-        expect(pt3.distanceTo(segment)).to.equal(4);
+    it('Method leftTo returns true if point is on the "left" semi plane, which is the side of the normal vector', function() {
+        let line = new Flatten.Line(new Flatten.Point(-1, -1), new Flatten.Point(1,1));
+        let pt1 = new Flatten.Point(-2,2);
+        let pt2 = new Flatten.Point(3,1);
+        expect(pt1.leftTo(line)).to.equal(true);
+        expect(pt2.leftTo(line)).to.equal(false);
     });
 });
 
@@ -246,9 +255,8 @@ describe('#Flatten.Line', function() {
         let pt1 = new Flatten.Point(1,1);
         let pt2 = new Flatten.Point(2,2);
         let line = new Flatten.Line(pt1, pt2);
-        let equals = line.norm.equalTo(new Flatten.Vector(-1,1));
-        expect(line.pt).to.deep.equal({x:1, y:1});
-        expect(equals).to.equal(true);
+        expect(pt1.on(line)).to.equal(true);
+        expect(pt2.on(line)).to.equal(true);
     });
     it('Constructor Line(pt, norm) creates same line as Line(norm,pt)', function () {
         let pt = new Flatten.Point(1,1);
@@ -282,6 +290,33 @@ describe('#Flatten.Line', function() {
         let line = new Flatten.Line(pt1, pt2);
         expect(line.contains(pt3)).to.equal(true);
     });
+    describe('#Flatten.Line.intersect methods return array of intersection points if intersection exist', function() {
+        it('Line to line intersection ', function () {
+            let line1 = new Flatten.Line(new Flatten.Point(0, 1), new Flatten.Point(2, 1));
+            let line2 = new Flatten.Line(new Flatten.Point(1, 0), new Flatten.Point(1, 2));
+            let ip = line1.intersect(line2);
+            let expected_ip = new Flatten.Point(1, 1);
+            expect(ip.length).to.equal(1);
+
+            let equals = ip[0].equalTo(expected_ip);
+            expect(equals).to.equal(true);
+        });
+        it('Method intersect returns zero length array if intersection does not exist', function () {
+            let line1 = new Flatten.Line(new Flatten.Point(0, 1), new Flatten.Point(2, 1));
+            let line2 = new Flatten.Line(new Flatten.Point(0, 2), new Flatten.Point(2, 2));
+            let ip = line1.intersect(line2);
+            expect(ip.length).to.equal(0);
+        });
+        it('Line to circle intersection ', function () {
+            let line = new Flatten.Line(new Flatten.Point(-1, 1), new Flatten.Point(1, 1));
+            let circle = new Flatten.Circle(new Flatten.Point(0, 0), 3);
+            let ip = line.intersect(circle);
+            expect(ip.length).to.equal(2);
+            expect(ip[0].y).to.equal(1);
+            expect(ip[1].y).to.equal(1);
+        });
+    });
+
 });
 
 describe('#Flatten.Circle', function() {
@@ -348,6 +383,60 @@ describe('#Flatten.Segment', function() {
         let segment = new Flatten.Segment(ps, pe);
         let pt = new Flatten.Point(1,2);
         expect(segment.contains(pt)).to.equal(true);
+    });
+    describe('#Flatten.Segment.Intersect', function() {
+       it('Intersection with Segment - not parallel segments case (one point)', function () {
+           let segment1 = new Flatten.Segment(new Flatten.Point(0,0), new Flatten.Point(2,2));
+           let segment2 = new Flatten.Segment(new Flatten.Point(0,2), new Flatten.Point(2,0));
+           expect(segment1.intersect(segment2).length).to.equal(1);
+           expect(segment1.intersect(segment2)[0]).to.deep.equal({x:1, y:1});
+       });
+        it('Intersection with Segment - overlapping segments case (two points)', function () {
+            let segment1 = new Flatten.Segment(new Flatten.Point(0,0), new Flatten.Point(2,2));
+            let segment2 = new Flatten.Segment(new Flatten.Point(3,3), new Flatten.Point(1,1));
+            expect(segment1.intersect(segment2).length).to.equal(2);
+            expect(segment1.intersect(segment2)[0]).to.deep.equal({x:2, y:2});
+            expect(segment1.intersect(segment2)[1]).to.deep.equal({x:1, y:1});
+        });
+        it('Intersection with Segment - boxes intersecting, segments not intersecting', function () {
+            let segment1 = new Flatten.Segment(new Flatten.Point(0,0), new Flatten.Point(2,2));
+            let segment2 = new Flatten.Segment(new Flatten.Point(0.5,1.5), new Flatten.Point(-2,-4));
+            expect(segment1.box.intersect(segment2.box)).to.equal(true);
+            expect(segment1.intersect(segment2).length).to.equal(0);
+        });
+        it('Intersection with Segment - boxes not intersecting, quick reject', function () {
+            let segment1 = new Flatten.Segment(new Flatten.Point(0,0), new Flatten.Point(2,2));
+            let segment2 = new Flatten.Segment(new Flatten.Point(-0.5,2.5), new Flatten.Point(-2,-4));
+            expect(segment1.box.notIntersect(segment2.box)).to.equal(true);
+            expect(segment1.intersect(segment2).length).to.equal(0);
+        });
+        it('Intersection with Line - not parallel segments case (one point)', function () {
+            let segment = new Flatten.Segment(new Flatten.Point(0,0), new Flatten.Point(2,2));
+            let line = new Flatten.Line(new Flatten.Point(0,2), new Flatten.Point(2,0));
+            expect(segment.intersect(line).length).to.equal(1);
+            expect(segment.intersect(line)[0]).to.deep.equal({x:1, y:1});
+        });
+        it('Intersection with Line - segment lays on line case (two points)', function () {
+            let segment = new Flatten.Segment(0,0,2,2);
+            let line = new Flatten.Line(new Flatten.Point(3,3), new Flatten.Point(1,1));
+            expect(segment.intersect(line).length).to.equal(2);
+            expect(segment.intersect(line)[0]).to.deep.equal({x:0, y:0});
+            expect(segment.intersect(line)[1]).to.deep.equal({x:2, y:2});
+        });
+        it('Intersection with Circle', function () {
+            let segment = new Flatten.Segment(0,0,2,2);
+            let circle = new Flatten.Circle(new Flatten.Point(0,0), 1);
+            let ip_expected = new Flatten.Point(Math.sqrt(2)/2, Math.sqrt(2)/2);
+            expect(segment.intersect(circle).length).to.equal(1);
+            expect(segment.intersect(circle)[0].equalTo(ip_expected)).to.equal(true);
+        });
+        it('Intersection with Circle - case of tangent', function () {
+            let segment = new Flatten.Segment(-2,2,2,2);
+            let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
+            let ip_expected = new Flatten.Point(0, 2);
+            expect(segment.intersect(circle).length).to.equal(1);
+            expect(segment.intersect(circle)[0].equalTo(ip_expected)).to.equal(true);
+        });
     });
 });
 
