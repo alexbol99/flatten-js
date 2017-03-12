@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Circle - Documentation</title>
+    <title>Arc - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Circle</h1>
+    <h1 class="page-title">Arc</h1>
     
 
     
@@ -41,10 +41,10 @@
 <header>
     
         <h2>
-        Circle
+        Arc
         </h2>
         
-            <div class="class-description">Class representing a circle</div>
+            <div class="class-description">Class representinf circlular arc</div>
         
     
 </header>
@@ -58,7 +58,7 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Circle"><span class="type-signature"></span>new Circle<span class="signature">(pc, r)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Arc"><span class="type-signature"></span>new Arc<span class="signature">(pc, r, startAngle, endAngle, counterClockwise)</span><span class="type-signature"></span></h4>
 
     
 
@@ -87,6 +87,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -112,8 +114,12 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
-            <td class="description last">circle center point</td>
+            <td class="description last">arc center</td>
         </tr>
 
     
@@ -135,8 +141,94 @@
             
 
             
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
 
-            <td class="description last">circle radius</td>
+            <td class="description last">arc radius</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startAngle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">start angle in radians from 0 to 2*PI</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endAngle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">end angle in radians from 0 to 2*PI</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>counterClockwise</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">arc direction, true - clockwise, false - counter clockwise</td>
         </tr>
 
     
@@ -177,7 +269,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="circle.js.html">circle.js</a>, <a href="circle.js.html#line12">line 12</a>
+        <a href="arc.js.html">arc.js</a>, <a href="arc.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -227,7 +319,7 @@
 
 
 <div class="description">
-    Circle bounding box
+    Get bounding box of arc
 </div>
 
 
@@ -265,7 +357,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="circle.js.html">circle.js</a>, <a href="circle.js.html#line51">line 51</a>
+        <a href="arc.js.html">arc.js</a>, <a href="arc.js.html#line83">line 83</a>
     </li></ul></dd>
     
 
@@ -283,13 +375,13 @@
 
         
             
-<h4 class="name" id="center"><span class="type-signature"></span>center<span class="type-signature"></span></h4>
+<h4 class="name" id="end"><span class="type-signature"></span>end<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Circle center
+    Get end point of arc
 </div>
 
 
@@ -327,7 +419,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="circle.js.html">circle.js</a>, <a href="circle.js.html#line43">line 43</a>
+        <a href="arc.js.html">arc.js</a>, <a href="arc.js.html#line66">line 66</a>
     </li></ul></dd>
     
 
@@ -345,26 +437,16 @@
 
         
             
-<h4 class="name" id="pc"><span class="type-signature"></span>pc<span class="type-signature"> :Point</span></h4>
+<h4 class="name" id="length"><span class="type-signature"></span>length<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Circle center
+    Get arc length
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Point</span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -399,7 +481,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="circle.js.html">circle.js</a>, <a href="circle.js.html#line23">line 23</a>
+        <a href="arc.js.html">arc.js</a>, <a href="arc.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -417,26 +499,16 @@
 
         
             
-<h4 class="name" id="r"><span class="type-signature"></span>r<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="start"><span class="type-signature"></span>start<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Circle radius
+    Get start point of arc
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -471,7 +543,69 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="circle.js.html">circle.js</a>, <a href="circle.js.html#line28">line 28</a>
+        <a href="arc.js.html">arc.js</a>, <a href="arc.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="sweep"><span class="type-signature"></span>sweep<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get sweep angle in radians. Sweep angle is non-negative number from 0 to 2*PI
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="arc.js.html">arc.js</a>, <a href="arc.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -498,14 +632,14 @@
 
     
 
-    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {Circle}</span></h4>
+    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {Arc}</span></h4>
 
     
 
 
 
 <div class="description">
-    Method clone returns new instance of a Circle
+    Return new instance of arc
 </div>
 
 
@@ -549,7 +683,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="circle.js.html">circle.js</a>, <a href="circle.js.html#line35">line 35</a>
+        <a href="arc.js.html">arc.js</a>, <a href="arc.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -583,7 +717,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Circle</span>
+<span class="param-type">Arc</span>
 
 
     </dd>
@@ -605,7 +739,7 @@
 
 
 <div class="description">
-    Return true if circle contains point
+    Returns true if arc contains point
 </div>
 
 
@@ -657,7 +791,7 @@
 
             
 
-            <td class="description last">test point</td>
+            <td class="description last">point to test</td>
         </tr>
 
     
@@ -698,7 +832,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="circle.js.html">circle.js</a>, <a href="circle.js.html#line65">line 65</a>
+        <a href="arc.js.html">arc.js</a>, <a href="arc.js.html#line225">line 225</a>
     </li></ul></dd>
     
 
@@ -747,14 +881,14 @@
 
     
 
-    <h4 class="name" id="intersect"><span class="type-signature"></span>intersect<span class="signature">(shape)</span><span class="type-signature"> &rarr; {Array.&lt;Point>}</span></h4>
+    <h4 class="name" id="intersect"><span class="type-signature"></span>intersect<span class="signature">(shape)</span><span class="type-signature"> &rarr; {*}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns array of intersection points between circle and other shape
+    Returns array of intersection points between arc and other shape
 </div>
 
 
@@ -842,7 +976,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="circle.js.html">circle.js</a>, <a href="circle.js.html#line74">line 74</a>
+        <a href="arc.js.html">arc.js</a>, <a href="arc.js.html#line245">line 245</a>
     </li></ul></dd>
     
 
@@ -876,7 +1010,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;Point></span>
+<span class="param-type">*</span>
 
 
     </dd>
