@@ -83,6 +83,10 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Circle) {
                 return Circle.intersectCirle2Circle(this, shape);
             }
+
+            if (shape instanceof Flatten.Arc) {
+                return shape.intersect(this);
+            }
         }
 
         static intersectCirle2Circle(circle1, circle2) {

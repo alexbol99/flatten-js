@@ -138,6 +138,14 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Circle) {
                 return Line.intersectLine2Circle(this, shape);
             }
+
+            if (shape instanceof Flatten.Segment) {
+                return shape.intersect(this);
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                return Line.intersectLine2Arc(this, shape);
+            }
         }
 
         static points2norm(pt1, pt2) {
@@ -213,6 +221,24 @@ module.exports = function(Flatten) {
                 }
             };
             return ips;
+        }
+
+        static intersectLine2Arc(line, arc) {
+            let ip = [];
+
+            if (line.box.notIntersect(arc.box)) {
+                return ip;
+            }
+
+            let circle = new Flatten.Circle(arc.pc, arc.r);
+            let ip_tmp = line.intersect(circle);
+            for (let pt of ip_tmp) {
+                if (pt.on(arc)) {
+                    ip.push(pt);
+                }
+            }
+
+            return ip;
         }
     }
 };

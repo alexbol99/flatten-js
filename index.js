@@ -19,8 +19,12 @@ let ClassBox = require("./classes/box");
  */
 let Flatten = class Flatten {
     constructor() {
-        this.version =  "0.0.1";
+        this.version = "0.0.1";
         this.DP_TOL = Utils.DP_TOL;
+        this.CCW = true;
+        this.CW = false;
+        this.PIx2 = 2 * Math.PI;
+        this.PI_2 = 0.5 * Math.PI;
         this.Utils = Utils;
         this.Errors = Errors;
     }

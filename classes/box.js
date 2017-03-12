@@ -75,5 +75,12 @@ module.exports = function(Flatten) {
                 Math.max(this.ymax, other_box.ymax)
             );
         }
+
+        set(xmin, ymin, xmax, ymax) {
+            this.xmin = xmin;
+            this.ymin = ymin;
+            this.xmax = xmax;
+            this.ymax = ymax;
+        }
     }
 };

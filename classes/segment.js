@@ -149,6 +149,10 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Circle) {
                 return Segment.intersectSegment2Circle(this, shape);
             }
+
+            if (shape instanceof Flatten.Arc) {
+                return Segment.intersectSegment2Arc(this, shape);
+            }
         }
 
         distanceToPoint(pt) {
@@ -264,6 +268,27 @@ module.exports = function(Flatten) {
             }
 
             return ips;
+        }
+
+        static intersectSegment2Arc(segment, arc) {
+            let ip = [];
+
+            if (segment.box.notIntersect(arc.box)) {
+                return ip;
+            }
+
+            let line = new Flatten.Line(segment.ps, segment.pe);
+            let circle = new Flatten.Circle(arc.pc, arc.r);
+
+            let ip_tmp = line.intersect(circle);
+
+            for (let pt of ip_tmp) {
+                if (pt.on(seg) && pt.on(arc)) {
+                    ip.push(pt);
+                }
+            }
+            return ip;
+
         }
     }
 };

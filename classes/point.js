@@ -137,6 +137,10 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Segment) {
                 return shape.distanceToPoint(this);
             }
+
+            if (shape instanceof Flatten.Arc) {
+                return shape.distanceToPoint(this);
+            }
         }
 
         /**
@@ -158,6 +162,10 @@ module.exports = function(Flatten) {
             }
 
             if (shape instanceof  Flatten.Segment) {
+                return shape.contains(this);
+            }
+
+            if (shape instanceof Flatten.Arc) {
                 return shape.contains(this);
             }
         }
