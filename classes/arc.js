@@ -18,7 +18,7 @@ module.exports = function(Flatten) {
          * @param {number} endAngle - end angle in radians from 0 to 2*PI
          * @param counterClockwise - arc direction, true - clockwise, false - counter clockwise
          */
-        constructor(pc=new Flatten.Point, r=1, startAngle=0, endAngle=2*Math.PI, counterClockwise=true) {
+        constructor(pc=new Flatten.Point(), r=1, startAngle=0, endAngle=2*Math.PI, counterClockwise=true) {
             this.pc = pc.clone();
             this.r = r;
             this.startAngle = startAngle;
@@ -40,7 +40,7 @@ module.exports = function(Flatten) {
          */
         get sweep() {
             if (Flatten.Utils.EQ(this.startAngle, this.endAngle))
-                return Flatten.PIx2;                                   // no zero arcs ??
+                return 0.0;                    // or Flatten.PIx2 ? - no zero arcs
             if (this.counterClockwise) {
                 return (Flatten.Utils.GT(this.endAngle, this.startAngle) ?
                     this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2);
@@ -55,7 +55,7 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         get start() {
-            let p0 = new Flatten.Point(r,0);
+            let p0 = new Flatten.Point(this.r,0);
             return p0.rotate(this.startAngle, this.pc);
         }
 
@@ -64,7 +64,7 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         get end() {
-            let p0 = new Flatten.Point(r,0);
+            let p0 = new Flatten.Point(this.r,0);
             return p0.rotate(this.endAngle, this.pc);
         }
 
@@ -224,7 +224,7 @@ module.exports = function(Flatten) {
          */
         contains(pt) {
             // first check if  point on circle (pc,r)
-            if (!Flatten.Flatten.EQ(this.pc.distanceTo(pt), this.r))
+            if (!Flatten.Utils.EQ(this.pc.distanceTo(pt), this.r))
                 return false;
 
             // point on circle
@@ -232,7 +232,7 @@ module.exports = function(Flatten) {
             if (pt.equalTo(this.start))
                 return true;
 
-            let angle = pt.angleTo(this.pc);
+            let angle = new Flatten.Vector(this.pc, pt).slope;
             let test_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise);
             return Flatten.Utils.LE(test_arc.length, this.length);
         }
@@ -246,7 +246,6 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Line) {
                 return shape.intersect(this);
             }
-
             if (shape instanceof Flatten.Circle) {
                 return Arc.intersectArc2Circle(this, shape);
             }

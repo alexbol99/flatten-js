@@ -21,6 +21,21 @@ describe('#Flatten-JS', function() {
     it('Class Vector defined', function() {
         expect(Flatten.Vector).to.exist;
     });
+    it('Class Box defined', function() {
+        expect(Flatten.Box).to.exist;
+    });
+    it('Class Line defined', function() {
+        expect(Flatten.Line).to.exist;
+    });
+    it('Class Circle defined', function() {
+        expect(Flatten.Circle).to.exist;
+    });
+    it('Class Segment defined', function() {
+        expect(Flatten.Segment).to.exist;
+    });
+    it('Class Arc defined', function() {
+        expect(Flatten.Arc).to.exist;
+    });
 });
 
 describe('#Flatten.Point', function() {
@@ -143,6 +158,11 @@ describe('#Flatten.Point', function() {
             let segment = new Flatten.Line(pt1, pt3);
             expect(pt2.on(segment)).to.equal(true);
         });
+        it('Method "on" returns true if point belongs to arc', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, false);
+            let pt = new Flatten.Point(-1,0);
+            expect(pt.on(arc)).to.equal(true);
+        })
     });
     it('Method leftTo returns true if point is on the "left" semi plane, which is the side of the normal vector', function() {
         let line = new Flatten.Line(new Flatten.Point(-1, -1), new Flatten.Point(1,1));
@@ -445,6 +465,83 @@ describe('#Flatten.Arc', function() {
         let arc = new Flatten.Arc();
         expect(arc).to.be.an.instanceof(Flatten.Arc);
     });
+    it('Default constructor constructs full circle unit arc with zero center and sweep 2PI CW', function() {
+        let arc = new Flatten.Arc();
+        expect(arc.pc).to.deep.equal({x: 0, y: 0});
+        expect(arc.sweep).to.equal(Flatten.PIx2);
+        expect(arc.counterClockwise).to.equal(true);
+    });
+    it('Constructor can create different CCW arcs if counterClockwise=true', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/4, 3*Math.PI/4, true);
+        expect(arc.sweep).to.equal(Math.PI/2);
+    });
+    it('Constructor can create different CCW arcs if counterClockwise=true', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, 3*Math.PI/4, Math.PI/4, true);
+        expect(arc.sweep).to.equal(3*Math.PI/2);
+    });
+    it('Constructor can create different CCW arcs if counterClockwise=true', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(3,4), 1, Math.PI/4, -Math.PI/4, true);
+        expect(arc.sweep).to.equal(3*Math.PI/2);
+    });
+    it('Constructor can create different CCW arcs if counterClockwise=true', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(2,-2), 1, -Math.PI/4, Math.PI/4, true);
+        expect(arc.sweep).to.equal(Math.PI/2);
+    });
+    it('Constructor can create different CW arcs if counterClockwise=false', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/4, 3*Math.PI/4, false);
+        expect(arc.sweep).to.equal(3*Math.PI/2);
+    });
+    it('Constructor can create different CW arcs if counterClockwise=false', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, 3*Math.PI/4, Math.PI/4, false);
+        expect(arc.sweep).to.equal(Math.PI/2);
+    });
+    it('Constructor can create different CW arcs if counterClockwise=false', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(3,4), 1, Math.PI/4, -Math.PI/4, false);
+        expect(arc.sweep).to.equal(Math.PI/2);
+    });
+    it('Constructor can create different CW arcs if counterClockwise=false', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(2,-2), 1, -Math.PI/4, Math.PI/4, false);
+        expect(arc.sweep).to.equal(3*Math.PI/2);
+    });
+    it('In order to construct full circle, set end_angle = start_angle + 2pi', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 5, Math.PI, 3*Math.PI, true);
+        expect(arc.sweep).to.equal(2*Math.PI);
+    });
+    it('Constructor creates zero arc when end_angle = start_angle', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 5, Math.PI/4, Math.PI/4, true);
+        expect(arc.sweep).to.equal(0);
+    });
+    it('Getter arc.start returns start point', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, true);
+        expect(arc.start).to.deep.equal({x:Math.cos(-Math.PI/4),y:Math.sin(-Math.PI/4)});
+    });
+    it('Getter arc.end returns end point', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, true);
+        expect(arc.end).to.deep.equal({x:Math.cos(Math.PI/4),y:Math.sin(Math.PI/4)});
+    });
+    it('Getter arc.length returns arc length', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, true);
+        expect(arc.length).to.equal(Math.PI/2);
+    });
+    it('Getter arc.length returns arc length', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 5, -Math.PI/4, Math.PI/4, false);
+        expect(arc.length).to.equal(5*3*Math.PI/2);
+    });
+    it('Getter arc.box returns arc bounding box, CCW case', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, true);
+        expect(Flatten.Utils.EQ(arc.box.xmin,Math.sqrt(2)/2)).to.equal(true);
+        expect(Flatten.Utils.EQ(arc.box.ymin,-Math.sqrt(2)/2)).to.equal(true);
+        expect(Flatten.Utils.EQ(arc.box.xmax,1)).to.equal(true);
+        expect(Flatten.Utils.EQ(arc.box.ymax,Math.sqrt(2)/2)).to.equal(true);
+    });
+    it('Getter arc.box returns arc bounding box, CW case', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, false);
+        expect(Flatten.Utils.EQ(arc.box.xmin,-1)).to.equal(true);
+        expect(Flatten.Utils.EQ(arc.box.ymin,-1)).to.equal(true);
+        expect(Flatten.Utils.EQ(arc.box.xmax,Math.sqrt(2)/2)).to.equal(true);
+        expect(Flatten.Utils.EQ(arc.box.ymax,1)).to.equal(true);
+    });
+
 });
 
 describe('#Flatten.Box', function() {
