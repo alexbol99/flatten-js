@@ -1,5 +1,4 @@
 # Javascript library for 2d geometry
-=========
 
 ## Installation
 
@@ -14,6 +13,10 @@
 ## Tests
 
   `npm test`
+
+## Documentation
+
+You can see documentation here https://alexbol99.github.io/flatten-js/index.html
 
 ## Contributing
 

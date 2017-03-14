@@ -1,10 +1,12 @@
 {
   "name": "flatten-js",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Javascript library for 2d geometry",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "doc": "jsdoc -d ./docs ./classes",
+    "generate-docs": "jsdoc -t ./node_modules/jsdoc/templates/minami -d ./docs ./classes"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "minami": "^1.1.1",
     "mocha": "^3.2.0"
   }
 }

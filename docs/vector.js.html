@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>vector.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Arc.html">Arc</a><ul class='methods'><li data-type='method'><a href="Flatten.Arc.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Arc.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Arc.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Circle.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#incidentTo">incidentTo</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#parallelTo">parallelTo</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#leftTo">leftTo</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Segment.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#invert">invert</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CCW">rotate90CCW</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CW">rotate90CW</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">vector.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Created by Alex Bol on 2/19/2017.
+ */
+/**
+ *
+ * @param Flatten
+ */
+module.exports = function(Flatten) {
+    /**
+     * Class representing a vector
+     * @type {Vector}
+     */
+    Flatten.Vector = class Vector {
+        /**
+         * Vector may be constructed by two points, or by two float numbers
+         * @param {Point} ps - start point
+         * @param {Point} pe - end point
+         */
+        constructor(...args) {
+            /**
+             * x-coordinate of a vector (float number)
+             * @type {number}
+             */
+            this.x = 0;
+            /**
+             * y-coordinate of a vector (float number)
+             * @type {number}
+             */
+            this.y = 0;
+
+            /* return zero vector */
+            if (args.length == 0) {
+                return;
+            }
+
+            if (args.length == 2) {
+                let a1 = args[0];
+                let a2 = args[1];
+
+                if (typeof(a1) == "number" &amp;&amp; typeof(a2) == "number") {
+                    this.x = a1;
+                    this.y = a2;
+                    return;
+                }
+
+                if (a1 instanceof Flatten.Point &amp;&amp; a2 instanceof Flatten.Point) {
+                    this.x = a2.x - a1.x;
+                    this.y = a2.y - a1.y;
+                    return;
+                }
+
+            }
+
+            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        }
+
+        /**
+         * Method clone returns new instance of Vector
+         * @returns {Vector}
+         */
+        clone() {
+            return new Vector(this.x, this.y);
+        }
+
+        /**
+         * Slope of the vector in radians from 0 to 2PI
+         * @returns {number}
+         */
+        get slope() {
+            let angle = Math.atan2(this.y, this.x);
+            if (angle&lt;0) angle = 2*Math.PI + angle;
+            return angle;
+        }
+
+        /**
+         * Length of vector
+         * @returns {number}
+         */
+        get length() {
+            return Math.sqrt(this.dot(this));
+        }
+
+        /**
+         * Returns true if vectors are equal up to DP_TOL tolerance
+         * @param {Vector} v
+         * @returns {boolean}
+         */
+        equalTo(v) {
+            return Flatten.Utils.EQ(this.x, v.x) &amp;&amp; Flatten.Utils.EQ(this.y, v.y);
+        }
+
+        /**
+         * Returns new vector multiplied by scalar
+         * @param {number} scalar
+         * @returns {Vector}
+         */
+        multiply(scalar) {
+            return ( new Vector(scalar * this.x, scalar * this.y) );
+        }
+
+        /**
+         * Returns scalar product between two vectors
+         * @param {Vector} v
+         * @returns {number}
+         */
+        dot(v) {
+            return ( this.x * v.x + this.y * v.y );
+        }
+
+        /**
+         * Returns vector product (magnitude) between two vectors
+         * @param {Vector} v
+         * @returns {number}
+         */
+        cross(v) {
+            return ( this.x * v.y - this.y * v.x );
+        }
+
+        /**
+         * Returns unit vector.&lt;br/>
+         * Throw error if given vector has zero length
+         * @returns {Vector}
+         */
+        normalize() {
+            if (!Flatten.Utils.EQ_0(this.length)) {
+                return ( new Vector(this.x / this.length, this.y / this.length) );
+            }
+            throw Flatten.Errors.ZERO_DIVISION;
+        }
+
+        /**
+         * Returns new vector rotated by given angle, positive angle defines rotation in counter clockwise direction
+         * @param {number} angle - angle in radians
+         * @returns {Vector}
+         */
+        rotate(angle) {
+            let point = new Flatten.Point(this.x, this.y);
+            let rpoint = point.rotate(angle);
+            return new Flatten.Vector(rpoint.x, rpoint.y);
+        }
+
+        /**
+         * Special fast version of rotate. Returns vector rotated 90 degrees counter clockwise
+         * @returns {Vector}
+         */
+        rotate90CCW() {
+            return new Flatten.Vector(-this.y, this.x);
+        };
+
+        /**
+         * Special fast version of rotate. Returns vector rotated 90 degrees clockwise
+         * @returns {Vector}
+         */
+        rotate90CW() {
+            return new Flatten.Vector(this.y, -this.x);
+        };
+
+        /**
+         * Return inverted vector
+         * @returns {Vector}
+         */
+        invert() {
+            return new Flatten.Vector(-this.x, -this.y);
+        }
+    };
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Mar 13 2017 23:10:58 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

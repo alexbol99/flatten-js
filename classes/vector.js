@@ -1,22 +1,31 @@
 /**
  * Created by Alex Bol on 2/19/2017.
  */
-
-const RegisterVector = function(Flatten) {
+/**
+ *
+ * @param Flatten
+ */
+module.exports = function(Flatten) {
     /**
-     * @class Vector
+     * Class representing a vector
+     * @type {Vector}
      */
     Flatten.Vector = class Vector {
         /**
-         * @constructor Vector
-         * @param {Number} x
-         * @param {Number} y
-         * or
-         * @param {Point} ps
-         * @param {Point} pe
+         * Vector may be constructed by two points, or by two float numbers
+         * @param {Point} ps - start point
+         * @param {Point} pe - end point
          */
         constructor(...args) {
+            /**
+             * x-coordinate of a vector (float number)
+             * @type {number}
+             */
             this.x = 0;
+            /**
+             * y-coordinate of a vector (float number)
+             * @type {number}
+             */
             this.y = 0;
 
             /* return zero vector */
@@ -46,7 +55,7 @@ const RegisterVector = function(Flatten) {
         }
 
         /**
-         * Clone vector and create new instance
+         * Method clone returns new instance of Vector
          * @returns {Vector}
          */
         clone() {
@@ -54,17 +63,35 @@ const RegisterVector = function(Flatten) {
         }
 
         /**
-         * Returns true if two vectors are equal up to float point tolerance
+         * Slope of the vector in radians from 0 to 2PI
+         * @returns {number}
+         */
+        get slope() {
+            let angle = Math.atan2(this.y, this.x);
+            if (angle<0) angle = 2*Math.PI + angle;
+            return angle;
+        }
+
+        /**
+         * Length of vector
+         * @returns {number}
+         */
+        get length() {
+            return Math.sqrt(this.dot(this));
+        }
+
+        /**
+         * Returns true if vectors are equal up to DP_TOL tolerance
          * @param {Vector} v
-         * @returns {*|boolean}
+         * @returns {boolean}
          */
         equalTo(v) {
             return Flatten.Utils.EQ(this.x, v.x) && Flatten.Utils.EQ(this.y, v.y);
         }
 
         /**
-         * Multiply vector by scalar
-         * @param {Number} scalar
+         * Returns new vector multiplied by scalar
+         * @param {number} scalar
          * @returns {Vector}
          */
         multiply(scalar) {
@@ -72,7 +99,7 @@ const RegisterVector = function(Flatten) {
         }
 
         /**
-         * Returns scalar (dot) product between two vectors
+         * Returns scalar product between two vectors
          * @param {Vector} v
          * @returns {number}
          */
@@ -81,7 +108,7 @@ const RegisterVector = function(Flatten) {
         }
 
         /**
-         * Returns vector (cross) product between two vectors (magnitude)
+         * Returns vector product (magnitude) between two vectors
          * @param {Vector} v
          * @returns {number}
          */
@@ -90,24 +117,50 @@ const RegisterVector = function(Flatten) {
         }
 
         /**
-         * Returns length of the vector
-         * @returns {number}
-         */
-        len() {
-            return Math.sqrt(this.dot(this));
-        }
-
-        /**
-         * Returns unit vector
+         * Returns unit vector.<br/>
+         * Throw error if given vector has zero length
          * @returns {Vector}
          */
         normalize() {
-            let length = this.len();
-            if (!Flatten.Utils.EQ_0(length)) {
-                return ( new Vector(this.x / length, this.y / length) );
+            if (!Flatten.Utils.EQ_0(this.length)) {
+                return ( new Vector(this.x / this.length, this.y / this.length) );
             }
             throw Flatten.Errors.ZERO_DIVISION;
         }
+
+        /**
+         * Returns new vector rotated by given angle, positive angle defines rotation in counter clockwise direction
+         * @param {number} angle - angle in radians
+         * @returns {Vector}
+         */
+        rotate(angle) {
+            let point = new Flatten.Point(this.x, this.y);
+            let rpoint = point.rotate(angle);
+            return new Flatten.Vector(rpoint.x, rpoint.y);
+        }
+
+        /**
+         * Special fast version of rotate. Returns vector rotated 90 degrees counter clockwise
+         * @returns {Vector}
+         */
+        rotate90CCW() {
+            return new Flatten.Vector(-this.y, this.x);
+        };
+
+        /**
+         * Special fast version of rotate. Returns vector rotated 90 degrees clockwise
+         * @returns {Vector}
+         */
+        rotate90CW() {
+            return new Flatten.Vector(this.y, -this.x);
+        };
+
+        /**
+         * Return inverted vector
+         * @returns {Vector}
+         */
+        invert() {
+            return new Flatten.Vector(-this.x, -this.y);
+        }
     };
 };
-module.exports = RegisterVector;
