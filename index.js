@@ -5,13 +5,6 @@
 
 let Utils = require("./utils/utils");
 let Errors = require("./utils/errors");
-let ClassPoint = require("./classes/point");
-let ClassVector = require("./classes/vector");
-let ClassLine = require("./classes/line");
-let ClassCircle = require("./classes/circle");
-let ClassSegment = require("./classes/segment");
-let ClassArc = require("./classes/arc");
-let ClassBox = require("./classes/box");
 
 /**
  * FlattenJS - library for 2d geometry
@@ -28,19 +21,19 @@ let Flatten = class Flatten {
         this.Utils = Utils;
         this.Errors = Errors;
     }
-    registerClass(className) {
-        className(this);
-    }
 };
 
 let f = new Flatten();
 
-f.registerClass(ClassPoint);
-f.registerClass(ClassVector);
-f.registerClass(ClassLine);
-f.registerClass(ClassCircle);
-f.registerClass(ClassSegment);
-f.registerClass(ClassArc);
-f.registerClass(ClassBox);
+require("./classes/point")(f);
+require("./classes/vector")(f);
+require("./classes/line")(f);
+require("./classes/circle")(f);
+require("./classes/segment")(f);
+require("./classes/arc")(f);
+require("./classes/box")(f);
+require("./classes/edge")(f);
+require("./classes/face")(f);
+require("./classes/polygon")(f);
 
-module.exports = f; // new Flatten();
+module.exports = f;
