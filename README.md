@@ -9,7 +9,7 @@
     var Flatten = require('flatten-js');
 
     var point = new Flatten.Point(1,1);
-  
+      
 ## Tests
 
   `npm test`

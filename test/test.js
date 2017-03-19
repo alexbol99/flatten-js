@@ -3,10 +3,15 @@
  */
 'use strict';
 
+require('jsdom-global')();
 let expect = require('chai').expect;
 let Flatten = require('../index');
+let PlanarSet = require('../data_structures/planar_set');
+
+let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face} = Flatten;
 
 describe('#Flatten-JS', function() {
+
     it('Version should be 0.0.1', function() {
         let version = Flatten.version;
         expect(version).to.equal("0.0.1");
@@ -16,25 +21,34 @@ describe('#Flatten-JS', function() {
         expect(dp_tol).to.equal(0.000001);
     });
     it('Class Point defined', function() {
-        expect(Flatten.Point).to.exist;
+        expect(Point).to.exist;
     });
     it('Class Vector defined', function() {
-        expect(Flatten.Vector).to.exist;
+        expect(Vector).to.exist;
     });
     it('Class Box defined', function() {
-        expect(Flatten.Box).to.exist;
+        expect(Box).to.exist;
     });
     it('Class Line defined', function() {
-        expect(Flatten.Line).to.exist;
+        expect(Line).to.exist;
     });
     it('Class Circle defined', function() {
-        expect(Flatten.Circle).to.exist;
+        expect(Circle).to.exist;
     });
     it('Class Segment defined', function() {
-        expect(Flatten.Segment).to.exist;
+        expect(Segment).to.exist;
     });
     it('Class Arc defined', function() {
-        expect(Flatten.Arc).to.exist;
+        expect(Arc).to.exist;
+    });
+    it('Class Polygon defined', function() {
+        expect(Polygon).to.exist;
+    });
+    it('Class Face defined', function() {
+        expect(Polygon).to.exist;
+    });
+    it('Class Edge defined', function() {
+        expect(Polygon).to.exist;
     });
 });
 
@@ -570,5 +584,101 @@ describe('#Flatten.Box', function() {
         let box1 = new Flatten.Box(1, 1, 3, 3);
         let box2 = new Flatten.Box(-3, -3, 2, 2);
         expect(box1.merge(box2)).to.deep.equal({xmin:-3, ymin:-3, xmax:3, ymax:3});
+    });
+});
+
+describe('#Data_structures.PlanarSet', function() {
+    let Index = class Dummy {
+        add() {}
+        delete() {}
+        find() {}
+    };
+    it('Class PlanarSet defined', function() {
+        expect(PlanarSet).to.exist;
+    });
+    it('May construct new instance of PlanarSet', function () {
+        let planarSet = new PlanarSet(Index);
+        expect(planarSet).to.be.an.instanceof(PlanarSet);
+    });
+    it('May add planar objects', function () {
+        let planarSet = new PlanarSet(Index);
+        let segment = new Flatten.Segment(1,2,4,5);
+        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
+        planarSet.add(segment);
+        planarSet.add(circle);
+        expect(planarSet.has(segment)).to.equal(true);
+        expect(planarSet.has(circle)).to.equal(true);
+        expect(planarSet.size).to.equal(2);
+    });
+    it('May delete planar objects', function () {
+        let planarSet = new PlanarSet(Index);
+        let segment = new Flatten.Segment(1,2,4,5);
+        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
+        planarSet.add(segment);
+        planarSet.add(circle);
+        planarSet.delete(segment);
+        expect(planarSet.has(segment)).to.equal(false);
+        expect(planarSet.size).to.equal(1);
+    });
+    it('May not add same object twice (without error ?) ', function () {
+        let planarSet = new PlanarSet(Index);
+        let segment = new Flatten.Segment(1,2,4,5);
+        planarSet.add(segment);
+        planarSet.add(segment);
+        expect(planarSet.size).to.equal(1);
+    });
+    it('May find planar objects in given box', function () {
+        let planarSet = new PlanarSet();
+        let segment = new Segment(1,1,2,2);
+        let circle = new Circle(new Point(3,3), 1);
+        planarSet.add(segment);
+        planarSet.add(circle);
+        let resp1 = planarSet.find(new Box(0,0,1,1));
+        let resp2 = planarSet.find(new Box(3,3,3,5));
+        expect(resp1.length).to.equal(1);
+        expect(resp1[0]).to.equal(segment);
+        expect(resp2.length).to.equal(1);
+        expect(resp2[0]).to.equal(circle);
+    });
+
+});
+
+describe('#Flatten.Polygon', function() {
+    it('May create new instance of Polygon', function () {
+        let polygon = new Polygon();
+        expect(polygon).to.be.an.instanceof(Polygon);
+    });
+    it('Default construct creates instance of Polygon faces edges as instances of PlanarSet', function () {
+        let polygon = new Polygon();
+        expect(polygon.edges).to.be.an.instanceof(PlanarSet);
+        expect(polygon.faces).to.be.an.instanceof(PlanarSet);
+    });
+    it('Default construct creates instance of Polygon with 0 faces and 0 edges', function () {
+        let polygon = new Polygon();
+        expect(polygon.edges.size).to.equal(0);
+        expect(polygon.faces.size).to.equal(0);
+    });
+    it('Can construct Polygon from array of 3 points', function () {
+        let polygon = new Polygon();
+        let points = [
+            new Point(1,1), new Point(5,1), new Point(3, 5)
+        ];
+        polygon.addFace(points);
+        expect(polygon.edges.size).to.equal(3);
+        expect(polygon.faces.size).to.equal(1);
+    });
+    it('Can construct Polygon from array of 3 points', function () {
+        let polygon = new Polygon();
+        let points = [
+            new Point(1,1), new Point(5,1), new Point(3, 5)
+        ];
+        let segments = [
+            new Segment(points[0], points[1]),
+            new Segment(points[1], points[2]),
+            new Segment(points[2], points[0])
+        ]
+        polygon.addFace(segments);
+        expect(polygon.edges.size).to.equal(3);
+        expect(polygon.faces.size).to.equal(1);
     });
 });
