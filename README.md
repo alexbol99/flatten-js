@@ -26,6 +26,8 @@ Example above may be visualized using svg output:
         svgcontent += shape.svg();
     }
     let svg = svgstart + svgcontent + svgend;
+    
+![example](https://cloud.githubusercontent.com/assets/6965440/24111445/1310ceb4-0d9f-11e7-9775-2868ec5c4f21.png)
   
 ## Tests
 
