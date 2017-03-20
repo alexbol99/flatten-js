@@ -163,4 +163,10 @@ module.exports = function(Flatten) {
             return new Flatten.Vector(-this.x, -this.y);
         }
     };
+
+    /**
+     * Function to create vector equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.vector = (...args) => new Flatten.Vector(...args);
 };

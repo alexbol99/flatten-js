@@ -240,5 +240,11 @@ module.exports = function(Flatten) {
 
             return ip;
         }
-    }
+    };
+
+    /**
+     * Function to create line equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.line = (...args) => new Flatten.Line(...args);
 };

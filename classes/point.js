@@ -8,6 +8,7 @@
  */
 module.exports = function(Flatten) {
     /**
+     *
      * Class representing a point
      * @type {Point}
      */
@@ -170,6 +171,15 @@ module.exports = function(Flatten) {
             }
         }
 
+        svg(r="5",stroke="black",strokeWidth="1",fill="red") {
+            return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}" stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" />`;
+        }
+
     };
 
+    /**
+     * Function to create point equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.point = (...args) => new Flatten.Point(...args);
 };

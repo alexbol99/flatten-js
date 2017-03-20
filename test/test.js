@@ -7,8 +7,11 @@ require('jsdom-global')();
 let expect = require('chai').expect;
 let Flatten = require('../index');
 let PlanarSet = require('../data_structures/planar_set');
+let fs = require('fs');
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face} = Flatten;
+
+let {point, vector, circle, line, segment, arc} = Flatten;
 
 describe('#Flatten-JS', function() {
 
@@ -60,6 +63,9 @@ describe('#Flatten.Point', function() {
     it('Default constructor creates new (0,0) point', function() {
         let point = new Flatten.Point();
         expect(point).to.deep.equal({x:0, y:0});
+    });
+    it('New point may be constructed by function call', function() {
+        expect(point(1,3)).to.deep.equal({x:1, y:3});
     });
     it('Method clone creates new instance of Point', function() {
         let point1 = new Flatten.Point(2,1);
@@ -211,6 +217,9 @@ describe('#Flatten.Vector', function() {
         let fn = function() { new Flatten.Vector(ps,2) };
         expect(fn).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
     });
+    it('New vector may be constructed by function call', function() {
+        expect(vector(point(1,1), point(3,3))).to.deep.equal({x:2, y:2});
+    });
     it('Method clone creates new instance of Vector', function() {
         let v1 = new Flatten.Vector(2,1);
         let v2 = v1.clone();
@@ -311,6 +320,11 @@ describe('#Flatten.Line', function() {
         expect(fn3).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
         expect(fn4).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
     });
+    it('New line may be constructed by function call', function() {
+        let l = line(point(1,3), point(3,3));
+        expect(l.pt).to.deep.equal({x:1, y:3});
+        expect(l.norm.equalTo(vector(0,1))).to.equal(true);
+    });
     it('Get slope - angle in radians between line and axe x', function() {
         let pt1 = new Flatten.Point(1,1);
         let pt2 = new Flatten.Point(2,2);
@@ -363,6 +377,9 @@ describe('#Flatten.Circle', function() {
         expect(circle.pc).to.deep.equal({x:1, y:1});
         expect(circle.r).to.equal(2);
     });
+    it('New circle may be constructed by function call', function() {
+        expect(circle(point(1,1), 3)).to.deep.equal(new Flatten.Circle(new Flatten.Point(1,1), 3));
+    });
     it('Method contains returns true if point belongs to the circle', function () {
         let pt = new Flatten.Point(0,1);
         let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
@@ -386,6 +403,9 @@ describe('#Flatten.Segment', function() {
         let segment = new Flatten.Segment(ps, pe);
         expect(segment.start).to.deep.equal({x:1, y:1});
         expect(segment.end).to.deep.equal({x:2, y:3});
+    });
+    it('New segment may be constructed by function call', function() {
+        expect(segment(point(1,1), point(2,3))).to.deep.equal(new Flatten.Segment(new Flatten.Point(1,1), new Flatten.Point(2,3)));
     });
     it('Method clone copy to a new instance of Segment', function () {
         let ps = new Flatten.Point(1,1);
@@ -525,6 +545,9 @@ describe('#Flatten.Arc', function() {
         let arc = new Flatten.Arc(new Flatten.Point(), 5, Math.PI/4, Math.PI/4, true);
         expect(arc.sweep).to.equal(0);
     });
+    it('New arc may be constructed by function call', function() {
+        expect(arc(point(), 5, Math.PI, 3*Math.PI, true)).to.deep.equal(new Flatten.Arc(new Flatten.Point(), 5, Math.PI, 3*Math.PI, true));
+    });
     it('Getter arc.start returns start point', function () {
         let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, true);
         expect(arc.start).to.deep.equal({x:Math.cos(-Math.PI/4),y:Math.sin(-Math.PI/4)});
@@ -662,7 +685,7 @@ describe('#Flatten.Polygon', function() {
         expect(polygon.edges.size).to.equal(3);
         expect(polygon.faces.size).to.equal(1);
     });
-    it('Can construct Polygon from array of 3 points', function () {
+    it('Can construct Polygon from array of 3 segments', function () {
         let polygon = new Polygon();
         let points = [
             new Point(1,1), new Point(5,1), new Point(3, 5)
@@ -671,9 +694,70 @@ describe('#Flatten.Polygon', function() {
             new Segment(points[0], points[1]),
             new Segment(points[1], points[2]),
             new Segment(points[2], points[0])
-        ]
+        ];
         polygon.addFace(segments);
         expect(polygon.edges.size).to.equal(3);
         expect(polygon.faces.size).to.equal(1);
     });
+    it('Can construct Polygon with multiple faces', function () {
+        let polygon = new Polygon();
+        let points = [
+            new Point(1,1), new Point(5,1), new Point(3, 5),
+            new Point(-1,-1), new Point(-5,-1), new Point(-3, -5),
+        ];
+        let segments1 = [
+            new Segment(points[0], points[1]),
+            new Segment(points[1], points[2]),
+            new Segment(points[2], points[0])
+        ];
+        let segments2 = [
+            new Segment(points[3], points[4]),
+            new Segment(points[4], points[5]),
+            new Segment(points[5], points[3])
+        ];
+        polygon.addFace(segments1);
+        polygon.addFace(segments2);
+        expect(polygon.edges.size).to.equal(6);
+        expect(polygon.faces.size).to.equal(2);
+    });
+});
+
+describe('#SVG Methods', function() {
+    it('Create svg legal string for point', function() {
+        let pt = point(3,4);
+        console.log(pt.svg());
+    });
+    it('Create svg legal string for circle', function() {
+        console.log(circle(point(3,4),5).svg());
+    });
+    it('Create svg legal string for segment', function() {
+        console.log(segment(point(3,4),point(5,6)).svg());
+    });
+    it('Create svg legal string for arc', function() {
+        console.log(arc(point(),10,Math.PI/4,3*Math.PI/4,true).svg());
+    });
+    it('Create svg file', function() {
+        let svgstart = `<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">`;
+        let svgend = `</svg>`;
+
+        let s1 = segment(10,10,200,200);
+        let s2 = segment(10,160,200,30);
+        let c = circle(point(200, 110), 50);
+        let ip = s1.intersect(s2);
+
+        let svgcontent = "";
+        for (let shape of [s1, s2, c, ip[0]]) {
+            svgcontent += shape.svg();
+        }
+        let svg = svgstart + svgcontent + svgend;
+
+        fs.writeFile("example.svg", svg, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+
+            console.log("The file was saved!");
+        });
+    });
+
 });

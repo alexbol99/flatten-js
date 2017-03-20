@@ -82,5 +82,5 @@ module.exports = function(Flatten) {
             this.xmax = xmax;
             this.ymax = ymax;
         }
-    }
+    };
 };

@@ -2,7 +2,14 @@
  * Created by Alex Bol on 3/12/2017.
  */
 
+/**
+ * Class representing a planar set - a generic container with ability to contain shapes and perform spatial queries
+ */
 class PlanarSet extends Set {
+    /**
+     *
+     * @param Index
+     */
     constructor(Index) {
         super();
         this.index = null;

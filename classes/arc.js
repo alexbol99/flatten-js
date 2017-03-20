@@ -6,7 +6,7 @@
 
 module.exports = function(Flatten) {
     /**
-     * Class representinf circlular arc
+     * Class representing a circlular arc
      * @type {Arc}
      */
     Flatten.Arc = class Arc {
@@ -332,5 +332,19 @@ module.exports = function(Flatten) {
             }
             return ip;
         }
-    }
+
+        svg(stroke="black", strokeWidth="1") {
+            let largeArcFlag = this.sweep <= Math.PI ? "0" : "1";
+            // let sweepFlag = this.counterClockwise ?
+            return `<path d="M${this.start.x} ${this.start.y}
+                             A ${this.r} ${this.r} 0 ${largeArcFlag} 0 ${this.end.x} ${this.end.y}"
+                    stroke="${stroke}" stroke-width="${strokeWidth}"/>`
+        }
+    };
+
+    /**
+     * Function to create arc equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.arc = (...args) => new Flatten.Arc(...args);
 };
