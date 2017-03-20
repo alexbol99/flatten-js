@@ -19,13 +19,8 @@
 
 Example above may be visualized using svg output:
 
-    let svgstart = `<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">`;
-    let svgend = `</svg>`;
-    let svgcontent = "";
-    for (let shape of [s1, s2, c, ip[0]]) {
-        svgcontent += shape.svg();
-    }
-    let svg = svgstart + svgcontent + svgend;
+    let svg=[s1, s2, c, ip[0]].reduce((acc,shape) => acc + shape.svg(),"");
+    document.getElementById("graphics").innerHTML = svg;
     
 ![example](https://cloud.githubusercontent.com/assets/6965440/24111445/1310ceb4-0d9f-11e7-9775-2868ec5c4f21.png)
   
