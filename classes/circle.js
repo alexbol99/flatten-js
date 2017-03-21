@@ -111,7 +111,7 @@ module.exports = function(Flatten) {
                 return ip;
             }
 
-            let dist = circle1.pc.distTo(circle2.pc);
+            let dist = circle1.pc.distanceTo(circle2.pc);
 
             if (Flatten.Utils.GT(dist, r1 + r2))               // circles too far, no intersections
                 return ip;

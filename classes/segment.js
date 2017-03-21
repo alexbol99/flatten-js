@@ -183,6 +183,12 @@ module.exports = function(Flatten) {
             return dist;
         };
 
+        definiteIntegral(ymin=0.0) {
+            let dx = this.end.x - this.start.x;
+            let dy1 = this.start.y - ymin;
+            let dy2 = this.end.y - ymin;
+            return ( dx*(dy1 + dy2)/2 );
+        }
         static intersectSegment2Line(seg, line) {
             let ip = [];
             let zero_segment = Flatten.Utils.EQ_0(seg.length);
@@ -283,7 +289,7 @@ module.exports = function(Flatten) {
             let ip_tmp = line.intersect(circle);
 
             for (let pt of ip_tmp) {
-                if (pt.on(seg) && pt.on(arc)) {
+                if (pt.on(segment) && pt.on(arc)) {
                     ip.push(pt);
                 }
             }

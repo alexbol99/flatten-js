@@ -265,6 +265,66 @@ module.exports = function(Flatten) {
             return Math.min(distToCircle, Math.min(distToStart, distToEnd));
         }
 
+        /**
+         * Returns array of sub-arcs broken in extreme point 0, pi/2, pi, 3*pi/2
+         * @returns {Array}
+         */
+        breakToFunctional() {
+            let func_arcs_array = [];
+            let angles = [0, Math.PI/2, 2*Math.PI/2, 3*Math.PI/2];
+            let pts = [
+                this.pc.translate(this.r,0),
+                this.pc.translate(0,this.r),
+                this.pc.translate(-this.r,0),
+                this.pc.translate(0,-this.r)
+            ];
+
+            // If arc contains extreme point,
+            // create test arc started at start point and ended at this extreme point
+            let test_arcs = [];
+            for (let i=0; i < 4; i++) {
+                if (pts[i].on(this)) {
+                    test_arcs.push(new Flatten.Arc(this.pc, this.r, this.startAngle, angles[i], this.counterClockwise));
+                }
+            }
+
+            if (test_arcs.length == 0) {                  // arc does contain any extreme point
+                func_arcs_array.push(this.clone());
+            }
+            else {                                        // arc passes extreme point
+                // sort these arcs by length
+                test_arcs.sort((arc1, arc2) => arc1.length - arc2.length);
+
+                for (let i = 0; i < test_arcs.length; i++) {
+                    let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
+                    let new_arc;
+                    if (prev_arc) {
+                        new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, test_arcs[i].endAngle, this.counterClockwise);
+                    }
+                    else {
+                        new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, test_arcs[i].endAngle, this.counterClockwise);
+                    }
+                    if (!Flatten.Utils.EQ_0(new_arc.length)) {
+                        func_arcs_array.push(new_arc.clone());
+                    }
+                }
+
+                // add last sub arc
+                let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
+                let new_arc;
+                if (prev_arc) {
+                    new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, this.endAngle, this.counterClockwise);
+                }
+                else {
+                    new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, this.endAngle, this.counterClockwise);
+                }
+                if (!Flatten.Utils.EQ_0(new_arc.length)) {
+                    func_arcs_array.push(new_arc.clone());
+                }
+            }
+            return func_arcs_array;
+        }
+
         static intersectArc2Arc(arc1, arc2) {
             var ip = [];
 
@@ -331,6 +391,29 @@ module.exports = function(Flatten) {
                 }
             }
             return ip;
+        }
+
+        definiteIntegral(ymin=0) {
+            let f_arcs = this.breakToFunctional();
+            let area = 0.0;
+            for (arc of f_arcs) {
+                area = area + arc.circularSegmentArea(ymin);
+            }
+            return area;
+        }
+
+        static circularSegmentDefiniteIntegral(ymin) {
+            let line = new Flatten.Line(this.start, this.end);
+            let onLeftSide = this.pc.leftTo(line);
+            let segment = new Flatten.Segment(this.start, this.end);
+            let areaTrapez = segment.definiteIntegral(ymin);
+            let areaCircularSegment = this.circularSegmentArea();
+            let area = onLeftSide ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
+            return area;
+        }
+
+        static circularSegmentArea() {
+            return (0.5*this.r*this.r(this.sweep - Math.sin(this.sweep)))
         }
 
         svg(stroke="black", strokeWidth="1") {
