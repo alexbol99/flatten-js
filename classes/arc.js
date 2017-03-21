@@ -41,6 +41,9 @@ module.exports = function(Flatten) {
         get sweep() {
             if (Flatten.Utils.EQ(this.startAngle, this.endAngle))
                 return 0.0;                    // or Flatten.PIx2 ? - no zero arcs
+            if (Flatten.Utils.EQ(Math.abs(this.startAngle - this.endAngle), Flatten.PIx2)) {
+                return Flatten.PIx2;
+            }
             if (this.counterClockwise) {
                 return (Flatten.Utils.GT(this.endAngle, this.startAngle) ?
                     this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2);
@@ -55,7 +58,7 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         get start() {
-            let p0 = new Flatten.Point(this.r,0);
+            let p0 = new Flatten.Point(this.pc.x + this.r, this.pc.y);
             return p0.rotate(this.startAngle, this.pc);
         }
 
@@ -64,7 +67,7 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         get end() {
-            let p0 = new Flatten.Point(this.r,0);
+            let p0 = new Flatten.Point(this.pc.x + this.r, this.pc.y);
             return p0.rotate(this.endAngle, this.pc);
         }
 
@@ -395,14 +398,14 @@ module.exports = function(Flatten) {
 
         definiteIntegral(ymin=0) {
             let f_arcs = this.breakToFunctional();
-            let area = 0.0;
-            for (arc of f_arcs) {
-                area = area + arc.circularSegmentArea(ymin);
-            }
+            let area = f_arcs.reduce( (acc, arc) => acc + arc.circularSegmentDefiniteIntegral(ymin), 0.0 );
+            // for (arc of f_arcs) {
+            //     area = area + arc.circularSegmentArea(ymin);
+            // }
             return area;
         }
 
-        static circularSegmentDefiniteIntegral(ymin) {
+        circularSegmentDefiniteIntegral(ymin) {
             let line = new Flatten.Line(this.start, this.end);
             let onLeftSide = this.pc.leftTo(line);
             let segment = new Flatten.Segment(this.start, this.end);
@@ -412,8 +415,8 @@ module.exports = function(Flatten) {
             return area;
         }
 
-        static circularSegmentArea() {
-            return (0.5*this.r*this.r(this.sweep - Math.sin(this.sweep)))
+        circularSegmentArea() {
+            return (0.5*this.r*this.r*(this.sweep - Math.sin(this.sweep)))
         }
 
         svg(stroke="black", strokeWidth="1") {

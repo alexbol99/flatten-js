@@ -686,6 +686,16 @@ describe('#Flatten.Arc', function() {
             expect(ip.length).to.equal(4);
         });
     });
+    it('Calculate signed area under circular arc, full circle case, CCW', function() {
+        let arc = new Arc(point(0,1), 1, 0, 2*Math.PI, true);
+        let area = arc.definiteIntegral();
+        expect( Flatten.Utils.EQ(area, -Math.PI)).to.equal(true);
+    });
+    it('Calculate signed area under circular arc, full circle case, CW', function() {
+        let arc = new Arc(point(0,1), 1, 0, 2*Math.PI, false);
+        let area = arc.definiteIntegral();
+        expect( Flatten.Utils.EQ(area, Math.PI)).to.equal(true);
+    });
 });
 
 describe('#Flatten.Box', function() {
