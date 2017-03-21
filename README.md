@@ -26,7 +26,13 @@ Example above may be visualized using svg output:
   
 ## Tests
 
-   `npm test`
+Run following command in your project directory in order to install development dependencies:
+    
+    npm install --only=dev
+    
+Then you can run tests:
+    
+    npm test
 
 ## Documentation
 
