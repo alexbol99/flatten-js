@@ -3,8 +3,6 @@
  */
 'use strict';
 
-console.log('flatten-js from github');
-
 let Utils = require("./utils/utils");
 let Errors = require("./utils/errors");
 
