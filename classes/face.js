@@ -66,9 +66,16 @@ module.exports = function(Flatten) {
                 this.last = edge;
             }
             else {
+                // append to end
                 edge.prev = this.last;
-                edge.next = this.first;
+                this.last.next = edge;
+
+                // update edge to be last
                 this.last = edge;
+
+                // restore circlar links
+                this.last.next = this.first;
+                this.first.prev = this.last;
             }
         }
 
@@ -88,6 +95,20 @@ module.exports = function(Flatten) {
 
         setBox() {
 
+        }
+
+        svg() {
+            // todo: draw circular face as spacial case?
+            let edge = this.first;
+            let svgStr = `\nM${edge.start.x},${edge.start.y}`;
+
+            do {
+                svgStr += edge.svg();
+                edge = edge.next;
+            } while(edge !== this.first);
+
+            svgStr += ` z`;
+            return svgStr;
         }
     };
 };

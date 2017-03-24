@@ -46,5 +46,23 @@ module.exports = function(Flatten) {
             this.faces.add(face);
             return this;
         }
+
+        /**
+         * Return string to draw polygon in svg
+         * @param attrs  - json structure with any attributes allowed to svg <path> element,\n
+         * like "stroke", "strokeWidth", "fill", "fillRule"\n
+         * Defaults are stroke:"black", strokeWidth:"3", fill:"lightcyan", fillRule:"evenodd"
+         * @returns {string}
+         */
+        svg(attrs = {stroke:"black", strokeWidth:"3", fill:"lightcyan", fillRule:"evenodd"}) {
+            let {stroke, strokeWidth, fill, fillRule} = attrs;
+            let svgStr = `\n<path stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" fill-rule="${fillRule}" d="`;
+            for (let face of this.faces) {
+                svgStr += face.svg();
+            }
+            svgStr += `">\n</path>`;
+
+            return svgStr;
+        }
     }
 };

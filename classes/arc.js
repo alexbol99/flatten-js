@@ -428,6 +428,13 @@ module.exports = function(Flatten) {
             return (0.5*this.r*this.r*(this.sweep - Math.sin(this.sweep)))
         }
 
+        /**
+         * Return string to draw arc in svg
+         * @param attrs - json structure with any attributes allowed to svg <path> element,\n
+         * like "stroke", "strokeWidth", "fill"\n
+         * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
+         * @returns {string}
+         */
         svg(attrs = {stroke:"black", strokeWidth:"3", fill:"none"}) {
             let largeArcFlag = this.sweep <= Math.PI ? "0" : "1";
             let sweepFlag = this.counterClockwise ? "1" : "0";

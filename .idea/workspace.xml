@@ -4,12 +4,14 @@
     <bookmark url="file://$PROJECT_DIR$/test/test.js" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Fix arc sweep calculation and arc svg representation">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/arc.js" afterPath="$PROJECT_DIR$/classes/arc.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/circle.js" afterPath="$PROJECT_DIR$/classes/circle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/edge.js" afterPath="$PROJECT_DIR$/classes/edge.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/face.js" afterPath="$PROJECT_DIR$/classes/face.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/point.js" afterPath="$PROJECT_DIR$/classes/point.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/segment.js" afterPath="$PROJECT_DIR$/classes/segment.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/polygon.js" afterPath="$PROJECT_DIR$/classes/polygon.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test.js" afterPath="$PROJECT_DIR$/test/test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -31,36 +33,25 @@
       <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/arc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+            <state relative-caret-position="167">
+              <caret line="434" column="68" lean-forward="true" selection-start-line="432" selection-start-column="23" selection-end-line="434" selection-end-column="68" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <marker date="1490343552537" expanded="true" signature="15893:15978" ph="..." />
-                <marker date="1490343552537" expanded="true" signature="15893:16068" ph="..." />
+                <marker date="1490355236723" expanded="true" signature="16203:16288" ph="..." />
+                <marker date="1490355236723" expanded="true" signature="16203:16378" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="circle.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/circle.js">
+      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/planar_set.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="158" column="51" lean-forward="false" selection-start-line="158" selection-start-column="51" selection-end-line="158" selection-end-column="51" />
+            <state relative-caret-position="-819">
+              <caret line="8" column="57" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="57" />
               <folding>
-                <element signature="e#0#43#0" expanded="false" />
-                <marker date="1490341074207" expanded="true" signature="4652:4718" ph="..." />
+                <element signature="e#0#44#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/line.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="250" column="0" lean-forward="true" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -68,11 +59,41 @@
       <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/segment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="300" column="46" lean-forward="false" selection-start-line="300" selection-start-column="46" selection-end-line="300" selection-end-column="46" />
+            <state relative-caret-position="379">
+              <caret line="306" column="2" lean-forward="true" selection-start-line="306" selection-start-column="2" selection-end-line="306" selection-end-column="2" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="309">
+              <caret line="53" column="93" lean-forward="false" selection-start-line="53" selection-start-column="93" selection-end-line="53" selection-end-column="93" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/face.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="107" column="41" lean-forward="false" selection-start-line="107" selection-start-column="41" selection-end-line="107" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edge.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/edge.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="38" column="64" lean-forward="false" selection-start-line="38" selection-start-column="64" selection-end-line="38" selection-end-column="64" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,29 +102,32 @@
         <entry file="file://$PROJECT_DIR$/classes/point.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="299">
-              <caret line="174" column="55" lean-forward="false" selection-start-line="174" selection-start-column="55" selection-end-line="174" selection-end-column="55" />
+              <caret line="177" column="31" lean-forward="false" selection-start-line="177" selection-start-column="31" selection-end-line="177" selection-end-column="31" />
               <folding>
-                <marker date="1490341007083" expanded="true" signature="5657:5722" ph="..." />
+                <marker date="1490355333762" expanded="true" signature="6026:6091" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/utils.js">
+      <file leaf-file-name="circle.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/circle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="20" column="3" lean-forward="false" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
-              <folding />
+            <state relative-caret-position="260">
+              <caret line="161" column="68" lean-forward="true" selection-start-line="159" selection-start-column="26" selection-end-line="161" selection-end-column="68" />
+              <folding>
+                <element signature="e#0#43#0" expanded="false" />
+                <marker date="1490355216347" expanded="true" signature="4967:5033" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="813" column="0" lean-forward="false" selection-start-line="813" selection-start-column="0" selection-end-line="813" selection-end-column="0" />
+            <state relative-caret-position="431">
+              <caret line="868" column="8" lean-forward="false" selection-start-line="868" selection-start-column="8" selection-end-line="868" selection-end-column="8" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
               </folding>
@@ -111,11 +135,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="example.svg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example.svg">
+      <file leaf-file-name="example3.svg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example3.svg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="88">
+              <caret line="6" column="6" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -167,13 +191,10 @@
         <option value="$PROJECT_DIR$/node_modules/jsdoc/templates/default/publish.js" />
         <option value="$PROJECT_DIR$/.jsdoc.json" />
         <option value="$PROJECT_DIR$/data_structures/box_tree.js" />
-        <option value="$PROJECT_DIR$/classes/edge.js" />
         <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/classes/face.js" />
         <option value="$PROJECT_DIR$/svg/example.svg" />
         <option value="$PROJECT_DIR$/classes/example.js" />
         <option value="$PROJECT_DIR$/data_structures/planar_set.js" />
-        <option value="$PROJECT_DIR$/classes/polygon.js" />
         <option value="$PROJECT_DIR$/classes/box.js" />
         <option value="$PROJECT_DIR$/classes/line.js" />
         <option value="$PROJECT_DIR$/classes/vector.js" />
@@ -181,11 +202,15 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/test/planar_set.js" />
         <option value="$PROJECT_DIR$/example.svg" />
-        <option value="$PROJECT_DIR$/classes/point.js" />
         <option value="$PROJECT_DIR$/classes/segment.js" />
+        <option value="$PROJECT_DIR$/example3.svg" />
+        <option value="$PROJECT_DIR$/classes/edge.js" />
+        <option value="$PROJECT_DIR$/classes/face.js" />
+        <option value="$PROJECT_DIR$/test/test.js" />
         <option value="$PROJECT_DIR$/classes/circle.js" />
         <option value="$PROJECT_DIR$/classes/arc.js" />
-        <option value="$PROJECT_DIR$/test/test.js" />
+        <option value="$PROJECT_DIR$/classes/point.js" />
+        <option value="$PROJECT_DIR$/classes/polygon.js" />
       </list>
     </option>
   </component>
@@ -205,10 +230,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="376" />
-    <option name="y" value="57" />
-    <option name="width" value="1543" />
-    <option name="height" value="928" />
+    <option name="x" value="206" />
+    <option name="y" value="26" />
+    <option name="width" value="1708" />
+    <option name="height" value="950" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -318,70 +343,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Mocha.#SVG Methods.Create svg file">
-    <configuration default="false" name="#Flatten.Arc.#Flatten.Arc.breakToFunctional" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/test.js</test-file>
-      <test-names>
-        <name value="#Flatten.Arc" />
-        <name value="#Flatten.Arc.breakToFunctional" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="#Flatten.Arc.Calculate signed area under circular arc, full circle case" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/test.js</test-file>
-      <test-names>
-        <name value="#Flatten.Arc" />
-        <name value="Calculate signed area under circular arc, full circle case" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/test.js</test-file>
-      <test-names>
-        <name value="#Flatten.Arc" />
-        <name value="Calculate signed area under circular arc, full circle case, CW" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="#SVG Methods" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/test.js</test-file>
-      <test-names>
-        <name value="#SVG Methods" />
-      </test-names>
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Mocha.#SVG Methods.Create svg file 3">
     <configuration default="false" name="#SVG Methods.Create svg file" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -395,6 +357,70 @@
       <test-names>
         <name value="#SVG Methods" />
         <name value="Create svg file" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#SVG Methods.Create svg legal string for arc" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
+      <test-names>
+        <name value="#SVG Methods" />
+        <name value="Create svg legal string for arc" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#SVG Methods.Create svg file 2" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
+      <test-names>
+        <name value="#SVG Methods" />
+        <name value="Create svg file 2" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#SVG Methods.Create svg file 3" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
+      <test-names>
+        <name value="#SVG Methods" />
+        <name value="Create svg file 3" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#SVG Methods.Create svg legal string for point" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
+      <test-names>
+        <name value="#SVG Methods" />
+        <name value="Create svg legal string for point" />
       </test-names>
       <method />
     </configuration>
@@ -465,19 +491,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.#Flatten.Arc.breakToFunctional" />
-      <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case" />
-      <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" />
-      <item index="3" class="java.lang.String" itemvalue="Mocha.#SVG Methods" />
-      <item index="4" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file" />
+      <item index="0" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file" />
+      <item index="1" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg legal string for arc" />
+      <item index="2" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file 2" />
+      <item index="3" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file 3" />
+      <item index="4" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg legal string for point" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file" />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.#SVG Methods" />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.#Flatten.Arc.breakToFunctional" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file 3" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg legal string for point" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file 2" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg legal string for arc" />
       </list>
     </recent_temporary>
   </component>
@@ -510,7 +536,7 @@
       <workItem from="1490114298485" duration="32000" />
       <workItem from="1490114353316" duration="151000" />
       <workItem from="1490114755393" duration="13133000" />
-      <workItem from="1490134299983" duration="10670000" />
+      <workItem from="1490134299983" duration="22053000" />
     </task>
     <task id="LOCAL-00001" summary="some changes">
       <created>1487422880939</created>
@@ -694,63 +720,70 @@
       <option name="project" value="LOCAL" />
       <updated>1490137638118</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Fix arc sweep calculation and arc svg representation">
+      <created>1490344007343</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1490344007343</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 43m 41s.xml">
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 14h 19m 17s.xml">
       <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 44m 10s.xml">
-      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file_3 - 2017.03.24 at 14h 10m 45s.xml">
+      <configuration name="#SVG Methods.Create svg file 3" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 44m 47s.xml">
-      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file_3 - 2017.03.24 at 14h 15m 48s.xml">
+      <configuration name="#SVG Methods.Create svg file 3" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 45m 25s.xml">
-      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file_3 - 2017.03.24 at 14h 17m 02s.xml">
+      <configuration name="#SVG Methods.Create svg file 3" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 47m 58s.xml">
-      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file_3 - 2017.03.24 at 14h 21m 04s.xml">
+      <configuration name="#SVG Methods.Create svg file 3" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 53m 49s.xml">
-      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file_3 - 2017.03.24 at 14h 21m 56s.xml">
+      <configuration name="#SVG Methods.Create svg file 3" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 56m 49s.xml">
-      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file_3 - 2017.03.24 at 14h 23m 48s.xml">
+      <configuration name="#SVG Methods.Create svg file 3" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 57m 25s.xml">
-      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file_3 - 2017.03.24 at 14h 24m 05s.xml">
+      <configuration name="#SVG Methods.Create svg file 3" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 11h 18m 38s.xml">
-      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file_3 - 2017.03.24 at 14h 24m 17s.xml">
+      <configuration name="#SVG Methods.Create svg file 3" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 11h 19m 21s.xml">
-      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_legal_string_for_point - 2017.03.24 at 14h 17m 44s.xml">
+      <configuration name="#SVG Methods.Create svg legal string for point" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177829000" />
+    <option name="totallyTimeSpent" value="189212000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="376" y="57" width="1543" height="928" extended-state="0" />
+    <frame x="206" y="26" width="1708" height="950" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2039867" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18383233" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4486346" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4486346" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32869786" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31858408" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.49661538" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38231468" sideWeight="0.49768057" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48114434" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3817952" sideWeight="0.49768057" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48040456" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297362" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -793,7 +826,7 @@
           <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="32" />
+      <option name="time" value="39" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
@@ -802,19 +835,12 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/utils/utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/point.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
           <folding>
-            <marker date="1490341007083" expanded="true" signature="5657:5722" ph="..." />
+            <marker date="1490355333762" expanded="true" signature="6026:6091" ph="..." />
           </folding>
         </state>
       </provider>
@@ -987,13 +1013,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-326">
-          <caret line="50" column="7" lean-forward="false" selection-start-line="50" selection-start-column="7" selection-end-line="50" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1012,24 +1031,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="46" column="24" lean-forward="true" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/box.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="362">
           <caret line="84" column="6" lean-forward="false" selection-start-line="84" selection-start-column="6" selection-end-line="84" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/edge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="4" column="2" lean-forward="false" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -1061,25 +1066,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/planar_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="8" column="57" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
           <caret line="20" column="3" lean-forward="false" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1092,20 +1082,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/point.js">
+    <entry file="file://$PROJECT_DIR$/example.svg">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="174" column="55" lean-forward="false" selection-start-line="174" selection-start-column="55" selection-end-line="174" selection-end-column="55" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1490341007083" expanded="true" signature="5657:5722" ph="..." />
+            <marker date="1490354357806" expanded="true" signature="315:380" ph="..." />
+            <marker date="1490354357806" expanded="true" signature="452:517" ph="..." />
+            <marker date="1490354357806" expanded="true" signature="589:654" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/segment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="300" column="46" lean-forward="false" selection-start-line="300" selection-start-column="46" selection-end-line="300" selection-end-column="46" />
+        <state relative-caret-position="379">
+          <caret line="306" column="2" lean-forward="true" selection-start-line="306" selection-start-column="2" selection-end-line="306" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/planar_set.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-819">
+          <caret line="8" column="57" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example3.svg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="6" column="6" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/edge.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="38" column="64" lean-forward="false" selection-start-line="38" selection-start-column="64" selection-end-line="38" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/face.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="107" column="41" lean-forward="false" selection-start-line="107" selection-start-column="41" selection-end-line="107" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="868" column="8" lean-forward="false" selection-start-line="868" selection-start-column="8" selection-end-line="868" selection-end-column="8" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
           </folding>
@@ -1114,34 +1150,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/circle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="158" column="51" lean-forward="false" selection-start-line="158" selection-start-column="51" selection-end-line="158" selection-end-column="51" />
+        <state relative-caret-position="260">
+          <caret line="161" column="68" lean-forward="true" selection-start-line="159" selection-start-column="26" selection-end-line="161" selection-end-column="68" />
           <folding>
             <element signature="e#0#43#0" expanded="false" />
-            <marker date="1490341074207" expanded="true" signature="4652:4718" ph="..." />
+            <marker date="1490355216347" expanded="true" signature="4967:5033" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/point.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="177" column="31" lean-forward="false" selection-start-line="177" selection-start-column="31" selection-end-line="177" selection-end-column="31" />
+          <folding>
+            <marker date="1490355333762" expanded="true" signature="6026:6091" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/arc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+        <state relative-caret-position="167">
+          <caret line="434" column="68" lean-forward="true" selection-start-line="432" selection-start-column="23" selection-end-line="434" selection-end-column="68" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <marker date="1490343552537" expanded="true" signature="15893:15978" ph="..." />
-            <marker date="1490343552537" expanded="true" signature="15893:16068" ph="..." />
+            <marker date="1490355236723" expanded="true" signature="16203:16288" ph="..." />
+            <marker date="1490355236723" expanded="true" signature="16203:16378" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test.js">
+    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="813" column="0" lean-forward="false" selection-start-line="813" selection-start-column="0" selection-end-line="813" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="309">
+          <caret line="53" column="93" lean-forward="false" selection-start-line="53" selection-start-column="93" selection-end-line="53" selection-end-column="93" />
+          <folding />
         </state>
       </provider>
     </entry>

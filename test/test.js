@@ -811,13 +811,16 @@ describe('#SVG Methods', function() {
             a.end
         ];
 
+        let parts = a.breakToFunctional();
         /*
         let s1 = segment(10,10,200,200);
         let s2 = segment(10,160,200,30);
         let c = circle(point(200, 110), 50);
         let ip = s1.intersect(s2);*/
 
-        let svgcontent = shapes.reduce((acc, shape) => acc + shape.svg(), "");
+        // let svgcontent = shapes.reduce((acc, shape) => acc + shape.svg(), "");
+
+        let svgcontent = parts.reduce((acc, shape) => acc + shape.svg(), "");
 
         fs.writeFile("example.svg", svgstart + svgcontent + svgend, function(err) {
             if(err) {
@@ -827,6 +830,51 @@ describe('#SVG Methods', function() {
             console.log("The file was saved!");
         });
     });
+
+    it('Create svg file 2', function() {
+        let svgstart = `<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">`;
+        let svgend = `</svg>`;
+
+        // let a = arc(point(200, 150), 100, Math.PI/6, Math.PI/3, true ); // ok
+        // let a = arc(point(200, 150), 100, Math.PI/6, 3*Math.PI/4, true ); // ok
+        // let a = arc(point(200, 150), 100, Math.PI/6, Math.PI + Math.PI/6, true ); // ok
+        // let a = arc(point(200, 150), 100, Math.PI/6, 3*Math.PI/2, true ); // ok
+        // let a = arc(point(200, 150), 100, Math.PI/6, -Math.PI/6, true ); // ok
+        // let a = arc(point(200, 150), 100, Math.PI/6, 0, true ); // ok
+        let a = arc(point(200, 150), 100, Math.PI/6, Math.PI/12, true ); // ok
+        // let a = arc(point(200, 150), 100, -Math.PI/6, 2*Math.PI, false );
+        let parts = a.breakToFunctional();
+        let svgcontent = parts.reduce((acc, shape) => acc + shape.svg() + shape.start.svg(), "");
+
+        fs.writeFile("example2.svg", svgstart + svgcontent + svgend, function(err) {});
+    });
+
+    it('Create svg file 3', function() {
+        let svgstart = `<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">`;
+        let svgend = `\n</svg>`;
+
+        let polygon = new Polygon();
+
+        let vertices1 = [point(50,50), point(50,250), point(250, 250), point(250,50)];
+        let vertices2 = [point(100,100), point(200,100), point(200, 200), point(100,200)];
+
+        let arcs = [
+            arc(point(100,100), 50, 0, Math.PI/2, true),
+            arc(point(100,200), 50, -Math.PI/2, 0, true),
+            arc(point(200,200), 50, Math.PI, 3*Math.PI/2, true),
+            arc(point(200,100), 50, Math.PI/2, Math.PI, true),
+        ];
+
+        polygon.addFace(vertices1);
+        polygon.addFace(vertices2);
+        polygon.addFace(arcs);
+
+        let svgcontent = polygon.svg();
+        // svgcontent += arcs.reduce((acc, shape) => acc + shape.svg(), svgcontent);
+
+        fs.writeFile("example3.svg", svgstart + svgcontent + svgend, function(err) {});
+    });
+
 });
 
 
