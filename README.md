@@ -24,6 +24,8 @@ Example above may be visualized using svg output:
     
 ![example](https://cloud.githubusercontent.com/assets/6965440/24111445/1310ceb4-0d9f-11e7-9775-2868ec5c4f21.png)
   
+[![view on requirebin](http://requirebin.com/badge.png)](http://requirebin.com/?gist=2bf8335f4655f103ba500b647e70f1fc)
+
 ## Tests
 
 Run following command in your project directory in order to install development dependencies:
