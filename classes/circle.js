@@ -155,7 +155,8 @@ module.exports = function(Flatten) {
             return ip;
         }
 
-        svg(stroke="black",strokeWidth="3",fill="none") {
+        svg(attrs = {stroke:"black",strokeWidth:"3",fill:"none"}) {
+            let {stroke, strokeWidth, fill} = attrs;
             return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" />`;
         }
     };

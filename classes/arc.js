@@ -44,13 +44,22 @@ module.exports = function(Flatten) {
             if (Flatten.Utils.EQ(Math.abs(this.startAngle - this.endAngle), Flatten.PIx2)) {
                 return Flatten.PIx2;
             }
+            let sweep;
             if (this.counterClockwise) {
-                return (Flatten.Utils.GT(this.endAngle, this.startAngle) ?
-                    this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2);
+                sweep = Flatten.Utils.GT(this.endAngle, this.startAngle) ?
+                    this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2;
             } else {
-                return (Flatten.Utils.GT(this.startAngle, this.endAngle) ?
-                    this.startAngle - this.endAngle : this.startAngle - this.endAngle + Flatten.PIx2);
+                sweep = Flatten.Utils.GT(this.startAngle, this.endAngle) ?
+                    this.startAngle - this.endAngle : this.startAngle - this.endAngle + Flatten.PIx2;
             }
+
+            if ( Flatten.Utils.GT(sweep, Flatten.PIx2) ) {
+                sweep -= Flatten.PIx2;
+            }
+            if ( Flatten.Utils.LT(sweep, 0) ) {
+                sweep += Flatten.PIx2;
+            }
+            return sweep;
         }
 
         /**
@@ -419,12 +428,20 @@ module.exports = function(Flatten) {
             return (0.5*this.r*this.r*(this.sweep - Math.sin(this.sweep)))
         }
 
-        svg(stroke="black", strokeWidth="1") {
+        svg(attrs = {stroke:"black", strokeWidth:"3", fill:"none"}) {
             let largeArcFlag = this.sweep <= Math.PI ? "0" : "1";
-            // let sweepFlag = this.counterClockwise ?
-            return `<path d="M${this.start.x} ${this.start.y}
-                             A ${this.r} ${this.r} 0 ${largeArcFlag} 0 ${this.end.x} ${this.end.y}"
-                    stroke="${stroke}" stroke-width="${strokeWidth}"/>`
+            let sweepFlag = this.counterClockwise ? "1" : "0";
+            let {stroke, strokeWidth, fill} = attrs;
+
+            if (Flatten.Utils.EQ(this.sweep, 2*Math.PI)) {
+                let circle = new Flatten.Circle(this.pc, this.r);
+                return circle.svg(attrs);
+            }
+            else {
+                return `\n<path d="M${this.start.x},${this.start.y}
+                             A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
+                    stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}"/>`
+            }
         }
     };
 

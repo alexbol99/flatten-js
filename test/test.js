@@ -783,7 +783,6 @@ describe('#Flatten.Polygon', function() {
     });
 });
 
-/*
 describe('#SVG Methods', function() {
     it('Create svg legal string for point', function() {
         let pt = point(3,4);
@@ -802,18 +801,25 @@ describe('#SVG Methods', function() {
         let svgstart = `<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">`;
         let svgend = `</svg>`;
 
+        let a = arc(point(200, 150), 100, -Math.PI/6, 2*Math.PI, false );
+
+        let shapes = [
+            segment(10, 150, 300, 150),
+            a,
+            a.pc,
+            a.start,
+            a.end
+        ];
+
+        /*
         let s1 = segment(10,10,200,200);
         let s2 = segment(10,160,200,30);
         let c = circle(point(200, 110), 50);
-        let ip = s1.intersect(s2);
+        let ip = s1.intersect(s2);*/
 
-        let svgcontent = "";
-        for (let shape of [s1, s2, c, ip[0]]) {
-            svgcontent += shape.svg();
-        }
-        let svg = svgstart + svgcontent + svgend;
+        let svgcontent = shapes.reduce((acc, shape) => acc + shape.svg(), "");
 
-        fs.writeFile("example.svg", svg, function(err) {
+        fs.writeFile("example.svg", svgstart + svgcontent + svgend, function(err) {
             if(err) {
                 return console.log(err);
             }
@@ -822,5 +828,5 @@ describe('#SVG Methods', function() {
         });
     });
 });
- */
+
 

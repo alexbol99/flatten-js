@@ -297,7 +297,8 @@ module.exports = function(Flatten) {
 
         }
 
-        svg(stroke="black",strokeWidth="3") {
+        svg(attrs = {stroke:"black",strokeWidth:"3"}) {
+            let {stroke, strokeWidth} = attrs;
             return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke}" stroke-width="${strokeWidth}" />`;
         }
     };

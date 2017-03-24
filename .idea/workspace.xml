@@ -4,9 +4,12 @@
     <bookmark url="file://$PROJECT_DIR$/test/test.js" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- 2 arc methods: breakToFunctional and definiteIntegral for area calculation&#10;- Ttests for arc intersection and breakToFunctional">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Fix arc sweep calculation and arc svg representation">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/arc.js" afterPath="$PROJECT_DIR$/classes/arc.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/circle.js" afterPath="$PROJECT_DIR$/classes/circle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/point.js" afterPath="$PROJECT_DIR$/classes/point.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/segment.js" afterPath="$PROJECT_DIR$/classes/segment.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test.js" afterPath="$PROJECT_DIR$/test/test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -28,11 +31,47 @@
       <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/arc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="44" column="36" lean-forward="true" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
+            <state relative-caret-position="277">
+              <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <marker date="1490137564680" expanded="true" signature="15331:15401" ph="..." />
+                <marker date="1490343552537" expanded="true" signature="15893:15978" ph="..." />
+                <marker date="1490343552537" expanded="true" signature="15893:16068" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="circle.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/circle.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="158" column="51" lean-forward="false" selection-start-line="158" selection-start-column="51" selection-end-line="158" selection-end-column="51" />
+              <folding>
+                <element signature="e#0#43#0" expanded="false" />
+                <marker date="1490341074207" expanded="true" signature="4652:4718" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/line.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="250" column="0" lean-forward="true" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/segment.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="233">
+              <caret line="300" column="46" lean-forward="false" selection-start-line="300" selection-start-column="46" selection-end-line="300" selection-end-column="46" />
+              <folding>
+                <element signature="e#0#44#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -41,10 +80,10 @@
       <file leaf-file-name="point.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/point.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="169" column="15" lean-forward="false" selection-start-line="169" selection-start-column="15" selection-end-line="169" selection-end-column="15" />
+            <state relative-caret-position="299">
+              <caret line="174" column="55" lean-forward="false" selection-start-line="174" selection-start-column="55" selection-end-line="174" selection-end-column="55" />
               <folding>
-                <marker date="1490027258202" expanded="true" signature="5591:5656" ph="..." />
+                <marker date="1490341007083" expanded="true" signature="5657:5722" ph="..." />
               </folding>
             </state>
           </provider>
@@ -63,11 +102,21 @@
       <file leaf-file-name="test.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="698" column="0" lean-forward="false" selection-start-line="698" selection-start-column="0" selection-end-line="698" selection-end-column="0" />
+            <state relative-caret-position="310">
+              <caret line="813" column="0" lean-forward="false" selection-start-line="813" selection-start-column="0" selection-end-line="813" selection-end-column="0" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="example.svg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example.svg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -128,13 +177,13 @@
         <option value="$PROJECT_DIR$/classes/box.js" />
         <option value="$PROJECT_DIR$/classes/line.js" />
         <option value="$PROJECT_DIR$/classes/vector.js" />
-        <option value="$PROJECT_DIR$/example.svg" />
-        <option value="$PROJECT_DIR$/classes/point.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/test/planar_set.js" />
-        <option value="$PROJECT_DIR$/classes/circle.js" />
+        <option value="$PROJECT_DIR$/example.svg" />
+        <option value="$PROJECT_DIR$/classes/point.js" />
         <option value="$PROJECT_DIR$/classes/segment.js" />
+        <option value="$PROJECT_DIR$/classes/circle.js" />
         <option value="$PROJECT_DIR$/classes/arc.js" />
         <option value="$PROJECT_DIR$/test/test.js" />
       </list>
@@ -156,10 +205,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="45" />
-    <option name="y" value="39" />
-    <option name="width" value="1829" />
-    <option name="height" value="990" />
+    <option name="x" value="376" />
+    <option name="y" value="57" />
+    <option name="width" value="1543" />
+    <option name="height" value="928" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -269,7 +318,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW">
+  <component name="RunManager" selected="Mocha.#SVG Methods.Create svg file">
     <configuration default="false" name="#Flatten.Arc.#Flatten.Arc.breakToFunctional" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -283,40 +332,6 @@
       <test-names>
         <name value="#Flatten.Arc" />
         <name value="#Flatten.Arc.breakToFunctional" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="#Flatten.Arc.#Flatten.Arc.breakToFunctional.Case 7. 4 intersections on extreme points, 5 parts" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/test.js</test-file>
-      <test-names>
-        <name value="#Flatten.Arc" />
-        <name value="#Flatten.Arc.breakToFunctional" />
-        <name value="Case 7. 4 intersections on extreme points, 5 parts" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="#Flatten.Arc.#Flatten.Arc.breakToFunctional.Case 8. Full circle, 4 intersections on extreme points, 4 parts" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/test.js</test-file>
-      <test-names>
-        <name value="#Flatten.Arc" />
-        <name value="#Flatten.Arc.breakToFunctional" />
-        <name value="Case 8. Full circle, 4 intersections on extreme points, 4 parts" />
       </test-names>
       <method />
     </configuration>
@@ -349,6 +364,37 @@
       <test-names>
         <name value="#Flatten.Arc" />
         <name value="Calculate signed area under circular arc, full circle case, CW" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#SVG Methods" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
+      <test-names>
+        <name value="#SVG Methods" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#SVG Methods.Create svg file" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
+      <test-names>
+        <name value="#SVG Methods" />
+        <name value="Create svg file" />
       </test-names>
       <method />
     </configuration>
@@ -420,18 +466,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.#Flatten.Arc.breakToFunctional" />
-      <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.#Flatten.Arc.breakToFunctional.Case 7. 4 intersections on extreme points, 5 parts" />
-      <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.#Flatten.Arc.breakToFunctional.Case 8. Full circle, 4 intersections on extreme points, 4 parts" />
-      <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case" />
-      <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" />
+      <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case" />
+      <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" />
+      <item index="3" class="java.lang.String" itemvalue="Mocha.#SVG Methods" />
+      <item index="4" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case" />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.#Flatten.Arc.breakToFunctional" />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.#Flatten.Arc.breakToFunctional.Case 8. Full circle, 4 intersections on extreme points, 4 parts" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.#Flatten.Arc.breakToFunctional.Case 7. 4 intersections on extreme points, 5 parts" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Create svg file" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.#SVG Methods" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Calculate signed area under circular arc, full circle case" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.#Flatten.Arc.breakToFunctional" />
       </list>
     </recent_temporary>
   </component>
@@ -464,7 +510,7 @@
       <workItem from="1490114298485" duration="32000" />
       <workItem from="1490114353316" duration="151000" />
       <workItem from="1490114755393" duration="13133000" />
-      <workItem from="1490134299983" duration="3287000" />
+      <workItem from="1490134299983" duration="10670000" />
     </task>
     <task id="LOCAL-00001" summary="some changes">
       <created>1487422880939</created>
@@ -641,58 +687,65 @@
       <option name="project" value="LOCAL" />
       <updated>1490134093194</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Test for arc integral method">
+      <created>1490137638118</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1490137638118</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 00h 37m 47s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 43m 41s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 00h 37m 59s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 44m 10s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 00h 38m 37s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 44m 47s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 00h 39m 07s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 45m 25s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 00h 39m 13s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 47m 58s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 00h 40m 51s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 53m 49s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 00h 41m 35s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 56m 49s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 00h 52m 54s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 10h 57m 25s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 01h 06m 22s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 11h 18m 38s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Arc_Calculate_signed_area_under_circular_arc,_full_circle_case,_CW - 2017.03.22 at 01h 06m 23s.xml">
-      <configuration name="#Flatten.Arc.Calculate signed area under circular arc, full circle case, CW" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Create_svg_file - 2017.03.24 at 11h 19m 21s.xml">
+      <configuration name="#SVG Methods.Create svg file" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="170446000" />
+    <option name="totallyTimeSpent" value="177829000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="45" y="39" width="1829" height="990" extended-state="0" />
+    <frame x="376" y="57" width="1543" height="928" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2043551" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2039867" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4486346" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32851985" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.49661538" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3537906" sideWeight="0.49768057" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5150421" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38231468" sideWeight="0.49768057" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48114434" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4495848" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -726,11 +779,21 @@
     <MESSAGE value="workspace" />
     <MESSAGE value="Readme patch" />
     <MESSAGE value="- 2 arc methods: breakToFunctional and definiteIntegral for area calculation&#10;- Ttests for arc intersection and breakToFunctional" />
-    <option name="LAST_COMMIT_MESSAGE" value="- 2 arc methods: breakToFunctional and definiteIntegral for area calculation&#10;- Ttests for arc intersection and breakToFunctional" />
+    <MESSAGE value="Test for arc integral method" />
+    <MESSAGE value="Fix arc sweep calculation and arc svg representation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix arc sweep calculation and arc svg representation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="26" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/classes/arc.js</url>
+          <line>41</line>
+          <properties />
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="32" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
@@ -751,7 +814,7 @@
         <state relative-caret-position="170">
           <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
           <folding>
-            <marker date="1490027258202" expanded="true" signature="5591:5656" ph="..." />
+            <marker date="1490341007083" expanded="true" signature="5657:5722" ph="..." />
           </folding>
         </state>
       </provider>
@@ -945,6 +1008,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="5" column="56" lean-forward="false" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -983,21 +1047,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/line.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4165">
-          <caret line="245" column="30" lean-forward="false" selection-start-line="245" selection-start-column="30" selection-end-line="245" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1019,33 +1068,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-442">
-          <caret line="121" column="32" lean-forward="true" selection-start-line="121" selection-start-column="32" selection-end-line="121" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="186" column="47" lean-forward="false" selection-start-line="186" selection-start-column="47" selection-end-line="186" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="169" column="15" lean-forward="false" selection-start-line="169" selection-start-column="15" selection-end-line="169" selection-end-column="15" />
-          <folding>
-            <marker date="1490027258202" expanded="true" signature="5591:5656" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
@@ -1054,21 +1076,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/arc.js">
+    <entry file="file://$PROJECT_DIR$/example.svg">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="44" column="36" lean-forward="true" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/line.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="250" column="0" lean-forward="true" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/point.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="174" column="55" lean-forward="false" selection-start-line="174" selection-start-column="55" selection-end-line="174" selection-end-column="55" />
+          <folding>
+            <marker date="1490341007083" expanded="true" signature="5657:5722" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/segment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="300" column="46" lean-forward="false" selection-start-line="300" selection-start-column="46" selection-end-line="300" selection-end-column="46" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <marker date="1490137564680" expanded="true" signature="15331:15401" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/circle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="158" column="51" lean-forward="false" selection-start-line="158" selection-start-column="51" selection-end-line="158" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#43#0" expanded="false" />
+            <marker date="1490341074207" expanded="true" signature="4652:4718" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/arc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
+            <marker date="1490343552537" expanded="true" signature="15893:15978" ph="..." />
+            <marker date="1490343552537" expanded="true" signature="15893:16068" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="698" column="0" lean-forward="false" selection-start-line="698" selection-start-column="0" selection-end-line="698" selection-end-column="0" />
+        <state relative-caret-position="310">
+          <caret line="813" column="0" lean-forward="false" selection-start-line="813" selection-start-column="0" selection-end-line="813" selection-end-column="0" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
           </folding>

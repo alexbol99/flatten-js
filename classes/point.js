@@ -171,7 +171,8 @@ module.exports = function(Flatten) {
             }
         }
 
-        svg(r="5",stroke="black",strokeWidth="1",fill="red") {
+        svg(attrs = {r:"5",stroke:"black",strokeWidth:"1",fill:"red"}) {
+            let {r, stroke, strokeWidth, fill} = attrs;
             return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}" stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" />`;
         }
 
