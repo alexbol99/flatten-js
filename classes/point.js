@@ -173,8 +173,8 @@ module.exports = function(Flatten) {
 
         /**
          * Return string to draw point in svg as circle with radius "r", default is r:"5"
-         * @param attrs - json structure with any attributes allowed to svg <circle> element,\n
-         * like "r", "stroke", "strokeWidth", "fill"\n
+         * @param attrs - json structure with any attributes allowed to svg circle element,
+         * like "r", "stroke", "strokeWidth", "fill"
          * Defaults are r:"5", stroke:"black", strokeWidth:"1", fill:"red"
          * @returns {string}
          */

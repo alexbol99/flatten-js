@@ -430,8 +430,8 @@ module.exports = function(Flatten) {
 
         /**
          * Return string to draw arc in svg
-         * @param attrs - json structure with any attributes allowed to svg <path> element,\n
-         * like "stroke", "strokeWidth", "fill"\n
+         * @param attrs - json structure with any attributes allowed to svg path element,
+         * like "stroke", "strokeWidth", "fill"
          * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
          * @returns {string}
          */

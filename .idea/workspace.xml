@@ -4,15 +4,21 @@
     <bookmark url="file://$PROJECT_DIR$/test/test.js" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Docs updated added svg methods">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/arc.js" afterPath="$PROJECT_DIR$/classes/arc.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/circle.js" afterPath="$PROJECT_DIR$/classes/circle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/edge.js" afterPath="$PROJECT_DIR$/classes/edge.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/face.js" afterPath="$PROJECT_DIR$/classes/face.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/point.js" afterPath="$PROJECT_DIR$/classes/point.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/polygon.js" afterPath="$PROJECT_DIR$/classes/polygon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test.js" afterPath="$PROJECT_DIR$/test/test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/segment.js" afterPath="$PROJECT_DIR$/classes/segment.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Arc.html" afterPath="$PROJECT_DIR$/docs/Flatten.Arc.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Line.html" afterPath="$PROJECT_DIR$/docs/Flatten.Line.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Point.html" afterPath="$PROJECT_DIR$/docs/Flatten.Point.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Segment.html" afterPath="$PROJECT_DIR$/docs/Flatten.Segment.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Vector.html" afterPath="$PROJECT_DIR$/docs/Flatten.Vector.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,36 +39,12 @@
       <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/arc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="434" column="68" lean-forward="true" selection-start-line="432" selection-start-column="23" selection-end-line="434" selection-end-column="68" />
+            <state relative-caret-position="123">
+              <caret line="432" column="80" lean-forward="false" selection-start-line="432" selection-start-column="80" selection-end-line="432" selection-end-column="80" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <marker date="1490355236723" expanded="true" signature="16203:16288" ph="..." />
-                <marker date="1490355236723" expanded="true" signature="16203:16378" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/planar_set.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-819">
-              <caret line="8" column="57" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="57" />
-              <folding>
-                <element signature="e#0#44#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/segment.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="306" column="2" lean-forward="true" selection-start-line="306" selection-start-column="2" selection-end-line="306" selection-end-column="2" />
-              <folding>
-                <element signature="e#0#44#0" expanded="false" />
+                <marker date="1490356073912" expanded="true" signature="16197:16282" ph="..." />
+                <marker date="1490356073912" expanded="true" signature="16197:16372" ph="..." />
               </folding>
             </state>
           </provider>
@@ -71,29 +53,67 @@
       <file leaf-file-name="polygon.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="53" column="93" lean-forward="false" selection-start-line="53" selection-start-column="93" selection-end-line="53" selection-end-column="93" />
+            <state relative-caret-position="220">
+              <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/face.js">
+      <file leaf-file-name="Flatten.Segment.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/Flatten.Segment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="107" column="41" lean-forward="false" selection-start-line="107" selection-start-column="41" selection-end-line="107" selection-end-column="41" />
+            <state relative-caret-position="136">
+              <caret line="1259" column="44" lean-forward="false" selection-start-line="1259" selection-start-column="44" selection-end-line="1259" selection-end-column="44" />
+              <folding>
+                <marker date="1490356176400" expanded="true" signature="17494:17562" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="example3.svg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example3.svg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="7" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="5" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edge.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/edge.js">
+      <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/segment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="38" column="64" lean-forward="false" selection-start-line="38" selection-start-column="64" selection-end-line="38" selection-end-column="64" />
-              <folding />
+            <state relative-caret-position="170">
+              <caret line="303" column="55" lean-forward="false" selection-start-line="303" selection-start-column="55" selection-end-line="303" selection-end-column="55" />
+              <folding>
+                <element signature="e#0#44#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="122">
+              <caret line="9" column="79" lean-forward="false" selection-start-line="9" selection-start-column="68" selection-end-line="9" selection-end-column="79" />
+              <folding>
+                <marker date="1490048068826" expanded="true" signature="827:1002" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+              <folding>
+                <marker date="1490356176369" expanded="true" signature="4958:5026" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,9 +122,9 @@
         <entry file="file://$PROJECT_DIR$/classes/point.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="299">
-              <caret line="177" column="31" lean-forward="false" selection-start-line="177" selection-start-column="31" selection-end-line="177" selection-end-column="31" />
+              <caret line="177" column="74" lean-forward="false" selection-start-line="177" selection-start-column="74" selection-end-line="177" selection-end-column="74" />
               <folding>
-                <marker date="1490355333762" expanded="true" signature="6026:6091" ph="..." />
+                <marker date="1490356096098" expanded="true" signature="6020:6085" ph="..." />
               </folding>
             </state>
           </provider>
@@ -114,10 +134,10 @@
         <entry file="file://$PROJECT_DIR$/classes/circle.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
-              <caret line="161" column="68" lean-forward="true" selection-start-line="159" selection-start-column="26" selection-end-line="161" selection-end-column="68" />
+              <caret line="161" column="68" lean-forward="false" selection-start-line="161" selection-start-column="68" selection-end-line="161" selection-end-column="68" />
               <folding>
                 <element signature="e#0#43#0" expanded="false" />
-                <marker date="1490355216347" expanded="true" signature="4967:5033" ph="..." />
+                <marker date="1490356086674" expanded="true" signature="4961:5027" ph="..." />
               </folding>
             </state>
           </provider>
@@ -130,17 +150,9 @@
               <caret line="868" column="8" lean-forward="false" selection-start-line="868" selection-start-column="8" selection-end-line="868" selection-end-column="8" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
+                <marker date="1490354653047" expanded="true" signature="38331:41871" ph="{...}" />
+                <marker date="1490354653047" expanded="true" signature="40922:41866" ph="{...}" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="example3.svg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example3.svg">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="6" column="6" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -202,14 +214,14 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/test/planar_set.js" />
         <option value="$PROJECT_DIR$/example.svg" />
-        <option value="$PROJECT_DIR$/classes/segment.js" />
         <option value="$PROJECT_DIR$/example3.svg" />
         <option value="$PROJECT_DIR$/classes/edge.js" />
         <option value="$PROJECT_DIR$/classes/face.js" />
         <option value="$PROJECT_DIR$/test/test.js" />
-        <option value="$PROJECT_DIR$/classes/circle.js" />
         <option value="$PROJECT_DIR$/classes/arc.js" />
+        <option value="$PROJECT_DIR$/classes/circle.js" />
         <option value="$PROJECT_DIR$/classes/point.js" />
+        <option value="$PROJECT_DIR$/classes/segment.js" />
         <option value="$PROJECT_DIR$/classes/polygon.js" />
       </list>
     </option>
@@ -232,7 +244,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="206" />
     <option name="y" value="26" />
-    <option name="width" value="1708" />
+    <option name="width" value="1707" />
     <option name="height" value="950" />
   </component>
   <component name="ProjectView">
@@ -273,6 +285,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatten-js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatten-js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -536,7 +562,7 @@
       <workItem from="1490114298485" duration="32000" />
       <workItem from="1490114353316" duration="151000" />
       <workItem from="1490114755393" duration="13133000" />
-      <workItem from="1490134299983" duration="22053000" />
+      <workItem from="1490134299983" duration="22794000" />
     </task>
     <task id="LOCAL-00001" summary="some changes">
       <created>1487422880939</created>
@@ -727,7 +753,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490344007343</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Polygon to svg method">
+      <created>1490355475641</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1490355475641</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -763,14 +796,14 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="189212000" />
+    <option name="totallyTimeSpent" value="189953000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="206" y="26" width="1708" height="950" extended-state="0" />
+    <frame x="206" y="26" width="1707" height="950" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18383233" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18394248" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4486346" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44753477" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32869786" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31858408" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -814,7 +847,9 @@
     <MESSAGE value="- 2 arc methods: breakToFunctional and definiteIntegral for area calculation&#10;- Ttests for arc intersection and breakToFunctional" />
     <MESSAGE value="Test for arc integral method" />
     <MESSAGE value="Fix arc sweep calculation and arc svg representation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix arc sweep calculation and arc svg representation" />
+    <MESSAGE value="Polygon to svg method" />
+    <MESSAGE value="Docs updated added svg methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Docs updated added svg methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -835,16 +870,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-          <folding>
-            <marker date="1490355333762" expanded="true" signature="6026:6091" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -858,6 +883,8 @@
           <caret line="26" column="7" lean-forward="true" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
+            <marker date="1490354653047" expanded="true" signature="38331:41871" ph="{...}" />
+            <marker date="1490354653047" expanded="true" signature="40922:41866" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1013,13 +1040,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/svg/example.js" />
     <entry file="file://$PROJECT_DIR$/docs/example.js.html" />
     <entry file="file://$PROJECT_DIR$/classes/example.js" />
@@ -1059,13 +1079,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="79" lean-forward="false" selection-start-line="9" selection-start-column="68" selection-end-line="9" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
@@ -1087,19 +1100,9 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1490354357806" expanded="true" signature="315:380" ph="..." />
-            <marker date="1490354357806" expanded="true" signature="452:517" ph="..." />
-            <marker date="1490354357806" expanded="true" signature="589:654" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="306" column="2" lean-forward="true" selection-start-line="306" selection-start-column="2" selection-end-line="306" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
+            <marker date="1490355442325" expanded="true" signature="315:380" ph="..." />
+            <marker date="1490355442325" expanded="true" signature="452:517" ph="..." />
+            <marker date="1490355442325" expanded="true" signature="589:654" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1111,14 +1114,6 @@
           <folding>
             <element signature="e#0#44#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example3.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="6" column="6" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1144,6 +1139,50 @@
           <caret line="868" column="8" lean-forward="false" selection-start-line="868" selection-start-column="8" selection-end-line="868" selection-end-column="8" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
+            <marker date="1490354653047" expanded="true" signature="38331:41871" ph="{...}" />
+            <marker date="1490354653047" expanded="true" signature="40922:41866" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="9" column="79" lean-forward="false" selection-start-line="9" selection-start-column="68" selection-end-line="9" selection-end-column="79" />
+          <folding>
+            <marker date="1490048068826" expanded="true" signature="827:1002" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+          <folding>
+            <marker date="1490356176369" expanded="true" signature="4958:5026" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/Flatten.Segment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="1259" column="44" lean-forward="false" selection-start-line="1259" selection-start-column="44" selection-end-line="1259" selection-end-column="44" />
+          <folding>
+            <marker date="1490356176400" expanded="true" signature="17494:17562" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/arc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="432" column="80" lean-forward="false" selection-start-line="432" selection-start-column="80" selection-end-line="432" selection-end-column="80" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
+            <marker date="1490356073912" expanded="true" signature="16197:16282" ph="..." />
+            <marker date="1490356073912" expanded="true" signature="16197:16372" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1151,10 +1190,10 @@
     <entry file="file://$PROJECT_DIR$/classes/circle.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
-          <caret line="161" column="68" lean-forward="true" selection-start-line="159" selection-start-column="26" selection-end-line="161" selection-end-column="68" />
+          <caret line="161" column="68" lean-forward="false" selection-start-line="161" selection-start-column="68" selection-end-line="161" selection-end-column="68" />
           <folding>
             <element signature="e#0#43#0" expanded="false" />
-            <marker date="1490355216347" expanded="true" signature="4967:5033" ph="..." />
+            <marker date="1490356086674" expanded="true" signature="4961:5027" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1162,29 +1201,35 @@
     <entry file="file://$PROJECT_DIR$/classes/point.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
-          <caret line="177" column="31" lean-forward="false" selection-start-line="177" selection-start-column="31" selection-end-line="177" selection-end-column="31" />
+          <caret line="177" column="74" lean-forward="false" selection-start-line="177" selection-start-column="74" selection-end-line="177" selection-end-column="74" />
           <folding>
-            <marker date="1490355333762" expanded="true" signature="6026:6091" ph="..." />
+            <marker date="1490356096098" expanded="true" signature="6020:6085" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/arc.js">
+    <entry file="file://$PROJECT_DIR$/classes/segment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="434" column="68" lean-forward="true" selection-start-line="432" selection-start-column="23" selection-end-line="434" selection-end-column="68" />
+        <state relative-caret-position="170">
+          <caret line="303" column="55" lean-forward="false" selection-start-line="303" selection-start-column="55" selection-end-line="303" selection-end-column="55" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <marker date="1490355236723" expanded="true" signature="16203:16288" ph="..." />
-            <marker date="1490355236723" expanded="true" signature="16203:16378" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example3.svg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="7" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="5" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="53" column="93" lean-forward="false" selection-start-line="53" selection-start-column="93" selection-end-line="53" selection-end-column="93" />
+        <state relative-caret-position="220">
+          <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
           <folding />
         </state>
       </provider>

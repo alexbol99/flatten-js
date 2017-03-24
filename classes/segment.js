@@ -297,6 +297,13 @@ module.exports = function(Flatten) {
 
         }
 
+        /**
+         * Return string to draw segment in svg
+         * @param attrs - json structure with any attributes allowed to svg path element,
+         * like "stroke", "strokeWidth"
+         * Defaults are stroke:"black", strokeWidth:"3"
+         * @returns {string}
+         */
         svg(attrs = {stroke:"black",strokeWidth:"3"}) {
             let {stroke, strokeWidth} = attrs;
             return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke}" stroke-width="${strokeWidth}" />`;

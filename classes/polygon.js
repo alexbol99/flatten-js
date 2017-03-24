@@ -39,18 +39,18 @@ module.exports = function(Flatten) {
          *
          * @param {Points[]|Segments|Arcs[]} args - list of points or list of shapes (segments and arcs)
          * which comprise a closed loop
-         * @returns {*}
+         * @returns {Face}
          */
         addFace(...args) {
             let face = new Face(this, args);
             this.faces.add(face);
-            return this;
+            return face;
         }
 
         /**
          * Return string to draw polygon in svg
-         * @param attrs  - json structure with any attributes allowed to svg <path> element,\n
-         * like "stroke", "strokeWidth", "fill", "fillRule"\n
+         * @param attrs  - json structure with any attributes allowed to svg path element,
+         * like "stroke", "strokeWidth", "fill", "fillRule"
          * Defaults are stroke:"black", strokeWidth:"3", fill:"lightcyan", fillRule:"evenodd"
          * @returns {string}
          */
