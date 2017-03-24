@@ -1,0 +1,7 @@
+<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">
+<path stroke="black" stroke-width="3" fill="lightcyan" fill-rule="evenodd" d="
+M50,50 L50,250 L250,250 L250,50 L50,50 z
+M100,100 L200,100 L200,200 L100,200 L100,100 z
+M150,100 A50,50 0 0,1 100,150 A50,50 0 0,1 150,200 A50,50 0 0,1 200,150 A50,50 0 0,1 150,100 z">
+</path>
+</svg>

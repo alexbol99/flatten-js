@@ -1,0 +1,14 @@
+<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">
+<path d="M286.6025403784439,100
+                             A100,100 0 0,0 199.99999999999997,50"
+                    stroke="black" stroke-width="3" fill="none"/>
+<path d="M199.99999999999997,50
+                             A100,100 0 0,0 100,150"
+                    stroke="black" stroke-width="3" fill="none"/>
+<path d="M100,150
+                             A100,100 0 0,0 200,250"
+                    stroke="black" stroke-width="3" fill="none"/>
+<path d="M200,250
+                             A100,100 0 0,0 300,150"
+                    stroke="black" stroke-width="3" fill="none"/>
+<circle cx="200" cy="150" r="100" stroke="black" stroke-width="3" fill="none" /></svg>
