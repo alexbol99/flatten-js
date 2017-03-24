@@ -2,7 +2,7 @@
 
 Flatten-js is a javascript library for manipulating abstract geometrical objects like point, vector, segment, line,
 circle, circular arc. It implements polygon model where polygon may be comprised from a number of islands with holes.
-The code have no dependencies and may be used on client side as well as on server side under nodejs.
+The code have no dependencies and may be used on client side as well as on server side under NodeJS.
 The code is written using ES6 javascript standard.
 
 ## Installation
