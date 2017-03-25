@@ -16,7 +16,7 @@ module.exports = function(Flatten) {
          * @param {number} xmax - maximal x coordinate
          * @param {number} ymax - maximal y coordinate
          */
-        constructor(xmin=-Infinity, ymin=-Infinity, xmax=Infinity, ymax=Infinity) {
+        constructor(xmin=undefined, ymin=undefined, xmax=undefined, ymax=undefined) {
             /**
              * Minimal x coordinate
              * @type {number}
@@ -69,10 +69,10 @@ module.exports = function(Flatten) {
          */
         merge(other_box) {
             return new Box(
-                Math.min(this.xmin, other_box.xmin),
-                Math.min(this.ymin, other_box.ymin),
-                Math.max(this.xmax, other_box.xmax),
-                Math.max(this.ymax, other_box.ymax)
+                this.xmin === undefined ? other_box.xmin : Math.min(this.xmin, other_box.xmin),
+                this.ymin === undefined ? other_box.ymin : Math.min(this.ymin, other_box.ymin),
+                this.xmax === undefined ? other_box.xmax : Math.max(this.xmax, other_box.xmax),
+                this.ymax === undefined ? other_box.ymax : Math.max(this.ymax, other_box.ymax)
             );
         }
 

@@ -6,12 +6,30 @@
 
 module.exports = function(Flatten) {
     let {Point, Segment, Arc, Box, Edge} = Flatten;
+    /**
+     * Class representing a face (closed loop) of polygon.
+     * New face object should not be created directly, use polygon.addFace() method instead
+     * @type {Face}
+     */
     Flatten.Face = class Face {
         constructor(polygon, ...args) {
-            this.first;                             // first edge in face or undefined
-            this.last;                              // last edge in face or undefined
-            this.orientation = undefined;           // face orientation cw or ccw or not-orientable
-            this.box = new Box();                   // bounding box;
+            /**
+             * Reference to the first edge in face
+             */
+            this.first;
+            /**
+             * Reference to the last edge in face
+             */
+            this.last;
+            /**
+             * Face orientation: clockwise, counterclockwise or not-orientable
+             * @type {Flatten.ORIENTATION}
+             */
+            this.orientation = undefined;
+            /**
+             * Bounding box of the face
+             */
+            this.box = new Box();
 
             if (args.length == 0) {
                 return;
@@ -29,7 +47,7 @@ module.exports = function(Flatten) {
                 if (shapes.every((shape) => {
                         return shape instanceof Point
                     })) {
-                    let segments = this.points2segments(shapes);
+                    let segments = Face.points2segments(shapes);
                     this.shapes2face(polygon.edges, segments);
                 }
                 else if (shapes.every((shape) => {
@@ -45,12 +63,12 @@ module.exports = function(Flatten) {
                 this.last = args[1];                           // last edge in face or undefined
                 this.last.next = this.first;
                 this.first.prev = this.last;
-                this.setOrientation();              // face direction cw or ccw
-                this.setBox();
+                this.box = this.getBox();
+                this.orientation = this.getOrientation();      // face direction cw or ccw
             }
         }
 
-        points2segments(points) {
+        static points2segments(points) {
             let segments = [];
             for (let i = 0; i < points.length; i++) {
                 segments.push(new Segment(points[i], points[(i + 1) % points.length]));
@@ -83,22 +101,70 @@ module.exports = function(Flatten) {
             for (let shape of shapes) {
                 let edge = new Edge(shape);
                 this.append(edge);
-                this.box.merge(shape.box);
-                edges.add(edge)
+                this.box = this.box.merge(shape.box);
+                edges.add(edge);
             }
-            this.setOrientation();              // face direction cw or ccw
+            this.orientation = this.getOrientation();              // face direction cw or ccw
         }
 
-        setOrientation() {
-
+        /**
+         * Return the area of the polygon
+         * @returns {number}
+         */
+        area() {
+            return Math.abs(this.signedArea());
         }
 
-        setBox() {
+        signedArea() {
+            let sArea = 0;
+            let edge = this.first;
+            do {
+                sArea += edge.shape.definiteIntegral(this.box.ymin);
+                edge = edge.next;
+            } while(edge != this.first);
+            return sArea;
+        }
 
+        /* According to Green theorem the area of a closed curve may be calculated as double integral,
+        and the sign of the integral will be defined by the direction of the curve.
+        When the integral ("signed area") will be negative, direction is counter clockwise,
+        when positive - clockwise and when it is zero, polygon is not orientable.
+        See http://mathinsight.org/greens_theorem_find_area
+         */
+        getOrientation() {
+            let area = this.signedArea();
+            if (Flatten.Utils.EQ_0(area)) {
+                return Flatten.ORIENTATION.NOT_ORIENTABLE;
+            }
+            if (Flatten.Utils.LT(area, 0)) {
+                return Flatten.ORIENTATION.CCW;
+            }
+            else {
+                return Flatten.ORIENTATION.CW;
+            }
+        }
+
+        getBox() {
+            let box = new Flatten.Box();
+
+            let edge = this.first;
+            do {
+                box = box.merge(edge.shape.box);
+                edge = edge.next;
+            } while(edge != this.first);
+
+            return box;
+        }
+
+        visit(callback) {
+            let edge = this.first;
+            do {
+                callback();
+                edge = edge.next;
+            } while(edge != this.first);
         }
 
         svg() {
-            // todo: draw circular face as spacial case?
             let edge = this.first;
             let svgStr = `\nM${edge.start.x},${edge.start.y}`;
 

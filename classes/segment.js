@@ -189,6 +189,7 @@ module.exports = function(Flatten) {
             let dy2 = this.end.y - ymin;
             return ( dx*(dy1 + dy2)/2 );
         }
+        
         static intersectSegment2Line(seg, line) {
             let ip = [];
             let zero_segment = Flatten.Utils.EQ_0(seg.length);

@@ -408,9 +408,6 @@ module.exports = function(Flatten) {
         definiteIntegral(ymin=0) {
             let f_arcs = this.breakToFunctional();
             let area = f_arcs.reduce( (acc, arc) => acc + arc.circularSegmentDefiniteIntegral(ymin), 0.0 );
-            // for (arc of f_arcs) {
-            //     area = area + arc.circularSegmentArea(ymin);
-            // }
             return area;
         }
 

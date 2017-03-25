@@ -19,7 +19,7 @@ module.exports = function(Flatten) {
          * Constructor creates new instance of polygon.<br/>
          * New polygon is empty. Add new face to the polygon using method <br/>
          * <code>
-         *     polygon.add(face)
+         *     polygon.addFace(Points|Segments|Arcs[])
          * </code>
          */
         constructor() {
@@ -45,6 +45,15 @@ module.exports = function(Flatten) {
             let face = new Face(this, args);
             this.faces.add(face);
             return face;
+        }
+
+        /**
+         * Returns area of the polygon. Area of an island will be added, area of a hole will be subtracted
+         * @returns {number}
+         */
+        area() {
+            let signedArea = [...this.faces].reduce((acc,face) => acc + face.signedArea(), 0);
+            return Math.abs(signedArea);
         }
 
         /**

@@ -16,6 +16,7 @@ let Flatten = class Flatten {
         this.DP_TOL = Utils.DP_TOL;
         this.CCW = true;
         this.CW = false;
+        this.ORIENTATION = {CCW:-1, CW:1, NOT_ORIENTABLE: 0};
         this.PIx2 = 2 * Math.PI;
         this.PI_2 = 0.5 * Math.PI;
         this.Utils = Utils;

@@ -28,14 +28,23 @@ module.exports = function(Flatten) {
             }
             else if (this.shape instanceof  Flatten.Arc) {
                 let arc = this.shape;
-                let largeArcFlag = arc.sweep <= Math.PI ? "0" : "1";
+                let largeArcFlag;
                 let sweepFlag = arc.counterClockwise ? "1" : "0";
 
-                if (Flatten.Utils.EQ(arc.sweep, 2*Math.PI)) {  // TODO
-                    // let circle = new Flatten.Circle(this.pc, this.r);
-                    // return circle.svg(attrs);
+                // Draw full circe arc as special case: split it into two half-circles
+                if (Flatten.Utils.EQ(arc.sweep, 2*Math.PI)) {
+                    let sign = arc.counterClockwise ? 1 : -1;
+                    let halfArc1 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle, arc.startAngle + sign*Math.PI, arc.counterClockwise);
+                    let halfArc2 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle + sign*Math.PI, arc.endAngle, arc.counterClockwise);
+
+                    largeArcFlag = "0";
+
+                    return ` A${halfArc1.r},${halfArc1.r} 0 ${largeArcFlag},${sweepFlag} ${halfArc1.end.x},${halfArc1.end.y}
+                    A${halfArc2.r},${halfArc2.r} 0 ${largeArcFlag},${sweepFlag} ${halfArc2.end.x},${halfArc2.end.y}`
                 }
                 else {
+                    largeArcFlag = arc.sweep <= Math.PI ? "0" : "1";
+
                     return ` A${arc.r},${arc.r} 0 ${largeArcFlag},${sweepFlag} ${arc.end.x},${arc.end.y}`;
                 }
             }

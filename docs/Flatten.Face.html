@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Circle - Documentation</title>
+    <title>Face - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Circle</h1>
+    <h1 class="page-title">Face</h1>
     
 
     
@@ -41,10 +41,10 @@
 <header>
     
         <h2>
-        Circle
+        Face
         </h2>
         
-            <div class="class-description">Class representing a circle</div>
+            <div class="class-description">Class representing a face (closed loop) of polygon.New face object should not be created directly, use polygon.addFace() method instead</div>
         
     
 </header>
@@ -58,7 +58,7 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Circle"><span class="type-signature"></span>new Circle<span class="signature">(pc, r)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Face"><span class="type-signature"></span>new Face<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -70,78 +70,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Point</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">circle center point</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>r</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">circle radius</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -177,7 +105,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_circle.js.html">classes/circle.js</a>, <a href="classes_circle.js.html#line12">line 12</a>
+        <a href="classes_face.js.html">classes/face.js</a>, <a href="classes_face.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -227,7 +155,7 @@
 
 
 <div class="description">
-    Circle bounding box
+    Bounding box of the face
 </div>
 
 
@@ -265,7 +193,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_circle.js.html">classes/circle.js</a>, <a href="classes_circle.js.html#line51">line 51</a>
+        <a href="classes_face.js.html">classes/face.js</a>, <a href="classes_face.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -283,13 +211,13 @@
 
         
             
-<h4 class="name" id="center"><span class="type-signature"></span>center<span class="type-signature"></span></h4>
+<h4 class="name" id="first"><span class="type-signature"></span>first<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Circle center
+    Reference to the first edge in face
 </div>
 
 
@@ -327,7 +255,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_circle.js.html">classes/circle.js</a>, <a href="classes_circle.js.html#line43">line 43</a>
+        <a href="classes_face.js.html">classes/face.js</a>, <a href="classes_face.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -345,13 +273,75 @@
 
         
             
-<h4 class="name" id="pc"><span class="type-signature"></span>pc<span class="type-signature"> :Point</span></h4>
+<h4 class="name" id="last"><span class="type-signature"></span>last<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Circle center
+    Reference to the last edge in face
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_face.js.html">classes/face.js</a>, <a href="classes_face.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="orientation"><span class="type-signature"></span>orientation<span class="type-signature"> :Flatten.ORIENTATION</span></h4>
+
+
+
+
+<div class="description">
+    Face orientation: clockwise, counterclockwise or not-orientable
 </div>
 
 
@@ -360,7 +350,7 @@
     <ul>
         <li>
             
-<span class="param-type">Point</span>
+<span class="param-type">Flatten.ORIENTATION</span>
 
 
         </li>
@@ -399,79 +389,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_circle.js.html">classes/circle.js</a>, <a href="classes_circle.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="r"><span class="type-signature"></span>r<span class="type-signature"> :number</span></h4>
-
-
-
-
-<div class="description">
-    Circle radius
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_circle.js.html">classes/circle.js</a>, <a href="classes_circle.js.html#line28">line 28</a>
+        <a href="classes_face.js.html">classes/face.js</a>, <a href="classes_face.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -498,14 +416,14 @@
 
     
 
-    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {Circle}</span></h4>
+    <h4 class="name" id="area"><span class="type-signature"></span>area<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
 
     
 
 
 
 <div class="description">
-    Method clone returns new instance of a Circle
+    Return the area of the polygon
 </div>
 
 
@@ -549,7 +467,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_circle.js.html">classes/circle.js</a>, <a href="classes_circle.js.html#line35">line 35</a>
+        <a href="classes_face.js.html">classes/face.js</a>, <a href="classes_face.js.html#line114">line 114</a>
     </li></ul></dd>
     
 
@@ -583,444 +501,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Circle</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="contains"><span class="type-signature"></span>contains<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return true if circle contains point
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pt</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Point</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">test point</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_circle.js.html">classes/circle.js</a>, <a href="classes_circle.js.html#line65">line 65</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="intersect"><span class="type-signature"></span>intersect<span class="signature">(shape)</span><span class="type-signature"> &rarr; {Array.&lt;Point>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns array of intersection points between circle and other shape
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>shape</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_circle.js.html">classes/circle.js</a>, <a href="classes_circle.js.html#line74">line 74</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;Point></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="svg"><span class="type-signature"></span>svg<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return string to draw circle in svg
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json structure with any attributes allowed to svg circle element,like "stroke", "strokeWidth", "fill"Defaults are stroke:"black", strokeWidth:"3", fill:"none"</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_circle.js.html">classes/circle.js</a>, <a href="classes_circle.js.html#line165">line 165</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
     </dd>
