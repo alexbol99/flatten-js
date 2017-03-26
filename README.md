@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/flatten-js.svg)](https://badge.fury.io/js/flatten-js)
+
 # Javascript library for 2d geometry
 
 Flatten-js is a javascript library for manipulating abstract geometrical objects like point, vector, segment, line,
