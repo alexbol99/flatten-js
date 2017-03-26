@@ -36,7 +36,7 @@ The code is written using ES6 javascript standard.
     
 ![example](https://cloud.githubusercontent.com/assets/6965440/24111445/1310ceb4-0d9f-11e7-9775-2868ec5c4f21.png)
   
-View on requirebin http://requirebin.com/?gist=2bf8335f4655f103ba500b647e70f1fc
+Play with this code on requirebin http://requirebin.com/?gist=2bf8335f4655f103ba500b647e70f1fc
 
     // simple example of polygon
 
@@ -65,7 +65,7 @@ View on requirebin http://requirebin.com/?gist=2bf8335f4655f103ba500b647e70f1fc
 
 ![example3](https://cloud.githubusercontent.com/assets/6965440/24312130/3c56c9da-10e8-11e7-9461-3406525e0473.png)
 
-View on requirebin http://requirebin.com/?gist=8506659e6fa0876cda9cea15bfaf2dc9
+Play with this code on requirebin http://requirebin.com/?gist=8506659e6fa0876cda9cea15bfaf2dc9
 
 ## Tests
 
