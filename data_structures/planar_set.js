@@ -77,6 +77,14 @@ class PlanarSet extends Set {
         return resp.filter( (shape) => point.on(shape) );
     }
 
+    /**
+     * Returns svg string to draw all shapes in planar set
+     * @returns {String}
+     */
+    svg() {
+        let svgcontent = [...this].reduce( (acc,shape) => acc + shape.svg(), "");
+        return svgcontent;
+    }
 }
 
 module.exports = PlanarSet;
