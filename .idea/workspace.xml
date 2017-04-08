@@ -6,6 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/point.js" afterPath="$PROJECT_DIR$/classes/point.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/polygon.js" afterPath="$PROJECT_DIR$/classes/polygon.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_structures/planar_set.js" afterPath="$PROJECT_DIR$/data_structures/planar_set.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/planar_set.js" afterPath="$PROJECT_DIR$/test/planar_set.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/polygon.js" afterPath="$PROJECT_DIR$/test/polygon.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/svg.js" afterPath="$PROJECT_DIR$/test/svg.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,38 +30,56 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="720" column="0" lean-forward="true" selection-start-line="720" selection-start-column="0" selection-end-line="720" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#44#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-              <folding>
-                <marker date="1491638763348" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="73" column="16" lean-forward="true" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+            <state relative-caret-position="242">
+              <caret line="85" column="74" lean-forward="false" selection-start-line="85" selection-start-column="74" selection-end-line="85" selection-end-column="74" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/polygon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="40">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#44#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="svg.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/svg.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="131" column="30" lean-forward="true" selection-start-line="131" selection-start-column="30" selection-end-line="131" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="example4.svg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example4.svg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="example3.svg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example3.svg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -62,18 +87,8 @@
       <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/segment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="314" column="2" lean-forward="true" selection-start-line="314" selection-start-column="2" selection-end-line="314" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="svg.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/svg.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="73" column="97" lean-forward="true" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="97" />
+            <state relative-caret-position="-37">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -82,28 +97,8 @@
       <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/planar_set.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="698">
-              <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="box.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/box.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="23" column="11" lean-forward="false" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+            <state relative-caret-position="245">
+              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -112,18 +107,28 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
+            <state relative-caret-position="379">
               <caret line="85" column="159" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="159" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+      <file leaf-file-name="point.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/point.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="76" column="2" lean-forward="true" selection-start-line="76" selection-start-column="2" selection-end-line="76" selection-end-column="2" />
+            <state relative-caret-position="484">
+              <caret line="214" column="0" lean-forward="true" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -161,6 +166,7 @@
       <find>PlanarSet</find>
       <find>append</find>
       <find>clone</find>
+      <find>box</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -188,21 +194,21 @@
         <option value="$PROJECT_DIR$/classes/edge.js" />
         <option value="$PROJECT_DIR$/classes/arc.js" />
         <option value="$PROJECT_DIR$/classes/segment.js" />
-        <option value="$PROJECT_DIR$/test/svg.js" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/test/test.js" />
         <option value="$PROJECT_DIR$/classes/face.js" />
-        <option value="$PROJECT_DIR$/classes/polygon.js" />
-        <option value="$PROJECT_DIR$/test/polygon.js" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/classes/point.js" />
         <option value="$PROJECT_DIR$/classes/vector.js" />
         <option value="$PROJECT_DIR$/node_modules/flatten-interval-tree/index.js" />
         <option value="$PROJECT_DIR$/classes/box.js" />
-        <option value="$PROJECT_DIR$/test/planar_set.js" />
         <option value="$PROJECT_DIR$/data_structures/planar_set.js" />
+        <option value="$PROJECT_DIR$/classes/point.js" />
+        <option value="$PROJECT_DIR$/classes/polygon.js" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/test/polygon.js" />
+        <option value="$PROJECT_DIR$/test/planar_set.js" />
+        <option value="$PROJECT_DIR$/test/svg.js" />
       </list>
     </option>
   </component>
@@ -222,9 +228,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="114" />
-    <option name="y" value="18" />
-    <option name="width" value="1638" />
+    <option name="x" value="267" />
+    <option name="y" value="28" />
+    <option name="width" value="1631" />
     <option name="height" value="1005" />
   </component>
   <component name="ProjectView">
@@ -243,6 +249,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -313,7 +320,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -349,71 +355,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Mocha.#Data_structures.PlanarSet">
-    <configuration default="false" name="#Data_structures.PlanarSet.May add planar objects" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/planar_set.js</test-file>
-      <test-names>
-        <name value="#Data_structures.PlanarSet" />
-        <name value="May add planar objects" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="#Data_structures.PlanarSet.May delete planar objects" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/planar_set.js</test-file>
-      <test-names>
-        <name value="#Data_structures.PlanarSet" />
-        <name value="May delete planar objects" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="#Data_structures.PlanarSet.May not add same object twice (without error ?) " type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/planar_set.js</test-file>
-      <test-names>
-        <name value="#Data_structures.PlanarSet" />
-        <name value="May not add same object twice (without error ?) " />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="#Data_structures.PlanarSet.May find planar objects in given box" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/planar_set.js</test-file>
-      <test-names>
-        <name value="#Data_structures.PlanarSet" />
-        <name value="May find planar objects in given box" />
-      </test-names>
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Mocha.#SVG Methods.Performance test - svg4">
     <configuration default="false" name="#Data_structures.PlanarSet" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -426,6 +368,67 @@
       <test-file>$PROJECT_DIR$/test/planar_set.js</test-file>
       <test-names>
         <name value="#Data_structures.PlanarSet" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#Flatten-JS" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
+      <test-names>
+        <name value="#Flatten-JS" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#Flatten.Polygon" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
+      <test-names>
+        <name value="#Flatten.Polygon" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#SVG Methods.Performance test - svg4" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/svg.js</test-file>
+      <test-names>
+        <name value="#SVG Methods" />
+        <name value="Performance test - svg4" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="#SVG Methods" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/svg.js</test-file>
+      <test-names>
+        <name value="#SVG Methods" />
       </test-names>
       <method />
     </configuration>
@@ -496,19 +499,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet.May add planar objects" />
-      <item index="1" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet.May delete planar objects" />
-      <item index="2" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet.May not add same object twice (without error ?) " />
-      <item index="3" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet.May find planar objects in given box" />
-      <item index="4" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet" />
+      <item index="0" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet" />
+      <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten-JS" />
+      <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon" />
+      <item index="3" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Performance test - svg4" />
+      <item index="4" class="java.lang.String" itemvalue="Mocha.#SVG Methods" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet" />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet.May find planar objects in given box" />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet.May not add same object twice (without error ?) " />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet.May delete planar objects" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet.May add planar objects" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.#SVG Methods.Performance test - svg4" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.#SVG Methods" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.#Data_structures.PlanarSet" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten-JS" />
       </list>
     </recent_temporary>
   </component>
@@ -543,7 +546,8 @@
       <workItem from="1490114755393" duration="13133000" />
       <workItem from="1490134299983" duration="47093000" />
       <workItem from="1490901388701" duration="3575000" />
-      <workItem from="1490969799882" duration="13558000" />
+      <workItem from="1490969799882" duration="13908000" />
+      <workItem from="1491675702406" duration="4282000" />
     </task>
     <task id="LOCAL-00001" summary="some changes">
       <created>1487422880939</created>
@@ -832,57 +836,63 @@
       <option name="project" value="LOCAL" />
       <updated>1491650901026</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="clean">
+      <created>1491650947116</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1491650947116</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="#Data_structures_PlanarSet - 2017.04.08 at 13h 20m 28s.xml">
+    <history-entry file="#Data_structures_PlanarSet - 2017.04.08 at 22h 37m 51s.xml">
       <configuration name="#Data_structures.PlanarSet" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Data_structures_PlanarSet - 2017.04.08 at 14h 00m 24s.xml">
-      <configuration name="#Data_structures.PlanarSet" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Polygon - 2017.04.08 at 22h 38m 05s.xml">
+      <configuration name="#Flatten.Polygon" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Data_structures_PlanarSet - 2017.04.08 at 14h 06m 09s.xml">
-      <configuration name="#Data_structures.PlanarSet" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Polygon - 2017.04.08 at 22h 38m 50s.xml">
+      <configuration name="#Flatten.Polygon" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Data_structures_PlanarSet_May_find_planar_objects_in_given_box - 2017.04.08 at 13h 19m 51s.xml">
-      <configuration name="#Data_structures.PlanarSet.May find planar objects in given box" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods - 2017.04.08 at 22h 47m 28s.xml">
+      <configuration name="#SVG Methods" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Data_structures_PlanarSet_May_find_planar_objects_in_given_box - 2017.04.08 at 13h 58m 15s.xml">
-      <configuration name="#Data_structures.PlanarSet.May find planar objects in given box" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods - 2017.04.08 at 23h 07m 14s.xml">
+      <configuration name="#SVG Methods" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Data_structures_PlanarSet_May_find_planar_objects_in_given_box - 2017.04.08 at 14h 00m 38s.xml">
-      <configuration name="#Data_structures.PlanarSet.May find planar objects in given box" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Performance_test_-_svg4 - 2017.04.08 at 22h 41m 14s.xml">
+      <configuration name="#SVG Methods.Performance test - svg4" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Data_structures_PlanarSet_May_find_planar_objects_in_given_box - 2017.04.08 at 14h 00m 45s.xml">
-      <configuration name="#Data_structures.PlanarSet.May find planar objects in given box" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Performance_test_-_svg4 - 2017.04.08 at 22h 41m 33s.xml">
+      <configuration name="#SVG Methods.Performance test - svg4" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Data_structures_PlanarSet_May_find_planar_objects_in_given_box - 2017.04.08 at 14h 01m 57s.xml">
-      <configuration name="#Data_structures.PlanarSet.May find planar objects in given box" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Performance_test_-_svg4 - 2017.04.08 at 22h 41m 54s.xml">
+      <configuration name="#SVG Methods.Performance test - svg4" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Data_structures_PlanarSet_May_find_planar_objects_in_given_box - 2017.04.08 at 14h 04m 56s.xml">
-      <configuration name="#Data_structures.PlanarSet.May find planar objects in given box" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Performance_test_-_svg4 - 2017.04.08 at 22h 46m 23s.xml">
+      <configuration name="#SVG Methods.Performance test - svg4" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Data_structures_PlanarSet_May_find_planar_objects_in_given_box - 2017.04.08 at 14h 06m 02s.xml">
-      <configuration name="#Data_structures.PlanarSet.May find planar objects in given box" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#SVG_Methods_Performance_test_-_svg4 - 2017.04.08 at 23h 08m 48s.xml">
+      <configuration name="#SVG Methods.Performance test - svg4" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231385000" />
+    <option name="totallyTimeSpent" value="236017000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="114" y="18" width="1638" height="1005" extended-state="0" />
+    <frame x="267" y="28" width="1631" height="1005" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.191875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19271815" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5058275" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3100233" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30969268" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32400933" sideWeight="0.49661538" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36406618" sideWeight="0.49768057" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47902098" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36406618" sideWeight="0.49768057" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4787234" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44753477" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -890,6 +900,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5058275" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -900,7 +911,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Method point.on not documented" />
     <MESSAGE value="Segment class" />
     <MESSAGE value="Add intersection methods" />
     <MESSAGE value="Add class Arc (not tested)" />
@@ -925,7 +935,8 @@
     <MESSAGE value="Typo" />
     <MESSAGE value="Add flatten-interval-tree dependency. Added support of spatial search in PlanarSet" />
     <MESSAGE value="Add svg method to PlanarSet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add svg method to PlanarSet" />
+    <MESSAGE value="clean" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -936,7 +947,7 @@
           <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="48" />
+      <option name="time" value="52" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
@@ -945,13 +956,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/docs/vector.js.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="7" lean-forward="false" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/line.js.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1084,13 +1088,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="161" column="68" lean-forward="false" selection-start-line="161" selection-start-column="68" selection-end-line="161" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/edge.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="454">
@@ -1098,44 +1095,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="39" lean-forward="false" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="94" column="43" lean-forward="false" selection-start-line="94" selection-start-column="43" selection-end-line="94" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/coverage/lcov-report/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="57" lean-forward="false" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/line.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1143,7 +1106,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="8" lean-forward="false" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1158,27 +1120,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="57" column="28" lean-forward="true" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example3.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example3.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/example3.png" />
     <entry file="file://$PROJECT_DIR$/example2.svg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1195,34 +1137,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/flatten-interval-tree/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
           <caret line="268" column="30" lean-forward="false" selection-start-line="268" selection-start-column="30" selection-end-line="268" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/box.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
+        <state relative-caret-position="391">
           <caret line="23" column="11" lean-forward="false" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/planar_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="698">
-          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1237,34 +1162,134 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
+        <state relative-caret-position="731">
           <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding>
-            <marker date="1491638763348" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+            <marker date="1491650959467" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/classes/face.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="85" column="159" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="159" />
+        <state relative-caret-position="511">
+          <caret line="29" column="39" lean-forward="false" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/vector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/line.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/circle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="36" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="76" column="2" lean-forward="true" selection-start-line="76" selection-start-column="2" selection-end-line="76" selection-end-column="2" />
+        <state relative-caret-position="-1088">
+          <caret line="14" column="37" lean-forward="true" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="720" column="0" lean-forward="true" selection-start-line="720" selection-start-column="0" selection-end-line="720" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/segment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-37">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="85" column="74" lean-forward="false" selection-start-line="85" selection-start-column="74" selection-end-line="85" selection-end-column="74" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/point.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="214" column="0" lean-forward="true" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example3.svg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example4.svg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="85" column="159" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="159" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/planar_set.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/polygon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
           </folding>
@@ -1273,27 +1298,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/svg.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="73" column="97" lean-forward="true" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="97" />
+        <state relative-caret-position="188">
+          <caret line="131" column="30" lean-forward="true" selection-start-line="131" selection-start-column="30" selection-end-line="131" selection-end-column="30" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="314" column="2" lean-forward="true" selection-start-line="314" selection-start-column="2" selection-end-line="314" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="73" column="16" lean-forward="true" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>

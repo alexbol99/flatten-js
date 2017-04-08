@@ -32,6 +32,14 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Returns bounding box of a point
+         * @returns {Box}
+         */
+        get box() {
+            return new Flatten.Box(this.x, this.y, this.x, this.y);
+        }
+
+        /**
          * Method clone returns new instance of Point
          * @returns {Point}
          */

@@ -6,7 +6,7 @@ let expect = require('chai').expect;
 let Flatten = require('../index');
 let fs = require('fs');
 
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face} = Flatten;
+let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} = Flatten;
 
 let {point, vector, circle, line, segment, arc} = Flatten;
 
@@ -105,6 +105,36 @@ describe('#SVG Methods', function() {
         // svgcontent += arcs.reduce((acc, shape) => acc + shape.svg(), svgcontent);
 
         fs.writeFile("example3.svg", svgstart + svgcontent + svgend, function(err) {});
+    });
+    it('Performance test - svg4', function() {
+        let svgstart = `<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">`;
+        let svgend = `\n</svg>`;
+
+        let random = function(max) { return Math.floor(Math.random() * max) + 1;}
+
+        let planarSet = new PlanarSet();
+
+        for (let i=0; i < 100; i++) {
+            planarSet.add( new Segment(random(600),random(600),random(600),random(600)) );
+        }
+
+        let pts = [];
+
+        planarSet.forEach( (shape) => {
+            let resp = planarSet.search(shape.box);
+            for (let i=0; i < resp.length; i++) {
+                let ip = shape.intersect(resp[i]);
+                for (let j=0; j < ip.length; j++) {
+                    pts.push(ip[j]);
+                }
+            }
+        });
+        // planarSet.add(pts);
+
+        let svgcontent = planarSet.svg();
+        // svgcontent += arcs.reduce((acc, shape) => acc + shape.svg(), svgcontent);
+
+        fs.writeFile("example4.svg", svgstart + svgcontent + svgend, function(err) {});
     });
 
 });

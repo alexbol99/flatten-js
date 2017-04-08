@@ -26,6 +26,7 @@ let Flatten = class Flatten {
 
 let f = new Flatten();
 
+require("./data_structures/planar_set")(f);
 require("./classes/point")(f);
 require("./classes/vector")(f);
 require("./classes/line")(f);

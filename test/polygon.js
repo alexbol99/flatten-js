@@ -4,9 +4,8 @@
 
 let expect = require('chai').expect;
 let Flatten = require('../index');
-let PlanarSet = require('../data_structures/planar_set');
 
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face} = Flatten;
+let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} = Flatten;
 let {point, vector, circle, line, segment, arc} = Flatten;
 
 describe('#Flatten.Polygon', function() {

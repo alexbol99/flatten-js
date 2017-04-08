@@ -4,10 +4,8 @@
 
 "use strict";
 
-let PlanarSet = require('../data_structures/planar_set');
-
 module.exports = function(Flatten) {
-    let {Edge, Face} = Flatten;
+    let {Edge, Face, PlanarSet} = Flatten;
     /**
      * Class representing a polygon.<br/>
      * Polygon in FlattenJS is a multipolygon comprised from a set of faces<br/>

@@ -6,9 +6,9 @@
 
 let expect = require('chai').expect;
 let Flatten = require('../index');
-let PlanarSet = require('../data_structures/planar_set');
+// let PlanarSet = require('../data_structures/planar_set');
 
-let {Point, Segment, Circle, Box} = Flatten;
+let {Point, Segment, Circle, Box, PlanarSet} = Flatten;
 
 describe('#Data_structures.PlanarSet', function() {
     it('Class PlanarSet defined', function() {
@@ -66,5 +66,4 @@ describe('#Data_structures.PlanarSet', function() {
         expect(resp[0]).to.equal(segment);
         expect(resp[1]).to.equal(circle);
     });
-
 });
