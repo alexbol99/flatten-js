@@ -1,10 +1,9 @@
 /**
  * Created by Alex Bol on 2/19/2017.
  */
-/**
- *
- * @param Flatten
- */
+
+"use strict";
+
 module.exports = function(Flatten) {
     /**
      * Class representing a vector

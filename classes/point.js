@@ -49,6 +49,19 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Defines predicate "less than" between points. Need for spatial index
+         * @param pt - other point
+         * @returns {boolean} - true if this point less than other points, false otherwise
+         */
+        lessThan(pt) {
+            if (Flatten.Utils.LT(this.y, pt.y))
+                return true;
+            if (Flatten.Utils.EQ(this.y, pt.y) && Flatten.Utils.LT(this.x, pt.x))
+                return true;
+            return false;
+        }
+
+        /**
          * Returns new point rotated by given angle around given center point.
          * If center point is omitted, rotates around zero point (0,0).
          * @param {number} angle - angle in radians, positive value defines rotation
