@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/point.js" afterPath="$PROJECT_DIR$/classes/point.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/polygon.js" afterPath="$PROJECT_DIR$/classes/polygon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_structures/planar_set.js" afterPath="$PROJECT_DIR$/data_structures/planar_set.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/planar_set.js" afterPath="$PROJECT_DIR$/test/planar_set.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/polygon.js" afterPath="$PROJECT_DIR$/test/polygon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/svg.js" afterPath="$PROJECT_DIR$/test/svg.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -42,6 +36,18 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="9" column="66" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="66" />
+              <folding>
+                <marker date="1491682260977" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -54,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="svg.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="svg.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/svg.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="131" column="30" lean-forward="true" selection-start-line="131" selection-start-column="30" selection-end-line="131" selection-end-column="30" />
+            <state relative-caret-position="443">
+              <caret line="131" column="30" lean-forward="false" selection-start-line="131" selection-start-column="30" selection-end-line="131" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -84,22 +90,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/segment.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-37">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/planar_set.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="245">
               <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1491680411488" expanded="true" signature="302:2556" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -118,8 +116,11 @@
         <entry file="file://$PROJECT_DIR$/classes/point.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="484">
-              <caret line="214" column="0" lean-forward="true" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
-              <folding />
+              <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+              <folding>
+                <marker date="1491679978701" expanded="true" signature="110:6939" ph="{...}" />
+                <marker date="1491679978701" expanded="true" signature="222:6775" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -287,6 +288,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatten-js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatten-js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -547,7 +562,7 @@
       <workItem from="1490134299983" duration="47093000" />
       <workItem from="1490901388701" duration="3575000" />
       <workItem from="1490969799882" duration="13908000" />
-      <workItem from="1491675702406" duration="4282000" />
+      <workItem from="1491675702406" duration="5245000" />
     </task>
     <task id="LOCAL-00001" summary="some changes">
       <created>1487422880939</created>
@@ -843,7 +858,21 @@
       <option name="project" value="LOCAL" />
       <updated>1491650947116</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Expose PlanarSet as regular class">
+      <created>1491682228680</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1491682228680</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Coverage and docs">
+      <created>1491682364055</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1491682364055</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -879,20 +908,19 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236017000" />
+    <option name="totallyTimeSpent" value="236980000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="267" y="28" width="1631" height="1005" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19271815" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19271815" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30969268" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32400933" sideWeight="0.49661538" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36406618" sideWeight="0.49768057" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4787234" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36406618" sideWeight="0.49768057" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4787234" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44753477" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -911,8 +939,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Segment class" />
-    <MESSAGE value="Add intersection methods" />
     <MESSAGE value="Add class Arc (not tested)" />
     <MESSAGE value="Docs added Arc" />
     <MESSAGE value="Tests added Arc" />
@@ -936,7 +962,9 @@
     <MESSAGE value="Add flatten-interval-tree dependency. Added support of spatial search in PlanarSet" />
     <MESSAGE value="Add svg method to PlanarSet" />
     <MESSAGE value="clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean" />
+    <MESSAGE value="Expose PlanarSet as regular class" />
+    <MESSAGE value="Coverage and docs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Coverage and docs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1160,16 +1188,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding>
-            <marker date="1491650959467" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/face.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="511">
@@ -1241,8 +1259,11 @@
     <entry file="file://$PROJECT_DIR$/classes/point.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="484">
-          <caret line="214" column="0" lean-forward="true" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
-          <folding />
+          <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+          <folding>
+            <marker date="1491679978701" expanded="true" signature="110:6939" ph="{...}" />
+            <marker date="1491679978701" expanded="true" signature="222:6775" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1282,7 +1303,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="245">
           <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1491680411488" expanded="true" signature="302:2556" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1298,9 +1321,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/svg.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="131" column="30" lean-forward="true" selection-start-line="131" selection-start-column="30" selection-end-line="131" selection-end-column="30" />
+        <state relative-caret-position="443">
+          <caret line="131" column="30" lean-forward="false" selection-start-line="131" selection-start-column="30" selection-end-line="131" selection-end-column="30" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="9" column="66" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="66" />
+          <folding>
+            <marker date="1491682260977" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
