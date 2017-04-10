@@ -15,6 +15,7 @@ The code is written using ES6 javascript standard.
 
 ## Usage
 
+### Primitive shapes
     // require package
     let Flatten = require('flatten-js');
 
@@ -38,7 +39,7 @@ The code is written using ES6 javascript standard.
   
 Play with this code on requirebin http://requirebin.com/?gist=2bf8335f4655f103ba500b647e70f1fc
 
-    // simple example of polygon
+### Polygon
 
     // points will be used as vertices to create a face comprised from segments only
     let vertices1 = [point(50,50), point(50,250), point(250, 250), point(250,50)];
@@ -66,6 +67,51 @@ Play with this code on requirebin http://requirebin.com/?gist=2bf8335f4655f103ba
 ![example3](https://cloud.githubusercontent.com/assets/6965440/24312130/3c56c9da-10e8-11e7-9461-3406525e0473.png)
 
 Play with this code on requirebin http://requirebin.com/?gist=8506659e6fa0876cda9cea15bfaf2dc9
+
+### Planar Set
+
+    let Flatten = require('flatten-js');
+
+    let {point, circle, segment, arc, PlanarSet} = Flatten;
+
+    let random = function(min, max) { return Math.floor(Math.random() * max) + min;}
+
+    // Create new planar set and fill it with segments
+    let shapeSet = new PlanarSet();
+    for (let i=0; i < 200; i++) {
+        let ps = point(random(1,600), random(1,600));
+        let pe = ps.translate(random(50,200), random(-100, 100));
+        shapeSet.add(segment(ps, pe));
+    }
+
+    let t1 = performance.now();
+
+    // Calculate intersections between segments
+
+    // Create planar set for intersection points
+    let ipSet = new PlanarSet();
+    // For each shape search neighbor segments
+    for(let shape of shapeSet) {
+        // for each neighbor segment in quiery calculate intersection
+        for (let other_shape of shapeSet.search(shape.box)) {
+            if (other_shape == shape) continue;
+            // add intersection points to the set
+            for (let ip of shape.intersect(other_shape)) {
+              ipSet.add(ip);
+            }
+        }
+    }
+
+    let t2 = performance.now()
+
+    // output segments and points
+    document.getElementById("graphics").innerHTML = shapeSet.svg() + ipSet.svg();
+    // report elapsed time and number of intersection
+    document.getElementById("elapsed-time").innerHTML = `${ipSet.size} intersections found. Elapsed time ${(t2-t1).toFixed(1)} msec`
+
+![planar_set_search](https://cloud.githubusercontent.com/assets/6965440/24862801/de267c6c-1e06-11e7-86de-ffaf1bb035ff.PNG)
+
+Play with this code on requirebin http://requirebin.com/?gist=e14434926bfa908a8ef31efac84139a3
 
 ## Tests
 
