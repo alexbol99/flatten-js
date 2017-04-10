@@ -6,30 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/box.js" afterPath="$PROJECT_DIR$/classes/box.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Arc.html" afterPath="$PROJECT_DIR$/docs/Flatten.Arc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Face.html" afterPath="$PROJECT_DIR$/docs/Flatten.Face.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Line.html" afterPath="$PROJECT_DIR$/docs/Flatten.Line.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" afterPath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Point.html" afterPath="$PROJECT_DIR$/docs/Flatten.Point.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Polygon.html" afterPath="$PROJECT_DIR$/docs/Flatten.Polygon.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Segment.html" afterPath="$PROJECT_DIR$/docs/Flatten.Segment.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Vector.html" afterPath="$PROJECT_DIR$/docs/Flatten.Vector.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_box.js.html" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_face.js.html" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_line.js.html" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_point.js.html" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/planar_set.js" afterPath="$PROJECT_DIR$/test/planar_set.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -59,13 +36,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="31" column="21" lean-forward="false" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+            <state relative-caret-position="435">
+              <caret line="40" column="37" lean-forward="true" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
               <folding>
-                <marker date="1491682260977" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+                <marker date="1491824202476" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
               </folding>
             </state>
           </provider>
@@ -114,7 +91,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/planar_set.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="490">
@@ -224,7 +201,6 @@
         <option value="$PROJECT_DIR$/classes/face.js" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/classes/vector.js" />
         <option value="$PROJECT_DIR$/data_structures/planar_set.js" />
         <option value="$PROJECT_DIR$/classes/point.js" />
@@ -237,6 +213,7 @@
         <option value="$PROJECT_DIR$/node_modules/flatten-interval-tree/classes/node.js" />
         <option value="$PROJECT_DIR$/node_modules/flatten-interval-tree/index.js" />
         <option value="$PROJECT_DIR$/test/planar_set.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -564,7 +541,7 @@
       <workItem from="1490134299983" duration="47093000" />
       <workItem from="1490901388701" duration="3575000" />
       <workItem from="1490969799882" duration="13908000" />
-      <workItem from="1491675702406" duration="26060000" />
+      <workItem from="1491675702406" duration="26408000" />
     </task>
     <task id="LOCAL-00001" summary="some changes">
       <created>1487422880939</created>
@@ -881,7 +858,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491685102166</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Fix bug with usage of interval index">
+      <created>1491823908125</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1491823908125</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -917,12 +901,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="257795000" />
+    <option name="totallyTimeSpent" value="258143000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="285" y="23" width="1631" height="1005" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19271815" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19271815" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3605201" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -948,7 +933,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Docs added Arc" />
     <MESSAGE value="Tests added Arc" />
     <MESSAGE value="Docs" />
     <MESSAGE value="Added Polygon, Face, Edge classed, PlanarSet data structure" />
@@ -973,7 +957,8 @@
     <MESSAGE value="Expose PlanarSet as regular class" />
     <MESSAGE value="Coverage and docs" />
     <MESSAGE value="Submit PlanarSet docs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Submit PlanarSet docs" />
+    <MESSAGE value="Fix bug with usage of interval index" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bug with usage of interval index" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1343,21 +1328,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="31" column="21" lean-forward="false" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
-          <folding>
-            <marker date="1491682260977" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/planar_set.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="490">
           <caret line="137" column="9" lean-forward="false" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="40" column="37" lean-forward="true" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+          <folding>
+            <marker date="1491824202476" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
