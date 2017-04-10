@@ -6,9 +6,10 @@
 
 let expect = require('chai').expect;
 let Flatten = require('../index');
-// let PlanarSet = require('../data_structures/planar_set');
+let now = require("performance-now");
 
 let {Point, Segment, Circle, Box, PlanarSet} = Flatten;
+let {point, segment, vector} = Flatten;
 
 describe('#Data_structures.PlanarSet', function() {
     it('Class PlanarSet defined', function() {
@@ -66,4 +67,73 @@ describe('#Data_structures.PlanarSet', function() {
         expect(resp[0]).to.equal(segment);
         expect(resp[1]).to.equal(circle);
     });
+    it('May keep same black height after add many items', function() {
+        let random = function(min, max) { return Math.floor(Math.random() * max) + min;}
+
+        let shapeSet = new PlanarSet();
+
+        for (let i = 0; i < 1000; i++) {
+            let ps = point(random(1,600), random(1,600));
+            let pe = ps.translate(random(50,100), random(50, 100));
+            shapeSet.add(segment(ps, pe));
+        }
+
+        let height = (tree) => {
+            return tree.testBlackHeightProperty(tree.root);
+        };
+
+        expect(height(shapeSet.index)).to.be.within(7,8);
+    });
+    // it('May give same result as search without index', function() {
+    //     let random = function(min, max) { return Math.floor(Math.random() * max) + min;}
+    //
+    //     let shapeSet = new PlanarSet();
+    //
+    //     for (let i = 0; i < 1000; i++) {
+    //         let ps = point(random(1,600), random(1,600));
+    //         let pe = ps.translate(random(50,100), random(50, 100));
+    //         shapeSet.add(segment(ps, pe));
+    //     }
+    //
+    //     for (let shape of shapeSet) {
+    //         let resp = shapeSet.search(shape.box);
+    //
+    //         let respSet = new PlanarSet();
+    //         for (let shape_tmp of resp) { respSet.add(shape_tmp) }
+    //
+    //         for (let other_shape of shapeSet) {
+    //             if (other_shape.box.intersect(shape.box) && !respSet.has(other_shape) ) {
+    //                 throw new Error('Bad index');
+    //             }
+    //         }
+    //     }
+    //     expect(true).to.be.true;
+    // });
+    // it('May find intersections between many segments less than in a 1 sec', function() {
+    //     let random = function(min, max) { return Math.floor(Math.random() * max) + min;}
+    //
+    //     let shapeSet = new PlanarSet();
+    //     let ipSet = new PlanarSet();
+    //
+    //     for (let i = 0; i < 10000; i++) {
+    //         let ps = point(random(1,6000), random(1,6000));
+    //         let pe = ps.translate(random(50,100), random(50, 100));
+    //         shapeSet.add(segment(ps, pe));
+    //     }
+    //
+    //     let t1 = now();
+    //     for (let shape of shapeSet) {
+    //         for (let other_shape of shapeSet.search(shape.box)) {
+    //         // for (let other_shape of shapeSet) {
+    //             if (other_shape == shape) continue;
+    //             for (let ip of shape.intersect(other_shape)) {
+    //                 ipSet.add(ip);
+    //             }
+    //         }
+    //     }
+    //     let t2 = now();
+    //     console.log(`${ipSet.size} intersections found. Elapsed time ${(t2-t1).toFixed(1)} msec`);
+    //
+    //     expect(t2-t1).to.be.below(1000);
+    // })
 });

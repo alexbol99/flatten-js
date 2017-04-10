@@ -60,7 +60,15 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         get high() {
-            return new Flatten.Point(this.xmix, this.ymax);
+            return new Flatten.Point(this.xmax, this.ymax);
+        }
+
+        /**
+         * Property max returns the box itself !
+         * @returns {Box}
+         */
+        get max() {
+            return this.clone();
         }
 
         /**
@@ -126,8 +134,9 @@ module.exports = function(Flatten) {
             return this.clone();
         }
 
-        maximal_val(pt1, pt2) {
-            return pt1.lessThan(pt2) ? pt2.clone() : pt1.clone();
+        maximal_val(box1, box2) {
+            // return pt1.lessThan(pt2) ? pt2.clone() : pt1.clone();
+            return box1.merge(box2);
         }
 
         val_less_than(pt1, pt2) {
