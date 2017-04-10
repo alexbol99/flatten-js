@@ -6,7 +6,7 @@
 
 let expect = require('chai').expect;
 let Flatten = require('../index');
-let now = require("performance-now");
+// let now = require("performance-now");
 
 let {Point, Segment, Circle, Box, PlanarSet} = Flatten;
 let {point, segment, vector} = Flatten;
