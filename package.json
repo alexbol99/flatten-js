@@ -1,6 +1,6 @@
 {
   "name": "flatten-js",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Javascript library for 2d geometry",
   "main": "index.js",
   "scripts": {
@@ -9,9 +9,6 @@
     "generate-docs": "jsdoc -t ./node_modules/jsdoc/templates/minami -d ./docs ./classes ./data_structures",
     "npm-publish": "npm version patch; git push && git push --tags; npm publish",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/*",
-    "build": "babel index.js -o ./es5/index.js",
-    "build": "babel data_structures -d ./es5/data_structures",
-    "build": "babel classes -d ./es5/classes",
     "build": "babel utils -d ./es5/utils"
   },
   "repository": {
