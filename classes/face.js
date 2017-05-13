@@ -159,7 +159,7 @@ module.exports = function(Flatten) {
         visit(callback) {
             let edge = this.first;
             do {
-                callback();
+                callback(edge);
                 edge = edge.next;
             } while(edge != this.first);
         }
