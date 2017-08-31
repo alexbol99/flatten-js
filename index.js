@@ -2,6 +2,7 @@
  * Created by Alex Bol on 2/18/2017.
  */
 'use strict';
+// require("babel-polyfill");
 
 let Utils = require("./utils/utils");
 let Errors = require("./utils/errors");

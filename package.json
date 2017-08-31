@@ -8,8 +8,7 @@
     "doc": "jsdoc -d ./docs ./classes",
     "generate-docs": "jsdoc -t ./node_modules/jsdoc/templates/minami -d ./docs ./classes ./data_structures",
     "npm-publish": "npm version patch; git push && git push --tags; npm publish",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/*",
-    "build": "babel utils -d ./es5/utils"
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/*"
   },
   "repository": {
     "type": "git",
@@ -30,8 +29,6 @@
     "node": ">=4.2.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
     "chai": "^3.5.0",
     "coveralls": "^2.12.0",
     "istanbul": "^0.4.5",

@@ -4,6 +4,8 @@
 
 "use strict";
 
+require("babel-polyfill");
+
 let IntervalTree = require('flatten-interval-tree');
 
 module.exports = function(Flatten) {
