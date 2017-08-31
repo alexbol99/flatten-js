@@ -4,7 +4,7 @@
 
 "use strict";
 
-require("babel-polyfill");
+// require("babel-polyfill");
 
 let IntervalTree = require('flatten-interval-tree');
 
