@@ -389,7 +389,20 @@ describe('#Flatten.Circle', function() {
         let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
         expect(circle.box).to.deep.equal({xmin:-2, ymin:-2, xmax:2, ymax:2});
     });
-
+    it('Can transform circle into closed CCW arc', function () {
+        let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
+        let arc = circle.toArc(true);
+        expect(arc.sweep).to.equal(Flatten.PIx2);
+        expect(arc.start.equalTo(point(-2,0))).to.be.true;
+        expect(arc.end.equalTo(point(-2,0))).to.be.true;
+    });
+    it('Can transform circle into closed CW arc', function () {
+        let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
+        let arc = circle.toArc(false);
+        expect(arc.sweep).to.equal(Flatten.PIx2);
+        expect(arc.start.equalTo(point(-2,0))).to.be.true;
+        expect(arc.end.equalTo(point(-2,0))).to.be.true;
+    });
 });
 
 describe('#Flatten.Segment', function() {

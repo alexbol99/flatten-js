@@ -3,23 +3,63 @@
  */
 
 module.exports = function(Flatten) {
+    /**
+     * Class representing an edge of polygon. Edge shape may be Segment or Arc
+     * Each edge points to the next and previous edges in the face (loop)
+     *
+     * @type {Edge}
+     */
     Flatten.Edge = class Edge {
         constructor(shape) {
+            /**
+             * Shape of the edge: Segment or Arc
+             */
             this.shape = shape;
+            /**
+             * Pointer to the next edge in the face
+             */
             this.next;
+            /**
+             * Pointer to the previous edge in the face
+             */
             this.prev;
         }
 
+        /**
+         * Get edge start point
+         */
         get start() {
             return this.shape.start;
         }
 
+        /**
+         * Get edge end point
+         */
         get end() {
             return this.shape.end;
         }
 
+        /**
+         * Get edge length
+         */
         get length() {
             return this.shape.length;
+        }
+
+        /**
+         * Get bounding box of the edge
+         * @returns {*|Box}
+         */
+        get box() {
+            return this.shape.box;
+        }
+
+        /**
+         * Returns true if point lays on the edge, false otherwise
+         * @param pt - test point
+         */
+        contains(pt) {
+            return this.shape.contains(pt);
         }
 
         svg() {

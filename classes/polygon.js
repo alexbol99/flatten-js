@@ -5,7 +5,7 @@
 "use strict";
 
 module.exports = function(Flatten) {
-    let {Edge, Face, PlanarSet} = Flatten;
+    let {Edge, Face, PlanarSet, Box} = Flatten;
     /**
      * Class representing a polygon.<br/>
      * Polygon in FlattenJS is a multipolygon comprised from a set of faces<br/>
@@ -34,7 +34,23 @@ module.exports = function(Flatten) {
         }
 
         /**
-         *
+         * Get bounding box of the polygon
+         * @returns {Box}
+         */
+        get box() {
+            return [...this.faces].reduce( (acc, face) => acc.merge(face.box), new Box() );
+        }
+
+        /**
+         * Return array of vertices
+         * @returns {Array}
+         */
+        get vertices() {
+            return [...this.edges].map( edge => edge.start);
+        }
+
+        /**
+         * Add new face to polygon
          * @param {Points[]|Segments|Arcs[]} args - list of points or list of shapes (segments and arcs)
          * which comprise a closed loop
          * @returns {Face}
@@ -43,6 +59,35 @@ module.exports = function(Flatten) {
             let face = new Face(this, args);
             this.faces.add(face);
             return face;
+        }
+
+        /**
+         * Delete existing face from polygon
+         * @param {Face}
+         * @returns {boolean|*}
+         */
+        deleteFace(face) {
+            for (let edge of face) {
+                let deleted = this.edges.delete(edge);
+            }
+            let deleted = this.faces.delete(face);
+            return deleted;
+        }
+
+        /**
+         * Create new copied instance of the polygon
+         * @returns {Polygon}
+         */
+        clone() {
+            let polygon = new Polygon();
+            for (let face of this.faces) {
+                let shapes = [];
+                for (let edge of face) {
+                    shapes.push(edge.shape.clone());
+                }
+                polygon.addFace(shapes);
+            }
+            return polygon;
         }
 
         /**

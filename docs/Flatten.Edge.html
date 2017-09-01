@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Line - Documentation</title>
+    <title>Edge - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Line</h1>
+    <h1 class="page-title">Edge</h1>
     
 
     
@@ -41,10 +41,10 @@
 <header>
     
         <h2>
-        Line
+        Edge
         </h2>
         
-            <div class="class-description">Class representing a line</div>
+            <div class="class-description">Class representing an edge of polygon. Edge shape may be Segment or ArcEach edge points to the next and previous edges in the face (loop)</div>
         
     
 </header>
@@ -58,97 +58,18 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Line"><span class="type-signature"></span>new Line<span class="signature">(pt, norm)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Edge"><span class="type-signature"></span>new Edge<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
-<div class="description">
-    Line may be constructed by point and normal vector or by two points that a line passes through
-</div>
 
 
 
 
 
 
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pt</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Point</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">point that a line passes through</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>norm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Vector</span>
-|
-
-<span class="param-type">Point</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">normal vector to a line or second point a line passes through</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -184,7 +105,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line11">line 11</a>
+        <a href="classes_edge.js.html">classes/edge.js</a>, <a href="classes_edge.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -228,26 +149,16 @@
 
         
             
-<h4 class="name" id="norm"><span class="type-signature"></span>norm<span class="type-signature"> :Vector</span></h4>
+<h4 class="name" id="box"><span class="type-signature"></span>box<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Normal unit vector to a line
+    Get bounding box of the edge
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Vector</span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -282,7 +193,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line27">line 27</a>
+        <a href="classes_edge.js.html">classes/edge.js</a>, <a href="classes_edge.js.html#line53">line 53</a>
     </li></ul></dd>
     
 
@@ -300,26 +211,16 @@
 
         
             
-<h4 class="name" id="pt"><span class="type-signature"></span>pt<span class="type-signature"> :Point</span></h4>
+<h4 class="name" id="end"><span class="type-signature"></span>end<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Point a line passes through
+    Get edge end point
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Point</span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -354,7 +255,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line22">line 22</a>
+        <a href="classes_edge.js.html">classes/edge.js</a>, <a href="classes_edge.js.html#line38">line 38</a>
     </li></ul></dd>
     
 
@@ -372,13 +273,13 @@
 
         
             
-<h4 class="name" id="slope"><span class="type-signature"></span>slope<span class="type-signature"></span></h4>
+<h4 class="name" id="length"><span class="type-signature"></span>length<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Slope of the line - angle in radians between line and axe x from 0 to 2PI
+    Get edge length
 </div>
 
 
@@ -416,7 +317,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line77">line 77</a>
+        <a href="classes_edge.js.html">classes/edge.js</a>, <a href="classes_edge.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -434,13 +335,13 @@
 
         
             
-<h4 class="name" id="standard"><span class="type-signature"></span>standard<span class="type-signature"></span></h4>
+<h4 class="name" id="next"><span class="type-signature"></span>next<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Standard line equation in the form Ax + By = C, get coefficients using es6 destructuring assignment:
+    Pointer to the next edge in the face
 </div>
 
 
@@ -478,7 +379,193 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line87">line 87</a>
+        <a href="classes_edge.js.html">classes/edge.js</a>, <a href="classes_edge.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="prev"><span class="type-signature"></span>prev<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Pointer to the previous edge in the face
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_edge.js.html">classes/edge.js</a>, <a href="classes_edge.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="shape"><span class="type-signature"></span>shape<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Shape of the edge: Segment or Arc
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_edge.js.html">classes/edge.js</a>, <a href="classes_edge.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="start"><span class="type-signature"></span>start<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get edge start point
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_edge.js.html">classes/edge.js</a>, <a href="classes_edge.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -505,114 +592,14 @@
 
     
 
-    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {Line}</span></h4>
+    <h4 class="name" id="contains"><span class="type-signature"></span>contains<span class="signature">(pt)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Method clone returns new instance of Line
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line69">line 69</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Line</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="contains"><span class="type-signature"></span>contains<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if point belongs to line
+    Returns true if point lays on the edge, false otherwise
 </div>
 
 
@@ -653,18 +640,13 @@
 
             <td class="type">
             
-                
-<span class="param-type">Point</span>
-
-
-            
             </td>
 
             
 
             
 
-            <td class="description last"></td>
+            <td class="description last">test point</td>
         </tr>
 
     
@@ -705,7 +687,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line119">line 119</a>
+        <a href="classes_edge.js.html">classes/edge.js</a>, <a href="classes_edge.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -728,471 +710,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="incidentTo"><span class="type-signature"></span>incidentTo<span class="signature">(other_line)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if incident to other line
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other_line</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Line</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">line to check</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line109">line 109</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="intersect"><span class="type-signature"></span>intersect<span class="signature">(shape)</span><span class="type-signature"> &rarr; {Array.&lt;Point>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns array of intersection points if intersection exists or zero-length array otherwise
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>shape</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Shape</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">shape to intersect with</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line133">line 133</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;Point></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="parallelTo"><span class="type-signature"></span>parallelTo<span class="signature">(other_line)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return true if parallel or incident to other line
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other_line</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Line</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">line to check</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_line.js.html">classes/line.js</a>, <a href="classes_line.js.html#line100">line 100</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 

@@ -8,7 +8,8 @@ module.exports = function(Flatten) {
     let {Point, Segment, Arc, Box, Edge} = Flatten;
     /**
      * Class representing a face (closed loop) of polygon.
-     * New face object should not be created directly, use polygon.addFace() method instead
+     * New face object should not be created directly, use polygon.addFace() method instead.
+     * Face implemented as a circular bidirectional linked list of edges.
      * @type {Face}
      */
     Flatten.Face = class Face {
@@ -58,6 +59,7 @@ module.exports = function(Flatten) {
             }
 
             /* If passed two edges, consider them as start and end of the face loop */
+            /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
             if (args.length == 2 && args[0] instanceof Edge && args[1] instanceof Edge) {
                 this.first = args[0];                          // first edge in face or undefined
                 this.last = args[1];                           // last edge in face or undefined
@@ -66,6 +68,42 @@ module.exports = function(Flatten) {
                 this.box = this.getBox();
                 this.orientation = this.getOrientation();      // face direction cw or ccw
             }
+        }
+
+        [Symbol.iterator]() {
+            let edge = undefined;
+            return {
+                next: () => {
+                    let value = edge ? edge : this.first;
+                    let done = edge ? edge === this.first : false;
+                    edge = value.next;
+                    return {value: value, done: done};
+                }
+            };
+        };
+
+        /**
+         * Return array of edges of the given face in the order from first to last
+         * @returns {Array} - Array of edges
+         */
+        get edges() {
+            let face_edges = [];
+            for (let edge of this) {
+                face_edges.push(edge);
+            }
+            return face_edges;
+        }
+
+        /**
+         * Return number of edges in the face
+         * @returns {number} - number of edges
+         */
+        get size() {
+            let counter = 0;
+            for (let edge of this) {
+                counter++;
+            }
+            return counter;
         }
 
         static points2segments(points) {
@@ -117,11 +155,9 @@ module.exports = function(Flatten) {
 
         signedArea() {
             let sArea = 0;
-            let edge = this.first;
-            do {
+            for (let edge of this) {
                 sArea += edge.shape.definiteIntegral(this.box.ymin);
-                edge = edge.next;
-            } while(edge != this.first);
+            }
             return sArea;
         }
 
@@ -144,34 +180,24 @@ module.exports = function(Flatten) {
             }
         }
 
+        /**
+         * Return bounding box of the face
+         * @returns {Box}
+         */
         getBox() {
             let box = new Flatten.Box();
-
-            let edge = this.first;
-            do {
-                box = box.merge(edge.shape.box);
-                edge = edge.next;
-            } while(edge != this.first);
-
+            for (let edge of this) {
+                box = box.merge(edge.box);
+            }
             return box;
         }
 
-        visit(callback) {
-            let edge = this.first;
-            do {
-                callback(edge);
-                edge = edge.next;
-            } while(edge != this.first);
-        }
-
         svg() {
-            let edge = this.first;
-            let svgStr = `\nM${edge.start.x},${edge.start.y}`;
+            let svgStr = `\nM${this.first.start.x},${this.first.start.y}`;
 
-            do {
+            for (let edge of this) {
                 svgStr += edge.svg();
-                edge = edge.next;
-            } while(edge !== this.first);
+            }
 
             svgStr += ` z`;
             return svgStr;

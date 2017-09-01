@@ -5,6 +5,7 @@
 "use strict";
 
 module.exports = function(Flatten) {
+    let {Arc} = Flatten;
     /**
      * Class representing a circle
      * @type {Circle}
@@ -64,6 +65,15 @@ module.exports = function(Flatten) {
          */
         contains(pt) {
             return Flatten.Utils.LE(pt.distanceTo(this.center), this.r);
+        }
+
+        /**
+         * Transform circle to closed arc
+         * @param {boolean} counterclockwise
+         * @returns {Arc}
+         */
+        toArc(counterclockwise=true) {
+            return new Flatten.Arc(this.center, this.r, Math.PI, 3*Math.PI, counterclockwise);
         }
 
         /**

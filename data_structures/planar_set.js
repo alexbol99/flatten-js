@@ -70,7 +70,7 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Point hit test. Returns array of shapes which contains given point
+         * Point location test. Returns array of shapes which contains given point
          * @param point - query point
          * @returns {Array} - array of shapes which contains given point
          */
