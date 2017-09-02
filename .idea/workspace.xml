@@ -5,16 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/Flatten.Edge.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/classes/ray.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/Flatten.Ray.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/circle.js" afterPath="$PROJECT_DIR$/classes/circle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/edge.js" afterPath="$PROJECT_DIR$/classes/edge.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/face.js" afterPath="$PROJECT_DIR$/classes/face.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/polygon.js" afterPath="$PROJECT_DIR$/classes/polygon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_structures/planar_set.js" afterPath="$PROJECT_DIR$/data_structures/planar_set.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/line.js" afterPath="$PROJECT_DIR$/classes/line.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Arc.html" afterPath="$PROJECT_DIR$/docs/Flatten.Arc.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Edge.html" afterPath="$PROJECT_DIR$/docs/Flatten.Edge.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Face.html" afterPath="$PROJECT_DIR$/docs/Flatten.Face.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Line.html" afterPath="$PROJECT_DIR$/docs/Flatten.Line.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" afterPath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" />
@@ -34,7 +33,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/polygon.js" afterPath="$PROJECT_DIR$/test/polygon.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test.js" afterPath="$PROJECT_DIR$/test/test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -55,70 +54,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+            <state relative-caret-position="255">
+              <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
               <folding>
-                <marker date="1504215220059" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+                <marker date="1504263901442" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="8" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/arc.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-              <folding>
-                <marker date="1490470317230" expanded="true" signature="16079:16164" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/coverage/lcov-report/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="57" lean-forward="false" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+            <state relative-caret-position="306">
+              <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
               <folding>
-                <marker date="1504263639133" expanded="true" signature="5428:5469" ph="..." />
-                <marker date="1504263639133" expanded="true" signature="5521:5650" ph="..." />
-                <marker date="1504263639133" expanded="true" signature="5551:5640" ph="{...}" />
+                <marker date="1504346066075" expanded="true" signature="5425:5466" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="992">
-              <caret line="76" column="9" lean-forward="false" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -126,38 +81,78 @@
       <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
+            <state relative-caret-position="-1466">
               <caret line="104" column="49" lean-forward="false" selection-start-line="104" selection-start-column="49" selection-end-line="104" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coverage.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/coverage/coverage.json">
+      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="1157">
+              <caret line="806" column="46" lean-forward="false" selection-start-line="806" selection-start-column="46" selection-end-line="806" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/planar_set.js">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="19" column="45" lean-forward="false" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="45" />
+            <state relative-caret-position="68">
+              <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/face.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
-              <caret line="72" column="29" lean-forward="false" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
+            <state relative-caret-position="119">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ray.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/ray.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="358">
+              <caret line="72" column="58" lean-forward="false" selection-start-line="72" selection-start-column="58" selection-end-line="72" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="point.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/point.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1968">
+              <caret line="102" column="77" lean-forward="false" selection-start-line="101" selection-start-column="36" selection-end-line="102" selection-end-column="77" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/line.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="148" column="7" lean-forward="false" selection-start-line="148" selection-start-column="7" selection-end-line="148" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/segment.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2767">
+              <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -174,8 +169,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>home</find>
-      <find>slop</find>
       <find>standard</find>
       <find>distanceToPoint</find>
       <find>len</find>
@@ -204,6 +197,8 @@
       <find>circle</find>
       <find>size</find>
       <find>area</find>
+      <find>intersectLine2Box</find>
+      <find>intersectLine2Circle</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -224,7 +219,6 @@
         <option value="$PROJECT_DIR$/data_structures/box_tree.js" />
         <option value="$PROJECT_DIR$/svg/example.svg" />
         <option value="$PROJECT_DIR$/classes/example.js" />
-        <option value="$PROJECT_DIR$/classes/line.js" />
         <option value="$PROJECT_DIR$/example.svg" />
         <option value="$PROJECT_DIR$/example3.svg" />
         <option value="$PROJECT_DIR$/classes/arc.js" />
@@ -232,8 +226,6 @@
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/classes/vector.js" />
-        <option value="$PROJECT_DIR$/classes/point.js" />
-        <option value="$PROJECT_DIR$/test/svg.js" />
         <option value="$PROJECT_DIR$/node_modules/flatten-interval-tree/classes/interval.js" />
         <option value="$PROJECT_DIR$/classes/box.js" />
         <option value="$PROJECT_DIR$/node_modules/flatten-interval-tree/classes/node.js" />
@@ -243,15 +235,19 @@
         <option value="$PROJECT_DIR$/test/test-es5.js" />
         <option value="$PROJECT_DIR$/test/planar_set-es5.js" />
         <option value="$PROJECT_DIR$/es5/data_structures/planar_set.js" />
-        <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/data_structures/planar_set.js" />
         <option value="$PROJECT_DIR$/classes/edge.js" />
         <option value="$PROJECT_DIR$/classes/circle.js" />
-        <option value="$PROJECT_DIR$/test/test.js" />
         <option value="$PROJECT_DIR$/classes/face.js" />
         <option value="$PROJECT_DIR$/classes/polygon.js" />
         <option value="$PROJECT_DIR$/test/polygon.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/test/svg.js" />
+        <option value="$PROJECT_DIR$/classes/point.js" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/classes/line.js" />
+        <option value="$PROJECT_DIR$/test/test.js" />
+        <option value="$PROJECT_DIR$/classes/ray.js" />
       </list>
     </option>
   </component>
@@ -271,8 +267,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="229" />
-    <option name="y" value="33" />
+    <option name="x" value="239" />
+    <option name="y" value="31" />
     <option name="width" value="1645" />
     <option name="height" value="989" />
   </component>
@@ -302,7 +298,18 @@
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="data_structures" type="462c0819:PsiDirectoryNode" />
+              <item name="coverage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+              <item name="coverage" type="462c0819:PsiDirectoryNode" />
+              <item name="lcov-report" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -345,8 +352,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Polygon.Can create new instance of the polygon">
-    <configuration name="#Flatten.Face" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Mocha.#Flatten.Ray">
+    <configuration name="#Flatten.Ray" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -355,26 +362,12 @@
       <ui>bdd</ui>
       <extra-mocha-options />
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
       <test-names>
-        <name value="#Flatten.Face" />
+        <name value="#Flatten.Ray" />
       </test-names>
     </configuration>
-    <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
-      <test-names>
-        <name value="#Flatten.Polygon" />
-      </test-names>
-    </configuration>
-    <configuration name="#Flatten.Polygon.Can create new instance of the polygon" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 0. No interection" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -383,13 +376,13 @@
       <ui>bdd</ui>
       <extra-mocha-options />
       <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
       <test-names>
-        <name value="#Flatten.Polygon" />
-        <name value="Can create new instance of the polygon" />
+        <name value="#Flatten.Ray" />
+        <name value="May find intersection between ray and arc. Case 0. No interection" />
       </test-names>
     </configuration>
-    <configuration name="#Flatten.Polygon.Can remove faces from polygon" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 3. One touching interection" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -398,13 +391,13 @@
       <ui>bdd</ui>
       <extra-mocha-options />
       <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
       <test-names>
-        <name value="#Flatten.Polygon" />
-        <name value="Can remove faces from polygon" />
+        <name value="#Flatten.Ray" />
+        <name value="May find intersection between ray and arc. Case 3. One touching interection" />
       </test-names>
     </configuration>
-    <configuration name="#Flatten.Polygon.May create new instance of Polygon" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 4. One regular interection" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -413,10 +406,25 @@
       <ui>bdd</ui>
       <extra-mocha-options />
       <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
       <test-names>
-        <name value="#Flatten.Polygon" />
-        <name value="May create new instance of Polygon" />
+        <name value="#Flatten.Ray" />
+        <name value="May find intersection between ray and arc. Case 4. One regular interection" />
+      </test-names>
+    </configuration>
+    <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 5. Two interections" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/test.js</test-file>
+      <test-names>
+        <name value="#Flatten.Ray" />
+        <name value="May find intersection between ray and arc. Case 5. Two interections" />
       </test-names>
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -485,19 +493,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon" />
-      <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Face" />
-      <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon.May create new instance of Polygon" />
-      <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon.Can remove faces from polygon" />
-      <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon.Can create new instance of the polygon" />
+      <item index="0" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 0. No interection" />
+      <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 3. One touching interection" />
+      <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 4. One regular interection" />
+      <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 5. Two interections" />
+      <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon.Can create new instance of the polygon" />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon.Can remove faces from polygon" />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon" />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Polygon.May create new instance of Polygon" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Face" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 5. Two interections" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 4. One regular interection" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 3. One touching interection" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 0. No interection" />
       </list>
     </recent_temporary>
   </component>
@@ -545,14 +553,7 @@
       <workItem from="1503854473410" duration="741000" />
       <workItem from="1504212793074" duration="83000" />
       <workItem from="1504212937419" duration="4613000" />
-      <workItem from="1504218106536" duration="18306000" />
-    </task>
-    <task id="LOCAL-00006" summary="Point &amp; Vector">
-      <created>1487621943239</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1487621943239</updated>
+      <workItem from="1504218106536" duration="29219000" />
     </task>
     <task id="LOCAL-00007" summary="Line class started">
       <created>1487622618286</created>
@@ -890,43 +891,50 @@
       <option name="project" value="LOCAL" />
       <updated>1504215609821</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="- polygon add methods get Box, get Vertices, deleteFace, clone&#10;- make face iterable by edges">
+      <created>1504263866824</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1504263866824</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="#Flatten_Face - 2017.09.01 at 13h 18m 01s.xml">
-      <configuration name="#Flatten.Face" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray - 2017.09.02 at 12h 43m 12s.xml">
+      <configuration name="#Flatten.Ray" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Face - 2017.09.01 at 13h 18m 44s.xml">
-      <configuration name="#Flatten.Face" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray - 2017.09.02 at 12h 43m 14s.xml">
+      <configuration name="#Flatten.Ray" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Polygon - 2017.09.01 at 13h 38m 42s.xml">
-      <configuration name="#Flatten.Polygon" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray_May_find_intersection_between_ray_and_arc__Case_0__No_interection - 2017.09.02 at 12h 36m 29s.xml">
+      <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 0. No interection" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_create_new_instance_of_the_polygon - 2017.09.01 at 13h 54m 05s.xml">
-      <configuration name="#Flatten.Polygon.Can create new instance of the polygon" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray_May_find_intersection_between_ray_and_arc__Case_0__No_interection - 2017.09.02 at 12h 38m 12s.xml">
+      <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 0. No interection" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_create_new_instance_of_the_polygon - 2017.09.01 at 13h 54m 25s.xml">
-      <configuration name="#Flatten.Polygon.Can create new instance of the polygon" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray_May_find_intersection_between_ray_and_arc__Case_3__One_touching_interection - 2017.09.02 at 12h 39m 25s.xml">
+      <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 3. One touching interection" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_create_new_instance_of_the_polygon - 2017.09.01 at 13h 55m 13s.xml">
-      <configuration name="#Flatten.Polygon.Can create new instance of the polygon" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray_May_find_intersection_between_ray_and_arc__Case_3__One_touching_interection - 2017.09.02 at 12h 40m 08s.xml">
+      <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 3. One touching interection" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_create_new_instance_of_the_polygon - 2017.09.01 at 13h 56m 51s.xml">
-      <configuration name="#Flatten.Polygon.Can create new instance of the polygon" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray_May_find_intersection_between_ray_and_arc__Case_3__One_touching_interection - 2017.09.02 at 12h 40m 16s.xml">
+      <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 3. One touching interection" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_create_new_instance_of_the_polygon - 2017.09.01 at 13h 56m 54s.xml">
-      <configuration name="#Flatten.Polygon.Can create new instance of the polygon" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray_May_find_intersection_between_ray_and_arc__Case_4__One_regular_interection - 2017.09.02 at 12h 41m 21s.xml">
+      <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 4. One regular interection" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_remove_faces_from_polygon - 2017.09.01 at 13h 39m 11s.xml">
-      <configuration name="#Flatten.Polygon.Can remove faces from polygon" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray_May_find_intersection_between_ray_and_arc__Case_5__Two_interections - 2017.09.02 at 12h 42m 46s.xml">
+      <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 5. Two interections" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Polygon_May_create_new_instance_of_Polygon - 2017.09.01 at 13h 38m 40s.xml">
-      <configuration name="#Flatten.Polygon.May create new instance of Polygon" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Ray_May_find_intersection_between_ray_and_arc__Case_5__Two_interections - 2017.09.02 at 12h 43m 03s.xml">
+      <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 5. Two interections" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="293133000" />
+    <option name="totallyTimeSpent" value="304046000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -938,14 +946,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="229" y="33" width="1645" height="989" extended-state="0" />
+    <frame x="239" y="31" width="1645" height="989" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19369085" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893157" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3593179" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27010804" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33733493" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32292917" sideWeight="0.49661538" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -968,7 +976,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Readme patch" />
     <MESSAGE value="- 2 arc methods: breakToFunctional and definiteIntegral for area calculation&#10;- Ttests for arc intersection and breakToFunctional" />
     <MESSAGE value="Test for arc integral method" />
     <MESSAGE value="Fix arc sweep calculation and arc svg representation" />
@@ -993,7 +1000,8 @@
     <MESSAGE value="Added compiled to es5" />
     <MESSAGE value="Removed compiled to es5" />
     <MESSAGE value="remove usage of babel-polyfill" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove usage of babel-polyfill" />
+    <MESSAGE value="- polygon add methods get Box, get Vertices, deleteFace, clone&#10;- make face iterable by edges" />
+    <option name="LAST_COMMIT_MESSAGE" value="- polygon add methods get Box, get Vertices, deleteFace, clone&#10;- make face iterable by edges" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1004,7 +1012,7 @@
           <option name="timeStamp" value="67" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="83" />
+      <option name="time" value="93" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
@@ -1018,13 +1026,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/svg/example.js" />
     <entry file="file://$PROJECT_DIR$/docs/example.js.html" />
     <entry file="file://$PROJECT_DIR$/classes/example.js" />
@@ -1145,14 +1146,6 @@
     <entry file="file://$PROJECT_DIR$/es5/data_structures/planar_set.js" />
     <entry file="file://$PROJECT_DIR$/test/planar_set-es5.js" />
     <entry file="file://$PROJECT_DIR$/.babelrc" />
-    <entry file="file://$PROJECT_DIR$/classes/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/coverage/lcov-report/flatten-js/classes/arc.js.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1177,30 +1170,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/errors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/line.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1364">
-          <caret line="44" column="29" lean-forward="false" selection-start-line="44" selection-start-column="24" selection-end-line="44" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="117" column="11" lean-forward="false" selection-start-line="117" selection-start-column="11" selection-end-line="117" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/box.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2312">
@@ -1217,55 +1186,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-718">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/svg.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/edge.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="404" column="7" lean-forward="true" selection-start-line="404" selection-start-column="7" selection-end-line="404" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/coverage/lcov-report/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="57" lean-forward="false" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
-          <folding>
-            <marker date="1504263639133" expanded="true" signature="5428:5469" ph="..." />
-            <marker date="1504263639133" expanded="true" signature="5521:5650" ph="..." />
-            <marker date="1504263639133" expanded="true" signature="5551:5640" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1277,18 +1202,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="72" column="29" lean-forward="false" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/planar_set.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
           <caret line="19" column="45" lean-forward="false" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="992">
+          <caret line="76" column="9" lean-forward="false" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/svg.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1303,44 +1244,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+    <entry file="file://$PROJECT_DIR$/classes/vector.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+        <state relative-caret-position="374">
+          <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/face.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="51" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/segment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2767">
+          <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
+        <state relative-caret-position="-1466">
           <caret line="104" column="49" lean-forward="false" selection-start-line="104" selection-start-column="49" selection-end-line="104" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/point.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1968">
+          <caret line="102" column="77" lean-forward="false" selection-start-line="101" selection-start-column="36" selection-end-line="102" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/errors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="24" lean-forward="false" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/line.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="148" column="7" lean-forward="false" selection-start-line="148" selection-start-column="7" selection-end-line="148" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1157">
+          <caret line="806" column="46" lean-forward="false" selection-start-line="806" selection-start-column="46" selection-end-line="806" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="8" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+        <state relative-caret-position="68">
+          <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
+    <entry file="file://$PROJECT_DIR$/classes/ray.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="992">
-          <caret line="76" column="9" lean-forward="false" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
+        <state relative-caret-position="358">
+          <caret line="72" column="58" lean-forward="false" selection-start-line="72" selection-start-column="58" selection-end-line="72" selection-end-column="58" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        <state relative-caret-position="255">
+          <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
           <folding>
-            <marker date="1504215220059" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+            <marker date="1504263901442" expanded="true" signature="908:1200" ph="{&quot;node&quot;: &quot;&gt;=4.2.4&quot;...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/coverage/lcov-report/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+          <folding>
+            <marker date="1504346066075" expanded="true" signature="5425:5466" ph="..." />
           </folding>
         </state>
       </provider>

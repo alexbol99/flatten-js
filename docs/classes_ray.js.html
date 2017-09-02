@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>classes/vector.js - Documentation</title>
+    <title>classes/ray.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">classes/vector.js</h1>
+    <h1 class="page-title">classes/ray.js</h1>
     
 
     
@@ -38,178 +38,130 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Created by Alex Bol on 2/19/2017.
- */
-
-"use strict";
+            <pre class="prettyprint source linenums"><code>"use strict";
 
 module.exports = function(Flatten) {
+    let {Point, Segment, Line, Circle, Arc, Box, Vector} = Flatten;
     /**
-     * Class representing a vector
-     * @type {Vector}
+     * Class representing a horizontal ray, used for ray shooting algorithm
+     * @type {Ray}
      */
-    Flatten.Vector = class Vector {
+    Flatten.Ray = class Ray {
         /**
-         * Vector may be constructed by two points, or by two float numbers
-         * @param {Point} ps - start point
-         * @param {Point} pe - end point
+         * Construct ray by setting start point
+         * @param {Point} pt - start point
          */
         constructor(...args) {
-            /**
-             * x-coordinate of a vector (float number)
-             * @type {number}
-             */
-            this.x = 0;
-            /**
-             * y-coordinate of a vector (float number)
-             * @type {number}
-             */
-            this.y = 0;
+            this.pt = new Point();
 
-            /* return zero vector */
             if (args.length == 0) {
                 return;
             }
 
-            if (args.length == 2) {
-                let a1 = args[0];
-                let a2 = args[1];
+            if (args.length == 1 &amp;&amp; args[0] instanceof Point) {
+                this.pt = args[0].clone();
+                return;
+            }
 
-                if (typeof(a1) == "number" &amp;&amp; typeof(a2) == "number") {
-                    this.x = a1;
-                    this.y = a2;
-                    return;
-                }
-
-                if (a1 instanceof Flatten.Point &amp;&amp; a2 instanceof Flatten.Point) {
-                    this.x = a2.x - a1.x;
-                    this.y = a2.y - a1.y;
-                    return;
-                }
-
+            if (args.length == 2 &amp;&amp; typeof(args[0]) == "number" &amp;&amp; typeof(args[1]) == "number") {
+                this.pt = new Point(args[0], args[1]);
+                return;
             }
 
             throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
-         * Method clone returns new instance of Vector
-         * @returns {Vector}
+         * Returns copied instance of the ray object
+         * @returns {Ray}
          */
         clone() {
-            return new Vector(this.x, this.y);
+            return new Ray(this.pt);
         }
 
         /**
-         * Slope of the vector in radians from 0 to 2PI
-         * @returns {number}
+         * Returns half-infinite bounding box of the ray
+         * @returns {Box} - bounding box
          */
-        get slope() {
-            let angle = Math.atan2(this.y, this.x);
-            if (angle&lt;0) angle = 2*Math.PI + angle;
-            return angle;
+        get box() {
+            return new Box(
+                this.pt.x,
+                this.pt.y,
+                Number.POSITIVE_INFINITY,
+                this.pt.y
+            )
         }
 
         /**
-         * Length of vector
-         * @returns {number}
+         * Return ray start point
+         * @returns {Point} - ray start point
          */
-        get length() {
-            return Math.sqrt(this.dot(this));
+        get start() {
+            return this.pt;
         }
 
         /**
-         * Returns true if vectors are equal up to DP_TOL tolerance
-         * @param {Vector} v
-         * @returns {boolean}
+         * Return ray normal vector (0,1) - horizontal ray
+         * @returns {Vector} - ray normal vector
          */
-        equalTo(v) {
-            return Flatten.Utils.EQ(this.x, v.x) &amp;&amp; Flatten.Utils.EQ(this.y, v.y);
+        get norm() {
+            return new Vector(0,1);
         }
 
         /**
-         * Returns new vector multiplied by scalar
-         * @param {number} scalar
-         * @returns {Vector}
+         * Intersect ray with shape
+         * @param {Line|Arc} - shape to intersect with ray
+         * @returns {Array} array of intersection points
          */
-        multiply(scalar) {
-            return ( new Vector(scalar * this.x, scalar * this.y) );
-        }
-
-        /**
-         * Returns scalar product between two vectors
-         * @param {Vector} v
-         * @returns {number}
-         */
-        dot(v) {
-            return ( this.x * v.x + this.y * v.y );
-        }
-
-        /**
-         * Returns vector product (magnitude) between two vectors
-         * @param {Vector} v
-         * @returns {number}
-         */
-        cross(v) {
-            return ( this.x * v.y - this.y * v.x );
-        }
-
-        /**
-         * Returns unit vector.&lt;br/>
-         * Throw error if given vector has zero length
-         * @returns {Vector}
-         */
-        normalize() {
-            if (!Flatten.Utils.EQ_0(this.length)) {
-                return ( new Vector(this.x / this.length, this.y / this.length) );
+        intersect(shape) {
+            if (shape instanceof Segment) {
+                return this.intersectRay2Segment(this, shape);
             }
-            throw Flatten.Errors.ZERO_DIVISION;
+
+            if (shape instanceof Arc) {
+                return this.intersectRay2Arc(this, shape);
+            }
         }
 
-        /**
-         * Returns new vector rotated by given angle, positive angle defines rotation in counter clockwise direction
-         * @param {number} angle - angle in radians
-         * @returns {Vector}
-         */
-        rotate(angle) {
-            let point = new Flatten.Point(this.x, this.y);
-            let rpoint = point.rotate(angle);
-            return new Flatten.Vector(rpoint.x, rpoint.y);
+        intersectRay2Segment(ray, segment) {
+            let ip = [];
+
+            if (ray.box.notIntersect(segment.box)) {
+                return ip;
+            }
+
+            let line = new Line(ray.start, ray.norm);
+            let ip_tmp = line.intersect(segment);
+
+            for (let pt of ip_tmp) {
+                if (Flatten.Utils.GE(pt.x, ray.start.x)) {
+                    ip.push(pt);
+                }
+            }
+            return ip;
         }
 
-        /**
-         * Special fast version of rotate. Returns vector rotated 90 degrees counter clockwise
-         * @returns {Vector}
-         */
-        rotate90CCW() {
-            return new Flatten.Vector(-this.y, this.x);
-        };
+        intersectRay2Arc(ray, arc) {
+            let ip = [];
 
-        /**
-         * Special fast version of rotate. Returns vector rotated 90 degrees clockwise
-         * @returns {Vector}
-         */
-        rotate90CW() {
-            return new Flatten.Vector(this.y, -this.x);
-        };
+            if (ray.box.notIntersect(arc.box)) {
+                return ip;
+            }
 
-        /**
-         * Return inverted vector
-         * @returns {Vector}
-         */
-        invert() {
-            return new Flatten.Vector(-this.x, -this.y);
+            let line = new Line(ray.start, ray.norm);
+            let ip_tmp = line.intersect(arc);
+
+            for (let pt of ip_tmp) {
+                if (Flatten.Utils.GE(pt.x, ray.start.x)) {
+                    ip.push(pt);
+                }
+            }
+            return ip;
         }
     };
 
-    /**
-     * Function to create vector equivalent to "new" constructor
-     * @param args
-     */
-    Flatten.vector = (...args) => new Flatten.Vector(...args);
-};
-</code></pre>
+    Flatten.ray = (...args) => new Flatten.Ray(...args);
+};</code></pre>
         </article>
     </section>
 

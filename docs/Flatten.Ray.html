@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>classes/vector.js - Documentation</title>
+    <title>Ray - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,190 +28,635 @@
 
 <div id="main">
     
-    <h1 class="page-title">classes/vector.js</h1>
+    <h1 class="page-title">Ray</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Created by Alex Bol on 2/19/2017.
- */
+        <h2>
+        Ray
+        </h2>
+        
+            <div class="class-description">Class representing a horizontal ray, used for ray shooting algorithm</div>
+        
+    
+</header>
 
-"use strict";
+<article>
+    <div class="container-overview">
+    
+        
 
-module.exports = function(Flatten) {
-    /**
-     * Class representing a vector
-     * @type {Vector}
-     */
-    Flatten.Vector = class Vector {
-        /**
-         * Vector may be constructed by two points, or by two float numbers
-         * @param {Point} ps - start point
-         * @param {Point} pe - end point
-         */
-        constructor(...args) {
-            /**
-             * x-coordinate of a vector (float number)
-             * @type {number}
-             */
-            this.x = 0;
-            /**
-             * y-coordinate of a vector (float number)
-             * @type {number}
-             */
-            this.y = 0;
+    
+    <h2>Constructor</h2>
+    
 
-            /* return zero vector */
-            if (args.length == 0) {
-                return;
-            }
+    <h4 class="name" id="Ray"><span class="type-signature"></span>new Ray<span class="signature">(pt)</span><span class="type-signature"></span></h4>
 
-            if (args.length == 2) {
-                let a1 = args[0];
-                let a2 = args[1];
+    
 
-                if (typeof(a1) == "number" &amp;&amp; typeof(a2) == "number") {
-                    this.x = a1;
-                    this.y = a2;
-                    return;
-                }
 
-                if (a1 instanceof Flatten.Point &amp;&amp; a2 instanceof Flatten.Point) {
-                    this.x = a2.x - a1.x;
-                    this.y = a2.y - a1.y;
-                    return;
-                }
 
-            }
+<div class="description">
+    Construct ray by setting start point
+</div>
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
-        }
 
-        /**
-         * Method clone returns new instance of Vector
-         * @returns {Vector}
-         */
-        clone() {
-            return new Vector(this.x, this.y);
-        }
 
-        /**
-         * Slope of the vector in radians from 0 to 2PI
-         * @returns {number}
-         */
-        get slope() {
-            let angle = Math.atan2(this.y, this.x);
-            if (angle&lt;0) angle = 2*Math.PI + angle;
-            return angle;
-        }
 
-        /**
-         * Length of vector
-         * @returns {number}
-         */
-        get length() {
-            return Math.sqrt(this.dot(this));
-        }
 
-        /**
-         * Returns true if vectors are equal up to DP_TOL tolerance
-         * @param {Vector} v
-         * @returns {boolean}
-         */
-        equalTo(v) {
-            return Flatten.Utils.EQ(this.x, v.x) &amp;&amp; Flatten.Utils.EQ(this.y, v.y);
-        }
 
-        /**
-         * Returns new vector multiplied by scalar
-         * @param {number} scalar
-         * @returns {Vector}
-         */
-        multiply(scalar) {
-            return ( new Vector(scalar * this.x, scalar * this.y) );
-        }
 
-        /**
-         * Returns scalar product between two vectors
-         * @param {Vector} v
-         * @returns {number}
-         */
-        dot(v) {
-            return ( this.x * v.x + this.y * v.y );
-        }
 
-        /**
-         * Returns vector product (magnitude) between two vectors
-         * @param {Vector} v
-         * @returns {number}
-         */
-        cross(v) {
-            return ( this.x * v.y - this.y * v.x );
-        }
 
-        /**
-         * Returns unit vector.&lt;br/>
-         * Throw error if given vector has zero length
-         * @returns {Vector}
-         */
-        normalize() {
-            if (!Flatten.Utils.EQ_0(this.length)) {
-                return ( new Vector(this.x / this.length, this.y / this.length) );
-            }
-            throw Flatten.Errors.ZERO_DIVISION;
-        }
+    <h5>Parameters:</h5>
+    
 
-        /**
-         * Returns new vector rotated by given angle, positive angle defines rotation in counter clockwise direction
-         * @param {number} angle - angle in radians
-         * @returns {Vector}
-         */
-        rotate(angle) {
-            let point = new Flatten.Point(this.x, this.y);
-            let rpoint = point.rotate(angle);
-            return new Flatten.Vector(rpoint.x, rpoint.y);
-        }
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
 
-        /**
-         * Special fast version of rotate. Returns vector rotated 90 degrees counter clockwise
-         * @returns {Vector}
-         */
-        rotate90CCW() {
-            return new Flatten.Vector(-this.y, this.x);
-        };
+        <th>Type</th>
 
-        /**
-         * Special fast version of rotate. Returns vector rotated 90 degrees clockwise
-         * @returns {Vector}
-         */
-        rotate90CW() {
-            return new Flatten.Vector(this.y, -this.x);
-        };
+        
 
-        /**
-         * Return inverted vector
-         * @returns {Vector}
-         */
-        invert() {
-            return new Flatten.Vector(-this.x, -this.y);
-        }
-    };
+        
 
-    /**
-     * Function to create vector equivalent to "new" constructor
-     * @param args
-     */
-    Flatten.vector = (...args) => new Flatten.Vector(...args);
-};
-</code></pre>
-        </article>
-    </section>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Point</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">start point</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="box"><span class="type-signature"></span>box<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns half-infinite bounding box of the ray
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="norm"><span class="type-signature"></span>norm<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Return ray normal vector (0,1) - horizontal ray
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="start"><span class="type-signature"></span>start<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Return ray start point
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {Ray}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns copied instance of the ray object
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Ray</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="intersect"><span class="type-signature"></span>intersect<span class="signature">(shape)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Intersect ray with shape
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Line</span>
+|
+
+<span class="param-type">Arc</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">shape to intersect with ray</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line76">line 76</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    array of intersection points
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

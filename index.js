@@ -38,5 +38,6 @@ require("./classes/box")(f);
 require("./classes/edge")(f);
 require("./classes/face")(f);
 require("./classes/polygon")(f);
+require("./classes/ray")(f);
 
 module.exports = f;

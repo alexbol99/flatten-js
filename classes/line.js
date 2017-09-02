@@ -226,7 +226,7 @@ module.exports = function(Flatten) {
         static intersectLine2Arc(line, arc) {
             let ip = [];
 
-            if (line.box.notIntersect(arc.box)) {
+            if (Line.intersectLine2Box(line, arc.box).length == 0) {
                 return ip;
             }
 
