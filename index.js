@@ -22,6 +22,9 @@ let Flatten = class Flatten {
         this.PI_2 = 0.5 * Math.PI;
         this.Utils = Utils;
         this.Errors = Errors;
+        this.INSIDE = 0;
+        this.OUTSIDE = 1;
+        this.BOUNDARY = 2;
     }
 };
 
@@ -39,5 +42,6 @@ require("./classes/edge")(f);
 require("./classes/face")(f);
 require("./classes/polygon")(f);
 require("./classes/ray")(f);
+require("./algorithms/ray_shooting")(f);
 
 module.exports = f;
