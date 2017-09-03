@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms/ray_shooting.js" afterPath="$PROJECT_DIR$/algorithms/ray_shooting.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/arc.js" afterPath="$PROJECT_DIR$/classes/arc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/segment.js" afterPath="$PROJECT_DIR$/classes/segment.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/ray_shooting.js" afterPath="$PROJECT_DIR$/test/ray_shooting.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test.js" afterPath="$PROJECT_DIR$/test/test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ray_shooting.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ray_shooting.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="53" column="21" lean-forward="true" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
+            <state relative-caret-position="128">
+              <caret line="64" column="73" lean-forward="true" selection-start-line="64" selection-start-column="73" selection-end-line="64" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -61,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ray_shooting.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ray_shooting.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="33" column="22" lean-forward="false" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+            <state relative-caret-position="406">
+              <caret line="35" column="10" lean-forward="true" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -223,9 +218,9 @@
         <option value="$PROJECT_DIR$/classes/arc.js" />
         <option value="$PROJECT_DIR$/test/test.js" />
         <option value="$PROJECT_DIR$/classes/segment.js" />
-        <option value="$PROJECT_DIR$/test/ray_shooting.js" />
         <option value="$PROJECT_DIR$/algorithms/ray_shooting.js" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/test/ray_shooting.js" />
       </list>
     </option>
   </component>
@@ -535,14 +530,7 @@
       <workItem from="1503854473410" duration="741000" />
       <workItem from="1504212793074" duration="83000" />
       <workItem from="1504212937419" duration="4613000" />
-      <workItem from="1504218106536" duration="42292000" />
-    </task>
-    <task id="LOCAL-00009" summary="Some jsdocs">
-      <created>1488630592066</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1488630592066</updated>
+      <workItem from="1504218106536" duration="42441000" />
     </task>
     <task id="LOCAL-00010" summary="Some jsdocs">
       <created>1488835373200</created>
@@ -880,7 +868,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504417089586</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Continued ray shooting algorithm (not completed)">
+      <created>1504474426494</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1504474426494</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -916,7 +911,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="317119000" />
+    <option name="totallyTimeSpent" value="317268000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -929,7 +924,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="204" y="27" width="1645" height="989" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19369085" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893157" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -939,8 +933,8 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32292917" sideWeight="0.49661538" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969988" sideWeight="0.49768057" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.47779113" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24969988" sideWeight="0.49768057" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47779113" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44753477" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -958,7 +952,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix arc sweep calculation and arc svg representation" />
     <MESSAGE value="Polygon to svg method" />
     <MESSAGE value="Docs updated added svg methods" />
     <MESSAGE value="Readme.md update with some text and example of polygon" />
@@ -983,18 +976,11 @@
     <MESSAGE value="- polygon add methods get Box, get Vertices, deleteFace, clone&#10;- make face iterable by edges" />
     <MESSAGE value="Added class Ray" />
     <MESSAGE value="Added ray shooting algorithm (not completed)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ray shooting algorithm (not completed)" />
+    <MESSAGE value="Continued ray shooting algorithm (not completed)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Continued ray shooting algorithm (not completed)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/ray_shooting.js</url>
-          <line>33</line>
-          <properties />
-          <option name="timeStamp" value="101" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="102" />
     </breakpoint-manager>
     <watches-manager>
@@ -1268,14 +1254,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="719" column="72" lean-forward="false" selection-start-line="719" selection-start-column="72" selection-end-line="719" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/arc.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="358">
@@ -1334,18 +1312,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
+    <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="33" column="22" lean-forward="false" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        <state relative-caret-position="128">
+          <caret line="64" column="73" lean-forward="true" selection-start-line="64" selection-start-column="73" selection-end-line="64" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
+    <entry file="file://$PROJECT_DIR$/test/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="53" column="21" lean-forward="true" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
+        <state relative-caret-position="54">
+          <caret line="719" column="72" lean-forward="false" selection-start-line="719" selection-start-column="72" selection-end-line="719" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="35" column="10" lean-forward="true" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
           <folding />
         </state>
       </provider>
