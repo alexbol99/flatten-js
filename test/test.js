@@ -709,6 +709,26 @@ describe('#Flatten.Arc', function() {
         let area = arc.definiteIntegral();
         expect( Flatten.Utils.EQ(area, Math.PI)).to.equal(true);
     });
+    it('It can calculate tangent vector in start point, CCW case', function () {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
+        let tangent = arc.tangentInStart();
+        expect(tangent.equalTo(vector(Math.cos(3*Math.PI/4), Math.sin(3*Math.PI/4)))).to.be.true;
+    });
+    it('It can calculate tangent vector in start point, CW case', function () {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CW);
+        let tangent = arc.tangentInStart();
+        expect(tangent.equalTo(vector(Math.cos(7*Math.PI/4), Math.sin(7*Math.PI/4)))).to.be.true;
+    });
+    it('It can calculate tangent vector in end point, CCW case', function () {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
+        let tangent = arc.tangentInEnd();
+        expect(tangent.equalTo(vector(Math.cos(Math.PI/4), Math.sin(Math.PI/4)))).to.be.true;
+    });
+    it('It can calculate tangent vector in end point, CW case', function () {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CW);
+        let tangent = arc.tangentInEnd();
+        expect(tangent.equalTo(vector(Math.cos(5*Math.PI/4), Math.sin(5*Math.PI/4)))).to.be.true;
+    });
 });
 
 describe('#Flatten.Box', function() {

@@ -337,6 +337,28 @@ module.exports = function(Flatten) {
             return func_arcs_array;
         }
 
+        /**
+         * Return tangent unit vector in the start point in the direction from start to end
+         * @returns {Vector} - tangent vector in start point
+         */
+        tangentInStart() {
+            let vec = new Flatten.Vector(this.pc, this.start);
+            let angle = this.counterClockwise ? Math.PI/2. : -Math.PI/2.;
+            let tangent = vec.rotate(angle).normalize();
+            return tangent;
+        }
+
+        /**
+         * Return tangent unit vector in the end point in the direction from end to start
+         * @returns {Vector} - tangent vector in end point
+         */
+        tangentInEnd() {
+            let vec = new Flatten.Vector(this.pc, this.end);
+            let angle = this.counterClockwise ? -Math.PI/2. : Math.PI/2.;
+            let tangent = vec.rotate(angle).normalize();
+            return tangent;
+        }
+
         static intersectArc2Arc(arc1, arc2) {
             var ip = [];
 

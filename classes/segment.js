@@ -155,6 +155,24 @@ module.exports = function(Flatten) {
             }
         }
 
+        /**
+         * Return tangent unit vector in the start point in the direction from start to end
+         * @returns {Vector} - tangent vector in start point
+         */
+        tangentInStart() {
+            let vec = new Flatten.Vector(this.start, this.end);
+            return vec.normalize();
+        }
+
+        /**
+         * Return tangent unit vector in the end point in the direction from end to start
+         * @returns {Vector} - tangent vector in end point
+         */
+        tangentInEnd() {
+            let vec = new Flatten.Vector(this.end, this.start);
+            return vec.normalize();
+        }
+
         distanceToPoint(pt) {
             /* Degenerated case of zero-length segment */
             if (this.start.equalTo(this.end)) {

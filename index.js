@@ -22,8 +22,8 @@ let Flatten = class Flatten {
         this.PI_2 = 0.5 * Math.PI;
         this.Utils = Utils;
         this.Errors = Errors;
-        this.INSIDE = 0;
-        this.OUTSIDE = 1;
+        this.INSIDE = 1;
+        this.OUTSIDE = 0;
         this.BOUNDARY = 2;
     }
 };

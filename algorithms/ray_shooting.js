@@ -2,10 +2,10 @@
 "use strict";
 
 module.exports = function(Flatten) {
-    let {Polgon, Point, Segment, Arc, Line, Ray} = Flatten;
+    let {Polygon, Point, Segment, Arc, Line, Ray} = Flatten;
 
     Flatten.ray_shoot = function(polygon, point) {
-        let contains = false;
+        let contains = undefined;
 
         if (!(polygon instanceof Polygon && point instanceof Point)) {
             throw Flatten.Errors.ILLEGAL_PARAMETERS;
@@ -45,10 +45,10 @@ module.exports = function(Flatten) {
 
         // 4. Sort intersection in x-ascending order
         intersections.sort( (i1, i2) => {
-            if (Flatten.LT(i1.pt.x, i2.pt.x)) {
+            if (Flatten.Utils.LT(i1.pt.x, i2.pt.x)) {
                 return -1;
             }
-            if (Flatten.GT(i1.pt.x, i2.pt.x)) {
+            if (Flatten.Utils.GT(i1.pt.x, i2.pt.x)) {
                 return -1;
             }
             return 0;
@@ -60,22 +60,53 @@ module.exports = function(Flatten) {
         for (let i=0; i < intersections.length; i++) {
             let intersection = intersections[i];
             if (intersection.pt.equalTo(intersection.edge.shape.start)) {
+                let prev_edge = intersection.edge.prev;
+                let prev_tangent = prev_edge.shape.tangentInEnd();
+                let prev_point = intersection.pt.translate(prev_tangent);
 
+                let cur_tangent = intersection.edge.shape.tangentInStart();
+                let cur_point = intersection.pt.translate(cur_tangent);
+
+                let prev_on_the_left = prev_point.leftTo(line);
+                let cur_on_the_left = cur_point.leftTo(line);
+
+                if ( (prev_on_the_left && !cur_on_the_left) || (!prev_on_the_left && cur_on_the_left) ) {
+                    counter++;
+                }
             }
             else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
+                let next_edge = intersection.edge.next;
+                let next_tangent = next_edge.shape.tangentInStart();
+                let next_point = intersection.pt.translate(next_tangent);
 
+                let cur_tangent = intersection.edge.shape.tangentInEnd();
+                let cur_point = intersection.pt.translate(cur_tangent);
+
+                let next_on_the_left = next_point.leftTo(line);
+                let cur_on_the_left = cur_point.leftTo(line);
+
+                if ( (next_on_the_left && !cur_on_the_left) || (!next_on_the_left && cur_on_the_left) ) {
+                    counter++;
+                }
             }
-            else {
+            else {        /* intersection point is not a coincident with a vertex */
                 if (intersection.edge.shape instanceof Segment) {
                     counter++;
                 }
                 else {
-
+                    /* Check if ray does not touch the curve in the extremal (top or bottom) point */
+                    let box = intersection.edge.shape.box;
+                    if ( !(Flatten.Utils.EQ(intersection.pt.y, box.ymin) ||
+                            Flatten.Utils.EQ(intersection.pt.y, box.ymax)) ) {
+                        counter++;
+                    }
                 }
             }
         }
 
         // 6. Odd or even?
+        contains = counter % 2 == 1 ? Flatten.INSIDE : Flatten.OUTSIDE;
+
         return contains;
     };
 };

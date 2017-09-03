@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/algorithms/ray_shooting.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/ray_shooting.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms/ray_shooting.js" afterPath="$PROJECT_DIR$/algorithms/ray_shooting.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/arc.js" afterPath="$PROJECT_DIR$/classes/arc.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/segment.js" afterPath="$PROJECT_DIR$/classes/segment.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/ray_shooting.js" afterPath="$PROJECT_DIR$/test/ray_shooting.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test.js" afterPath="$PROJECT_DIR$/test/test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,51 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1351">
-              <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ray_shooting.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="609">
-              <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="constants.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/constants.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="errors.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/errors.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="24" lean-forward="false" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/utils.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+            <state relative-caret-position="80">
+              <caret line="53" column="21" lean-forward="true" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -82,8 +44,70 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+            <state relative-caret-position="195">
+              <caret line="25" column="25" lean-forward="true" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/flatten-interval-tree/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="96" column="18" lean-forward="false" selection-start-line="96" selection-start-column="18" selection-end-line="96" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ray_shooting.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="33" column="22" lean-forward="false" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="237">
+              <caret line="68" column="11" lean-forward="false" selection-start-line="68" selection-start-column="11" selection-end-line="68" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/polygon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="262">
+              <caret line="158" column="7" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="158" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/arc.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="358">
+              <caret line="360" column="0" lean-forward="true" selection-start-line="350" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
+              <folding>
+                <marker date="1504471351548" expanded="true" signature="16945:17030" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="719" column="72" lean-forward="false" selection-start-line="719" selection-start-column="72" selection-end-line="719" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -92,38 +116,18 @@
       <file leaf-file-name="point.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/point.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-75">
-              <caret line="113" column="28" lean-forward="false" selection-start-line="113" selection-start-column="28" selection-end-line="113" selection-end-column="28" />
+            <state relative-caret-position="240">
+              <caret line="212" column="57" lean-forward="false" selection-start-line="212" selection-start-column="57" selection-end-line="212" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ray.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/ray.js">
+      <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/segment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1072">
-              <caret line="72" column="58" lean-forward="false" selection-start-line="72" selection-start-column="58" selection-end-line="72" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/line.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="61" column="52" lean-forward="true" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/planar_set.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-306">
-              <caret line="21" column="46" lean-forward="true" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+            <state relative-caret-position="315">
+              <caret line="174" column="0" lean-forward="true" selection-start-line="174" selection-start-column="0" selection-end-line="174" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -191,8 +195,6 @@
         <option value="$PROJECT_DIR$/classes/example.js" />
         <option value="$PROJECT_DIR$/example.svg" />
         <option value="$PROJECT_DIR$/example3.svg" />
-        <option value="$PROJECT_DIR$/classes/arc.js" />
-        <option value="$PROJECT_DIR$/classes/segment.js" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/classes/vector.js" />
@@ -214,14 +216,16 @@
         <option value="$PROJECT_DIR$/test/svg.js" />
         <option value="$PROJECT_DIR$/classes/point.js" />
         <option value="$PROJECT_DIR$/classes/line.js" />
-        <option value="$PROJECT_DIR$/test/test.js" />
         <option value="$PROJECT_DIR$/classes/ray.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/test/algorithms.js" />
-        <option value="$PROJECT_DIR$/test/ray_shooting.js" />
         <option value="$PROJECT_DIR$/utils/utils.js" />
-        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/classes/arc.js" />
+        <option value="$PROJECT_DIR$/test/test.js" />
+        <option value="$PROJECT_DIR$/classes/segment.js" />
+        <option value="$PROJECT_DIR$/test/ray_shooting.js" />
         <option value="$PROJECT_DIR$/algorithms/ray_shooting.js" />
+        <option value="$PROJECT_DIR$/index.js" />
       </list>
     </option>
   </component>
@@ -241,8 +245,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="285" />
-    <option name="y" value="13" />
+    <option name="x" value="204" />
+    <option name="y" value="27" />
     <option name="width" value="1645" />
     <option name="height" value="989" />
   </component>
@@ -330,7 +334,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Ray_Shooting">
+  <component name="RunManager" selected="Mocha.#Algorithms.Ray_Shooting.Can check point in contour. Case 3. Boundary">
     <configuration name="#Algorithms.Ray_Shooting" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -345,7 +349,7 @@
         <name value="#Algorithms.Ray_Shooting" />
       </test-names>
     </configuration>
-    <configuration name="#Flatten.Ray" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Algorithms.Ray_Shooting.Can check point in contour" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -353,13 +357,44 @@
       <envs />
       <ui>bdd</ui>
       <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/test.js</test-file>
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/ray_shooting.js</test-file>
       <test-names>
-        <name value="#Flatten.Ray" />
+        <name value="#Algorithms.Ray_Shooting" />
+        <name value="Can check point in contour" />
       </test-names>
     </configuration>
-    <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 3. One touching interection" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 2" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/ray_shooting.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Ray_Shooting" />
+        <name value="Can check point in contour. Case 2" />
+      </test-names>
+    </configuration>
+    <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 3. Boundary" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/ray_shooting.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Ray_Shooting" />
+        <name value="Can check point in contour. Case 3. Boundary" />
+      </test-names>
+    </configuration>
+    <configuration name="#Flatten.Arc.It can calculate tangent vector in end point, CW case" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -370,38 +405,8 @@
       <test-kind>TEST</test-kind>
       <test-file>$PROJECT_DIR$/test/test.js</test-file>
       <test-names>
-        <name value="#Flatten.Ray" />
-        <name value="May find intersection between ray and arc. Case 3. One touching interection" />
-      </test-names>
-    </configuration>
-    <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 4. One regular interection" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/test.js</test-file>
-      <test-names>
-        <name value="#Flatten.Ray" />
-        <name value="May find intersection between ray and arc. Case 4. One regular interection" />
-      </test-names>
-    </configuration>
-    <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 5. Two interections" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/test.js</test-file>
-      <test-names>
-        <name value="#Flatten.Ray" />
-        <name value="May find intersection between ray and arc. Case 5. Two interections" />
+        <name value="#Flatten.Arc" />
+        <name value="It can calculate tangent vector in end point, CW case" />
       </test-names>
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -470,19 +475,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 3. One touching interection" />
-      <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 4. One regular interection" />
-      <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 5. Two interections" />
-      <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray" />
-      <item index="4" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting" />
+      <item index="0" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.It can calculate tangent vector in end point, CW case" />
+      <item index="1" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting.Can check point in contour" />
+      <item index="2" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting.Can check point in contour. Case 2" />
+      <item index="3" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting" />
+      <item index="4" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting.Can check point in contour. Case 3. Boundary" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting" />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray" />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 5. Two interections" />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 4. One regular interection" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Ray.May find intersection between ray and arc. Case 3. One touching interection" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting.Can check point in contour. Case 3. Boundary" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting.Can check point in contour. Case 2" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.#Algorithms.Ray_Shooting.Can check point in contour" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.It can calculate tangent vector in end point, CW case" />
       </list>
     </recent_temporary>
   </component>
@@ -530,14 +535,7 @@
       <workItem from="1503854473410" duration="741000" />
       <workItem from="1504212793074" duration="83000" />
       <workItem from="1504212937419" duration="4613000" />
-      <workItem from="1504218106536" duration="36362000" />
-    </task>
-    <task id="LOCAL-00008" summary="Some jsdocs">
-      <created>1487828338518</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1487828338518</updated>
+      <workItem from="1504218106536" duration="42292000" />
     </task>
     <task id="LOCAL-00009" summary="Some jsdocs">
       <created>1488630592066</created>
@@ -875,43 +873,50 @@
       <option name="project" value="LOCAL" />
       <updated>1504346206838</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Added ray shooting algorithm (not completed)">
+      <created>1504417089586</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1504417089586</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="#Algorithms_Ray_Shooting - 2017.09.02 at 23h 29m 35s.xml">
+    <history-entry file="#Algorithms_Ray_Shooting - 2017.09.04 at 00h 23m 27s.xml">
       <configuration name="#Algorithms.Ray_Shooting" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Ray_Shooting - 2017.09.02 at 23h 30m 03s.xml">
+    <history-entry file="#Algorithms_Ray_Shooting - 2017.09.04 at 00h 24m 10s.xml">
       <configuration name="#Algorithms.Ray_Shooting" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Ray_Shooting - 2017.09.02 at 23h 30m 15s.xml">
-      <configuration name="#Algorithms.Ray_Shooting" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Ray_Shooting_Can_check_point_in_contour__Case_2 - 2017.09.04 at 00h 21m 03s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 2" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Ray_Shooting - 2017.09.02 at 23h 30m 22s.xml">
-      <configuration name="#Algorithms.Ray_Shooting" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Ray_Shooting_Can_check_point_in_contour__Case_2 - 2017.09.04 at 00h 21m 23s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 2" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Ray_Shooting - 2017.09.02 at 23h 34m 03s.xml">
-      <configuration name="#Algorithms.Ray_Shooting" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Ray_Shooting_Can_check_point_in_contour__Case_2 - 2017.09.04 at 00h 23m 23s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 2" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Ray_Shooting - 2017.09.02 at 23h 34m 20s.xml">
-      <configuration name="#Algorithms.Ray_Shooting" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Ray_Shooting_Can_check_point_in_contour__Case_3__Boundary - 2017.09.04 at 00h 25m 12s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 3. Boundary" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Ray_Shooting - 2017.09.02 at 23h 34m 55s.xml">
-      <configuration name="#Algorithms.Ray_Shooting" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Ray_Shooting_Can_check_point_in_contour__Case_3__Boundary - 2017.09.04 at 00h 26m 36s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 3. Boundary" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Ray - 2017.09.02 at 12h 43m 12s.xml">
-      <configuration name="#Flatten.Ray" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Ray_Shooting_Can_check_point_in_contour__Case_3__Boundary - 2017.09.04 at 00h 27m 54s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 3. Boundary" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Ray - 2017.09.02 at 12h 43m 14s.xml">
-      <configuration name="#Flatten.Ray" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Ray_Shooting_Can_check_point_in_contour__Case_3__Boundary - 2017.09.04 at 00h 28m 25s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 3. Boundary" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Ray_May_find_intersection_between_ray_and_arc__Case_5__Two_interections - 2017.09.02 at 12h 43m 03s.xml">
-      <configuration name="#Flatten.Ray.May find intersection between ray and arc. Case 5. Two interections" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Ray_Shooting_Can_check_point_in_contour__Case_3__Boundary - 2017.09.04 at 00h 31m 18s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Can check point in contour. Case 3. Boundary" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="311189000" />
+    <option name="totallyTimeSpent" value="317119000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -923,19 +928,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="285" y="13" width="1645" height="989" extended-state="0" />
+    <frame x="204" y="27" width="1645" height="989" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19369085" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893157" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261131" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3593179" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33733493" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2977191" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32292917" sideWeight="0.49661538" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969988" sideWeight="0.49768057" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47779113" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.47779113" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44753477" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -953,7 +958,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Test for arc integral method" />
     <MESSAGE value="Fix arc sweep calculation and arc svg representation" />
     <MESSAGE value="Polygon to svg method" />
     <MESSAGE value="Docs updated added svg methods" />
@@ -978,18 +982,20 @@
     <MESSAGE value="remove usage of babel-polyfill" />
     <MESSAGE value="- polygon add methods get Box, get Vertices, deleteFace, clone&#10;- make face iterable by edges" />
     <MESSAGE value="Added class Ray" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added class Ray" />
+    <MESSAGE value="Added ray shooting algorithm (not completed)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ray shooting algorithm (not completed)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/node_modules/flatten-interval-tree/index.js</url>
-          <line>352</line>
-          <option name="timeStamp" value="67" />
+          <url>file://$PROJECT_DIR$/test/ray_shooting.js</url>
+          <line>33</line>
+          <properties />
+          <option name="timeStamp" value="101" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="94" />
+      <option name="time" value="102" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
@@ -1065,14 +1071,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1224">
           <caret line="72" column="43" lean-forward="false" selection-start-line="72" selection-start-column="43" selection-end-line="72" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/flatten-interval-tree/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8891">
-          <caret line="523" column="18" lean-forward="false" selection-start-line="523" selection-start-column="18" selection-end-line="523" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1162,14 +1160,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="992">
-          <caret line="76" column="9" lean-forward="false" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/svg.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1178,42 +1168,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/face.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="51" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2767">
-          <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1466">
-          <caret line="104" column="49" lean-forward="false" selection-start-line="104" selection-start-column="49" selection-end-line="104" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1157">
-          <caret line="806" column="46" lean-forward="false" selection-start-line="806" selection-start-column="46" selection-end-line="806" selection-end-column="46" />
           <folding />
         </state>
       </provider>
@@ -1233,24 +1191,6 @@
           <folding>
             <marker date="1504346066075" expanded="true" signature="5425:5466" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="13" />
-          <folding>
-            <marker date="1490470317230" expanded="true" signature="16079:16164" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1304,26 +1244,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/planar_set.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-306">
           <caret line="21" column="46" lean-forward="true" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75">
-          <caret line="113" column="28" lean-forward="false" selection-start-line="113" selection-start-column="28" selection-end-line="113" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -1336,10 +1260,92 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/classes/vector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1065">
+          <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="719" column="72" lean-forward="false" selection-start-line="719" selection-start-column="72" selection-end-line="719" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/arc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="360" column="0" lean-forward="true" selection-start-line="350" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
+          <folding>
+            <marker date="1504471351548" expanded="true" signature="16945:17030" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/segment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="174" column="0" lean-forward="true" selection-start-line="174" selection-start-column="0" selection-end-line="174" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/polygon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="158" column="7" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="158" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/flatten-interval-tree/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="96" column="18" lean-forward="false" selection-start-line="96" selection-start-column="18" selection-end-line="96" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="68" column="11" lean-forward="false" selection-start-line="68" selection-start-column="11" selection-end-line="68" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="25" column="25" lean-forward="true" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/point.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="212" column="57" lean-forward="false" selection-start-line="212" selection-start-column="57" selection-end-line="212" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="33" column="22" lean-forward="false" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        <state relative-caret-position="80">
+          <caret line="53" column="21" lean-forward="true" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
           <folding />
         </state>
       </provider>
