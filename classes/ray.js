@@ -98,6 +98,14 @@ module.exports = function(Flatten) {
                     ip.push(pt);
                 }
             }
+
+            /* If there were two intersection points between line and ray,
+            and now there is exactly one left, it means ray starts between these points
+            and there is another intersection point - start of the ray */
+            if (ip_tmp.length == 2 && ip.length == 1 && ray.start.on(line)) {
+                ip.push(ray.start);
+            }
+
             return ip;
         }
 

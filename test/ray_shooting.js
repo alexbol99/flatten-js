@@ -27,11 +27,11 @@ describe('#Algorithms.Ray_Shooting', function() {
         let contains = ray_shoot(polygon, point(0,2));
         expect(contains).to.be.equal(Flatten.OUTSIDE);
     });
-    // it('Can check point in contour. Case 3. Boundary',function() {
-    //     let polygon = new Polygon();
-    //     let points = [point(1,1), point(3,1), point(3,3), point(1,3)];
-    //     let face = polygon.addFace(points);
-    //     let contains = ray_shoot(polygon, point(2,3));
-    //     expect(contains).to.be.equal(Flatten.BOUNDARY);
-    // });
+    it('Can check point in contour. Case 3. Boundary',function() {
+        let polygon = new Polygon();
+        let points = [point(1,1), point(3,1), point(3,3), point(1,3)];
+        let face = polygon.addFace(points);
+        let contains = ray_shoot(polygon, point(2,3));
+        expect(contains).to.be.equal(Flatten.BOUNDARY);
+    });
 });
