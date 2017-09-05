@@ -89,10 +89,21 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Get bounding box of arc
+         * Get bounding box of the arc
          * @returns {Box}
          */
         get box() {
+            let func_arcs = this.breakToFunctional();
+            let box = func_arcs.reduce( (acc, arc) => acc.merge(arc.start.box), new Flatten.Box() );
+            box = box.merge(this.end.box);
+            return box;
+        }
+
+        /**
+         * Get bounding box of arc
+         * @returns {Box}
+         */
+        oldbox() {
             let xs,ys,xe,ye;
             let dxs,dys,dxe,dye;
             let xmin,ymin,xmax,ymax;

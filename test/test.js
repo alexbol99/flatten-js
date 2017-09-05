@@ -579,17 +579,27 @@ describe('#Flatten.Arc', function() {
     });
     it('Getter arc.box returns arc bounding box, CCW case', function () {
         let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, true);
-        expect(Flatten.Utils.EQ(arc.box.xmin,Math.sqrt(2)/2)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.ymin,-Math.sqrt(2)/2)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.xmax,1)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.ymax,Math.sqrt(2)/2)).to.equal(true);
+        let box = arc.box;
+        expect(Flatten.Utils.EQ(box.xmin,Math.sqrt(2)/2)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymin,-Math.sqrt(2)/2)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.xmax,1)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymax,Math.sqrt(2)/2)).to.equal(true);
     });
     it('Getter arc.box returns arc bounding box, CW case', function () {
         let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, false);
-        expect(Flatten.Utils.EQ(arc.box.xmin,-1)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.ymin,-1)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.xmax,Math.sqrt(2)/2)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.ymax,1)).to.equal(true);
+        let box = arc.box;
+        expect(Flatten.Utils.EQ(box.xmin,-1)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymin,-1)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.xmax,Math.sqrt(2)/2)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymax,1)).to.equal(true);
+    });
+    it('Getter arc.box returns arc bounding box, circle case', function () {
+        let arc = circle(point(200,200), 75).toArc(false);
+        let box = arc.box;
+        expect(Flatten.Utils.EQ(box.xmin,125)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymin,125)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.xmax,275)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymax,275)).to.equal(true);
     });
     describe('#Flatten.Arc.breakToFunctional', function() {
         it('Case 1. No intersection with axes', function () {

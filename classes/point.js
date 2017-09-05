@@ -117,7 +117,7 @@ module.exports = function(Flatten) {
 
             let vec = new Flatten.Vector(this, line.pt);
             if (Flatten.Utils.EQ_0(vec.cross(line.norm)))    // vector to point from anchor point collinear to normal vector
-                return this.clone();
+                return line.pt.clone();
 
             let dist = vec.dot(line.norm);             // signed distance
             let proj_vec = line.norm.multiply(dist);
@@ -188,6 +188,10 @@ module.exports = function(Flatten) {
             }
 
             if (shape instanceof Flatten.Arc) {
+                return shape.contains(this);
+            }
+
+            if (shape instanceof Flatten.Polygon) {
                 return shape.contains(this);
             }
         }

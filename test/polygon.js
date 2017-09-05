@@ -128,6 +128,42 @@ describe('#Flatten.Polygon', function() {
         ]);
         expect(polygon.area()).to.equal(2);
     });
+    it('Can check point in contour. Donut Case 1 Boundary top',function() {
+        let polygon = new Polygon();
+        let a = circle(point(200,200), 100).toArc(true);
+        let b = circle(point(200,200), 75).toArc(false);
+        polygon.addFace([a]);
+        polygon.addFace([b]);
+        let pt = point(200,100);
+        expect(polygon.contains(pt)).to.be.true;
+    });
+    it('Can check point in contour. Donut Case 2 Center',function() {
+        let polygon = new Polygon();
+        let a = circle(point(200,200), 100).toArc(true);
+        let b = circle(point(200,200), 75).toArc(false);
+        polygon.addFace([a]);
+        polygon.addFace([b]);
+        let pt = point(200,200);
+        expect(pt.on(polygon)).to.be.false;
+    });
+    it('Can check point in contour. Donut Case 3 Inside',function() {
+        let polygon = new Polygon();
+        let a = circle(point(200,200), 100).toArc(true);
+        let b = circle(point(200,200), 75).toArc(false);
+        polygon.addFace([a]);
+        polygon.addFace([b]);
+        let pt = point(200,290);
+        expect(polygon.contains(pt)).to.be.true;
+    });
+    it('Can check point in contour. Donut Case 4 Boundary inner circle start',function() {
+        let polygon = new Polygon();
+        let a = circle(point(200,200), 100).toArc(true);
+        let b = circle(point(200,200), 75).toArc(false);
+        polygon.addFace([a]);
+        polygon.addFace([b]);
+        let pt = point(125, 200);
+        expect(polygon.contains(pt)).to.be.true;
+    });
 });
 describe('#Flatten.Face', function() {
     "use strict";

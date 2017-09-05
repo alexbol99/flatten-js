@@ -7,9 +7,9 @@ module.exports = function(Flatten) {
     Flatten.ray_shoot = function(polygon, point) {
         let contains = undefined;
 
-        if (!(polygon instanceof Polygon && point instanceof Point)) {
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
-        }
+        // if (!(polygon instanceof Polygon && point instanceof Point)) {
+        //     throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        // }
 
         // 1. Quick reject
         if (polygon.box.notIntersect(point.box)) {

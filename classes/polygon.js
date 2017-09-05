@@ -6,6 +6,7 @@
 
 module.exports = function(Flatten) {
     let {Edge, Face, PlanarSet, Box} = Flatten;
+    let {ray_shoot} = Flatten;
     /**
      * Class representing a polygon.<br/>
      * Polygon in FlattenJS is a multipolygon comprised from a set of faces<br/>
@@ -97,6 +98,18 @@ module.exports = function(Flatten) {
         area() {
             let signedArea = [...this.faces].reduce((acc,face) => acc + face.signedArea(), 0);
             return Math.abs(signedArea);
+        }
+
+        /**
+         * Point in contour test based on ray shooting (tracing) algorithm
+         * Returns true if point inside contour or lays on boundary,
+         * otherwise returns false
+         * @param point - test point
+         * @returns {boolean} - true if inside or on boundary, false otherwise
+         */
+        contains(point) {
+            let rel = ray_shoot(this, point);
+            return (rel == Flatten.INSIDE || rel == Flatten.BOUNDARY) ? true : false;
         }
 
         /**

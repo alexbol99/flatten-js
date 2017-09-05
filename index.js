@@ -40,8 +40,8 @@ require("./classes/arc")(f);
 require("./classes/box")(f);
 require("./classes/edge")(f);
 require("./classes/face")(f);
-require("./classes/polygon")(f);
 require("./classes/ray")(f);
 require("./algorithms/ray_shooting")(f);
+require("./classes/polygon")(f);
 
 module.exports = f;
