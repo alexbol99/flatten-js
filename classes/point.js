@@ -91,10 +91,6 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         translate(...args) {
-            if (args.length == 0) {
-                return this.clone();
-            }
-
             if (args.length == 1 && (args[0] instanceof Flatten.Vector)) {
                 return new Flatten.Point(this.x + args[0].x, this.y + args[0].y);
             }

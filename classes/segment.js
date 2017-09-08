@@ -70,27 +70,11 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Set start point
-         * @param {Point} pt
-         */
-        set start(pt) {
-            this.ps = pt;
-        }
-
-        /**
          * End point
          * @returns {Point}
          */
         get end() {
             return this.pe;
-        }
-
-        /**
-         * Set end point
-         * @param {Point} pt
-         */
-        set end(pt) {
-            this.pe = pt;
         }
 
         /**

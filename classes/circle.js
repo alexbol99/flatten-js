@@ -115,9 +115,9 @@ module.exports = function(Flatten) {
             if (Flatten.Utils.EQ_0(r1) || Flatten.Utils.EQ_0(r2))
                 return ip;
 
-            // In case of equal circles return one most left intersection points
+            // In case of equal circles return one leftmost point
             if (Flatten.Utils.EQ_0(vec.x) && Flatten.Utils.EQ_0(vec.y) && Flatten.Utils.EQ(r1, r2)) {
-                ip.push(new Flatten.Point(circle1.x - r1, circle1.y));
+                ip.push(circle1.pc.translate(-r1, 0));
                 return ip;
             }
 

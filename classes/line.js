@@ -98,7 +98,7 @@ module.exports = function(Flatten) {
          * @returns {boolean}
          */
         parallelTo(other_line) {
-            return this.norm.equalTo(other_line.norm);
+            return Flatten.Utils.EQ_0(this.norm.cross(other_line.norm));
         }
 
         /**
