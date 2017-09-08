@@ -144,7 +144,9 @@ module.exports = function(Flatten) {
             let distToCircle = pt.distanceTo(circle);
             let distToStart = pt.distanceTo(this.start);
             let distToEnd = pt.distanceTo(this.end);
-            return Math.min(distToCircle, Math.min(distToStart, distToEnd));
+            let dist = Math.min(distToCircle, Math.min(distToStart, distToEnd));
+            let closestPoint;
+            return [dist,closestPoint];
         }
 
         /**

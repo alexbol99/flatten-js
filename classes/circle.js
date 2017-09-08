@@ -5,7 +5,7 @@
 "use strict";
 
 module.exports = function(Flatten) {
-    let {Arc} = Flatten;
+    let {Arc,vector} = Flatten;
     /**
      * Class representing a circle
      * @type {Circle}
@@ -97,6 +97,14 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Arc) {
                 return shape.intersect(this);
             }
+        }
+
+        distanceToPoint(pt) {
+            let dist2pc = pt.distanceTo(this.pc);
+            let dist = Math.abs(dist2pc - this.r);
+            let v = vector(this.pc, pt).normalize().multiply(this.r);
+            let closest_point =  this.pc.translate(v);
+            return [dist, closest_point];
         }
 
         static intersectCirle2Circle(circle1, circle2) {

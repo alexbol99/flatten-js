@@ -70,7 +70,7 @@ module.exports = function(Flatten) {
 
         /**
          * Intersect ray with shape
-         * @param {Line|Arc} - shape to intersect with ray
+         * @param {Segment|Arc} - shape to intersect with ray
          * @returns {Array} array of intersection points
          */
         intersect(shape) {

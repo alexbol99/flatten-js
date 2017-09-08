@@ -148,16 +148,18 @@ module.exports = function(Flatten) {
             }
 
             if (shape instanceof Flatten.Circle) {
-                let dist2pc = this.distanceTo(shape.pc);
-                return Math.abs(dist2pc - shape.r);
+                let [dist,closest_point] = shape.distanceToPoint(this);
+                return dist;
             }
 
             if (shape instanceof Flatten.Segment) {
-                return shape.distanceToPoint(this);
+                let [dist,closest_point] = shape.distanceToPoint(this);
+                return dist;
             }
 
             if (shape instanceof Flatten.Arc) {
-                return shape.distanceToPoint(this);
+                let [dist,closest_point] = shape.distanceToPoint(this);
+                return dist;
             }
         }
 

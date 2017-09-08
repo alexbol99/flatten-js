@@ -113,7 +113,8 @@ module.exports = function(Flatten) {
          * @returns {boolean}
          */
         contains(pt) {
-            return Flatten.Utils.EQ_0(this.distanceToPoint(pt));
+            let [dist,...rest] = this.distanceToPoint(pt);
+            return Flatten.Utils.EQ_0(dist);
         }
 
         /**
@@ -170,19 +171,22 @@ module.exports = function(Flatten) {
             let end_sp = -v_seg.dot(v_pe2pt);     /* minus dot product v_seg * v_pe2pt */
 
             let dist;
+            let closest_point;
             if (Flatten.Utils.GE(start_sp, 0) && Flatten.Utils.GE(end_sp, 0)) {    /* point inside segment scope */
-                let v_unit = new Flatten.Vector(v_seg.x / this.length, v_seg.y / this.length);
+                let v_unit = this.tangentInStart(); // new Flatten.Vector(v_seg.x / this.length, v_seg.y / this.length);
                 /* unit vector ||v_unit|| = 1 */
-                dist = Math.abs(v_unit.cross(v_ps2pt));
-                /* dist = abs(v_unit x v_ps2pt) */
+                dist = Math.abs(v_unit.cross(v_ps2pt));  /* dist = abs(v_unit x v_ps2pt) */
+                closest_point = this.start.translate(v_unit.multiply(v_unit.dot(v_ps2pt)));
             }
             else if (start_sp < 0) {                             /* point is out of scope closer to ps */
                 dist = pt.distanceTo(this.start);
+                closest_point = this.start.clone();
             }
             else {                                               /* point is out of scope closer to pe */
                 dist = pt.distanceTo(this.end);
+                closest_point = this.end.clone();
             }
-            return dist;
+            return [dist, closest_point];
         };
 
         definiteIntegral(ymin=0.0) {
