@@ -114,7 +114,7 @@ describe('#Flatten.Point', function() {
         });
         it('Method distanceTo returns distance to arc', function () {
             let circle = new Flatten.Circle(new Flatten.Point(), 3);
-            let arc = circle.toArc()
+            let arc = circle.toArc();
             let pt1 = new Flatten.Point(5,0);
             let pt2 = new Flatten.Point(0,2);
             expect(pt1.distanceTo(arc)).to.equal(2);

@@ -14,6 +14,8 @@ let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} =
 
 let {point, vector, circle, line, segment, arc, ray} = Flatten;
 
+let {Distance} = Flatten;
+
 describe('#Flatten-JS', function() {
 
     it('Version should be 0.0.1', function() {
@@ -52,10 +54,13 @@ describe('#Flatten-JS', function() {
         expect(Polygon).to.exist;
     });
     it('Class Edge defined', function() {
-        expect(Polygon).to.exist;
+        expect(Edge).to.exist;
     });
     it('Class Ray defined', function() {
         expect(Ray).to.exist;
+    });
+    it('Namespace Distance defined', function() {
+        expect(Distance).to.exist;
     });
 });
 

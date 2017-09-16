@@ -99,12 +99,46 @@ module.exports = function(Flatten) {
             }
         }
 
-        distanceToPoint(pt) {
-            let dist2pc = pt.distanceTo(this.pc);
-            let dist = Math.abs(dist2pc - this.r);
-            let v = vector(this.pc, pt).normalize().multiply(this.r);
-            let closest_point =  this.pc.translate(v);
-            return [dist, closest_point];
+        /**
+         * Calculate distance and shortest segment from circle to shape
+         * @param shape
+         * @returns {[Number,Segment]} - distance and shortest segment from circle to shape
+         */
+        distanceTo(shape) {
+            let Distance = { Flatten };
+
+            if (shape instanceof Flatten.Point) {
+                let [distance, shortest_segment] = Distance.point2circle(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                let [distance, shortest_segment] = Distance.circle2circle(this, shape);
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Line) {
+                let [distance, shortest_segment] = Distance.circle2line(this, shape);
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                let [distance, shortest_segment] = Distance.segment2circle(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                let [distance, shortest_segment] = Distance.arc2circle(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            // if (shape instanceof Flatten.Polygon) {
+            //     let [distance, shortest_segment] = Distance.arc2polygon(this, shape);
+            //     return [distance, shortest_segment];
+            // }
         }
 
         static intersectCirle2Circle(circle1, circle2) {

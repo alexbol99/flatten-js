@@ -4,7 +4,7 @@
 
 "use strict";
 
-module.exports = function(Flatten) {
+module.exports = function (Flatten) {
     /**
      * Class representing a segment
      * @type {Segment}
@@ -113,8 +113,7 @@ module.exports = function(Flatten) {
          * @returns {boolean}
          */
         contains(pt) {
-            let [dist,...rest] = this.distanceToPoint(pt);
-            return Flatten.Utils.EQ_0(dist);
+            return Flatten.Utils.EQ_0(this.distanceToPoint(pt));
         }
 
         /**
@@ -141,6 +140,46 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Calculate distance and shortest segment from segment to shape
+         * @param shape
+         * @returns {[Number,Segment]} - distance and shortest segment from segment to shape
+         */
+        distanceTo(shape) {
+            let {Distance} = Flatten;
+
+            if (shape instanceof Flatten.Point) {
+                let [dist, shortest_segment] = Distance.point2segment(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                let [dist, shortest_segment] = Distance.segment2circle(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Line) {
+                let [dist, shortest_segment] = Distance.segment2line(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                let [dist, shortest_segment] = Distance.segment2segment(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                let [dist, shortest_segment] = Distance.segment2arc(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                let [dist, shortest_segment] = Distance.segment2polygon(this, shape);
+                return [dist, shortest_segment];
+            }
+        }
+
+        /**
          * Return tangent unit vector in the start point in the direction from start to end
          * @returns {Vector} - tangent vector in start point
          */
@@ -158,44 +197,26 @@ module.exports = function(Flatten) {
             return vec.normalize();
         }
 
+        /**
+         * Return new segment with swapped start and end points
+         * @returns {Segment}
+         */
+        swap() {
+            return new Segment(this.end, this.start);
+        }
+
         distanceToPoint(pt) {
-            /* Degenerated case of zero-length segment */
-            if (this.start.equalTo(this.end)) {
-                return pt.distanceTo(this.start);
-            }
-
-            let v_seg = new Flatten.Vector(this.start, this.end);
-            let v_ps2pt = new Flatten.Vector(this.start, pt);
-            let v_pe2pt = new Flatten.Vector(this.end, pt);
-            let start_sp = v_seg.dot(v_ps2pt);    /* dot product v_seg * v_ps2pt */
-            let end_sp = -v_seg.dot(v_pe2pt);     /* minus dot product v_seg * v_pe2pt */
-
-            let dist;
-            let closest_point;
-            if (Flatten.Utils.GE(start_sp, 0) && Flatten.Utils.GE(end_sp, 0)) {    /* point inside segment scope */
-                let v_unit = this.tangentInStart(); // new Flatten.Vector(v_seg.x / this.length, v_seg.y / this.length);
-                /* unit vector ||v_unit|| = 1 */
-                dist = Math.abs(v_unit.cross(v_ps2pt));  /* dist = abs(v_unit x v_ps2pt) */
-                closest_point = this.start.translate(v_unit.multiply(v_unit.dot(v_ps2pt)));
-            }
-            else if (start_sp < 0) {                             /* point is out of scope closer to ps */
-                dist = pt.distanceTo(this.start);
-                closest_point = this.start.clone();
-            }
-            else {                                               /* point is out of scope closer to pe */
-                dist = pt.distanceTo(this.end);
-                closest_point = this.end.clone();
-            }
-            return [dist, closest_point];
+            let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
+            return dist;
         };
 
-        definiteIntegral(ymin=0.0) {
+        definiteIntegral(ymin = 0.0) {
             let dx = this.end.x - this.start.x;
             let dy1 = this.start.y - ymin;
             let dy2 = this.end.y - ymin;
-            return ( dx*(dy1 + dy2)/2 );
+            return ( dx * (dy1 + dy2) / 2 );
         }
-        
+
         static intersectSegment2Line(seg, line) {
             let ip = [];
             let zero_segment = Flatten.Utils.EQ_0(seg.length);
@@ -311,7 +332,7 @@ module.exports = function(Flatten) {
          * Defaults are stroke:"black", strokeWidth:"3"
          * @returns {string}
          */
-        svg(attrs = {stroke:"black",strokeWidth:"3"}) {
+        svg(attrs = {stroke: "black", strokeWidth: "3"}) {
             let {stroke, strokeWidth} = attrs;
             return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke}" stroke-width="${strokeWidth}" />`;
         }

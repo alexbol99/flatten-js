@@ -43,5 +43,8 @@ require("./classes/face")(f);
 require("./classes/ray")(f);
 require("./algorithms/ray_shooting")(f);
 require("./classes/polygon")(f);
+require("./algorithms/distance")(f);
+
+// f.Point.inject(f.Distance);
 
 module.exports = f;

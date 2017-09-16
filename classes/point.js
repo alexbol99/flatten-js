@@ -137,28 +137,39 @@ module.exports = function(Flatten) {
          * @returns {number}
          */
         distanceTo(shape) {
+            let {Distance} = Flatten;
+
             if (shape instanceof Point) {
-                let vec = new Flatten.Vector(this, shape);
-                return vec.length;
+                let dx = shape.x - this.x;
+                let dy = shape.y - this.y;
+                return Math.sqrt(dx*dx + dy*dy);
             }
 
             if (shape instanceof Flatten.Line) {
-                let vec = new Flatten.Vector(this, this.projectionOn(shape));
-                return vec.length;
+                // let [dist,closest_point] = shape.distanceToPoint(this);
+                let [dist, ...rest] = Distance.point2line(this, shape);
+                return dist;
+                // let vec = new Flatten.Vector(this, this.projectionOn(shape));
+                // return vec.length;
             }
 
             if (shape instanceof Flatten.Circle) {
-                let [dist,closest_point] = shape.distanceToPoint(this);
+                let [dist, ...rest] = Distance.point2circle(this, shape);
                 return dist;
             }
 
             if (shape instanceof Flatten.Segment) {
-                let [dist,closest_point] = shape.distanceToPoint(this);
+                let [dist, ...rest] = Distance.point2segment(this,shape);
                 return dist;
             }
 
             if (shape instanceof Flatten.Arc) {
-                let [dist,closest_point] = shape.distanceToPoint(this);
+                let [dist, ...rest] = Distance.point2arc(this,shape);
+                return dist;
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                let [dist, ...rest] = Distance.point2polygon(this,shape);
                 return dist;
             }
         }

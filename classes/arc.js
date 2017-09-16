@@ -139,14 +139,45 @@ module.exports = function(Flatten) {
             }
         }
 
-        distanceToPoint(pt) {
-            let circle = new Flatten.Circle(this.pc, this.r);
-            let distToCircle = pt.distanceTo(circle);
-            let distToStart = pt.distanceTo(this.start);
-            let distToEnd = pt.distanceTo(this.end);
-            let dist = Math.min(distToCircle, Math.min(distToStart, distToEnd));
-            let closestPoint;
-            return [dist,closestPoint];
+        /**
+         * Calculate distance and shortest segment from arc to shape
+         * @param shape
+         * @returns {[Number,Segment]} - distance and shortest segment from arc to shape
+         */
+        distanceTo(shape) {
+            let {Distance} = Flatten;
+
+            if (shape instanceof Flatten.Point) {
+                let [dist, shortest_segment] = Distance.point2arc(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                let [dist, shortest_segment] = Distance.arc2circle(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Line) {
+                let [dist, shortest_segment] = Distance.arc2line(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                let [dist, shortest_segment] = Distance.segment2arc(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                let [dist, shortest_segment] = Distance.arc2arc(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                let [dist, shortest_segment] = Distance.arc2polygon(this, shape);
+                return [dist, shortest_segment];
+            }
         }
 
         /**

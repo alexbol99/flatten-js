@@ -128,4 +128,47 @@ describe('#Flatten.Segment', function() {
             expect(segment.intersect(circle)[0].equalTo(ip_expected)).to.equal(true);
         });
     });
+    describe('#Flatten.Segment.DistanceTo', function() {
+        it('Distance to Segment Case 1 Intersected Segments', function () {
+            let segment1 = new Flatten.Segment(new Flatten.Point(0, 0), new Flatten.Point(2, 2));
+            let segment2 = new Flatten.Segment(new Flatten.Point(0, 2), new Flatten.Point(2, 0));
+            expect(segment1.distanceTo(segment2)[0]).to.equal(0);
+        });
+        it('Distance to Segment Case 2 Not Intersected Segments', function () {
+            let segment1 = new Flatten.Segment(new Flatten.Point(0, 0), new Flatten.Point(2, 2));
+            let segment2 = new Flatten.Segment(new Flatten.Point(1, 0), new Flatten.Point(4, 0));
+            let [dist, ...rest] = segment1.distanceTo(segment2);
+            expect(Flatten.Utils.EQ(dist,Math.sqrt(2)/2)).to.be.true;
+        });
+        it('Distance to Circle Case 1 Intersection - touching', function () {
+            let segment = new Segment(point(-4, 2), point(4, 2));
+            let circle = new Circle(point(0,0),2);
+            expect(segment.distanceTo(circle)[0]).to.equal(0);
+        });
+        it('Distance to Circle Case 1 Intersection - two points', function () {
+            let segment = new Segment(point(-4, 2), point(4, 2));
+            let circle = new Circle(point(0,0),3);
+            expect(segment.distanceTo(circle)[0]).to.equal(0);
+        });
+        it('Distance to Circle Case 1 Intersection - one points', function () {
+            let segment = new Segment(point(0, 2), point(4, 2));
+            let circle = new Circle(point(0,0),3);
+            expect(segment.distanceTo(circle)[0]).to.equal(0);
+        });
+        it('Distance to Circle Case 2 Projection', function () {
+            let segment = new Segment(point(-4, 4), point(4, 4));
+            let circle = new Circle(point(0,0),2);
+            expect(segment.distanceTo(circle)[0]).to.equal(2);
+        });
+        it('Distance to Circle Case 3 End point out of the circle', function () {
+            let segment = new Segment(point(2,2), point(4,2));
+            let circle = new Circle(point(0,0),2);
+            expect(segment.distanceTo(circle)[0]).to.equal(2*Math.sqrt(2)-2);
+        });
+        it('Distance to Circle Case 3 End point inside the circle', function () {
+            let segment = new Segment(point(-1,1), point(1,1));
+            let circle = new Circle(point(0,0),2);
+            expect(segment.distanceTo(circle)[0]).to.equal(2 - Math.sqrt(2));
+        });
+    });
 });

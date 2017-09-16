@@ -148,6 +148,42 @@ module.exports = function(Flatten) {
             }
         }
 
+        /**
+         * Calculate distance and shortest segment from line to shape
+         * @param shape
+         * @returns {[Number,Segment]} - distance and shortest segment from line to shape
+         */
+        distanceTo(shape) {
+            let Distance = { Flatten };
+
+            if (shape instanceof Flatten.Point) {
+                let [distance, shortest_segment] = Distance.point2line(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                let [distance, shortest_segment] = Distance.circle2line(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                let [distance, shortest_segment] = Distance.segment2line(shape, this);
+                return [distance, shortest_segment.swap()];
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                let [distance, shortest_segment] = Distance.arc2line(shape, this);
+                return [distance, shortest_segment.swap()];
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                let [distance, shortest_segment] = Distance.arc2polygon(this, shape);
+                return [distance, shortest_segment];
+            }
+        }
+
         static points2norm(pt1, pt2) {
             if (pt1.equalTo(pt2)) {
                 throw Flatten.Errors.ILLEGAL_PARAMETERS;
