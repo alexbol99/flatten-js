@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms/distance.js" afterPath="$PROJECT_DIR$/algorithms/distance.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/arc.js" afterPath="$PROJECT_DIR$/classes/arc.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="segment.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/segment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1297">
-              <caret line="164" column="0" lean-forward="true" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+            <state relative-caret-position="2788">
+              <caret line="164" column="0" lean-forward="false" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
               <folding>
                 <marker date="1505583113491" expanded="true" signature="1841:1856" ph="/** Set start point ...*/" />
               </folding>
@@ -34,11 +36,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="distance.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="40" column="37" lean-forward="true" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="distance.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/algorithms/distance.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="45" column="52" lean-forward="true" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
+            <state relative-caret-position="159">
+              <caret line="420" column="26" lean-forward="false" selection-start-line="420" selection-start-column="22" selection-end-line="420" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/arc.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="566">
+              <caret line="254" column="0" lean-forward="true" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -54,32 +76,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="circle.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/circle.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="105" column="11" lean-forward="true" selection-start-line="101" selection-start-column="1" selection-end-line="105" selection-end-column="11" />
-              <folding>
-                <marker date="1505582546441" expanded="true" signature="4854:4898" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/line.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="33">
-              <caret line="156" column="7" lean-forward="true" selection-start-line="156" selection-start-column="7" selection-end-line="156" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="point.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/point.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-175">
+            <state relative-caret-position="2023">
               <caret line="119" column="11" lean-forward="false" selection-start-line="119" selection-start-column="11" selection-end-line="119" selection-end-column="11" />
               <folding />
             </state>
@@ -89,7 +89,7 @@
       <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/segment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
+            <state relative-caret-position="2720">
               <caret line="160" column="11" lean-forward="false" selection-start-line="160" selection-start-column="11" selection-end-line="160" selection-end-column="11" />
               <folding />
             </state>
@@ -99,10 +99,10 @@
       <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/arc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="178" column="48" lean-forward="true" selection-start-line="178" selection-start-column="48" selection-end-line="178" selection-end-column="48" />
+            <state relative-caret-position="426">
+              <caret line="87" column="35" lean-forward="true" selection-start-line="87" selection-start-column="35" selection-end-line="87" selection-end-column="35" />
               <folding>
-                <marker date="1505583113454" expanded="true" signature="13522:13607" ph="..." />
+                <marker date="1505990757564" expanded="true" signature="13673:13758" ph="..." />
               </folding>
             </state>
           </provider>
@@ -121,7 +121,7 @@
       <file leaf-file-name="point.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/point.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
+            <state relative-caret-position="2924">
               <caret line="174" column="7" lean-forward="false" selection-start-line="174" selection-start-column="7" selection-end-line="174" selection-end-column="7" />
               <folding />
             </state>
@@ -209,7 +209,6 @@
         <option value="$PROJECT_DIR$/test/ray_shooting.js" />
         <option value="$PROJECT_DIR$/classes/polygon.js" />
         <option value="$PROJECT_DIR$/test/polygon.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/test/face.js" />
         <option value="$PROJECT_DIR$/test/test.js" />
         <option value="$PROJECT_DIR$/test/box.js" />
@@ -229,8 +228,9 @@
         <option value="$PROJECT_DIR$/classes/point.js" />
         <option value="$PROJECT_DIR$/classes/circle.js" />
         <option value="$PROJECT_DIR$/classes/segment.js" />
-        <option value="$PROJECT_DIR$/classes/arc.js" />
         <option value="$PROJECT_DIR$/test/segment.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/classes/arc.js" />
         <option value="$PROJECT_DIR$/algorithms/distance.js" />
       </list>
     </option>
@@ -251,8 +251,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="63" />
-    <option name="y" value="37" />
+    <option name="x" value="156" />
+    <option name="y" value="51" />
     <option name="width" value="1757" />
     <option name="height" value="991" />
   </component>
@@ -271,13 +271,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+              <item name="algorithms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+              <item name="classes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
@@ -289,6 +298,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -536,14 +546,8 @@
       <workItem from="1504875032157" duration="22000" />
       <workItem from="1504875098041" duration="20210000" />
       <workItem from="1505547233734" duration="12000" />
-      <workItem from="1505547285153" duration="16191000" />
-    </task>
-    <task id="LOCAL-00018" summary="Docs added Arc">
-      <created>1489352690005</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1489352690005</updated>
+      <workItem from="1505547285153" duration="16301000" />
+      <workItem from="1505979350370" duration="5155000" />
     </task>
     <task id="LOCAL-00019" summary="Tests added Arc">
       <created>1489438949333</created>
@@ -881,7 +885,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505584828432</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="clean workspace">
+      <created>1505598763031</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1505598763031</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -917,7 +928,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="379604000" />
+    <option name="totallyTimeSpent" value="384869000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -929,12 +940,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="63" y="37" width="1757" height="991" extended-state="0" />
+    <frame x="156" y="51" width="1757" height="991" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18324608" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18324608" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32814372" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32533014" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35928145" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32215568" sideWeight="0.49661538" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28982037" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -948,6 +959,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32933754" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35928145" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -979,11 +991,11 @@
     <MESSAGE value="Ray shooting ready to test" />
     <MESSAGE value="- Ray shooting test &amp; fix bugs&#10;- Added method contains to Polygon&#10;- Changed method box of Arc" />
     <MESSAGE value="- Add docs&#10;- Keep on testing" />
-    <MESSAGE value="clean workspace" />
     <MESSAGE value="Split test by classes, add more tests for coverage" />
     <MESSAGE value="Add closest point to distance methods" />
     <MESSAGE value="Complete distance methods and move all to algorithms" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete distance methods and move all to algorithms" />
+    <MESSAGE value="clean workspace" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean workspace" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1116,13 +1128,6 @@
     <entry file="file://$PROJECT_DIR$/test/face.js" />
     <entry file="file://$PROJECT_DIR$/test/ray.js" />
     <entry file="file://$PROJECT_DIR$/test.js" />
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/box.js" />
     <entry file="file://$PROJECT_DIR$/coverage/lcov-report/index.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -1149,7 +1154,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="46" lean-forward="false" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1157,7 +1161,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-125">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1165,7 +1168,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1365">
           <caret line="71" column="20" lean-forward="false" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1173,15 +1175,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5588">
-          <caret line="254" column="0" lean-forward="true" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1189,7 +1182,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="566">
           <caret line="137" column="60" lean-forward="false" selection-start-line="137" selection-start-column="60" selection-end-line="137" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1197,7 +1189,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1205,7 +1196,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="427">
           <caret line="82" column="13" lean-forward="true" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1213,7 +1203,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1221,7 +1210,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1874">
           <caret line="132" column="2" lean-forward="false" selection-start-line="132" selection-start-column="2" selection-end-line="132" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1235,7 +1223,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/circle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
+        <state relative-caret-position="1785">
           <caret line="105" column="11" lean-forward="true" selection-start-line="101" selection-start-column="1" selection-end-line="105" selection-end-column="11" />
           <folding>
             <marker date="1505582546441" expanded="true" signature="4854:4898" ph="{...}" />
@@ -1243,19 +1231,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="178" column="48" lean-forward="true" selection-start-line="178" selection-start-column="48" selection-end-line="178" selection-end-column="48" />
-          <folding>
-            <marker date="1505583113454" expanded="true" signature="13522:13607" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/point.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
+        <state relative-caret-position="2924">
           <caret line="174" column="7" lean-forward="false" selection-start-line="174" selection-start-column="7" selection-end-line="174" selection-end-column="7" />
           <folding />
         </state>
@@ -1263,7 +1241,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/point.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-175">
+        <state relative-caret-position="2023">
           <caret line="119" column="11" lean-forward="false" selection-start-line="119" selection-start-column="11" selection-end-line="119" selection-end-column="11" />
           <folding />
         </state>
@@ -1285,17 +1263,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algorithms/distance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="45" column="52" lean-forward="true" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/segment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
+        <state relative-caret-position="2720">
           <caret line="160" column="11" lean-forward="false" selection-start-line="160" selection-start-column="11" selection-end-line="160" selection-end-column="11" />
           <folding />
         </state>
@@ -1303,11 +1273,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/segment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1297">
-          <caret line="164" column="0" lean-forward="true" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+        <state relative-caret-position="2788">
+          <caret line="164" column="0" lean-forward="false" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
           <folding>
             <marker date="1505583113491" expanded="true" signature="1841:1856" ph="/** Set start point ...*/" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="40" column="37" lean-forward="true" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/arc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="254" column="0" lean-forward="true" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/arc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="87" column="35" lean-forward="true" selection-start-line="87" selection-start-column="35" selection-end-line="87" selection-end-column="35" />
+          <folding>
+            <marker date="1505990757564" expanded="true" signature="13673:13758" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithms/distance.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="420" column="26" lean-forward="false" selection-start-line="420" selection-start-column="22" selection-end-line="420" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>

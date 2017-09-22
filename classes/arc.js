@@ -81,6 +81,14 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Get center of arc
+         * @returns {Point}
+         */
+        get center() {
+            return this.pc.clone();
+        }
+
+        /**
          * Get arc length
          * @returns {number}
          */

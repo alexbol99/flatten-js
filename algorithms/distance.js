@@ -174,7 +174,7 @@ module.exports = function(Flatten) {
             let line = new Flatten.Line(seg.ps, seg.pe);
             let [dist, shortest_segment] = Distance.point2line(circle.center, line);
             if (Flatten.Utils.GE(dist, circle.r) && shortest_segment.end.on(seg)) {
-                return Distance.point2circle(shortest_segment.start, circle);
+                return Distance.point2circle(shortest_segment.end, circle);
             }
             /* Case 3. Otherwise closest point is one of the end points of the segment */
             else {
@@ -216,14 +216,19 @@ module.exports = function(Flatten) {
                 }
             }
             /* Case 3. Otherwise closest point is one of the end points of the segment */
-            else {
-                let dist_and_segment = [];
-                dist_and_segment.push( Distance.point2arc(seg.start, arc) );
-                dist_and_segment.push( Distance.point2arc(seg.end, arc) );
+            let dist_and_segment = [];
+            dist_and_segment.push(Distance.point2arc(seg.start, arc));
+            dist_and_segment.push(Distance.point2arc(seg.end, arc));
 
-                Distance.sort(dist_and_segment);
-                return dist_and_segment[0];
-            }
+            let dist_tmp, segment_tmp;
+            [dist_tmp, segment_tmp] = Distance.point2segment(arc.start, seg);
+            dist_and_segment.push([dist_tmp, segment_tmp.swap()]);
+
+            [dist_tmp, segment_tmp] = Distance.point2segment(arc.end, seg);
+            dist_and_segment.push([dist_tmp, segment_tmp.swap()]);
+
+            Distance.sort(dist_and_segment);
+            return dist_and_segment[0];
         }
 
         /**
@@ -254,8 +259,8 @@ module.exports = function(Flatten) {
 
                 dist_and_segment.push(Distance.point2point(ip1[0], ip2[0]));
                 dist_and_segment.push(Distance.point2point(ip1[0], ip2[1]));
+                dist_and_segment.push(Distance.point2point(ip1[1], ip2[0]));
                 dist_and_segment.push(Distance.point2point(ip1[1], ip2[1]));
-                dist_and_segment.push(Distance.point2point(ip1[1], ip2[2]));
 
                 Distance.sort(dist_and_segment);
                 return dist_and_segment[0];
@@ -369,8 +374,39 @@ module.exports = function(Flatten) {
             else {
                 let dist_and_segment = [];
 
-                dist_and_segment.push(Distance.point2circle(arc1.start, arc2));
-                dist_and_segment.push(Distance.point2circle(arc1.end, arc2));
+                let dist_tmp, segment_tmp;
+
+                [dist_tmp, segment_tmp] = Distance.point2arc(arc1.start, arc2);
+                if (segment_tmp.end.on(arc2)) {
+                    dist_and_segment.push([dist_tmp, segment_tmp]);
+                }
+
+                [dist_tmp, segment_tmp] = Distance.point2arc(arc1.end, arc2);
+                if (segment_tmp.end.on(arc2)) {
+                    dist_and_segment.push([dist_tmp, segment_tmp]);
+                }
+
+                [dist_tmp, segment_tmp] = Distance.point2arc(arc2.start, arc1);
+                if (segment_tmp.end.on(arc1)) {
+                    dist_and_segment.push([dist_tmp, segment_tmp.swap()]);
+                }
+
+                [dist_tmp, segment_tmp] = Distance.point2arc(arc2.end, arc1);
+                if (segment_tmp.end.on(arc1)) {
+                    dist_and_segment.push([dist_tmp, segment_tmp.swap()]);
+                }
+
+                [dist_tmp, segment_tmp] = Distance.point2point(arc1.start, arc2.start);
+                dist_and_segment.push([dist_tmp, segment_tmp]);
+
+                [dist_tmp, segment_tmp] = Distance.point2point(arc1.start, arc2.end);
+                dist_and_segment.push([dist_tmp, segment_tmp]);
+
+                [dist_tmp, segment_tmp] = Distance.point2point(arc1.end, arc2.start);
+                dist_and_segment.push([dist_tmp, segment_tmp]);
+
+                [dist_tmp, segment_tmp] = Distance.point2point(arc1.end, arc2.end);
+                dist_and_segment.push([dist_tmp, segment_tmp]);
 
                 Distance.sort(dist_and_segment);
 
@@ -385,18 +421,14 @@ module.exports = function(Flatten) {
          * @returns {[dist, segment]} - distance and shortest segment
          */
         static point2polygon(point, polygon) {
-            if (point.on(polygon)) {
-                return [0, new Segment(point, point)];
-            }
-
             let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
             for (let edge of polygon.edges) {
-                let [dist, shortest_segment] = point.distanceTo(edge.shape);
+                let [dist, shortest_segment] = (edge.shape instanceof Segment) ?
+                    Distance.point2segment(point, edge.shape) : Distance.point2arc(point, edge.shape);
                 if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
                     min_dist_and_segment = [dist, shortest_segment];
                 }
             }
-
             return min_dist_and_segment;
         }
 
