@@ -1,6 +1,6 @@
 {
   "name": "flatten-js",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "Javascript library for 2d geometry",
   "main": "index.js",
   "scripts": {
