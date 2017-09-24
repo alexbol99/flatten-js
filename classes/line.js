@@ -179,7 +179,7 @@ module.exports = function(Flatten) {
             }
 
             if (shape instanceof Flatten.Polygon) {
-                let [distance, shortest_segment] = Distance.arc2polygon(this, shape);
+                let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
                 return [distance, shortest_segment];
             }
         }

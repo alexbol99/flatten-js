@@ -135,10 +135,10 @@ module.exports = function(Flatten) {
                 return [distance, shortest_segment];
             }
 
-            // if (shape instanceof Flatten.Polygon) {
-            //     let [distance, shortest_segment] = Distance.arc2polygon(this, shape);
-            //     return [distance, shortest_segment];
-            // }
+            if (shape instanceof Flatten.Polygon) {
+                let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
+                return [distance, shortest_segment];
+            }
         }
 
         static intersectCirle2Circle(circle1, circle2) {

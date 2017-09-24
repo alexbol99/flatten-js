@@ -432,15 +432,10 @@ module.exports = function(Flatten) {
             return min_dist_and_segment;
         }
 
-        static segment2polygon(segment, polygon) {
-            let ip = segment.intersect(polygon);
-            if (ip.length > 0) {
-                return [0, new Segment(ip[0], ip[0])];
-            }
-
+        static shape2polygon(shape, polygon) {
             let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
             for (let edge of polygon.edges) {
-                let [dist, shortest_segment] = segment.distanceTo(edge.shape);
+                let [dist, shortest_segment] = shape.distanceTo(edge.shape);
                 if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
                     min_dist_and_segment = [dist, shortest_segment];
                 }
@@ -448,6 +443,7 @@ module.exports = function(Flatten) {
             return min_dist_and_segment;
         }
 
+/*
         static arc2polygon(arc, polygon) {
             let ip = arc.intersect(polygon);
             if (ip.length > 0) {
@@ -495,23 +491,19 @@ module.exports = function(Flatten) {
             }
             return min_dist_and_segment;
         }
+*/
 
         /**
-         * Calculate distance and shortest segment between point and polygon
+         * Calculate distance and shortest segment between two polygons
          * @param polygon1
          * @param polygon2
          * @returns {[dist, segment]} - distance and shortest segment
          */
         static polygon2polygon(polygon1, polygon2) {
-            let ip = polygon1.intersect(polygon2);
-            if (ip.length > 0) {
-                return [0, new Segment(ip[0], ip[0])];
-            }
-
             let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
             for (let edge1 of polygon1.edges) {
                 for (let edge2 of polygon2.edges) {
-                    let [dist, shortest_segment] = edg1e.shape.distanceTo(edge2.shape);
+                    let [dist, shortest_segment] = edge1.shape.distanceTo(edge2.shape);
                     if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
                         min_dist_and_segment = [dist, shortest_segment];
                     }
@@ -532,7 +524,7 @@ module.exports = function(Flatten) {
             });
         }
 
-        distance(shape1, shape2) {
+        static distance(shape1, shape2) {
             return shape1.distanceTo(shape2);
         }
     }

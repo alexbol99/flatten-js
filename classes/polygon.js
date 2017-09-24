@@ -113,6 +113,42 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Return distance and shortest segment between polygon and other shape
+         * @param shape
+         * @returns {[Number,Segment]}
+         */
+        distanceTo(shape) {
+            let {Distance} = Flatten;
+
+            if (shape instanceof Flatten.Point) {
+                let [dist, shortest_segment] = Distance.point2polygon(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle ||
+            shape instanceof Flatten.Line ||
+            shape instanceof Flatten.Segment ||
+            shape instanceof Flatten.Arc) {
+                let [dist, shortest_segment] = Distance.shape2polygon(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            /* this method is slow */
+            if (shape instanceof  Flatten.Polygon) {
+                let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
+                for (let edge of this.edges) {
+                    let [dist, shortest_segment] = Distance.shape2polygon(edge.shape, shape);
+                    if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
+                        min_dist_and_segment = [dist, shortest_segment];
+                    }
+                }
+                return min_dist_and_segment;
+            }
+        }
+
+        /**
          * Return string to draw polygon in svg
          * @param attrs  - json structure with any attributes allowed to svg path element,
          * like "stroke", "strokeWidth", "fill", "fillRule"

@@ -159,17 +159,17 @@ module.exports = function(Flatten) {
             }
 
             if (shape instanceof Flatten.Segment) {
-                let [dist, ...rest] = Distance.point2segment(this,shape);
+                let [dist, ...rest] = Distance.point2segment(this, shape);
                 return dist;
             }
 
             if (shape instanceof Flatten.Arc) {
-                let [dist, ...rest] = Distance.point2arc(this,shape);
+                let [dist, ...rest] = Distance.point2arc(this, shape);
                 return dist;
             }
 
             if (shape instanceof Flatten.Polygon) {
-                let [dist, ...rest] = Distance.point2polygon(this,shape);
+                let [dist, ...rest] = Distance.point2polygon(this, shape);
                 return dist;
             }
         }
