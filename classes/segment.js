@@ -142,7 +142,7 @@ module.exports = function (Flatten) {
         /**
          * Calculate distance and shortest segment from segment to shape
          * @param shape
-         * @returns {[Number,Segment]} - distance and shortest segment from segment to shape
+         * @returns {Number | Segment} - distance and shortest segment from segment to shape
          */
         distanceTo(shape) {
             let {Distance} = Flatten;

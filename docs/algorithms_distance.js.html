@@ -1,4 +1,44 @@
-"use strict";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>algorithms/distance.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Arc.html">Arc</a><ul class='methods'><li data-type='method'><a href="Flatten.Arc.html#breakToFunctional">breakToFunctional</a></li><li data-type='method'><a href="Flatten.Arc.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Arc.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Arc.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Arc.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Arc.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Box.html#equal_to">equal_to</a></li><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#less_than">less_than</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Circle.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Circle.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Circle.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Circle.html#toArc">toArc</a></li></ul></li><li><a href="Flatten.Edge.html">Edge</a><ul class='methods'><li data-type='method'><a href="Flatten.Edge.html#contains">contains</a></li></ul></li><li><a href="Flatten.Face.html">Face</a><ul class='methods'><li data-type='method'><a href="Flatten.Face.html#area">area</a></li><li data-type='method'><a href="Flatten.Face.html#getBox">getBox</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Line.html#incidentTo">incidentTo</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#parallelTo">parallelTo</a></li></ul></li><li><a href="Flatten.PlanarSet.html">PlanarSet</a><ul class='methods'><li data-type='method'><a href="Flatten.PlanarSet.html#add">add</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#delete">delete</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#hit">hit</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#search">search</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#svg">svg</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#leftTo">leftTo</a></li><li data-type='method'><a href="Flatten.Point.html#lessThan">lessThan</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Polygon.html">Polygon</a><ul class='methods'><li data-type='method'><a href="Flatten.Polygon.html#addFace">addFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#area">area</a></li><li data-type='method'><a href="Flatten.Polygon.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Polygon.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Polygon.html#deleteFace">deleteFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Polygon.html#svg">svg</a></li></ul></li><li><a href="Flatten.Ray.html">Ray</a><ul class='methods'><li data-type='method'><a href="Flatten.Ray.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Ray.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Segment.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Segment.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Segment.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Segment.html#swap">swap</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#invert">invert</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CCW">rotate90CCW</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CW">rotate90CW</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">algorithms/distance.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
 
 module.exports = function(Flatten) {
     let {Polygon, Point, Segment, Arc, Circle, Line, Ray, Vector} = Flatten;
@@ -69,14 +109,14 @@ module.exports = function(Flatten) {
 
             let dist;
             let closest_point;
-            if (Flatten.Utils.GE(start_sp, 0) && Flatten.Utils.GE(end_sp, 0)) {    /* point inside segment scope */
+            if (Flatten.Utils.GE(start_sp, 0) &amp;&amp; Flatten.Utils.GE(end_sp, 0)) {    /* point inside segment scope */
                 let v_unit = segment.tangentInStart(); // new Flatten.Vector(v_seg.x / this.length, v_seg.y / this.length);
                 /* unit vector ||v_unit|| = 1 */
                 dist = Math.abs(v_unit.cross(v_ps2pt));
                 /* dist = abs(v_unit x v_ps2pt) */
                 closest_point = segment.start.translate(v_unit.multiply(v_unit.dot(v_ps2pt)));
             }
-            else if (start_sp < 0) {                             /* point is out of scope closer to ps */
+            else if (start_sp &lt; 0) {                             /* point is out of scope closer to ps */
                 dist = pt.distanceTo(segment.start);
                 closest_point = segment.start.clone();
             }
@@ -173,7 +213,7 @@ module.exports = function(Flatten) {
               * Then measure again distance from projection to circle and return it */
             let line = new Flatten.Line(seg.ps, seg.pe);
             let [dist, shortest_segment] = Distance.point2line(circle.center, line);
-            if (Flatten.Utils.GE(dist, circle.r) && shortest_segment.end.on(seg)) {
+            if (Flatten.Utils.GE(dist, circle.r) &amp;&amp; shortest_segment.end.on(seg)) {
                 return Distance.point2circle(shortest_segment.end, circle);
             }
             /* Case 3. Otherwise closest point is one of the end points of the segment */
@@ -208,7 +248,7 @@ module.exports = function(Flatten) {
                * distance from projection point to circle belongs to arc  =>
                * return this distance from projection to circle */
             let [dist_from_center, shortest_segment_from_center] = Distance.point2line(circle.center, line);
-            if (Flatten.Utils.GE(dist_from_center, circle.r) && shortest_segment_from_center.end.on(seg)) {
+            if (Flatten.Utils.GE(dist_from_center, circle.r) &amp;&amp; shortest_segment_from_center.end.on(seg)) {
                 let [dist_from_projection, shortest_segment_from_projection] =
                     Distance.point2circle(shortest_segment_from_center.end, circle);
                 if (shortest_segment_from_projection.end.on(arc)) {
@@ -368,7 +408,7 @@ module.exports = function(Flatten) {
             let circle2 = new Flatten.Circle(arc2.center, arc2.r);
 
             let [dist, shortest_segment] = Distance.circle2circle(circle1, circle2);
-            if (shortest_segment.start.on(arc1) && shortest_segment.end.on(arc2)) {
+            if (shortest_segment.start.on(arc1) &amp;&amp; shortest_segment.end.on(arc2)) {
                 return [dist, shortest_segment];
             }
             else {
@@ -528,4 +568,22 @@ module.exports = function(Flatten) {
             return shape1.distanceTo(shape2);
         }
     }
-};
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Sep 25 2017 00:56:06 GMT+0300 (Jerusalem Daylight Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

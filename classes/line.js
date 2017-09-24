@@ -151,10 +151,10 @@ module.exports = function(Flatten) {
         /**
          * Calculate distance and shortest segment from line to shape
          * @param shape
-         * @returns {[Number,Segment]} - distance and shortest segment from line to shape
+         * @returns {Number | Segment} - distance and shortest segment from line to shape
          */
         distanceTo(shape) {
-            let Distance = { Flatten };
+            let {Distance} = Flatten;
 
             if (shape instanceof Flatten.Point) {
                 let [distance, shortest_segment] = Distance.point2line(shape, this);

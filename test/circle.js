@@ -117,5 +117,75 @@ describe('#Flatten.Circle', function() {
         let ip = circle1.intersect(circle2);
         expect(ip.length).to.equal(0);
     });
+    describe('#Flatten.Circle.DistanceTo', function() {
+        it('Can measure distance between circle and point', function() {
+            let c = circle(point(200,200), 50);
+            let pt = point(200, 100);
+
+            let [dist, shortest_segment] = c.distanceTo(pt);
+            expect(dist).to.equal(50);
+            expect(shortest_segment.ps).to.deep.equal({x:200,y:150})
+            expect(shortest_segment.pe).to.deep.equal(pt);
+        });
+        it('Can measure distance between circle and circle', function() {
+            let c1 = circle(point(200,200), 50);
+            let c2 = circle(point(200,230), 100);
+
+            let [dist, shortest_segment] = c1.distanceTo(c2);
+            expect(dist).to.equal(20);
+            expect(shortest_segment.ps).to.deep.equal({"x": 200, "y": 150});
+            expect(shortest_segment.pe).to.deep.equal({"x": 200, "y": 130});
+        });
+        it('Can measure distance between circle and line', function() {
+            let c = circle(point(200,200), 50);
+            let l = line(point(200,130), vector(0,1));
+
+            let [dist, shortest_segment] = c.distanceTo(l);
+            expect(dist).to.equal(20);
+            expect(shortest_segment.ps).to.deep.equal({"x": 200, "y": 150});
+            expect(shortest_segment.pe).to.deep.equal({"x": 200, "y": 130});
+        });
+        it('Can measure distance between circle and segment', function() {
+            let c = circle(point(200,200), 50);
+            let seg = segment(point(200,130), point(220,130));
+
+            let [dist, shortest_segment] = c.distanceTo(seg);
+            expect(dist).to.equal(20);
+            expect(shortest_segment.ps).to.deep.equal({"x": 200, "y": 150});
+            expect(shortest_segment.pe).to.deep.equal({"x": 200, "y": 130});
+        });
+        it('Can measure distance between circle and arc', function() {
+            let c = circle(point(200,200), 50);
+            let a = circle(point(200,100), 20).toArc();
+
+            let [dist, shortest_segment] = c.distanceTo(a);
+            expect(dist).to.equal(30);
+            expect(shortest_segment.ps).to.deep.equal({"x": 200, "y": 150});
+            expect(shortest_segment.pe).to.deep.equal({"x": 200, "y": 120});
+        });
+        it('Can measure distance between circle and polygon', function () {
+            let points = [
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 270),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ];
+
+            let poly = new Polygon();
+            poly.addFace(points);
+            poly.addFace([circle(point(175,150), 30).toArc()]);
+
+            let c = circle(point(300,25), 25);
+
+            let [dist, shortest_segment] = c.distanceTo(poly);
+
+            expect(dist).to.equal(25);
+            expect(shortest_segment.ps).to.deep.equal({"x": 300, "y": 50});
+            expect(shortest_segment.pe).to.deep.equal({"x": 300, "y": 75});
+        })
+    });
 });
 

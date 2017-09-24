@@ -120,6 +120,23 @@ describe('#Flatten.Point', function() {
             expect(pt1.distanceTo(arc)).to.equal(2);
             expect(pt2.distanceTo(arc)).to.equal(1);
         });
+        it('Method distanceTo returns distance to polygon', function() {
+            let points = [
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 270),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ];
+
+            let poly = new Polygon();
+            poly.addFace(points);
+
+            let pt = point(300, 50);
+            expect(pt.distanceTo(poly)).to.equal(25);
+        })
     });
     describe('#Flatten.Point.On inclusion queries', function() {
         it('Method "on" returns true if point checked with same points', function () {
@@ -149,6 +166,31 @@ describe('#Flatten.Point', function() {
             let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, false);
             let pt = new Flatten.Point(-1,0);
             expect(pt.on(arc)).to.equal(true);
+        });
+        it('Method "on" returns true if point belong to polygon', function() {
+            let points = [
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 270),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ];
+
+            let poly = new Polygon();
+            poly.addFace(points);
+            poly.addFace([circle(point(175,150), 30).toArc()]);
+
+            let pt1 = point(300, 50);
+            let pt2 = point(50, 75);
+            let pt3 = point(180, 160);
+            let pt4 = point(140, 250);
+
+            expect(pt1.on(poly)).to.equal(false);
+            expect(pt2.on(poly)).to.equal(false);
+            expect(pt3.on(poly)).to.equal(false);
+            expect(pt4.on(poly)).to.equal(true);
         })
     });
     it('Method leftTo returns true if point is on the "left" semi plane, which is the side of the normal vector', function() {

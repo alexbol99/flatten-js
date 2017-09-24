@@ -115,7 +115,7 @@ module.exports = function(Flatten) {
         /**
          * Return distance and shortest segment between polygon and other shape
          * @param shape
-         * @returns {[Number,Segment]}
+         * @returns {Number | Segment}
          */
         distanceTo(shape) {
             let {Distance} = Flatten;

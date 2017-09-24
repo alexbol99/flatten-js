@@ -164,6 +164,29 @@ describe('#Flatten.Polygon', function() {
         let pt = point(125, 200);
         expect(polygon.contains(pt)).to.be.true;
     });
+    it('Can measure distance between circle and polygon', function () {
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 270),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+
+        let poly = new Polygon();
+        poly.addFace(points);
+        poly.addFace([circle(point(175,150), 30).toArc()]);
+
+        let c = circle(point(300,25), 25);
+
+        let [dist, shortest_segment] = poly.distanceTo(c);
+
+        expect(dist).to.equal(25);
+        expect(shortest_segment.pe).to.deep.equal({"x": 300, "y": 50});
+        expect(shortest_segment.ps).to.deep.equal({"x": 300, "y": 75});
+    })
 });
 describe('#Flatten.Face', function() {
     "use strict";

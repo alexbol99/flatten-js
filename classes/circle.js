@@ -102,10 +102,10 @@ module.exports = function(Flatten) {
         /**
          * Calculate distance and shortest segment from circle to shape
          * @param shape
-         * @returns {[Number,Segment]} - distance and shortest segment from circle to shape
+         * @returns {Number | Segment} - distance and shortest segment from circle to shape
          */
         distanceTo(shape) {
-            let Distance = { Flatten };
+            let {Distance} = Flatten;
 
             if (shape instanceof Flatten.Point) {
                 let [distance, shortest_segment] = Distance.point2circle(shape, this);
