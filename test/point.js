@@ -85,14 +85,15 @@ describe('#Flatten.Point', function() {
         it('Method distanceTo return distance to other point ', function() {
             let point1 = new Flatten.Point(1,1);
             let point2 = new Flatten.Point(2,2);
-            expect(point1.distanceTo(point2)).to.equal(Math.sqrt(2));
+            let [dist, shortest_segment] = point1.distanceTo(point2);
+            expect(dist).to.equal(Math.sqrt(2));
         });
         it('Method distanceTo calculates distance to given line', function () {
             let anchor = new Flatten.Point(1, 1);
             let norm = new Flatten.Vector(0, 1);
             let line = new Flatten.Line(anchor, norm);
             let pt = new Flatten.Point(2, 2);
-            expect(pt.distanceTo(line)).to.equal(1);
+            expect(pt.distanceTo(line)[0]).to.equal(1);
         });
         it('Method distanceTo returns distance to segment', function () {
             let ps = new Flatten.Point(-2,2);
@@ -101,24 +102,25 @@ describe('#Flatten.Point', function() {
             let pt1 = new Flatten.Point(2,4);            /* point in segment scope */
             let pt2 = new Flatten.Point(-5,2);           /* point is out of segment scope */
             let pt3 = new Flatten.Point(6,2);            /* point is out of segment scope */
-            expect(pt1.distanceTo(segment)).to.equal(2);
-            expect(pt2.distanceTo(segment)).to.equal(3);
-            expect(pt3.distanceTo(segment)).to.equal(4);
+
+            expect(pt1.distanceTo(segment)[0]).to.equal(2);
+            expect(pt2.distanceTo(segment)[0]).to.equal(3);
+            expect(pt3.distanceTo(segment)[0]).to.equal(4);
         });
         it('Method distanceTo returns distance to circle', function () {
             let circle = new Flatten.Circle(new Flatten.Point(), 3);
             let pt1 = new Flatten.Point(5,0);
             let pt2 = new Flatten.Point(0,2);
-            expect(pt1.distanceTo(circle)).to.equal(2);
-            expect(pt2.distanceTo(circle)).to.equal(1);
+            expect(pt1.distanceTo(circle)[0]).to.equal(2);
+            expect(pt2.distanceTo(circle)[0]).to.equal(1);
         });
         it('Method distanceTo returns distance to arc', function () {
             let circle = new Flatten.Circle(new Flatten.Point(), 3);
             let arc = circle.toArc();
             let pt1 = new Flatten.Point(5,0);
             let pt2 = new Flatten.Point(0,2);
-            expect(pt1.distanceTo(arc)).to.equal(2);
-            expect(pt2.distanceTo(arc)).to.equal(1);
+            expect(pt1.distanceTo(arc)[0]).to.equal(2);
+            expect(pt2.distanceTo(arc)[0]).to.equal(1);
         });
         it('Method distanceTo returns distance to polygon', function() {
             let points = [
@@ -135,7 +137,7 @@ describe('#Flatten.Point', function() {
             poly.addFace(points);
 
             let pt = point(300, 50);
-            expect(pt.distanceTo(poly)).to.equal(25);
+            expect(pt.distanceTo(poly)[0]).to.equal(25);
         })
     });
     describe('#Flatten.Point.On inclusion queries', function() {

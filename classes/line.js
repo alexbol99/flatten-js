@@ -214,7 +214,7 @@ module.exports = function(Flatten) {
         static intersectLine2Circle(line, circle) {
             let ip = [];
             let prj = circle.pc.projectionOn(line);            // projection of circle center on line
-            let dist = circle.pc.distanceTo(prj);              // distance from circle center to projection
+            let dist = circle.pc.distanceTo(prj)[0];              // distance from circle center to projection
 
             if (Flatten.Utils.EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
                 ip.push(prj);

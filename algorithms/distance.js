@@ -1,5 +1,7 @@
 "use strict";
 
+let IntervalTree = require('flatten-interval-tree');
+
 module.exports = function(Flatten) {
     let {Polygon, Point, Segment, Arc, Circle, Line, Ray, Vector} = Flatten;
 
@@ -13,7 +15,7 @@ module.exports = function(Flatten) {
          * @returns {Number | Segment} - distance and shortest segment
          */
         static point2point(pt1, pt2) {
-            return [pt1.distanceTo(pt2), new Segment(pt1, pt2)];
+            return pt1.distanceTo(pt2);
         }
 
         /**
@@ -35,7 +37,7 @@ module.exports = function(Flatten) {
          * @returns {Number | Segment} - distance and shortest segment
          */
         static point2circle(pt, circle) {
-            let dist2center = pt.distanceTo(circle.center);
+            let [dist2center, shortest_dist] = pt.distanceTo(circle.center);
             if (Flatten.Utils.EQ_0(dist2center)) {
                 return [circle.r, new Segment(pt, circle.toArc().start)];
             }
@@ -75,16 +77,14 @@ module.exports = function(Flatten) {
                 dist = Math.abs(v_unit.cross(v_ps2pt));
                 /* dist = abs(v_unit x v_ps2pt) */
                 closest_point = segment.start.translate(v_unit.multiply(v_unit.dot(v_ps2pt)));
+                return [dist, new Segment(pt, closest_point)];
             }
             else if (start_sp < 0) {                             /* point is out of scope closer to ps */
-                dist = pt.distanceTo(segment.start);
-                closest_point = segment.start.clone();
+                return pt.distanceTo(segment.start);
             }
             else {                                               /* point is out of scope closer to pe */
-                dist = pt.distanceTo(segment.end);
-                closest_point = segment.end.clone();
+                return pt.distanceTo(segment.end);
             }
-            return [dist, new Segment(pt, closest_point)];
         };
 
         /**
@@ -500,7 +500,7 @@ module.exports = function(Flatten) {
          * @returns {Number | Segment} - distance and shortest segment
          */
         static polygon2polygon(polygon1, polygon2) {
-            let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
+            let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
             for (let edge1 of polygon1.edges) {
                 for (let edge2 of polygon2.edges) {
                     let [dist, shortest_segment] = edge1.shape.distanceTo(edge2.shape);
@@ -508,6 +508,123 @@ module.exports = function(Flatten) {
                         min_dist_and_segment = [dist, shortest_segment];
                     }
                 }
+            }
+            return min_dist_and_segment;
+        }
+
+        /**
+         * Returns [mindist, maxdist] array of squared minimal and maximal distance between boxes
+         * Minimal distance by x is
+         *    (box2.xmin - box1.xmax), if box1 is left to box2
+         *    (box1.xmin - box2.xmax), if box2 is left to box1
+         *    0,                       if box1 and box2 are intersected by x
+         * Minimal distance by y is defined in the same way
+         *
+         * Maximal distance is estimated as a sum of squared dimensions of the merged box
+         *
+         * @param box1
+         * @param box2
+         * @returns {Number | Number} - minimal and maximal distance
+         */
+        static box2box_minmax(box1, box2) {
+            let mindist_x = Math.max( Math.max(box1.xmin - box2.xmax, 0), Math.max(box2.xmin - box1.xmax, 0) );
+            let mindist_y = Math.max( Math.max(box1.ymin - box2.ymax, 0), Math.max(box2.ymin - box1.ymax, 0) );
+            let mindist = mindist_x*mindist_x + mindist_y*mindist_y;
+
+            let box = box1.merge(box2);
+            let dx = box.xmax - box.xmin;
+            let dy = box.ymax - box.ymin;
+            let maxdist = dx*dx + dy*dy;
+
+            return [mindist, maxdist];
+        }
+
+        static minmax(shape1, shape2) {
+            return Distance.box2box_minmax(shape1.box, shape2.box);
+        }
+
+        static minmax_tree_process_level(shape, level, min_stop, tree) {
+            // Calculate minmax distance to each shape in current level
+            // Insert result in the interval tree for further processing if
+            // mindist is less than min_stop dist, otherwise the shape is too far
+            // update min_stop with maxdist, it will be the new stop distance
+            let mindist, maxdist;
+            for (let node of level) {
+                [mindist, maxdist] = Distance.box2box_minmax(shape.box, node.max);
+                if (Flatten.Utils.GT(mindist, min_stop))
+                    continue;
+                tree.insert([mindist, maxdist], node.item.value);
+                if (Flatten.Utils.LT(maxdist, min_stop)) {
+                    min_stop = maxdist;
+                }
+            }
+
+            if (level.length === 0)
+                return;
+
+            // Calculate new level from left and right children of the current
+            let new_level_left = level.map(node => node.left.isNil() ? undefined : node.left ).filter(node => node !== undefined);
+            let new_level_right = level.map(node => node.right.isNil() ? undefined : node.right).filter(node => node !== undefined);
+            let new_level = [...new_level_left, ...new_level_right];
+
+            min_stop = Distance.minmax_tree_process_level(shape, new_level, min_stop, tree);
+            return min_stop;
+        }
+
+        /**
+         * Calculates sorted tree of [mindist, maxdist] intervals between query shape
+         * and shapes of the planar set.
+         * @param shape
+         * @param set
+         */
+        static minmax_tree(shape, set, min_stop) {
+            let tree = new IntervalTree();
+            let level = [set.index.root];
+            let squared_min_stop = min_stop < Number.POSITIVE_INFINITY ? min_stop*min_stop : Number.POSITIVE_INFINITY;
+            squared_min_stop = Distance.minmax_tree_process_level(shape, level, squared_min_stop, tree);
+            return tree;
+        }
+
+        static minmax_tree_calc_distance(shape, node, min_dist_and_segment) {
+            let min_dist_and_segment_new, stop;
+            if (node != null && !node.isNil()) {
+                [min_dist_and_segment_new, stop] = Distance.minmax_tree_calc_distance(shape, node.left, min_dist_and_segment);
+
+                if (stop) {
+                    return [min_dist_and_segment_new, stop];
+                }
+
+                if (Flatten.Utils.LT(min_dist_and_segment_new[0], Math.sqrt(node.item.key.low))) {
+                    return [min_dist_and_segment_new, true];   // stop condition
+                }
+
+                let [dist, shortest_segment] = Distance.distance(shape, node.item.value);
+                // console.log(dist)
+                if (Flatten.Utils.LT(dist, min_dist_and_segment_new[0])) {
+                    min_dist_and_segment_new = [dist, shortest_segment];
+                }
+
+                [min_dist_and_segment_new, stop] = Distance.minmax_tree_calc_distance(shape, node.right, min_dist_and_segment_new);
+
+                return [min_dist_and_segment_new, stop];
+            }
+
+            return [min_dist_and_segment, false];
+        }
+
+        /**
+         * Calculates distance between shape and Planar Set of shapes
+         * @param shape
+         * @param {PlanarSet} set
+         * @param {Number} min_stop
+         * @returns {*}
+         */
+        static shape2planarSet(shape, set, min_stop = Number.POSITIVE_INFINITY) {
+            let min_dist_and_segment = [min_stop, new Flatten.Segment()];
+            let stop = false;
+            if (set instanceof Flatten.PlanarSet) {
+                let tree = Distance.minmax_tree(shape, set, min_stop);
+                [min_dist_and_segment, stop] = Distance.minmax_tree_calc_distance(shape, tree.root, min_dist_and_segment);
             }
             return min_dist_and_segment;
         }

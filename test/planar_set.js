@@ -8,8 +8,8 @@ let expect = require('chai').expect;
 let Flatten = require('../index');
 // let now = require("performance-now");
 
-let {Point, Segment, Circle, Box, PlanarSet} = Flatten;
-let {point, segment, vector} = Flatten;
+let {Point, Segment, Circle, Box, PlanarSet, Distance} = Flatten;
+let {point, segment, vector, circle} = Flatten;
 
 describe('#Data_structures.PlanarSet', function() {
     it('Class PlanarSet defined', function() {
@@ -84,6 +84,32 @@ describe('#Data_structures.PlanarSet', function() {
 
         expect(height(shapeSet.index)).to.be.within(7,8);
     });
+
+    it('May calculate distance between shape and planar set', function () {
+
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 270),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+
+        let circles = points.map( point => circle(point, 50));
+
+        let set = new PlanarSet();
+        for (let circle of circles) {
+            set.add(circle);
+        }
+
+        let pt = point(300,200);
+
+        let [dist, shortest_segment] = Distance.shape2planarSet(pt, set);
+        expect(dist).to.equal(20);
+    });
+
     // it('May give same result as search without index', function() {
     //     let random = function(min, max) { return Math.floor(Math.random() * max) + min;}
     //

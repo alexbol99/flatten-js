@@ -47,6 +47,10 @@ module.exports = function(Flatten) {
             return new Flatten.Point(this.x, this.y);
         }
 
+        get vertices() {
+            return [this.clone()];
+        }
+
         /**
          * Returns true if points are equal up to DP_TOL tolerance
          * @param {Point} pt
@@ -142,35 +146,35 @@ module.exports = function(Flatten) {
             if (shape instanceof Point) {
                 let dx = shape.x - this.x;
                 let dy = shape.y - this.y;
-                return Math.sqrt(dx*dx + dy*dy);
+                return [Math.sqrt(dx*dx + dy*dy), new Flatten.Segment(this, shape)];
             }
 
             if (shape instanceof Flatten.Line) {
-                // let [dist,closest_point] = shape.distanceToPoint(this);
-                let [dist, ...rest] = Distance.point2line(this, shape);
-                return dist;
-                // let vec = new Flatten.Vector(this, this.projectionOn(shape));
-                // return vec.length;
+                return Distance.point2line(this, shape);
             }
 
             if (shape instanceof Flatten.Circle) {
-                let [dist, ...rest] = Distance.point2circle(this, shape);
-                return dist;
+                return Distance.point2circle(this, shape);
             }
 
             if (shape instanceof Flatten.Segment) {
-                let [dist, ...rest] = Distance.point2segment(this, shape);
-                return dist;
+                return Distance.point2segment(this, shape);
             }
 
             if (shape instanceof Flatten.Arc) {
-                let [dist, ...rest] = Distance.point2arc(this, shape);
-                return dist;
+                // let [dist, ...rest] = Distance.point2arc(this, shape);
+                // return dist;
+                return Distance.point2arc(this, shape);
             }
 
             if (shape instanceof Flatten.Polygon) {
-                let [dist, ...rest] = Distance.point2polygon(this, shape);
-                return dist;
+                // let [dist, ...rest] = Distance.point2polygon(this, shape);
+                // return dist;
+                return Distance.point2polygon(this, shape);
+            }
+
+            if (shape instanceof Flatten.PlanarSet) {
+                return Distance.shape2planarSet(this, shape);
             }
         }
 

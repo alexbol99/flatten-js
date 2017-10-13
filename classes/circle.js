@@ -64,7 +64,7 @@ module.exports = function(Flatten) {
          * @returns {boolean}
          */
         contains(pt) {
-            return Flatten.Utils.LE(pt.distanceTo(this.center), this.r);
+            return Flatten.Utils.LE(pt.distanceTo(this.center)[0], this.r);
         }
 
         /**
@@ -139,6 +139,11 @@ module.exports = function(Flatten) {
                 let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
                 return [distance, shortest_segment];
             }
+
+            if (shape instanceof Flatten.PlanarSet) {
+                let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
+                return [dist, shortest_segment];
+            }
         }
 
         static intersectCirle2Circle(circle1, circle2) {
@@ -163,7 +168,7 @@ module.exports = function(Flatten) {
                 return ip;
             }
 
-            let dist = circle1.pc.distanceTo(circle2.pc);
+            let dist = circle1.pc.distanceTo(circle2.pc)[0];
 
             if (Flatten.Utils.GT(dist, r1 + r2))               // circles too far, no intersections
                 return ip;

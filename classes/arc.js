@@ -88,6 +88,10 @@ module.exports = function(Flatten) {
             return this.pc.clone();
         }
 
+        get vertices() {
+            return [this.start.clone(), this.end.clone()];
+        }
+
         /**
          * Get arc length
          * @returns {number}
@@ -114,7 +118,7 @@ module.exports = function(Flatten) {
          */
         contains(pt) {
             // first check if  point on circle (pc,r)
-            if (!Flatten.Utils.EQ(this.pc.distanceTo(pt), this.r))
+            if (!Flatten.Utils.EQ(this.pc.distanceTo(pt)[0], this.r))
                 return false;
 
             // point on circle
@@ -184,6 +188,11 @@ module.exports = function(Flatten) {
 
             if (shape instanceof Flatten.Polygon) {
                 let [dist, shortest_segment] = Distance.shape2polygon(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.PlanarSet) {
+                let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
                 return [dist, shortest_segment];
             }
         }

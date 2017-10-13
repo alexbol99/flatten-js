@@ -77,12 +77,16 @@ module.exports = function (Flatten) {
             return this.pe;
         }
 
+        get vertices() {
+            return [this.ps.clone(), this.pe.clone()];
+        }
+
         /**
          * Length of a segment
          * @returns {number}
          */
         get length() {
-            return this.start.distanceTo(this.end);
+            return this.start.distanceTo(this.end)[0];
         }
 
         /**
@@ -175,6 +179,11 @@ module.exports = function (Flatten) {
 
             if (shape instanceof Flatten.Polygon) {
                 let [dist, shortest_segment] = Distance.shape2polygon(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.PlanarSet) {
+                let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
                 return [dist, shortest_segment];
             }
         }
