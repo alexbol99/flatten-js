@@ -598,7 +598,7 @@ module.exports = function(Flatten) {
                     return [min_dist_and_segment_new, true];   // stop condition
                 }
 
-                let [dist, shortest_segment] = Distance.distance(shape, node.item.value);
+                let [dist, shortest_segment] = Distance.distance(shape, node.item.value.shape);
                 // console.log(dist)
                 if (Flatten.Utils.LT(dist, min_dist_and_segment_new[0])) {
                     min_dist_and_segment_new = [dist, shortest_segment];

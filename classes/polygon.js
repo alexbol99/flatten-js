@@ -137,7 +137,7 @@ module.exports = function(Flatten) {
 
             /* this method is bit faster */
             if (shape instanceof  Flatten.Polygon) {
-                let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
+                let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
                 for (let edge of this.edges) {
                     // let [dist, shortest_segment] = Distance.shape2polygon(edge.shape, shape);
                     let [dist, shortest_segment] = Distance.shape2planarSet(edge.shape, shape.edges);
