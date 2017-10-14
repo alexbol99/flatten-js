@@ -553,7 +553,12 @@ module.exports = function(Flatten) {
                 [mindist, maxdist] = Distance.box2box_minmax(shape.box, node.max);
                 if (Flatten.Utils.GT(mindist, min_stop))
                     continue;
-                tree.insert([mindist, maxdist], node.item.value);
+                if (node.item.value instanceof Flatten.Edge) {
+                    tree.insert([mindist, maxdist], node.item.value.shape);
+                }
+                else {
+                    tree.insert([mindist, maxdist], node.item.value);
+                }
                 if (Flatten.Utils.LT(maxdist, min_stop)) {
                     min_stop = maxdist;
                 }
@@ -598,7 +603,7 @@ module.exports = function(Flatten) {
                     return [min_dist_and_segment_new, true];   // stop condition
                 }
 
-                let [dist, shortest_segment] = Distance.distance(shape, node.item.value.shape);
+                let [dist, shortest_segment] = Distance.distance(shape, node.item.value);
                 // console.log(dist)
                 if (Flatten.Utils.LT(dist, min_dist_and_segment_new[0])) {
                     min_dist_and_segment_new = [dist, shortest_segment];

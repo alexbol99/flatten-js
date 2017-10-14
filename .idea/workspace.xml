@@ -4,41 +4,6 @@
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms/distance.js" afterPath="$PROJECT_DIR$/algorithms/distance.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/arc.js" afterPath="$PROJECT_DIR$/classes/arc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/circle.js" afterPath="$PROJECT_DIR$/classes/circle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/line.js" afterPath="$PROJECT_DIR$/classes/line.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/point.js" afterPath="$PROJECT_DIR$/classes/point.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/polygon.js" afterPath="$PROJECT_DIR$/classes/polygon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/segment.js" afterPath="$PROJECT_DIR$/classes/segment.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Arc.html" afterPath="$PROJECT_DIR$/docs/Flatten.Arc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Edge.html" afterPath="$PROJECT_DIR$/docs/Flatten.Edge.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Face.html" afterPath="$PROJECT_DIR$/docs/Flatten.Face.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Line.html" afterPath="$PROJECT_DIR$/docs/Flatten.Line.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" afterPath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Point.html" afterPath="$PROJECT_DIR$/docs/Flatten.Point.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Polygon.html" afterPath="$PROJECT_DIR$/docs/Flatten.Polygon.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Ray.html" afterPath="$PROJECT_DIR$/docs/Flatten.Ray.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Segment.html" afterPath="$PROJECT_DIR$/docs/Flatten.Segment.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Vector.html" afterPath="$PROJECT_DIR$/docs/Flatten.Vector.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_box.js.html" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_face.js.html" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_line.js.html" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_point.js.html" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/planar_set.js" afterPath="$PROJECT_DIR$/test/planar_set.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/point.js" afterPath="$PROJECT_DIR$/test/point.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -105,7 +70,7 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
+            <state relative-caret-position="633">
               <caret line="40" column="26" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="26" />
               <folding />
             </state>
@@ -116,7 +81,17 @@
         <entry file="file://$PROJECT_DIR$/classes/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="298">
-              <caret line="148" column="13" lean-forward="false" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
+              <caret line="148" column="13" lean-forward="true" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/planar_set.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="89" column="20" lean-forward="false" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -125,8 +100,8 @@
       <file leaf-file-name="distance.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/algorithms/distance.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="619" column="22" lean-forward="false" selection-start-line="619" selection-start-column="22" selection-end-line="619" selection-end-column="22" />
+            <state relative-caret-position="202">
+              <caret line="562" column="39" lean-forward="true" selection-start-line="562" selection-start-column="39" selection-end-line="562" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -258,8 +233,8 @@
         <option value="$PROJECT_DIR$/classes/arc.js" />
         <option value="$PROJECT_DIR$/classes/circle.js" />
         <option value="$PROJECT_DIR$/classes/segment.js" />
-        <option value="$PROJECT_DIR$/classes/polygon.js" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/classes/polygon.js" />
         <option value="$PROJECT_DIR$/algorithms/distance.js" />
       </list>
     </option>
@@ -317,6 +292,11 @@
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
               <item name="data_structures" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -570,21 +550,7 @@
       <workItem from="1505547285153" duration="16301000" />
       <workItem from="1505979350370" duration="17747000" />
       <workItem from="1506403990858" duration="1193000" />
-      <workItem from="1507835995083" duration="26545000" />
-    </task>
-    <task id="LOCAL-00022" summary="Added svg output, added polygon creation tests">
-      <created>1490028609713</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1490028609713</updated>
-    </task>
-    <task id="LOCAL-00023" summary="workspace">
-      <created>1490029213555</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1490029213555</updated>
+      <workItem from="1507835995083" duration="28868000" />
     </task>
     <task id="LOCAL-00024" summary="Readme patch">
       <created>1490048051488</created>
@@ -915,7 +881,21 @@
       <option name="project" value="LOCAL" />
       <updated>1506290232878</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="- Add new Distance shape2planarSet method based on interval trees&#10;- Updated point2shape methods to return [dist, shortest_segment]&#10;- Added new get vertices methods to Segment, Arc and Point (for viewer app)">
+      <created>1507907379884</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1507907379884</updated>
+    </task>
+    <task id="LOCAL-00072" summary="- Fix technical bugs">
+      <created>1507969571483</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1507969571483</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -931,11 +911,11 @@
     <history-entry file="#Data_structures_PlanarSet_May_calculate_distance_between_shape_and_planar_set - 2017.10.13 at 17h 37m 11s.xml">
       <configuration name="#Data_structures.PlanarSet.May calculate distance between shape and planar set" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Point - 2017.10.13 at 17h 32m 21s.xml">
-      <configuration name="#Flatten.Point" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Data_structures_PlanarSet_May_calculate_distance_between_shape_and_planar_set - 2017.10.14 at 11h 27m 53s.xml">
+      <configuration name="#Data_structures.PlanarSet.May calculate distance between shape and planar set" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Flatten_Point_#Flatten_Point_On_inclusion_queries - 2017.10.13 at 17h 28m 00s.xml">
-      <configuration name="#Flatten.Point.#Flatten.Point.On inclusion queries" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Data_structures_PlanarSet_May_calculate_distance_between_shape_and_planar_set - 2017.10.14 at 11h 29m 22s.xml">
+      <configuration name="#Data_structures.PlanarSet.May calculate distance between shape and planar set" configurationId="mocha-javascript-test-runner" />
     </history-entry>
     <history-entry file="#Flatten_Segment - 2017.10.13 at 17h 33m 03s.xml">
       <configuration name="#Flatten.Segment" configurationId="mocha-javascript-test-runner" />
@@ -951,7 +931,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="425199000" />
+    <option name="totallyTimeSpent" value="427522000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -992,8 +972,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Expose PlanarSet as regular class" />
-    <MESSAGE value="Coverage and docs" />
     <MESSAGE value="Submit PlanarSet docs" />
     <MESSAGE value="Fix bug with usage of interval index" />
     <MESSAGE value="Increase flatten-interval-tree version to 0.1.3" />
@@ -1017,11 +995,33 @@
     <MESSAGE value="Fix bugs in distance measurement algorithm" />
     <MESSAGE value="Add distance to polygon - naive approach, slow" />
     <MESSAGE value="Fix bugs, add more tests for better coverage" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs, add more tests for better coverage" />
+    <MESSAGE value="- Add new Distance shape2planarSet method based on interval trees&#10;- Updated point2shape methods to return [dist, shortest_segment]&#10;- Added new get vertices methods to Segment, Arc and Point (for viewer app)" />
+    <MESSAGE value="- Fix technical bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fix technical bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="171" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/planar_set.js</url>
+          <line>108</line>
+          <properties />
+          <option name="timeStamp" value="171" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/planar_set.js</url>
+          <line>89</line>
+          <properties />
+          <option name="timeStamp" value="172" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/algorithms/distance.js</url>
+          <line>631</line>
+          <properties />
+          <option name="timeStamp" value="176" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="179" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
@@ -1232,14 +1232,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/planar_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="109" column="32" lean-forward="false" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/arc.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
@@ -1318,14 +1310,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="148" column="13" lean-forward="false" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/flatten-interval-tree/classes/node.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1336,16 +1320,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
+        <state relative-caret-position="633">
           <caret line="40" column="26" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="148" column="13" lean-forward="true" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/planar_set.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="89" column="20" lean-forward="false" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algorithms/distance.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="619" column="22" lean-forward="false" selection-start-line="619" selection-start-column="22" selection-end-line="619" selection-end-column="22" />
+        <state relative-caret-position="202">
+          <caret line="562" column="39" lean-forward="true" selection-start-line="562" selection-start-column="39" selection-end-line="562" selection-end-column="39" />
           <folding />
         </state>
       </provider>
