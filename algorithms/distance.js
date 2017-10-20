@@ -539,20 +539,19 @@ module.exports = function(Flatten) {
             return [mindist, maxdist];
         }
 
-        static minmax(shape1, shape2) {
-            return Distance.box2box_minmax(shape1.box, shape2.box);
-        }
-
         static minmax_tree_process_level(shape, level, min_stop, tree) {
             // Calculate minmax distance to each shape in current level
-            // Insert result in the interval tree for further processing if
-            // mindist is less than min_stop dist, otherwise the shape is too far
+            // Insert result into the interval tree for further processing
             // update min_stop with maxdist, it will be the new stop distance
             let mindist, maxdist;
             for (let node of level) {
-                [mindist, maxdist] = Distance.box2box_minmax(shape.box, node.max);
-                if (Flatten.Utils.GT(mindist, min_stop))
-                    continue;
+
+                // [mindist, maxdist] = Distance.box2box_minmax(shape.box, node.max);
+                // if (Flatten.Utils.GT(mindist, min_stop))
+                //     continue;
+
+                // Estimate min-max dist to the shape stored in the node.item, using node.item.key which is shape's box
+                [mindist, maxdist] = Distance.box2box_minmax(shape.box, node.item.key);
                 if (node.item.value instanceof Flatten.Edge) {
                     tree.insert([mindist, maxdist], node.item.value.shape);
                 }
@@ -560,17 +559,22 @@ module.exports = function(Flatten) {
                     tree.insert([mindist, maxdist], node.item.value);
                 }
                 if (Flatten.Utils.LT(maxdist, min_stop)) {
-                    min_stop = maxdist;
+                    min_stop = maxdist;                       // this will be the new distance estimation
                 }
             }
 
             if (level.length === 0)
-                return;
+                return min_stop;
 
             // Calculate new level from left and right children of the current
             let new_level_left = level.map(node => node.left.isNil() ? undefined : node.left ).filter(node => node !== undefined);
             let new_level_right = level.map(node => node.right.isNil() ? undefined : node.right).filter(node => node !== undefined);
-            let new_level = [...new_level_left, ...new_level_right];
+            // Merge left and right subtrees and leave only relevant subtrees
+            let new_level = [...new_level_left, ...new_level_right].filter( node => {
+                // Node subtree quick reject, node.max is a subtree box
+                let [mindist, maxdist] = Distance.box2box_minmax(shape.box, node.max);
+                return (Flatten.Utils.LE(mindist, min_stop));
+            });
 
             min_stop = Distance.minmax_tree_process_level(shape, new_level, min_stop, tree);
             return min_stop;

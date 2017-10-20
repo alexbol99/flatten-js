@@ -138,10 +138,13 @@ module.exports = function(Flatten) {
             /* this method is bit faster */
             if (shape instanceof  Flatten.Polygon) {
                 let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
+                let dist, shortest_segment;
+
                 for (let edge of this.edges) {
                     // let [dist, shortest_segment] = Distance.shape2polygon(edge.shape, shape);
-                    let [dist, shortest_segment] = Distance.shape2planarSet(edge.shape, shape.edges);
-                    if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
+                    let min_stop = min_dist_and_segment[0];
+                    [dist, shortest_segment] = Distance.shape2planarSet(edge.shape, shape.edges, min_stop);
+                    if (Flatten.Utils.LT(dist, min_stop)) {
                         min_dist_and_segment = [dist, shortest_segment];
                     }
                 }

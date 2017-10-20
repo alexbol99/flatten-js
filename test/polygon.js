@@ -186,7 +186,34 @@ describe('#Flatten.Polygon', function() {
         expect(dist).to.equal(25);
         expect(shortest_segment.pe).to.deep.equal({"x": 300, "y": 50});
         expect(shortest_segment.ps).to.deep.equal({"x": 300, "y": 75});
-    })
+    });
+    it('Can measure distance between two polygons', function () {
+        "use strict";
+
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 200),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+
+        let poly1 = new Polygon();
+        poly1.addFace(points);
+        poly1.addFace([circle(point(175,150), 30).toArc()]);
+
+        let poly2 = new Polygon();
+        poly2.addFace( [circle(point(250, 300), 50).toArc()]);
+
+
+        let [dist, shortest_segment] = Flatten.Distance.distance(poly1, poly2);
+        expect(dist).to.equal(50);
+        expect(shortest_segment.pe).to.deep.equal({"x": 250, "y": 250});
+        expect(shortest_segment.ps).to.deep.equal({"x": 250, "y": 200});
+
+    });
 });
 describe('#Flatten.Face', function() {
     "use strict";
