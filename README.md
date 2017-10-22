@@ -18,7 +18,7 @@ circle, arc and polygon. The library is written using es6 javascript syntax whic
     let Flatten = require('flatten-js');
 
     // extract object creators
-    let {circle, segment} = Flatten;
+    let {point, circle, segment} = Flatten;
 
     // make some construction
     let s1 = segment(10,10,200,200);
