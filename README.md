@@ -4,10 +4,8 @@
 
 # Javascript library for 2d geometry
 
-Flatten-js is a javascript library for manipulating abstract geometrical objects like point, vector, segment, line,
-circle, circular arc. It implements polygon model where polygon may be comprised from a number of islands with holes.
-The code have no dependencies and may be used on client side as well as on server side under NodeJS.
-The code is written using ES6 javascript standard.
+Flatten-js is a javascript library for manipulating abstract geometrical objects like point, vector, line, segment,
+circle, arc and polygon. The library is written using es6 javascript syntax which is supported by all modern browsers as well as by NodeJS.
 
 ## Installation
 
@@ -15,17 +13,14 @@ The code is written using ES6 javascript standard.
 
 ## Usage
 
-### Primitive shapes
+```javascript
     // require package
     let Flatten = require('flatten-js');
 
-    // 1st option - functional style, use it like pt = point(20,30)
-    let {point, vector, circle, line, segment, arc, face} = Flatten;
+    // extract object creators
+    let {circle, segment} = Flatten;
 
-    // 2nd option - es6 class style, use it like pt = new Point(20,30)
-    let {Point, Vector, Circle, Line, Segment, Arc, Polygon} = Flatten;
-
-    // now you may create simple construction and call methods
+    // make some construction
     let s1 = segment(10,10,200,200);
     let s2 = segment(10,160,200,30);
     let c = circle(point(200, 110), 50);
@@ -34,13 +29,84 @@ The code is written using ES6 javascript standard.
     // visualize using svg output
     let svg=[s1, s2, c, ip[0]].reduce((acc,shape) => acc + shape.svg(),"");
     document.getElementById("graphics").innerHTML = svg;
-    
+```
+
 ![example](https://cloud.githubusercontent.com/assets/6965440/24111445/1310ceb4-0d9f-11e7-9775-2868ec5c4f21.png)
   
 Play with this code on requirebin http://requirebin.com/?gist=2bf8335f4655f103ba500b647e70f1fc
 
-### Polygon
+## First project
 
+Check out this [flatten-js-test](https://github.com/alexbol99/flatten-js-test) from git to create your first project using **flatten-js** library.
+Flatten-js-test has zero configuration, it works as is without transpiling in any modern browser.
+
+## Documentation
+
+Documentation may be found here https://alexbol99.github.io/flatten-js/index.html
+
+## Library
+
+### Shapes
+Flatten-js library provides support for the following shapes in 2d:
+* Point
+* Vector
+* Line
+* Circle
+* Segment
+* Arc
+* Polygon
+
+Beyond of some trivial methods shape classes implement several common methods and queries:
+* Points location test
+* Intersection between shapes
+* Distance to other shape
+
+They also expose *box* property - axis aligned bounding box (AABB)
+needed for search tree index construction
+
+
+Shapes may be created using constructor:
+```javascript
+let c = new Circle( new Point(30,40), 100 );
+```
+or in functional form:
+```javascript
+let c = circle( point(30,40), 100 );
+```
+### Planar Set
+Planar Set is a container of shapes.
+It is implemented as an extension of the javascript Set object with the search tree index.<br/>
+Any object added to Planar Set container have to expose *box* property,
+where *box* should be an instance of the **Flatten.Box** class or implement special interface.<br/>
+Planar Set provides range search query to locate shapes which
+bounding boxes are intersected with the query box. 
+
+Example:
+
+```javascript
+let planarSet = new PlanarSet();
+let segment = new Segment(1,1,2,2);
+let circle = new Circle(new Point(3,3), 1);
+planarSet.add(segment);
+planarSet.add(circle);
+let resp = planarSet.search(new Box(2,2,3,3));
+console.log(resp.lengt);   // expected to be 2
+```
+
+### Polygon
+Polygon is a collection of closed loops, called **faces**.<br/>
+Each face is a continuous closed chain of **edges**.<br/>
+Edge may be either **segment** or **arc**.<br/>
+Faces may contain each other as well as be disjointed. If internal face has a direction opposite
+to the direction of containing face, it will be treated as a *hole*.<br/>
+
+By definition, *faces* and *edges* are instances of PlanarSet, which means they are searchable and enable range search queries.
+
+#### Polygon construction
+Polygon is constructing by adding faces. To create the new face, one needs to transfer an array
+representing closed chain of edges. If chain has no arcs, it may be also an array of points
+representing vertices of the face.
+```javascript
     // points will be used as vertices to create a face comprised from segments only
     let vertices1 = [point(50,50), point(50,250), point(250, 250), point(250,50)];
     let vertices2 = [point(100,100), point(200,100), point(200, 200), point(100,200)];
@@ -60,72 +126,54 @@ Play with this code on requirebin http://requirebin.com/?gist=2bf8335f4655f103ba
     polygon.addFace(vertices1);
     polygon.addFace(vertices2);
     polygon.addFace(arcs);
-
-    // visualize using svg output
-    document.getElementById("graphics").innerHTML = polygon.svg();
-
-![example3](https://cloud.githubusercontent.com/assets/6965440/24312130/3c56c9da-10e8-11e7-9461-3406525e0473.png)
-
-Play with this code on requirebin http://requirebin.com/?gist=8506659e6fa0876cda9cea15bfaf2dc9
-
-### Planar Set
-
-    let Flatten = require('flatten-js');
-
-    let {point, circle, segment, arc, PlanarSet} = Flatten;
-
-    let random = function(min, max) { return Math.floor(Math.random() * max) + min;}
-
-    // Create new planar set and fill it with segments
-    let shapeSet = new PlanarSet();
-    for (let i=0; i < 200; i++) {
-        let ps = point(random(1,600), random(1,600));
-        let pe = ps.translate(random(50,200), random(-100, 100));
-        shapeSet.add(segment(ps, pe));
+```
+#### Traversing faces and edges
+As being elements of Set containers, polygon's faces and edges may be traversed as regular set elements.
+Face implements *next* iterator, so if one needs to traverse edges of the specific face,
+it may be done in the following way:
+```javascript
+for (let face of polygon.faces) {
+    for (let edge of face) {              // sic!
+        console.log(edge.shape.length);   // do something
     }
+}
+``` 
+From the other hand, edges in the face form a circular bidirectional linked list,
+so if more controlled iteration needed, one can use the following form:
+```javascript
+for (let face of polygon.faces) {
+    let edge = face.first;
+    do {
+        console.log(edge.shape.length);   // do something
+        edge = edge.next;
+    } while (edge != face.first)
+}
+```
+#### Specific polygon methods
+There are several other methods specific for polygon and its faces
+* `face.area()` - Returns area of the face
+* `face.isSimple()` - Returns *true* if polygon has no self-intersections
+* `face.getOrientation()` - Returns direction of the face - clockwise or counterclockwise
+* `polygon.area()` - Returns area of the polygon. If polygon has holes,
+their area is taken as negative. 
 
-    let t1 = performance.now();
-
-    // Calculate intersections between segments
-
-    // Create planar set for intersection points
-    let ipSet = new PlanarSet();
-    // For each shape search neighbor segments
-    for(let shape of shapeSet) {
-        // for each neighbor segment in quiery calculate intersection
-        for (let other_shape of shapeSet.search(shape.box)) {
-            if (other_shape == shape) continue;
-            // add intersection points to the set
-            for (let ip of shape.intersect(other_shape)) {
-              ipSet.add(ip);
-            }
-        }
-    }
-
-    let t2 = performance.now()
-
-    // output segments and points
-    document.getElementById("graphics").innerHTML = shapeSet.svg() + ipSet.svg();
-    // report elapsed time and number of intersection
-    document.getElementById("elapsed-time").innerHTML = `${ipSet.size} intersections found. Elapsed time ${(t2-t1).toFixed(1)} msec`
-
-![planar_set_search](https://cloud.githubusercontent.com/assets/6965440/24862801/de267c6c-1e06-11e7-86de-ffaf1bb035ff.PNG)
-
-Play with this code on requirebin http://requirebin.com/?gist=e14434926bfa908a8ef31efac84139a3
-
+## Visualization
+This library does not concern about visualization.
+Anyway, all the classes, including PlanarSet, have `svg()` method, that returns a string which may be inserted into
+defined SVG element, like this:
+```javascript
+// visualize using svg output
+document.getElementById("graphics").innerHTML = polygon.svg();
+```
 ## Tests
 
-Run following command in your project directory in order to install development dependencies:
-    
-    npm install --only=dev
-    
-Then you can run tests:
-    
+The project has comprehensive set of unit tests. If someone wants to play with then,
+he (or she) may check out this project, install dependecies,
+ including dev dependencies (chai/mocha) and then run 
+```
     npm test
+```    
 
-## Documentation
-
-Documentation may be found here https://alexbol99.github.io/flatten-js/index.html
 
 ## Contributing
 

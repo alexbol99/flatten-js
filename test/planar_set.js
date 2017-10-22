@@ -46,7 +46,7 @@ describe('#Data_structures.PlanarSet', function() {
         planarSet.add(segment);
         expect(planarSet.size).to.equal(1);
     });
-    it('May find planar objects in given box', function () {
+    it('May find planar objects in given box 1', function () {
         let planarSet = new PlanarSet();
         let segment = new Segment(1,1,2,2);
         let circle = new Circle(new Point(3,3), 1);
@@ -56,7 +56,7 @@ describe('#Data_structures.PlanarSet', function() {
         expect(resp.length).to.equal(1);
         expect(resp[0]).to.equal(segment);
     });
-    it('May find planar objects in given box', function () {
+    it('May find planar objects in given box 2', function () {
         let planarSet = new PlanarSet();
         let segment = new Segment(1,1,2,2);
         let circle = new Circle(new Point(3,3), 1);
