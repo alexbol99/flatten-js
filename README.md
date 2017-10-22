@@ -38,7 +38,7 @@ Play with this code on requirebin http://requirebin.com/?gist=2bf8335f4655f103ba
 ## First project
 
 Check out this [flatten-js-test](https://github.com/alexbol99/flatten-js-test) from git to create your first project using **flatten-js** library.
-Flatten-js-test has zero configuration, it works as is without transpiling in any modern browser.
+Flatten-js-test has zero configuration, it works "as is" without transpiling in any modern browser.
 
 ## Documentation
 
@@ -90,20 +90,21 @@ let circle = new Circle(new Point(3,3), 1);
 planarSet.add(segment);
 planarSet.add(circle);
 let resp = planarSet.search(new Box(2,2,3,3));
-console.log(resp.lengt);   // expected to be 2
+console.log(resp.length);   // expected to be 2
 ```
 
 ### Polygon
 Polygon is a collection of closed loops, called **faces**.<br/>
 Each face is a continuous closed chain of **edges**.<br/>
 Edge may be either **segment** or **arc**.<br/>
-Faces may contain each other as well as be disjointed. If internal face has a direction opposite
+Faces may contain each other as well as be disjoint. If internal face has a direction opposite
 to the direction of containing face, it will be treated as a *hole*.<br/>
 
-By definition, *faces* and *edges* are instances of PlanarSet, which means they are searchable and enable range search queries.
+By definition, *faces* and *edges* are instances of PlanarSet, which means they are searchable containers
+ that enable range search queries.
 
 #### Polygon construction
-Polygon is constructing by adding faces. To create the new face, one needs to transfer an array
+Polygon is constructing by adding faces. To create a new face, one needs to transfer an array
 representing closed chain of edges. If chain has no arcs, it may be also an array of points
 representing vertices of the face.
 ```javascript
@@ -159,7 +160,7 @@ their area is taken as negative.
 
 ## Visualization
 This library does not concern about visualization.
-Anyway, all the classes, including PlanarSet, have `svg()` method, that returns a string which may be inserted into
+Anyway, all classes, including PlanarSet, have `svg()` method, that returns a string which may be inserted into
 defined SVG element, like this:
 ```javascript
 // visualize using svg output
@@ -168,10 +169,10 @@ document.getElementById("graphics").innerHTML = polygon.svg();
 ## Tests
 
 The project has comprehensive set of unit tests. If someone wants to play with then,
-he (or she) may check out this project, install dependecies,
+he (or she) may check out this project, install dependencies,
  including dev dependencies (chai/mocha) and then run 
 ```
-    npm test
+npm test
 ```    
 
 
