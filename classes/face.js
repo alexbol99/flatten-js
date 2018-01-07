@@ -22,15 +22,9 @@ module.exports = function(Flatten) {
              * Reference to the last edge in face
              */
             this.last;
-            /**
-             * Face orientation: clockwise, counterclockwise or not-orientable
-             * @type {Flatten.ORIENTATION}
-             */
-            this.orientation = undefined;
-            /**
-             * Bounding box of the face
-             */
-            this.box = new Box();
+
+            this._box =  undefined;  // new Box();
+            this._orientation = undefined;
 
             if (args.length == 0) {
                 return;
@@ -65,8 +59,8 @@ module.exports = function(Flatten) {
                 this.last = args[1];                           // last edge in face or undefined
                 this.last.next = this.first;
                 this.first.prev = this.last;
-                this.box = this.getBox();
-                this.orientation = this.getOrientation();      // face direction cw or ccw
+                // this.box = this.getBox();
+                // this.orientation = this.getOrientation();      // face direction cw or ccw
             }
         }
 
@@ -139,10 +133,10 @@ module.exports = function(Flatten) {
             for (let shape of shapes) {
                 let edge = new Edge(shape);
                 this.append(edge);
-                this.box = this.box.merge(shape.box);
+                // this.box = this.box.merge(shape.box);
                 edges.add(edge);
             }
-            this.orientation = this.getOrientation();              // face direction cw or ccw
+            // this.orientation = this.getOrientation();              // face direction cw or ccw
         }
 
         /**
@@ -167,29 +161,39 @@ module.exports = function(Flatten) {
         when positive - clockwise and when it is zero, polygon is not orientable.
         See http://mathinsight.org/greens_theorem_find_area
          */
-        getOrientation() {
-            let area = this.signedArea();
-            if (Flatten.Utils.EQ_0(area)) {
-                return Flatten.ORIENTATION.NOT_ORIENTABLE;
+        /**
+         *
+         * @returns {number}
+         */
+        get orientation() {
+            if (this._orientation === undefined) {
+                let area = this.signedArea();
+                if (Flatten.Utils.EQ_0(area)) {
+                    this._orientation = Flatten.ORIENTATION.NOT_ORIENTABLE;
+                }
+                else if (Flatten.Utils.LT(area, 0)) {
+                    this._orientation = Flatten.ORIENTATION.CCW;
+                }
+                else {
+                    this._orientation = Flatten.ORIENTATION.CW;
+                }
             }
-            if (Flatten.Utils.LT(area, 0)) {
-                return Flatten.ORIENTATION.CCW;
-            }
-            else {
-                return Flatten.ORIENTATION.CW;
-            }
+            return this._orientation;
         }
 
         /**
          * Return bounding box of the face
          * @returns {Box}
          */
-        getBox() {
-            let box = new Flatten.Box();
-            for (let edge of this) {
-                box = box.merge(edge.box);
+        get box() {
+            if (this._box === undefined) {
+                let box = new Flatten.Box();
+                for (let edge of this) {
+                    box = box.merge(edge.box);
+                }
+                this._box = box;
             }
-            return box;
+            return this._box;
         }
 
         svg() {
