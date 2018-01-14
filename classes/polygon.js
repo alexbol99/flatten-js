@@ -76,6 +76,28 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Split face in given edge with given point that belong to edge
+         * @param edge
+         * @param pt
+         */
+        splitFace(edge, pt) {
+            let shapes = edge.shape.split(pt);
+            if (shapes.length < 2) return;
+            let newEdge = new Flatten.Edge(shapes[0]);
+            let edgeBefore = edge.prev;
+
+            /* Insert first split edge into linked list after edgeBefore */
+            edge.face.insert(newEdge, edgeBefore);
+            /* Update edge shape with second split edge keeping links */
+            let oldBox = edge.box;
+            edge.shape = shapes[1];
+
+            /* Update index */
+            this.edges.add(newEdge);
+            this.edges.update(edge, oldBox);
+        }
+
+        /**
          * Create new copied instance of the polygon
          * @returns {Polygon}
          */

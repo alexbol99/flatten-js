@@ -23,6 +23,10 @@ module.exports = function(Flatten) {
              * Pointer to the previous edge in the face
              */
             this.prev;
+            /**
+             * Pointer to the face containing this edge
+             */
+            this.face;
         }
 
         /**

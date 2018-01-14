@@ -8,13 +8,13 @@
 
 let IntervalTree = require('flatten-interval-tree');
 
-module.exports = function(Flatten) {
+module.exports = function (Flatten) {
     /**
      * Class representing a planar set - a generic container with ability to keep and retrieve shapes and
      * perform spatial queries. Planar set is an extension of Set container, so it is possible to call directly
      * Set properties and methods
      */
-     Flatten.PlanarSet = class PlanarSet extends Set {
+    Flatten.PlanarSet = class PlanarSet extends Set {
         /**
          * Create new empty instance of PlanarSet
          */
@@ -52,6 +52,17 @@ module.exports = function(Flatten) {
                 this.index.remove(shape.box, shape);
             }
             return deleted;
+        }
+
+        /**
+         * Update shape in planar set
+         * @param shape
+         */
+        update(shape) {
+            if (super.has(shape)) {
+                this.delete(shape);
+            }
+            this.add(shape);
         }
 
         clear() {

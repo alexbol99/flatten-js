@@ -132,6 +132,28 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * When point belongs to arc, return array of two arcs split by given point
+         * @param pt
+         * @returns {Arc[]}
+         */
+        split(pt) {
+            if (!this.contains(pt))
+                return [];
+
+            if (this.start.equalTo(this.end))
+                return [this];
+
+            if (this.start.equalTo(pt) || this.end.equalTo(pt))
+                return [this];
+
+            let angle = new Flatten.Vector(this.pc, pt).slope;
+            return [
+                new Flatten.Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise),
+                new Flatten.Arc(this.pc, this.r, angle, this.endAngle, this.counterClockwise)
+            ]
+        }
+
+        /**
          * Returns array of intersection points between arc and other shape
          * @param shape
          * @returns {*}

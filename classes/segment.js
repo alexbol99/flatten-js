@@ -214,6 +214,27 @@ module.exports = function (Flatten) {
             return new Segment(this.end, this.start);
         }
 
+        /**
+         * When point belongs to segment, return array of two segments split by given point
+         * @param pt
+         * @returns {Segment[]}
+         */
+        split(pt) {
+            if (!this.contains(pt))
+                return [];
+
+            if (this.start.equalTo(this.end))
+                return [this];
+
+            if (this.start.equalTo(pt) || this.end.equalTo(pt))
+                return [this];
+
+            return [
+                new Flatten.Segment(this.start, pt),
+                new Flatten.Segment(pt, this.end)
+            ]
+        }
+
         distanceToPoint(pt) {
             let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
             return dist;

@@ -214,6 +214,26 @@ describe('#Flatten.Polygon', function() {
         expect(shortest_segment.ps).to.deep.equal({"x": 250, "y": 200});
 
     });
+    it('Can split edge of polygon', function () {
+        "use strict";
+        let points = [
+            point(100, 20),
+            point(200, 20),
+            point(200, 40),
+            point(100, 40)
+        ];
+
+        let poly = new Polygon();
+        poly.addFace(points);
+
+        expect(poly.edges.size).to.equal(4);
+
+        let pt = point(150,20);
+        let edge = [...poly.edges].find((e) => e.shape.contains(pt));
+        poly.splitFace(edge, pt);
+
+        expect(poly.edges.size).to.equal(5);
+    });
 });
 describe('#Flatten.Face', function() {
     "use strict";

@@ -127,6 +127,31 @@ module.exports = function(Flatten) {
                 this.last.next = this.first;
                 this.first.prev = this.last;
             }
+            edge.face = this;
+        }
+
+        insert(newEdge, edgeBefore) {
+            if (this.first === undefined) {
+                edge.prev = newEdge;
+                edge.next = newEdge;
+                this.first = newEdge;
+                this.last = newEdge;
+            }
+            else {
+                /* set links to new edge */
+                let edgeAfter = edgeBefore.next;
+                edgeBefore.next = newEdge;
+                edgeAfter.prev = newEdge;
+
+                /* set links from new edge */
+                newEdge.prev = edgeBefore;
+                newEdge.next = edgeAfter;
+
+                /* extend chain if new edge added after last edge */
+                if (this.last === edgeBefore)
+                    this.first = newEdge;
+            }
+            newEdge.face = this;
         }
 
         shapes2face(edges, shapes) {

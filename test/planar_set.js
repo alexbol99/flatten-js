@@ -46,6 +46,20 @@ describe('#Data_structures.PlanarSet', function() {
         planarSet.add(segment);
         expect(planarSet.size).to.equal(1);
     });
+    it('May update planar objects', function() {
+        let planarSet = new PlanarSet();
+        let segment = new Flatten.Segment(1,2,4,5);
+        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
+        planarSet.add(segment);
+        planarSet.add(circle);
+
+        segment.pe.x = 3;
+        segment.pe.y = 4;
+        planarSet.update(segment);
+
+        expect(planarSet.has(segment)).to.equal(true);
+        expect(planarSet.size).to.equal(2);
+    });
     it('May find planar objects in given box 1', function () {
         let planarSet = new PlanarSet();
         let segment = new Segment(1,1,2,2);
