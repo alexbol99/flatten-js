@@ -74,6 +74,12 @@ describe('#Flatten.Segment', function() {
         expect(segment.tangentInStart()).to.deep.equal(vector(0,1));
         expect(segment.tangentInEnd()).to.deep.equal(vector(0,-1));
     });
+    it('Calculates middle point', function() {
+        let ps = new Flatten.Point(-2,-2);
+        let pe = new Flatten.Point(2,2);
+        let segment = new Flatten.Segment(ps, pe);
+        expect(segment.middle()).to.deep.equal({x:0,y:0});
+    });
     describe('#Flatten.Segment.Intersect', function() {
         it('Intersection with Segment - not parallel segments case (one point)', function () {
             let segment1 = new Flatten.Segment(new Flatten.Point(0,0), new Flatten.Point(2,2));

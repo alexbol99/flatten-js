@@ -31,7 +31,7 @@ module.exports = function(Flatten) {
         for (let edge of resp_edges) {
             for (let ip of ray.intersect(edge.shape)) {
 
-                // If intersection is equal to query point than point lays on boundary
+                // If intersection is equal to query point then point lays on boundary
                 if (ip.equalTo(point)) {
                     return Flatten.BOUNDARY;
                 }

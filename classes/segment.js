@@ -235,6 +235,14 @@ module.exports = function (Flatten) {
             ]
         }
 
+        /**
+         * Return middle point of the segment
+         * @returns {Point}
+         */
+        middle() {
+            return new Flatten.Point((this.start.x + this.end.x)/2, (this.start.y + this.end.y)/2);
+        }
+
         distanceToPoint(pt) {
             let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
             return dist;

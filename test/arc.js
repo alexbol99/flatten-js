@@ -251,4 +251,24 @@ describe('#Flatten.Arc', function() {
         let tangent = arc.tangentInEnd();
         expect(tangent.equalTo(vector(Math.cos(5*Math.PI/4), Math.sin(5*Math.PI/4)))).to.be.true;
     });
+    it('It can calculate middle point case 1 full circle', function() {
+        let arc = new Circle(point(), 3).toArc();
+        let middle = arc.middle();
+        expect(middle.equalTo(point(3,0))).to.be.true;
+    });
+    it('It can calculate middle point case 2 ccw', function() {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
+        let middle = arc.middle();
+        expect(middle.equalTo(point(0,5))).to.be.true;
+    });
+    it('It can calculate middle point case 3 cw', function() {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CW);
+        let middle = arc.middle();
+        expect(middle.equalTo(point(0,-5))).to.be.true;
+    });
+    it('It can calculate middle point case 4 cw, startAngle > endAngle', function() {
+        let arc = new Arc(point(), 5, Math.PI/4, -Math.PI/4, Flatten.CW);
+        let middle = arc.middle();
+        expect(middle.equalTo(point(5,0))).to.be.true;
+    });
 });

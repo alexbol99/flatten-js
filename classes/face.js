@@ -114,6 +114,7 @@ module.exports = function(Flatten) {
                 edge.next = edge;
                 this.first = edge;
                 this.last = edge;
+                edge.arc_length = 0;
             }
             else {
                 // append to end
@@ -126,6 +127,9 @@ module.exports = function(Flatten) {
                 // restore circlar links
                 this.last.next = this.first;
                 this.first.prev = this.last;
+
+                // set arc length
+                edge.arc_length = edge.prev.arc_length + edge.prev.length;
             }
             edge.face = this;
         }
@@ -162,6 +166,17 @@ module.exports = function(Flatten) {
                 edges.add(edge);
             }
             // this.orientation = this.getOrientation();              // face direction cw or ccw
+        }
+
+        setArcLength() {
+            for (let edge of this) {
+                if (edge === this.first) {
+                    edge.arc_length = 0.0;
+                }
+                else {
+                    edge.arc_length = edge.prev.arc_length + edge.prev.length;
+                }
+            }
         }
 
         /**

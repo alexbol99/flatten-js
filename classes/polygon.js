@@ -93,7 +93,7 @@ module.exports = function(Flatten) {
             let oldBox = edge.box;
             edge.shape = shapes[1];
 
-            /* Update index */
+            /* Update set of edges and 2d index */
             this.edges.add(newEdge);
             this.edges.update(edge);
 

@@ -40,7 +40,7 @@ module.exports = function(Flatten) {
          */
         get sweep() {
             if (Flatten.Utils.EQ(this.startAngle, this.endAngle))
-                return 0.0;                    // or Flatten.PIx2 ? - no zero arcs
+                return 0.0;
             if (Flatten.Utils.EQ(Math.abs(this.startAngle - this.endAngle), Flatten.PIx2)) {
                 return Flatten.PIx2;
             }
@@ -152,6 +152,16 @@ module.exports = function(Flatten) {
                 new Flatten.Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise),
                 new Flatten.Arc(this.pc, this.r, angle, this.endAngle, this.counterClockwise)
             ]
+        }
+
+        /**
+         * Return middle point of the arc
+         * @returns {Point}
+         */
+        middle() {
+            let endAngle = this.counterClockwise === Flatten.CCW ? this.startAngle + this.sweep/2 : this.startAngle - this.sweep/2;
+            let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
+            return arc.end;
         }
 
         /**

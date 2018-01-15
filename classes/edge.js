@@ -25,8 +25,34 @@ module.exports = function(Flatten) {
             this.prev;
             /**
              * Pointer to the face containing this edge
+             * @type {Face}
              */
             this.face;
+            /**
+             * "Arc distance" from the face start
+             * @type {number}
+             */
+            this.arc_length = 0;
+            /**
+             * Start inclusion flag (inside/outside/boundary)
+             * @type {Boolean}
+             */
+            this.bvStart = undefined;
+            /**
+             * End inclusion flag (inside/outside/boundary)
+             * @type {Boolean}
+             */
+            this.bvEnd = undefined;
+            /**
+             * Edge inclusion flag (inside/outside/boundary)
+             * @type {Boolean}
+             */
+            this.bv = undefined;
+            /**
+             * Overlap flag for boundary edge (same/opposite)
+             * @type {undefined}
+             */
+            this.overlap = undefined;
         }
 
         /**
@@ -59,11 +85,48 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Get middle point of the edge
+         * @returns {Point}
+         */
+        middle() {
+            return this.shape.middle();
+        }
+
+        /**
          * Returns true if point lays on the edge, false otherwise
          * @param pt - test point
          */
         contains(pt) {
             return this.shape.contains(pt);
+        }
+
+        /**
+         * Set inclusion flag of the edge with respect to another polygon
+         * @param polygon
+         */
+        setInclusion(polygon) {
+            if (this.bv !== undefined) return;
+
+            if (this.bvStart === undefined) {
+                this.bvStart = Flatten.ray_shoot(polygon, this.start);
+            }
+            if (this.bvEnd === undefined) {
+                this.bvEnd = Flatten.ray_shoot(polygon, this.end);
+            }
+            /* At least one end outside - the whole edge outside */
+            if (this.bvStart === Flatten.OUTSIDE || this.bvEnd == Flatten.OUTSIDE) {
+                this.bv = Flatten.OUTSIDE;
+            }
+            /* At least one end inside - the whole edge inside */
+            else if (this.bvStart === Flatten.INSIDE || this.bvEnd == Flatten.INSIDE) {
+                this.bv = Flatten.INSIDE;
+            }
+            /* Both are boundary - check the middle point */
+            else {
+                let bvMiddle = Flatten.ray_shoot(polygon, this.middle());
+                this.bv = bvMiddle;
+            }
+            return this.bv;
         }
 
         svg() {
