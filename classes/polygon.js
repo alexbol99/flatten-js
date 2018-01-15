@@ -76,11 +76,12 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Split face in given edge with given point that belong to edge
+         * Add point as new vertex and split edge. Point supposed to belong to an edge
          * @param edge
          * @param pt
+         * @returns {Edge}
          */
-        splitFace(edge, pt) {
+        addVertex(pt, edge) {
             let shapes = edge.shape.split(pt);
             if (shapes.length < 2) return;
             let newEdge = new Flatten.Edge(shapes[0]);
@@ -94,7 +95,9 @@ module.exports = function(Flatten) {
 
             /* Update index */
             this.edges.add(newEdge);
-            this.edges.update(edge, oldBox);
+            this.edges.update(edge);
+
+            return newEdge;
         }
 
         /**

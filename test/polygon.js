@@ -214,7 +214,7 @@ describe('#Flatten.Polygon', function() {
         expect(shortest_segment.ps).to.deep.equal({"x": 250, "y": 200});
 
     });
-    it('Can split edge of polygon', function () {
+    it('Can add point to face and split edge of polygon (segment)', function () {
         "use strict";
         let points = [
             point(100, 20),
@@ -230,9 +230,32 @@ describe('#Flatten.Polygon', function() {
 
         let pt = point(150,20);
         let edge = [...poly.edges].find((e) => e.shape.contains(pt));
-        poly.splitFace(edge, pt);
+        let newEdge = poly.addVertex(pt, edge);
 
         expect(poly.edges.size).to.equal(5);
+        expect(edge.start).to.deep.equal(pt);
+        expect(edge.end).to.deep.equal({x:200,y:20});
+        expect(newEdge.start).to.deep.equal({x:100,y:20});
+        expect(newEdge.end).to.deep.equal(pt);
+        expect(newEdge.next).to.equal(edge);
+        expect(edge.prev).to.equal(newEdge);
+    });
+    it('Can add point to face and split edge of polygon (arc)',function() {
+        let polygon = new Polygon();
+        polygon.addFace([circle(point(200,200), 100).toArc(true)]);
+        let pt = point(300,200);
+        expect(pt.on(polygon)).to.be.true;
+        let edge = [...polygon.edges].find((e) => e.shape.contains(pt));
+        let newEdge = polygon.addVertex(pt, edge);
+        expect(polygon.edges.size).to.equal(2);
+        expect(newEdge.end.equalTo(edge.start)).to.be.true;
+        expect(edge.end.equalTo(newEdge.start)).to.be.true;
+        expect(Flatten.Utils.EQ(newEdge.shape.sweep, Math.PI)).to.be.true;
+        expect(Flatten.Utils.EQ(edge.shape.sweep, Math.PI)).to.be.true;
+        expect(newEdge.next).to.equal(edge);
+        expect(newEdge.prev).to.equal(edge);
+        expect(edge.prev).to.equal(newEdge);
+        expect(edge.next).to.equal(newEdge);
     });
 });
 describe('#Flatten.Face', function() {

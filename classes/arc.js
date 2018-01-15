@@ -132,7 +132,7 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * When point belongs to arc, return array of two arcs split by given point
+         * When given point belongs to arc, return array of two arcs split by this point
          * @param pt
          * @returns {Arc[]}
          */
@@ -140,13 +140,14 @@ module.exports = function(Flatten) {
             if (!this.contains(pt))
                 return [];
 
-            if (this.start.equalTo(this.end))
+            if (Flatten.Utils.EQ_0(this.sweep))
                 return [this];
 
             if (this.start.equalTo(pt) || this.end.equalTo(pt))
                 return [this];
 
             let angle = new Flatten.Vector(this.pc, pt).slope;
+
             return [
                 new Flatten.Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise),
                 new Flatten.Arc(this.pc, this.r, angle, this.endAngle, this.counterClockwise)
