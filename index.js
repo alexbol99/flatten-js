@@ -44,6 +44,7 @@ require("./classes/ray")(f);
 require("./algorithms/ray_shooting")(f);
 require("./classes/polygon")(f);
 require("./algorithms/distance")(f);
+require("./algorithms/clip")(f);
 
 // f.Point.inject(f.Distance);
 
