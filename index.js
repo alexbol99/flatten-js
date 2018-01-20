@@ -25,6 +25,11 @@ let Flatten = class Flatten {
         this.INSIDE = 1;
         this.OUTSIDE = 0;
         this.BOUNDARY = 2;
+        this.CLIP_INSIDE = 1;
+        this.CLIP_OUTSIDE = 0;
+        this.BOOLEAN_UNION = 1;
+        this.BOOLEAN_INTERSECT = 2;
+        this.BOOLEAN_SUBTRACT = 3;
     }
 };
 
@@ -45,7 +50,7 @@ require("./algorithms/ray_shooting")(f);
 require("./classes/polygon")(f);
 require("./algorithms/distance")(f);
 require("./algorithms/clip")(f);
-
+require("./algorithms/boolean_op")(f);
 // f.Point.inject(f.Distance);
 
 module.exports = f;

@@ -59,6 +59,19 @@ module.exports = function(Flatten) {
                 this.last = args[1];                           // last edge in face or undefined
                 this.last.next = this.first;
                 this.first.prev = this.last;
+
+                // set arc length
+                this.setArcLength();
+                /*
+                let edge = this.first;
+                edge.arc_length = 0;
+                edge = edge.next;
+                while (edge !== this.first) {
+                    edge.arc_length = edge.prev.arc_length + edge.prev.length;
+                    edge = edge.next;
+                }
+                */
+
                 // this.box = this.getBox();
                 // this.orientation = this.getOrientation();      // face direction cw or ccw
             }
@@ -69,8 +82,8 @@ module.exports = function(Flatten) {
             return {
                 next: () => {
                     let value = edge ? edge : this.first;
-                    let done = edge ? edge === this.first : false;
-                    edge = value.next;
+                    let done = this.first ? (edge ? edge === this.first : false) : true;
+                    edge = value ? value.next : undefined;
                     return {value: value, done: done};
                 }
             };
@@ -108,6 +121,20 @@ module.exports = function(Flatten) {
             return segments;
         }
 
+        shapes2face(edges, shapes) {
+            for (let shape of shapes) {
+                let edge = new Edge(shape);
+                this.append(edge);
+                // this.box = this.box.merge(shape.box);
+                edges.add(edge);
+            }
+            // this.orientation = this.getOrientation();              // face direction cw or ccw
+        }
+
+        isEmpty() {
+            return (this.first === undefined && this.last === undefined)
+        }
+
         append(edge) {
             if (this.first === undefined) {
                 edge.prev = edge;
@@ -124,7 +151,7 @@ module.exports = function(Flatten) {
                 // update edge to be last
                 this.last = edge;
 
-                // restore circlar links
+                // restore circular links
                 this.last.next = this.first;
                 this.first.prev = this.last;
 
@@ -158,14 +185,24 @@ module.exports = function(Flatten) {
             newEdge.face = this;
         }
 
-        shapes2face(edges, shapes) {
-            for (let shape of shapes) {
-                let edge = new Edge(shape);
-                this.append(edge);
-                // this.box = this.box.merge(shape.box);
-                edges.add(edge);
+        remove(edge) {
+            // special case if last edge removed
+            if (edge === this.first && edge === this.last) {
+                this.first = undefined;
+                this.last = undefined;
+                return;
             }
-            // this.orientation = this.getOrientation();              // face direction cw or ccw
+            // update linked list
+            edge.prev.next = edge.next;
+            edge.next.prev = edge.prev;
+            // update first if need
+            if (edge === this.first) {
+                this.first = edge.next;
+            }
+            // update last if need
+            if (edge === this.last) {
+                this.last = edge.prev;
+            }
         }
 
         setArcLength() {

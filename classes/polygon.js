@@ -75,6 +75,22 @@ module.exports = function(Flatten) {
             return deleted;
         }
 
+        removeChain(face, edgeFrom, edgeTo) {
+            // Special case: all edges removed
+            if (edgeTo.next === edgeFrom) {
+                this.deleteFace(face);
+                return;
+            }
+            for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next ) {
+                face.remove(edge);
+                this.edges.delete(edge);      // delete from PlanarSet of edges and update index
+                if (face.isEmpty()) {
+                    this.deleteFace(face);    // delete from PlanarSet of faces and update index
+                    break;
+                }
+            }
+        }
+
         /**
          * Add point as new vertex and split edge. Point supposed to belong to an edge
          * @param edge

@@ -214,7 +214,7 @@ describe('#Flatten.Polygon', function() {
         expect(shortest_segment.ps).to.deep.equal({"x": 250, "y": 200});
 
     });
-    it('Can add point to face and split edge of polygon (segment)', function () {
+    it('Can add new vertex to face and split edge of polygon (segment)', function () {
         "use strict";
         let points = [
             point(100, 20),
@@ -240,7 +240,7 @@ describe('#Flatten.Polygon', function() {
         expect(newEdge.next).to.equal(edge);
         expect(edge.prev).to.equal(newEdge);
     });
-    it('Can add point to face and split edge of polygon (arc)',function() {
+    it('Can add new vertex to face and split edge of polygon (arc)',function() {
         let polygon = new Polygon();
         polygon.addFace([circle(point(200,200), 100).toArc(true)]);
         let pt = point(300,200);
@@ -280,58 +280,26 @@ describe('#Flatten.Polygon', function() {
         expect(bv4).to.equal(Flatten.INSIDE);
         expect(bv5).to.equal(Flatten.BOUNDARY);
     });
+    it('Can remove chain of edges from face', function () {
+        "use strict";
+        let points = [
+            point(100, 20),
+            point(200, 20),
+            point(200, 40),
+            point(100, 40)
+        ];
 
-});
-describe('#Flatten.Face', function() {
-    "use strict";
-    it('Can iterate edges as iterable', function() {
-        let polygon = new Polygon();
-        let points = [point(1,1), point(3,1), point(3,2), point(1,2)];
-        let face = polygon.addFace(points);
-        expect([...face]).to.be.an.instanceof(Array);
-        for (let edge of face) {
-            expect(edge).to.be.an.instanceof(Edge);
-        }
+        let poly = new Polygon();
+        let face = poly.addFace(points);
         expect(face.size).to.equal(4);
+
+        // remove chain from #1 to #2, leave #0 #3
+        let edgeFrom = face.first;    // #1
+        let edgeTo = edgeFrom.next;   // #2
+        poly.removeChain(face, edgeFrom, edgeTo);
+
+        expect(face.size).to.equal(2);
+        expect(poly.edges.size).to.equal(2);
     });
-    it('Can get array of edges for the given face', function() {
-        let polygon = new Polygon();
-        let points = [point(1,1), point(3,1), point(3,2), point(1,2)];
-        let face = polygon.addFace(points);
-        let edges = face.edges;
-        let vertices = edges.map(edge => edge.start);
-        expect(edges.length).to.equal(4);
-        expect(vertices.length).to.equal(4);
-        expect(vertices).to.deep.equal(points);
-    });
-    it('Can count edges in face',function() {
-        let polygon = new Polygon();
-        let points = [point(1,1), point(3,1), point(3,2), point(1,2)];
-        let face = polygon.addFace(points);
-        expect(face.size).to.equal(4);
-    });
-    it('Can set orientation of face to CCW', function() {
-        let polygon = new Polygon();
-        let face = polygon.addFace([
-            point(1,1), point(3,1), point(3,2), point(1,2)
-        ]);
-        expect(face.signedArea()).to.equal(-2);
-        expect(face.orientation).to.equal(Flatten.ORIENTATION.CCW);
-    });
-    it('Can set orientation of face to CW', function() {
-        let polygon = new Polygon();
-        let face = polygon.addFace([
-            arc(point(1,1), 1, 0, 2*Math.PI, false)
-        ]);
-        expect(Flatten.Utils.EQ(face.signedArea(), Math.PI)).to.equal(true);
-        expect(face.orientation).to.equal(Flatten.ORIENTATION.CW);
-    });
-    it('Can set orientation of degenerated face to not-orientable', function() {
-        let polygon = new Polygon();
-        let face = polygon.addFace([
-            point(1,1), point(3,1), point(1,1)
-        ]);
-        expect(face.area()).to.equal(0);
-        expect(face.orientation).to.equal(Flatten.ORIENTATION.NOT_ORIENTABLE);
-    });
+
 });

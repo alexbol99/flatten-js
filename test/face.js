@@ -1,3 +1,109 @@
 /**
  * Created by Alex Bol on 9/8/2017.
  */
+let expect = require('chai').expect;
+let Flatten = require('../index');
+
+let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} = Flatten;
+let {point, vector, circle, line, segment, arc} = Flatten;
+
+describe('#Flatten.Face', function() {
+    "use strict";
+    it('Can iterate edges as iterable', function() {
+        let polygon = new Polygon();
+        let points = [point(1,1), point(3,1), point(3,2), point(1,2)];
+        let face = polygon.addFace(points);
+        expect([...face]).to.be.an.instanceof(Array);
+        for (let edge of face) {
+            expect(edge).to.be.an.instanceof(Edge);
+        }
+        expect(face.size).to.equal(4);
+    });
+    it('Can get array of edges for the given face', function() {
+        let polygon = new Polygon();
+        let points = [point(1,1), point(3,1), point(3,2), point(1,2)];
+        let face = polygon.addFace(points);
+        let edges = face.edges;
+        let vertices = edges.map(edge => edge.start);
+        expect(edges.length).to.equal(4);
+        expect(vertices.length).to.equal(4);
+        expect(vertices).to.deep.equal(points);
+    });
+    it('Can count edges in face',function() {
+        let polygon = new Polygon();
+        let points = [point(1,1), point(3,1), point(3,2), point(1,2)];
+        let face = polygon.addFace(points);
+        expect(face.size).to.equal(4);
+    });
+    it('Can set orientation of face to CCW', function() {
+        let polygon = new Polygon();
+        let face = polygon.addFace([
+            point(1,1), point(3,1), point(3,2), point(1,2)
+        ]);
+        expect(face.signedArea()).to.equal(-2);
+        expect(face.orientation).to.equal(Flatten.ORIENTATION.CCW);
+    });
+    it('Can set orientation of face to CW', function() {
+        let polygon = new Polygon();
+        let face = polygon.addFace([
+            arc(point(1,1), 1, 0, 2*Math.PI, false)
+        ]);
+        expect(Flatten.Utils.EQ(face.signedArea(), Math.PI)).to.equal(true);
+        expect(face.orientation).to.equal(Flatten.ORIENTATION.CW);
+    });
+    it('Can set orientation of degenerated face to not-orientable', function() {
+        let polygon = new Polygon();
+        let face = polygon.addFace([
+            point(1,1), point(3,1), point(1,1)
+        ]);
+        expect(face.area()).to.equal(0);
+        expect(face.orientation).to.equal(Flatten.ORIENTATION.NOT_ORIENTABLE);
+    });
+    it('Can remove edge from face', function () {
+        "use strict";
+        let points = [
+            point(100, 20),
+            point(200, 20),
+            point(200, 40),
+            point(100, 40)
+        ];
+
+        let poly = new Polygon();
+        let face = poly.addFace(points);
+
+        expect(face.size).to.equal(4);
+        let edge = face.first;
+        let edgeNext = edge.next;
+        face.remove(edge);
+        expect(face.size).to.equal(3);
+        expect(face.first).to.equal(edgeNext);
+        expect(face.last.next).to.equal(face.first);
+        expect(face.first.prev).to.equal(face.last);
+    });
+    it('Can remove all edges from face', function () {
+        "use strict";
+        let points = [
+            point(100, 20),
+            point(200, 20),
+            point(200, 40),
+            point(100, 40)
+        ];
+
+        let poly = new Polygon();
+        let face = poly.addFace(points);
+        expect(face.size).to.equal(4);
+
+        // remove all edges except the last
+        for (let edge = face.first; edge !== face.last; edge = edge.next ) {
+            face.remove(edge);
+        }
+        expect(face.size).to.equal(1);
+        expect(face.first).to.equal(face.last);
+
+        // remove the last edge
+        face.remove(face.first);
+
+        expect(face.isEmpty()).to.be.true;
+        expect(face.size).to.equal(0);
+    });
+});
