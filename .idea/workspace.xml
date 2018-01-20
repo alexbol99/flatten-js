@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Readme file - fixed typos">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/algorithms/boolean_op.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/clip.js" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms/clip.js" afterPath="$PROJECT_DIR$/algorithms/clip.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/circle.js" afterPath="$PROJECT_DIR$/classes/circle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/face.js" afterPath="$PROJECT_DIR$/classes/face.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/polygon.js" afterPath="$PROJECT_DIR$/classes/polygon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/face.js" afterPath="$PROJECT_DIR$/test/face.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/polygon.js" afterPath="$PROJECT_DIR$/test/polygon.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/clip.js" afterPath="$PROJECT_DIR$/test/clip.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -63,16 +55,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="clip.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algorithms/clip.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="269" column="5" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="269" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -93,11 +75,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="face.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/face.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="344">
               <caret line="72" column="18" lean-forward="true" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clip.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/clip.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -237,11 +229,11 @@
         <option value="$PROJECT_DIR$/test/face.js" />
         <option value="$PROJECT_DIR$/test/polygon.js" />
         <option value="$PROJECT_DIR$/algorithms/clip.js" />
-        <option value="$PROJECT_DIR$/test/clip.js" />
         <option value="$PROJECT_DIR$/classes/circle.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/algorithms/boolean_op.js" />
         <option value="$PROJECT_DIR$/classes/face.js" />
+        <option value="$PROJECT_DIR$/test/clip.js" />
       </list>
     </option>
   </component>
@@ -687,14 +679,7 @@
       <workItem from="1510307951611" duration="650000" />
       <workItem from="1513373453726" duration="1245000" />
       <workItem from="1516344521359" duration="18000" />
-      <workItem from="1516344573225" duration="34345000" />
-    </task>
-    <task id="LOCAL-00027" summary="Fix arc sweep calculation and arc svg representation">
-      <created>1490344007343</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1490344007343</updated>
+      <workItem from="1516344573225" duration="34646000" />
     </task>
     <task id="LOCAL-00028" summary="Polygon to svg method">
       <created>1490355475641</created>
@@ -1032,7 +1017,14 @@
       <option name="project" value="LOCAL" />
       <updated>1508694011454</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Added new BooleanOp class - not completed, not tested">
+      <created>1516490390840</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1516490390841</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1068,7 +1060,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="472127000" />
+    <option name="totallyTimeSpent" value="472428000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1088,9 +1080,9 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32533014" sideWeight="0.5033846" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35842294" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32079905" sideWeight="0.49661538" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3760479" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3760479" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21504113" sideWeight="0.49768057" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5221557" sideWeight="0.49768057" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33777776" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1156,7 +1148,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Remove performance test" />
     <MESSAGE value="clean" />
     <MESSAGE value="Added compiled to es5" />
     <MESSAGE value="Removed compiled to es5" />
@@ -1181,7 +1172,8 @@
     <MESSAGE value="- Fix technical bugs (2) - correct fix" />
     <MESSAGE value="Fix bugs in Distance shape2planarSet method and in distance between polygons, test added" />
     <MESSAGE value="Readme file - fixed typos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Readme file - fixed typos" />
+    <MESSAGE value="Added new BooleanOp class - not completed, not tested" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added new BooleanOp class - not completed, not tested" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1476,14 +1468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/clip.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1572,6 +1556,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
           <caret line="72" column="18" lean-forward="true" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/clip.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding />
         </state>
       </provider>
