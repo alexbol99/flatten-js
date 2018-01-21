@@ -35,46 +35,51 @@ module.exports = function(Flatten) {
              2) array of points that performs set of vertices
              */
             if (args.length == 1 && args[0] instanceof Array) {
-                let shapes = args[0][0];
-                if (shapes.length == 0)
-                    return;
+                let argsArray = args[0];
 
-                if (shapes.every((shape) => {
-                        return shape instanceof Point
-                    })) {
-                    let segments = Face.points2segments(shapes);
-                    this.shapes2face(polygon.edges, segments);
+                /* If passed two edges, consider them as start and end of the face loop */
+                /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
+                if (argsArray.length == 2 && argsArray[0] instanceof Edge && argsArray[1] instanceof Edge) {
+                    this.first = argsArray[0];                          // first edge in face or undefined
+                    this.last = argsArray[1];                           // last edge in face or undefined
+                    this.last.next = this.first;
+                    this.first.prev = this.last;
+
+                    // set arc length
+                    this.setArcLength();
+                    /*
+                     let edge = this.first;
+                     edge.arc_length = 0;
+                     edge = edge.next;
+                     while (edge !== this.first) {
+                     edge.arc_length = edge.prev.arc_length + edge.prev.length;
+                     edge = edge.next;
+                     }
+                     */
+
+                    // this.box = this.getBox();
+                    // this.orientation = this.getOrientation();      // face direction cw or ccw
                 }
-                else if (shapes.every((shape) => {
-                        return (shape instanceof Segment || shape instanceof Arc)
-                    })) {
-                    this.shapes2face(polygon.edges, shapes);
+                else {
+                    let shapes = argsArray[0];
+                    if (shapes.length == 0)
+                        return;
+
+                    if (shapes.every((shape) => {
+                            return shape instanceof Point
+                        })) {
+                        let segments = Face.points2segments(shapes);
+                        this.shapes2face(polygon.edges, segments);
+                    }
+                    else if (shapes.every((shape) => {
+                            return (shape instanceof Segment || shape instanceof Arc)
+                        })) {
+                        this.shapes2face(polygon.edges, shapes);
+                    }
                 }
             }
 
-            /* If passed two edges, consider them as start and end of the face loop */
-            /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
-            if (args.length == 2 && args[0] instanceof Edge && args[1] instanceof Edge) {
-                this.first = args[0];                          // first edge in face or undefined
-                this.last = args[1];                           // last edge in face or undefined
-                this.last.next = this.first;
-                this.first.prev = this.last;
 
-                // set arc length
-                this.setArcLength();
-                /*
-                let edge = this.first;
-                edge.arc_length = 0;
-                edge = edge.next;
-                while (edge !== this.first) {
-                    edge.arc_length = edge.prev.arc_length + edge.prev.length;
-                    edge = edge.next;
-                }
-                */
-
-                // this.box = this.getBox();
-                // this.orientation = this.getOrientation();      // face direction cw or ccw
-            }
         }
 
         [Symbol.iterator]() {

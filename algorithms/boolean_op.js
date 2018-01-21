@@ -43,6 +43,18 @@ module.exports = function (Flatten) {
             return res_poly;
         }
 
+        static arrange(polygon1, polygon2) {
+            // get intersection points
+            let intersections = BooleanOp.getIntersections(polygon1, polygon2);
+
+            // sort intersection points
+            BooleanOp.sortIntersections(intersections);
+
+            // split by intersection points
+            BooleanOp.splitByIntersections(polygon1, intersections.int_points1_sorted);
+            BooleanOp.splitByIntersections(polygon2, intersections.int_points2_sorted);
+        }
+
         static clip(res_poly, wrk_poly, op) {
             // get intersection points
             let intersections = BooleanOp.getIntersections(res_poly, wrk_poly);
@@ -83,9 +95,9 @@ module.exports = function (Flatten) {
             BooleanOp.removeOldFaces(res_poly, intersections.int_points1);
             BooleanOp.removeOldFaces(wrk_poly, intersections.int_points2);
 
-            // restore chains
-
-
+            // restore faces
+            BooleanOp.restoreFaces(res_poly, intersections.int_points1, intersections.int_points2);
+            BooleanOp.restoreFaces(res_poly, intersections.int_points2, intersections.int_points1);
         }
 
         static getIntersections(polygon1, polygon2) {
@@ -145,8 +157,8 @@ module.exports = function (Flatten) {
         static sortIntersections(intersections) {
             if (intersections.int_points1.length === 0) return;
             // augment intersections with new sorted arrays
-            intersections.int_points1_sorted = intersections.int_points1.slice().sort(compareFn);
-            intersections.int_points2_sorted = intersections.int_points2.slice().sort(compareFn);
+            intersections.int_points1_sorted = intersections.int_points1.slice().sort(BooleanOp.compareFn);
+            intersections.int_points2_sorted = intersections.int_points2.slice().sort(BooleanOp.compareFn);
         }
 
         static compareFn(ip1, ip2) {
@@ -310,7 +322,7 @@ module.exports = function (Flatten) {
         };
 
         static copyEdgesToContainer(res_polygon, wrk_polygon) {
-            for (let face of wrk_polygon) {
+            for (let face of wrk_polygon.faces) {
                 for (let edge of face) {
                     res_polygon.edges.add(edge);
                 }
