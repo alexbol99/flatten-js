@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>classes/polygon.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Arc.html">Arc</a><ul class='methods'><li data-type='method'><a href="Flatten.Arc.html#breakToFunctional">breakToFunctional</a></li><li data-type='method'><a href="Flatten.Arc.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Arc.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Arc.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Arc.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Arc.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Box.html#equal_to">equal_to</a></li><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#less_than">less_than</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Circle.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Circle.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Circle.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Circle.html#toArc">toArc</a></li></ul></li><li><a href="Flatten.Edge.html">Edge</a><ul class='methods'><li data-type='method'><a href="Flatten.Edge.html#contains">contains</a></li></ul></li><li><a href="Flatten.Face.html">Face</a><ul class='methods'><li data-type='method'><a href="Flatten.Face.html#area">area</a></li><li data-type='method'><a href="Flatten.Face.html#getBox">getBox</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Line.html#incidentTo">incidentTo</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#parallelTo">parallelTo</a></li></ul></li><li><a href="Flatten.PlanarSet.html">PlanarSet</a><ul class='methods'><li data-type='method'><a href="Flatten.PlanarSet.html#add">add</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#delete">delete</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#hit">hit</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#search">search</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#svg">svg</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#leftTo">leftTo</a></li><li data-type='method'><a href="Flatten.Point.html#lessThan">lessThan</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Polygon.html">Polygon</a><ul class='methods'><li data-type='method'><a href="Flatten.Polygon.html#addFace">addFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#area">area</a></li><li data-type='method'><a href="Flatten.Polygon.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Polygon.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Polygon.html#deleteFace">deleteFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Polygon.html#svg">svg</a></li></ul></li><li><a href="Flatten.Ray.html">Ray</a><ul class='methods'><li data-type='method'><a href="Flatten.Ray.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Ray.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Segment.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Segment.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Segment.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Segment.html#swap">swap</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#invert">invert</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CCW">rotate90CCW</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CW">rotate90CW</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">classes/polygon.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Created by Alex Bol on 3/15/2017.
+ */
+
+"use strict";
+
+module.exports = function(Flatten) {
+    let {Edge, Face, PlanarSet, Box} = Flatten;
+    let {ray_shoot} = Flatten;
+    /**
+     * Class representing a polygon.&lt;br/>
+     * Polygon in FlattenJS is a multipolygon comprised from a set of faces&lt;br/>
+     * Face, in turn, is a closed loop of edges, which can be a segment or a circular arc&lt;br/>
+     * @type {Polygon}
+     */
+    Flatten.Polygon = class Polygon {
+        /**
+         * Constructor creates new instance of polygon.&lt;br/>
+         * New polygon is empty. Add new face to the polygon using method &lt;br/>
+         * &lt;code>
+         *     polygon.addFace(Points|Segments|Arcs[])
+         * &lt;/code>
+         */
+        constructor() {
+            /**
+             * Set of faces (closed loops), may be empty
+             * @type {PlanarSet}
+             */
+            this.faces = new PlanarSet();
+            /**
+             * Set of edges. Usually is not used directly. Better access edges via faces
+             * @type {PlanarSet}
+             */
+            this.edges = new PlanarSet();
+        }
+
+        /**
+         * Get bounding box of the polygon
+         * @returns {Box}
+         */
+        get box() {
+            return [...this.faces].reduce( (acc, face) => acc.merge(face.box), new Box() );
+        }
+
+        /**
+         * Return array of vertices
+         * @returns {Array}
+         */
+        get vertices() {
+            return [...this.edges].map( edge => edge.start);
+        }
+
+        /**
+         * Add new face to polygon
+         * @param {Points[]|Segments|Arcs[]} args - list of points or list of shapes (segments and arcs)
+         * which comprise a closed loop
+         * @returns {Face}
+         */
+        addFace(...args) {
+            let face = new Face(this, args);
+            this.faces.add(face);
+            return face;
+        }
+
+        /**
+         * Delete existing face from polygon
+         * @param {Face}
+         * @returns {boolean|*}
+         */
+        deleteFace(face) {
+            for (let edge of face) {
+                let deleted = this.edges.delete(edge);
+            }
+            let deleted = this.faces.delete(face);
+            return deleted;
+        }
+
+        /**
+         * Create new copied instance of the polygon
+         * @returns {Polygon}
+         */
+        clone() {
+            let polygon = new Polygon();
+            for (let face of this.faces) {
+                let shapes = [];
+                for (let edge of face) {
+                    shapes.push(edge.shape.clone());
+                }
+                polygon.addFace(shapes);
+            }
+            return polygon;
+        }
+
+        /**
+         * Returns area of the polygon. Area of an island will be added, area of a hole will be subtracted
+         * @returns {number}
+         */
+        area() {
+            let signedArea = [...this.faces].reduce((acc,face) => acc + face.signedArea(), 0);
+            return Math.abs(signedArea);
+        }
+
+        /**
+         * Point in contour test based on ray shooting (tracing) algorithm
+         * Returns true if point inside contour or lays on boundary,
+         * otherwise returns false
+         * @param point - test point
+         * @returns {boolean} - true if inside or on boundary, false otherwise
+         */
+        contains(point) {
+            let rel = ray_shoot(this, point);
+            return (rel == Flatten.INSIDE || rel == Flatten.BOUNDARY) ? true : false;
+        }
+
+        /**
+         * Return distance and shortest segment between polygon and other shape
+         * @param shape
+         * @returns {Number | Segment}
+         */
+        distanceTo(shape) {
+            let {Distance} = Flatten;
+
+            if (shape instanceof Flatten.Point) {
+                let [dist, shortest_segment] = Distance.point2polygon(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle ||
+            shape instanceof Flatten.Line ||
+            shape instanceof Flatten.Segment ||
+            shape instanceof Flatten.Arc) {
+                let [dist, shortest_segment] = Distance.shape2polygon(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            /* this method is bit faster */
+            if (shape instanceof  Flatten.Polygon) {
+                let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
+                for (let edge of this.edges) {
+                    // let [dist, shortest_segment] = Distance.shape2polygon(edge.shape, shape);
+                    let [dist, shortest_segment] = Distance.shape2planarSet(edge.shape, shape.edges);
+                    if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
+                        min_dist_and_segment = [dist, shortest_segment];
+                    }
+                }
+                return min_dist_and_segment;
+            }
+        }
+
+        /**
+         * Return string to draw polygon in svg
+         * @param attrs  - json structure with any attributes allowed to svg path element,
+         * like "stroke", "strokeWidth", "fill", "fillRule"
+         * Defaults are stroke:"black", strokeWidth:"3", fill:"lightcyan", fillRule:"evenodd"
+         * @returns {string}
+         */
+        svg(attrs = {stroke:"black", strokeWidth:"3", fill:"lightcyan", fillRule:"evenodd"}) {
+            let {stroke, strokeWidth, fill, fillRule} = attrs;
+            let svgStr = `\n&lt;path stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" fill-rule="${fillRule}" d="`;
+            for (let face of this.faces) {
+                svgStr += face.svg();
+            }
+            svgStr += `">\n&lt;/path>`;
+
+            return svgStr;
+        }
+    }
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Oct 13 2017 18:06:12 GMT+0300 (Jerusalem Daylight Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

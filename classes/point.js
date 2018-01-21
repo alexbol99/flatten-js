@@ -8,6 +8,7 @@
  */
 module.exports = function(Flatten) {
     /**
+     *
      * Class representing a point
      * @type {Point}
      */
@@ -31,11 +32,23 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Returns bounding box of a point
+         * @returns {Box}
+         */
+        get box() {
+            return new Flatten.Box(this.x, this.y, this.x, this.y);
+        }
+
+        /**
          * Method clone returns new instance of Point
          * @returns {Point}
          */
         clone() {
             return new Flatten.Point(this.x, this.y);
+        }
+
+        get vertices() {
+            return [this.clone()];
         }
 
         /**
@@ -45,6 +58,19 @@ module.exports = function(Flatten) {
          */
         equalTo(pt) {
             return Flatten.Utils.EQ(this.x, pt.x) && Flatten.Utils.EQ(this.y, pt.y);
+        }
+
+        /**
+         * Defines predicate "less than" between points. Need for spatial index
+         * @param pt - other point
+         * @returns {boolean} - true if this point less than other points, false otherwise
+         */
+        lessThan(pt) {
+            if (Flatten.Utils.LT(this.y, pt.y))
+                return true;
+            if (Flatten.Utils.EQ(this.y, pt.y) && Flatten.Utils.LT(this.x, pt.x))
+                return true;
+            return false;
         }
 
         /**
@@ -69,10 +95,6 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         translate(...args) {
-            if (args.length == 0) {
-                return this.clone();
-            }
-
             if (args.length == 1 && (args[0] instanceof Flatten.Vector)) {
                 return new Flatten.Point(this.x + args[0].x, this.y + args[0].y);
             }
@@ -95,7 +117,7 @@ module.exports = function(Flatten) {
 
             let vec = new Flatten.Vector(this, line.pt);
             if (Flatten.Utils.EQ_0(vec.cross(line.norm)))    // vector to point from anchor point collinear to normal vector
-                return this.clone();
+                return line.pt.clone();
 
             let dist = vec.dot(line.norm);             // signed distance
             let proj_vec = line.norm.multiply(dist);
@@ -119,27 +141,40 @@ module.exports = function(Flatten) {
          * @returns {number}
          */
         distanceTo(shape) {
+            let {Distance} = Flatten;
+
             if (shape instanceof Point) {
-                let vec = new Flatten.Vector(this, shape);
-                return vec.length;
+                let dx = shape.x - this.x;
+                let dy = shape.y - this.y;
+                return [Math.sqrt(dx*dx + dy*dy), new Flatten.Segment(this, shape)];
             }
 
             if (shape instanceof Flatten.Line) {
-                let vec = new Flatten.Vector(this, this.projectionOn(shape));
-                return vec.length;
+                return Distance.point2line(this, shape);
             }
 
             if (shape instanceof Flatten.Circle) {
-                let dist2pc = this.distanceTo(shape.pc);
-                return Math.abs(dist2pc - shape.r);
+                return Distance.point2circle(this, shape);
             }
 
             if (shape instanceof Flatten.Segment) {
-                return shape.distanceToPoint(this);
+                return Distance.point2segment(this, shape);
             }
 
             if (shape instanceof Flatten.Arc) {
-                return shape.distanceToPoint(this);
+                // let [dist, ...rest] = Distance.point2arc(this, shape);
+                // return dist;
+                return Distance.point2arc(this, shape);
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                // let [dist, ...rest] = Distance.point2polygon(this, shape);
+                // return dist;
+                return Distance.point2polygon(this, shape);
+            }
+
+            if (shape instanceof Flatten.PlanarSet) {
+                return Distance.shape2planarSet(this, shape);
             }
         }
 
@@ -168,8 +203,29 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Arc) {
                 return shape.contains(this);
             }
+
+            if (shape instanceof Flatten.Polygon) {
+                return shape.contains(this);
+            }
+        }
+
+        /**
+         * Return string to draw point in svg as circle with radius "r", default is r:"5"
+         * @param attrs - json structure with any attributes allowed to svg circle element,
+         * like "r", "stroke", "strokeWidth", "fill"
+         * Defaults are r:"5", stroke:"black", strokeWidth:"1", fill:"red"
+         * @returns {string}
+         */
+        svg(attrs = {r:"5",stroke:"black",strokeWidth:"1",fill:"red"}) {
+            let {r, stroke, strokeWidth, fill} = attrs;
+            return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}" stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" />`;
         }
 
     };
 
+    /**
+     * Function to create point equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.point = (...args) => new Flatten.Point(...args);
 };

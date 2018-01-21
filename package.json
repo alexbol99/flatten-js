@@ -1,13 +1,14 @@
 {
   "name": "flatten-js",
-  "version": "0.0.6",
+  "version": "0.2.17",
   "description": "Javascript library for 2d geometry",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec",
     "doc": "jsdoc -d ./docs ./classes",
-    "generate-docs": "jsdoc -t ./node_modules/jsdoc/templates/minami -d ./docs ./classes",
-    "npm-publish": "npm version patch; git push && git push --tags; npm publish"
+    "generate-docs": "jsdoc -t ./node_modules/jsdoc/templates/minami -d ./docs ./classes ./data_structures ./algorithms",
+    "npm-publish": "npm version patch; git push && git push --tags; npm publish",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/*"
   },
   "repository": {
     "type": "git",
@@ -29,9 +30,14 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.12.0",
+    "istanbul": "^0.4.5",
     "jsdom": "9.12.0",
     "jsdom-global": "2.1.1",
     "minami": "^1.1.1",
     "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "flatten-interval-tree": "^0.1.6"
   }
 }

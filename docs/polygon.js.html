@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>polygon.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Arc.html">Arc</a><ul class='methods'><li data-type='method'><a href="Flatten.Arc.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Arc.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Arc.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Circle.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#incidentTo">incidentTo</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#parallelTo">parallelTo</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#leftTo">leftTo</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Polygon.html">Polygon</a><ul class='methods'><li data-type='method'><a href="Flatten.Polygon.html#addFace">addFace</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Segment.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#invert">invert</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CCW">rotate90CCW</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CW">rotate90CW</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">polygon.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Created by Alex Bol on 3/15/2017.
+ */
+
+"use strict";
+
+let PlanarSet = require('../data_structures/planar_set');
+
+module.exports = function(Flatten) {
+    let {Edge, Face} = Flatten;
+    /**
+     * Class representing a polygon.&lt;br/>
+     * Polygon in FlattenJS is a multipolygon comprised from a set of faces&lt;br/>
+     * Face, in turn, is a closed loop of edges, which can be a segment or a circular arc&lt;br/>
+     * @type {Polygon}
+     */
+    Flatten.Polygon = class Polygon {
+        /**
+         * Constructor creates new instance of polygon.&lt;br/>
+         * New polygon is empty. Add new face to the polygon using method &lt;br/>
+         * &lt;code>
+         *     polygon.add(face)
+         * &lt;/code>
+         */
+        constructor() {
+            /**
+             * Set of faces (closed loops), may be empty
+             * @type {PlanarSet}
+             */
+            this.faces = new PlanarSet();
+            /**
+             * Set of edges. Usually is not used directly
+             * @type {PlanarSet}
+             */
+            this.edges = new PlanarSet();
+        }
+
+        /**
+         *
+         * @param {Points[]|Segments[]|Arcs[]} args - list of points of list of shapes (segments and arcs)
+         * which comprises a closed loop
+         * @returns {*}
+         */
+        addFace(...args) {
+            let face = new Face(this, args);
+            this.faces.add(face);
+            return face;
+        }
+    }
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Mar 18 2017 09:11:20 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

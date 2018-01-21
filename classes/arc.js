@@ -6,7 +6,7 @@
 
 module.exports = function(Flatten) {
     /**
-     * Class representinf circlular arc
+     * Class representing a circlular arc
      * @type {Arc}
      */
     Flatten.Arc = class Arc {
@@ -40,14 +40,26 @@ module.exports = function(Flatten) {
          */
         get sweep() {
             if (Flatten.Utils.EQ(this.startAngle, this.endAngle))
-                return 0.0;                    // or Flatten.PIx2 ? - no zero arcs
-            if (this.counterClockwise) {
-                return (Flatten.Utils.GT(this.endAngle, this.startAngle) ?
-                    this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2);
-            } else {
-                return (Flatten.Utils.GT(this.startAngle, this.endAngle) ?
-                    this.startAngle - this.endAngle : this.startAngle - this.endAngle + Flatten.PIx2);
+                return 0.0;
+            if (Flatten.Utils.EQ(Math.abs(this.startAngle - this.endAngle), Flatten.PIx2)) {
+                return Flatten.PIx2;
             }
+            let sweep;
+            if (this.counterClockwise) {
+                sweep = Flatten.Utils.GT(this.endAngle, this.startAngle) ?
+                    this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2;
+            } else {
+                sweep = Flatten.Utils.GT(this.startAngle, this.endAngle) ?
+                    this.startAngle - this.endAngle : this.startAngle - this.endAngle + Flatten.PIx2;
+            }
+
+            if ( Flatten.Utils.GT(sweep, Flatten.PIx2) ) {
+                sweep -= Flatten.PIx2;
+            }
+            if ( Flatten.Utils.LT(sweep, 0) ) {
+                sweep += Flatten.PIx2;
+            }
+            return sweep;
         }
 
         /**
@@ -55,7 +67,7 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         get start() {
-            let p0 = new Flatten.Point(this.r,0);
+            let p0 = new Flatten.Point(this.pc.x + this.r, this.pc.y);
             return p0.rotate(this.startAngle, this.pc);
         }
 
@@ -64,8 +76,20 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         get end() {
-            let p0 = new Flatten.Point(this.r,0);
+            let p0 = new Flatten.Point(this.pc.x + this.r, this.pc.y);
             return p0.rotate(this.endAngle, this.pc);
+        }
+
+        /**
+         * Get center of arc
+         * @returns {Point}
+         */
+        get center() {
+            return this.pc.clone();
+        }
+
+        get vertices() {
+            return [this.start.clone(), this.end.clone()];
         }
 
         /**
@@ -77,143 +101,13 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Get bounding box of arc
+         * Get bounding box of the arc
          * @returns {Box}
          */
         get box() {
-            let xs,ys,xe,ye;
-            let dxs,dys,dxe,dye;
-            let xmin,ymin,xmax,ymax;
-            let quads, quade, quad;
-            let xc = this.pc.x;
-            let yc = this.pc.y;
-            let r = this.r;
-
-            let ps = this.start;
-            let pe = this.end;
-
-            let box = new Flatten.Box();
-
-            /* order (xs, xe) and (ys, ye) always clockwise */
-            if(this.counterClockwise){
-                xs = pe.x ; ys = pe.y ;
-                xe = ps.x ; ye = ps.y ;
-            } else {
-                xs = ps.x ; ys =ps.y ;
-                xe = pe.x ; ye = pe.y ;
-            }
-            dxs = xs-xc ; dys = ys-yc ;
-            dxe = xe-xc ; dye = ye-yc ;
-
-            xmin = xc-r ; ymin = yc-r ;
-            xmax = xc+r ; ymax = yc+r ;
-
-            xmin = Math.min(xmin,xs) ; xmin = Math.min(xmin,xe);
-            xmax = Math.max(xmax,xs) ; xmax = Math.max(xmax,xe);
-            ymin = Math.min(ymin,ys) ; ymin = Math.min(ymin,ye);
-            ymax = Math.max(ymax,ys) ; ymax = Math.max(ymax,ye);
-
-            /* Calculate the quadrant for each point */
-            /*
-             *           |
-             *         1 | 0
-             *       ----------
-             *         2 | 3
-             *           |
-             */
-            quads = (dxs >= 0 ? (dys >= 0 ? 0 : 3) : (dys >= 0 ? 1 : 2));
-            quade = (dxe >= 0 ? (dye >= 0 ? 0 : 3) : (dye >= 0 ? 1 : 2));
-
-            /* There are 16 combinations of start-end configurations */
-            /* The more complex ones are when both points are in the
-             * same quadrant (They require additional conditions).
-             * Remember that we converted everything to clockwise !
-             */
-
-            quad = (quads << 2) + quade ;
-
-            switch(quad){
-                case 0 :
-                    /* From quadrant 0 to 0 */
-                    if(xs < xe || ys > ye){
-                        box.set(xs,ye,xe,ys);
-                    } else {
-                        box.set(xmin,ymin,xmax,ymax);
-                    }
-                    break ;
-                case 1 :
-                    /* From quadrant 0 to 1 */
-                    box.set(xmin,ymin,xmax,Math.max(ys,ye));
-                    break ;
-                case 2 :
-                    /* From quadrant 0 to 2 */
-                    box.set(xe,ymin,xmax,ys);
-                    break ;
-                case 3 :
-                    /* From quadrant 0 to 3 */
-                    box.set(Math.min(xs,xe),ye,xmax,ys);
-                    break ;
-                case 4 :
-                    /* From quadrant 1 to 0 */
-                    box.set(xs,Math.min(ys,ye),xe,ymax);
-                    break ;
-                case 5 :
-                    /* From quadrant 1 to 1 */
-                    if(xs < xe || ys < ye){
-                        box.set(xs,ys,xe,ye);
-                    } else {
-                        box.set(xmin,ymin,xmax,ymax);
-                    }
-                    break ;
-                case 6 :
-                    /* From quadrant 1 to 2 */
-                    box.set(Math.min(xs,xe),ymin,xmax,ymax);
-                    break ;
-                case 7 :
-                    /* From quadrant 1 to 3 */
-                    box.set(xs,ye,xmax,ymax);
-                    break ;
-                case 8 :
-                    /* From quadrant 2 to 0 */
-                    box.set(xmin,ys,xe,ymax);
-                    break ;
-                case 9 :
-                    /* From quadrant 2 to 1 */
-                    box.set(xmin,ys,Math.max(xs,xe),ye);
-                    break ;
-                case 10 :
-                    /* From quadrant 2 to 2 */
-                    if(xs > xe || ys < ye){
-                        box.set(xe,ys,xs,ye);
-                    } else {
-                        box.set(xmin,ymin,xmax,ymax);
-                    }
-                    break ;
-                case 11 :
-                    /* From quadrant 2 to 3 */
-                    box.set(xmin,Math.min(ys,ye),xmax,ymax);
-                    break ;
-                case 12 :
-                    /* From quadrant 3 to 0 */
-                    box.set(xmin,ymin,Math.max(xs,xe),ymax);
-                    break ;
-                case 13 :
-                    /* From quadrant 3 to 1 */
-                    box.set(xmin,ymin,xs,ye);
-                    break ;
-                case 14 :
-                    /* From quadrant 3 to 2 */
-                    box.set(xe,ymin,xs,Math.max(ys,ye));
-                    break ;
-                case 15 :
-                    /* From quadrant 3 to 3 */
-                    if(xs > xe || ys > ye){
-                        box.set(xe,ye,xs,ys);
-                    } else {
-                        box.set(xmin,ymin,xmax,ymax);
-                    }
-                    break ;
-            }
+            let func_arcs = this.breakToFunctional();
+            let box = func_arcs.reduce( (acc, arc) => acc.merge(arc.start.box), new Flatten.Box() );
+            box = box.merge(this.end.box);
             return box;
         }
 
@@ -224,7 +118,7 @@ module.exports = function(Flatten) {
          */
         contains(pt) {
             // first check if  point on circle (pc,r)
-            if (!Flatten.Utils.EQ(this.pc.distanceTo(pt), this.r))
+            if (!Flatten.Utils.EQ(this.pc.distanceTo(pt)[0], this.r))
                 return false;
 
             // point on circle
@@ -235,6 +129,39 @@ module.exports = function(Flatten) {
             let angle = new Flatten.Vector(this.pc, pt).slope;
             let test_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise);
             return Flatten.Utils.LE(test_arc.length, this.length);
+        }
+
+        /**
+         * When given point belongs to arc, return array of two arcs split by this point
+         * @param pt
+         * @returns {Arc[]}
+         */
+        split(pt) {
+            if (!this.contains(pt))
+                return [];
+
+            if (Flatten.Utils.EQ_0(this.sweep))
+                return [this];
+
+            if (this.start.equalTo(pt) || this.end.equalTo(pt))
+                return [this];
+
+            let angle = new Flatten.Vector(this.pc, pt).slope;
+
+            return [
+                new Flatten.Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise),
+                new Flatten.Arc(this.pc, this.r, angle, this.endAngle, this.counterClockwise)
+            ]
+        }
+
+        /**
+         * Return middle point of the arc
+         * @returns {Point}
+         */
+        middle() {
+            let endAngle = this.counterClockwise === Flatten.CCW ? this.startAngle + this.sweep/2 : this.startAngle - this.sweep/2;
+            let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
+            return arc.end;
         }
 
         /**
@@ -257,12 +184,132 @@ module.exports = function(Flatten) {
             }
         }
 
-        distanceToPoint(pt) {
-            let circle = new Flatten.Circle(this.pc, this.r);
-            let distToCircle = pt.distanceTo(circle);
-            let distToStart = pt.distanceTo(this.start);
-            let distToEnd = pt.distanceTo(this.end);
-            return Math.min(distToCircle, Math.min(distToStart, distToEnd));
+        /**
+         * Calculate distance and shortest segment from arc to shape
+         * @param shape
+         * @returns {Number | Segment} - distance and shortest segment from arc to shape
+         */
+        distanceTo(shape) {
+            let {Distance} = Flatten;
+
+            if (shape instanceof Flatten.Point) {
+                let [dist, shortest_segment] = Distance.point2arc(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                let [dist, shortest_segment] = Distance.arc2circle(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Line) {
+                let [dist, shortest_segment] = Distance.arc2line(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                let [dist, shortest_segment] = Distance.segment2arc(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                let [dist, shortest_segment] = Distance.arc2arc(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                let [dist, shortest_segment] = Distance.shape2polygon(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.PlanarSet) {
+                let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
+                return [dist, shortest_segment];
+            }
+        }
+
+        /**
+         * Returns array of sub-arcs broken in extreme point 0, pi/2, pi, 3*pi/2
+         * @returns {Array}
+         */
+        breakToFunctional() {
+            let func_arcs_array = [];
+            let angles = [0, Math.PI/2, 2*Math.PI/2, 3*Math.PI/2];
+            let pts = [
+                this.pc.translate(this.r,0),
+                this.pc.translate(0,this.r),
+                this.pc.translate(-this.r,0),
+                this.pc.translate(0,-this.r)
+            ];
+
+            // If arc contains extreme point,
+            // create test arc started at start point and ended at this extreme point
+            let test_arcs = [];
+            for (let i=0; i < 4; i++) {
+                if (pts[i].on(this)) {
+                    test_arcs.push(new Flatten.Arc(this.pc, this.r, this.startAngle, angles[i], this.counterClockwise));
+                }
+            }
+
+            if (test_arcs.length == 0) {                  // arc does contain any extreme point
+                func_arcs_array.push(this.clone());
+            }
+            else {                                        // arc passes extreme point
+                // sort these arcs by length
+                test_arcs.sort((arc1, arc2) => arc1.length - arc2.length);
+
+                for (let i = 0; i < test_arcs.length; i++) {
+                    let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
+                    let new_arc;
+                    if (prev_arc) {
+                        new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, test_arcs[i].endAngle, this.counterClockwise);
+                    }
+                    else {
+                        new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, test_arcs[i].endAngle, this.counterClockwise);
+                    }
+                    if (!Flatten.Utils.EQ_0(new_arc.length)) {
+                        func_arcs_array.push(new_arc.clone());
+                    }
+                }
+
+                // add last sub arc
+                let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
+                let new_arc;
+                if (prev_arc) {
+                    new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, this.endAngle, this.counterClockwise);
+                }
+                else {
+                    new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, this.endAngle, this.counterClockwise);
+                }
+                if (!Flatten.Utils.EQ_0(new_arc.length)) {
+                    func_arcs_array.push(new_arc.clone());
+                }
+            }
+            return func_arcs_array;
+        }
+
+        /**
+         * Return tangent unit vector in the start point in the direction from start to end
+         * @returns {Vector} - tangent vector in start point
+         */
+        tangentInStart() {
+            let vec = new Flatten.Vector(this.pc, this.start);
+            let angle = this.counterClockwise ? Math.PI/2. : -Math.PI/2.;
+            let tangent = vec.rotate(angle).normalize();
+            return tangent;
+        }
+
+        /**
+         * Return tangent unit vector in the end point in the direction from end to start
+         * @returns {Vector} - tangent vector in end point
+         */
+        tangentInEnd() {
+            let vec = new Flatten.Vector(this.pc, this.end);
+            let angle = this.counterClockwise ? -Math.PI/2. : Math.PI/2.;
+            let tangent = vec.rotate(angle).normalize();
+            return tangent;
         }
 
         static intersectArc2Arc(arc1, arc2) {
@@ -332,5 +379,54 @@ module.exports = function(Flatten) {
             }
             return ip;
         }
-    }
+
+        definiteIntegral(ymin=0) {
+            let f_arcs = this.breakToFunctional();
+            let area = f_arcs.reduce( (acc, arc) => acc + arc.circularSegmentDefiniteIntegral(ymin), 0.0 );
+            return area;
+        }
+
+        circularSegmentDefiniteIntegral(ymin) {
+            let line = new Flatten.Line(this.start, this.end);
+            let onLeftSide = this.pc.leftTo(line);
+            let segment = new Flatten.Segment(this.start, this.end);
+            let areaTrapez = segment.definiteIntegral(ymin);
+            let areaCircularSegment = this.circularSegmentArea();
+            let area = onLeftSide ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
+            return area;
+        }
+
+        circularSegmentArea() {
+            return (0.5*this.r*this.r*(this.sweep - Math.sin(this.sweep)))
+        }
+
+        /**
+         * Return string to draw arc in svg
+         * @param attrs - json structure with any attributes allowed to svg path element,
+         * like "stroke", "strokeWidth", "fill"
+         * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
+         * @returns {string}
+         */
+        svg(attrs = {stroke:"black", strokeWidth:"3", fill:"none"}) {
+            let largeArcFlag = this.sweep <= Math.PI ? "0" : "1";
+            let sweepFlag = this.counterClockwise ? "1" : "0";
+            let {stroke, strokeWidth, fill} = attrs;
+
+            if (Flatten.Utils.EQ(this.sweep, 2*Math.PI)) {
+                let circle = new Flatten.Circle(this.pc, this.r);
+                return circle.svg(attrs);
+            }
+            else {
+                return `\n<path d="M${this.start.x},${this.start.y}
+                             A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
+                    stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}"/>`
+            }
+        }
+    };
+
+    /**
+     * Function to create arc equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.arc = (...args) => new Flatten.Arc(...args);
 };

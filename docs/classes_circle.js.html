@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>classes/circle.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Arc.html">Arc</a><ul class='methods'><li data-type='method'><a href="Flatten.Arc.html#breakToFunctional">breakToFunctional</a></li><li data-type='method'><a href="Flatten.Arc.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Arc.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Arc.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Arc.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Arc.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Box.html#equal_to">equal_to</a></li><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#less_than">less_than</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Circle.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Circle.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Circle.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Circle.html#toArc">toArc</a></li></ul></li><li><a href="Flatten.Edge.html">Edge</a><ul class='methods'><li data-type='method'><a href="Flatten.Edge.html#contains">contains</a></li></ul></li><li><a href="Flatten.Face.html">Face</a><ul class='methods'><li data-type='method'><a href="Flatten.Face.html#area">area</a></li><li data-type='method'><a href="Flatten.Face.html#getBox">getBox</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Line.html#incidentTo">incidentTo</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#parallelTo">parallelTo</a></li></ul></li><li><a href="Flatten.PlanarSet.html">PlanarSet</a><ul class='methods'><li data-type='method'><a href="Flatten.PlanarSet.html#add">add</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#delete">delete</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#hit">hit</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#search">search</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#svg">svg</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#leftTo">leftTo</a></li><li data-type='method'><a href="Flatten.Point.html#lessThan">lessThan</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Polygon.html">Polygon</a><ul class='methods'><li data-type='method'><a href="Flatten.Polygon.html#addFace">addFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#area">area</a></li><li data-type='method'><a href="Flatten.Polygon.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Polygon.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Polygon.html#deleteFace">deleteFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Polygon.html#svg">svg</a></li></ul></li><li><a href="Flatten.Ray.html">Ray</a><ul class='methods'><li data-type='method'><a href="Flatten.Ray.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Ray.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Segment.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Segment.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Segment.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Segment.html#swap">swap</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#invert">invert</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CCW">rotate90CCW</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CW">rotate90CW</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">classes/circle.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Created by Alex Bol on 3/6/2017.
+ */
+
+"use strict";
+
+module.exports = function(Flatten) {
+    let {Arc,vector} = Flatten;
+    /**
+     * Class representing a circle
+     * @type {Circle}
+     */
+    Flatten.Circle = class Circle {
+        /**
+         *
+         * @param {Point} pc - circle center point
+         * @param {number} r - circle radius
+         */
+        constructor(pc, r) {
+            /**
+             * Circle center
+             * @type {Point}
+             */
+            this.pc = pc;
+            /**
+             * Circle radius
+             * @type {number}
+             */
+            this.r = r;
+        }
+
+        /**
+         * Method clone returns new instance of a Circle
+         * @returns {Circle}
+         */
+        clone() {
+            return new Flatten.Circle(this.pc.clone(), this.r);
+        }
+
+        /**
+         * Circle center
+         * @returns {Point}
+         */
+        get center() {
+            return this.pc;
+        }
+
+        /**
+         * Circle bounding box
+         * @returns {Box}
+         */
+        get box() {
+            return new Flatten.Box(
+                this.pc.x - this.r,
+                this.pc.y - this.r,
+                this.pc.x + this.r,
+                this.pc.y + this.r
+            );
+        }
+
+        /**
+         * Return true if circle contains point
+         * @param {Point} pt - test point
+         * @returns {boolean}
+         */
+        contains(pt) {
+            return Flatten.Utils.LE(pt.distanceTo(this.center)[0], this.r);
+        }
+
+        /**
+         * Transform circle to closed arc
+         * @param {boolean} counterclockwise
+         * @returns {Arc}
+         */
+        toArc(counterclockwise=true) {
+            return new Flatten.Arc(this.center, this.r, Math.PI, 3*Math.PI, counterclockwise);
+        }
+
+        /**
+         * Returns array of intersection points between circle and other shape
+         * @param shape
+         * @returns {Point[]}
+         */
+        intersect(shape) {
+            if (shape instanceof Flatten.Line) {
+                return shape.intersect(this);
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                return shape.intersect(this);
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                return Circle.intersectCirle2Circle(this, shape);
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                return shape.intersect(this);
+            }
+        }
+
+        /**
+         * Calculate distance and shortest segment from circle to shape
+         * @param shape
+         * @returns {Number | Segment} - distance and shortest segment from circle to shape
+         */
+        distanceTo(shape) {
+            let {Distance} = Flatten;
+
+            if (shape instanceof Flatten.Point) {
+                let [distance, shortest_segment] = Distance.point2circle(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                let [distance, shortest_segment] = Distance.circle2circle(this, shape);
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Line) {
+                let [distance, shortest_segment] = Distance.circle2line(this, shape);
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                let [distance, shortest_segment] = Distance.segment2circle(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                let [distance, shortest_segment] = Distance.arc2circle(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.PlanarSet) {
+                let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
+                return [dist, shortest_segment];
+            }
+        }
+
+        static intersectCirle2Circle(circle1, circle2) {
+            let ip = [];
+
+            if (circle1.box.notIntersect(circle2.box)) {
+                return ip;
+            }
+
+            let vec = new Flatten.Vector(circle1.pc, circle2.pc);
+
+            let r1 = circle1.r;
+            let r2 = circle2.r;
+
+            // Degenerated circle
+            if (Flatten.Utils.EQ_0(r1) || Flatten.Utils.EQ_0(r2))
+                return ip;
+
+            // In case of equal circles return one leftmost point
+            if (Flatten.Utils.EQ_0(vec.x) &amp;&amp; Flatten.Utils.EQ_0(vec.y) &amp;&amp; Flatten.Utils.EQ(r1, r2)) {
+                ip.push(circle1.pc.translate(-r1, 0));
+                return ip;
+            }
+
+            let dist = circle1.pc.distanceTo(circle2.pc)[0];
+
+            if (Flatten.Utils.GT(dist, r1 + r2))               // circles too far, no intersections
+                return ip;
+
+            if (Flatten.Utils.LT(dist, Math.abs(r1 - r2)))     // one circle is contained within another, no intersections
+                return ip;
+
+            // Normalize vector.
+            vec.x /= dist;
+            vec.y /= dist;
+
+            let pt;
+
+            // Case of touching from outside or from inside - single intersection point
+            // TODO: check this specifically not sure if correct
+            if (Flatten.Utils.EQ(dist, r1 + r2) || Flatten.Utils.EQ(dist, Math.abs(r1 - r2))) {
+                pt = circle1.pc.translate(r1*vec.x, r1*vec.y);
+                ip.push(pt);
+                return ip;
+            }
+
+            // Case of two intersection points
+
+            // Distance from first center to center of common chord:
+            //   a = (r1^2 - r2^2 + d^2) / 2d
+            // Separate for better accuracy
+            let a = (r1*r1)/(2*dist) - (r2*r2)/(2*dist) + dist/2;
+
+            let mid_pt = circle1.pc.translate(a*vec.x, a*vec.y);
+            let h = Math.sqrt(r1*r1 - a*a);
+            // let norm;
+
+            // norm = vec.rotate90CCW().multiply(h);
+            pt = mid_pt.translate(vec.rotate90CCW().multiply(h));
+            ip.push(pt);
+
+            // norm = vec.rotate90CW();
+            pt = mid_pt.translate(vec.rotate90CW().multiply(h));
+            ip.push(pt);
+
+            return ip;
+        }
+
+        /**
+         * Return string to draw circle in svg
+         * @param attrs - json structure with any attributes allowed to svg circle element,
+         * like "stroke", "strokeWidth", "fill"
+         * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
+         * @returns {string}
+         */
+        svg(attrs = {stroke:"black",strokeWidth:"3",fill:"none"}) {
+            let {stroke, strokeWidth, fill} = attrs;
+            return `\n&lt;circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" />`;
+        }
+    };
+
+    /**
+     * Function to create circle equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.circle = (...args) => new Flatten.Circle(...args);
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Oct 13 2017 18:06:12 GMT+0300 (Jerusalem Daylight Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

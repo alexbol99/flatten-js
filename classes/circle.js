@@ -5,6 +5,7 @@
 "use strict";
 
 module.exports = function(Flatten) {
+    let {Arc,vector} = Flatten;
     /**
      * Class representing a circle
      * @type {Circle}
@@ -63,7 +64,16 @@ module.exports = function(Flatten) {
          * @returns {boolean}
          */
         contains(pt) {
-            return Flatten.Utils.LE(pt.distanceTo(this.center), this.r);
+            return Flatten.Utils.LE(pt.distanceTo(this.center)[0], this.r);
+        }
+
+        /**
+         * Transform circle to closed arc
+         * @param {boolean} counterclockwise
+         * @returns {Arc}
+         */
+        toArc(counterclockwise=true) {
+            return new Flatten.Arc(this.center, this.r, Math.PI, 3*Math.PI, counterclockwise);
         }
 
         /**
@@ -89,6 +99,54 @@ module.exports = function(Flatten) {
             }
         }
 
+        /**
+         * Calculate distance and shortest segment from circle to shape
+         * @param shape
+         * @returns {Number | Segment} - distance and shortest segment from circle to shape
+         */
+        distanceTo(shape) {
+            let {Distance} = Flatten;
+            let {point2circle, circle2circle, circle2line, segment2circle, arc2circle} = Distance;
+
+            if (shape instanceof Flatten.Point) {
+                let [distance, shortest_segment] = point2circle(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                let [distance, shortest_segment] = circle2circle(this, shape);
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Line) {
+                let [distance, shortest_segment] = circle2line(this, shape);
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                let [distance, shortest_segment] = segment2circle(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                let [distance, shortest_segment] = arc2circle(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.PlanarSet) {
+                let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
+                return [dist, shortest_segment];
+            }
+        }
+
         static intersectCirle2Circle(circle1, circle2) {
             let ip = [];
 
@@ -105,13 +163,13 @@ module.exports = function(Flatten) {
             if (Flatten.Utils.EQ_0(r1) || Flatten.Utils.EQ_0(r2))
                 return ip;
 
-            // In case of equal circles return one most left intersection points
+            // In case of equal circles return one leftmost point
             if (Flatten.Utils.EQ_0(vec.x) && Flatten.Utils.EQ_0(vec.y) && Flatten.Utils.EQ(r1, r2)) {
-                ip.push(new Flatten.Point(circle1.x - r1, circle1.y));
+                ip.push(circle1.pc.translate(-r1, 0));
                 return ip;
             }
 
-            let dist = circle1.pc.distTo(circle2.pc);
+            let dist = circle1.pc.distanceTo(circle2.pc)[0];
 
             if (Flatten.Utils.GT(dist, r1 + r2))               // circles too far, no intersections
                 return ip;
@@ -154,5 +212,23 @@ module.exports = function(Flatten) {
 
             return ip;
         }
-    }
+
+        /**
+         * Return string to draw circle in svg
+         * @param attrs - json structure with any attributes allowed to svg circle element,
+         * like "stroke", "strokeWidth", "fill"
+         * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
+         * @returns {string}
+         */
+        svg(attrs = {stroke:"black",strokeWidth:"3",fill:"none"}) {
+            let {stroke, strokeWidth, fill} = attrs;
+            return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" />`;
+        }
+    };
+
+    /**
+     * Function to create circle equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.circle = (...args) => new Flatten.Circle(...args);
 };

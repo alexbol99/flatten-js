@@ -1,10 +1,9 @@
 /**
  * Created by Alex Bol on 2/19/2017.
  */
-/**
- *
- * @param Flatten
- */
+
+"use strict";
+
 module.exports = function(Flatten) {
     /**
      * Class representing a vector
@@ -163,4 +162,10 @@ module.exports = function(Flatten) {
             return new Flatten.Vector(-this.x, -this.y);
         }
     };
+
+    /**
+     * Function to create vector equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.vector = (...args) => new Flatten.Vector(...args);
 };

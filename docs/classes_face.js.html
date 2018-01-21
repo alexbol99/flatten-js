@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>classes/face.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Arc.html">Arc</a><ul class='methods'><li data-type='method'><a href="Flatten.Arc.html#breakToFunctional">breakToFunctional</a></li><li data-type='method'><a href="Flatten.Arc.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Arc.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Arc.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Arc.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Arc.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Box.html#equal_to">equal_to</a></li><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#less_than">less_than</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Circle.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Circle.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Circle.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Circle.html#toArc">toArc</a></li></ul></li><li><a href="Flatten.Edge.html">Edge</a><ul class='methods'><li data-type='method'><a href="Flatten.Edge.html#contains">contains</a></li></ul></li><li><a href="Flatten.Face.html">Face</a><ul class='methods'><li data-type='method'><a href="Flatten.Face.html#area">area</a></li><li data-type='method'><a href="Flatten.Face.html#getBox">getBox</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Line.html#incidentTo">incidentTo</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#parallelTo">parallelTo</a></li></ul></li><li><a href="Flatten.PlanarSet.html">PlanarSet</a><ul class='methods'><li data-type='method'><a href="Flatten.PlanarSet.html#add">add</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#delete">delete</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#hit">hit</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#search">search</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#svg">svg</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#leftTo">leftTo</a></li><li data-type='method'><a href="Flatten.Point.html#lessThan">lessThan</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Polygon.html">Polygon</a><ul class='methods'><li data-type='method'><a href="Flatten.Polygon.html#addFace">addFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#area">area</a></li><li data-type='method'><a href="Flatten.Polygon.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Polygon.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Polygon.html#deleteFace">deleteFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Polygon.html#svg">svg</a></li></ul></li><li><a href="Flatten.Ray.html">Ray</a><ul class='methods'><li data-type='method'><a href="Flatten.Ray.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Ray.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Segment.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Segment.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Segment.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Segment.html#swap">swap</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#invert">invert</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CCW">rotate90CCW</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CW">rotate90CW</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">classes/face.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Created by Alex Bol on 3/17/2017.
+ */
+
+"use strict";
+
+module.exports = function(Flatten) {
+    let {Point, Segment, Arc, Box, Edge} = Flatten;
+    /**
+     * Class representing a face (closed loop) of polygon.
+     * New face object should not be created directly, use polygon.addFace() method instead.
+     * Face implemented as a circular bidirectional linked list of edges.
+     * @type {Face}
+     */
+    Flatten.Face = class Face {
+        constructor(polygon, ...args) {
+            /**
+             * Reference to the first edge in face
+             */
+            this.first;
+            /**
+             * Reference to the last edge in face
+             */
+            this.last;
+            /**
+             * Face orientation: clockwise, counterclockwise or not-orientable
+             * @type {Flatten.ORIENTATION}
+             */
+            this.orientation = undefined;
+            /**
+             * Bounding box of the face
+             */
+            this.box = new Box();
+
+            if (args.length == 0) {
+                return;
+            }
+
+            /* If passed an array it supposed to be:
+             1) array of shapes that performs close loop or
+             2) array of points that performs set of vertices
+             */
+            if (args.length == 1 &amp;&amp; args[0] instanceof Array) {
+                let shapes = args[0][0];
+                if (shapes.length == 0)
+                    return;
+
+                if (shapes.every((shape) => {
+                        return shape instanceof Point
+                    })) {
+                    let segments = Face.points2segments(shapes);
+                    this.shapes2face(polygon.edges, segments);
+                }
+                else if (shapes.every((shape) => {
+                        return (shape instanceof Segment || shape instanceof Arc)
+                    })) {
+                    this.shapes2face(polygon.edges, shapes);
+                }
+            }
+
+            /* If passed two edges, consider them as start and end of the face loop */
+            /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
+            if (args.length == 2 &amp;&amp; args[0] instanceof Edge &amp;&amp; args[1] instanceof Edge) {
+                this.first = args[0];                          // first edge in face or undefined
+                this.last = args[1];                           // last edge in face or undefined
+                this.last.next = this.first;
+                this.first.prev = this.last;
+                this.box = this.getBox();
+                this.orientation = this.getOrientation();      // face direction cw or ccw
+            }
+        }
+
+        [Symbol.iterator]() {
+            let edge = undefined;
+            return {
+                next: () => {
+                    let value = edge ? edge : this.first;
+                    let done = edge ? edge === this.first : false;
+                    edge = value.next;
+                    return {value: value, done: done};
+                }
+            };
+        };
+
+        /**
+         * Return array of edges of the given face in the order from first to last
+         * @returns {Array} - Array of edges
+         */
+        get edges() {
+            let face_edges = [];
+            for (let edge of this) {
+                face_edges.push(edge);
+            }
+            return face_edges;
+        }
+
+        /**
+         * Return number of edges in the face
+         * @returns {number} - number of edges
+         */
+        get size() {
+            let counter = 0;
+            for (let edge of this) {
+                counter++;
+            }
+            return counter;
+        }
+
+        static points2segments(points) {
+            let segments = [];
+            for (let i = 0; i &lt; points.length; i++) {
+                segments.push(new Segment(points[i], points[(i + 1) % points.length]));
+            }
+            return segments;
+        }
+
+        append(edge) {
+            if (this.first === undefined) {
+                edge.prev = edge;
+                edge.next = edge;
+                this.first = edge;
+                this.last = edge;
+            }
+            else {
+                // append to end
+                edge.prev = this.last;
+                this.last.next = edge;
+
+                // update edge to be last
+                this.last = edge;
+
+                // restore circlar links
+                this.last.next = this.first;
+                this.first.prev = this.last;
+            }
+        }
+
+        shapes2face(edges, shapes) {
+            for (let shape of shapes) {
+                let edge = new Edge(shape);
+                this.append(edge);
+                this.box = this.box.merge(shape.box);
+                edges.add(edge);
+            }
+            this.orientation = this.getOrientation();              // face direction cw or ccw
+        }
+
+        /**
+         * Return the area of the polygon
+         * @returns {number}
+         */
+        area() {
+            return Math.abs(this.signedArea());
+        }
+
+        signedArea() {
+            let sArea = 0;
+            for (let edge of this) {
+                sArea += edge.shape.definiteIntegral(this.box.ymin);
+            }
+            return sArea;
+        }
+
+        /* According to Green theorem the area of a closed curve may be calculated as double integral,
+        and the sign of the integral will be defined by the direction of the curve.
+        When the integral ("signed area") will be negative, direction is counter clockwise,
+        when positive - clockwise and when it is zero, polygon is not orientable.
+        See http://mathinsight.org/greens_theorem_find_area
+         */
+        getOrientation() {
+            let area = this.signedArea();
+            if (Flatten.Utils.EQ_0(area)) {
+                return Flatten.ORIENTATION.NOT_ORIENTABLE;
+            }
+            if (Flatten.Utils.LT(area, 0)) {
+                return Flatten.ORIENTATION.CCW;
+            }
+            else {
+                return Flatten.ORIENTATION.CW;
+            }
+        }
+
+        /**
+         * Return bounding box of the face
+         * @returns {Box}
+         */
+        getBox() {
+            let box = new Flatten.Box();
+            for (let edge of this) {
+                box = box.merge(edge.box);
+            }
+            return box;
+        }
+
+        svg() {
+            let svgStr = `\nM${this.first.start.x},${this.first.start.y}`;
+
+            for (let edge of this) {
+                svgStr += edge.svg();
+            }
+
+            svgStr += ` z`;
+            return svgStr;
+        }
+    };
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Oct 13 2017 18:06:12 GMT+0300 (Jerusalem Daylight Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

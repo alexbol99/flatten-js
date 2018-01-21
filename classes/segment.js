@@ -4,7 +4,7 @@
 
 "use strict";
 
-module.exports = function(Flatten) {
+module.exports = function (Flatten) {
     /**
      * Class representing a segment
      * @type {Segment}
@@ -70,14 +70,6 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Set start point
-         * @param {Point} pt
-         */
-        set start(pt) {
-            this.ps = pt;
-        }
-
-        /**
          * End point
          * @returns {Point}
          */
@@ -85,12 +77,8 @@ module.exports = function(Flatten) {
             return this.pe;
         }
 
-        /**
-         * Set end point
-         * @param {Point} pt
-         */
-        set end(pt) {
-            this.pe = pt;
+        get vertices() {
+            return [this.ps.clone(), this.pe.clone()];
         }
 
         /**
@@ -98,7 +86,7 @@ module.exports = function(Flatten) {
          * @returns {number}
          */
         get length() {
-            return this.start.distanceTo(this.end);
+            return this.start.distanceTo(this.end)[0];
         }
 
         /**
@@ -155,33 +143,117 @@ module.exports = function(Flatten) {
             }
         }
 
+        /**
+         * Calculate distance and shortest segment from segment to shape
+         * @param shape
+         * @returns {Number | Segment} - distance and shortest segment from segment to shape
+         */
+        distanceTo(shape) {
+            let {Distance} = Flatten;
+
+            if (shape instanceof Flatten.Point) {
+                let [dist, shortest_segment] = Distance.point2segment(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                let [dist, shortest_segment] = Distance.segment2circle(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Line) {
+                let [dist, shortest_segment] = Distance.segment2line(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                let [dist, shortest_segment] = Distance.segment2segment(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                let [dist, shortest_segment] = Distance.segment2arc(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                let [dist, shortest_segment] = Distance.shape2polygon(this, shape);
+                return [dist, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.PlanarSet) {
+                let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
+                return [dist, shortest_segment];
+            }
+        }
+
+        /**
+         * Return tangent unit vector in the start point in the direction from start to end
+         * @returns {Vector} - tangent vector in start point
+         */
+        tangentInStart() {
+            let vec = new Flatten.Vector(this.start, this.end);
+            return vec.normalize();
+        }
+
+        /**
+         * Return tangent unit vector in the end point in the direction from end to start
+         * @returns {Vector} - tangent vector in end point
+         */
+        tangentInEnd() {
+            let vec = new Flatten.Vector(this.end, this.start);
+            return vec.normalize();
+        }
+
+        /**
+         * Return new segment with swapped start and end points
+         * @returns {Segment}
+         */
+        swap() {
+            return new Segment(this.end, this.start);
+        }
+
+        /**
+         * When point belongs to segment, return array of two segments split by given point
+         * @param pt
+         * @returns {Segment[]}
+         */
+        split(pt) {
+            if (!this.contains(pt))
+                return [];
+
+            if (this.start.equalTo(this.end))
+                return [this];
+
+            if (this.start.equalTo(pt) || this.end.equalTo(pt))
+                return [this];
+
+            return [
+                new Flatten.Segment(this.start, pt),
+                new Flatten.Segment(pt, this.end)
+            ]
+        }
+
+        /**
+         * Return middle point of the segment
+         * @returns {Point}
+         */
+        middle() {
+            return new Flatten.Point((this.start.x + this.end.x)/2, (this.start.y + this.end.y)/2);
+        }
+
         distanceToPoint(pt) {
-            /* Degenerated case of zero-length segment */
-            if (this.start.equalTo(this.end)) {
-                return pt.distanceTo(this.start);
-            }
-
-            let v_seg = new Flatten.Vector(this.start, this.end);
-            let v_ps2pt = new Flatten.Vector(this.start, pt);
-            let v_pe2pt = new Flatten.Vector(this.end, pt);
-            let start_sp = v_seg.dot(v_ps2pt);    /* dot product v_seg * v_ps2pt */
-            let end_sp = -v_seg.dot(v_pe2pt);     /* minus dot product v_seg * v_pe2pt */
-
-            let dist;
-            if (Flatten.Utils.GE(start_sp, 0) && Flatten.Utils.GE(end_sp, 0)) {    /* point inside segment scope */
-                let v_unit = new Flatten.Vector(v_seg.x / this.length, v_seg.y / this.length);
-                /* unit vector ||v_unit|| = 1 */
-                dist = Math.abs(v_unit.cross(v_ps2pt));
-                /* dist = abs(v_unit x v_ps2pt) */
-            }
-            else if (start_sp < 0) {                             /* point is out of scope closer to ps */
-                dist = pt.distanceTo(this.start);
-            }
-            else {                                               /* point is out of scope closer to pe */
-                dist = pt.distanceTo(this.end);
-            }
+            let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
             return dist;
         };
+
+        definiteIntegral(ymin = 0.0) {
+            let dx = this.end.x - this.start.x;
+            let dy1 = this.start.y - ymin;
+            let dy2 = this.end.y - ymin;
+            return ( dx * (dy1 + dy2) / 2 );
+        }
 
         static intersectSegment2Line(seg, line) {
             let ip = [];
@@ -283,12 +355,26 @@ module.exports = function(Flatten) {
             let ip_tmp = line.intersect(circle);
 
             for (let pt of ip_tmp) {
-                if (pt.on(seg) && pt.on(arc)) {
+                if (pt.on(segment) && pt.on(arc)) {
                     ip.push(pt);
                 }
             }
             return ip;
 
         }
-    }
+
+        /**
+         * Return string to draw segment in svg
+         * @param attrs - json structure with any attributes allowed to svg path element,
+         * like "stroke", "strokeWidth"
+         * Defaults are stroke:"black", strokeWidth:"3"
+         * @returns {string}
+         */
+        svg(attrs = {stroke: "black", strokeWidth: "3"}) {
+            let {stroke, strokeWidth} = attrs;
+            return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke}" stroke-width="${strokeWidth}" />`;
+        }
+    };
+
+    Flatten.segment = (...args) => new Flatten.Segment(...args);
 };

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>classes/box.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Flatten.Arc.html">Arc</a><ul class='methods'><li data-type='method'><a href="Flatten.Arc.html#breakToFunctional">breakToFunctional</a></li><li data-type='method'><a href="Flatten.Arc.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Arc.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Arc.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Arc.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Arc.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Arc.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Flatten.Box.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Box.html#equal_to">equal_to</a></li><li data-type='method'><a href="Flatten.Box.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Box.html#less_than">less_than</a></li><li data-type='method'><a href="Flatten.Box.html#merge">merge</a></li><li data-type='method'><a href="Flatten.Box.html#notIntersect">notIntersect</a></li></ul></li><li><a href="Flatten.Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Flatten.Circle.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Circle.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Circle.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Circle.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Circle.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Circle.html#toArc">toArc</a></li></ul></li><li><a href="Flatten.Edge.html">Edge</a><ul class='methods'><li data-type='method'><a href="Flatten.Edge.html#contains">contains</a></li></ul></li><li><a href="Flatten.Face.html">Face</a><ul class='methods'><li data-type='method'><a href="Flatten.Face.html#area">area</a></li><li data-type='method'><a href="Flatten.Face.html#getBox">getBox</a></li></ul></li><li><a href="Flatten.Line.html">Line</a><ul class='methods'><li data-type='method'><a href="Flatten.Line.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Line.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Line.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Line.html#incidentTo">incidentTo</a></li><li data-type='method'><a href="Flatten.Line.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Line.html#parallelTo">parallelTo</a></li></ul></li><li><a href="Flatten.PlanarSet.html">PlanarSet</a><ul class='methods'><li data-type='method'><a href="Flatten.PlanarSet.html#add">add</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#delete">delete</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#hit">hit</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#search">search</a></li><li data-type='method'><a href="Flatten.PlanarSet.html#svg">svg</a></li></ul></li><li><a href="Flatten.Point.html">Point</a><ul class='methods'><li data-type='method'><a href="Flatten.Point.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Point.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Point.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Point.html#leftTo">leftTo</a></li><li data-type='method'><a href="Flatten.Point.html#lessThan">lessThan</a></li><li data-type='method'><a href="Flatten.Point.html#on">on</a></li><li data-type='method'><a href="Flatten.Point.html#projectionOn">projectionOn</a></li><li data-type='method'><a href="Flatten.Point.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Point.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Point.html#translate">translate</a></li></ul></li><li><a href="Flatten.Polygon.html">Polygon</a><ul class='methods'><li data-type='method'><a href="Flatten.Polygon.html#addFace">addFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#area">area</a></li><li data-type='method'><a href="Flatten.Polygon.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Polygon.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Polygon.html#deleteFace">deleteFace</a></li><li data-type='method'><a href="Flatten.Polygon.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Polygon.html#svg">svg</a></li></ul></li><li><a href="Flatten.Ray.html">Ray</a><ul class='methods'><li data-type='method'><a href="Flatten.Ray.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Ray.html#intersect">intersect</a></li></ul></li><li><a href="Flatten.Segment.html">Segment</a><ul class='methods'><li data-type='method'><a href="Flatten.Segment.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Segment.html#contains">contains</a></li><li data-type='method'><a href="Flatten.Segment.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Flatten.Segment.html#intersect">intersect</a></li><li data-type='method'><a href="Flatten.Segment.html#svg">svg</a></li><li data-type='method'><a href="Flatten.Segment.html#swap">swap</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInEnd">tangentInEnd</a></li><li data-type='method'><a href="Flatten.Segment.html#tangentInStart">tangentInStart</a></li></ul></li><li><a href="Flatten.Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Flatten.Vector.html#clone">clone</a></li><li data-type='method'><a href="Flatten.Vector.html#cross">cross</a></li><li data-type='method'><a href="Flatten.Vector.html#dot">dot</a></li><li data-type='method'><a href="Flatten.Vector.html#equalTo">equalTo</a></li><li data-type='method'><a href="Flatten.Vector.html#invert">invert</a></li><li data-type='method'><a href="Flatten.Vector.html#multiply">multiply</a></li><li data-type='method'><a href="Flatten.Vector.html#normalize">normalize</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate">rotate</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CCW">rotate90CCW</a></li><li data-type='method'><a href="Flatten.Vector.html#rotate90CW">rotate90CW</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">classes/box.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Created by Alex Bol on 3/7/2017.
+ */
+"use strict";
+
+module.exports = function(Flatten) {
+    /**
+     * Class Box represent bounding box of the shape
+     * @type {Box}
+     */
+    Flatten.Box = class Box {
+        /**
+         *
+         * @param {number} xmin - minimal x coordinate
+         * @param {number} ymin - minimal y coordinate
+         * @param {number} xmax - maximal x coordinate
+         * @param {number} ymax - maximal y coordinate
+         */
+        constructor(xmin=undefined, ymin=undefined, xmax=undefined, ymax=undefined) {
+            /**
+             * Minimal x coordinate
+             * @type {number}
+             */
+            this.xmin = xmin;
+            /**
+             * Minimal y coordinate
+             * @type {number}
+             */
+            this.ymin = ymin;
+            /**
+             * Maximal x coordinate
+             * @type {number}
+             */
+            this.xmax = xmax;
+            /**
+             * Maximal y coordinate
+             * @type {number}
+             */
+            this.ymax = ymax;
+        }
+
+        /**
+         * Clones and returns new instance of box
+         * @returns {Box}
+         */
+        clone() {
+            return new Box(this.xmin, this.ymin, this.xmax, this.ymax);
+        }
+
+        /**
+         * Property low need for interval tree interface
+         * @returns {Point}
+         */
+        get low() {
+            return new Flatten.Point(this.xmin, this.ymin);
+        }
+
+        /**
+         * Property high need for interval tree interface
+         * @returns {Point}
+         */
+        get high() {
+            return new Flatten.Point(this.xmax, this.ymax);
+        }
+
+        /**
+         * Property max returns the box itself !
+         * @returns {Box}
+         */
+        get max() {
+            return this.clone();
+        }
+
+        /**
+         * Returns true if not intersected with other box
+         * @param {Box} other_box - other box to test
+         * @returns {boolean}
+         */
+        notIntersect(other_box) {
+            return (
+                this.xmax &lt; other_box.xmin ||
+                this.xmin > other_box.xmax ||
+                this.ymax &lt; other_box.ymin ||
+                this.ymin > other_box.ymax
+            );
+        }
+
+        /**
+         * Returns true if intersected with other box
+         * @param {Box} other_box - other box to test
+         * @returns {boolean}
+         */
+        intersect(other_box) {
+            return !this.notIntersect(other_box);
+        }
+
+        /**
+         * Returns new box merged with other box
+         * @param {Box} other_box - other box to merge with
+         * @returns {Box}
+         */
+        merge(other_box) {
+            return new Box(
+                this.xmin === undefined ? other_box.xmin : Math.min(this.xmin, other_box.xmin),
+                this.ymin === undefined ? other_box.ymin : Math.min(this.ymin, other_box.ymin),
+                this.xmax === undefined ? other_box.xmax : Math.max(this.xmax, other_box.xmax),
+                this.ymax === undefined ? other_box.ymax : Math.max(this.ymax, other_box.ymax)
+            );
+        }
+
+        /**
+         * Defines predicate "less than" between two boxes. Need for interval index
+         * @param other_box - other box
+         * @returns {boolean} - true if this box less than other box, false otherwise
+         */
+        less_than(other_box) {
+            if (this.low.lessThan(other_box.low))
+                return true;
+            if (this.low.equalTo(other_box.low) &amp;&amp; this.high.lessThan(other_box.high))
+                return true;
+            return false;
+        }
+
+        /**
+         * Returns true if this box equal to other box
+         * @param other_box - other box
+         * @returns {boolean} - true if equal, false otherwise
+         */
+        equal_to(other_box) {
+            return (this.low.equalTo(other_box.low) &amp;&amp; this.high.equalTo(other_box.high));
+        }
+
+        output() {
+            return this.clone();
+        }
+
+        maximal_val(box1, box2) {
+            // return pt1.lessThan(pt2) ? pt2.clone() : pt1.clone();
+            return box1.merge(box2);
+        }
+
+        val_less_than(pt1, pt2) {
+            return pt1.lessThan(pt2);
+        }
+
+        set(xmin, ymin, xmax, ymax) {
+            this.xmin = xmin;
+            this.ymin = ymin;
+            this.xmax = xmax;
+            this.ymax = ymax;
+        }
+    };
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Oct 13 2017 18:06:12 GMT+0300 (Jerusalem Daylight Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

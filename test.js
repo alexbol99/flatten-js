@@ -5,10 +5,13 @@
 
 require('jsdom-global')();
 let expect = require('chai').expect;
-let Flatten = require('../index');
-let PlanarSet = require('../data_structures/planar_set');
+let Flatten = require('./index');
+let PlanarSet = require('./data_structures/planar_set');
+let fs = require('fs');
 
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face} = Flatten;
+let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
+
+let {point, vector, circle, line, segment, arc, ray} = Flatten;
 
 describe('#Flatten-JS', function() {
 
@@ -60,6 +63,9 @@ describe('#Flatten.Point', function() {
     it('Default constructor creates new (0,0) point', function() {
         let point = new Flatten.Point();
         expect(point).to.deep.equal({x:0, y:0});
+    });
+    it('New point may be constructed by function call', function() {
+        expect(point(1,3)).to.deep.equal({x:1, y:3});
     });
     it('Method clone creates new instance of Point', function() {
         let point1 = new Flatten.Point(2,1);
@@ -158,7 +164,7 @@ describe('#Flatten.Point', function() {
         });
     });
     describe('#Flatten.Point.On inclusion queries', function() {
-        it('Method "on" returns true if point belongs to given line', function () {
+        it('Method "on" returns true if point belongs to line', function () {
             let pt1 = new Flatten.Point(1, 1);
             let pt2 = new Flatten.Point(2, 2);
             let pt3 = new Flatten.Point(3, 3);
@@ -215,6 +221,9 @@ describe('#Flatten.Vector', function() {
         let ps = new Flatten.Point(1,1);
         let fn = function() { new Flatten.Vector(ps,2) };
         expect(fn).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
+    });
+    it('New vector may be constructed by function call', function() {
+        expect(vector(point(1,1), point(3,3))).to.deep.equal({x:2, y:2});
     });
     it('Method clone creates new instance of Vector', function() {
         let v1 = new Flatten.Vector(2,1);
@@ -316,6 +325,11 @@ describe('#Flatten.Line', function() {
         expect(fn3).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
         expect(fn4).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS);
     });
+    it('New line may be constructed by function call', function() {
+        let l = line(point(1,3), point(3,3));
+        expect(l.pt).to.deep.equal({x:1, y:3});
+        expect(l.norm.equalTo(vector(0,1))).to.equal(true);
+    });
     it('Get slope - angle in radians between line and axe x', function() {
         let pt1 = new Flatten.Point(1,1);
         let pt2 = new Flatten.Point(2,2);
@@ -368,6 +382,9 @@ describe('#Flatten.Circle', function() {
         expect(circle.pc).to.deep.equal({x:1, y:1});
         expect(circle.r).to.equal(2);
     });
+    it('New circle may be constructed by function call', function() {
+        expect(circle(point(1,1), 3)).to.deep.equal(new Flatten.Circle(new Flatten.Point(1,1), 3));
+    });
     it('Method contains returns true if point belongs to the circle', function () {
         let pt = new Flatten.Point(0,1);
         let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
@@ -377,7 +394,20 @@ describe('#Flatten.Circle', function() {
         let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
         expect(circle.box).to.deep.equal({xmin:-2, ymin:-2, xmax:2, ymax:2});
     });
-
+    it('Can transform circle into closed CCW arc', function () {
+        let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
+        let arc = circle.toArc(true);
+        expect(arc.sweep).to.equal(Flatten.PIx2);
+        expect(arc.start.equalTo(point(-2,0))).to.be.true;
+        expect(arc.end.equalTo(point(-2,0))).to.be.true;
+    });
+    it('Can transform circle into closed CW arc', function () {
+        let circle = new Flatten.Circle(new Flatten.Point(0,0), 2);
+        let arc = circle.toArc(false);
+        expect(arc.sweep).to.equal(Flatten.PIx2);
+        expect(arc.start.equalTo(point(-2,0))).to.be.true;
+        expect(arc.end.equalTo(point(-2,0))).to.be.true;
+    });
 });
 
 describe('#Flatten.Segment', function() {
@@ -391,6 +421,9 @@ describe('#Flatten.Segment', function() {
         let segment = new Flatten.Segment(ps, pe);
         expect(segment.start).to.deep.equal({x:1, y:1});
         expect(segment.end).to.deep.equal({x:2, y:3});
+    });
+    it('New segment may be constructed by function call', function() {
+        expect(segment(point(1,1), point(2,3))).to.deep.equal(new Flatten.Segment(new Flatten.Point(1,1), new Flatten.Point(2,3)));
     });
     it('Method clone copy to a new instance of Segment', function () {
         let ps = new Flatten.Point(1,1);
@@ -530,6 +563,9 @@ describe('#Flatten.Arc', function() {
         let arc = new Flatten.Arc(new Flatten.Point(), 5, Math.PI/4, Math.PI/4, true);
         expect(arc.sweep).to.equal(0);
     });
+    it('New arc may be constructed by function call', function() {
+        expect(arc(point(), 5, Math.PI, 3*Math.PI, true)).to.deep.equal(new Flatten.Arc(new Flatten.Point(), 5, Math.PI, 3*Math.PI, true));
+    });
     it('Getter arc.start returns start point', function () {
         let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, true);
         expect(arc.start).to.deep.equal({x:Math.cos(-Math.PI/4),y:Math.sin(-Math.PI/4)});
@@ -548,32 +584,172 @@ describe('#Flatten.Arc', function() {
     });
     it('Getter arc.box returns arc bounding box, CCW case', function () {
         let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, true);
-        expect(Flatten.Utils.EQ(arc.box.xmin,Math.sqrt(2)/2)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.ymin,-Math.sqrt(2)/2)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.xmax,1)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.ymax,Math.sqrt(2)/2)).to.equal(true);
+        let box = arc.box;
+        expect(Flatten.Utils.EQ(box.xmin,Math.sqrt(2)/2)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymin,-Math.sqrt(2)/2)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.xmax,1)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymax,Math.sqrt(2)/2)).to.equal(true);
     });
     it('Getter arc.box returns arc bounding box, CW case', function () {
         let arc = new Flatten.Arc(new Flatten.Point(), 1, -Math.PI/4, Math.PI/4, false);
-        expect(Flatten.Utils.EQ(arc.box.xmin,-1)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.ymin,-1)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.xmax,Math.sqrt(2)/2)).to.equal(true);
-        expect(Flatten.Utils.EQ(arc.box.ymax,1)).to.equal(true);
+        let box = arc.box;
+        expect(Flatten.Utils.EQ(box.xmin,-1)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymin,-1)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.xmax,Math.sqrt(2)/2)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymax,1)).to.equal(true);
     });
-
+    it('Getter arc.box returns arc bounding box, circle case', function () {
+        let arc = circle(point(200,200), 75).toArc(false);
+        let box = arc.box;
+        expect(Flatten.Utils.EQ(box.xmin,125)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymin,125)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.xmax,275)).to.equal(true);
+        expect(Flatten.Utils.EQ(box.ymax,275)).to.equal(true);
+    });
+    describe('#Flatten.Arc.breakToFunctional', function() {
+        it('Case 1. No intersection with axes', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/6, Math.PI/3, true);
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(1);
+            expect(Flatten.Utils.EQ(f_arcs[0].startAngle, arc.startAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[0].endAngle, arc.endAngle)).to.equal(true);
+        });
+        it('Case 2. One intersection, two sub arcs', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/6, 3*Math.PI/4, true);
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(2);
+            expect(Flatten.Utils.EQ(f_arcs[0].startAngle, arc.startAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[0].endAngle, Math.PI/2)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[1].startAngle, Math.PI/2)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[1].endAngle, arc.endAngle)).to.equal(true);
+        });
+        it('Case 3. One intersection, two sub arcs, CW', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/6, -Math.PI/6, false);
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(2);
+            expect(Flatten.Utils.EQ(f_arcs[0].startAngle, arc.startAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[0].endAngle, 0)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[1].startAngle, 0)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[1].endAngle, arc.endAngle)).to.equal(true);
+        });
+        it('Case 4. One intersection, start at extreme point', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/2, 3*Math.PI/4, true);
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(1);
+            expect(Flatten.Utils.EQ(f_arcs[0].startAngle, Math.PI/2)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[0].endAngle, arc.endAngle)).to.equal(true);
+        });
+        it('Case 5. 2 intersections, 3 parts', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/4, 5*Math.PI/4, true);
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(3);
+            expect(Flatten.Utils.EQ(f_arcs[0].startAngle, arc.startAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[0].endAngle, Math.PI/2)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[1].endAngle, Math.PI)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[2].endAngle, arc.endAngle)).to.equal(true);
+        });
+        it('Case 6. 2 intersections, 3 parts, CW', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, 3*Math.PI/4, -Math.PI/4, false);
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(3);
+            expect(Flatten.Utils.EQ(f_arcs[0].startAngle, arc.startAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[0].endAngle, Math.PI/2)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[1].startAngle, Math.PI/2)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[1].endAngle, 0)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[2].startAngle, 0)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[2].endAngle, arc.endAngle)).to.equal(true);
+        });
+        it('Case 7. 2 intersections on extreme points, 1 parts, CW', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/2, 0, false);
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(1);
+            expect(Flatten.Utils.EQ(f_arcs[0].startAngle, Math.PI/2)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[0].endAngle, 0)).to.equal(true);
+        });
+        it('Case 7. 4 intersections on extreme points, 5 parts', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/3, Math.PI/6, true);
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(5);
+            expect(Flatten.Utils.EQ(f_arcs[0].startAngle, arc.startAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[4].endAngle, arc.endAngle)).to.equal(true);
+        });
+        it('Case 8. Full circle, 4 intersections on extreme points, 4 parts', function () {
+            let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/2, Math.PI/2 + 2*Math.PI, true);
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(4);
+        });
+    });
+    describe('#Flatten.Arc.intersect', function() {
+        it('Intersect arc with segment', function() {
+            let arc = new Arc(point(), 1, 0, Math.PI, true);
+            let segment = new Segment(-1, 0.5, 1, 0.5);
+            let ip = arc.intersect(segment);
+            expect(ip.length).to.equal(2);
+        });
+        it('Intersect arc with arc', function() {
+            let arc1 = new Arc(point(), 1, 0, Math.PI, true);
+            let arc2 = new Arc(point(0,1), 1, Math.PI, 2*Math.PI, true);
+            let ip = arc1.intersect(arc2);
+            expect(ip.length).to.equal(2);
+        });
+        it('Intersect arc with arc, case of touching', function () {
+            let arc1 = new Arc(point(), 1, 0, Math.PI, true);
+            let arc2 = new Arc(point(0,2), 1, -Math.PI/4, -3*Math.PI*4, false);
+            let ip = arc1.intersect(arc2);
+            expect(ip.length).to.equal(1);
+            expect(ip[0]).to.deep.equal({x:0,y:1});
+        });
+        it('Intersect arc with arc, overlapping case', function () {
+            let arc1 = new Arc(point(), 1, 0, Math.PI, true);
+            let arc2 = new Arc(point(), 1, -Math.PI/2, Math.PI/2, true);
+            let ip = arc1.intersect(arc2);
+            expect(ip.length).to.equal(2);
+            expect(ip[0].equalTo(point(1,0))).to.equal(true);
+            expect(ip[1].equalTo(point(0,1))).to.equal(true);
+        });
+        it('Intersect arc with arc, overlapping case, 4 points', function () {
+            let arc1 = new Arc(point(), 1, -Math.PI/4, 5*Math.PI/4, true);
+            let arc2 = new Arc(point(), 1, Math.PI/4, 3*Math.PI/4, false);
+            let ip = arc1.intersect(arc2);
+            expect(ip.length).to.equal(4);
+        });
+    });
+    it('Calculate signed area under circular arc, full circle case, CCW', function() {
+        let arc = new Arc(point(0,1), 1, 0, 2*Math.PI, true);
+        let area = arc.definiteIntegral();
+        expect( Flatten.Utils.EQ(area, -Math.PI)).to.equal(true);
+    });
+    it('Calculate signed area under circular arc, full circle case, CW', function() {
+        let arc = new Arc(point(0,1), 1, 0, 2*Math.PI, false);
+        let area = arc.definiteIntegral();
+        expect( Flatten.Utils.EQ(area, Math.PI)).to.equal(true);
+    });
+    it('It can calculate tangent vector in start point, CCW case', function () {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
+        let tangent = arc.tangentInStart();
+        expect(tangent.equalTo(vector(Math.cos(3*Math.PI/4), Math.sin(3*Math.PI/4)))).to.be.true;
+    });
+    it('It can calculate tangent vector in start point, CW case', function () {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CW);
+        let tangent = arc.tangentInStart();
+        expect(tangent.equalTo(vector(Math.cos(7*Math.PI/4), Math.sin(7*Math.PI/4)))).to.be.true;
+    });
+    it('It can calculate tangent vector in end point, CCW case', function () {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
+        let tangent = arc.tangentInEnd();
+        expect(tangent.equalTo(vector(Math.cos(Math.PI/4), Math.sin(Math.PI/4)))).to.be.true;
+    });
+    it('It can calculate tangent vector in end point, CW case', function () {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CW);
+        let tangent = arc.tangentInEnd();
+        expect(tangent.equalTo(vector(Math.cos(5*Math.PI/4), Math.sin(5*Math.PI/4)))).to.be.true;
+    });
 });
 
 describe('#Flatten.Box', function() {
     it('May create new instance of Box', function () {
         let box = new Flatten.Box();
         expect(box).to.be.an.instanceof(Flatten.Box);
-    });
-    it('Default constructor creates box with infinite values', function () {
-        let box = new Flatten.Box();
-        expect(box.xmin).to.equal(-Infinity);
-        expect(box.ymin).to.equal(-Infinity);
-        expect(box.xmax).to.equal(Infinity);
-        expect(box.xmax).to.equal(Infinity);
     });
     it('Method intersect returns true if two boxes intersected', function () {
         let box1 = new Flatten.Box(1, 1, 3, 3);
@@ -587,98 +763,82 @@ describe('#Flatten.Box', function() {
     });
 });
 
-describe('#Data_structures.PlanarSet', function() {
-    let Index = class Dummy {
-        add() {}
-        delete() {}
-        find() {}
-    };
-    it('Class PlanarSet defined', function() {
-        expect(PlanarSet).to.exist;
+describe('#Flatten.Ray', function() {
+    it('May create new instance of Ray', function () {
+        let ray = new Ray();
+        expect(ray).to.be.an.instanceof(Ray);
+        expect(ray.start).to.be.deep.equal({x:0,y:0})
     });
-    it('May construct new instance of PlanarSet', function () {
-        let planarSet = new PlanarSet(Index);
-        expect(planarSet).to.be.an.instanceof(PlanarSet);
+    it('May return bounding box of ray', function () {
+        let ray = new Ray(2,2);
+        expect(ray.box).to.be.deep.equal({xmin:2,ymin:2,xmax:Number.POSITIVE_INFINITY,ymax:2});
     });
-    it('May add planar objects', function () {
-        let planarSet = new PlanarSet(Index);
-        let segment = new Flatten.Segment(1,2,4,5);
-        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
-        planarSet.add(segment);
-        planarSet.add(circle);
-        expect(planarSet.has(segment)).to.equal(true);
-        expect(planarSet.has(circle)).to.equal(true);
-        expect(planarSet.size).to.equal(2);
+    it('May find intersection between ray and segment. Case 1. Quick reject', function() {
+        let r =  ray(2,2);
+        let seg = segment(point(0,3), point(1,1));
+        let ip = r.intersect(seg);
+        expect(ip.length).to.be.equal(0);
     });
-    it('May delete planar objects', function () {
-        let planarSet = new PlanarSet(Index);
-        let segment = new Flatten.Segment(1,2,4,5);
-        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
-        planarSet.add(segment);
-        planarSet.add(circle);
-        planarSet.delete(segment);
-        expect(planarSet.has(segment)).to.equal(false);
-        expect(planarSet.size).to.equal(1);
+    it('May find intersection between ray and segment. Case 2. No intersection', function() {
+        let r =  ray(2,2);
+        let seg = segment(point(0,3), point(3,0));
+        let ip = r.intersect(seg);
+        expect(ip.length).to.be.equal(0);
     });
-    it('May not add same object twice (without error ?) ', function () {
-        let planarSet = new PlanarSet(Index);
-        let segment = new Flatten.Segment(1,2,4,5);
-        planarSet.add(segment);
-        planarSet.add(segment);
-        expect(planarSet.size).to.equal(1);
+    it('May find intersection between ray and segment. Case 3. Start intersection', function() {
+        let r =  ray(2,2);
+        let seg = segment(point(1,1), point(3,3));
+        let ip = r.intersect(seg);
+        expect(ip.length).to.be.equal(1);
+        expect(ip[0]).to.be.deep.equal(point(2,2));
     });
-    it('May find planar objects in given box', function () {
-        let planarSet = new PlanarSet();
-        let segment = new Segment(1,1,2,2);
-        let circle = new Circle(new Point(3,3), 1);
-        planarSet.add(segment);
-        planarSet.add(circle);
-        let resp1 = planarSet.find(new Box(0,0,1,1));
-        let resp2 = planarSet.find(new Box(3,3,3,5));
-        expect(resp1.length).to.equal(1);
-        expect(resp1[0]).to.equal(segment);
-        expect(resp2.length).to.equal(1);
-        expect(resp2[0]).to.equal(circle);
+    it('May find intersection between ray and segment. Case 4. One not start intersection', function() {
+        let r =  ray(2,2);
+        let seg = segment(point(4,0), point(4,4));
+        let ip = r.intersect(seg);
+        expect(ip.length).to.be.equal(1);
+        expect(ip[0]).to.be.deep.equal(point(4,2));
     });
-
-});
-
-describe('#Flatten.Polygon', function() {
-    it('May create new instance of Polygon', function () {
-        let polygon = new Polygon();
-        expect(polygon).to.be.an.instanceof(Polygon);
+    it('May find intersection between ray and segment. Case 5. Two intersections', function() {
+        let r =  ray(2,2);
+        let seg = segment(point(4,2), point(8,2));
+        let ip = r.intersect(seg);
+        expect(ip.length).to.be.equal(2);
+        expect(ip[0]).to.be.deep.equal(point(4,2));
+        expect(ip[1]).to.be.deep.equal(point(8,2));
     });
-    it('Default construct creates instance of Polygon faces edges as instances of PlanarSet', function () {
-        let polygon = new Polygon();
-        expect(polygon.edges).to.be.an.instanceof(PlanarSet);
-        expect(polygon.faces).to.be.an.instanceof(PlanarSet);
+    it('May find intersection between ray and arc. Case 1. Quick reject', function() {
+        let r =  ray(3,3);
+        let a = arc(point(6,0), 2, 0, Math.PI, Flatten.CCW);
+        let ip = r.intersect(a);
+        expect(ip.length).to.be.equal(0);
     });
-    it('Default construct creates instance of Polygon with 0 faces and 0 edges', function () {
-        let polygon = new Polygon();
-        expect(polygon.edges.size).to.equal(0);
-        expect(polygon.faces.size).to.equal(0);
+    it('May find intersection between ray and arc. Case 2. No interection', function() {
+        let r =  ray(3,3);
+        let a = arc(point(4,3), 2, Math.PI/2, 3*Math.PI/2, Flatten.CCW);
+        let ip = r.intersect(a);
+        expect(ip.length).to.be.equal(0);
     });
-    it('Can construct Polygon from array of 3 points', function () {
-        let polygon = new Polygon();
-        let points = [
-            new Point(1,1), new Point(5,1), new Point(3, 5)
-        ];
-        polygon.addFace(points);
-        expect(polygon.edges.size).to.equal(3);
-        expect(polygon.faces.size).to.equal(1);
+    it('May find intersection between ray and arc. Case 3. One touching interection', function() {
+        let r =  ray(3,3);
+        let a = arc(point(6, 0), 3, Math.PI/2, 3*Math.PI/2, Flatten.CCW);
+        let ip = r.intersect(a);
+        expect(ip.length).to.be.equal(1);
+        expect(ip[0]).to.be.deep.equal(point(6,3));
     });
-    it('Can construct Polygon from array of 3 points', function () {
-        let polygon = new Polygon();
-        let points = [
-            new Point(1,1), new Point(5,1), new Point(3, 5)
-        ];
-        let segments = [
-            new Segment(points[0], points[1]),
-            new Segment(points[1], points[2]),
-            new Segment(points[2], points[0])
-        ]
-        polygon.addFace(segments);
-        expect(polygon.edges.size).to.equal(3);
-        expect(polygon.faces.size).to.equal(1);
+    it('May find intersection between ray and arc. Case 4. One regular interection', function() {
+        let r =  ray(3,3);
+        let a = arc(point(4,3), 2, Math.PI/2, 3*Math.PI/2, Flatten.CW);
+        let ip = r.intersect(a);
+        expect(ip.length).to.be.equal(1);
+        expect(ip[0]).to.be.deep.equal(point(6,3));
+    });
+    it('May find intersection between ray and arc. Case 5. Two interections', function() {
+        let r =  ray(3,3);
+        let a = arc(point(6,3), 3, 0, Math.PI, Flatten.CW);
+        let ip = r.intersect(a);
+        expect(ip.length).to.be.equal(2);
+        expect(ip[0]).to.be.deep.equal(point(3,3));
+        expect(ip[1]).to.be.deep.equal(point(9,3));
     });
 });

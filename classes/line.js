@@ -98,7 +98,7 @@ module.exports = function(Flatten) {
          * @returns {boolean}
          */
         parallelTo(other_line) {
-            return this.norm.equalTo(other_line.norm);
+            return Flatten.Utils.EQ_0(this.norm.cross(other_line.norm));
         }
 
         /**
@@ -148,6 +148,42 @@ module.exports = function(Flatten) {
             }
         }
 
+        /**
+         * Calculate distance and shortest segment from line to shape
+         * @param shape
+         * @returns {Number | Segment} - distance and shortest segment from line to shape
+         */
+        distanceTo(shape) {
+            let {Distance} = Flatten;
+
+            if (shape instanceof Flatten.Point) {
+                let [distance, shortest_segment] = Distance.point2line(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                let [distance, shortest_segment] = Distance.circle2line(shape, this);
+                shortest_segment = shortest_segment.swap();
+                return [distance, shortest_segment];
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                let [distance, shortest_segment] = Distance.segment2line(shape, this);
+                return [distance, shortest_segment.swap()];
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                let [distance, shortest_segment] = Distance.arc2line(shape, this);
+                return [distance, shortest_segment.swap()];
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
+                return [distance, shortest_segment];
+            }
+        }
+
         static points2norm(pt1, pt2) {
             if (pt1.equalTo(pt2)) {
                 throw Flatten.Errors.ILLEGAL_PARAMETERS;
@@ -178,7 +214,7 @@ module.exports = function(Flatten) {
         static intersectLine2Circle(line, circle) {
             let ip = [];
             let prj = circle.pc.projectionOn(line);            // projection of circle center on line
-            let dist = circle.pc.distanceTo(prj);              // distance from circle center to projection
+            let dist = circle.pc.distanceTo(prj)[0];              // distance from circle center to projection
 
             if (Flatten.Utils.EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
                 ip.push(prj);
@@ -226,7 +262,7 @@ module.exports = function(Flatten) {
         static intersectLine2Arc(line, arc) {
             let ip = [];
 
-            if (line.box.notIntersect(arc.box)) {
+            if (Line.intersectLine2Box(line, arc.box).length == 0) {
                 return ip;
             }
 
@@ -240,5 +276,11 @@ module.exports = function(Flatten) {
 
             return ip;
         }
-    }
+    };
+
+    /**
+     * Function to create line equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.line = (...args) => new Flatten.Line(...args);
 };
