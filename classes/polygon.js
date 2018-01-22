@@ -57,7 +57,7 @@ module.exports = function(Flatten) {
          * @returns {Face}
          */
         addFace(...args) {
-            let face = new Face(this, args);
+            let face = args.length === 1 && args[0] instanceof Face ? args[0] : new Face(this, args);
             this.faces.add(face);
             return face;
         }

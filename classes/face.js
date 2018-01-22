@@ -4,7 +4,7 @@
 
 "use strict";
 
-module.exports = function(Flatten) {
+module.exports = function (Flatten) {
     let {Point, Segment, Arc, Box, Edge} = Flatten;
     /**
      * Class representing a face (closed loop) of polygon.
@@ -23,7 +23,7 @@ module.exports = function(Flatten) {
              */
             this.last;
 
-            this._box =  undefined;  // new Box();
+            this._box = undefined;  // new Box();
             this._orientation = undefined;
 
             if (args.length == 0) {
@@ -277,6 +277,55 @@ module.exports = function(Flatten) {
                 this._box = box;
             }
             return this._box;
+        }
+
+        /**
+         * Check relation between face and other polygon
+         * on strong assumption that they are NOT INTERSECTED
+         * There are 4 options:
+         * face disjoint to polygon
+         * face inside polygon
+         * face contains polygon
+         * face interlaced with polygon: inside some face and contains other face
+         * @param polygon
+         */
+        getRelation(polygon) {
+            let bvThisInOther = this.first.setInclusion(polygon);
+            let resp = polygon.faces.search(this.box);
+            if (resp.length === 0) {
+                return bvThisInOther;        // OUTSIDE or INSIDE
+            }
+            else {                           // possible INTERLACE
+                let polyTmp = new Flatten.Polygon();
+                polyTmp.addFace(this);
+
+                let numInsideThis = 0;
+                for (let face of resp) {
+                    let bvOtherInThis = face.first.setInclusion(polyTmp);
+                    if (bvOtherInThis === Flatten.INSIDE) {
+                        numInsideThis++;
+                    }
+                }
+                if (bvThisInOther === Flatten.OUTSIDE) {
+                    if (numInsideThis === 0) {                   // none inside this - outside
+                        return Flatten.OUTSIDE;
+                    }
+                    else if (numInsideThis === resp.length) {      // all from resp inside this - contains or interlace
+                        if (resp.length === polygon.faces.size) {
+                            return Flatten.CONTAINS;               // all faces from polygon are in response - contains
+                        }
+                        else {
+                            return Flatten.INTERLACE;              // some faces inside - interlace
+                        }
+                    }
+                    else {
+                        return Flatten.INTERLACE;                  // some faces inside - interlace
+                    }
+                }
+                else if (bvThisInOther === Flatten.INSIDE) {
+                    return numInsideThis === 0 ? Flatten.INSIDE : Flatten.INTERLACE;
+                }
+            }
         }
 
         svg() {

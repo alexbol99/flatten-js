@@ -69,6 +69,12 @@ module.exports = function (Flatten) {
             // filter duplicated intersection points
             BooleanOp.filterDuplicatedIntersections(intersections);
 
+            // remove not relevant not intersected faces from res_polygon
+            // if op == UNION, remove faces that are included in wrk_polygon without intersection
+            // if op == INTERSECT, remove faces that are not included into wrk_polygon
+            BooleanOp.removeNotRelevantNotIntersectedChains(res_poly, wrk_poly, op, intersections.int_points1);
+            // BooleanOp.removeNotRelevantNotIntersectedChains(wrk_poly, res_poly, op, intersections.int_points2);
+
             // initialize inclusion flags for edges incident to intersections
             BooleanOp.initializeInclusionFlags(intersections.int_points1);
             BooleanOp.initializeInclusionFlags(intersections.int_points2);
@@ -268,6 +274,21 @@ module.exports = function (Flatten) {
                 intersections.int_points1_sorted = [];
                 intersections.int_points2_sorted = [];
                 sortIntersections(intersections);
+            }
+        }
+
+        static removeNotRelevantNotIntersectedChains(res_poly, wrk_poly, op, int_points1) {
+            let toBeDeleted = [];
+            for (let face of res_poly.faces) {
+                if (!int_points1.find((ip) => ip.face === face)) {
+                    let rel = face.getRelation(wrk_poly);
+                    if (op === Flatten.BOOLEAN_UNION && rel === Flatten.INSIDE) {
+                        toBeDeleted.push(face);
+                    }
+                }
+            }
+            for (let i = 0; i < toBeDeleted.length; i++) {
+                res_poly.deleteFace(toBeDeleted[i]);
             }
         }
 
