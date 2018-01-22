@@ -218,6 +218,7 @@ module.exports = function(Flatten) {
                 else {
                     edge.arc_length = edge.prev.arc_length + edge.prev.length;
                 }
+                edge.face = this;
             }
         }
 

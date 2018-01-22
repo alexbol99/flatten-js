@@ -130,7 +130,7 @@ module.exports = function (Flatten) {
         }
 
         static addToIntPoints(edge, pt, int_points) {
-            let id = int_points.num;
+            let id = int_points.length;
             let split = edge.shape.split(pt);
             let len = split.length === 0 ? 0 : split[0].length;
             let is_vertex = NOT_VERTEX;
@@ -229,7 +229,7 @@ module.exports = function (Flatten) {
 
             int_point_ref2 = intersections.int_points2_sorted[0];
             int_point_ref1 = intersections.int_points1[int_point_ref2.id];
-            for (let i = 1; i < intersections.int_points2_sorted.legth; i++) {
+            for (let i = 1; i < intersections.int_points2_sorted.length; i++) {
                 let int_point_cur2 = intersections.int_points2_sorted[i];
 
                 if (int_point_cur2.id == -1) continue;
@@ -315,8 +315,8 @@ module.exports = function (Flatten) {
 
                     polygon.removeChain(face, edge_from, edge_to);
 
-                    int_point_current.edge_after === undefined;
-                    int_point_next.edge_before === undefined;
+                    int_point_current.edge_after = undefined;
+                    int_point_next.edge_before = undefined;
                 }
             }
         };
@@ -332,7 +332,7 @@ module.exports = function (Flatten) {
         static swapLinks(res_polygon, wrk_polygon, intersections) {
             if (intersections.int_points1.length === 0) return;
 
-            for (let i = 0; i < intersections.int_points1.num; i++) {
+            for (let i = 0; i < intersections.int_points1.length; i++) {
                 let int_point1 = intersections.int_points1[i];
                 let int_point2 = intersections.int_points2[i];
 

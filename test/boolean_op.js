@@ -38,18 +38,18 @@ describe('#Algorithms.Boolean Operations', function() {
             expect(face.size).to.equal(6);
         }
     });
-    // it('Can perform boolean op. Case 1 - 2 polygons, union', function () {
-    //     "use strict";
-    //     let poly1 = new Polygon();
-    //     poly1.addFace([point(0,0), point(150, 0), point(150,30), point(0, 30)]);
-    //     let poly2 = new Polygon();
-    //     poly2.addFace([point(100, 20), point(200, 20), point(200, 40), point(100, 40)]);
-    //     let poly = union(poly1, poly2);
-    //     expect(poly.faces.size).to.equal(1);
-    //     for (let face of poly.faces) {
-    //         expect(face.size).to.equal(8);
-    //     }
-    // });
+    it('Can perform boolean op. Case 1 - 2 polygons, union', function () {
+        "use strict";
+        let poly1 = new Polygon();
+        poly1.addFace([point(0,0), point(150, 0), point(150,30), point(0, 30)]);
+        let poly2 = new Polygon();
+        poly2.addFace([point(100, 20), point(200, 20), point(200, 40), point(100, 40)]);
+        let poly = union(poly1, poly2);
+        expect(poly.faces.size).to.equal(1);
+        for (let face of poly.faces) {
+            expect(face.size).to.equal(8);
+        }
+    });
     // it('Can clip segment case 2 - 1 intersections, clip till end', function () {
     //     "use strict";
     //     let points = [point(100, 20), point(200, 20), point(200, 40), point(100, 40)];
