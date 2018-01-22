@@ -38,7 +38,7 @@ describe('#Algorithms.Boolean Operations', function() {
             expect(face.size).to.equal(6);
         }
     });
-    it('Can perform boolean op. Case 1 - 2 polygons, union', function () {
+    it('Can perform union. 2 polygons, intersect', function () {
         "use strict";
         let poly1 = new Polygon();
         poly1.addFace([point(0,0), point(150, 0), point(150,30), point(0, 30)]);
@@ -49,7 +49,29 @@ describe('#Algorithms.Boolean Operations', function() {
         for (let face of poly.faces) {
             expect(face.size).to.equal(8);
         }
+        let vertices = poly.vertices;
+        expect(vertices.find((pt) => pt.equalTo(point(0,0)))).to.be.defined;
+        expect(vertices.find((pt) => pt.equalTo(point(150,0)))).to.be.defined;
+        expect(vertices.find((pt) => pt.equalTo(point(150,30)))).to.be.undefined;
+        expect(vertices.find((pt) => pt.equalTo(point(0,30)))).to.be.defined;
+        expect(vertices.find((pt) => pt.equalTo(point(100,20)))).to.be.undefined;
+        expect(vertices.find((pt) => pt.equalTo(point(200,20)))).to.be.defined;
+        expect(vertices.find((pt) => pt.equalTo(point(200,40)))).to.be.defined;
+        expect(vertices.find((pt) => pt.equalTo(point(100,40)))).to.be.defined;
     });
+    it('Can perform union. 2 polygons, disjoint', function () {
+        "use strict";
+        let poly1 = new Polygon();
+        poly1.addFace([point(0,0), point(50, 0), point(50,30), point(0, 30)]);
+        let poly2 = new Polygon();
+        poly2.addFace([point(100, 50), point(200, 50), point(200, 100), point(100, 100)]);
+        let poly = union(poly1, poly2);
+        expect(poly.faces.size).to.equal(2);
+        for (let face of poly.faces) {
+            expect(face.size).to.equal(4);
+        }
+    });
+
     // it('Can clip segment case 2 - 1 intersections, clip till end', function () {
     //     "use strict";
     //     let points = [point(100, 20), point(200, 20), point(200, 40), point(100, 40)];

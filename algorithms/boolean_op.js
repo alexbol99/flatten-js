@@ -86,7 +86,7 @@ module.exports = function (Flatten) {
             BooleanOp.removeNotRelevantChains(wrk_poly, op, intersections.int_points2_sorted);
 
             // add edges of wrk_poly into the edge container of res_poly
-            BooleanOp.copyEdgesToContainer(res_poly, wrk_poly);
+            BooleanOp.copyWrkToRes(res_poly, wrk_poly, op, intersections.int_points2);
 
             // swap links from res_poly to wrk_poly and vice versa
             BooleanOp.swapLinks(res_poly, wrk_poly, intersections);
@@ -173,6 +173,7 @@ module.exports = function (Flatten) {
         }
 
         static splitByIntersections(polygon, int_points) {
+            if (!int_points) return;
             for (let int_point of int_points) {
                 let edge = int_point.edge_before;
 
@@ -297,6 +298,7 @@ module.exports = function (Flatten) {
         }
 
         static removeNotRelevantChains(polygon, op, int_points) {
+            if (!int_points) return;
             for (let i = 0; i < int_points.length; i++) {
                 // TODO: Support claster of duplicated points with same <x,y> came from different faces
 
@@ -321,10 +323,15 @@ module.exports = function (Flatten) {
             }
         };
 
-        static copyEdgesToContainer(res_polygon, wrk_polygon) {
+        static copyWrkToRes(res_polygon, wrk_polygon, op, int_points) {
             for (let face of wrk_polygon.faces) {
                 for (let edge of face) {
                     res_polygon.edges.add(edge);
+                }
+                // If union - add face from wrk_polygon that is not intersected with res_polygon
+                if ( op === Flatten.BOOLEAN_UNION &&
+                    int_points && int_points.find((ip) => (ip.face === face)) === undefined) {
+                    res_polygon.addFace(face.first, face.last);
                 }
             }
         }
