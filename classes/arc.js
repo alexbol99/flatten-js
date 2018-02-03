@@ -165,6 +165,14 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Returns chord height ("sagitta") of the arc
+         * @returns {number}
+         */
+        chordHeight() {
+            return  (1.0 - Math.cos(Math.abs(this.sweep/2.0))) * this.r;
+        }
+
+        /**
          * Returns array of intersection points between arc and other shape
          * @param shape
          * @returns {*}

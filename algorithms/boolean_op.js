@@ -72,8 +72,8 @@ module.exports = function (Flatten) {
             // remove not relevant not intersected faces from res_polygon
             // if op == UNION, remove faces that are included in wrk_polygon without intersection
             // if op == INTERSECT, remove faces that are not included into wrk_polygon
-            BooleanOp.removeNotRelevantNotIntersectedChains(res_poly, wrk_poly, op, intersections.int_points1);
-            // BooleanOp.removeNotRelevantNotIntersectedChains(wrk_poly, res_poly, op, intersections.int_points2);
+            BooleanOp.removeNotRelevantNotIntersectedFaces(res_poly, wrk_poly, op, intersections.int_points1);
+            BooleanOp.removeNotRelevantNotIntersectedFaces(wrk_poly, res_poly, op, intersections.int_points2);
 
             // initialize inclusion flags for edges incident to intersections
             BooleanOp.initializeInclusionFlags(intersections.int_points1);
@@ -85,11 +85,12 @@ module.exports = function (Flatten) {
 
             // TODO: fix bondary conflicts
 
-            // TODO: set overlaping flags
+            // Set overlapping flags for boundary chains: SAME or OPPOSITE
+            BooleanOp.setOverlappingFlags(intersections);
 
             // remove not relevant chains between intersection points
-            BooleanOp.removeNotRelevantChains(res_poly, op, intersections.int_points1_sorted);
-            BooleanOp.removeNotRelevantChains(wrk_poly, op, intersections.int_points2_sorted);
+            BooleanOp.removeNotRelevantChains(res_poly, op, intersections.int_points1_sorted, true);
+            BooleanOp.removeNotRelevantChains(wrk_poly, op, intersections.int_points2_sorted, false);
 
             // add edges of wrk_poly into the edge container of res_poly
             BooleanOp.copyWrkToRes(res_poly, wrk_poly, op, intersections.int_points2);
@@ -131,14 +132,25 @@ module.exports = function (Flatten) {
                     }
                 }
             }
-
             return intersections;
         }
 
         static addToIntPoints(edge, pt, int_points) {
             let id = int_points.length;
             let split = edge.shape.split(pt);
-            let len = split.length === 0 ? 0 : split[0].length;
+            if (split.length === 0) return;     // Means point does not belong to edge
+            let len = 0;
+            if (split.length === 1) {           // Edge was not split
+                if (edge.shape.start.equalTo(pt)) {
+                    len = 0;
+                }
+                else if (edge.shape.end.equalTo(pt)) {
+                    len = edge.shape.length;
+                }
+            }
+            else {                             // Edge was split into to edges
+                len = split[0].length;
+            }
             let is_vertex = NOT_VERTEX;
             if (Flatten.Utils.EQ(len, 0)) {
                 is_vertex |= START_VERTEX;
@@ -183,15 +195,21 @@ module.exports = function (Flatten) {
             for (let int_point of int_points) {
                 let edge = int_point.edge_before;
 
-                // TODO: recalculate vertex flag: it may be changed after previous split
+                // recalculate vertex flag: it may be changed after previous split
+                if (edge.shape.start.equalTo(int_point.pt)) {
+                    int_point.is_vertex |= START_VERTEX;
+                }
+                if (edge.shape.end.equalTo(int_point.pt)) {
+                    int_point.is_vertex |= END_VERTEX;
+                }
 
                 if (int_point.is_vertex & START_VERTEX) {  // nothing to split
                     int_point.edge_before = edge.prev;
                     int_point.is_vertex = END_VERTEX;
-                    return;
+                    continue;
                 }
                 if (int_point.is_vertex & END_VERTEX) {    // nothing to split
-                    return;
+                    continue;
                 }
 
                 let newEdge = polygon.addVertex(int_point.pt, edge);
@@ -263,8 +281,8 @@ module.exports = function (Flatten) {
             }
 
             if (do_squeeze) {
-                intersections.int_points1.filter((int_point) => int_point.id >= 0);
-                intersections.int_points2.filter((int_point) => int_point.id >= 0);
+                intersections.int_points1 = intersections.int_points1.filter((int_point) => int_point.id >= 0);
+                intersections.int_points2 = intersections.int_points2.filter((int_point) => int_point.id >= 0);
 
                 // update id's
                 intersections.int_points1.forEach((int_point, index) => int_point.id = index);
@@ -273,22 +291,25 @@ module.exports = function (Flatten) {
                 // re-create sorted
                 intersections.int_points1_sorted = [];
                 intersections.int_points2_sorted = [];
-                sortIntersections(intersections);
+                BooleanOp.sortIntersections(intersections);
             }
         }
 
-        static removeNotRelevantNotIntersectedChains(res_poly, wrk_poly, op, int_points1) {
+        static removeNotRelevantNotIntersectedFaces(poly1, poly2, op, int_points1) {
             let toBeDeleted = [];
-            for (let face of res_poly.faces) {
+            for (let face of poly1.faces) {
                 if (!int_points1.find((ip) => ip.face === face)) {
-                    let rel = face.getRelation(wrk_poly);
+                    let rel = face.getRelation(poly2);
                     if (op === Flatten.BOOLEAN_UNION && rel === Flatten.INSIDE) {
+                        toBeDeleted.push(face);
+                    }
+                    else if (op === Flatten.BOOLEAN_INTERSECT && rel === Flatten.OUTSIDE) {
                         toBeDeleted.push(face);
                     }
                 }
             }
             for (let i = 0; i < toBeDeleted.length; i++) {
-                res_poly.deleteFace(toBeDeleted[i]);
+                poly1.deleteFace(toBeDeleted[i]);
             }
         }
 
@@ -318,7 +339,102 @@ module.exports = function (Flatten) {
             }
         }
 
-        static removeNotRelevantChains(polygon, op, int_points) {
+        static setOverlappingFlags(intersections) {
+            let cur_face = undefined;
+            let first_int_point_in_face = undefined;
+            let next_int_point1 = undefined;
+            let num_int_points = intersections.int_points1.length;
+
+            for (let i = 0; i < num_int_points; i++) {
+                let cur_int_point1 = intersections.int_points1_sorted[i];
+
+                // Find boundary chain in the polygon1
+                if (cur_int_point1.face !== cur_face) {                               // next chain started
+                    first_int_point_in_face = i;
+                    cur_face = cur_int_point1.face;
+                }
+
+                if (i + 1 === num_int_points) {                                         // last int point in array
+                    next_int_point1 = first_int_point_in_face;
+                }
+                else if (intersections.int_points1_sorted[i + 1].face !== cur_face) {   // last int point in chain
+                    next_int_point1 = first_int_point_in_face;
+                }
+                else {                                                                // not a last point in chain
+                    next_int_point1 = intersections.int_points1_sorted[i + 1];
+                }
+
+                let edge_from1 = cur_int_point1.edge_after;
+                let edge_to1 = next_int_point1.edge_before;
+
+                if (!(edge_from1.bv === Flatten.BOUNDARY && edge_to1.bv === Flatten.BOUNDARY))      // not a boundary chain - skip
+                    continue;
+
+                if (edge_from1 !== edge_to1)                    //  one edge chain    TODO: support complex case
+                    continue;
+
+
+                /* Find boundary chain in polygon2 between same intersection points */
+                let cur_int_point2 = intersections.int_points2[cur_int_point1.id];
+                let next_int_point2 = intersections.int_points2[next_int_point1.id];
+
+                let edge_from2 = cur_int_point2.edge_after;
+                let edge_to2 = next_int_point2.edge_before;
+
+                /* if [edge_from2..edge_to2] is not a boundary chain, invert it */
+                /* check also that chain consist of one or two edges */
+                if (!(edge_from2.bv === Flatten.BOUNDARY && edge_to2.bv === Flatten.BOUNDARY && edge_from2 === edge_to2)) {
+                    cur_int_point2 = intersections.int_points2[next_int_point1.id];
+                    next_int_point2 = intersections.int_points2[cur_int_point1.id];
+
+                    edge_from2 = cur_int_point2.edge_after;
+                    edge_to2 = next_int_point2.edge_before;
+                }
+
+                if (!(edge_from2.bv === Flatten.BOUNDARY && edge_to2.bv === Flatten.BOUNDARY && edge_from2 === edge_to2))
+                    continue;                           // not an overlapping chain - skip   TODO: fix boundary conflict
+
+                // Set overlapping flag - one-to-one case
+                let flag = BooleanOp.edge2edgeOverlappingFlag(edge_from1.shape, edge_from2.shape);
+                /* Do not update overlap flag if already set on previous chain */
+                if (edge_from1.overlap === undefined) edge_from1.overlap = flag;
+                if (edge_from2.overlap === undefined) edge_from2.overlap = flag;
+            }
+        }
+
+        static edge2edgeOverlappingFlag(shape1, shape2) {
+            let flag = undefined;
+            if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
+                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end)) {
+                    flag = Flatten.OVERLAP_SAME;
+                }
+                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start)) {
+                    flag = Flatten.OVERLAP_OPPOSITE;
+                }
+            }
+            else if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
+                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.counterClockwise === shape2.counterClockwise &&
+                    shape1.middle().equalTo(shape2.middle()) ) {
+                    flag = Flatten.OVERLAP_SAME;
+                }
+                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.counterClockwise !== shape2.counterClockwise &&
+                    shape1.middle().equalTo(shape2.middle()) ) {
+                    flag = Flatten.OVERLAP_OPPOSITE;
+                }
+            }
+            else if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Arc ||
+                shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Segment) {
+                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.middle().equalTo(shape2.middle()) ) {
+                    flag = Flatten.OVERLAP_SAME;
+                }
+                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.middle().equalTo(shape2.middle()) ) {
+                    flag = Flatten.OVERLAP_OPPOSITE;
+                }
+            }
+            return flag;
+        }
+
+        static removeNotRelevantChains(polygon, op, int_points, is_res_polygon) {
             if (!int_points) return;
             for (let i = 0; i < int_points.length; i++) {
                 // TODO: Support claster of duplicated points with same <x,y> came from different faces
@@ -331,10 +447,12 @@ module.exports = function (Flatten) {
 
                 let face = int_point_current.face;
 
-                if ((edge_from.bv === Flatten.INSIDE && edge_to.bv === Flatten.INSIDE &&
-                        op === Flatten.BOOLEAN_UNION) ||
-                    (edge_from.bv === Flatten.OUTSIDE && edge_to.bv === Flatten.OUTSIDE &&
-                        op === Flatten.BOOLEAN_INTERSECT)) {
+                if ((edge_from.bv === Flatten.INSIDE && edge_to.bv === Flatten.INSIDE && op === Flatten.BOOLEAN_UNION) ||
+                    (edge_from.bv === Flatten.OUTSIDE && edge_to.bv === Flatten.OUTSIDE && op === Flatten.BOOLEAN_INTERSECT) ||
+                    ((edge_from.bv === Flatten.OUTSIDE || edge_to.bv === Flatten.OUTSIDE) && op === Flatten.BOOLEAN_SUBTRACT && !is_res_polygon) ||
+                    ((edge_from.bv === Flatten.INSIDE || edge_to.bv === Flatten.INSIDE) && op === Flatten.BOOLEAN_SUBTRACT && is_res_polygon) ||
+                    (edge_from.bv === Flatten.BOUNDARY && edge_to.bv === Flatten.BOUNDARY && (edge_from.overlap & Flatten.OVERLAP_SAME) && is_res_polygon) ||
+                    (edge_from.bv === Flatten.BOUNDARY && edge_to.bve === Flatten.BOUNDARY && (edge_from.overlap & Flatten.OPPOSITE) )) {
 
                     polygon.removeChain(face, edge_from, edge_to);
 
@@ -350,7 +468,7 @@ module.exports = function (Flatten) {
                     res_polygon.edges.add(edge);
                 }
                 // If union - add face from wrk_polygon that is not intersected with res_polygon
-                if ( op === Flatten.BOOLEAN_UNION &&
+                if (op === Flatten.BOOLEAN_UNION &&
                     int_points && int_points.find((ip) => (ip.face === face)) === undefined) {
                     res_polygon.addFace(face.first, face.last);
                 }
@@ -464,7 +582,7 @@ module.exports = function (Flatten) {
                 // Chain number was assigned to each edge of new face in addFace function
                 for (let int_point_tmp of int_points) {
                     if (int_point_tmp.edge_before && int_point_tmp.edge_after &&
-                    int_point_tmp.edge_before.face === face && int_point_tmp.edge_after.face === face) {
+                        int_point_tmp.edge_before.face === face && int_point_tmp.edge_after.face === face) {
                         int_point_tmp.face = face;
                     }
                 }

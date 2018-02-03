@@ -32,6 +32,8 @@ let Flatten = class Flatten {
         this.BOOLEAN_UNION = 1;
         this.BOOLEAN_INTERSECT = 2;
         this.BOOLEAN_SUBTRACT = 3;
+        this.OVERLAP_SAME = 1;
+        this.OVERLAP_OPPOSITE = 2;
     }
 };
 

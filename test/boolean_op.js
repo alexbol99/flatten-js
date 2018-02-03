@@ -83,27 +83,28 @@ describe('#Algorithms.Boolean Operations', function() {
             expect(face.size).to.equal(4);
         }
     });
-    // it('Can perform union. 2 polygons, 2 in 1', function () {
-    //     "use strict";
-    //     let poly1 = new Polygon();
-    //     poly1.addFace([point(0,0), point(50, 0), point(50,30), point(0, 30)]);
-    //     let poly2 = new Polygon();
-    //     poly2.addFace([point(-100, -50), point(200, -50), point(200, 100), point(-100, 100)]);
-    //     let poly = union(poly2, poly1);
-    //     expect(poly.faces.size).to.equal(1);
-    //     for (let face of poly.faces) {
-    //         expect(face.size).to.equal(4);
-    //     }
-    // });
-    // it('Can clip segment case 2 - 1 intersections, clip till end', function () {
-    //     "use strict";
-    //     let points = [point(100, 20), point(200, 20), point(200, 40), point(100, 40)];
-    //     let poly = new Polygon();
-    //     poly.addFace(points);
-    //     let seg = segment(point(0,30), point(150, 30));
-    //     let clipped = clip(seg, poly, Flatten.CLIP_INSIDE);
-    //     expect(clipped.length).to.equal(1);
-    //     expect(clipped[0]).to.deep.equal(segment(point(0,30),point(100,30)));
-    // });
+    it('Can perform union. 2 polygons, 2 in 1', function () {
+        "use strict";
+        let poly1 = new Polygon();
+        poly1.addFace([point(0,0), point(50, 0), point(50,30), point(0, 30)]);
+        let poly2 = new Polygon();
+        poly2.addFace([point(-100, -50), point(200, -50), point(200, 100), point(-100, 100)]);
+        let poly = union(poly2, poly1);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(4);
+        for (let face of poly.faces) {
+            expect(face.size).to.equal(4);
+        }
+    });
+    it('Can perform union. 2 polygons, 2 in 1 touching from inside, overlapping same', function () {
+        "use strict";
+        let poly1 = new Polygon();
+        poly1.addFace([point(0,0), point(50, 0), point(50,30), point(0, 30)]);
+        let poly2 = new Polygon();
+        poly2.addFace([point(25,0), point(50, 0), point(50,15), point(25, 15)]);
+        let poly = union(poly1, poly2);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(6);
+    });
 
 });

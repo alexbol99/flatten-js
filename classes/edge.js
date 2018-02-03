@@ -105,7 +105,7 @@ module.exports = function(Flatten) {
          * @param polygon
          */
         setInclusion(polygon) {
-            if (this.bv !== undefined) return;
+            if (this.bv !== undefined) return this.bv;
 
             if (this.bvStart === undefined) {
                 this.bvStart = Flatten.ray_shoot(polygon, this.start);
