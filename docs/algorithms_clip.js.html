@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>classes/point.js - Documentation</title>
+    <title>algorithms/clip.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">classes/point.js</h1>
+    <h1 class="page-title">algorithms/clip.js</h1>
     
 
     
@@ -39,238 +39,277 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Created by Alex Bol on 2/18/2017.
- */
+            <pre class="prettyprint source linenums"><code>"use strict";
 
-/**
- *
- * @param Flatten
- */
 module.exports = function(Flatten) {
+    let {Polygon, Point, Segment, Arc, Face, Edge} = Flatten;
+
+    const NOT_VERTEX = 0;
+    const START_VERTEX = 1;
+    const END_VERTEX = 2;
+
     /**
-     *
-     * Class representing a point
-     * @type {Point}
+     * Clip segment or arc by polygon
+     * @param shape - segment or arc
+     * @param polygon
+     * @param clip_inside_polygon - if true, remove part of shape inside polygon,
+     * otherwise remove part of shape outside polygon
      */
-    Flatten.Point = class Point {
-        /**
-         *
-         * @param {number} x - x-coordinate (float number)
-         * @param {number} y - y-coordinate (float number)
-         */
-        constructor(x = 0, y = 0) {
-            /**
-             * x-coordinate (float number)
-             * @type {number}
-             */
-            this.x = Number.isNaN(x) ? 0 : x;
-            /**
-             * y-coordinate (float number)
-             * @type {number}
-             */
-            this.y = Number.isNaN(y) ? 0: y;
-        }
+    Flatten.clip = function (shape, polygon, clip_inside_flag) {
+        let dummyPolygon = new Polygon();
+        dummyPolygon.addFace([shape]);
 
-        /**
-         * Returns bounding box of a point
-         * @returns {Box}
-         */
-        get box() {
-            return new Flatten.Box(this.x, this.y, this.x, this.y);
-        }
+        // get intersection points
+        let intersections = getIntersections(dummyPolygon, polygon);
 
-        /**
-         * Method clone returns new instance of Point
-         * @returns {Point}
-         */
-        clone() {
-            return new Flatten.Point(this.x, this.y);
-        }
+        // sort intersection points
+        sortIntersections(intersections);
 
-        get vertices() {
-            return [this.clone()];
-        }
+        // split by intersection points
+        splitByIntersections(dummyPolygon, intersections.int_points1_sorted);
+        splitByIntersections(polygon, intersections.int_points2_sorted);
 
-        /**
-         * Returns true if points are equal up to DP_TOL tolerance
-         * @param {Point} pt
-         * @returns {boolean}
-         */
-        equalTo(pt) {
-            return Flatten.Utils.EQ(this.x, pt.x) &amp;&amp; Flatten.Utils.EQ(this.y, pt.y);
-        }
+        // filter duplicated intersection points
+        filterDuplicatedIntersections(intersections);
 
-        /**
-         * Defines predicate "less than" between points. Need for spatial index
-         * @param pt - other point
-         * @returns {boolean} - true if this point less than other points, false otherwise
-         */
-        lessThan(pt) {
-            if (Flatten.Utils.LT(this.y, pt.y))
-                return true;
-            if (Flatten.Utils.EQ(this.y, pt.y) &amp;&amp; Flatten.Utils.LT(this.x, pt.x))
-                return true;
-            return false;
-        }
+        // initialize inclusion flags for edges incident to intersections
+        initializeInclusionFlags(intersections.int_points1);
+        initializeInclusionFlags(intersections.int_points2);
 
-        /**
-         * Returns new point rotated by given angle around given center point.
-         * If center point is omitted, rotates around zero point (0,0).
-         * @param {number} angle - angle in radians, positive value defines rotation
-         * in counter clockwise direction, negative - clockwise
-         * @param {Point} [center=(0,0)] center
-         * @returns {Point}
-         */
-        rotate(angle, center = {x:0, y:0}) {
-            var x_rot = center.x + (this.x - center.x) * Math.cos(angle) - (this.y - center.y) * Math.sin(angle);
-            var y_rot = center.y + (this.x - center.x) * Math.sin(angle) + (this.y - center.y) * Math.cos(angle);
+        // Calculate inclusion flags only for edges incident to intersections
+        calculateInclusionFlags(intersections.int_points1, polygon);
 
-            return new Flatten.Point(x_rot, y_rot);
-        }
+        // TODO: fix bondary conflicts
 
-        /**
-         * Returns new point translated by given vector.
-         * Translation vector may by also defined by a pair of numbers dx, dy
-         * @param {Vector} vector - translation vector
-         * @returns {Point}
-         */
-        translate(...args) {
-            if (args.length == 1 &amp;&amp; (args[0] instanceof Flatten.Vector)) {
-                return new Flatten.Point(this.x + args[0].x, this.y + args[0].y);
-            }
+        // TODO: set overlaping flags
 
-            if (args.length == 2 &amp;&amp; typeof(args[0]) == "number" &amp;&amp; typeof(args[1]) == "number") {
-                return new Flatten.Point(this.x + args[0], this.y + args[1]);
-            }
+        // remove not relevant chains between intersection points
+        removeNotRelevantChains(dummyPolygon, clip_inside_flag, intersections.int_points1_sorted);
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
-        }
-
-        /**
-         * Returns projection point on given line
-         * @param {Line} line - line this point be projected on
-         * @returns {Point}
-         */
-        projectionOn(line) {
-            if (this.equalTo(line.pt))                   // this point equal to line anchor point
-                return this.clone();
-
-            let vec = new Flatten.Vector(this, line.pt);
-            if (Flatten.Utils.EQ_0(vec.cross(line.norm)))    // vector to point from anchor point collinear to normal vector
-                return line.pt.clone();
-
-            let dist = vec.dot(line.norm);             // signed distance
-            let proj_vec = line.norm.multiply(dist);
-            return this.translate(proj_vec);
-        }
-
-        /**
-         * Returns true if point is on "left" semi plane. Left semi plane is where line normal vector points to
-         * @param line
-         * @returns {boolean}
-         */
-        leftTo(line) {
-            let vec = new Flatten.Vector(line.pt, this);
-            let onLeftSemiPlane = Flatten.Utils.GT(vec.dot(line.norm), 0);
-            return onLeftSemiPlane;
-        }
-
-        /**
-         * Returns distance between point and other shape
-         * @param {Shape} shape
-         * @returns {number}
-         */
-        distanceTo(shape) {
-            let {Distance} = Flatten;
-
-            if (shape instanceof Point) {
-                let dx = shape.x - this.x;
-                let dy = shape.y - this.y;
-                return [Math.sqrt(dx*dx + dy*dy), new Flatten.Segment(this, shape)];
-            }
-
-            if (shape instanceof Flatten.Line) {
-                return Distance.point2line(this, shape);
-            }
-
-            if (shape instanceof Flatten.Circle) {
-                return Distance.point2circle(this, shape);
-            }
-
-            if (shape instanceof Flatten.Segment) {
-                return Distance.point2segment(this, shape);
-            }
-
-            if (shape instanceof Flatten.Arc) {
-                // let [dist, ...rest] = Distance.point2arc(this, shape);
-                // return dist;
-                return Distance.point2arc(this, shape);
-            }
-
-            if (shape instanceof Flatten.Polygon) {
-                // let [dist, ...rest] = Distance.point2polygon(this, shape);
-                // return dist;
-                return Distance.point2polygon(this, shape);
-            }
-
-            if (shape instanceof Flatten.PlanarSet) {
-                return Distance.shape2planarSet(this, shape);
+        let resp = [];
+        for (let face of dummyPolygon.faces) {
+            for (let edge of face) {
+                resp.push(edge.shape);
             }
         }
-
-        /**
-         * Returns true if point is on shape
-         * @param {Shape} shape
-         * @returns {boolean}
-         */
-        on(shape) {
-            if (shape instanceof Flatten.Point) {
-                return this.equalTo(shape);
-            }
-
-            if (shape instanceof Flatten.Line) {
-                return shape.contains(this);
-            }
-
-            if (shape instanceof Flatten.Circle) {
-                return shape.contains(this);
-            }
-
-            if (shape instanceof  Flatten.Segment) {
-                return shape.contains(this);
-            }
-
-            if (shape instanceof Flatten.Arc) {
-                return shape.contains(this);
-            }
-
-            if (shape instanceof Flatten.Polygon) {
-                return shape.contains(this);
-            }
-        }
-
-        /**
-         * Return string to draw point in svg as circle with radius "r", default is r:"5"
-         * @param attrs - json structure with any attributes allowed to svg circle element,
-         * like "r", "stroke", "strokeWidth", "fill"
-         * Defaults are r:"5", stroke:"black", strokeWidth:"1", fill:"red"
-         * @returns {string}
-         */
-        svg(attrs = {r:"5",stroke:"black",strokeWidth:"1",fill:"red"}) {
-            let {r, stroke, strokeWidth, fill} = attrs;
-            return `\n&lt;circle cx="${this.x}" cy="${this.y}" r="${r}" stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" />`;
-        }
-
+        return resp;
     };
 
-    /**
-     * Function to create point equivalent to "new" constructor
-     * @param args
-     */
-    Flatten.point = (...args) => new Flatten.Point(...args);
-};
-</code></pre>
+    function getIntersections(polygon1, polygon2) {
+        let intersections = {
+            int_points1: [],
+            int_points2: []
+        };
+
+        // calculate intersections
+        for (let edge1 of polygon1.edges) {
+
+            // request edges of polygon2 in the box of edge1
+            let resp = polygon2.edges.search(edge1.box);
+
+            // for each edge2 in response
+            for (let edge2 of resp) {
+
+                // calculate intersections between edge1 and edge2
+                let ip = edge1.shape.intersect(edge2.shape);
+
+                // for each intersection point
+                for (let pt of ip) {
+                    addToIntPoints(edge1, pt, intersections.int_points1);
+                    addToIntPoints(edge2, pt, intersections.int_points2);
+                }
+            }
+        }
+
+        return intersections;
+    }
+
+    function addToIntPoints(edge, pt, int_points) {
+        let id = int_points.num;
+        let split = edge.shape.split(pt);
+        let len = split.length === 0 ? 0 : split[0].length;
+        let is_vertex = NOT_VERTEX;
+        if (Flatten.Utils.EQ(len,0)) {
+            is_vertex |= START_VERTEX;
+        }
+        if (Flatten.Utils.EQ(len, edge.shape.length)) {
+            is_vertex |= END_VERTEX;
+        }
+        // Fix intersection point which is end point of the last edge
+        let arc_length =  (is_vertex &amp; END_VERTEX) &amp;&amp; edge.next.arc_length === 0 ? 0 : edge.arc_length + len;
+
+        int_points.push({
+            id: id,
+            pt: pt,
+            arc_length: arc_length,
+            edge_before: edge,
+            edge_after: undefined,
+            face: edge.face,
+            is_vertex: is_vertex
+        });
+    }
+
+    function sortIntersections(intersections) {
+        if (intersections.int_points1.length === 0) return;
+        // augment intersections with new sorted arrays
+        intersections.int_points1_sorted = intersections.int_points1.slice().sort(compareFn);
+        intersections.int_points2_sorted = intersections.int_points2.slice().sort(compareFn);
+    }
+
+    function compareFn(ip1, ip2) {
+        // TODO: sort by chain id
+        if (Flatten.Utils.LT(ip1.arc_length, ip2.arc_length)) {
+            return -1;
+        }
+        if (Flatten.Utils.GT(ip1.arc_length, ip2.arc_length)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    function splitByIntersections(polygon, int_points) {
+        for (let int_point of int_points) {
+            let edge = int_point.edge_before;
+
+            // TODO: recalculate vertex flag: it may be changed after previous split
+
+            if (int_point.is_vertex &amp; START_VERTEX) {  // nothing to split
+                int_point.edge_before = edge.prev;
+                int_point.is_vertex = END_VERTEX;
+                return;
+            }
+            if (int_point.is_vertex &amp; END_VERTEX) {    // nothing to split
+                return;
+            }
+
+            let newEdge = polygon.addVertex(int_point.pt, edge);
+            int_point.edge_before = newEdge;
+        }
+
+        for (let int_point of int_points) {
+            int_point.edge_after = int_point.edge_before.next;
+        }
+    }
+
+    function filterDuplicatedIntersections(intersections) {
+        if (intersections.int_points1.length &lt; 2) return;
+
+        let do_squeeze = false;
+
+        let int_point_ref1 = intersections.int_points1_sorted[0];
+        let int_point_ref2 = intersections.int_points2[int_point_ref1.id];
+        for (let i=1; i &lt; intersections.int_points1_sorted.length; i++) {
+            let int_point_cur1 = intersections.int_points1_sorted[i];
+
+            if (!Flatten.Utils.EQ(int_point_cur1.arc_length, int_point_ref1.arc_length)) {
+                int_point_ref1 = int_point_cur1;
+                int_point_ref2 = intersections.int_points2[int_point_ref1.id];
+                continue;
+            }
+
+            /* Same length: int_point_cur1->arc_len == int_point_ref1->arc_len */
+            /* Ensure this is intersection between same edges from the same face */
+            let int_point_cur2 = intersections.int_points2[int_point_cur1.id];
+            if (int_point_cur1.edge_before === int_point_ref1.edge_before &amp;&amp;
+            int_point_cur1.edge_after === int_point_ref1.edge_after &amp;&amp;
+            int_point_cur2.edge_before === int_point_ref2.edge_before &amp;&amp;
+            int_point_cur2.edge_after === int_point_ref2.edge_after) {
+                int_point_cur1.id = -1;       /* to be deleted */
+                int_point_cur2.id = -1;       /* to be deleted */
+                do_squeeze = true;
+            }
+        }
+
+        int_point_ref2 = intersections.int_points2_sorted[0];
+        int_point_ref1 = intersections.int_points1[int_point_ref2.id];
+        for (let i=1; i &lt; intersections.int_points2_sorted.legth; i++) {
+            let int_point_cur2 = intersections.int_points2_sorted[i];
+
+            if (int_point_cur2.id == -1) continue;     /* already deleted */
+
+            if ( int_point_ref2.id == -1 ||            /* can't be reference if already deleted */
+                    !(Flatten.Utils.EQ(int_point_cur2.arc_length, int_point_ref2.arc_length)) ) {
+                int_point_ref2 = int_point_cur2;
+                int_point_ref1 = intersections.int_points1[int_point_ref2.id];
+                continue;
+            }
+
+            let int_point_cur1 = intersections.int_points1[int_point_cur2.id];
+            if (int_point_cur1.edge_before === int_point_ref1.edge_before &amp;&amp;
+            int_point_cur1.edge_after === int_point_ref1.edge_after &amp;&amp;
+            int_point_cur2.edge_before === int_point_ref2.edge_before &amp;&amp;
+            int_point_cur2.edge_after === int_point_ref2.edge_after) {
+                int_point_cur1.id = -1;       /* to be deleted */
+                int_point_cur2.id = -1;       /* to be deleted */
+                do_squeeze = true;
+            }
+        }
+
+        if (do_squeeze) {
+            intersections.int_points1.filter( (int_point) => int_point.id >= 0 );
+            intersections.int_points2.filter( (int_point) => int_point.id >= 0 );
+
+            // update id's
+            intersections.int_points1.forEach( (int_point, index) => int_point.id = index );
+            intersections.int_points2.forEach( (int_point, index) => int_point.id = index );
+
+            // re-create sorted
+            intersections.int_points1_sorted = [];
+            intersections.int_points2_sorted = [];
+            sortIntersections(intersections);
+        }
+    }
+
+    function initializeInclusionFlags(int_points) {
+        for (let int_point of int_points) {
+            int_point.edge_before.bvStart = undefined;
+            int_point.edge_before.bvEnd = undefined;
+            int_point.edge_before.bv = undefined;
+            int_point.edge_before.overlap = undefined;
+
+            int_point.edge_after.bvStart = undefined;
+            int_point.edge_after.bvEnd = undefined;
+            int_point.edge_after.bv = undefined;
+            int_point.edge_after.overlap = undefined;
+        }
+
+        for (let int_point of int_points) {
+            int_point.edge_before.bvEnd = Flatten.BOUNDARY;
+            int_point.edge_after.bvStart = Flatten.BOUNDARY;
+        }
+    }
+
+    function calculateInclusionFlags(int_points, polygon) {
+        for (let int_point of int_points) {
+            int_point.edge_before.setInclusion(polygon);
+            int_point.edge_after.setInclusion(polygon);
+        }
+    }
+
+    function removeNotRelevantChains(polygon, op, int_points) {
+        for (let i=0; i &lt; int_points.length; i++) {
+            // TODO: Support duplicated points with same &lt;x,y> came from different faces
+            let int_point_current = int_points[i];
+            let int_point_next = int_points[ (i+1) % int_points.length];
+
+            let edge_from = int_point_current.edge_after;
+            let edge_to = int_point_next.edge_before;
+
+            let face = int_point_current.face;
+
+            if ( (edge_from.bv === Flatten.INSIDE &amp;&amp; edge_to.bv === Flatten.INSIDE &amp;&amp;
+                    op === Flatten.CLIP_INSIDE) ||
+                (edge_from.bv === Flatten.OUTSIDE &amp;&amp; edge_to.bv === Flatten.OUTSIDE &amp;&amp;
+                    op === Flatten.CLIP_OUTSIDE)) {
+
+                polygon.removeChain(face, edge_from, edge_to);
+
+                int_point_current.edge_after === undefined;
+                int_point_next.edge_before === undefined;
+            }
+        }
+    }
+}</code></pre>
         </article>
     </section>
 

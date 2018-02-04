@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec",
-    "doc": "jsdoc -d ./docs ./classes",
-    "generate-docs": "jsdoc -t ./node_modules/jsdoc/templates/minami -d ./docs ./classes ./data_structures ./algorithms",
+    "doc": "jsdoc -t ./node_modules/minami -d ./docs -r ./ README.md",
+    "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
     "npm-publish": "npm version patch; git push && git push --tags; npm publish",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/*"
   },
@@ -32,9 +32,10 @@
     "chai": "^3.5.0",
     "coveralls": "^2.12.0",
     "istanbul": "^0.4.5",
+    "jsdoc": "^3.5.5",
     "jsdom": "9.12.0",
     "jsdom-global": "2.1.1",
-    "minami": "^1.1.1",
+    "minami": "^1.2.3",
     "mocha": "^3.2.0"
   },
   "dependencies": {
