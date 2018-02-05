@@ -40,7 +40,7 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Method clone returns new instance of Point
+         * Method clone returns new copied instance of point
          * @returns {Point}
          */
         clone() {
@@ -52,8 +52,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns true if points are equal up to DP_TOL tolerance
-         * @param {Point} pt
+         * Returns true if points are equal up to [Flatten.Utils.DP_TOL]{@link DP_TOL} tolerance
+         * @param {Point} pt Query point
          * @returns {boolean}
          */
         equalTo(pt) {
@@ -61,9 +61,11 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Defines predicate "less than" between points. Need for spatial index
-         * @param pt - other point
-         * @returns {boolean} - true if this point less than other points, false otherwise
+         * Defines predicate "less than" between points. Returns true if the point is less than query points, false otherwise <br/>
+         * By definition point1 < point2 if {point1.y < point2.y || point1.y == point2.y && point1.x < point2.y <br/>
+         * Numeric values compared with [Flatten.Utils.DP_TOL]{@link DP_TOL} tolerance
+         * @param {Point} pt Query point
+         * @returns {boolean}
          */
         lessThan(pt) {
             if (Flatten.Utils.LT(this.y, pt.y))
@@ -76,8 +78,9 @@ module.exports = function(Flatten) {
         /**
          * Returns new point rotated by given angle around given center point.
          * If center point is omitted, rotates around zero point (0,0).
-         * @param {number} angle - angle in radians, positive value defines rotation
-         * in counter clockwise direction, negative - clockwise
+         * Positive value of angle defines rotation in counter clockwise direction,
+         * negative angle defines rotation in clockwise clockwise direction
+         * @param {Number} angle - angle in radians
          * @param {Point} [center=(0,0)] center
          * @returns {Point}
          */
@@ -90,8 +93,9 @@ module.exports = function(Flatten) {
 
         /**
          * Returns new point translated by given vector.
-         * Translation vector may by also defined by a pair of numbers dx, dy
-         * @param {Vector} vector - translation vector
+         * Translation vector may by also defined by a pair of numbers.
+         * @param {Vector} vector - Translation vector defined as Flatten.Vector or
+         * @param {Number|Number} - Translation vector defined as pair of numbers
          * @returns {Point}
          */
         translate(...args) {
@@ -108,7 +112,7 @@ module.exports = function(Flatten) {
 
         /**
          * Returns projection point on given line
-         * @param {Line} line - line this point be projected on
+         * @param {Line} line Line this point be projected on
          * @returns {Point}
          */
         projectionOn(line) {
@@ -125,8 +129,9 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns true if point is on "left" semi plane. Left semi plane is where line normal vector points to
-         * @param line
+         * Returns true if point belongs to the "left" semi-plane, which means, point belongs to the same semi plane where line normal vector points to
+         * Return false if point belongs to the "right" semi-plane or to the line itself
+         * @param {Line} line Query line
          * @returns {boolean}
          */
         leftTo(line) {
@@ -137,7 +142,7 @@ module.exports = function(Flatten) {
 
         /**
          * Returns distance between point and other shape
-         * @param {Shape} shape
+         * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
          * @returns {number}
          */
         distanceTo(shape) {
@@ -179,8 +184,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns true if point is on shape
-         * @param {Shape} shape
+         * Returns true if point is on a shape, false otherwise
+         * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon
          * @returns {boolean}
          */
         on(shape) {
@@ -210,11 +215,16 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Return string to draw point in svg as circle with radius "r", default is r:"5"
-         * @param attrs - json structure with any attributes allowed to svg circle element,
-         * like "r", "stroke", "strokeWidth", "fill"
-         * Defaults are r:"5", stroke:"black", strokeWidth:"1", fill:"red"
-         * @returns {string}
+         * Return string to draw point in svg as circle with radius "r".
+         * Defaults attrs is an object:
+         * {
+         *    r:"5",
+         *    stroke:"black",
+         *    strokeWidth:"1",
+         *    fill:"red"
+         * }
+         * @param {Object} attrs - Attributes of svg circle element: "r", "stroke", "strokeWidth", "fill"
+         * @returns {String}
          */
         svg(attrs = {r:"5",stroke:"black",strokeWidth:"1",fill:"red"}) {
             let {r, stroke, strokeWidth, fill} = attrs;
