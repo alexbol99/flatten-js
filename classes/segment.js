@@ -152,7 +152,7 @@ module.exports = function (Flatten) {
         /**
          * Calculate distance and shortest segment from segment to shape and return as array [distance, shortest segment]
          * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
-         * @returns {Number} distance from segment to shape
+         * @returns {number} distance from segment to shape
          * @returns {Segment} shortest segment between segment and shape (started at segment, ended at shape)
          */
         distanceTo(shape) {
@@ -375,8 +375,8 @@ module.exports = function (Flatten) {
         /**
          * Return string to draw segment in svg
          * @param {Object} attrs - Object with attributes for svg path element,
-         * like "stroke", "strokeWidth"
-         * @default stroke:"black", strokeWidth:"3"
+         * like "stroke", "strokeWidth" <br/>
+         * Defaults are stroke:"black", strokeWidth:"3"
          * @returns {string}
          */
         svg(attrs = {stroke: "black", strokeWidth: "3"}) {

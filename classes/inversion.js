@@ -4,10 +4,6 @@
 "use strict";
 
 module.exports = function(Flatten) {
-    /**
-     * Class Inversion implements inversion operator with respect to given circle
-     * @type {Inversion}
-     */
     Flatten.Inversion = class Inversion {
         constructor(...args) {
             this.pc = new Flatten.Point();

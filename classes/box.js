@@ -87,7 +87,7 @@ module.exports = function(Flatten) {
 
         /**
          * Returns true if intersected with other box
-         * @param {Box} other_box - other box to test
+         * @param {Box} other_box - Query box
          * @returns {boolean}
          */
         intersect(other_box) {
@@ -96,7 +96,7 @@ module.exports = function(Flatten) {
 
         /**
          * Returns new box merged with other box
-         * @param {Box} other_box - other box to merge with
+         * @param {Box} other_box - Other box to merge with
          * @returns {Box}
          */
         merge(other_box) {
@@ -110,7 +110,7 @@ module.exports = function(Flatten) {
 
         /**
          * Defines predicate "less than" between two boxes. Need for interval index
-         * @param other_box - other box
+         * @param {Box} other_box - other box
          * @returns {boolean} - true if this box less than other box, false otherwise
          */
         less_than(other_box) {
@@ -122,9 +122,9 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns true if this box equal to other box
-         * @param other_box - other box
-         * @returns {boolean} - true if equal, false otherwise
+         * Returns true if this box is equal to other box, false otherwise
+         * @param {Box} other_box - query box
+         * @returns {boolean}
          */
         equal_to(other_box) {
             return (this.low.equalTo(other_box.low) && this.high.equalTo(other_box.high));
@@ -143,6 +143,13 @@ module.exports = function(Flatten) {
             return pt1.lessThan(pt2);
         }
 
+        /**
+         * Set new values to the box object
+         * @param {number} xmin - miminal x coordinate
+         * @param {number} ymin - minimal y coordinate
+         * @param {number} xmax - maximal x coordinate
+         * @param {number} ymax - maximal y coordinate
+         */
         set(xmin, ymin, xmax, ymax) {
             this.xmin = xmin;
             this.ymin = ymin;

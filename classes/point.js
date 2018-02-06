@@ -80,7 +80,7 @@ module.exports = function(Flatten) {
          * If center point is omitted, rotates around zero point (0,0).
          * Positive value of angle defines rotation in counter clockwise direction,
          * negative angle defines rotation in clockwise clockwise direction
-         * @param {Number} angle - angle in radians
+         * @param {number} angle - angle in radians
          * @param {Point} [center=(0,0)] center
          * @returns {Point}
          */
@@ -95,7 +95,7 @@ module.exports = function(Flatten) {
          * Returns new point translated by given vector.
          * Translation vector may by also defined by a pair of numbers.
          * @param {Vector} vector - Translation vector defined as Flatten.Vector or
-         * @param {Number|Number} - Translation vector defined as pair of numbers
+         * @param {number|number} - Translation vector defined as pair of numbers
          * @returns {Point}
          */
         translate(...args) {
@@ -143,7 +143,7 @@ module.exports = function(Flatten) {
         /**
          * Calculate distance and shortest segment from point to shape and return as array [distance, shortest segment]
          * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
-         * @returns {Number} distance from point to shape
+         * @returns {number} distance from point to shape
          * @returns {Segment} shortest segment between point and shape (started at point, ended at shape)
          */
         distanceTo(shape) {

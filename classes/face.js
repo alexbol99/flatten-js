@@ -7,10 +7,22 @@
 module.exports = function (Flatten) {
     let {Point, Segment, Arc, Box, Edge} = Flatten;
     /**
-     * Class representing a face (closed loop) of polygon.
-     * New face object should not be created directly, use polygon.addFace() method instead.
-     * Face implemented as a circular bidirectional linked list of edges.
-     * @type {Face}
+     * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object. <br/>
+     * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}. <br/>
+     * Face object cannot be instantiated with a constructor.
+     * Instead, use [polygon.addFace()]{@link Flatten.Polygon#addFace} method.
+     * @example
+     * // Face implements next iterator which enables to iterate edges in for loop:
+     * for (let edge of face) {
+     *      console.log(edge.shape.length)     // do something
+     * }
+     *
+     * // Instead, it is possible to iterate edges as linked list, starting from face.first:
+     * let edge = face.first;
+     * do {
+     *   console.log(edge.shape.length);   // do something
+     *   edge = edge.next;
+     * } while (edge != face.first)
      */
     Flatten.Face = class Face {
         constructor(polygon, ...args) {
@@ -143,10 +155,19 @@ module.exports = function (Flatten) {
             // this.orientation = this.getOrientation();              // face direction cw or ccw
         }
 
+        /**
+         * Returns true if face is empty, false otherwise
+         * @returns {boolean}
+         */
         isEmpty() {
             return (this.first === undefined && this.last === undefined)
         }
 
+        /**
+         * Append given edge after the last edge (and before the first edge). <br/>
+         * This method mutes current object and does not return any value
+         * @param {Edge} edge - Edge to be appended to the linked list
+         */
         append(edge) {
             if (this.first === undefined) {
                 edge.prev = edge;
@@ -173,6 +194,12 @@ module.exports = function (Flatten) {
             edge.face = this;
         }
 
+        /**
+         * Insert new edge newEdge into the linked list after edge edgeBefore <br/>
+         * This method mutes current object and does not return any value
+         * @param {Edge} newEdge - Edge to be inserted into linked list
+         * @param {Edge} edgeBefore - Edge to insert newEdge after it
+         */
         insert(newEdge, edgeBefore) {
             if (this.first === undefined) {
                 edge.prev = newEdge;
@@ -197,6 +224,11 @@ module.exports = function (Flatten) {
             newEdge.face = this;
         }
 
+        /**
+         * Remove the given edge from the linked list of the face <br/>
+         * This method mutes current object and does not return any value
+         * @param {Edge} edge - Edge to be removed
+         */
         remove(edge) {
             // special case if last edge removed
             if (edge === this.first && edge === this.last) {
@@ -217,6 +249,10 @@ module.exports = function (Flatten) {
             }
         }
 
+        /**
+         * Set arc_length property for each of the edges in the face
+         * Arc_length of the edge it the length from the first edge of the face
+         */
         setArcLength() {
             for (let edge of this) {
                 if (edge === this.first) {
@@ -230,13 +266,17 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Return the area of the polygon
+         * Returns the area of the polygon
          * @returns {number}
          */
         area() {
             return Math.abs(this.signedArea());
         }
 
+        /**
+         * Returns signed area of the polygon
+         * @returns {number}
+         */
         signedArea() {
             let sArea = 0;
             for (let edge of this) {
@@ -245,17 +285,16 @@ module.exports = function (Flatten) {
             return sArea;
         }
 
-        /* According to Green theorem the area of a closed curve may be calculated as double integral,
-        and the sign of the integral will be defined by the direction of the curve.
-        When the integral ("signed area") will be negative, direction is counter clockwise,
-        when positive - clockwise and when it is zero, polygon is not orientable.
-        See http://mathinsight.org/greens_theorem_find_area
-         */
         /**
-         *
+         * Return face orientation: one of Flatten.ORIENTATION.CCW, Flatten.ORIENTATION.CW, Flatten.ORIENTATION.NOT_ORIENTABLE <br/>
+         * According to Green theorem the area of a closed curve may be calculated as double integral,
+         * and the sign of the integral will be defined by the direction of the curve.
+         * When the integral ("signed area") will be negative, direction is counter clockwise,
+         * when positive - clockwise and when it is zero, polygon is not orientable.
+         * See {@link http://mathinsight.org/greens_theorem_find_area}
          * @returns {number}
          */
-        get orientation() {
+        orientation() {
             if (this._orientation === undefined) {
                 let area = this.signedArea();
                 if (Flatten.Utils.EQ_0(area)) {
@@ -288,13 +327,13 @@ module.exports = function (Flatten) {
 
         /**
          * Check relation between face and other polygon
-         * on strong assumption that they are NOT INTERSECTED
-         * There are 4 options:
-         * face disjoint to polygon
-         * face inside polygon
-         * face contains polygon
-         * face interlaced with polygon: inside some face and contains other face
-         * @param polygon
+         * on strong assumption that they are NOT INTERSECTED <br/>
+         * There are 4 options: <br/>
+         * face disjoint to polygon - Flatten.OUTSIDE <br/>
+         * face inside polygon - Flatten.INSIDE <br/>
+         * face contains polygon - Flatten.CONTAIN <br/>
+         * face interlaced with polygon: inside some face and contains other face - Flatten.INTERLACE <br/>
+         * @param {Polygon} polygon - Polygon to check relation
          */
         getRelation(polygon) {
             let bvThisInOther = this.first.setInclusion(polygon);

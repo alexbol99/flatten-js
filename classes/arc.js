@@ -6,7 +6,7 @@
 
 module.exports = function(Flatten) {
     /**
-     * Class representing a circlular arc
+     * Class representing a circular arc
      * @type {Arc}
      */
     Flatten.Arc = class Arc {
@@ -16,7 +16,7 @@ module.exports = function(Flatten) {
          * @param {number} r - arc radius
          * @param {number} startAngle - start angle in radians from 0 to 2*PI
          * @param {number} endAngle - end angle in radians from 0 to 2*PI
-         * @param counterClockwise - arc direction, true - clockwise, false - counter clockwise
+         * @param {boolean} counterClockwise - arc direction, true - clockwise (or {@link Flatten.CCW}), false - counter clockwise (or {@link Flatten.CW)}
          */
         constructor(pc=new Flatten.Point(), r=1, startAngle=0, endAngle=2*Math.PI, counterClockwise=true) {
             this.pc = pc.clone();
@@ -112,7 +112,7 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns true if arc contains point
+         * Returns true if arc contains point, false otherwise
          * @param {Point} pt - point to test
          * @returns {boolean}
          */
@@ -132,8 +132,10 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * When given point belongs to arc, return array of two arcs split by this point
-         * @param pt
+         * When given point belongs to arc, return array of two arcs split by this point. If points is incident
+         * to start or end point of the arc, return clone of the arc. If point does not belong to the arcs, return
+         * empty array.
+         * @param {Point} pt Query point
          * @returns {Arc[]}
          */
         split(pt) {
@@ -141,10 +143,10 @@ module.exports = function(Flatten) {
                 return [];
 
             if (Flatten.Utils.EQ_0(this.sweep))
-                return [this];
+                return [this.clone()];
 
             if (this.start.equalTo(pt) || this.end.equalTo(pt))
-                return [this];
+                return [this.clone()];
 
             let angle = new Flatten.Vector(this.pc, pt).slope;
 
@@ -174,8 +176,9 @@ module.exports = function(Flatten) {
 
         /**
          * Returns array of intersection points between arc and other shape
-         * @param shape
-         * @returns {*}
+         * @param {Shape} shape Shape of the one of supported types Line, Circle, Segment, Arc <br/>
+         * TODO: support Polygon and Planar Set
+         * @returns {Points[]}
          */
         intersect(shape) {
             if (shape instanceof Flatten.Line) {
@@ -193,9 +196,11 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Calculate distance and shortest segment from arc to shape
-         * @param shape
-         * @returns {Number | Segment} - distance and shortest segment from arc to shape
+         * Calculate distance and shortest segment from arc to shape and return array [distance, shortest segment]
+         * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
+         * @returns {number} distance from arc to shape
+         * @returns {Segment} shortest segment between arc and shape (started at arc, ended at shape)
+
          */
         distanceTo(shape) {
             let {Distance} = Flatten;
@@ -239,8 +244,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns array of sub-arcs broken in extreme point 0, pi/2, pi, 3*pi/2
-         * @returns {Array}
+         * Breaks arc in extreme point 0, pi/2, pi, 3*pi/2 and returns array of sub-arcs
+         * @returns {Arcs[]}
          */
         breakToFunctional() {
             let func_arcs_array = [];
@@ -300,7 +305,7 @@ module.exports = function(Flatten) {
 
         /**
          * Return tangent unit vector in the start point in the direction from start to end
-         * @returns {Vector} - tangent vector in start point
+         * @returns {Vector}
          */
         tangentInStart() {
             let vec = new Flatten.Vector(this.pc, this.start);
@@ -311,7 +316,7 @@ module.exports = function(Flatten) {
 
         /**
          * Return tangent unit vector in the end point in the direction from end to start
-         * @returns {Vector} - tangent vector in end point
+         * @returns {Vector}
          */
         tangentInEnd() {
             let vec = new Flatten.Vector(this.pc, this.end);
@@ -410,8 +415,8 @@ module.exports = function(Flatten) {
 
         /**
          * Return string to draw arc in svg
-         * @param attrs - json structure with any attributes allowed to svg path element,
-         * like "stroke", "strokeWidth", "fill"
+         * @param {Object} attrs - json structure with attributes of svg path element,
+         * like "stroke", "strokeWidth", "fill" <br/>
          * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
          * @returns {string}
          */
