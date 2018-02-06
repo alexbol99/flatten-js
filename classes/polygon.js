@@ -9,33 +9,33 @@ module.exports = function(Flatten) {
     let {ray_shoot} = Flatten;
     /**
      * Class representing a polygon.<br/>
-     * Polygon in FlattenJS is a multipolygon comprised from a set of faces<br/>
-     * Face, in turn, is a closed loop of edges, which can be a segment or a circular arc<br/>
+     * Polygon in FlattenJS is a multipolygon comprised from a set of [faces]{@link Flatten.Face}. <br/>
+     * Face, in turn, is a closed loop of [edges]{@link Flatten.Edge}, where edge may be segment or circular arc<br/>
      * @type {Polygon}
      */
     Flatten.Polygon = class Polygon {
         /**
          * Constructor creates new instance of polygon.<br/>
-         * New polygon is empty. Add new face to the polygon using method <br/>
+         * New polygon is empty. Add face to the polygon using method <br/>
          * <code>
-         *     polygon.addFace(Points|Segments|Arcs[])
+         *     polygon.addFace(Points[]|Segments[]|Arcs[])
          * </code>
          */
         constructor() {
             /**
-             * Set of faces (closed loops), may be empty
+             * Container of faces (closed loops), may be empty
              * @type {PlanarSet}
              */
             this.faces = new PlanarSet();
             /**
-             * Set of edges. Usually is not used directly. Better access edges via faces
+             * Container of edges
              * @type {PlanarSet}
              */
             this.edges = new PlanarSet();
         }
 
         /**
-         * Get bounding box of the polygon
+         * (Getter) Returns bounding box of the polygon
          * @returns {Box}
          */
         get box() {
@@ -43,7 +43,7 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Return array of vertices
+         * (Getter) Returns array of vertices
          * @returns {Array}
          */
         get vertices() {
@@ -51,8 +51,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Add new face to polygon
-         * @param {Points[]|Segments|Arcs[]} args - list of points or list of shapes (segments and arcs)
+         * Add new face to polygon. Returns added face
+         * @param {Points[]|Segments[]|Arcs[]} args - list of points or list of shapes (segments and arcs)
          * which comprise a closed loop
          * @returns {Face}
          */
@@ -64,8 +64,8 @@ module.exports = function(Flatten) {
 
         /**
          * Delete existing face from polygon
-         * @param {Face}
-         * @returns {boolean|*}
+         * @param {Face} face Face to be deleted
+         * @returns {boolean}
          */
         deleteFace(face) {
             for (let edge of face) {
@@ -75,6 +75,12 @@ module.exports = function(Flatten) {
             return deleted;
         }
 
+        /**
+         * Delete chain of edges from the face.
+         * @param {Face} face Face to remove chain
+         * @param {Edge} edgeFrom Start of the chain of edges to be removed
+         * @param {Edge} edgeTo End of the chain of edges to be removed
+         */
         removeChain(face, edgeFrom, edgeTo) {
             // Special case: all edges removed
             if (edgeTo.next === edgeFrom) {
@@ -82,8 +88,8 @@ module.exports = function(Flatten) {
                 return;
             }
             for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next ) {
-                face.remove(edge);
-                this.edges.delete(edge);      // delete from PlanarSet of edges and update index
+                face.remove(this.edges, edge);
+                // this.edges.delete(edge);      // delete from PlanarSet of edges and update index
                 if (face.isEmpty()) {
                     this.deleteFace(face);    // delete from PlanarSet of faces and update index
                     break;
@@ -92,9 +98,12 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Add point as new vertex and split edge. Point supposed to belong to an edge
-         * @param edge
-         * @param pt
+         * Add point as a new vertex and split edge. Point supposed to belong to an edge.
+         * When edge is split, new edge created from the start of the edge to the new vertex
+         * and inserted before current edge.
+         * Current edge is trimmed and updated. Method returns new edge added.
+         * @param {Edge} edge Edge to be split with new vertex and then trimmed from start
+         * @param {Point} pt Point to be added as a new vertex
          * @returns {Edge}
          */
         addVertex(pt, edge) {
@@ -104,13 +113,13 @@ module.exports = function(Flatten) {
             let edgeBefore = edge.prev;
 
             /* Insert first split edge into linked list after edgeBefore */
-            edge.face.insert(newEdge, edgeBefore);
+            edge.face.insert(this.edges, newEdge, edgeBefore);
             /* Update edge shape with second split edge keeping links */
             let oldBox = edge.box;
             edge.shape = shapes[1];
 
             /* Update set of edges and 2d index */
-            this.edges.add(newEdge);
+            // this.edges.add(newEdge);
             this.edges.update(edge);
 
             return newEdge;
@@ -142,11 +151,10 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Point in contour test based on ray shooting (tracing) algorithm
-         * Returns true if point inside contour or lays on boundary,
-         * otherwise returns false
-         * @param point - test point
-         * @returns {boolean} - true if inside or on boundary, false otherwise
+         * Returns true if polygon contains point, including polygon boundary, false otherwise
+         * Point in polygon test based on ray shooting algorithm
+         * @param {Point} point - test point
+         * @returns {boolean}
          */
         contains(point) {
             let rel = ray_shoot(this, point);
@@ -154,8 +162,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Return distance and shortest segment between polygon and other shape
-         * @param shape
+         * Return distance and shortest segment between polygon and other shape as array [distance, shortest_segment]
+         * @param {Shape} shape Shape of one of the types Point, Circle, Line, Segment, Arc or Polygon
          * @returns {Number | Segment}
          */
         distanceTo(shape) {
@@ -195,7 +203,7 @@ module.exports = function(Flatten) {
 
         /**
          * Return string to draw polygon in svg
-         * @param attrs  - json structure with any attributes allowed to svg path element,
+         * @param attrs  - json structure with attributes for svg path element,
          * like "stroke", "strokeWidth", "fill", "fillRule"
          * Defaults are stroke:"black", strokeWidth:"3", fill:"lightcyan", fillRule:"evenodd"
          * @returns {string}

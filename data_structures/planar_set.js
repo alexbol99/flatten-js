@@ -11,7 +11,7 @@ let IntervalTree = require('flatten-interval-tree');
 module.exports = function (Flatten) {
     /**
      * Class representing a planar set - a generic container with ability to keep and retrieve shapes and
-     * perform spatial queries. Planar set is an extension of Set container, so it is possible to call directly
+     * perform spatial queries. Planar set is an extension of Set container, so it supports
      * Set properties and methods
      */
     Flatten.PlanarSet = class PlanarSet extends Set {
@@ -28,8 +28,9 @@ module.exports = function (Flatten) {
          * If shape already exist, it will not be added again.
          * This happens with no error, it is possible to use <i>size</i> property to check if
          * a shape was actually added.<br/>
-         * @param shape - shape to be added, should have valid <i>box</i> property
-         * @returns {PlanarSet} - planar set update, so may be chained
+         * Method returns planar set object updated and may be chained
+         * @param {Shape} shape - shape to be added, should have valid <i>box</i> property
+         * @returns {PlanarSet}
          */
         add(shape) {
             let size = this.size;
@@ -42,9 +43,9 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Delete shape from planar set.
-         * @param shape - shape to be deleted
-         * @returns {boolean} - returns true if shape was actually deleted, false otherwise
+         * Delete shape from planar set. Returns true if shape was actually deleted, false otherwise
+         * @param {Shape} shape - shape to be deleted
+         * @returns {boolean}
          */
         delete(shape) {
             let deleted = super.delete(shape);
@@ -54,15 +55,14 @@ module.exports = function (Flatten) {
             return deleted;
         }
 
-        /**
-         * Update shape in planar set
-         * @param shape
-         */
+
         update(shape) {
             if (super.has(shape)) {
                 this.delete(shape);
             }
             this.add(shape);
+
+            return this;
         }
 
         clear() {
@@ -72,8 +72,8 @@ module.exports = function (Flatten) {
         /**
          * 2d range search in planar set.<br/>
          * Returns array of all shapes in planar set which bounding box is intersected with query box
-         * @param box - query box
-         * @returns {Array} - array of shapes
+         * @param {Box} box - query box
+         * @returns {Shapes[]}
          */
         search(box) {
             let resp = this.index.search(box);
@@ -82,8 +82,8 @@ module.exports = function (Flatten) {
 
         /**
          * Point location test. Returns array of shapes which contains given point
-         * @param point - query point
-         * @returns {Array} - array of shapes which contains given point
+         * @param {Point} point - query point
+         * @returns {Array}
          */
         hit(point) {
             let box = new Flatten.Box(point.x - 1, point.y - 1, point.x + 1, point.y + 1);

@@ -7,12 +7,16 @@
 module.exports = function (Flatten) {
     let {Point, Segment, Arc, Box, Edge} = Flatten;
     /**
-     * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object. <br/>
-     * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}. <br/>
+     * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
+     * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}.
      * Face object cannot be instantiated with a constructor.
      * Instead, use [polygon.addFace()]{@link Flatten.Polygon#addFace} method.
+     * <br/>
+     * Note, that face only set entry point to the linked list of edges but does not contain edges by itself.
+     * Container of edges is a property of the polygon object. <br/>
+     *
      * @example
-     * // Face implements next iterator which enables to iterate edges in for loop:
+     * // Face implements "next" iterator which enables to iterate edges in for loop:
      * for (let edge of face) {
      *      console.log(edge.shape.length)     // do something
      * }
@@ -114,8 +118,8 @@ module.exports = function (Flatten) {
         };
 
         /**
-         * Return array of edges of the given face in the order from first to last
-         * @returns {Array} - Array of edges
+         * Return array of edges from first to last
+         * @returns {Array}
          */
         get edges() {
             let face_edges = [];
@@ -127,7 +131,7 @@ module.exports = function (Flatten) {
 
         /**
          * Return number of edges in the face
-         * @returns {number} - number of edges
+         * @returns {number}
          */
         get size() {
             let counter = 0;
@@ -148,9 +152,9 @@ module.exports = function (Flatten) {
         shapes2face(edges, shapes) {
             for (let shape of shapes) {
                 let edge = new Edge(shape);
-                this.append(edge);
+                this.append(edges, edge);
                 // this.box = this.box.merge(shape.box);
-                edges.add(edge);
+                // edges.add(edge);
             }
             // this.orientation = this.getOrientation();              // face direction cw or ccw
         }
@@ -165,10 +169,11 @@ module.exports = function (Flatten) {
 
         /**
          * Append given edge after the last edge (and before the first edge). <br/>
-         * This method mutes current object and does not return any value
+         * This method mutates current object and does not return any value
+         * @param {PlanarSet} edges - Container of edges
          * @param {Edge} edge - Edge to be appended to the linked list
          */
-        append(edge) {
+        append(edges, edge) {
             if (this.first === undefined) {
                 edge.prev = edge;
                 edge.next = edge;
@@ -192,15 +197,18 @@ module.exports = function (Flatten) {
                 edge.arc_length = edge.prev.arc_length + edge.prev.length;
             }
             edge.face = this;
+
+            edges.add(edge);      // Add new edges into edges container
         }
 
         /**
-         * Insert new edge newEdge into the linked list after edge edgeBefore <br/>
-         * This method mutes current object and does not return any value
+         * Insert edge newEdge into the linked list after the edge edgeBefore <br/>
+         * This method mutates current object and does not return any value
+         * @param {PlanarSet} edges - Container of edges
          * @param {Edge} newEdge - Edge to be inserted into linked list
          * @param {Edge} edgeBefore - Edge to insert newEdge after it
          */
-        insert(newEdge, edgeBefore) {
+        insert(edges, newEdge, edgeBefore) {
             if (this.first === undefined) {
                 edge.prev = newEdge;
                 edge.next = newEdge;
@@ -222,36 +230,41 @@ module.exports = function (Flatten) {
                     this.first = newEdge;
             }
             newEdge.face = this;
+
+            edges.add(newEdge);      // Add new edges into edges container
         }
 
         /**
          * Remove the given edge from the linked list of the face <br/>
-         * This method mutes current object and does not return any value
+         * This method mutates current object and does not return any value
+         * @param {PlanarSet} edges - Container of edges
          * @param {Edge} edge - Edge to be removed
          */
-        remove(edge) {
+        remove(edges, edge) {
             // special case if last edge removed
             if (edge === this.first && edge === this.last) {
                 this.first = undefined;
                 this.last = undefined;
-                return;
             }
-            // update linked list
-            edge.prev.next = edge.next;
-            edge.next.prev = edge.prev;
-            // update first if need
-            if (edge === this.first) {
-                this.first = edge.next;
+            else {
+                // update linked list
+                edge.prev.next = edge.next;
+                edge.next.prev = edge.prev;
+                // update first if need
+                if (edge === this.first) {
+                    this.first = edge.next;
+                }
+                // update last if need
+                if (edge === this.last) {
+                    this.last = edge.prev;
+                }
             }
-            // update last if need
-            if (edge === this.last) {
-                this.last = edge.prev;
-            }
+            edges.delete(edge);      // delete from PlanarSet of edges and update index
         }
 
         /**
-         * Set arc_length property for each of the edges in the face
-         * Arc_length of the edge it the length from the first edge of the face
+         * Set arc_length property for each of the edges in the face.
+         * Arc_length of the edge it the arc length from the first edge of the face
          */
         setArcLength() {
             for (let edge of this) {
@@ -266,7 +279,7 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Returns the area of the polygon
+         * Returns the absolute value of the area of the face
          * @returns {number}
          */
         area() {
@@ -274,7 +287,11 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Returns signed area of the polygon
+         * Returns signed area of the simple face.
+         * Face is simple if it has no self intersections that change its orientation.
+         * Then the area will be positive if the orientation of the face is clockwise,
+         * and negative if orientation is counterclockwise.
+         * It may be zero if polygon is degenerated.
          * @returns {number}
          */
         signedArea() {
@@ -291,7 +308,7 @@ module.exports = function (Flatten) {
          * and the sign of the integral will be defined by the direction of the curve.
          * When the integral ("signed area") will be negative, direction is counter clockwise,
          * when positive - clockwise and when it is zero, polygon is not orientable.
-         * See {@link http://mathinsight.org/greens_theorem_find_area}
+         * See {@link https://mathinsight.org/greens_theorem_find_area}
          * @returns {number}
          */
         orientation() {
@@ -328,7 +345,7 @@ module.exports = function (Flatten) {
         /**
          * Check relation between face and other polygon
          * on strong assumption that they are NOT INTERSECTED <br/>
-         * There are 4 options: <br/>
+         * Then there are 4 options: <br/>
          * face disjoint to polygon - Flatten.OUTSIDE <br/>
          * face inside polygon - Flatten.INSIDE <br/>
          * face contains polygon - Flatten.CONTAIN <br/>

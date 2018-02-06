@@ -10,6 +10,10 @@ module.exports = function(Flatten) {
      * @type {Edge}
      */
     Flatten.Edge = class Edge {
+        /**
+         * Construct new instance of edge
+         * @param {Shape} shape Shape of type Segment of Arc
+         */
         constructor(shape) {
             /**
              * Shape of the edge: Segment or Arc

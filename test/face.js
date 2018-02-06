@@ -74,7 +74,7 @@ describe('#Flatten.Face', function() {
         expect(face.size).to.equal(4);
         let edge = face.first;
         let edgeNext = edge.next;
-        face.remove(edge);
+        face.remove(poly.edges, edge);
         expect(face.size).to.equal(3);
         expect(face.first).to.equal(edgeNext);
         expect(face.last.next).to.equal(face.first);
@@ -95,13 +95,13 @@ describe('#Flatten.Face', function() {
 
         // remove all edges except the last
         for (let edge = face.first; edge !== face.last; edge = edge.next ) {
-            face.remove(edge);
+            face.remove(poly.edges, edge);
         }
         expect(face.size).to.equal(1);
         expect(face.first).to.equal(face.last);
 
         // remove the last edge
-        face.remove(face.first);
+        face.remove(poly.edges, face.first);
 
         expect(face.isEmpty()).to.be.true;
         expect(face.size).to.equal(0);

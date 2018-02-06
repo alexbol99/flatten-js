@@ -3,7 +3,7 @@
 module.exports = function(Flatten) {
     let {Point, Segment, Line, Circle, Arc, Box, Vector} = Flatten;
     /**
-     * Class representing a horizontal ray, used for ray shooting algorithm
+     * Class representing a horizontal ray, used by ray shooting algorithm
      * @type {Ray}
      */
     Flatten.Ray = class Ray {
@@ -69,8 +69,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Intersect ray with shape
-         * @param {Segment|Arc} - shape to intersect with ray
+         * Returns array of intersection points between ray and segment or arc
+         * @param {Segment|Arc} - Shape to intersect with ray
          * @returns {Array} array of intersection points
          */
         intersect(shape) {
