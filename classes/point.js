@@ -141,9 +141,10 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns distance between point and other shape
+         * Calculate distance and shortest segment from point to shape and return as array [distance, shortest segment]
          * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
-         * @returns {number}
+         * @returns {Number} distance from point to shape
+         * @returns {Segment} shortest segment between point and shape (started at point, ended at shape)
          */
         distanceTo(shape) {
             let {Distance} = Flatten;
@@ -215,7 +216,7 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Return string to draw point in svg as circle with radius "r".
+         * Return string to draw point in svg as circle with radius "r" <br/>
          * Defaults attrs is an object:
          * {
          *    r:"5",

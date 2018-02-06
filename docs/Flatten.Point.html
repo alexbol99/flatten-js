@@ -472,7 +472,7 @@
 
 
 <div class="description">
-    Method clone returns new instance of Point
+    Method clone returns new copied instance of point
 </div>
 
 
@@ -569,14 +569,14 @@
 
     
 
-    <h4 class="name" id="distanceTo"><span class="type-signature"></span>distanceTo<span class="signature">(shape)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id="distanceTo"><span class="type-signature"></span>distanceTo<span class="signature">(shape)</span><span class="type-signature"> &rarr; {Number|Segment}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns distance between point and other shape
+    Calculate distance and shortest segment from point to shape and return as array [distance, shortest segment]
 </div>
 
 
@@ -612,7 +612,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line143">line 143</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line149">line 149</a>
     </li></ul></dd>
     
 
@@ -673,7 +673,7 @@
             
 
             <td class="description last">
-                
+                Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
                 
             </td>
         </tr>
@@ -697,8 +697,8 @@
 
 <div class="section-returns">
 <h5>Returns:</h5>
-
-        
+<ul>
+        <li>
 
 <dl class="param-type">
     <dt>
@@ -706,14 +706,38 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>number</code></span>
+<span class="param-type"><code>Number</code></span>
 
 
     </dd>
 </dl>
 
 
+<div class="param-desc">
+    distance from point to shape
+</div>
+</li>
     
+        <li>
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Segment</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    shortest segment between point and shape (started at point, ended at shape)
+</div>
+</li>
+    </ul>
 </div>
 
 
@@ -732,7 +756,7 @@
 
 
 <div class="description">
-    Returns true if points are equal up to DP_TOL tolerance
+    Returns true if points are equal up to <a href="global.html#DP_TOL">Flatten.Utils.DP_TOL</a> tolerance
 </div>
 
 
@@ -829,7 +853,7 @@
             
 
             <td class="description last">
-                
+                Query point
                 
             </td>
         </tr>
@@ -888,7 +912,7 @@
 
 
 <div class="description">
-    Returns true if point is on "left" semi plane. Left semi plane is where line normal vector points to
+    Returns true if point belongs to the "left" semi-plane, which means, point belongs to the same semi plane where line normal vector points toReturn false if point belongs to the "right" semi-plane or to the line itself
 </div>
 
 
@@ -924,7 +948,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line132">line 132</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line137">line 137</a>
     </li></ul></dd>
     
 
@@ -973,6 +997,11 @@
 
             <td class="type">
             
+                
+<span class="param-type"><code>Line</code></span>
+
+
+            
             </td>
 
             
@@ -980,7 +1009,7 @@
             
 
             <td class="description last">
-                
+                Query line
                 
             </td>
         </tr>
@@ -1039,7 +1068,7 @@
 
 
 <div class="description">
-    Defines predicate "less than" between points. Need for spatial index
+    Defines predicate "less than" between points. Returns true if the point is less than query points, false otherwise <br/>By definition point1 < point2 if {point1.y < point2.y || point1.y == point2.y && point1.x < point2.y <br/>Numeric values compared with <a href="global.html#DP_TOL">Flatten.Utils.DP_TOL</a> tolerance
 </div>
 
 
@@ -1075,7 +1104,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line68">line 68</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line70">line 70</a>
     </li></ul></dd>
     
 
@@ -1124,6 +1153,11 @@
 
             <td class="type">
             
+                
+<span class="param-type"><code>Point</code></span>
+
+
+            
             </td>
 
             
@@ -1131,7 +1165,7 @@
             
 
             <td class="description last">
-                other point
+                Query point
                 
             </td>
         </tr>
@@ -1171,10 +1205,6 @@
 </dl>
 
 
-<div class="param-desc">
-    - true if this point less than other points, false otherwise
-</div>
-
     
 </div>
 
@@ -1194,7 +1224,7 @@
 
 
 <div class="description">
-    Returns true if point is on shape
+    Returns true if point is on a shape, false otherwise
 </div>
 
 
@@ -1230,7 +1260,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line186">line 186</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line192">line 192</a>
     </li></ul></dd>
     
 
@@ -1291,7 +1321,7 @@
             
 
             <td class="description last">
-                
+                Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon
                 
             </td>
         </tr>
@@ -1386,7 +1416,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line114">line 114</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -1447,7 +1477,7 @@
             
 
             <td class="description last">
-                line this point be projected on
+                Line this point be projected on
                 
             </td>
         </tr>
@@ -1506,7 +1536,7 @@
 
 
 <div class="description">
-    Returns new point rotated by given angle around given center point.If center point is omitted, rotates around zero point (0,0).
+    Returns new point rotated by given angle around given center point.If center point is omitted, rotates around zero point (0,0).Positive value of angle defines rotation in counter clockwise direction,negative angle defines rotation in clockwise clockwise direction
 </div>
 
 
@@ -1542,7 +1572,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line84">line 84</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line87">line 87</a>
     </li></ul></dd>
     
 
@@ -1596,7 +1626,7 @@
             <td class="type">
             
                 
-<span class="param-type"><code>number</code></span>
+<span class="param-type"><code>Number</code></span>
 
 
             
@@ -1619,7 +1649,7 @@
             
 
             <td class="description last">
-                angle in radians, positive value defines rotationin counter clockwise direction, negative - clockwise
+                angle in radians
                 
             </td>
         </tr>
@@ -1713,14 +1743,14 @@
 
     
 
-    <h4 class="name" id="svg"><span class="type-signature"></span>svg<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="svg"><span class="type-signature"></span>svg<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Return string to draw point in svg as circle with radius "r", default is r:"5"
+    Return string to draw point in svg as circle with radius "r" <br/>Defaults attrs is an object:{   r:"5",   stroke:"black",   strokeWidth:"1",   fill:"red"}
 </div>
 
 
@@ -1756,7 +1786,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line219">line 219</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line230">line 230</a>
     </li></ul></dd>
     
 
@@ -1805,6 +1835,11 @@
 
             <td class="type">
             
+                
+<span class="param-type"><code>Object</code></span>
+
+
+            
             </td>
 
             
@@ -1812,7 +1847,7 @@
             
 
             <td class="description last">
-                json structure with any attributes allowed to svg circle element,like "r", "stroke", "strokeWidth", "fill"Defaults are r:"5", stroke:"black", strokeWidth:"1", fill:"red"
+                Attributes of svg circle element: "r", "stroke", "strokeWidth", "fill"
                 
             </td>
         </tr>
@@ -1845,7 +1880,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>string</code></span>
+<span class="param-type"><code>String</code></span>
 
 
     </dd>
@@ -1871,7 +1906,7 @@
 
 
 <div class="description">
-    Returns new point translated by given vector.Translation vector may by also defined by a pair of numbers dx, dy
+    Returns new point translated by given vector.Translation vector may by also defined by a pair of numbers.
 </div>
 
 
@@ -1907,7 +1942,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line97">line 97</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
@@ -1968,7 +2003,36 @@
             
 
             <td class="description last">
-                translation vector
+                Translation vector defined as Flatten.Vector or
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code></code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Translation vector defined as pair of numbers
                 
             </td>
         </tr>
@@ -2032,7 +2096,7 @@
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Feb 04 2018 22:39:05 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Feb 06 2018 15:09:22 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
