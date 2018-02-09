@@ -55,15 +55,14 @@ module.exports = function (Flatten) {
             return deleted;
         }
 
-
-        update(shape) {
-            if (super.has(shape)) {
-                this.delete(shape);
-            }
-            this.add(shape);
-
-            return this;
-        }
+        // update(shape) {
+        //     if (super.has(shape)) {
+        //         this.delete(shape);
+        //     }
+        //     this.add(shape);
+        //
+        //     return this;
+        // }
 
         clear() {
 

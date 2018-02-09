@@ -106,5 +106,125 @@ describe('#Algorithms.Boolean Operations', function() {
         expect(poly.faces.size).to.equal(1);
         expect(poly.edges.size).to.equal(6);
     });
+    it('Can perform union. 2 polygons, 2 in 1 touching from outside, overlapping opposite', function () {
+        "use strict";
 
+        let polygon1 = new Polygon();
+        polygon1.addFace([
+            segment(-50, -50, 50, -50),
+            segment(50, -50, 50, 50),
+            segment(50, 50, -50, 50),
+            segment(-50, 50, -50, -50)
+        ]);
+
+        let polygon2 = new Polygon();
+        polygon2.addFace([
+            segment(0, 50, 100, 50),
+            segment(100, 50, 100, 100),
+            segment(100, 100, 0, 100),
+            segment(0, 100, 0, 50)
+        ]);
+
+        let poly = union(polygon1, polygon2);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(8);
+    });
+    it('Can perform union. 2 polygons form cross-shape', function () {
+        "use strict";
+
+        let polygon1 = new Polygon();
+        polygon1.addFace( [
+            point(-10,0),
+            point(10, 0),
+            point(10, 80),
+            point(-10, 80)
+        ]);
+        let polygon2 = new Polygon();
+        polygon2.addFace( [
+            point(-40,30),
+            point(40,30),
+            point(40,50),
+            point(-40,50)
+        ]);
+
+        let poly = union(polygon1, polygon2);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(12);
+    });
+    it('Can perform union. 2 disjoint polygons', function () {
+        "use strict";
+
+        let polygon1 = new Polygon();
+        polygon1.addFace( [
+            point(-10,0),
+            point(10, 0),
+            point(10, 20),
+            point(-10, 20)
+        ]);
+        let polygon2 = new Polygon();
+        polygon2.addFace( [
+            point(-40,30),
+            point(40,30),
+            point(40,50),
+            point(-40,50)
+        ]);
+
+        let poly = union(polygon1, polygon2);
+        expect(poly.faces.size).to.equal(2);
+        expect(poly.edges.size).to.equal(8);
+    });
+    it('Can perform union. 1st polygon with one round hole, 2nd polygon partially intersect hole ', function () {
+        "use strict";
+
+        let polygon1 = new Polygon();
+        polygon1.addFace( [
+            point(-10,0),
+            point(-10, 20),
+            point(10, 20),
+            point(10, 0)
+        ]);
+        polygon1.addFace(
+            [circle(point(0,10),5).toArc(true)]
+        );
+        let polygon2 = new Polygon();
+        polygon2.addFace( [
+            point(-40,13),
+            point(-40,50),
+            point(40,50),
+            point(40,13)
+        ]);
+
+        let poly = union(polygon1, polygon2);
+        expect(poly.faces.size).to.equal(2);
+        let faces = [...poly.faces];
+        expect(faces[0].size).to.equal(8);
+        expect(faces[1].size).to.equal(3);
+        expect(poly.edges.size).to.equal(11);
+    });
+    it('Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole ', function () {
+        "use strict";
+
+        let polygon1 = new Polygon();
+        polygon1.addFace( [
+            point(-10,0),
+            point(-10, 20),
+            point(10, 20),
+            point(10, 0)
+        ]);
+        polygon1.addFace(
+            [circle(point(0,10),5).toArc(true)]
+        );
+
+        let polygon2 = new Polygon();
+        polygon2.addFace( [
+            point(-8,2),
+            point(-8,18),
+            point(8,18),
+            point(8,2)
+        ]);
+
+        let poly = union(polygon1, polygon2);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(4);
+    });
 });

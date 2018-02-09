@@ -114,13 +114,15 @@ module.exports = function(Flatten) {
 
             /* Insert first split edge into linked list after edgeBefore */
             edge.face.insert(this.edges, newEdge, edgeBefore);
-            /* Update edge shape with second split edge keeping links */
-            let oldBox = edge.box;
+
+            // Remove old edge from edges container and 2d index
+            this.edges.delete(edge);
+
+            // Update edge shape with second split edge keeping links
             edge.shape = shapes[1];
 
-            /* Update set of edges and 2d index */
-            // this.edges.add(newEdge);
-            this.edges.update(edge);
+            // Add updated edge to the edges container and 2d index
+            this.edges.add(edge);
 
             return newEdge;
         }

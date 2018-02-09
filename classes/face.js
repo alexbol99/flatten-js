@@ -353,6 +353,7 @@ module.exports = function (Flatten) {
          * @param {Polygon} polygon - Polygon to check relation
          */
         getRelation(polygon) {
+            this.first.bv = this.first.bvStart = this.first.bvEnd = undefined;
             let bvThisInOther = this.first.setInclusion(polygon);
             let resp = polygon.faces.search(this.box);
             if (resp.length === 0) {
@@ -364,6 +365,7 @@ module.exports = function (Flatten) {
 
                 let numInsideThis = 0;
                 for (let face of resp) {
+                    face.first.bv = face.first.bvStart = face.first.bvEnd = undefined;
                     let bvOtherInThis = face.first.setInclusion(polyTmp);
                     if (bvOtherInThis === Flatten.INSIDE) {
                         numInsideThis++;

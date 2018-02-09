@@ -73,7 +73,7 @@ module.exports = function(Flatten) {
          * @returns {Arc}
          */
         toArc(counterclockwise=true) {
-            return new Flatten.Arc(this.center, this.r, Math.PI, 3*Math.PI, counterclockwise);
+            return new Flatten.Arc(this.center, this.r, Math.PI, -Math.PI, counterclockwise);
         }
 
         /**
