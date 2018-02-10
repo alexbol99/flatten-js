@@ -31,7 +31,8 @@ module.exports = function (Flatten) {
         }
 
         static subtract(polygon1, polygon2) {
-            let res_poly = BooleanOp.booleanOpBinary(polygon1, polygon2, Flatten.BOOLEAN_SUBTRACT);
+            let wrk_poly = polygon2.reverse();
+            let res_poly = BooleanOp.booleanOpBinary(polygon1, wrk_poly, Flatten.BOOLEAN_SUBTRACT);
             return res_poly;
         }
 

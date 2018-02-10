@@ -227,4 +227,50 @@ describe('#Algorithms.Boolean Operations', function() {
         expect(poly.faces.size).to.equal(1);
         expect(poly.edges.size).to.equal(4);
     });
+    it('Can perform subtract. 2 intersecting polygons', function () {
+        "use strict";
+
+        let polygon1 = new Polygon();
+        polygon1.addFace( [
+            point(-10,0),
+            point(-10, 20),
+            point(10, 20),
+            point(10, 0)
+        ]);
+        let polygon2 = new Polygon();
+        polygon2.addFace( [
+            point(5,10),
+            point(5,30),
+            point(15,30),
+            point(15,10)
+        ]);
+
+        let poly = subtract(polygon1, polygon2);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(6);
+    });
+    it('Can perform (boolean) intersection. 2 intersecting polygons', function () {
+        "use strict";
+
+        let polygon1 = new Polygon();
+        polygon1.addFace( [
+            point(-10,0),
+            point(-10, 20),
+            point(10, 20),
+            point(10, 0)
+        ]);
+
+        let polygon2 = new Polygon();
+        polygon2.addFace( [
+            point(5,10),
+            point(5,30),
+            point(15,30),
+            point(15,10)
+        ]);
+
+        let poly = intersect(polygon1, polygon2);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(4);
+        expect([...poly.faces][0].size).to.equal(4);
+    });
 });

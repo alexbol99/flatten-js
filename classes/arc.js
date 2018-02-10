@@ -207,7 +207,7 @@ module.exports = function(Flatten) {
 
             if (shape instanceof Flatten.Point) {
                 let [dist, shortest_segment] = Distance.point2arc(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [dist, shortest_segment];
             }
 
@@ -223,7 +223,7 @@ module.exports = function(Flatten) {
 
             if (shape instanceof Flatten.Segment) {
                 let [dist, shortest_segment] = Distance.segment2arc(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [dist, shortest_segment];
             }
 
@@ -323,6 +323,14 @@ module.exports = function(Flatten) {
             let angle = this.counterClockwise ? -Math.PI/2. : Math.PI/2.;
             let tangent = vec.rotate(angle).normalize();
             return tangent;
+        }
+
+        /**
+         * Returns new arc with swapped start and end angles and reversed direction
+         * @returns {Arc}
+         */
+        reverse() {
+            return new Arc(this.pc, this.r, this.endAngle, this.startAngle, !this.counterClockwise);
         }
 
         static intersectArc2Arc(arc1, arc2) {

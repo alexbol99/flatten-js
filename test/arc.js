@@ -271,4 +271,10 @@ describe('#Flatten.Arc', function() {
         let middle = arc.middle();
         expect(middle.equalTo(point(5,0))).to.be.true;
     });
+    it('Can reverse arc', function() {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
+        let reversed_arc = arc.reverse();
+        expect(reversed_arc.counterClockwise).to.equal(Flatten.CW);
+        expect(Flatten.Utils.EQ(arc.sweep,reversed_arc.sweep)).to.be.true;
+    })
 });

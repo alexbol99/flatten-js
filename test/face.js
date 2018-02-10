@@ -106,4 +106,26 @@ describe('#Flatten.Face', function() {
         expect(face.isEmpty()).to.be.true;
         expect(face.size).to.equal(0);
     });
+    it('Can reverse face', function () {
+        "use strict";
+        let points = [
+            point(100, 20),
+            point(200, 20),
+            point(200, 40),
+            point(100, 40)
+        ];
+
+        let poly = new Polygon();
+        let face = poly.addFace(points);
+        expect(face.size).to.equal(4);
+        expect(face.orientation()).to.equal(Flatten.ORIENTATION.CCW);
+
+        let reversed_poly = poly.reverse();
+        expect(reversed_poly.faces.size).to.equal(1);
+        expect(reversed_poly.edges.size).to.equal(4);
+
+        expect([...reversed_poly.faces][0].size).to.equal(4);
+        let orientation = [...reversed_poly.faces][0].orientation();
+        expect(orientation).to.equal(Flatten.ORIENTATION.CW);
+    });
 });

@@ -112,7 +112,7 @@ module.exports = function(Flatten) {
 
             if (shape instanceof Flatten.Point) {
                 let [distance, shortest_segment] = point2circle(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [distance, shortest_segment];
             }
 
@@ -128,13 +128,13 @@ module.exports = function(Flatten) {
 
             if (shape instanceof Flatten.Segment) {
                 let [distance, shortest_segment] = segment2circle(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [distance, shortest_segment];
             }
 
             if (shape instanceof Flatten.Arc) {
                 let [distance, shortest_segment] = arc2circle(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [distance, shortest_segment];
             }
 

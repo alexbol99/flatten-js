@@ -263,6 +263,57 @@ module.exports = function (Flatten) {
         }
 
         /**
+         * Reverse orientation of the face: first edge become last and vice a verse,
+         * all edges starts and ends swapped, direction of arcs inverted.
+         */
+        reverse() {
+            // collect edges in revert order with reverted shapes
+            let edges = [];
+            let edge_tmp = this.last;
+            do {
+                // reverse shape
+                edge_tmp.shape = edge_tmp.shape.reverse();
+                edges.push(edge_tmp);
+                edge_tmp = edge_tmp.prev;
+            } while (edge_tmp !== this.last);
+
+            // restore linked list
+            this.first = undefined;
+            this.last = undefined;
+            for (let edge of edges) {
+                if (this.first === undefined) {
+                    edge.prev = edge;
+                    edge.next = edge;
+                    this.first = edge;
+                    this.last = edge;
+                    edge.arc_length = 0;
+                }
+                else {
+                    // append to end
+                    edge.prev = this.last;
+                    this.last.next = edge;
+
+                    // update edge to be last
+                    this.last = edge;
+
+                    // restore circular links
+                    this.last.next = this.first;
+                    this.first.prev = this.last;
+
+                    // set arc length
+                    edge.arc_length = edge.prev.arc_length + edge.prev.length;
+                }
+            }
+
+            // Recalculate orientation, if set
+            if (this._orientation !== undefined) {
+                this._orientation = undefined;
+                this._orientation = this.orientation();
+            }
+        }
+
+
+        /**
          * Set arc_length property for each of the edges in the face.
          * Arc_length of the edge it the arc length from the first edge of the face
          */

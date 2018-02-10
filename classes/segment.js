@@ -160,7 +160,7 @@ module.exports = function (Flatten) {
 
             if (shape instanceof Flatten.Point) {
                 let [dist, shortest_segment] = Distance.point2segment(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [dist, shortest_segment];
             }
 
@@ -217,7 +217,7 @@ module.exports = function (Flatten) {
          * Returns new segment with swapped start and end points
          * @returns {Segment}
          */
-        swap() {
+        reverse() {
             return new Segment(this.end, this.start);
         }
 

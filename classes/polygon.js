@@ -127,6 +127,13 @@ module.exports = function(Flatten) {
             return newEdge;
         }
 
+        reverse() {
+            for (let face of this.faces) {
+                face.reverse();
+            }
+            return this;
+        }
+
         /**
          * Create new copied instance of the polygon
          * @returns {Polygon}
@@ -173,7 +180,7 @@ module.exports = function(Flatten) {
 
             if (shape instanceof Flatten.Point) {
                 let [dist, shortest_segment] = Distance.point2polygon(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [dist, shortest_segment];
             }
 
@@ -182,7 +189,7 @@ module.exports = function(Flatten) {
             shape instanceof Flatten.Segment ||
             shape instanceof Flatten.Arc) {
                 let [dist, shortest_segment] = Distance.shape2polygon(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [dist, shortest_segment];
             }
 

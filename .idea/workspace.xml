@@ -4,11 +4,13 @@
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/algorithms/boolean_op.js" afterPath="$PROJECT_DIR$/algorithms/boolean_op.js" />
-      <change beforePath="$PROJECT_DIR$/algorithms/ray_shooting.js" afterPath="$PROJECT_DIR$/algorithms/ray_shooting.js" />
+      <change beforePath="$PROJECT_DIR$/algorithms/distance.js" afterPath="$PROJECT_DIR$/algorithms/distance.js" />
+      <change beforePath="$PROJECT_DIR$/classes/arc.js" afterPath="$PROJECT_DIR$/classes/arc.js" />
       <change beforePath="$PROJECT_DIR$/classes/circle.js" afterPath="$PROJECT_DIR$/classes/circle.js" />
       <change beforePath="$PROJECT_DIR$/classes/face.js" afterPath="$PROJECT_DIR$/classes/face.js" />
+      <change beforePath="$PROJECT_DIR$/classes/line.js" afterPath="$PROJECT_DIR$/classes/line.js" />
       <change beforePath="$PROJECT_DIR$/classes/polygon.js" afterPath="$PROJECT_DIR$/classes/polygon.js" />
-      <change beforePath="$PROJECT_DIR$/data_structures/planar_set.js" afterPath="$PROJECT_DIR$/data_structures/planar_set.js" />
+      <change beforePath="$PROJECT_DIR$/classes/segment.js" afterPath="$PROJECT_DIR$/classes/segment.js" />
       <change beforePath="$PROJECT_DIR$/docs/Flatten.Arc.html" afterPath="$PROJECT_DIR$/docs/Flatten.Arc.html" />
       <change beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" />
       <change beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" />
@@ -39,8 +41,9 @@
       <change beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
       <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" />
       <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" />
+      <change beforePath="$PROJECT_DIR$/test/arc.js" afterPath="$PROJECT_DIR$/test/arc.js" />
       <change beforePath="$PROJECT_DIR$/test/boolean_op.js" afterPath="$PROJECT_DIR$/test/boolean_op.js" />
-      <change beforePath="$PROJECT_DIR$/test/planar_set.js" afterPath="$PROJECT_DIR$/test/planar_set.js" />
+      <change beforePath="$PROJECT_DIR$/test/face.js" afterPath="$PROJECT_DIR$/test/face.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -64,18 +67,28 @@
       <file leaf-file-name="boolean_op.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algorithms/boolean_op.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="83" column="81" lean-forward="false" selection-start-line="83" selection-start-column="81" selection-end-line="83" selection-end-column="81" />
+            <state relative-caret-position="510">
+              <caret line="34" column="71" lean-forward="false" selection-start-line="34" selection-start-column="71" selection-end-line="34" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/planar_set.js">
+      <file leaf-file-name="edge.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/edge.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="59" column="31" lean-forward="true" selection-start-line="59" selection-start-column="31" selection-end-line="59" selection-end-column="31" />
+            <state relative-caret-position="210">
+              <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/face.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1890">
+              <caret line="126" column="8" lean-forward="false" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -84,18 +97,8 @@
       <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/segment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="130" column="11" lean-forward="false" selection-start-line="130" selection-start-column="11" selection-end-line="130" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1353">
-              <caret line="118" column="36" lean-forward="false" selection-start-line="118" selection-start-column="36" selection-end-line="118" selection-end-column="36" />
+            <state relative-caret-position="3255">
+              <caret line="217" column="29" lean-forward="false" selection-start-line="217" selection-start-column="29" selection-end-line="217" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -104,8 +107,50 @@
       <file leaf-file-name="boolean_op.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/boolean_op.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="226" column="44" lean-forward="false" selection-start-line="226" selection-start-column="44" selection-end-line="226" selection-end-column="44" />
+            <state relative-caret-position="169">
+              <caret line="273" column="33" lean-forward="false" selection-start-line="273" selection-start-column="33" selection-end-line="273" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/polygon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4200">
+              <caret line="280" column="47" lean-forward="false" selection-start-line="280" selection-start-column="47" selection-end-line="280" selection-end-column="47" />
+              <folding>
+                <marker date="1517598588255" expanded="true" signature="315:8152" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1965">
+              <caret line="131" column="21" lean-forward="false" selection-start-line="131" selection-start-column="21" selection-end-line="131" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="975">
+              <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/arc.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4155">
+              <caret line="277" column="74" lean-forward="false" selection-start-line="277" selection-start-column="74" selection-end-line="277" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -114,50 +159,8 @@
       <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/face.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="368" column="73" lean-forward="true" selection-start-line="368" selection-start-column="73" selection-end-line="368" selection-end-column="73" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/arc.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="179" column="11" lean-forward="false" selection-start-line="179" selection-start-column="11" selection-end-line="179" selection-end-column="11" />
-              <folding>
-                <marker date="1517943732385" expanded="true" signature="15823:15908" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="planar_set.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ray_shooting.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="51" column="23" lean-forward="false" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="circle.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/circle.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="75" column="66" lean-forward="false" selection-start-line="75" selection-start-column="66" selection-end-line="75" selection-end-column="66" />
+            <state relative-caret-position="2040">
+              <caret line="136" column="28" lean-forward="false" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -174,9 +177,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>box</find>
-      <find>orientation</find>
-      <find>inversion</find>
       <find>inversion_op</find>
       <find>pro</find>
       <find>proj</find>
@@ -204,9 +204,13 @@
       <find>removeNotRelevantChains</find>
       <find>sortIn</find>
       <find>Rel</find>
+      <find>swa</find>
+      <find>swap</find>
+      <find>orientation</find>
     </findStrings>
     <replaceStrings>
       <replace>{Number | Segment}</replace>
+      <replace>reverse</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -250,25 +254,25 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/classes/inversion.js" />
-        <option value="$PROJECT_DIR$/classes/arc.js" />
-        <option value="$PROJECT_DIR$/test/arc.js" />
         <option value="$PROJECT_DIR$/test/segment.js" />
-        <option value="$PROJECT_DIR$/classes/segment.js" />
         <option value="$PROJECT_DIR$/test/polygon.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/algorithms/clip.js" />
         <option value="$PROJECT_DIR$/classes/edge.js" />
-        <option value="$PROJECT_DIR$/test/face.js" />
         <option value="$PROJECT_DIR$/classes/line.js" />
         <option value="$PROJECT_DIR$/classes/ray.js" />
         <option value="$PROJECT_DIR$/classes/vector.js" />
-        <option value="$PROJECT_DIR$/classes/polygon.js" />
         <option value="$PROJECT_DIR$/data_structures/planar_set.js" />
         <option value="$PROJECT_DIR$/test/planar_set.js" />
         <option value="$PROJECT_DIR$/algorithms/ray_shooting.js" />
         <option value="$PROJECT_DIR$/classes/circle.js" />
-        <option value="$PROJECT_DIR$/algorithms/boolean_op.js" />
+        <option value="$PROJECT_DIR$/classes/arc.js" />
+        <option value="$PROJECT_DIR$/classes/segment.js" />
+        <option value="$PROJECT_DIR$/test/arc.js" />
+        <option value="$PROJECT_DIR$/classes/polygon.js" />
+        <option value="$PROJECT_DIR$/test/face.js" />
         <option value="$PROJECT_DIR$/classes/face.js" />
+        <option value="$PROJECT_DIR$/algorithms/boolean_op.js" />
         <option value="$PROJECT_DIR$/test/boolean_op.js" />
       </list>
     </option>
@@ -289,10 +293,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="94" />
-    <option name="y" value="37" />
-    <option name="width" value="1180" />
-    <option name="height" value="666" />
+    <option name="x" value="100" />
+    <option name="y" value="45" />
+    <option name="width" value="1179" />
+    <option name="height" value="695" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -309,7 +313,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -341,6 +344,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -366,174 +370,6 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\node_modules\jsdoc\templates" />
     </key>
   </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.jsdoc.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/algorithms/boolean_op.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/classes/arc.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/classes/box.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/classes/circle.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/classes/edge.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/classes/face.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/classes/inversion.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/classes/point.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/classes/polygon.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/classes/segment.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Arc.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Box.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Circle.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Edge.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Face.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Line.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.PlanarSet.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Point.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Polygon.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Ray.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Segment.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Vector.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/algorithms_distance.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_arc.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_box.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_circle.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_edge.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_face.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_line.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_point.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_polygon.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_ray.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_segment.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_vector.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/data_structures_planar_set.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/index.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/styles/jsdoc-default.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/package.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/test/boolean_op.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/test/face.js</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/Flatten.Inversion.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/algorithms_clip.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/classes_inversion.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/global.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/utils_errors.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/utils_utils.js.html</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/PlanarSet.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/arc.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/box.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/circle.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/edge.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/line.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/point.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/polygon.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/segment.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/docs/vector.js.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/test.js</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
-  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -546,7 +382,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole ">
+  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations.Can perform (boolean) intersection. 2 intersecting polygons">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
@@ -612,7 +448,7 @@
       <arguments />
       <envs />
     </configuration>
-    <configuration name="#Algorithms.Boolean Operations" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Algorithms.Boolean Operations.Can perform (boolean) intersection. 2 intersecting polygons" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -620,10 +456,26 @@
       <envs />
       <ui>bdd</ui>
       <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
+      <test-kind>TEST</test-kind>
       <test-file>$PROJECT_DIR$/test/boolean_op.js</test-file>
       <test-names>
         <name value="#Algorithms.Boolean Operations" />
+        <name value="Can perform (boolean) intersection. 2 intersecting polygons" />
+      </test-names>
+    </configuration>
+    <configuration name="#Algorithms.Boolean Operations.Can perform subtract. 2 intersecting polygons" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/boolean_op.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Boolean Operations" />
+        <name value="Can perform subtract. 2 intersecting polygons" />
       </test-names>
     </configuration>
     <configuration name="#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole " type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
@@ -641,7 +493,7 @@
         <name value="Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole " />
       </test-names>
     </configuration>
-    <configuration name="#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon partially intersect hole " type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Arc.Can reverse arc" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -650,13 +502,13 @@
       <ui>bdd</ui>
       <extra-mocha-options />
       <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/boolean_op.js</test-file>
+      <test-file>$PROJECT_DIR$/test/arc.js</test-file>
       <test-names>
-        <name value="#Algorithms.Boolean Operations" />
-        <name value="Can perform union. 1st polygon with one round hole, 2nd polygon partially intersect hole " />
+        <name value="#Flatten.Arc" />
+        <name value="Can reverse arc" />
       </test-names>
     </configuration>
-    <configuration name="#Algorithms.Boolean Operations.Can perform union. 2 disjoint polygons" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Face.Can reverse face" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -665,41 +517,26 @@
       <ui>bdd</ui>
       <extra-mocha-options />
       <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/boolean_op.js</test-file>
+      <test-file>$PROJECT_DIR$/test/face.js</test-file>
       <test-names>
-        <name value="#Algorithms.Boolean Operations" />
-        <name value="Can perform union. 2 disjoint polygons" />
-      </test-names>
-    </configuration>
-    <configuration name="#Algorithms.Boolean Operations.Can perform union. 2 polygons, intersect" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/boolean_op.js</test-file>
-      <test-names>
-        <name value="#Algorithms.Boolean Operations" />
-        <name value="Can perform union. 2 polygons, intersect" />
+        <name value="#Flatten.Face" />
+        <name value="Can reverse face" />
       </test-names>
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations" />
-      <item index="1" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 2 disjoint polygons" />
-      <item index="2" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 2 polygons, intersect" />
-      <item index="3" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon partially intersect hole " />
-      <item index="4" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole " />
+      <item index="0" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole " />
+      <item index="1" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Can reverse arc" />
+      <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Face.Can reverse face" />
+      <item index="3" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform subtract. 2 intersecting polygons" />
+      <item index="4" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform (boolean) intersection. 2 intersecting polygons" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole " />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon partially intersect hole " />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 2 polygons, intersect" />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 2 disjoint polygons" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform (boolean) intersection. 2 intersecting polygons" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform subtract. 2 intersecting polygons" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.#Flatten.Face.Can reverse face" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.#Flatten.Arc.Can reverse arc" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole " />
       </list>
     </recent_temporary>
   </component>
@@ -768,14 +605,9 @@
       <workItem from="1513665140086" duration="5325000" />
       <workItem from="1514834025778" duration="372000" />
       <workItem from="1514838038569" duration="33887000" />
-      <workItem from="1517559306598" duration="21228000" />
-    </task>
-    <task id="LOCAL-00033" summary="clean working directory">
-      <created>1490389667908</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1490389667908</updated>
+      <workItem from="1517559306598" duration="22307000" />
+      <workItem from="1518254937346" duration="8188000" />
+      <workItem from="1518266448781" duration="56000" />
     </task>
     <task id="LOCAL-00034" summary="clean working directory">
       <created>1490389955599</created>
@@ -1113,43 +945,50 @@
       <option name="project" value="LOCAL" />
       <updated>1517951715054</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Boolean operations test and fix (union)&#10;- Circle::toArc() method - end angle -pi instead of 3pi&#10;- Face::getRelation - initialize edges bv flags before recalcuation&#10;- Polygon::addVertex - no edges.update method in PlanarSet anymore, use delete and add&#10;- Ray shooting - skip vertex ip if between same edges and already counted&#10;- Ray shooting - fix technical bug in sorting&#10;- BooleanOp&#10; - clone both polygons in clip&#10; - calculate inclusion flags with original polygons for performance&#10; - consider face id when sorting intersection points&#10; - remove not relevant between points belong to same face">
+      <created>1518175902680</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1518175902680</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="#Algorithms_Boolean_Operations - 2018.02.08 at 22h 58m 37s.xml">
-      <configuration name="#Algorithms.Boolean Operations" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_(boolean)_intersection__2_intersecting_polygons - 2018.02.10 at 13h 54m 12s.xml">
+      <configuration name="#Algorithms.Boolean Operations.Can perform (boolean) intersection. 2 intersecting polygons" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_union__1st_polygon_with_one_round_hole,_2nd_polygon_fully_cover_hole_ - 2018.02.09 at 13h 17m 57s.xml">
-      <configuration name="#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole " configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_subtract__2_intersecting_polygons - 2018.02.10 at 13h 23m 03s.xml">
+      <configuration name="#Algorithms.Boolean Operations.Can perform subtract. 2 intersecting polygons" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_union__1st_polygon_with_one_round_hole,_2nd_polygon_fully_cover_hole_ - 2018.02.09 at 13h 18m 09s.xml">
-      <configuration name="#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon fully cover hole " configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_subtract__2_intersecting_polygons - 2018.02.10 at 13h 23m 08s.xml">
+      <configuration name="#Algorithms.Boolean Operations.Can perform subtract. 2 intersecting polygons" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_union__1st_polygon_with_one_round_hole,_2nd_polygon_partially_intersect_hole_ - 2018.02.09 at 12h 41m 38s.xml">
-      <configuration name="#Algorithms.Boolean Operations.Can perform union. 1st polygon with one round hole, 2nd polygon partially intersect hole " configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_subtract__2_intersecting_polygons - 2018.02.10 at 13h 24m 55s.xml">
+      <configuration name="#Algorithms.Boolean Operations.Can perform subtract. 2 intersecting polygons" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_union__2_disjoint_polygons - 2018.02.08 at 23h 07m 54s.xml">
-      <configuration name="#Algorithms.Boolean Operations.Can perform union. 2 disjoint polygons" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Face_Can_reverse_face - 2018.02.10 at 13h 14m 45s.xml">
+      <configuration name="#Flatten.Face.Can reverse face" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_union__2_disjoint_polygons - 2018.02.08 at 23h 09m 04s.xml">
-      <configuration name="#Algorithms.Boolean Operations.Can perform union. 2 disjoint polygons" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Face_Can_reverse_face - 2018.02.10 at 13h 16m 59s.xml">
+      <configuration name="#Flatten.Face.Can reverse face" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_union__2_polygons,_intersect - 2018.02.09 at 12h 34m 04s.xml">
-      <configuration name="#Algorithms.Boolean Operations.Can perform union. 2 polygons, intersect" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Face_Can_reverse_face - 2018.02.10 at 13h 18m 01s.xml">
+      <configuration name="#Flatten.Face.Can reverse face" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_union__2_polygons,_intersect - 2018.02.09 at 12h 34m 44s.xml">
-      <configuration name="#Algorithms.Boolean Operations.Can perform union. 2 polygons, intersect" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Face_Can_reverse_face - 2018.02.10 at 13h 18m 14s.xml">
+      <configuration name="#Flatten.Face.Can reverse face" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_union__2_polygons_form_cross-shape - 2018.02.08 at 22h 58m 17s.xml">
-      <configuration name="#Algorithms.Boolean Operations.Can perform union. 2 polygons form cross-shape" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Face_Can_reverse_face - 2018.02.10 at 13h 18m 22s.xml">
+      <configuration name="#Flatten.Face.Can reverse face" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="#Algorithms_Boolean_Operations_Can_perform_union__2_polygons_form_cross-shape - 2018.02.08 at 22h 58m 28s.xml">
-      <configuration name="#Algorithms.Boolean Operations.Can perform union. 2 polygons form cross-shape" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="#Flatten_Face_Can_reverse_face - 2018.02.10 at 13h 20m 10s.xml">
+      <configuration name="#Flatten.Face.Can reverse face" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="511461000" />
+    <option name="totallyTimeSpent" value="520784000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1161,19 +1000,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="94" y="37" width="1180" height="666" extended-state="0" />
+    <frame x="100" y="45" width="1179" height="695" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19758412" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19775476" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32664233" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32533014" sideWeight="0.5033846" order="14" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35749587" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3540146" sideWeight="0.49661538" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41423357" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35355285" sideWeight="0.49661538" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41421145" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27189782" sideWeight="0.49768057" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3864818" sideWeight="0.49768057" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3540146" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33448875" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="SFDX" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44753477" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
@@ -1184,6 +1023,7 @@
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32933754" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35749587" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Log Manager" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1196,7 +1036,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added class Ray" />
     <MESSAGE value="Added ray shooting algorithm (not completed)" />
     <MESSAGE value="Continued ray shooting algorithm (not completed)" />
     <MESSAGE value="Let Trevis does not fail" />
@@ -1221,7 +1060,8 @@
     <MESSAGE value="Added method setInclusion with some tests" />
     <MESSAGE value="Started Clip algorithm" />
     <MESSAGE value="- Added parameter &quot;edges&quot; to face.append, face.remove, face.insert methods&#10;- Edited documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added parameter &quot;edges&quot; to face.append, face.remove, face.insert methods&#10;- Edited documentation" />
+    <MESSAGE value="Boolean operations test and fix (union)&#10;- Circle::toArc() method - end angle -pi instead of 3pi&#10;- Face::getRelation - initialize edges bv flags before recalcuation&#10;- Polygon::addVertex - no edges.update method in PlanarSet anymore, use delete and add&#10;- Ray shooting - skip vertex ip if between same edges and already counted&#10;- Ray shooting - fix technical bug in sorting&#10;- BooleanOp&#10; - clone both polygons in clip&#10; - calculate inclusion flags with original polygons for performance&#10; - consider face id when sorting intersection points&#10; - remove not relevant between points belong to same face" />
+    <option name="LAST_COMMIT_MESSAGE" value="Boolean operations test and fix (union)&#10;- Circle::toArc() method - end angle -pi instead of 3pi&#10;- Face::getRelation - initialize edges bv flags before recalcuation&#10;- Polygon::addVertex - no edges.update method in PlanarSet anymore, use delete and add&#10;- Ray shooting - skip vertex ip if between same edges and already counted&#10;- Ray shooting - fix technical bug in sorting&#10;- BooleanOp&#10; - clone both polygons in clip&#10; - calculate inclusion flags with original polygons for performance&#10; - consider face id when sorting intersection points&#10; - remove not relevant between points belong to same face" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1229,11 +1069,15 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/boolean_op.js</url>
           <line>46</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="190" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/face.js</url>
+          <line>126</line>
+          <option name="timeStamp" value="195" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="191" />
+      <option name="time" value="196" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
@@ -1356,26 +1200,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="272" column="7" lean-forward="true" selection-start-line="272" selection-start-column="7" selection-end-line="272" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="80" column="55" lean-forward="false" selection-start-line="80" selection-start-column="55" selection-end-line="80" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/algorithms/distance.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9615">
           <caret line="641" column="47" lean-forward="false" selection-start-line="641" selection-start-column="47" selection-end-line="641" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1383,7 +1211,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="341">
           <caret line="58" column="40" lean-forward="true" selection-start-line="58" selection-start-column="40" selection-end-line="58" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1391,23 +1218,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
           <caret line="70" column="3" lean-forward="false" selection-start-line="70" selection-start-column="3" selection-end-line="70" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/edge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="96" column="76" lean-forward="false" selection-start-line="96" selection-start-column="76" selection-end-line="96" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1415,7 +1225,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1423,7 +1232,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="174" column="13" lean-forward="false" selection-start-line="174" selection-start-column="13" selection-end-line="174" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1431,7 +1239,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1439,7 +1246,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
           <caret line="168" column="64" lean-forward="false" selection-start-line="168" selection-start-column="64" selection-end-line="168" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1447,9 +1253,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1631">
           <caret line="144" column="44" lean-forward="false" selection-start-line="144" selection-start-column="44" selection-end-line="144" selection-end-column="44" />
-          <folding>
-            <marker date="1517598588243" expanded="true" signature="10252:10262" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1457,9 +1260,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
           <caret line="59" column="19" lean-forward="false" selection-start-line="59" selection-start-column="19" selection-end-line="59" selection-end-column="19" />
-          <folding>
-            <marker date="1517943732414" expanded="true" signature="283:673" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1467,7 +1267,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1475,7 +1274,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="39" lean-forward="false" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/circle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="71" lean-forward="false" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/planar_set.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="885">
+          <caret line="59" column="31" lean-forward="false" selection-start-line="59" selection-start-column="31" selection-end-line="59" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="51" column="23" lean-forward="false" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/circle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1125">
+          <caret line="75" column="66" lean-forward="false" selection-start-line="75" selection-start-column="66" selection-end-line="75" selection-end-column="66" />
         </state>
       </provider>
     </entry>
@@ -1487,17 +1320,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/circle.js">
+    <entry file="file://$PROJECT_DIR$/test/segment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+        <state relative-caret-position="519">
+          <caret line="80" column="55" lean-forward="false" selection-start-line="80" selection-start-column="55" selection-end-line="80" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/arc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="330" column="11" lean-forward="true" selection-start-line="330" selection-start-column="11" selection-end-line="330" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithms/boolean_op.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="71" lean-forward="false" selection-start-line="34" selection-start-column="71" selection-end-line="34" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/edge.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/face.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1890">
+          <caret line="126" column="8" lean-forward="false" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/segment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3255">
+          <caret line="217" column="29" lean-forward="false" selection-start-line="217" selection-start-column="29" selection-end-line="217" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
+        <state relative-caret-position="4200">
           <caret line="280" column="47" lean-forward="false" selection-start-line="280" selection-start-column="47" selection-end-line="280" selection-end-column="47" />
           <folding>
             <marker date="1517598588255" expanded="true" signature="315:8152" ph="{...}" />
@@ -1505,92 +1376,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="71" lean-forward="false" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1353">
-          <caret line="118" column="36" lean-forward="false" selection-start-line="118" selection-start-column="36" selection-end-line="118" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="179" column="11" lean-forward="false" selection-start-line="179" selection-start-column="11" selection-end-line="179" selection-end-column="11" />
-          <folding>
-            <marker date="1517943732385" expanded="true" signature="15823:15908" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="130" column="11" lean-forward="false" selection-start-line="130" selection-start-column="11" selection-end-line="130" selection-end-column="11" />
+        <state relative-caret-position="1965">
+          <caret line="131" column="21" lean-forward="false" selection-start-line="131" selection-start-column="21" selection-end-line="131" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
+        <state relative-caret-position="975">
           <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/planar_set.js">
+    <entry file="file://$PROJECT_DIR$/test/arc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="59" column="31" lean-forward="true" selection-start-line="59" selection-start-column="31" selection-end-line="59" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="51" column="23" lean-forward="false" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="75" column="66" lean-forward="false" selection-start-line="75" selection-start-column="66" selection-end-line="75" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorithms/boolean_op.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="83" column="81" lean-forward="false" selection-start-line="83" selection-start-column="81" selection-end-line="83" selection-end-column="81" />
+        <state relative-caret-position="4155">
+          <caret line="277" column="74" lean-forward="false" selection-start-line="277" selection-start-column="74" selection-end-line="277" selection-end-column="74" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/face.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="368" column="73" lean-forward="true" selection-start-line="368" selection-start-column="73" selection-end-line="368" selection-end-column="73" />
+        <state relative-caret-position="2040">
+          <caret line="136" column="28" lean-forward="false" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/boolean_op.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="226" column="44" lean-forward="false" selection-start-line="226" selection-start-column="44" selection-end-line="226" selection-end-column="44" />
+        <state relative-caret-position="169">
+          <caret line="273" column="33" lean-forward="false" selection-start-line="273" selection-start-column="33" selection-end-line="273" selection-end-column="33" />
           <folding />
         </state>
       </provider>
