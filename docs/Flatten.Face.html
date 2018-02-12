@@ -45,13 +45,7 @@
         Face
         </h2>
         
-            <div class="class-description">Class representing a face (closed loop) in a <a href="Flatten.Polygon.html">polygon</a> object.
-Face is a circular bidirectional linked list of <a href="Flatten.Edge.html">edges</a>.
-Face object cannot be instantiated with a constructor.
-Instead, use <a href="Flatten.Polygon.html#addFace">polygon.addFace()</a> method.
-<br/>
-Note, that face only set entry point to the linked list of edges but does not contain edges by itself.
-Container of edges is a property of the polygon object. <br/></div>
+            <div class="class-description">Class representing a face (closed loop) in a <a href="Flatten.Polygon.html">polygon</a> object.Face is a circular bidirectional linked list of <a href="Flatten.Edge.html">edges</a>.Face object cannot be instantiated with a constructor.Instead, use <a href="Flatten.Polygon.html#addFace">polygon.addFace()</a> method.<br/>Note, that face only set entry point to the linked list of edges but does not contain edges by itself.Container of edges is a property of the polygon object. <br/></div>
         
     
 </header>
@@ -141,17 +135,7 @@ Container of edges is a property of the polygon object. <br/></div>
 <div class="section-examples">
 <h5>Example</h5>
 
-    <pre class="prettyprint"><code>// Face implements "next" iterator which enables to iterate edges in for loop:
-for (let edge of face) {
-     console.log(edge.shape.length)     // do something
-}
-
-// Instead, it is possible to iterate edges as linked list, starting from face.first:
-let edge = face.first;
-do {
-  console.log(edge.shape.length);   // do something
-  edge = edge.next;
-} while (edge != face.first)</code></pre>
+    <pre class="prettyprint"><code>// Face implements "next" iterator which enables to iterate edges in for loop:for (let edge of face) {     console.log(edge.shape.length)     // do something}// Instead, it is possible to iterate edges as linked list, starting from face.first:let edge = face.first;do {  console.log(edge.shape.length);   // do something  edge = edge.next;} while (edge != face.first)</code></pre>
 
 </div>
 
@@ -511,8 +495,7 @@ do {
 
 
 <div class="description">
-    Append given edge after the last edge (and before the first edge). <br/>
-This method mutates current object and does not return any value
+    Append given edge after the last edge (and before the first edge). <br/>This method mutates current object and does not return any value
 </div>
 
 
@@ -777,13 +760,7 @@ This method mutates current object and does not return any value
 
 
 <div class="description">
-    Check relation between face and other polygon
-on strong assumption that they are NOT INTERSECTED <br/>
-Then there are 4 options: <br/>
-face disjoint to polygon - Flatten.OUTSIDE <br/>
-face inside polygon - Flatten.INSIDE <br/>
-face contains polygon - Flatten.CONTAIN <br/>
-face interlaced with polygon: inside some face and contains other face - Flatten.INTERLACE <br/>
+    Check relation between face and other polygonon strong assumption that they are NOT INTERSECTED <br/>Then there are 4 options: <br/>face disjoint to polygon - Flatten.OUTSIDE <br/>face inside polygon - Flatten.INSIDE <br/>face contains polygon - Flatten.CONTAIN <br/>face interlaced with polygon: inside some face and contains other face - Flatten.INTERLACE <br/>
 </div>
 
 
@@ -918,8 +895,7 @@ face interlaced with polygon: inside some face and contains other face - Flatten
 
 
 <div class="description">
-    Insert edge newEdge into the linked list after the edge edgeBefore <br/>
-This method mutates current object and does not return any value
+    Insert edge newEdge into the linked list after the edge edgeBefore <br/>This method mutates current object and does not return any value
 </div>
 
 
@@ -1210,12 +1186,7 @@ This method mutates current object and does not return any value
 
 
 <div class="description">
-    Return face orientation: one of Flatten.ORIENTATION.CCW, Flatten.ORIENTATION.CW, Flatten.ORIENTATION.NOT_ORIENTABLE <br/>
-According to Green theorem the area of a closed curve may be calculated as double integral,
-and the sign of the integral will be defined by the direction of the curve.
-When the integral ("signed area") will be negative, direction is counter clockwise,
-when positive - clockwise and when it is zero, polygon is not orientable.
-See <a href="https://mathinsight.org/greens_theorem_find_area">https://mathinsight.org/greens_theorem_find_area</a>
+    Return face orientation: one of Flatten.ORIENTATION.CCW, Flatten.ORIENTATION.CW, Flatten.ORIENTATION.NOT_ORIENTABLE <br/>According to Green theorem the area of a closed curve may be calculated as double integral,and the sign of the integral will be defined by the direction of the curve.When the integral ("signed area") will be negative, direction is counter clockwise,when positive - clockwise and when it is zero, polygon is not orientable.See <a href="https://mathinsight.org/greens_theorem_find_area">https://mathinsight.org/greens_theorem_find_area</a>
 </div>
 
 
@@ -1319,8 +1290,7 @@ See <a href="https://mathinsight.org/greens_theorem_find_area">https://mathinsig
 
 
 <div class="description">
-    Remove the given edge from the linked list of the face <br/>
-This method mutates current object and does not return any value
+    Remove the given edge from the linked list of the face <br/>This method mutates current object and does not return any value
 </div>
 
 
@@ -1481,8 +1451,7 @@ This method mutates current object and does not return any value
 
 
 <div class="description">
-    Reverse orientation of the face: first edge become last and vice a verse,
-all edges starts and ends swapped, direction of arcs inverted.
+    Reverse orientation of the face: first edge become last and vice a verse,all edges starts and ends swapped, direction of arcs inverted.
 </div>
 
 
@@ -1565,8 +1534,7 @@ all edges starts and ends swapped, direction of arcs inverted.
 
 
 <div class="description">
-    Set arc_length property for each of the edges in the face.
-Arc_length of the edge it the arc length from the first edge of the face
+    Set arc_length property for each of the edges in the face.Arc_length of the edge it the arc length from the first edge of the face
 </div>
 
 
@@ -1649,11 +1617,7 @@ Arc_length of the edge it the arc length from the first edge of the face
 
 
 <div class="description">
-    Returns signed area of the simple face.
-Face is simple if it has no self intersections that change its orientation.
-Then the area will be positive if the orientation of the face is clockwise,
-and negative if orientation is counterclockwise.
-It may be zero if polygon is degenerated.
+    Returns signed area of the simple face.Face is simple if it has no self intersections that change its orientation.Then the area will be positive if the orientation of the face is clockwise,and negative if orientation is counterclockwise.It may be zero if polygon is degenerated.
 </div>
 
 
@@ -1762,7 +1726,7 @@ It may be zero if polygon is degenerated.
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Feb 10 2018 14:25:12 GMT+0200 (IST) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Feb 12 2018 23:44:15 GMT+0200 (Jerusalem Standard Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
