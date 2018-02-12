@@ -53,9 +53,11 @@ describe('#Data_structures.PlanarSet', function() {
         planarSet.add(segment);
         planarSet.add(circle);
 
+        // Update == delete and add
+        planarSet.delete(segment);
         segment.pe.x = 3;
         segment.pe.y = 4;
-        planarSet.update(segment);
+        planarSet.add(segment);
 
         expect(planarSet.has(segment)).to.equal(true);
         expect(planarSet.size).to.equal(2);

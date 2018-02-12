@@ -16,30 +16,28 @@ module.exports = function (Flatten) {
         static booleanOp(operands) {
             let res_poly = new Polygon();
             for (let [wrk_poly, op] of operands) {
-                BooleanOp.booleanOpBinary(res_poly, wrk_poly, op);
+                res_poly = BooleanOp.booleanOpBinary(res_poly, wrk_poly, op);
             }
             return res_poly;
         }
 
         static booleanOpBinary(res_poly, wrk_poly, op) {
-            BooleanOp.clip(res_poly, wrk_poly, op);
+            return BooleanOp.clip(res_poly, wrk_poly, op);
         }
 
         static union(polygon1, polygon2) {
-            let res_poly = polygon1.clone();
-            BooleanOp.booleanOpBinary(res_poly, polygon2, Flatten.BOOLEAN_UNION);
+            let res_poly = BooleanOp.booleanOpBinary(polygon1, polygon2, Flatten.BOOLEAN_UNION);
             return res_poly;
         }
 
         static subtract(polygon1, polygon2) {
-            let res_poly = polygon1.clone();
-            BooleanOp.booleanOpBinary(res_poly, polygon2, Flatten.BOOLEAN_SUBTRACT);
+            let wrk_poly = polygon2.reverse();
+            let res_poly = BooleanOp.booleanOpBinary(polygon1, wrk_poly, Flatten.BOOLEAN_SUBTRACT);
             return res_poly;
         }
 
         static intersect(polygon1, polygon2) {
-            let res_poly = polygon1.clone();
-            BooleanOp.booleanOpBinary(res_poly, polygon2, Flatten.BOOLEAN_INTERSECT);
+            let res_poly = BooleanOp.booleanOpBinary(polygon1, polygon2, Flatten.BOOLEAN_INTERSECT);
             return res_poly;
         }
 
@@ -55,7 +53,10 @@ module.exports = function (Flatten) {
             BooleanOp.splitByIntersections(polygon2, intersections.int_points2_sorted);
         }
 
-        static clip(res_poly, wrk_poly, op) {
+        static clip(polygon1, polygon2, op) {
+            let res_poly = polygon1.clone();
+            let wrk_poly = polygon2.clone();
+
             // get intersection points
             let intersections = BooleanOp.getIntersections(res_poly, wrk_poly);
 
@@ -80,8 +81,8 @@ module.exports = function (Flatten) {
             BooleanOp.initializeInclusionFlags(intersections.int_points2);
 
             // calculate inclusion flags only for edges incident to intersections
-            BooleanOp.calculateInclusionFlags(intersections.int_points1, wrk_poly);
-            BooleanOp.calculateInclusionFlags(intersections.int_points2, res_poly);
+            BooleanOp.calculateInclusionFlags(intersections.int_points1, polygon2);
+            BooleanOp.calculateInclusionFlags(intersections.int_points2, polygon1);
 
             // TODO: fix bondary conflicts
 
@@ -105,6 +106,8 @@ module.exports = function (Flatten) {
             // restore faces
             BooleanOp.restoreFaces(res_poly, intersections.int_points1, intersections.int_points2);
             BooleanOp.restoreFaces(res_poly, intersections.int_points2, intersections.int_points1);
+
+            return res_poly;
         }
 
         static getIntersections(polygon1, polygon2) {
@@ -174,13 +177,42 @@ module.exports = function (Flatten) {
 
         static sortIntersections(intersections) {
             if (intersections.int_points1.length === 0) return;
+
             // augment intersections with new sorted arrays
-            intersections.int_points1_sorted = intersections.int_points1.slice().sort(BooleanOp.compareFn);
-            intersections.int_points2_sorted = intersections.int_points2.slice().sort(BooleanOp.compareFn);
+            // intersections.int_points1_sorted = intersections.int_points1.slice().sort(BooleanOp.compareFn);
+            // intersections.int_points2_sorted = intersections.int_points2.slice().sort(BooleanOp.compareFn);
+            intersections.int_points1_sorted = BooleanOp.getSortedArray(intersections.int_points1);
+            intersections.int_points2_sorted = BooleanOp.getSortedArray(intersections.int_points2);
+        }
+
+        static getSortedArray(int_points) {
+            let faceMap = new Map;
+            let id = 0;
+            // Create integer id's for faces
+            for (let ip of int_points) {
+                if (!faceMap.has(ip.face)) {
+                    faceMap.set(ip.face, id);
+                    id++;
+                }
+            }
+            // Augment intersection points with face id's
+            for (let ip of int_points) {
+                ip.faceId = faceMap.get(ip.face);
+            }
+            // Clone and sort
+            let int_points_sorted = int_points.slice().sort(BooleanOp.compareFn);
+            return int_points_sorted;
         }
 
         static compareFn(ip1, ip2) {
-            // TODO: sort by chain id
+            // compare face id's
+            if (ip1.faceId < ip2.faceId) {
+                return -1;
+            }
+            if (ip1.faceId > ip2.faceId) {
+                return 1;
+            }
+            // same face - compare arc_length
             if (Flatten.Utils.LT(ip1.arc_length, ip2.arc_length)) {
                 return -1;
             }
@@ -440,7 +472,18 @@ module.exports = function (Flatten) {
                 // TODO: Support claster of duplicated points with same <x,y> came from different faces
 
                 let int_point_current = int_points[i];
-                let int_point_next = int_points[(i + 1) % int_points.length];
+                // Get next int point from the same face that current
+                let int_point_next;
+                if (i < int_points.length - 1 && int_points[i+1].face === int_point_current.face) {
+                    int_point_next = int_points[i+1];   // get next point from same face
+                }
+                else {                                  // get first point from the same face
+                    for (int_point_next of int_points) {
+                        if (int_point_next.face === int_point_current.face) {
+                            break;
+                        }
+                    }
+                }
 
                 let edge_from = int_point_current.edge_after;
                 let edge_to = int_point_next.edge_before;
@@ -452,7 +495,7 @@ module.exports = function (Flatten) {
                     ((edge_from.bv === Flatten.OUTSIDE || edge_to.bv === Flatten.OUTSIDE) && op === Flatten.BOOLEAN_SUBTRACT && !is_res_polygon) ||
                     ((edge_from.bv === Flatten.INSIDE || edge_to.bv === Flatten.INSIDE) && op === Flatten.BOOLEAN_SUBTRACT && is_res_polygon) ||
                     (edge_from.bv === Flatten.BOUNDARY && edge_to.bv === Flatten.BOUNDARY && (edge_from.overlap & Flatten.OVERLAP_SAME) && is_res_polygon) ||
-                    (edge_from.bv === Flatten.BOUNDARY && edge_to.bve === Flatten.BOUNDARY && (edge_from.overlap & Flatten.OPPOSITE) )) {
+                    (edge_from.bv === Flatten.BOUNDARY && edge_to.bv === Flatten.BOUNDARY && (edge_from.overlap & Flatten.OVERLAP_OPPOSITE) )) {
 
                     polygon.removeChain(face, edge_from, edge_to);
 

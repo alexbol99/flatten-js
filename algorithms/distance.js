@@ -222,10 +222,10 @@ module.exports = function(Flatten) {
 
             let dist_tmp, segment_tmp;
             [dist_tmp, segment_tmp] = Distance.point2segment(arc.start, seg);
-            dist_and_segment.push([dist_tmp, segment_tmp.swap()]);
+            dist_and_segment.push([dist_tmp, segment_tmp.reverse()]);
 
             [dist_tmp, segment_tmp] = Distance.point2segment(arc.end, seg);
-            dist_and_segment.push([dist_tmp, segment_tmp.swap()]);
+            dist_and_segment.push([dist_tmp, segment_tmp.reverse()]);
 
             Distance.sort(dist_and_segment);
             return dist_and_segment[0];
@@ -281,7 +281,7 @@ module.exports = function(Flatten) {
 
             let [dist_from_center, shortest_segment_from_center] = Distance.point2line(circle.center, line);
             let [dist, shortest_segment] = Distance.point2circle(shortest_segment_from_center.end, circle);
-            shortest_segment = shortest_segment.swap();
+            shortest_segment = shortest_segment.reverse();
             return [dist, shortest_segment];
         }
 
@@ -388,12 +388,12 @@ module.exports = function(Flatten) {
 
                 [dist_tmp, segment_tmp] = Distance.point2arc(arc2.start, arc1);
                 if (segment_tmp.end.on(arc1)) {
-                    dist_and_segment.push([dist_tmp, segment_tmp.swap()]);
+                    dist_and_segment.push([dist_tmp, segment_tmp.reverse()]);
                 }
 
                 [dist_tmp, segment_tmp] = Distance.point2arc(arc2.end, arc1);
                 if (segment_tmp.end.on(arc1)) {
-                    dist_and_segment.push([dist_tmp, segment_tmp.swap()]);
+                    dist_and_segment.push([dist_tmp, segment_tmp.reverse()]);
                 }
 
                 [dist_tmp, segment_tmp] = Distance.point2point(arc1.start, arc2.start);

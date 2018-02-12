@@ -4,12 +4,16 @@
 
 module.exports = function(Flatten) {
     /**
-     * Class representing an edge of polygon. Edge shape may be Segment or Arc
-     * Each edge points to the next and previous edges in the face (loop)
+     * Class representing an edge of polygon. Edge shape may be Segment or Arc.
+     * Each edge contains references to the next and previous edges in the face of the polygon.
      *
      * @type {Edge}
      */
     Flatten.Edge = class Edge {
+        /**
+         * Construct new instance of edge
+         * @param {Shape} shape Shape of type Segment of Arc
+         */
         constructor(shape) {
             /**
              * Shape of the edge: Segment or Arc
@@ -44,13 +48,13 @@ module.exports = function(Flatten) {
              */
             this.bvEnd = undefined;
             /**
-             * Edge inclusion flag (inside/outside/boundary)
-             * @type {Boolean}
+             * Edge inclusion flag (Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY)
+             * @type {*}
              */
             this.bv = undefined;
             /**
-             * Overlap flag for boundary edge (same/opposite)
-             * @type {undefined}
+             * Overlap flag for boundary edge (Flatten.OVERLAP_SAME/Flatten.OVERLAP_OPPOSITE)
+             * @type {*}
              */
             this.overlap = undefined;
         }
@@ -78,7 +82,7 @@ module.exports = function(Flatten) {
 
         /**
          * Get bounding box of the edge
-         * @returns {*|Box}
+         * @returns {Box}
          */
         get box() {
             return this.shape.box;
@@ -93,8 +97,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns true if point lays on the edge, false otherwise
-         * @param pt - test point
+         * Returns true if point belongs to the edge, false otherwise
+         * @param {Point} pt - test point
          */
         contains(pt) {
             return this.shape.contains(pt);
@@ -102,6 +106,7 @@ module.exports = function(Flatten) {
 
         /**
          * Set inclusion flag of the edge with respect to another polygon
+         * Inclusion flag is one of Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY
          * @param polygon
          */
         setInclusion(polygon) {

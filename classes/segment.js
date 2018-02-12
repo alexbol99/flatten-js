@@ -54,7 +54,7 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Method clone returns new instance of a Segment
+         * Method clone copies segment and returns a new instance
          * @returns {Segment}
          */
         clone() {
@@ -77,6 +77,11 @@ module.exports = function (Flatten) {
             return this.pe;
         }
 
+
+        /**
+         * Returns array of start and end point
+         * @returns [Point,Point]
+         */
         get vertices() {
             return [this.ps.clone(), this.pe.clone()];
         }
@@ -112,8 +117,8 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Function contains returns true if point belongs to segment
-         * @param {Point} pt
+         * Returns true if segment contains point
+         * @param {Point} pt Query point
          * @returns {boolean}
          */
         contains(pt) {
@@ -122,7 +127,8 @@ module.exports = function (Flatten) {
 
         /**
          * Returns array of intersection points between segment and other shape
-         * @param shape - shape to intersect with
+         * @param {Shape} shape - Shape of the one of supported types Line, Circle, Segment, Arc <br/>
+         * TODO: support Polygon and Planar Set
          * @returns {Point[]}
          */
         intersect(shape) {
@@ -144,16 +150,17 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Calculate distance and shortest segment from segment to shape
-         * @param shape
-         * @returns {Number | Segment} - distance and shortest segment from segment to shape
+         * Calculate distance and shortest segment from segment to shape and return as array [distance, shortest segment]
+         * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
+         * @returns {number} distance from segment to shape
+         * @returns {Segment} shortest segment between segment and shape (started at segment, ended at shape)
          */
         distanceTo(shape) {
             let {Distance} = Flatten;
 
             if (shape instanceof Flatten.Point) {
                 let [dist, shortest_segment] = Distance.point2segment(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [dist, shortest_segment];
             }
 
@@ -189,8 +196,8 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Return tangent unit vector in the start point in the direction from start to end
-         * @returns {Vector} - tangent vector in start point
+         * Returns unit vector in the direction from start to end
+         * @returns {Vector}
          */
         tangentInStart() {
             let vec = new Flatten.Vector(this.start, this.end);
@@ -198,8 +205,8 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Return tangent unit vector in the end point in the direction from end to start
-         * @returns {Vector} - tangent vector in end point
+         * Return unit vector in the direction from end to start
+         * @returns {Vector}
          */
         tangentInEnd() {
             let vec = new Flatten.Vector(this.end, this.start);
@@ -207,16 +214,18 @@ module.exports = function (Flatten) {
         }
 
         /**
-         * Return new segment with swapped start and end points
+         * Returns new segment with swapped start and end points
          * @returns {Segment}
          */
-        swap() {
+        reverse() {
             return new Segment(this.end, this.start);
         }
 
         /**
-         * When point belongs to segment, return array of two segments split by given point
-         * @param pt
+         * When point belongs to segment, return array of two segments split by given point,
+         * if point is inside segment. Returns clone of this segment if query point is incident
+         * to start or end point of the segment. Returns empty array if point does not belong to segment
+         * @param {Point} pt Query point
          * @returns {Segment[]}
          */
         split(pt) {
@@ -224,7 +233,7 @@ module.exports = function (Flatten) {
                 return [];
 
             if (this.start.equalTo(this.end))
-                return [this];
+                return [this.clone()];
 
             if (this.start.equalTo(pt) || this.end.equalTo(pt))
                 return [this];
@@ -365,8 +374,8 @@ module.exports = function (Flatten) {
 
         /**
          * Return string to draw segment in svg
-         * @param attrs - json structure with any attributes allowed to svg path element,
-         * like "stroke", "strokeWidth"
+         * @param {Object} attrs - Object with attributes for svg path element,
+         * like "stroke", "strokeWidth" <br/>
          * Defaults are stroke:"black", strokeWidth:"3"
          * @returns {string}
          */
@@ -376,5 +385,8 @@ module.exports = function (Flatten) {
         }
     };
 
+    /**
+     * Shortcut method to create new segment
+     */
     Flatten.segment = (...args) => new Flatten.Segment(...args);
 };

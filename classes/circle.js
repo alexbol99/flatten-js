@@ -73,12 +73,12 @@ module.exports = function(Flatten) {
          * @returns {Arc}
          */
         toArc(counterclockwise=true) {
-            return new Flatten.Arc(this.center, this.r, Math.PI, 3*Math.PI, counterclockwise);
+            return new Flatten.Arc(this.center, this.r, Math.PI, -Math.PI, counterclockwise);
         }
 
         /**
          * Returns array of intersection points between circle and other shape
-         * @param shape
+         * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc
          * @returns {Point[]}
          */
         intersect(shape) {
@@ -100,9 +100,11 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Calculate distance and shortest segment from circle to shape
-         * @param shape
-         * @returns {Number | Segment} - distance and shortest segment from circle to shape
+         * Calculate distance and shortest segment from circle to shape and return array [distance, shortest segment]
+         * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
+         * @returns {number} distance from circle to shape
+         * @returns {Segment} shortest segment between circle and shape (started at circle, ended at shape)
+
          */
         distanceTo(shape) {
             let {Distance} = Flatten;
@@ -110,7 +112,7 @@ module.exports = function(Flatten) {
 
             if (shape instanceof Flatten.Point) {
                 let [distance, shortest_segment] = point2circle(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [distance, shortest_segment];
             }
 
@@ -126,13 +128,13 @@ module.exports = function(Flatten) {
 
             if (shape instanceof Flatten.Segment) {
                 let [distance, shortest_segment] = segment2circle(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [distance, shortest_segment];
             }
 
             if (shape instanceof Flatten.Arc) {
                 let [distance, shortest_segment] = arc2circle(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [distance, shortest_segment];
             }
 
@@ -215,8 +217,8 @@ module.exports = function(Flatten) {
 
         /**
          * Return string to draw circle in svg
-         * @param attrs - json structure with any attributes allowed to svg circle element,
-         * like "stroke", "strokeWidth", "fill"
+         * @param {Object} attrs - json structure with attributes of svg circle element,
+         * like "stroke", "strokeWidth", "fill" <br/>
          * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
          * @returns {string}
          */
@@ -227,7 +229,7 @@ module.exports = function(Flatten) {
     };
 
     /**
-     * Function to create circle equivalent to "new" constructor
+     * Shortcut to create new circle
      * @param args
      */
     Flatten.circle = (...args) => new Flatten.Circle(...args);

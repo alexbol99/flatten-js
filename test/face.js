@@ -41,7 +41,7 @@ describe('#Flatten.Face', function() {
             point(1,1), point(3,1), point(3,2), point(1,2)
         ]);
         expect(face.signedArea()).to.equal(-2);
-        expect(face.orientation).to.equal(Flatten.ORIENTATION.CCW);
+        expect(face.orientation()).to.equal(Flatten.ORIENTATION.CCW);
     });
     it('Can set orientation of face to CW', function() {
         let polygon = new Polygon();
@@ -49,7 +49,7 @@ describe('#Flatten.Face', function() {
             arc(point(1,1), 1, 0, 2*Math.PI, false)
         ]);
         expect(Flatten.Utils.EQ(face.signedArea(), Math.PI)).to.equal(true);
-        expect(face.orientation).to.equal(Flatten.ORIENTATION.CW);
+        expect(face.orientation()).to.equal(Flatten.ORIENTATION.CW);
     });
     it('Can set orientation of degenerated face to not-orientable', function() {
         let polygon = new Polygon();
@@ -57,7 +57,7 @@ describe('#Flatten.Face', function() {
             point(1,1), point(3,1), point(1,1)
         ]);
         expect(face.area()).to.equal(0);
-        expect(face.orientation).to.equal(Flatten.ORIENTATION.NOT_ORIENTABLE);
+        expect(face.orientation()).to.equal(Flatten.ORIENTATION.NOT_ORIENTABLE);
     });
     it('Can remove edge from face', function () {
         "use strict";
@@ -74,7 +74,7 @@ describe('#Flatten.Face', function() {
         expect(face.size).to.equal(4);
         let edge = face.first;
         let edgeNext = edge.next;
-        face.remove(edge);
+        face.remove(poly.edges, edge);
         expect(face.size).to.equal(3);
         expect(face.first).to.equal(edgeNext);
         expect(face.last.next).to.equal(face.first);
@@ -95,15 +95,37 @@ describe('#Flatten.Face', function() {
 
         // remove all edges except the last
         for (let edge = face.first; edge !== face.last; edge = edge.next ) {
-            face.remove(edge);
+            face.remove(poly.edges, edge);
         }
         expect(face.size).to.equal(1);
         expect(face.first).to.equal(face.last);
 
         // remove the last edge
-        face.remove(face.first);
+        face.remove(poly.edges, face.first);
 
         expect(face.isEmpty()).to.be.true;
         expect(face.size).to.equal(0);
+    });
+    it('Can reverse face', function () {
+        "use strict";
+        let points = [
+            point(100, 20),
+            point(200, 20),
+            point(200, 40),
+            point(100, 40)
+        ];
+
+        let poly = new Polygon();
+        let face = poly.addFace(points);
+        expect(face.size).to.equal(4);
+        expect(face.orientation()).to.equal(Flatten.ORIENTATION.CCW);
+
+        let reversed_poly = poly.reverse();
+        expect(reversed_poly.faces.size).to.equal(1);
+        expect(reversed_poly.edges.size).to.equal(4);
+
+        expect([...reversed_poly.faces][0].size).to.equal(4);
+        let orientation = [...reversed_poly.faces][0].orientation();
+        expect(orientation).to.equal(Flatten.ORIENTATION.CW);
     });
 });

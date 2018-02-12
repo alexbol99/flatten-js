@@ -98,8 +98,9 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns scalar product between two vectors
-         * @param {Vector} v
+         * Returns scalar product between two vectors <br/>
+         * <code>dot_product = (this * v)</code>
+         * @param {Vector} v Other vector
          * @returns {number}
          */
         dot(v) {
@@ -107,8 +108,9 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns vector product (magnitude) between two vectors
-         * @param {Vector} v
+         * Returns vector product (magnitude) between two vectors <br/>
+         * <code>cross_product = (this x v)</code>
+         * @param {Vector} v Other vector
          * @returns {number}
          */
         cross(v) {
@@ -129,7 +131,7 @@ module.exports = function(Flatten) {
 
         /**
          * Returns new vector rotated by given angle, positive angle defines rotation in counter clockwise direction
-         * @param {number} angle - angle in radians
+         * @param {number} angle - Angle in radians
          * @returns {Vector}
          */
         rotate(angle) {
@@ -139,7 +141,7 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Special fast version of rotate. Returns vector rotated 90 degrees counter clockwise
+         * Returns vector rotated 90 degrees counter clockwise
          * @returns {Vector}
          */
         rotate90CCW() {
@@ -147,7 +149,7 @@ module.exports = function(Flatten) {
         };
 
         /**
-         * Special fast version of rotate. Returns vector rotated 90 degrees clockwise
+         * Returns vector rotated 90 degrees clockwise
          * @returns {Vector}
          */
         rotate90CW() {

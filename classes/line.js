@@ -63,7 +63,7 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Method clone returns new instance of Line
+         * Returns cloned new instance of a line
          * @returns {Line}
          */
         clone() {
@@ -80,7 +80,7 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Standard line equation in the form Ax + By = C, get coefficients using es6 destructuring assignment:
+         * Get coefficients [A,B,C] of a standard line equation in the form Ax + By = C
          * @code [A, B, C] = line.standard
          * @returns {number[]} - array of coefficients
          */
@@ -113,7 +113,7 @@ module.exports = function(Flatten) {
 
         /**
          * Returns true if point belongs to line
-         * @param {Point} pt
+         * @param {Point} pt Query point
          * @returns {boolean}
          */
         contains(pt) {
@@ -126,8 +126,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns array of intersection points if intersection exists or zero-length array otherwise
-         * @param {Shape} shape - shape to intersect with
+         * Returns array of intersection points
+         * @param {Shape} shape - shape to intersect with of the type Line, Circle, Segment, Arc
          * @returns {Point[]}
          */
         intersect(shape) {
@@ -149,33 +149,34 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Calculate distance and shortest segment from line to shape
-         * @param shape
-         * @returns {Number | Segment} - distance and shortest segment from line to shape
+         * Calculate distance and shortest segment from line to shape and returns array [distance, shortest_segment]
+         * @param {Shape} shape Shape of the one of the types Point, Circle, Segment, Arc, Polygon
+         * @returns {Number}
+         * @returns {Segment}
          */
         distanceTo(shape) {
             let {Distance} = Flatten;
 
             if (shape instanceof Flatten.Point) {
                 let [distance, shortest_segment] = Distance.point2line(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [distance, shortest_segment];
             }
 
             if (shape instanceof Flatten.Circle) {
                 let [distance, shortest_segment] = Distance.circle2line(shape, this);
-                shortest_segment = shortest_segment.swap();
+                shortest_segment = shortest_segment.reverse();
                 return [distance, shortest_segment];
             }
 
             if (shape instanceof Flatten.Segment) {
                 let [distance, shortest_segment] = Distance.segment2line(shape, this);
-                return [distance, shortest_segment.swap()];
+                return [distance, shortest_segment.reverse()];
             }
 
             if (shape instanceof Flatten.Arc) {
                 let [distance, shortest_segment] = Distance.arc2line(shape, this);
-                return [distance, shortest_segment.swap()];
+                return [distance, shortest_segment.reverse()];
             }
 
             if (shape instanceof Flatten.Polygon) {

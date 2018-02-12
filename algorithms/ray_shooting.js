@@ -49,7 +49,7 @@ module.exports = function(Flatten) {
                 return -1;
             }
             if (Flatten.Utils.GT(i1.pt.x, i2.pt.x)) {
-                return -1;
+                return 1;
             }
             return 0;
         });
@@ -60,6 +60,11 @@ module.exports = function(Flatten) {
         for (let i=0; i < intersections.length; i++) {
             let intersection = intersections[i];
             if (intersection.pt.equalTo(intersection.edge.shape.start)) {
+                /* skip same point between same edges if already counted */
+                if (i > 0 && intersection.pt.equalTo(intersections[i-1].pt) &&
+                    intersection.edge.prev === intersections[i-1].edge) {
+                    continue;
+                }
                 let prev_edge = intersection.edge.prev;
                 let prev_tangent = prev_edge.shape.tangentInEnd();
                 let prev_point = intersection.pt.translate(prev_tangent);
@@ -75,6 +80,11 @@ module.exports = function(Flatten) {
                 }
             }
             else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
+                /* skip same point between same edges if already counted */
+                if (i > 0 && intersection.pt.equalTo(intersections[i-1].pt) &&
+                    intersection.edge.next === intersections[i-1].edge) {
+                    continue;
+                }
                 let next_edge = intersection.edge.next;
                 let next_tangent = next_edge.shape.tangentInStart();
                 let next_point = intersection.pt.translate(next_tangent);
