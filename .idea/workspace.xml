@@ -2,42 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/algorithms/clip.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/algorithms_clip.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/boolean_op.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/clip.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Arc.html" afterPath="$PROJECT_DIR$/docs/Flatten.Arc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Edge.html" afterPath="$PROJECT_DIR$/docs/Flatten.Edge.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Face.html" afterPath="$PROJECT_DIR$/docs/Flatten.Face.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Line.html" afterPath="$PROJECT_DIR$/docs/Flatten.Line.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" afterPath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Point.html" afterPath="$PROJECT_DIR$/docs/Flatten.Point.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Polygon.html" afterPath="$PROJECT_DIR$/docs/Flatten.Polygon.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Ray.html" afterPath="$PROJECT_DIR$/docs/Flatten.Ray.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Segment.html" afterPath="$PROJECT_DIR$/docs/Flatten.Segment.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Flatten.Vector.html" afterPath="$PROJECT_DIR$/docs/Flatten.Vector.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_box.js.html" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_face.js.html" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_line.js.html" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_point.js.html" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/global.html" afterPath="$PROJECT_DIR$/docs/global.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example4.svg" afterPath="$PROJECT_DIR$/example4.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -58,17 +23,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
+            <state relative-caret-position="345">
               <caret line="24" column="59" lean-forward="false" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="59" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-467">
@@ -565,13 +530,6 @@
       <workItem from="1518254937346" duration="8188000" />
       <workItem from="1518266448781" duration="56000" />
     </task>
-    <task id="LOCAL-00034" summary="clean working directory">
-      <created>1490389955599</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1490389955599</updated>
-    </task>
     <task id="LOCAL-00035" summary="Readme.md does not show on npmjs - try to fix">
       <created>1490421561070</created>
       <option name="number" value="00035" />
@@ -908,7 +866,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518175902680</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="Move Boolean Operations to separate package">
+      <created>1518471911058</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1518471911058</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -944,7 +909,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="521531000" />
+    <option name="totallyTimeSpent" value="521672000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -958,14 +923,14 @@
   <component name="ToolWindowManager">
     <frame x="105" y="29" width="1664" height="979" extended-state="0" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16236162" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16236162" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32588235" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36087486" sideWeight="0.50799507" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4398542" sideWeight="0.49507996" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3961118" sideWeight="0.49446493" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36878613" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36087486" sideWeight="0.49200493" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36087486" sideWeight="0.49200493" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33641618" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1021,7 +986,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added ray shooting algorithm (not completed)" />
     <MESSAGE value="Continued ray shooting algorithm (not completed)" />
     <MESSAGE value="Let Trevis does not fail" />
     <MESSAGE value="Ray shooting ready to test" />
@@ -1046,7 +1010,8 @@
     <MESSAGE value="Started Clip algorithm" />
     <MESSAGE value="- Added parameter &quot;edges&quot; to face.append, face.remove, face.insert methods&#10;- Edited documentation" />
     <MESSAGE value="Boolean operations test and fix (union)&#10;- Circle::toArc() method - end angle -pi instead of 3pi&#10;- Face::getRelation - initialize edges bv flags before recalcuation&#10;- Polygon::addVertex - no edges.update method in PlanarSet anymore, use delete and add&#10;- Ray shooting - skip vertex ip if between same edges and already counted&#10;- Ray shooting - fix technical bug in sorting&#10;- BooleanOp&#10; - clone both polygons in clip&#10; - calculate inclusion flags with original polygons for performance&#10; - consider face id when sorting intersection points&#10; - remove not relevant between points belong to same face" />
-    <option name="LAST_COMMIT_MESSAGE" value="Boolean operations test and fix (union)&#10;- Circle::toArc() method - end angle -pi instead of 3pi&#10;- Face::getRelation - initialize edges bv flags before recalcuation&#10;- Polygon::addVertex - no edges.update method in PlanarSet anymore, use delete and add&#10;- Ray shooting - skip vertex ip if between same edges and already counted&#10;- Ray shooting - fix technical bug in sorting&#10;- BooleanOp&#10; - clone both polygons in clip&#10; - calculate inclusion flags with original polygons for performance&#10; - consider face id when sorting intersection points&#10; - remove not relevant between points belong to same face" />
+    <MESSAGE value="Move Boolean Operations to separate package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move Boolean Operations to separate package" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1237,14 +1202,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="24" column="59" lean-forward="false" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/segment.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="519">
@@ -1346,14 +1303,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-467">
-          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/clip.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1366,6 +1315,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2040">
           <caret line="144" column="44" lean-forward="false" selection-start-line="144" selection-start-column="44" selection-end-line="144" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-467">
+          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="24" column="59" lean-forward="false" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="59" />
           <folding />
         </state>
       </provider>
