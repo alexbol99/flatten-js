@@ -2,7 +2,6 @@
  * Created by Alex Bol on 2/18/2017.
  */
 'use strict';
-// require("babel-polyfill");
 
 let Utils = require("./utils/utils");
 let Errors = require("./utils/errors");
@@ -53,8 +52,5 @@ require("./classes/ray")(f);
 require("./algorithms/ray_shooting")(f);
 require("./classes/polygon")(f);
 require("./algorithms/distance")(f);
-require("./algorithms/clip")(f);
-require("./algorithms/boolean_op")(f);
-// f.Point.inject(f.Distance);
 
 module.exports = f;
