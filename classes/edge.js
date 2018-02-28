@@ -161,5 +161,11 @@ module.exports = function(Flatten) {
                 }
             }
         }
+
+        toJSON() {
+            let json = this.shape.clone();
+            json.name = this.shape.constructor.name;
+            return json;
+        }
     };
 };

@@ -301,5 +301,62 @@ describe('#Flatten.Polygon', function() {
         expect(face.size).to.equal(2);
         expect(poly.edges.size).to.equal(2);
     });
+    it('Can stringify and parse polygon with segments', function () {
+        let polygon = new Polygon();
+        let points = [
+            new Point(1,1), new Point(5,1), new Point(3, 5),
+            new Point(-1,-1), new Point(-5,-1), new Point(-3, -5),
+        ];
+        let segments1 = [
+            new Segment(points[0], points[1]),
+            new Segment(points[1], points[2]),
+            new Segment(points[2], points[0])
+        ];
+        let segments2 = [
+            new Segment(points[3], points[4]),
+            new Segment(points[4], points[5]),
+            new Segment(points[5], points[3])
+        ];
+        polygon.addFace(segments1);
+        polygon.addFace(segments2);
 
+        let string = JSON.stringify(polygon);
+
+        let jsonPolygon = JSON.parse(string);
+        let newPolygon = new Polygon();
+        for (let jsonFace of jsonPolygon) {
+            newPolygon.addFace(jsonFace);
+        }
+
+        expect(newPolygon.edges.size).to.equal(polygon.edges.size);
+        expect(newPolygon.faces.size).to.equal(polygon.faces.size);
+    });
+    it('Can stringify and parse polygon with segments and arcs', function () {
+        "use strict";
+
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 200),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+
+        let polygon = new Polygon();
+        polygon.addFace(points);
+        polygon.addFace([circle(point(175,150), 30).toArc()]);
+
+        let string = JSON.stringify(polygon);
+
+        let jsonPolygon = JSON.parse(string);
+        let newPolygon = new Polygon();
+        for (let jsonFace of jsonPolygon) {
+            newPolygon.addFace(jsonFace);
+        }
+
+        expect(newPolygon.edges.size).to.equal(polygon.edges.size);
+        expect(newPolygon.faces.size).to.equal(polygon.faces.size);
+    });
 });

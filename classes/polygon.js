@@ -227,5 +227,9 @@ module.exports = function(Flatten) {
 
             return svgStr;
         }
+
+        toJSON() {
+            return [...this.faces].map(face => face.toJSON());
+        }
     }
 };

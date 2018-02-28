@@ -134,7 +134,7 @@ describe('#SVG Methods', function() {
         let svgcontent = planarSet.svg();
         // svgcontent += arcs.reduce((acc, shape) => acc + shape.svg(), svgcontent);
 
-        fs.writeFile("example4.svg", svgstart + svgcontent + svgend, function(err) {});
+        // fs.writeFile("example4.svg", svgstart + svgcontent + svgend, function(err) {});
     });
 
 });

@@ -53,7 +53,7 @@ module.exports = function (Flatten) {
             if (args.length == 1) {
                 if (args[0] instanceof Array) {
                     // let argsArray = args[0];
-                    let shapes =  args[0];  // argsArray[0];
+                    let shapes = args[0];  // argsArray[0];
                     if (shapes.length == 0)
                         return;
 
@@ -67,6 +67,24 @@ module.exports = function (Flatten) {
                             return (shape instanceof Segment || shape instanceof Arc)
                         })) {
                         this.shapes2face(polygon.edges, shapes);
+                    }
+                    // this is from JSON.parse object
+                    else if (shapes.every((shape) => {
+                            return (shape.name === "Segment" || shape.name === "Arc")
+                        })) {
+                        let flattenShapes = [];
+                        for (let shape of shapes) {
+                            let flattenShape;
+                            if (shape.name === "Segment") {
+                                flattenShape = new Segment(shape.ps.x, shape.ps.y, shape.pe.x, shape.pe.y);
+                            }
+                            else {
+                                flattenShape = new Arc(new Point(shape.pc.x, shape.pc.y),
+                                    shape.r, shape.startAngle, shape.endAngle, shape.counterClockwise);
+                            }
+                            flattenShapes.push(flattenShape);
+                        }
+                        this.shapes2face(polygon.edges, flattenShapes);
                     }
                 }
                 /* Create new face and copy edges into polygon.edges set */
@@ -444,6 +462,10 @@ module.exports = function (Flatten) {
             }
         }
 
+        toJSON() {
+            return this.edges.map(edge => edge.toJSON());
+        }
+
         svg() {
             let svgStr = `\nM${this.first.start.x},${this.first.start.y}`;
 
@@ -454,5 +476,6 @@ module.exports = function (Flatten) {
             svgStr += ` z`;
             return svgStr;
         }
+
     };
 };
