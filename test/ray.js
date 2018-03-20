@@ -5,8 +5,8 @@
 'use strict';
 
 let expect = require('chai').expect;
-let Flatten = require('../index');
-
+// let Flatten = require('../index');
+let Flatten = require('../dist/flatten.min');
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
 
 let {point, vector, circle, line, segment, arc, ray} = Flatten;

@@ -70,12 +70,12 @@ module.exports = function (Flatten) {
                     }
                     // this is from JSON.parse object
                     else if (shapes.every((shape) => {
-                            return (shape.name === "Segment" || shape.name === "Arc")
+                            return (shape.name === "segment" || shape.name === "arc")
                         })) {
                         let flattenShapes = [];
                         for (let shape of shapes) {
                             let flattenShape;
-                            if (shape.name === "Segment") {
+                            if (shape.name === "segment") {
                                 flattenShape = new Segment(shape.ps.x, shape.ps.y, shape.pe.x, shape.pe.y);
                             }
                             else {

@@ -3,7 +3,8 @@
  */
 
 let expect = require('chai').expect;
-let Flatten = require('../index');
+// let Flatten = require('../index');
+let Flatten = require('../dist/flatten.min');
 let fs = require('fs');
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} = Flatten;

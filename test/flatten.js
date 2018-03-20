@@ -6,7 +6,8 @@
 
 require('jsdom-global')();
 let expect = require('chai').expect;
-let Flatten = require('../index');
+// let Flatten = require('../index');
+let Flatten = require('../dist/flatten.min');
 let PlanarSet = require('../data_structures/planar_set');
 let fs = require('fs');
 
