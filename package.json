@@ -43,6 +43,6 @@
     "webpack-cli": "^2.0.14"
   },
   "dependencies": {
-    "flatten-interval-tree": "^0.1.6"
+    "flatten-interval-tree": "^0.1.7"
   }
 }

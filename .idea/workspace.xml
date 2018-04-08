@@ -2,30 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example.svg" beforeDir="false" afterPath="$PROJECT_DIR$/example.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/example2.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example3.svg" beforeDir="false" afterPath="$PROJECT_DIR$/example3.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/arc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/circle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/face.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/flatten.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/flatten.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/planar_set.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/planar_set.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/ray.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ray_shooting.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/ray_shooting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/segment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/svg.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/svg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/vector.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/vector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -49,7 +26,7 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="716">
+            <state relative-caret-position="404">
               <caret line="47" column="1" lean-forward="true" selection-start-line="47" selection-start-column="1" selection-end-line="47" selection-end-column="1" />
             </state>
           </provider>
@@ -232,7 +209,6 @@
         <option value="$PROJECT_DIR$/index.min.js" />
         <option value="$PROJECT_DIR$/classes/face.js" />
         <option value="$PROJECT_DIR$/classes/edge.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/test/arc.js" />
         <option value="$PROJECT_DIR$/test/box.js" />
@@ -248,6 +224,7 @@
         <option value="$PROJECT_DIR$/test/segment.js" />
         <option value="$PROJECT_DIR$/test/svg.js" />
         <option value="$PROJECT_DIR$/test/vector.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -267,9 +244,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="98" />
-    <option name="y" value="15" />
-    <option name="width" value="1704" />
+    <option name="x" value="422" />
+    <option name="y" value="24" />
+    <option name="width" value="1491" />
     <option name="height" value="1008" />
   </component>
   <component name="ProjectView">
@@ -569,14 +546,7 @@
       <workItem from="1519981507675" duration="1265000" />
       <workItem from="1521481678505" duration="10630000" />
       <workItem from="1521568741235" duration="13415000" />
-      <workItem from="1523175276006" duration="5576000" />
-    </task>
-    <task id="LOCAL-00038" summary="Integration with Coveralls">
-      <created>1490560345955</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1490560345955</updated>
+      <workItem from="1523175276006" duration="6502000" />
     </task>
     <task id="LOCAL-00039" summary="Typo">
       <created>1490561188346</created>
@@ -914,7 +884,14 @@
       <option name="project" value="LOCAL" />
       <updated>1521580295614</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="- Restore all tests to run on unminified source&#10;- Deploy minified umd bundle">
+      <created>1523181082448</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1523181082448</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -950,7 +927,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="552833000" />
+    <option name="totallyTimeSpent" value="553759000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -962,16 +939,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="98" y="15" width="1704" height="1008" extended-state="0" />
+    <frame x="422" y="24" width="1491" height="1008" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18907563" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21679284" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32664233" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.50369006" side_tool="true" weight="0.33939394" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.4121212" />
       <window_info anchor="bottom" id="Version Control" order="13" sideWeight="0.49661538" weight="0.35236937" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="16" sideWeight="0.49630997" visible="true" weight="0.32786885" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="16" sideWeight="0.49630997" visible="true" weight="0.32786885" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.3927273" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="SFDX" order="8" />
@@ -1017,7 +995,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Ray shooting test &amp; fix bugs&#10;- Added method contains to Polygon&#10;- Changed method box of Arc" />
     <MESSAGE value="- Add docs&#10;- Keep on testing" />
     <MESSAGE value="Split test by classes, add more tests for coverage" />
     <MESSAGE value="Add closest point to distance methods" />
@@ -1042,7 +1019,8 @@
     <MESSAGE value="clean" />
     <MESSAGE value="Create minified bundle" />
     <MESSAGE value="Deploy minified bundle" />
-    <option name="LAST_COMMIT_MESSAGE" value="Deploy minified bundle" />
+    <MESSAGE value="- Restore all tests to run on unminified source&#10;- Deploy minified umd bundle" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Restore all tests to run on unminified source&#10;- Deploy minified umd bundle" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1308,7 +1286,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="716">
+        <state relative-caret-position="404">
           <caret line="47" column="1" lean-forward="true" selection-start-line="47" selection-start-column="1" selection-end-line="47" selection-end-column="1" />
         </state>
       </provider>
