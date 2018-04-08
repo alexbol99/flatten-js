@@ -6,16 +6,14 @@
 
 require('jsdom-global')();
 let expect = require('chai').expect;
-// let Flatten = require('../index');
-let Flatten = require('../dist/flatten.min');
-let PlanarSet = require('../data_structures/planar_set');
+let Flatten = require('../index');
+// let Flatten = require('../dist/flatten.min');
+// let {PlanarSet} = Flatten; // require('../data_structures/planar_set');
 let fs = require('fs');
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
-
 let {point, vector, circle, line, segment, arc, ray} = Flatten;
-
-let {Distance} = Flatten;
+let {Distance, PlanarSet} = Flatten;
 
 describe('#Flatten-JS', function() {
 

@@ -20,6 +20,6 @@ const config = {
     devtool: "source-map"
 };
 
-config.plugins = config.plugins.filter((plugin) => plugin.constructor.name !== 'UglifyJsPlugin');
+// config.plugins = config.plugins.filter((plugin) => plugin.constructor.name !== 'UglifyJsPlugin');
 
 module.exports = config;

@@ -9,7 +9,7 @@
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
     "npm-publish": "npm version patch; git push && git push --tags; npm publish",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/*",
-    "build": "webpack --progress --mode=production",
+    "build": "webpack --progress --mode=production --config webpack.config.js",
     "build-umd": "webpack --progress --mode=production --config webpack.config.umd.js"
   },
   "repository": {
@@ -39,8 +39,8 @@
     "jsdom-global": "2.1.1",
     "minami": "^1.2.3",
     "mocha": "^3.2.0",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.12"
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
   },
   "dependencies": {
     "flatten-interval-tree": "^0.1.6"
