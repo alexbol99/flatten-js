@@ -134,6 +134,49 @@ module.exports = function(Flatten) {
             return this.bv;
         }
 
+        /**
+         * Set overlapping between two coincident boundary edges
+         * Overlapping flag is one of Flatten.OVERLAP_SAME or Flatten.OVERLAP_OPPOSITE
+         * @param edge
+         */
+        setOverlap(edge) {
+            let flag = undefined;
+            let shape1 = this.shape;
+            let shape2 = edge.shape;
+
+            if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
+                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end)) {
+                    flag = Flatten.OVERLAP_SAME;
+                }
+                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start)) {
+                    flag = Flatten.OVERLAP_OPPOSITE;
+                }
+            }
+            else if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
+                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.counterClockwise === shape2.counterClockwise &&
+                    shape1.middle().equalTo(shape2.middle())) {
+                    flag = Flatten.OVERLAP_SAME;
+                }
+                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.counterClockwise !== shape2.counterClockwise &&
+                    shape1.middle().equalTo(shape2.middle())) {
+                    flag = Flatten.OVERLAP_OPPOSITE;
+                }
+            }
+            else if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Arc ||
+                shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Segment) {
+                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.middle().equalTo(shape2.middle())) {
+                    flag = Flatten.OVERLAP_SAME;
+                }
+                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.middle().equalTo(shape2.middle())) {
+                    flag = Flatten.OVERLAP_OPPOSITE;
+                }
+            }
+
+            /* Do not update overlap flag if already set on previous chain */
+            if (this.overlap === undefined) this.overlap = flag;
+            if (edge.overlap === undefined) edge.overlap = flag;
+        }
+
         svg() {
             if (this.shape instanceof Flatten.Segment) {
                 return ` L${this.shape.end.x},${this.shape.end.y}`;
