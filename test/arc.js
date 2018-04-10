@@ -278,4 +278,20 @@ describe('#Flatten.Arc', function() {
         expect(reversed_arc.counterClockwise).to.equal(Flatten.CW);
         expect(Flatten.Utils.EQ(arc.sweep,reversed_arc.sweep)).to.be.true;
     })
+    it('Method svg() without parameters creates svg string with default attributes', function() {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
+        let svg = arc.svg();
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("fill")).to.not.equal(-1);
+    })
+    it('Method svg() with extra parameters may add additional attributes', function() {
+        let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
+        let svg = arc.svg({id:"123",transform:"scale(1.1,-1.1)"});
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("fill")).to.not.equal(-1);
+        expect(svg.search("id")).to.not.equal(-1);
+        expect(svg.search("transform")).to.not.equal(-1);
+    })
 });

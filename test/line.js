@@ -123,5 +123,29 @@ describe('#Flatten.Line', function() {
         let line2 = new Flatten.Line(new Flatten.Point(4.001, 0), new Flatten.Point(0, 4));
         expect(line1.parallelTo(line2)).to.be.false;
     });
+    it('Method svg() creates same svg string as segment with same points', function() {
+        let l = line(point(4, 0), point(0, 4));
+        let box = new Box(0,0,4,4);
+        let svg = l.svg(box);
+        let svg_seg = segment(4,0,0,4).svg();
+        expect(svg).to.equal(svg_seg);
+    });
+    it('Method svg() without parameters creates svg string with default attributes', function() {
+        let l = line(point(4, 0), point(0, 4));
+        let box = new Box(0,0,4,4);
+        let svg = l.svg(box);
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+
+    });
+    it('Method svg() with extra parameters may add additional attributes', function() {
+        let l = line(point(4, 0), point(0, 4));
+        let box = new Box(0,0,4,4);
+        let svg = l.svg(box,{id:"123",transform:"scale(1.1,-1.1)"});
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("id")).to.not.equal(-1);
+        expect(svg.search("transform")).to.not.equal(-1);
+    });
 });
 

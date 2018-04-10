@@ -203,4 +203,20 @@ describe('#Flatten.Point', function() {
         expect(pt1.leftTo(line)).to.equal(true);
         expect(pt2.leftTo(line)).to.equal(false);
     });
+    it('Method svg() without parameters creates svg string with default attributes', function() {
+        let pt = new Flatten.Point(-2,2);
+        let svg = pt.svg();
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("fill")).to.not.equal(-1);
+    })
+    it('Method svg() with extra parameters may add additional attributes', function() {
+        let pt = new Flatten.Point(-2,2);
+        let svg = pt.svg({id:"123",transform:"scale(1.1,-1.1)"});
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("fill")).to.not.equal(-1);
+        expect(svg.search("id")).to.not.equal(-1);
+        expect(svg.search("transform")).to.not.equal(-1);
+    })
 });

@@ -380,8 +380,9 @@ module.exports = function (Flatten) {
          * @returns {string}
          */
         svg(attrs = {stroke: "black", strokeWidth: "3"}) {
-            let {stroke, strokeWidth} = attrs;
-            return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke}" stroke-width="${strokeWidth}" />`;
+            let {stroke, strokeWidth, ...rest} = attrs;
+            let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
+            return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 3}" ${rest_str} />`;
         }
     };
 

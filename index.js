@@ -12,7 +12,6 @@ let Errors = require("./utils/errors");
  */
 let Flatten = class Flatten {
     constructor() {
-        this.version = "0.0.1";
         this.DP_TOL = Utils.DP_TOL;
         this.CCW = true;
         this.CW = false;

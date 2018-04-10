@@ -217,13 +217,14 @@ module.exports = function(Flatten) {
          * Defaults are stroke:"black", strokeWidth:"3", fill:"lightcyan", fillRule:"evenodd"
          * @returns {string}
          */
-        svg(attrs = {stroke:"black", strokeWidth:"3", fill:"lightcyan", fillRule:"evenodd"}) {
-            let {stroke, strokeWidth, fill, fillRule} = attrs;
-            let svgStr = `\n<path stroke="${stroke}" stroke-width="${strokeWidth}" fill="${fill}" fill-rule="${fillRule}" d="`;
+        svg(attrs = {}) {
+            let {stroke, strokeWidth, fill, fillRule, ...rest} = attrs;
+            let restStr = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
+            let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 3}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" d="`;
             for (let face of this.faces) {
                 svgStr += face.svg();
             }
-            svgStr += `">\n</path>`;
+            svgStr += `" ${restStr} >\n</path>`;
 
             return svgStr;
         }

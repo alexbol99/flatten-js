@@ -185,6 +185,20 @@ module.exports = function(Flatten) {
             }
         }
 
+        /**
+         * Return string to draw svg segment representing line inside given box
+         * @param {Box} box Box representing drawing area
+         * @param {Object} attrs - json structure with attributes of svg circle element
+         */
+        svg(box, attrs = {}) {
+            let ip = Line.intersectLine2Box(this, box);
+            let ps = ip[0];
+            let pe = ip.length == 2 ? ip[1] : ip.find( pt => !pt.equalTo(ps) );
+            if (pe === undefined) pe = ps;
+            let segment = new Flatten.Segment(ps, pe);
+            return segment.svg(attrs);
+        }
+
         static points2norm(pt1, pt2) {
             if (pt1.equalTo(pt2)) {
                 throw Flatten.Errors.ILLEGAL_PARAMETERS;

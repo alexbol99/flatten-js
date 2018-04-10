@@ -188,5 +188,21 @@ describe('#Flatten.Circle', function() {
             expect(shortest_segment.pe).to.deep.equal({"x": 300, "y": 75});
         })
     });
+    it('Method svg() without parameters creates svg string with default attributes', function() {
+        let c = circle(point(300,25), 25);
+        let svg = c.svg();
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("fill")).to.not.equal(-1);
+    })
+    it('Method svg() with extra parameters may add additional attributes', function() {
+        let c = circle(point(300,25), 25);
+        let svg = c.svg({id:"123",transform:"scale(1.1,-1.1)"});
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("fill")).to.not.equal(-1);
+        expect(svg.search("id")).to.not.equal(-1);
+        expect(svg.search("transform")).to.not.equal(-1);
+    })
 });
 

@@ -16,15 +16,6 @@ let {point, vector, circle, line, segment, arc, ray} = Flatten;
 let {Distance, PlanarSet} = Flatten;
 
 describe('#Flatten-JS', function() {
-
-    it('Version should be 0.0.1', function() {
-        let version = Flatten.version;
-        expect(version).to.equal("0.0.1");
-    });
-    it('Double point tolerance eqals to 0.000001', function() {
-        let dp_tol = Flatten.DP_TOL;
-        expect(dp_tol).to.equal(0.000001);
-    });
     it('Class Point defined', function() {
         expect(Point).to.exist;
     });
