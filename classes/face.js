@@ -462,6 +462,65 @@ module.exports = function (Flatten) {
             }
         }
 
+        /**
+         * Returns true if face of the polygon is simple (no self-intersection points found)
+         * NOTE: this method is incomplete because it doe not exclude touching points
+         * Real self intersection inverts orientation of the polygon.
+         * But this is also good enough for the demonstration of the idea
+         * @param {Edges} edges - reference to polygon.edges to provide search index
+         * @returns {boolean}
+         */
+        isSimple(edges) {
+            let ip = Face.getSelfIntersections(this, edges, true);
+            return ip.length == 0;
+        }
+
+        static getSelfIntersections(face, edges, exitOnFirst = false) {
+            let int_points = [];
+
+            // calculate intersections
+            for (let edge1 of face) {
+
+                // request edges of polygon in the box of edge1
+                let resp = edges.search(edge1.box);
+
+                // for each edge2 in response
+                for (let edge2 of resp) {
+
+                    // Skip next and previous edge if both are segment (if one of them arc - calc intersection)
+                    if (edge1.shape instanceof Flatten.Segment && edge2.shape instanceof Flatten.Segment &&
+                        (edge1.next === edge2 || edge1.prev === edge2))
+                        continue;
+
+                    // calculate intersections between edge1 and edge2
+                    let ip = edge1.shape.intersect(edge2.shape);
+
+                    // for each intersection point
+                    for (let pt of ip) {
+
+                        // skip start-end connections
+                        if (pt.equalTo(edge1.start) && pt.equalTo(edge2.end) && edge2 === edge1.prev)
+                            continue;
+                        if (pt.equalTo(edge1.end) && pt.equalTo(edge2.start) && edge2 === edge.next)
+                            continue;
+
+                        int_points.push(pt);
+
+                        if (exitOnFirst)
+                            break;
+                    }
+
+                    if (int_points.length > 0 && exitOnFirst)
+                        break;
+                }
+
+                if (int_points.length > 0 && exitOnFirst)
+                    break;
+
+            }
+            return int_points;
+        }
+
         toJSON() {
             return this.edges.map(edge => edge.toJSON());
         }
