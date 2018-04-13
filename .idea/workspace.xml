@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Remove bollean_op algorithm as moved to separate package">
-      <change afterPath="$PROJECT_DIR$/classes/image.js" afterDir="false" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -54,11 +53,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="image.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="image.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/image.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="186">
               <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="errors.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/utils/errors.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -68,15 +76,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="18" column="49" lean-forward="true" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/arc.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="295" column="6" lean-forward="true" selection-start-line="287" selection-end-line="295" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -244,8 +243,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="393" />
-    <option name="y" value="66" />
+    <option name="x" value="173" />
+    <option name="y" value="43" />
     <option name="width" value="1081" />
     <option name="height" value="681" />
   </component>
@@ -270,6 +269,11 @@
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -707,14 +711,7 @@
       <workItem from="1518254937346" duration="8188000" />
       <workItem from="1518266448781" duration="56000" />
       <workItem from="1521309217265" duration="2193000" />
-      <workItem from="1522690531102" duration="7329000" />
-    </task>
-    <task id="LOCAL-00038" summary="Integration with Coveralls">
-      <created>1490560345955</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1490560345955</updated>
+      <workItem from="1522690531102" duration="7723000" />
     </task>
     <task id="LOCAL-00039" summary="Typo">
       <created>1490561188346</created>
@@ -1052,7 +1049,14 @@
       <option name="project" value="LOCAL" />
       <updated>1523608511126</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="Add new Image class">
+      <created>1523610664058</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1523610664058</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1088,7 +1092,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="546540000" />
+    <option name="totallyTimeSpent" value="546934000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1100,7 +1104,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="393" y="66" width="1081" height="681" extended-state="0" />
+    <frame x="173" y="43" width="1081" height="681" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21603774" />
@@ -1156,7 +1160,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Ray shooting test &amp; fix bugs&#10;- Added method contains to Polygon&#10;- Changed method box of Arc" />
     <MESSAGE value="- Add docs&#10;- Keep on testing" />
     <MESSAGE value="Split test by classes, add more tests for coverage" />
     <MESSAGE value="Add closest point to distance methods" />
@@ -1181,7 +1184,8 @@
     <MESSAGE value="Support polygon serialization methods using JSON.stringify and JSON.parse" />
     <MESSAGE value="Remove bollean_op algorithm as moved to separate package" />
     <MESSAGE value="Added polygon.isValid() method (only sip check) and some tests&#10;Added translate() method to segment, arc and polygon&#10;Added box.svg() method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added polygon.isValid() method (only sip check) and some tests&#10;Added translate() method to segment, arc and polygon&#10;Added box.svg() method" />
+    <MESSAGE value="Add new Image class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add new Image class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1197,12 +1201,12 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>edge1.prev === edge2</expression-string>
+        <expression-string />
         <language-id>JavaScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>edge1.next === edge2</expression-string>
+        <expression-string />
         <language-id>JavaScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -1212,7 +1216,7 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>shape.name === &quot;Segment&quot;</expression-string>
+        <expression-string />
         <language-id>JavaScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -1227,13 +1231,6 @@
     <entry file="file://$PROJECT_DIR$/test.js" />
     <entry file="file://$PROJECT_DIR$/test/vector.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/errors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/coverage/lcov-report/index.html" />
     <entry file="file://$PROJECT_DIR$/node_modules/mocha/lib/runnable.js" />
@@ -1483,6 +1480,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
           <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/errors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
         </state>
       </provider>
     </entry>
