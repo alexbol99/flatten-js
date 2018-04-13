@@ -264,6 +264,15 @@ module.exports = function (Flatten) {
             return ( dx * (dy1 + dy2) / 2 );
         }
 
+        /**
+         * Returns new segment translated by vector vec
+         * @param {Vector} vec
+         * @returns {Segment}
+         */
+        translate(vec) {
+            return new Segment(this.ps.translate(vec), this.pe.translate(vec));
+        }
+
         static intersectSegment2Line(seg, line) {
             let ip = [];
             let zero_segment = Flatten.Utils.EQ_0(seg.length);

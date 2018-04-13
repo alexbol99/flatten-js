@@ -333,6 +333,17 @@ module.exports = function(Flatten) {
             return new Arc(this.pc, this.r, this.endAngle, this.startAngle, !this.counterClockwise);
         }
 
+        /**
+         * Returns new arc translated by vector vec
+         * @param {Vector} vec
+         * @returns {Segment}
+         */
+        translate(vec) {
+            let arc = this.clone();
+            arc.pc = this.pc.translate(vec);
+            return arc;
+        }
+
         static intersectArc2Arc(arc1, arc2) {
             var ip = [];
 

@@ -360,4 +360,39 @@ describe('#Flatten.Polygon', function() {
         expect(newPolygon.edges.size).to.equal(polygon.edges.size);
         expect(newPolygon.faces.size).to.equal(polygon.faces.size);
     });
+    it('Can check if polygon is valid', function () {
+        "use strict";
+
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 200),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+
+        let polygon = new Polygon();
+        polygon.addFace(points);
+        expect(polygon.isValid()).to.be.true;
+    });
+    it('Can check if polygon is invalid if one of faces is not simple', function () {
+        "use strict";
+
+        let points = [
+            point(100, 20),
+            point(220, 270),
+            point(350, 75),
+            point(300, 200),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+
+        let polygon = new Polygon();
+        polygon.addFace(points);
+        expect(polygon.isValid()).to.be.false;
+    });
+
 });

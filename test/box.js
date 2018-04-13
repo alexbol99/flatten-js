@@ -24,5 +24,21 @@ describe('#Flatten.Box', function() {
         let box2 = new Flatten.Box(-3, -3, 2, 2);
         expect(box1.merge(box2)).to.deep.equal({xmin:-3, ymin:-3, xmax:3, ymax:3});
     });
+    it('Method svg() without parameters creates svg string with default attributes', function() {
+        let box = new Flatten.Box(-30, -30, 20, 20);
+        let svg = box.svg();
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("fill")).to.not.equal(-1);
+    });
+    it('Method svg() with extra parameters may add additional attributes', function() {
+        let box = new Flatten.Box(-30, -30, 20, 20);
+        let svg = box.svg({id:"123",transform:"scale(1.1,-1.1)"});
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("fill")).to.not.equal(-1);
+        expect(svg.search("id")).to.not.equal(-1);
+        expect(svg.search("transform")).to.not.equal(-1);
+    })
 });
 

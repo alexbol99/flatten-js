@@ -487,6 +487,10 @@ module.exports = function (Flatten) {
                 // for each edge2 in response
                 for (let edge2 of resp) {
 
+                    // Skip itself
+                    if (edge1 === edge2)
+                        continue;
+
                     // Skip next and previous edge if both are segment (if one of them arc - calc intersection)
                     if (edge1.shape instanceof Flatten.Segment && edge2.shape instanceof Flatten.Segment &&
                         (edge1.next === edge2 || edge1.prev === edge2))

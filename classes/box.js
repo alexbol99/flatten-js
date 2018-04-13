@@ -156,5 +156,21 @@ module.exports = function(Flatten) {
             this.xmax = xmax;
             this.ymax = ymax;
         }
+
+        /**
+         * Return string to draw circle in svg
+         * @param {Object} attrs - json structure with attributes of svg rectangle element,
+         * like "stroke", "strokeWidth", "fill" <br/>
+         * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
+         * @returns {string}
+         */
+        svg(attrs = {}) {
+            let {stroke, strokeWidth, fill, ...rest} = attrs;
+            let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
+            let width = this.xmax - this.xmin;
+            let height = this.ymax - this.ymin;
+
+            return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} stroke="${stroke || "black"}" stroke-width="${strokeWidth || 3}" fill="${fill || "none"}" ${rest_str} />`;
+        }
     };
 };

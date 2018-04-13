@@ -211,6 +211,45 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Return true if polygon is valid for boolean operations
+         * Polygon is valid if <br/>
+         * 1. All faces are simple polygons (there are no self-intersected polygons) <br/>
+         * 2. All faces are orientable and there is no island inside island or hole inside hole - TODO <br/>
+         * 3. There is no intersections between faces (excluding touching) - TODO <br/>
+         * @returns {boolean}
+         */
+        isValid() {
+            let valid = true;
+            // 1. Polygon is invalid if at least one face is not simple
+            for (let face of this.faces) {
+                if (!face.isSimple(this.edges)) {
+                    valid = false;
+                    break;
+                }
+            }
+            // 2. TODO: check if no island inside island and no hole inside hole
+            // 3. TODO: check the there is no intersection between faces
+            return valid;
+        }
+
+        /**
+         * Returns new polygon translated by vector vec
+         * @param {Vector} vec
+         * @returns {Polygon}
+         */
+        translate(vec) {
+            let newPolygon = new Polygon();
+            for (let face of this.faces) {
+                let shapes = [];
+                for (let edge of face) {
+                    shapes.push(edge.shape.translate(vec));
+                }
+                newPolygon.addFace(shapes);
+            }
+            return newPolygon;
+        }
+
+        /**
          * Return string to draw polygon in svg
          * @param attrs  - json structure with attributes for svg path element,
          * like "stroke", "strokeWidth", "fill", "fillRule"
