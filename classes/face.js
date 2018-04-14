@@ -505,7 +505,7 @@ module.exports = function (Flatten) {
                         // skip start-end connections
                         if (pt.equalTo(edge1.start) && pt.equalTo(edge2.end) && edge2 === edge1.prev)
                             continue;
-                        if (pt.equalTo(edge1.end) && pt.equalTo(edge2.start) && edge2 === edge.next)
+                        if (pt.equalTo(edge1.end) && pt.equalTo(edge2.start) && edge2 === edge1.next)
                             continue;
 
                         int_points.push(pt);
