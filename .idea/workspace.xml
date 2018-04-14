@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/face.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -21,41 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
+            <state relative-caret-position="-141">
               <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/segment.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="274" selection-start-line="274" selection-end-line="274" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/arc.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="344" column="9" lean-forward="true" selection-start-line="344" selection-start-column="9" selection-end-line="344" selection-end-column="9" />
-              <folding>
-                <marker date="1523606995647" expanded="true" signature="16566:16567" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="236" column="27" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -78,38 +50,68 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="box.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/box.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="171" lean-forward="true" selection-start-line="171" selection-end-line="171" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="vector.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/vector.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1045">
-              <caret line="168" column="64" selection-start-line="168" selection-start-column="64" selection-end-line="168" selection-end-column="64" />
+            <state relative-caret-position="146">
+              <caret line="95" column="26" lean-forward="true" selection-start-line="95" selection-start-column="26" selection-end-line="95" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ray.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/ray.js">
+      <file leaf-file-name="point.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/point.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1705">
-              <caret line="2" column="36" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
+            <state relative-caret-position="126">
+              <caret line="104" lean-forward="true" selection-start-line="104" selection-end-line="104" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="circle.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/circle.js">
+      <file leaf-file-name="point.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/point.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="35" lean-forward="true" selection-end-line="12" selection-end-column="35" />
+            <state relative-caret-position="211">
+              <caret line="73" column="52" selection-start-line="73" selection-start-column="43" selection-end-line="73" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/arc.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4356">
+              <caret line="297" lean-forward="true" selection-start-line="297" selection-end-line="297" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/arc.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4922">
+              <caret line="344" column="9" lean-forward="true" selection-start-line="344" selection-start-column="9" selection-end-line="344" selection-end-column="9" />
+              <folding>
+                <marker date="1523606995647" expanded="true" signature="16566:16567" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="236" column="27" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="face.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/classes/face.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="510" column="44" lean-forward="true" selection-start-line="510" selection-start-column="44" selection-end-line="510" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -125,7 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SEG2MLINE</find>
       <find>mli</find>
       <find>PROJECTION_PT2MLINE</find>
       <find>equalTo</find>
@@ -151,10 +152,11 @@
       <find>clone</find>
       <find>eq</find>
       <find>orien</find>
-      <find>translate</find>
       <find>isSim</find>
       <find>to.be.true</find>
       <find>new Segment</find>
+      <find>mul</find>
+      <find>translate</find>
     </findStrings>
     <replaceStrings>
       <replace>{Number | Segment}</replace>
@@ -214,7 +216,6 @@
         <option value="$PROJECT_DIR$/classes/edge.js" />
         <option value="$PROJECT_DIR$/test/face.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/classes/face.js" />
         <option value="$PROJECT_DIR$/test/polygon.js" />
         <option value="$PROJECT_DIR$/classes/box.js" />
         <option value="$PROJECT_DIR$/test/box.js" />
@@ -222,6 +223,7 @@
         <option value="$PROJECT_DIR$/classes/arc.js" />
         <option value="$PROJECT_DIR$/classes/polygon.js" />
         <option value="$PROJECT_DIR$/classes/image.js" />
+        <option value="$PROJECT_DIR$/classes/face.js" />
       </list>
     </option>
   </component>
@@ -241,8 +243,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="173" />
-    <option name="y" value="43" />
+    <option name="x" value="152" />
+    <option name="y" value="45" />
     <option name="width" value="1081" />
     <option name="height" value="681" />
   </component>
@@ -262,6 +264,17 @@
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
               <item name="classes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="flatten.umd.min.js" type="620a8d5e:NestingTreeNode" />
             </path>
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
@@ -709,14 +722,7 @@
       <workItem from="1518254937346" duration="8188000" />
       <workItem from="1518266448781" duration="56000" />
       <workItem from="1521309217265" duration="2193000" />
-      <workItem from="1522690531102" duration="7897000" />
-    </task>
-    <task id="LOCAL-00040" summary="Add flatten-interval-tree dependency. Added support of spatial search in PlanarSet">
-      <created>1491650498859</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1491650498859</updated>
+      <workItem from="1522690531102" duration="10430000" />
     </task>
     <task id="LOCAL-00041" summary="Add svg method to PlanarSet">
       <created>1491650901026</created>
@@ -1054,7 +1060,14 @@
       <option name="project" value="LOCAL" />
       <updated>1523611360661</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="Submit minified release version">
+      <created>1523611484137</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1523611484138</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1090,7 +1103,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="547108000" />
+    <option name="totallyTimeSpent" value="549641000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1102,16 +1115,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="173" y="43" width="1081" height="681" extended-state="0" />
+    <frame x="152" y="45" width="1081" height="681" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21603774" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21603774" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32664233" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.5069085" side_tool="true" weight="0.38608697" />
       <window_info anchor="bottom" id="Version Control" order="13" sideWeight="0.49661538" weight="0.35355285" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.41391304" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="16" sideWeight="0.49309152" visible="true" weight="0.3957219" />
+      <window_info anchor="bottom" id="Terminal" order="16" sideWeight="0.49309152" visible="true" weight="0.3957219" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.33391306" />
       <window_info anchor="bottom" id="SFDX" order="8" />
@@ -1157,7 +1171,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Split test by classes, add more tests for coverage" />
     <MESSAGE value="Add closest point to distance methods" />
     <MESSAGE value="Complete distance methods and move all to algorithms" />
     <MESSAGE value="clean workspace" />
@@ -1182,7 +1195,8 @@
     <MESSAGE value="Added polygon.isValid() method (only sip check) and some tests&#10;Added translate() method to segment, arc and polygon&#10;Added box.svg() method" />
     <MESSAGE value="Add new Image class" />
     <MESSAGE value="clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean" />
+    <MESSAGE value="Submit minified release version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Submit minified release version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1233,13 +1247,6 @@
     <entry file="file://$PROJECT_DIR$/node_modules/mocha/lib/runnable.js" />
     <entry file="file://$PROJECT_DIR$/node_modules/mocha/lib/utils.js" />
     <entry file="file://$PROJECT_DIR$/node_modules/flatten-interval-tree/classes/node.js" />
-    <entry file="file://$PROJECT_DIR$/test/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="80" column="37" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Dropbox/FLS/dev/mat/mat_query.c" />
     <entry file="file://$USER_HOME$/Dropbox/FLS/dev/mat/mat.h" />
     <entry file="file://$USER_HOME$/Dropbox/FLS/dev/mat/mat_query.h" />
@@ -1372,20 +1379,6 @@
     <entry file="file://$PROJECT_DIR$/test/flatten.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="106" column="77" selection-start-line="106" selection-start-column="77" selection-end-line="106" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="489" column="34" selection-start-line="489" selection-start-column="34" selection-end-line="489" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="41">
@@ -1400,13 +1393,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="295" column="6" lean-forward="true" selection-start-line="287" selection-end-line="295" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/box.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -1418,30 +1404,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
           <caret line="274" selection-start-line="274" selection-end-line="274" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="344" column="9" lean-forward="true" selection-start-line="344" selection-start-column="9" selection-end-line="344" selection-end-column="9" />
-          <folding>
-            <marker date="1523606995647" expanded="true" signature="16566:16567" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="236" column="27" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1045">
-          <caret line="168" column="64" selection-start-line="168" selection-start-column="64" selection-end-line="168" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -1482,8 +1444,60 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
+        <state relative-caret-position="-141">
           <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/vector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="95" column="26" lean-forward="true" selection-start-line="95" selection-start-column="26" selection-end-line="95" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/point.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="104" lean-forward="true" selection-start-line="104" selection-end-line="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/point.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="73" column="52" selection-start-line="73" selection-start-column="43" selection-end-line="73" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/arc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4356">
+          <caret line="297" lean-forward="true" selection-start-line="297" selection-end-line="297" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/arc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4922">
+          <caret line="344" column="9" lean-forward="true" selection-start-line="344" selection-start-column="9" selection-end-line="344" selection-end-column="9" />
+          <folding>
+            <marker date="1523606995647" expanded="true" signature="16566:16567" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="236" column="27" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/face.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="510" column="44" lean-forward="true" selection-start-line="510" selection-start-column="44" selection-end-line="510" selection-end-column="44" />
         </state>
       </provider>
     </entry>
