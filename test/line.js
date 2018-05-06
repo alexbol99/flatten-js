@@ -141,11 +141,11 @@ describe('#Flatten.Line', function() {
     it('Method svg() with extra parameters may add additional attributes', function() {
         let l = line(point(4, 0), point(0, 4));
         let box = new Box(0,0,4,4);
-        let svg = l.svg(box,{id:"123",transform:"scale(1.1,-1.1)"});
+        let svg = l.svg(box,{id:"123",className:"name"});
         expect(svg.search("stroke")).to.not.equal(-1);
         expect(svg.search("stroke-width")).to.not.equal(-1);
         expect(svg.search("id")).to.not.equal(-1);
-        expect(svg.search("transform")).to.not.equal(-1);
+        expect(svg.search("class")).to.not.equal(-1);
     });
 });
 

@@ -287,11 +287,11 @@ describe('#Flatten.Arc', function() {
     })
     it('Method svg() with extra parameters may add additional attributes', function() {
         let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
-        let svg = arc.svg({id:"123",transform:"scale(1.1,-1.1)"});
+        let svg = arc.svg({id:"123",className:"name"});
         expect(svg.search("stroke")).to.not.equal(-1);
         expect(svg.search("stroke-width")).to.not.equal(-1);
         expect(svg.search("fill")).to.not.equal(-1);
         expect(svg.search("id")).to.not.equal(-1);
-        expect(svg.search("transform")).to.not.equal(-1);
+        expect(svg.search("class")).to.not.equal(-1);
     })
 });

@@ -33,12 +33,12 @@ describe('#Flatten.Box', function() {
     });
     it('Method svg() with extra parameters may add additional attributes', function() {
         let box = new Flatten.Box(-30, -30, 20, 20);
-        let svg = box.svg({id:"123",transform:"scale(1.1,-1.1)"});
+        let svg = box.svg({id:"123",className:"name"});
         expect(svg.search("stroke")).to.not.equal(-1);
         expect(svg.search("stroke-width")).to.not.equal(-1);
         expect(svg.search("fill")).to.not.equal(-1);
         expect(svg.search("id")).to.not.equal(-1);
-        expect(svg.search("transform")).to.not.equal(-1);
+        expect(svg.search("class")).to.not.equal(-1);
     })
 });
 

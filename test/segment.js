@@ -80,6 +80,20 @@ describe('#Flatten.Segment', function() {
         let segment = new Flatten.Segment(ps, pe);
         expect(segment.middle()).to.deep.equal({x:0,y:0});
     });
+    it('Method svg() without parameters creates svg string with default attributes', function() {
+        let seg = new Flatten.Segment(point(-2,2), point(2,2));
+        let svg = seg.svg();
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+    })
+    it('Method svg() with extra parameters may add additional attributes', function() {
+        let seg = new Flatten.Segment(point(-2,2), point(2,2));
+        let svg = seg.svg({id:"123",className:"name"});
+        expect(svg.search("stroke")).to.not.equal(-1);
+        expect(svg.search("stroke-width")).to.not.equal(-1);
+        expect(svg.search("id")).to.not.equal(-1);
+        expect(svg.search("class")).to.not.equal(-1);
+    })
     describe('#Flatten.Segment.Intersect', function() {
         it('Intersection with Segment - not parallel segments case (one point)', function () {
             let segment1 = new Flatten.Segment(new Flatten.Point(0,0), new Flatten.Point(2,2));

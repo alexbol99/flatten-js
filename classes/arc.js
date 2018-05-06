@@ -442,8 +442,10 @@ module.exports = function(Flatten) {
         svg(attrs = {}) {
             let largeArcFlag = this.sweep <= Math.PI ? "0" : "1";
             let sweepFlag = this.counterClockwise ? "1" : "0";
-            let {stroke, strokeWidth, fill, ...rest} = attrs;
-            let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
+            let {stroke, strokeWidth, fill, id, className} = attrs;
+            // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
+            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
+            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
 
             if (Flatten.Utils.EQ(this.sweep, 2*Math.PI)) {
                 let circle = new Flatten.Circle(this.pc, this.r);
@@ -452,7 +454,7 @@ module.exports = function(Flatten) {
             else {
                 return `\n<path d="M${this.start.x},${this.start.y}
                              A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
-                    stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${rest_str} />`
+                    stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`
             }
         }
     };

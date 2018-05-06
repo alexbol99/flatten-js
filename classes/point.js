@@ -229,9 +229,11 @@ module.exports = function(Flatten) {
          * @returns {String}
          */
         svg(attrs = {}) {
-            let {r, stroke, strokeWidth, fill, ...rest} = attrs;
-            let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 3}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${rest_str} />`;
+            let {r, stroke, strokeWidth, fill, id, className} = attrs;
+            // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
+            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
+            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
+            return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 3}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${id_str} ${class_str} />`;
         }
 
     };

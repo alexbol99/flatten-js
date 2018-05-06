@@ -257,13 +257,16 @@ module.exports = function(Flatten) {
          * @returns {string}
          */
         svg(attrs = {}) {
-            let {stroke, strokeWidth, fill, fillRule, fillOpacity, ...rest} = attrs;
-            let restStr = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" d="`;
+            let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
+            // let restStr = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
+            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
+            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
+
+            let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
             for (let face of this.faces) {
                 svgStr += face.svg();
             }
-            svgStr += `" ${restStr} >\n</path>`;
+            svgStr += `" >\n</path>`;
 
             return svgStr;
         }
