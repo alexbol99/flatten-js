@@ -219,13 +219,13 @@ module.exports = function(Flatten) {
          * Return string to draw circle in svg
          * @param {Object} attrs - json structure with attributes of svg circle element,
          * like "stroke", "strokeWidth", "fill" <br/>
-         * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
+         * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
          * @returns {string}
          */
         svg(attrs = {}) {
-            let {stroke, strokeWidth, fill, ...rest} = attrs;
+            let {stroke, strokeWidth, fill, fillOpacity, ...rest} = attrs;
             let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 3}" fill="${fill || "none"}" ${rest_str} />`;
+            return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${rest_str} />`;
         }
     };
 

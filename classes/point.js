@@ -220,7 +220,7 @@ module.exports = function(Flatten) {
          * Accept any valid attributes of svg elements as svg object
          * Defaults attribues are: <br/>
          * {
-         *    r:"5",
+         *    r:"3",
          *    stroke:"black",
          *    strokeWidth:"1",
          *    fill:"red"
@@ -231,7 +231,7 @@ module.exports = function(Flatten) {
         svg(attrs = {}) {
             let {r, stroke, strokeWidth, fill, ...rest} = attrs;
             let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 5}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${rest_str} />`;
+            return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 3}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${rest_str} />`;
         }
 
     };

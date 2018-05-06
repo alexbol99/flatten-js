@@ -253,13 +253,13 @@ module.exports = function(Flatten) {
          * Return string to draw polygon in svg
          * @param attrs  - json structure with attributes for svg path element,
          * like "stroke", "strokeWidth", "fill", "fillRule"
-         * Defaults are stroke:"black", strokeWidth:"3", fill:"lightcyan", fillRule:"evenodd"
+         * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd"
          * @returns {string}
          */
         svg(attrs = {}) {
-            let {stroke, strokeWidth, fill, fillRule, ...rest} = attrs;
+            let {stroke, strokeWidth, fill, fillRule, fillOpacity, ...rest} = attrs;
             let restStr = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 3}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" d="`;
+            let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" d="`;
             for (let face of this.faces) {
                 svgStr += face.svg();
             }

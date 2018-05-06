@@ -192,6 +192,8 @@ module.exports = function(Flatten) {
          */
         svg(box, attrs = {}) {
             let ip = Line.intersectLine2Box(this, box);
+            if (ip.length === 0)
+                return "";
             let ps = ip[0];
             let pe = ip.length == 2 ? ip[1] : ip.find( pt => !pt.equalTo(ps) );
             if (pe === undefined) pe = ps;

@@ -385,13 +385,13 @@ module.exports = function (Flatten) {
          * Return string to draw segment in svg
          * @param {Object} attrs - Object with attributes for svg path element,
          * like "stroke", "strokeWidth" <br/>
-         * Defaults are stroke:"black", strokeWidth:"3"
+         * Defaults are stroke:"black", strokeWidth:"1"
          * @returns {string}
          */
-        svg(attrs = {stroke: "black", strokeWidth: "3"}) {
+        svg(attrs = {}) {
             let {stroke, strokeWidth, ...rest} = attrs;
             let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 3}" ${rest_str} />`;
+            return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" ${rest_str} />`;
         }
     };
 

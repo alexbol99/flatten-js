@@ -436,7 +436,7 @@ module.exports = function(Flatten) {
          * Return string to draw arc in svg
          * @param {Object} attrs - json structure with attributes of svg path element,
          * like "stroke", "strokeWidth", "fill" <br/>
-         * Defaults are stroke:"black", strokeWidth:"3", fill:"none"
+         * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
          * @returns {string}
          */
         svg(attrs = {}) {
@@ -452,7 +452,7 @@ module.exports = function(Flatten) {
             else {
                 return `\n<path d="M${this.start.x},${this.start.y}
                              A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
-                    stroke="${stroke || "black"}" stroke-width="${strokeWidth || 3}" fill="${fill || "none"}" ${rest_str} />`
+                    stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${rest_str} />`
             }
         }
     };
