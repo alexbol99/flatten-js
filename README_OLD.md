@@ -4,9 +4,8 @@
 
 # Javascript library for 2d geometry
 
-FlattenJS is a small javascript library (about 45 Kb minified) for manipulating abstract geometrical objects like point, vector, line, segment,
+Flatten-js is a small javascript library (about 45 Kb minified) for manipulating abstract geometrical objects like point, vector, line, segment,
 circle, arc and polygon. The library works in any modern browsers as well as under nodejs.
-
 
 ## Installation
 
@@ -14,7 +13,6 @@ circle, arc and polygon. The library works in any modern browsers as well as und
 
 ## Usage
 
-Require package as is:
 ```javascript
     // require package
     let Flatten = require('flatten-js');
@@ -33,12 +31,14 @@ Require package as is:
     document.getElementById("graphics").innerHTML = svg;
 ```
 
-Require minified package
-```javascript
-    // require minified package
-    let Flatten = require('flatten-js.umd.min.js');
-```
+![example](https://cloud.githubusercontent.com/assets/6965440/24111445/1310ceb4-0d9f-11e7-9775-2868ec5c4f21.png)
+  
+Play with this code on requirebin http://requirebin.com/?gist=2bf8335f4655f103ba500b647e70f1fc
 
+## First project
+
+Check out this [flatten-js-test](https://github.com/alexbol99/flatten-js-test) from git to create your first project using **flatten-js** library.
+Flatten-js-test has zero configuration, it works "as is" without transpiling in any modern browser.
 
 ## Documentation
 

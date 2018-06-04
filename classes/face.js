@@ -249,6 +249,14 @@ module.exports = function (Flatten) {
             }
             newEdge.face = this;
 
+            // set arc length
+            if (edge.prev === this.last) {
+                edge.arc_length = 0;
+            }
+            else {
+                edge.arc_length = edge.prev.arc_length + edge.prev.length;
+            }
+
             edges.add(newEdge);      // Add new edges into edges container
         }
 

@@ -20,6 +20,19 @@ describe('#Flatten.Face', function() {
         }
         expect(face.size).to.equal(4);
     });
+    it('Can create iterator of edges and iterate them one by one', function() {
+        let polygon = new Polygon();
+        let points = [point(1,1), point(3,1), point(3,2), point(1,2)];
+        let face = polygon.addFace(points);
+        expect(face.size).to.equal(4);
+        let edges = [...face.edges];
+        let iterator = face[Symbol.iterator]();
+        expect(iterator.next().value).to.equal(edges[0]);
+        expect(iterator.next().value).to.equal(edges[1]);
+        expect(iterator.next().value).to.equal(edges[2]);
+        expect(iterator.next().value).to.equal(edges[3]);
+        expect(iterator.next().done).to.be.true;
+    });
     it('Can get array of edges for the given face', function() {
         let polygon = new Polygon();
         let points = [point(1,1), point(3,1), point(3,2), point(1,2)];
