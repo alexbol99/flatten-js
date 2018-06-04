@@ -228,8 +228,8 @@ module.exports = function (Flatten) {
          */
         insert(edges, newEdge, edgeBefore) {
             if (this.first === undefined) {
-                edge.prev = newEdge;
-                edge.next = newEdge;
+                newEdge.prev = newEdge;
+                newEdge.next = newEdge;
                 this.first = newEdge;
                 this.last = newEdge;
             }
@@ -250,11 +250,11 @@ module.exports = function (Flatten) {
             newEdge.face = this;
 
             // set arc length
-            if (edge.prev === this.last) {
-                edge.arc_length = 0;
+            if (newEdge.prev === this.last) {
+                newEdge.arc_length = 0;
             }
             else {
-                edge.arc_length = edge.prev.arc_length + edge.prev.length;
+                newEdge.arc_length = edge.prev.arc_length + newEdge.prev.length;
             }
 
             edges.add(newEdge);      // Add new edges into edges container
