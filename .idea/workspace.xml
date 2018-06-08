@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,6 +35,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/face.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/line.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -54,12 +65,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="379">
-                <caret line="71" column="0" lean-forward="true" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+                <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -67,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="face.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/face.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="235" column="18" lean-forward="false" selection-start-line="235" selection-start-column="18" selection-end-line="235" selection-end-column="18" />
+            <state relative-caret-position="-283">
+              <caret line="228" column="14" lean-forward="false" selection-start-line="228" selection-start-column="8" selection-end-line="228" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -95,16 +106,6 @@
               <folding>
                 <marker date="1528462705092" expanded="true" signature="16615:16750" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="38" column="6" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="6" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -239,11 +240,11 @@
         <option value="$PROJECT_DIR$/classes/polygon.js" />
         <option value="$PROJECT_DIR$/classes/line.js" />
         <option value="$PROJECT_DIR$/test/line.js" />
-        <option value="$PROJECT_DIR$/classes/face.js" />
         <option value="$PROJECT_DIR$/classes/segment.js" />
         <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/classes/face.js" />
       </list>
     </option>
   </component>
@@ -268,8 +269,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="174" />
-    <option name="y" value="14" />
+    <option name="x" value="97" />
+    <option name="y" value="9" />
     <option name="width" value="1743" />
     <option name="height" value="1013" />
   </component>
@@ -733,21 +734,7 @@
       <workItem from="1525535877663" duration="32000" />
       <workItem from="1525535920405" duration="350000" />
       <workItem from="1527134707660" duration="30000" />
-      <workItem from="1528460417292" duration="10416000" />
-    </task>
-    <task id="LOCAL-00044" summary="Coverage and docs">
-      <created>1491682364055</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1491682364055</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Submit PlanarSet docs">
-      <created>1491685102166</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1491685102166</updated>
+      <workItem from="1528460417292" duration="11823000" />
     </task>
     <task id="LOCAL-00046" summary="Fix bug with usage of interval index">
       <created>1491823908125</created>
@@ -1078,7 +1065,21 @@
       <option name="project" value="LOCAL" />
       <updated>1528470887620</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="Typo in README">
+      <created>1528471375967</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1528471375967</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Fix bug in face.insertEdge">
+      <created>1528472801704</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1528472801704</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1114,7 +1115,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="574227000" />
+    <option name="totallyTimeSpent" value="575634000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1126,8 +1127,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="174" y="14" width="1743" height="1013" extended-state="0" />
-    <editor active="true" />
+    <frame x="97" y="9" width="1743" height="1013" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24281526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1135,7 +1135,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32788798" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32788798" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1154,8 +1154,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix bugs in distance measurement algorithm" />
-    <MESSAGE value="Add distance to polygon - naive approach, slow" />
     <MESSAGE value="Fix bugs, add more tests for better coverage" />
     <MESSAGE value="- Add new Distance shape2planarSet method based on interval trees&#10;- Updated point2shape methods to return [dist, shortest_segment]&#10;- Added new get vertices methods to Segment, Arc and Point (for viewer app)" />
     <MESSAGE value="- Fix technical bugs" />
@@ -1179,7 +1177,9 @@
     <MESSAGE value="Special case for zero-length segment in Segment Class methods" />
     <MESSAGE value="Update README.md - add link to Observable tutorials" />
     <MESSAGE value="Updated documentation and package" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated documentation and package" />
+    <MESSAGE value="Typo in README" />
+    <MESSAGE value="Fix bug in face.insertEdge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bug in face.insertEdge" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1232,13 +1232,6 @@
     <entry file="file://$PROJECT_DIR$/dist/main.js" />
     <entry file="file://$PROJECT_DIR$/dist/flatten.bundle.js.map" />
     <entry file="file://$PROJECT_DIR$/dist/flatten.bundle.js" />
-    <entry file="file://$PROJECT_DIR$/test/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/planar_set.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1399,7 +1392,7 @@
         <state relative-caret-position="51646">
           <caret line="3038" column="13" lean-forward="false" selection-start-line="3038" selection-start-column="13" selection-end-line="3038" selection-end-column="13" />
           <folding>
-            <marker date="1528470921434" expanded="true" signature="0:314447" ph="{&quot;name&quot;: &quot;flatten-js&quot;...}" />
+            <marker date="1528471397758" expanded="true" signature="0:314447" ph="{&quot;name&quot;: &quot;flatten-js&quot;...}" />
           </folding>
         </state>
       </provider>
@@ -1441,14 +1434,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="235" column="18" lean-forward="false" selection-start-line="235" selection-start-column="18" selection-end-line="235" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/segment.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -1484,6 +1469,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="379">
+            <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="491">
@@ -1492,14 +1488,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="379">
-            <caret line="71" column="0" lean-forward="true" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/test/face.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/face.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-283">
+          <caret line="228" column="14" lean-forward="false" selection-start-line="228" selection-start-column="8" selection-end-line="228" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
