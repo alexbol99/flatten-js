@@ -254,7 +254,7 @@ module.exports = function (Flatten) {
                 newEdge.arc_length = 0;
             }
             else {
-                newEdge.arc_length = edge.prev.arc_length + newEdge.prev.length;
+                newEdge.arc_length = newEdge.prev.arc_length + newEdge.prev.length;
             }
 
             edges.add(newEdge);      // Add new edges into edges container
