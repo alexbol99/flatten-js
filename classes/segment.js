@@ -273,16 +273,23 @@ module.exports = function (Flatten) {
             return new Segment(this.ps.translate(vec), this.pe.translate(vec));
         }
 
+        /**
+         * Returns true if segment start is equal to segment end up to DP_TOL
+         * @returns {boolean}
+         */
+        isZeroLength() {
+            return this.ps.equalTo(this.pe)
+        }
+
         static intersectSegment2Line(seg, line) {
             let ip = [];
-            let zero_segment = Flatten.Utils.EQ_0(seg.length);
 
             // Boundary cases
             if (seg.ps.on(line)) {
                 ip.push(seg.ps);
             }
             // If both ends lay on line, return two intersection points
-            if (seg.pe.on(line) && !zero_segment) {
+            if (seg.pe.on(line) && !seg.isZeroLength()) {
                 ip.push(seg.pe);
             }
 
@@ -290,6 +297,10 @@ module.exports = function (Flatten) {
                 return ip;          // done, intersection found
             }
 
+            // If zero-length segment and nothing found, return no intersections
+            if (seg.isZeroLength()) {
+                return ip;
+            }
             // Not a boundary case, check if both points are on the same side and
             // hence there is no intersection
             if (seg.ps.leftTo(line) && seg.pe.leftTo(line) ||
@@ -310,6 +321,19 @@ module.exports = function (Flatten) {
                 return ip;
             }
 
+            // Special case of seg1 zero length
+            if (seg1.isZeroLength() && seg1.ps.on(seg2)) {
+                ip.push(seg1.ps);
+                return ip;
+            }
+
+            // Special case of seg2 zero length
+            if (seg2.isZeroLength() && seg2.ps.on(seg1)) {
+                ip.push(seg2.ps);
+                return ip;
+            }
+
+            // Neither seg1 nor seg2 is zero length
             let line1 = new Flatten.Line(seg1.ps, seg1.pe);
             let line2 = new Flatten.Line(seg2.ps, seg2.pe);
 
@@ -347,6 +371,16 @@ module.exports = function (Flatten) {
                 return ips;
             }
 
+            // Special case of zero length segment
+            if (segment.isZeroLength()) {
+                let [dist,shortest_segment] = segment.ps.distanceTo(circle.pc);
+                if (Flatten.Utils.EQ(dist, circle.r)) {
+                    ips.push(segment.ps);
+                    return ips;
+                }
+            }
+
+            // Non zero-length segment
             let line = new Flatten.Line(segment.ps, segment.pe);
 
             let ips_tmp = line.intersect(circle);
@@ -367,6 +401,15 @@ module.exports = function (Flatten) {
                 return ip;
             }
 
+            // Special case of zero-length segment
+            if (segment.ps.equalTo(segment.pe)) {
+                if (segment.ps.on(arc)) {
+                    ip.push(segment.ps);
+                    return ip;
+                }
+            }
+
+            // Non-zero length segment
             let line = new Flatten.Line(segment.ps, segment.pe);
             let circle = new Flatten.Circle(arc.pc, arc.r);
 

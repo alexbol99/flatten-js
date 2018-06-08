@@ -18,8 +18,6 @@ let Flatten = class Flatten {
         this.ORIENTATION = {CCW:-1, CW:1, NOT_ORIENTABLE: 0};
         this.PIx2 = 2 * Math.PI;
         this.PI_2 = 0.5 * Math.PI;
-        this.Utils = Utils;
-        this.Errors = Errors;
         this.INSIDE = 1;
         this.OUTSIDE = 0;
         this.BOUNDARY = 2;
@@ -32,6 +30,8 @@ let Flatten = class Flatten {
         this.BOOLEAN_SUBTRACT = 3;
         this.OVERLAP_SAME = 1;
         this.OVERLAP_OPPOSITE = 2;
+        this.Utils = Utils;
+        this.Errors = Errors;
     }
 };
 
