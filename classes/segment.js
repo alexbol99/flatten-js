@@ -301,6 +301,7 @@ module.exports = function (Flatten) {
             if (seg.isZeroLength()) {
                 return ip;
             }
+
             // Not a boundary case, check if both points are on the same side and
             // hence there is no intersection
             if (seg.ps.leftTo(line) && seg.pe.leftTo(line) ||
@@ -322,14 +323,18 @@ module.exports = function (Flatten) {
             }
 
             // Special case of seg1 zero length
-            if (seg1.isZeroLength() && seg1.ps.on(seg2)) {
-                ip.push(seg1.ps);
+            if (seg1.isZeroLength()) {
+                if (seg1.ps.on(seg2)) {
+                    ip.push(seg1.ps);
+                }
                 return ip;
             }
 
             // Special case of seg2 zero length
-            if (seg2.isZeroLength() && seg2.ps.on(seg1)) {
-                ip.push(seg2.ps);
+            if (seg2.isZeroLength()) {
+                if (seg2.ps.on(seg1)) {
+                    ip.push(seg2.ps);
+                }
                 return ip;
             }
 
@@ -376,8 +381,8 @@ module.exports = function (Flatten) {
                 let [dist,shortest_segment] = segment.ps.distanceTo(circle.pc);
                 if (Flatten.Utils.EQ(dist, circle.r)) {
                     ips.push(segment.ps);
-                    return ips;
                 }
+                return ips;
             }
 
             // Non zero-length segment
@@ -402,11 +407,11 @@ module.exports = function (Flatten) {
             }
 
             // Special case of zero-length segment
-            if (segment.ps.equalTo(segment.pe)) {
+            if (segment.isZeroLength()) {
                 if (segment.ps.on(arc)) {
                     ip.push(segment.ps);
-                    return ip;
                 }
+                return ip;
             }
 
             // Non-zero length segment
