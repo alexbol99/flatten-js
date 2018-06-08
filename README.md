@@ -16,7 +16,8 @@ This library works in any modern browser as well as under nodejs.
 But may be the best way to start working with FlattebJS is to use awesome [Observable](https://beta.observablehq.com/) javascript interactive notebooks. <br/>
 There are several FlattenJS tutorials published in Observable Notebooks, see below.  
 
-FlattenJS does not concern too much about visualization. Anyway, all shapes have svg() method, that returns a string which may be inserted into SVG container. 
+FlattenJS does not concern too much about visualization.
+Anyway, all objects have svg() method, that returns a string which may be inserted into SVG container. 
 This works pretty well together with  [d3js](https://d3js.org/) library. But it is definitely possible to create bridges to other graphic libraries.
 
 Full documentation may be found [here](https://alexbol99.github.io/flatten-js/index.html)
@@ -57,8 +58,6 @@ Then create some construction:
 You may test the code above also in [NPM RunKit](https://npm.runkit.com/flatten-js)
 
 ## Tutorials
-
-![Getting Started](https://user-images.githubusercontent.com/6965440/41164953-0e3700b6-6b45-11e8-982f-de3c5bc2012d.PNG)
 
 1. [![Getting Started](https://user-images.githubusercontent.com/6965440/41164953-0e3700b6-6b45-11e8-982f-de3c5bc2012d.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-getting-started)
 2. [![Messing Around](https://user-images.githubusercontent.com/6965440/41164955-0e6019ec-6b45-11e8-9501-1565ccd75e0d.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-messing-around)
