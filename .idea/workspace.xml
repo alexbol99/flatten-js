@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Update package">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="clean">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/flatten.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/flatten.min.js.map" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/edge.js" afterPath="$PROJECT_DIR$/classes/edge.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,7 +28,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="491">
@@ -67,8 +72,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="379">
-                <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+              <first_editor relative-caret-position="-506">
+                <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -86,11 +91,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edge.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="edge.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/edge.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2352">
-              <caret line="214" column="2" lean-forward="false" selection-start-line="214" selection-start-column="2" selection-end-line="214" selection-end-column="2" />
+            <state relative-caret-position="250">
+              <caret line="95" column="50" lean-forward="false" selection-start-line="95" selection-start-column="50" selection-end-line="95" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -142,11 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Edge</find>
-      <find>new Ed</find>
-      <find>poly</find>
-      <find>addVe</find>
-      <find>minmax_tree_calc_distance</find>
       <find>face.</find>
       <find>append</find>
       <find>update</find>
@@ -160,7 +160,6 @@
       <find>orientation</find>
       <find>=&gt;</find>
       <find>flatten.bundle</find>
-      <find>instanceOf</find>
       <find>svg</find>
       <find>flatten-</find>
       <find>search</find>
@@ -172,6 +171,12 @@
       <find>Flatten.Utils</find>
       <find>new Flatten.Line</find>
       <find>isZeroLength</find>
+      <find>is</find>
+      <find>instanceOf</find>
+      <find>this.shape instanceOf</find>
+      <find>shape</find>
+      <find>this.shape instanceOf Flatten.Arc</find>
+      <find>this.shape instanceOf Flatten.Segment</find>
     </findStrings>
     <replaceStrings>
       <replace>{Number | Segment}</replace>
@@ -227,7 +232,6 @@
         <option value="$PROJECT_DIR$/test/segment.js" />
         <option value="$PROJECT_DIR$/test/svg.js" />
         <option value="$PROJECT_DIR$/test/vector.js" />
-        <option value="$PROJECT_DIR$/classes/edge.js" />
         <option value="$PROJECT_DIR$/test/flatten.js" />
         <option value="$PROJECT_DIR$/test/point.js" />
         <option value="$PROJECT_DIR$/classes/point.js" />
@@ -240,9 +244,10 @@
         <option value="$PROJECT_DIR$/test/line.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/classes/face.js" />
         <option value="$PROJECT_DIR$/classes/segment.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/classes/edge.js" />
       </list>
     </option>
   </component>
@@ -267,8 +272,7 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="135" />
-    <option name="y" value="22" />
+    <option name="x" value="46" />
     <option name="width" value="1743" />
     <option name="height" value="1013" />
   </component>
@@ -732,14 +736,7 @@
       <workItem from="1525535877663" duration="32000" />
       <workItem from="1525535920405" duration="350000" />
       <workItem from="1527134707660" duration="30000" />
-      <workItem from="1528460417292" duration="13227000" />
-    </task>
-    <task id="LOCAL-00048" summary="clean">
-      <created>1491824293063</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1491824293063</updated>
+      <workItem from="1528460417292" duration="15454000" />
     </task>
     <task id="LOCAL-00049" summary="Remove performance test">
       <created>1491824490916</created>
@@ -1077,7 +1074,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528474306299</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="clean">
+      <created>1528474338813</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1528474338813</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1113,7 +1117,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="577038000" />
+    <option name="totallyTimeSpent" value="579265000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1125,15 +1129,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="135" y="22" width="1743" height="1013" extended-state="0" />
+    <frame x="46" y="0" width="1743" height="1013" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24281526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24281526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32788798" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32788798" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1164,7 +1168,6 @@
     <MESSAGE value="- Added parameter &quot;edges&quot; to face.append, face.remove, face.insert methods&#10;- Edited documentation" />
     <MESSAGE value="Boolean operations test and fix (union)&#10;- Circle::toArc() method - end angle -pi instead of 3pi&#10;- Face::getRelation - initialize edges bv flags before recalcuation&#10;- Polygon::addVertex - no edges.update method in PlanarSet anymore, use delete and add&#10;- Ray shooting - skip vertex ip if between same edges and already counted&#10;- Ray shooting - fix technical bug in sorting&#10;- BooleanOp&#10; - clone both polygons in clip&#10; - calculate inclusion flags with original polygons for performance&#10; - consider face id when sorting intersection points&#10; - remove not relevant between points belong to same face" />
     <MESSAGE value="Move Boolean Operations to separate package" />
-    <MESSAGE value="clean" />
     <MESSAGE value="Create minified bundle" />
     <MESSAGE value="Deploy minified bundle" />
     <MESSAGE value="Move method setOverlap from BooleanOp package" />
@@ -1177,7 +1180,8 @@
     <MESSAGE value="Fix bug in face.insertEdge" />
     <MESSAGE value="Update package" />
     <MESSAGE value="Fix bug in Segment intersection methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bug in Segment intersection methods" />
+    <MESSAGE value="clean" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1390,7 +1394,7 @@
         <state relative-caret-position="51646">
           <caret line="3038" column="13" lean-forward="false" selection-start-line="3038" selection-start-column="13" selection-end-line="3038" selection-end-column="13" />
           <folding>
-            <marker date="1528472902877" expanded="true" signature="0:314447" ph="{&quot;name&quot;: &quot;flatten-js&quot;...}" />
+            <marker date="1528474356074" expanded="true" signature="0:314447" ph="{&quot;name&quot;: &quot;flatten-js&quot;...}" />
           </folding>
         </state>
       </provider>
@@ -1424,14 +1428,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/edge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2352">
-          <caret line="214" column="2" lean-forward="false" selection-start-line="214" selection-start-column="2" selection-end-line="214" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/errors.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1453,17 +1449,6 @@
         <state relative-caret-position="62">
           <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="379">
-            <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -1498,6 +1483,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="491">
           <caret line="30" column="19" lean-forward="false" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-506">
+            <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/edge.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="95" column="50" lean-forward="false" selection-start-line="95" selection-start-column="50" selection-end-line="95" selection-end-column="50" />
           <folding />
         </state>
       </provider>

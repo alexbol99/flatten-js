@@ -88,6 +88,13 @@ module.exports = function(Flatten) {
             return this.shape.box;
         }
 
+        isSegment() {
+            return this.shape instanceof Flatten.Segment;
+        }
+
+        isArc() {
+            return this.shape instanceof Flatten.Arc;
+        }
         /**
          * Get middle point of the edge
          * @returns {Point}
