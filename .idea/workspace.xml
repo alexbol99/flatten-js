@@ -2,41 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/Flatten.Image.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/classes_image.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/vector.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/vector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Arc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Edge.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Face.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Line.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Point.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Polygon.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Ray.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Segment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Vector.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/vector.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/vector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -71,11 +38,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vector.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="vector.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/vector.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="140">
               <caret line="83" column="20" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -125,24 +110,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/polygon.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3255">
-              <caret line="217" column="7" selection-start-line="217" selection-start-column="7" selection-end-line="217" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1725">
-              <caret line="115" column="22" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/face.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -163,7 +130,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>append</find>
       <find>update</find>
       <find>shapes2face</find>
       <find>face</find>
@@ -193,6 +159,7 @@
       <find>slo</find>
       <find>equalTo</find>
       <find>multiply</find>
+      <find>rota</find>
     </findStrings>
     <replaceStrings>
       <replace>{Number | Segment}</replace>
@@ -295,16 +262,6 @@
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -690,14 +647,7 @@
       <workItem from="1522690531102" duration="13466000" />
       <workItem from="1524291042573" duration="9318000" />
       <workItem from="1526190418965" duration="9714000" />
-      <workItem from="1528533707261" duration="8406000" />
-    </task>
-    <task id="LOCAL-00050" summary="clean">
-      <created>1491824653085</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1491824653085</updated>
+      <workItem from="1528533707261" duration="8749000" />
     </task>
     <task id="LOCAL-00051" summary="clean">
       <created>1491829824123</created>
@@ -1035,7 +985,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528090872263</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="- added some basic methods to Vector class: add, subtract, angleTo, projectionOn plus new tests and updated documentation&#10;- fixed bug in line.incidentTo method">
+      <created>1529073794439</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1529073794440</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1071,7 +1028,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="580115000" />
+    <option name="totallyTimeSpent" value="580458000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1084,7 +1041,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="188" y="60" width="1081" height="681" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21603774" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32664233" />
@@ -1139,7 +1095,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Fix technical bugs" />
     <MESSAGE value="- Fix technical bugs (2) - correct fix" />
     <MESSAGE value="Changes in Readme.md" />
     <MESSAGE value="Change in readme" />
@@ -1164,7 +1119,8 @@
     <MESSAGE value="Submit minified build" />
     <MESSAGE value="- update edge arc length when insert into face&#10;- added test of edge in face iteration using iterator.next()" />
     <MESSAGE value="- fixed technical bug in previous commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="- fixed technical bug in previous commit" />
+    <MESSAGE value="- added some basic methods to Vector class: add, subtract, angleTo, projectionOn plus new tests and updated documentation&#10;- fixed bug in line.incidentTo method" />
+    <option name="LAST_COMMIT_MESSAGE" value="- added some basic methods to Vector class: add, subtract, angleTo, projectionOn plus new tests and updated documentation&#10;- fixed bug in line.incidentTo method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1299,13 +1255,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/svg.js" />
     <entry file="file://$PROJECT_DIR$/classes/image.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1377,13 +1326,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1410">
           <caret line="94" column="53" lean-forward="true" selection-start-line="94" selection-start-column="53" selection-end-line="94" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -1506,6 +1448,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="83" column="20" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
         </state>
       </provider>
     </entry>
