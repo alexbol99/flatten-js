@@ -107,8 +107,7 @@ module.exports = function(Flatten) {
          * @returns {boolean}
          */
         incidentTo(other_line) {
-            return ( (this.norm.equalTo(other_line.norm) || this.norm.equalTo(other_line.norm.invert())) &&
-                this.pt.on(other_line));
+            return this.parallelTo(other_line) && this.pt.on(other_line);
         }
 
         /**
