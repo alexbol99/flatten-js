@@ -72,6 +72,14 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Return center of the box
+         * @returns {Point}
+         */
+        get center() {
+            return new Flatten.Point( (this.xmin + this.xmax)/2, (this.ymin + this.ymax)/2 );
+        }
+
+        /**
          * Returns true if not intersected with other box
          * @param {Box} other_box - other box to test
          * @returns {boolean}

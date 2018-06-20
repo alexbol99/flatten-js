@@ -80,6 +80,26 @@ describe('#Flatten.Segment', function() {
         let segment = new Flatten.Segment(ps, pe);
         expect(segment.middle()).to.deep.equal({x:0,y:0});
     });
+    it('Can translate segment by given vector', function() {
+        let seg = segment(0,0,3,3);
+        let v = vector(-1,-1);
+        let seg_t = segment(-1,-1,2,2);
+        expect(seg.translate(v)).to.deep.equal(seg_t);
+    });
+    it('Can rotate by angle around center of bounding box', function() {
+        let seg = segment(0,0,6,0);
+        let seg_plus_pi_2 = segment(3,-3,3,3);
+        let seg_minus_pi_2 = segment(3,3,3,-3);
+        expect(seg.rotate(Math.PI/2).equalTo(seg_plus_pi_2)).to.be.true
+        expect(seg.rotate(-Math.PI/2).equalTo(seg_minus_pi_2)).to.be.true
+    });
+    it('Can rotate by angle around given point', function() {
+        let seg = segment(1,1,3,3);
+        let seg_plus_pi_2 = segment(1,1,-1,3);
+        let seg_minus_pi_2 = segment(1,1,3,-1);
+        expect(seg.rotate(Math.PI/2,seg.start).equalTo(seg_plus_pi_2)).to.be.true
+        expect(seg.rotate(-Math.PI/2,seg.start).equalTo(seg_minus_pi_2)).to.be.true
+    });
     it('Method svg() without parameters creates svg string with default attributes', function() {
         let seg = new Flatten.Segment(point(-2,2), point(2,2));
         let svg = seg.svg();
@@ -160,6 +180,11 @@ describe('#Flatten.Segment', function() {
             let [dist, ...rest] = segment1.distanceTo(segment2);
             expect(Flatten.Utils.EQ(dist,Math.sqrt(2)/2)).to.be.true;
         });
+        it('Distance to Line', function() {
+            let seg = segment(1,3,4,6);
+            let l = line(point(-1,1),vector(0,-1));
+            expect(seg.distanceTo(l)[0]).to.equal(2);
+        })
         it('Distance to Circle Case 1 Intersection - touching', function () {
             let segment = new Segment(point(-4, 2), point(4, 2));
             let circle = new Circle(point(0,0),2);

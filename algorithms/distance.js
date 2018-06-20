@@ -95,18 +95,18 @@ module.exports = function(Flatten) {
          */
         static point2arc(pt, arc) {
             let circle = new Flatten.Circle(arc.pc, arc.r);
-            let dist_and_segments = [];
+            let dist_and_segment = [];
             let dist, shortest_segment;
             [dist, shortest_segment] = Distance.point2circle(pt, circle);
             if (shortest_segment.end.on(arc)) {
-                dist_and_segments.push(Distance.point2circle(pt, circle));
+                dist_and_segment.push(Distance.point2circle(pt, circle));
             }
-            dist_and_segments.push( Distance.point2point(pt, arc.start) );
-            dist_and_segments.push( Distance.point2point(pt, arc.end) );
+            dist_and_segment.push( Distance.point2point(pt, arc.start) );
+            dist_and_segment.push( Distance.point2point(pt, arc.end) );
 
-            Distance.sort(dist_and_segments);
+            Distance.sort(dist_and_segment);
 
-            return dist_and_segments[0];
+            return dist_and_segment[0];
         }
 
         /**
@@ -120,7 +120,7 @@ module.exports = function(Flatten) {
             if (ip.length > 0) {
                 return [0, new Segment(ip[0],ip[0])];   // distance = 0, closest point is the first point
             }
-
+            let dist_and_segment = [];
             dist_and_segment.push(Distance.point2line(seg.start, line));
             dist_and_segment.push(Distance.point2line(seg.end, line));
 

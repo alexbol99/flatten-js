@@ -117,6 +117,15 @@ module.exports = function (Flatten) {
         }
 
         /**
+         * Returns true if equals to query segment, false otherwise
+         * @param {Seg} seg - query segment
+         * @returns {boolean}
+         */
+        equalTo(seg) {
+            return this.ps.equalTo(seg.ps) && this.pe.equalTo(seg.pe);
+        }
+
+        /**
          * Returns true if segment contains point
          * @param {Point} pt Query point
          * @returns {boolean}
@@ -271,6 +280,19 @@ module.exports = function (Flatten) {
          */
         translate(vec) {
             return new Segment(this.ps.translate(vec), this.pe.translate(vec));
+        }
+
+        /**
+         * Return new segment rotated by given angle around given point
+         * If point omitted, rotate around center point of bounding box
+         * Positive value of angle defines rotation counter clockwise, negative - clockwise
+         * @param {number} angle - rotation angle in radians
+         * @param {Point} point - center point, default is center of bounding box
+         * @returns {Segment}
+         */
+        rotate(angle, point) {
+            let center = point || this.box.center;
+            return new Segment(this.ps.rotate(angle, center), this.pe.rotate(angle,center))
         }
 
         /**
