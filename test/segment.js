@@ -90,8 +90,9 @@ describe('#Flatten.Segment', function() {
         let seg = segment(0,0,6,0);
         let seg_plus_pi_2 = segment(3,-3,3,3);
         let seg_minus_pi_2 = segment(3,3,3,-3);
-        expect(seg.rotate(Math.PI/2).equalTo(seg_plus_pi_2)).to.be.true
-        expect(seg.rotate(-Math.PI/2).equalTo(seg_minus_pi_2)).to.be.true
+        let center = seg.box.center;
+        expect(seg.rotate(Math.PI/2, center).equalTo(seg_plus_pi_2)).to.be.true
+        expect(seg.rotate(-Math.PI/2, center).equalTo(seg_minus_pi_2)).to.be.true
     });
     it('Can rotate by angle around given point', function() {
         let seg = segment(1,1,3,3);

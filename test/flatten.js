@@ -11,11 +11,14 @@ let Flatten = require('../index');
 // let {PlanarSet} = Flatten; // require('../data_structures/planar_set');
 let fs = require('fs');
 
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
+let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray, Matrix} = Flatten;
 let {point, vector, circle, line, segment, arc, ray} = Flatten;
 let {Distance, PlanarSet} = Flatten;
 
 describe('#Flatten-JS', function() {
+    it('Class Matrix defined', function() {
+        expect(Matrix).to.exist;
+    });
     it('Class Point defined', function() {
         expect(Point).to.exist;
     });

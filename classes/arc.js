@@ -344,6 +344,47 @@ module.exports = function(Flatten) {
             return arc;
         }
 
+        /**
+         * Return new segment rotated by given angle around given point
+         * If point omitted, rotate around origin (0,0)
+         * Positive value of angle defines rotation counter clockwise, negative - clockwise
+         * @param {number} angle - rotation angle in radians
+         * @param {Point} center - center point, default is (0,0)
+         * @returns {Arc}
+         */
+        rotate(angle = 0, center = new Flatten.Point()) {
+            let m = new Flatten.Matrix();
+            m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
+            return this.transform(m);
+        }
+
+        /**
+         * Return new arc transformed using affine transformation matrix <br/>
+         * Note, that non-equal scaling by x and y (matrix[0] != matrix[3]) produce illegal result
+         * TODO: support non-equal scaling arc to ellipse or throw exception ?
+         * @param {Matrix} matrix - affine transformation matrix
+         * @returns {Arc}
+         */
+        transform(matrix = new Flatten.Matrix()) {
+            let newStart = this.start.transform(matrix);
+            let newEnd = this.end.transform(matrix);
+            let newCenter = this.pc.transform(matrix);
+            let arc = Arc.arcSE(newCenter, newStart, newEnd, this.counterClockwise);
+            return arc;
+        }
+
+        static arcSE(center, start, end, counterClockwise) {
+            let startAngle = vector(center,start).slope;
+            let endAngle = vector(center, end).slope;
+            if (Flatten.Utils.EQ(startAngle, endAngle)) {
+                endAngle += 2*Math.PI;
+                counterClockwise = true;
+            }
+            let r = vector(center, start).length;
+
+            return new Arc(center, r, startAngle, endAngle, counterClockwise);
+        }
+
         static intersectArc2Arc(arc1, arc2) {
             var ip = [];
 

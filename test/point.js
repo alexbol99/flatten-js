@@ -9,7 +9,7 @@ let Flatten = require('../index');
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
 
-let {point, vector, circle, line, segment, arc, ray} = Flatten;
+let {point, vector, circle, line, segment, arc, ray, matrix} = Flatten;
 
 describe('#Flatten.Point', function() {
     it('May create new Point', function() {
@@ -82,6 +82,16 @@ describe('#Flatten.Point', function() {
         let proj_pt = pt.projectionOn(line);
         expect(proj_pt).to.deep.equal({x:2,y:1});
     });
+    it('Method transform returns new point transformed by affine transformation matrix',function() {
+        let pt = point(4,1);
+        let pc = point(1,1);
+        // Transform coordinate origin into point x,y, then rotate, then transform origin back
+        let m = matrix().translate(pc.x,pc.y).rotate(3*Math.PI/2).translate(-pc.x,-pc.y);
+        let transformed_pt = pt.transform(m);
+        let expected_pt = point(1,-2);
+        expect(transformed_pt.equalTo(expected_pt)).to.be.true;
+    });
+
     describe('#Flatten.Point.Distance methods', function() {
         it('Method distanceTo return distance to other point ', function() {
             let point1 = new Flatten.Point(1,1);

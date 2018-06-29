@@ -240,9 +240,46 @@ module.exports = function(Flatten) {
         translate(vec) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                let shapes = [];
+                let shapes = new Array(face.size);
                 for (let edge of face) {
                     shapes.push(edge.shape.translate(vec));
+                }
+                newPolygon.addFace(shapes);
+            }
+            return newPolygon;
+        }
+
+        /**
+         * Return new polygon rotated by given angle around given point
+         * If point omitted, rotate around origin (0,0)
+         * Positive value of angle defines rotation counter clockwise, negative - clockwise
+         * @param {number} angle - rotation angle in radians
+         * @param {Point} center - rotation center, default is (0,0)
+         * @returns {Polygon} - new rotated polygon
+         */
+        rotate(angle=0, center=new Flatten.Point()) {
+            let newPolygon = new Polygon();
+            for (let face of this.faces) {
+                let shapes = new Array(face.size);
+                for (let edge of face) {
+                    shapes.push(edge.shape.rotate(angle, center));
+                }
+                newPolygon.addFace(shapes);
+            }
+            return newPolygon;
+        }
+
+        /**
+         * Return new polygon transformed using affine transformation matrix
+         * @param {Matrix} matrix - affine transformation matrix
+         * @returns {Polygon} - new polygon
+         */
+        transform(matrix = new Flatten.Matrix()) {
+            let newPolygon = new Polygon();
+            for (let face of this.faces) {
+                let shapes = new Array(face.size);
+                for (let edge of face) {
+                    shapes.push(edge.shape.transform(matrix));
                 }
                 newPolygon.addFace(shapes);
             }

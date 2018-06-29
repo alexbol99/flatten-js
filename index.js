@@ -37,6 +37,7 @@ let Flatten = class Flatten {
 
 let f = new Flatten();
 
+require("./classes/matrix")(f);
 require("./data_structures/planar_set")(f);
 require("./classes/point")(f);
 require("./classes/vector")(f);

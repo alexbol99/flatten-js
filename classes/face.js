@@ -159,6 +159,21 @@ module.exports = function (Flatten) {
             return counter;
         }
 
+        /**
+         * Return bounding box of the face
+         * @returns {Box}
+         */
+        get box() {
+            if (this._box === undefined) {
+                let box = new Flatten.Box();
+                for (let edge of this) {
+                    box = box.merge(edge.box);
+                }
+                this._box = box;
+            }
+            return this._box;
+        }
+
         static points2segments(points) {
             let segments = [];
             for (let i = 0; i < points.length; i++) {
@@ -402,21 +417,6 @@ module.exports = function (Flatten) {
                 }
             }
             return this._orientation;
-        }
-
-        /**
-         * Return bounding box of the face
-         * @returns {Box}
-         */
-        get box() {
-            if (this._box === undefined) {
-                let box = new Flatten.Box();
-                for (let edge of this) {
-                    box = box.merge(edge.box);
-                }
-                this._box = box;
-            }
-            return this._box;
         }
 
         /**

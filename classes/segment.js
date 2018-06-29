@@ -284,15 +284,25 @@ module.exports = function (Flatten) {
 
         /**
          * Return new segment rotated by given angle around given point
-         * If point omitted, rotate around center point of bounding box
+         * If point omitted, rotate around origin (0,0)
          * Positive value of angle defines rotation counter clockwise, negative - clockwise
          * @param {number} angle - rotation angle in radians
-         * @param {Point} point - center point, default is center of bounding box
+         * @param {Point} center - center point, default is (0,0)
          * @returns {Segment}
          */
-        rotate(angle, point) {
-            let center = point || this.box.center;
-            return new Segment(this.ps.rotate(angle, center), this.pe.rotate(angle,center))
+        rotate(angle = 0, center = new Flatten.Point()) {
+            let m = new Flatten.Matrix();
+            m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
+            return this.transform(m);
+        }
+
+        /**
+         * Return new segment transformed using affine transformation matrix
+         * @param {Matrix} matrix - affine transformation matrix
+         * @returns {Segment} - transformed segment
+         */
+        transform(matrix = new Flatten.Matrix()) {
+            return new Segment(this.ps.transform(matrix), this.pe.transform(matrix))
         }
 
         /**

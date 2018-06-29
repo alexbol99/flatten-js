@@ -111,6 +111,16 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Return new point transformed by affine transformation matrix m
+         * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+         * @returns {Point}
+         */
+        transform(m) {
+            let [x,y] = m.transform([this.x,this.y]);
+            return new Flatten.Point(x,y)
+        }
+
+        /**
          * Returns projection point on given line
          * @param {Line} line Line this point be projected on
          * @returns {Point}
