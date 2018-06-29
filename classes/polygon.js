@@ -240,7 +240,7 @@ module.exports = function(Flatten) {
         translate(vec) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                let shapes = new Array(face.size);
+                let shapes = [];
                 for (let edge of face) {
                     shapes.push(edge.shape.translate(vec));
                 }
@@ -260,7 +260,7 @@ module.exports = function(Flatten) {
         rotate(angle=0, center=new Flatten.Point()) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                let shapes = new Array(face.size);
+                let shapes = [];
                 for (let edge of face) {
                     shapes.push(edge.shape.rotate(angle, center));
                 }
@@ -277,7 +277,7 @@ module.exports = function(Flatten) {
         transform(matrix = new Flatten.Matrix()) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                let shapes = new Array(face.size);
+                let shapes = [];
                 for (let edge of face) {
                     shapes.push(edge.shape.transform(matrix));
                 }

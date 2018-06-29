@@ -2,53 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/classes/matrix.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/Flatten.Matrix.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/matrix.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/arc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/face.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/point.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/segment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Arc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Edge.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Face.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Image.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Image.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Line.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Point.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Polygon.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Ray.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Segment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Vector.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_image.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_image.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/flatten.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/flatten.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/segment.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -78,7 +33,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
@@ -135,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="286" column="9" selection-start-line="286" selection-start-column="9" selection-end-line="286" selection-end-column="9" />
+            <state relative-caret-position="147">
+              <caret line="279" column="32" selection-start-line="279" selection-start-column="32" selection-end-line="279" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -289,8 +244,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="230" />
-    <option name="y" value="57" />
+    <option name="x" value="149" />
+    <option name="y" value="44" />
     <option name="width" value="1111" />
     <option name="height" value="680" />
   </component>
@@ -573,14 +528,7 @@
       <workItem from="1526190418965" duration="9714000" />
       <workItem from="1528533707261" duration="9789000" />
       <workItem from="1529177665784" duration="6623000" />
-      <workItem from="1530255807257" duration="16398000" />
-    </task>
-    <task id="LOCAL-00053" summary="Removed compiled to es5">
-      <created>1504215197983</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1504215197984</updated>
+      <workItem from="1530255807257" duration="17052000" />
     </task>
     <task id="LOCAL-00054" summary="remove usage of babel-polyfill">
       <created>1504215609821</created>
@@ -918,7 +866,14 @@
       <option name="project" value="LOCAL" />
       <updated>1529508586161</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="- Added new class Matrix to support affine transformation matrix&#10;- Added transform() methods for point, segment, arc and polygon&#10;- Updated documentation&#10;- Added some tests (need to add more)">
+      <created>1530277931681</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1530277931682</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -954,7 +909,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="604519000" />
+    <option name="totallyTimeSpent" value="605173000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -966,7 +921,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="230" y="57" width="1111" height="680" extended-state="0" />
+    <frame x="149" y="44" width="1111" height="680" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21009174" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32664233" />
@@ -1001,7 +957,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Change in readme" />
     <MESSAGE value="Added Inversion class, not tested and not documented yet" />
     <MESSAGE value="Added spliFace method to polygon class" />
     <MESSAGE value="Rename splitFace to addVertex. Fix bugs and add tests" />
@@ -1026,7 +981,8 @@
     <MESSAGE value="- added some basic methods to Vector class: add, subtract, angleTo, projectionOn plus new tests and updated documentation&#10;- fixed bug in line.incidentTo method" />
     <MESSAGE value="submit umd build" />
     <MESSAGE value="Fix issue 6 Missing variable declaration and instantiation in segment2line method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix issue 6 Missing variable declaration and instantiation in segment2line method" />
+    <MESSAGE value="- Added new class Matrix to support affine transformation matrix&#10;- Added transform() methods for point, segment, arc and polygon&#10;- Updated documentation&#10;- Added some tests (need to add more)" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added new class Matrix to support affine transformation matrix&#10;- Added transform() methods for point, segment, arc and polygon&#10;- Updated documentation&#10;- Added some tests (need to add more)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1368,17 +1324,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="286" column="9" selection-start-line="286" selection-start-column="9" selection-end-line="286" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="279" column="32" selection-start-line="279" selection-start-column="32" selection-end-line="279" selection-end-column="32" />
         </state>
       </provider>
     </entry>
