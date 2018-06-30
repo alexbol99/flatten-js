@@ -374,6 +374,7 @@ module.exports = function(Flatten) {
         }
 
         static arcSE(center, start, end, counterClockwise) {
+            let {vector} = Flatten;
             let startAngle = vector(center,start).slope;
             let endAngle = vector(center, end).slope;
             if (Flatten.Utils.EQ(startAngle, endAngle)) {
