@@ -30,6 +30,10 @@ describe('#Flatten.Vector', function() {
         let vector = new Flatten.Vector(ps,pe);
         expect(vector).to.deep.equal({x:2, y:1});
     });
+    it('Constructor Vector([x, y]) creates vector [x, y]', function () {
+        let vector = new Flatten.Vector(1,1);
+        expect(vector).to.deep.equal({x:1, y:1});
+    });
     it('Constructor Vector with illegal parameters throw error', function () {
         let ps = new Flatten.Point(1,1);
         let fn = function() { new Flatten.Vector(ps,2) };

@@ -23,6 +23,9 @@ describe('#Flatten.Point', function() {
     it('New point may be constructed by function call', function() {
         expect(point(1,3)).to.deep.equal({x:1, y:3});
     });
+    it('New point may be constructed with array of two numbers', function() {
+        expect(point([1,3])).to.deep.equal({x:1, y:3});
+    });
     it('Method clone creates new instance of Point', function() {
         let point1 = new Flatten.Point(2,1);
         let point2 = point1.clone();

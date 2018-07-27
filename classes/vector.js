@@ -11,7 +11,8 @@ module.exports = function(Flatten) {
      */
     Flatten.Vector = class Vector {
         /**
-         * Vector may be constructed by two points, or by two float numbers
+         * Vector may be constructed by two points, or by two float numbers,
+         * or by array of two numbers
          * @param {Point} ps - start point
          * @param {Point} pe - end point
          */
@@ -28,11 +29,20 @@ module.exports = function(Flatten) {
             this.y = 0;
 
             /* return zero vector */
-            if (args.length == 0) {
+            if (args.length === 0) {
                 return;
             }
 
-            if (args.length == 2) {
+            if (args.length === 1 && args[0] instanceof Array && args[0].length === 2) {
+                let arr = args[0];
+                if (typeof(arr[0]) == "number" && typeof(arr[1]) == "number") {
+                    this.x = arr[0];
+                    this.y = arr[1];
+                    return;
+                }
+            }
+
+            if (args.length === 2) {
                 let a1 = args[0];
                 let a2 = args[1];
 

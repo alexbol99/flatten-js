@@ -338,9 +338,9 @@ module.exports = function(Flatten) {
          * @param {Vector} vec
          * @returns {Segment}
          */
-        translate(vec) {
+        translate(...args) {
             let arc = this.clone();
-            arc.pc = this.pc.translate(vec);
+            arc.pc = this.pc.translate(...args);
             return arc;
         }
 

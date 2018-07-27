@@ -278,8 +278,8 @@ module.exports = function (Flatten) {
          * @param {Vector} vec
          * @returns {Segment}
          */
-        translate(vec) {
-            return new Segment(this.ps.translate(vec), this.pe.translate(vec));
+        translate(...args) {
+            return new Segment(this.ps.translate(...args), this.pe.translate(...args));
         }
 
         /**

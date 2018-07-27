@@ -98,13 +98,30 @@ describe('#Flatten.Line', function() {
             let ip = line1.intersect(line2);
             expect(ip.length).to.equal(0);
         });
-        it('Line to circle intersection ', function () {
+        it('Line to circle intersection - horizontal line, line constricted with 2 points', function () {
             let line = new Flatten.Line(new Flatten.Point(-1, 1), new Flatten.Point(1, 1));
             let circle = new Flatten.Circle(new Flatten.Point(0, 0), 3);
             let ip = line.intersect(circle);
             expect(ip.length).to.equal(2);
             expect(ip[0].y).to.equal(1);
             expect(ip[1].y).to.equal(1);
+        });
+        it('Line to circle intersection - horizontal line, line constructed with point and vector ', function () {
+            let line = new Flatten.Line(new Flatten.Point(-1, 1), new Flatten.Vector(0, 3));
+            let circle = new Flatten.Circle(new Flatten.Point(0, 0), 3);
+            let ip = line.intersect(circle);
+            expect(ip.length).to.equal(2);
+            expect(ip[0].y).to.equal(1);
+            expect(ip[1].y).to.equal(1);
+        });
+        it('Line to circle intersection - diagonal line, line constructed with point and vector ', function () {
+            let line = new Flatten.Line(new Flatten.Point(-3, -3), new Flatten.Vector(-1, 1));
+            let circle = new Flatten.Circle(new Flatten.Point(0, 0), 1);
+            let ip = line.intersect(circle);
+            const sqrt_2_2 = Math.sqrt(2)/2.;
+            expect(ip.length).to.equal(2);
+            expect(ip[0].equalTo(point(-sqrt_2_2,-sqrt_2_2))).to.be.true
+            expect(ip[1].equalTo(point(sqrt_2_2,sqrt_2_2))).to.be.true
         });
         it('Line to arc intersection - quick reject ', function () {
             let line = new Flatten.Line(point(1, 0), vector(1, 0));

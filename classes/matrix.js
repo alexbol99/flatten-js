@@ -80,7 +80,19 @@ module.exports = function(Flatten) {
          * @param {number} ty - translation by y
          * @returns {Matrix}
          */
-        translate(tx, ty) {
+        translate(...args) {
+            let tx, ty;
+            if (args.length == 1 && (args[0] instanceof Flatten.Vector)) {
+                tx = args[0].x;
+                ty = args[0].y;
+            }
+            else if (args.length == 2 && typeof(args[0]) == "number" && typeof(args[1]) == "number") {
+                tx = args[0];
+                ty = args[1];
+            }
+            else {
+                throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            }
             return this.multiply(new Matrix(1,0,0,1,tx,ty))
         };
 
