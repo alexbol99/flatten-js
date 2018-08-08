@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>data_structures/planar_set.js - Documentation</title>
+    <title>classes/matrix.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">data_structures/planar_set.js</h1>
+    <h1 class="page-title">classes/matrix.js</h1>
     
 
     
@@ -39,109 +39,150 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Created by Alex Bol on 3/12/2017.
- */
+            <pre class="prettyprint source linenums"><code>"use strict";
 
-"use strict";
-
-// require("babel-polyfill");
-
-let IntervalTree = require('flatten-interval-tree');
-
-module.exports = function (Flatten) {
+module.exports = function(Flatten) {
     /**
-     * Class representing a planar set - a generic container with ability to keep and retrieve shapes and
-     * perform spatial queries. Planar set is an extension of Set container, so it supports
-     * Set properties and methods
+     * Class representing an affine transformation 3x3 matrix:
+     * &lt;pre>
+     *      [ a  c  tx
+     * A =    b  d  ty
+     *        0  0  1  ]
+     * &lt;/pre
+     * @type {Matrix}
      */
-    Flatten.PlanarSet = class PlanarSet extends Set {
+    Flatten.Matrix = class Matrix {
         /**
-         * Create new empty instance of PlanarSet
+         * Construct new instance of affine transformation matrix &lt;br/>
+         * If parameters omitted, construct identity matrix a = 1, d = 1
+         * @param {number} a - position(0,0)   sx*cos(alpha)
+         * @param {number} b - position (0,1)  sx*sin(alpha)
+         * @param {number} c - position (1,0)  -sy*sin(alpha)
+         * @param {number} d - position (1,1)  sy*cos(alpha)
+         * @param {number} tx - position (2,0) translation by x
+         * @param {number} ty - position (2,1) translation by y
          */
-        constructor() {
-            super();
-            this.index = new IntervalTree();
+        constructor(a=1,b=0,c=0,d=1,tx=0,ty=0) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            this.d = d;
+            this.tx = tx;
+            this.ty = ty;
         }
 
         /**
-         * Add new shape to planar set and to its spatial index.&lt;br/>
-         * If shape already exist, it will not be added again.
-         * This happens with no error, it is possible to use &lt;i>size&lt;/i> property to check if
-         * a shape was actually added.&lt;br/>
-         * Method returns planar set object updated and may be chained
-         * @param {Shape} shape - shape to be added, should have valid &lt;i>box&lt;/i> property
-         * @returns {PlanarSet}
+         * Returns a clone of the Matrix instance.
+         * @return {Matrix}
+         **/
+        clone() {
+            return new Matrix(this.a, this.b, this.c, this.d, this.tx, this.ty);
+        };
+
+        /**
+         * Transform vector [x,y] using transformation matrix. &lt;br/>
+         * Vector [x,y] is an abstract array[2] of numbers and not a FlattenJS object &lt;br/>
+         * The result is also an abstract vector [x',y'] = A * [x,y]:
+         * &lt;code>
+         * [x'       [ ax + by + tx
+         *  y'   =     cx + dy + ty
+         *  1]                    1 ]
+         * &lt;/code>
+         * @param {number[]} vector - array[2] of numbers
+         * @returns {number[]} transformation result - array[2] of numbers
          */
-        add(shape) {
-            let size = this.size;
-            super.add(shape);
-            // size not changed - item not added, probably trying to add same item twice
-            if (this.size > size) {
-                let node = this.index.insert(shape.box, shape);
+        transform(vector) {
+            return [
+                vector[0]*this.a+vector[1]*this.c+this.tx,
+                vector[0]*this.b+vector[1]*this.d+this.ty
+            ]
+        };
+
+        /**
+         * Returns result of multiplication of this matrix by other matrix
+         * @param {Matrix} other_matrix - matrix to multiply by
+         * @returns {Matrix}
+         */
+        multiply(other_matrix) {
+            return new Matrix(
+                this.a*other_matrix.a + this.c*other_matrix.b,
+                this.b*other_matrix.a + this.d*other_matrix.b,
+                this.a*other_matrix.c + this.c*other_matrix.d,
+                this.b*other_matrix.c + this.d*other_matrix.d,
+                this.a*other_matrix.tx + this.c*other_matrix.ty + this.tx,
+                this.b*other_matrix.tx + this.d*other_matrix.ty + this.ty
+            )
+        };
+
+        /**
+         * Return new matrix as a result of multiplication of the current matrix
+         * by the matrix(1,0,0,1,tx,ty)
+         * @param {number} tx - translation by x
+         * @param {number} ty - translation by y
+         * @returns {Matrix}
+         */
+        translate(...args) {
+            let tx, ty;
+            if (args.length == 1 &amp;&amp; (args[0] instanceof Flatten.Vector)) {
+                tx = args[0].x;
+                ty = args[0].y;
             }
-            return this;         // in accordance to Set.add interface
-        }
-
-        /**
-         * Delete shape from planar set. Returns true if shape was actually deleted, false otherwise
-         * @param {Shape} shape - shape to be deleted
-         * @returns {boolean}
-         */
-        delete(shape) {
-            let deleted = super.delete(shape);
-            if (deleted) {
-                this.index.remove(shape.box, shape);
+            else if (args.length == 2 &amp;&amp; typeof(args[0]) == "number" &amp;&amp; typeof(args[1]) == "number") {
+                tx = args[0];
+                ty = args[1];
             }
-            return deleted;
-        }
-
-        // update(shape) {
-        //     if (super.has(shape)) {
-        //         this.delete(shape);
-        //     }
-        //     this.add(shape);
-        //
-        //     return this;
-        // }
-
-        clear() {
-
-        }
+            else {
+                throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            }
+            return this.multiply(new Matrix(1,0,0,1,tx,ty))
+        };
 
         /**
-         * 2d range search in planar set.&lt;br/>
-         * Returns array of all shapes in planar set which bounding box is intersected with query box
-         * @param {Box} box - query box
-         * @returns {Shapes[]}
+         * Return new matrix as a result of multiplication of the current matrix
+         * by the matrix that defines rotation by given angle (in radians) around
+         * point (0,0) in counter clockwise direction
+         * @param angle
+         * @returns {Matrix}
          */
-        search(box) {
-            let resp = this.index.search(box);
-            return resp;
-        }
+        rotate(angle) {
+            let cos = Math.cos(angle);
+            let sin = Math.sin(angle);
+            return this.multiply(new Matrix(cos,sin,-sin,cos,0,0));
+        };
 
         /**
-         * Point location test. Returns array of shapes which contains given point
-         * @param {Point} point - query point
-         * @returns {Array}
+         * Return new matrix as result of mutiplication of the current matrix
+         * by the matrix (sx,0,0,sy,0,0) that defines scaling
+         * @param sx
+         * @param sy
+         * @returns {Matrix}
          */
-        hit(point) {
-            let box = new Flatten.Box(point.x - 1, point.y - 1, point.x + 1, point.y + 1);
-            let resp = this.index.search(box);
-            return resp.filter((shape) => point.on(shape));
-        }
+        scale(sx, sy) {
+            return this.multiply(new Matrix(sx,0,0,sy,0,0));
+        };
 
         /**
-         * Returns svg string to draw all shapes in planar set
-         * @returns {String}
+         * Returns true if two matrix are equal parameter by parameter
+         * @param {Matrix} matrix - other matrix
+         * @returns {boolean} true if equal, false otherwise
          */
-        svg() {
-            let svgcontent = [...this].reduce((acc, shape) => acc + shape.svg(), "");
-            return svgcontent;
-        }
-    }
+        equalTo(matrix) {
+            if (!Flatten.Utils.EQ(this.tx, matrix.tx)) return false;
+            if (!Flatten.Utils.EQ(this.ty, matrix.ty)) return false;
+            if (!Flatten.Utils.EQ(this.a, matrix.a)) return false;
+            if (!Flatten.Utils.EQ(this.b, matrix.b)) return false;
+            if (!Flatten.Utils.EQ(this.c, matrix.c)) return false;
+            if (!Flatten.Utils.EQ(this.d, matrix.d)) return false;
+            return true;
+        };
+    };
+
+    /**
+     * Function to create matrix equivalent to "new" constructor
+     * @param args
+     */
+    Flatten.matrix = (...args) => new Flatten.Matrix(...args);
 };
-
 </code></pre>
         </article>
     </section>

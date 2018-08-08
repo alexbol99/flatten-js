@@ -14,21 +14,45 @@ module.exports = function(Flatten) {
      */
     Flatten.Point = class Point {
         /**
-         *
+         * Point may be constructed by two numbers, or by array of two numbers
          * @param {number} x - x-coordinate (float number)
          * @param {number} y - y-coordinate (float number)
          */
-        constructor(x = 0, y = 0) {
+        constructor(...args) {
             /**
              * x-coordinate (float number)
              * @type {number}
              */
-            this.x = Number.isNaN(x) ? 0 : x;
+            this.x = 0;
             /**
              * y-coordinate (float number)
              * @type {number}
              */
-            this.y = Number.isNaN(y) ? 0: y;
+            this.y = 0;
+
+            if (args.length === 0) {
+                return;
+            }
+
+            if (args.length === 1 && args[0] instanceof Array && args[0].length === 2) {
+                let arr = args[0];
+                if (typeof(arr[0]) == "number" && typeof(arr[1]) == "number") {
+                    this.x = arr[0];
+                    this.y = arr[1];
+                    return;
+                }
+            }
+
+            if (args.length === 2) {
+                if (typeof(args[0]) == "number" && typeof(args[1]) == "number") {
+                    this.x = args[0];
+                    this.y = args[1];
+                    return;
+                }
+            }
+
+            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+
         }
 
         /**
@@ -108,6 +132,16 @@ module.exports = function(Flatten) {
             }
 
             throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        }
+
+        /**
+         * Return new point transformed by affine transformation matrix m
+         * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+         * @returns {Point}
+         */
+        transform(m) {
+            let [x,y] = m.transform([this.x,this.y]);
+            return new Flatten.Point(x,y)
         }
 
         /**

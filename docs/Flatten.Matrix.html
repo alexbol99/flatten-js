@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>data_structures/planar_set.js - Documentation</title>
+    <title>Matrix - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,122 +29,1463 @@
 
 <div id="main">
     
-    <h1 class="page-title">data_structures/planar_set.js</h1>
+    <h1 class="page-title">Matrix</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Created by Alex Bol on 3/12/2017.
- */
+        <h2>
+        Matrix
+        </h2>
+        
+            <div class="class-description">Class representing an affine transformation 3x3 matrix:
+<pre>
+     [ a  c  tx
+A =    b  d  ty
+       0  0  1  ]
+</pre</div>
+        
+    
+</header>
 
-"use strict";
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-// require("babel-polyfill");
+    
+    <h2>Constructor</h2>
+    
 
-let IntervalTree = require('flatten-interval-tree');
+    <h4 class="name" id="Matrix"><span class="type-signature"></span>new Matrix<span class="signature">(a, b, c, d, tx, ty)</span><span class="type-signature"></span></h4>
 
-module.exports = function (Flatten) {
-    /**
-     * Class representing a planar set - a generic container with ability to keep and retrieve shapes and
-     * perform spatial queries. Planar set is an extension of Set container, so it supports
-     * Set properties and methods
-     */
-    Flatten.PlanarSet = class PlanarSet extends Set {
-        /**
-         * Create new empty instance of PlanarSet
-         */
-        constructor() {
-            super();
-            this.index = new IntervalTree();
-        }
+    
 
-        /**
-         * Add new shape to planar set and to its spatial index.&lt;br/>
-         * If shape already exist, it will not be added again.
-         * This happens with no error, it is possible to use &lt;i>size&lt;/i> property to check if
-         * a shape was actually added.&lt;br/>
-         * Method returns planar set object updated and may be chained
-         * @param {Shape} shape - shape to be added, should have valid &lt;i>box&lt;/i> property
-         * @returns {PlanarSet}
-         */
-        add(shape) {
-            let size = this.size;
-            super.add(shape);
-            // size not changed - item not added, probably trying to add same item twice
-            if (this.size > size) {
-                let node = this.index.insert(shape.box, shape);
-            }
-            return this;         // in accordance to Set.add interface
-        }
 
-        /**
-         * Delete shape from planar set. Returns true if shape was actually deleted, false otherwise
-         * @param {Shape} shape - shape to be deleted
-         * @returns {boolean}
-         */
-        delete(shape) {
-            let deleted = super.delete(shape);
-            if (deleted) {
-                this.index.remove(shape.box, shape);
-            }
-            return deleted;
-        }
 
-        // update(shape) {
-        //     if (super.has(shape)) {
-        //         this.delete(shape);
-        //     }
-        //     this.add(shape);
-        //
-        //     return this;
-        // }
+<div class="description">
+    Construct new instance of affine transformation matrix <br/>
+If parameters omitted, construct identity matrix a = 1, d = 1
+</div>
 
-        clear() {
 
-        }
 
-        /**
-         * 2d range search in planar set.&lt;br/>
-         * Returns array of all shapes in planar set which bounding box is intersected with query box
-         * @param {Box} box - query box
-         * @returns {Shapes[]}
-         */
-        search(box) {
-            let resp = this.index.search(box);
-            return resp;
-        }
 
-        /**
-         * Point location test. Returns array of shapes which contains given point
-         * @param {Point} point - query point
-         * @returns {Array}
-         */
-        hit(point) {
-            let box = new Flatten.Box(point.x - 1, point.y - 1, point.x + 1, point.y + 1);
-            let resp = this.index.search(box);
-            return resp.filter((shape) => point.on(shape));
-        }
 
-        /**
-         * Returns svg string to draw all shapes in planar set
-         * @returns {String}
-         */
-        svg() {
-            let svgcontent = [...this].reduce((acc, shape) => acc + shape.svg(), "");
-            return svgcontent;
-        }
-    }
-};
+<dl class="details">
 
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_matrix.js.html">classes/matrix.js</a>, <a href="classes_matrix.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">
+                position(0,0)   sx*cos(alpha)
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">
+                position (0,1)  sx*sin(alpha)
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>c</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">
+                position (1,0)  -sy*sin(alpha)
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>d</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">
+                position (1,1)  sy*cos(alpha)
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">
+                position (2,0) translation by x
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ty</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">
+                position (2,1) translation by y
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns a clone of the Matrix instance.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_matrix.js.html">classes/matrix.js</a>, <a href="classes_matrix.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Matrix</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="equalTo"><span class="type-signature"></span>equalTo<span class="signature">(matrix)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns true if two matrix are equal parameter by parameter
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_matrix.js.html">classes/matrix.js</a>, <a href="classes_matrix.js.html#line128">line 128</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>matrix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Matrix</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                other matrix
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>boolean</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    true if equal, false otherwise
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="multiply"><span class="type-signature"></span>multiply<span class="signature">(other_matrix)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns result of multiplication of this matrix by other matrix
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_matrix.js.html">classes/matrix.js</a>, <a href="classes_matrix.js.html#line65">line 65</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>other_matrix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Matrix</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                matrix to multiply by
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Matrix</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="rotate"><span class="type-signature"></span>rotate<span class="signature">(angle)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return new matrix as a result of multiplication of the current matrix
+by the matrix that defines rotation by given angle (in radians) around
+point (0,0) in counter clockwise direction
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_matrix.js.html">classes/matrix.js</a>, <a href="classes_matrix.js.html#line106">line 106</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Matrix</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="scale"><span class="type-signature"></span>scale<span class="signature">(sx, sy)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return new matrix as result of mutiplication of the current matrix
+by the matrix (sx,0,0,sy,0,0) that defines scaling
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_matrix.js.html">classes/matrix.js</a>, <a href="classes_matrix.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sx</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sy</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Matrix</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="transform"><span class="type-signature"></span>transform<span class="signature">(vector)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Transform vector [x,y] using transformation matrix. <br/>
+Vector [x,y] is an abstract array[2] of numbers and not a FlattenJS object <br/>
+The result is also an abstract vector [x',y'] = A * [x,y]:
+<code>
+[x'       [ ax + by + tx
+ y'   =     cx + dy + ty
+ 1]                    1 ]
+</code>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_matrix.js.html">classes/matrix.js</a>, <a href="classes_matrix.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vector</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array.&lt;number></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                array[2] of numbers
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Array.&lt;number></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    transformation result - array[2] of numbers
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="translate"><span class="type-signature"></span>translate<span class="signature">(tx, ty)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return new matrix as a result of multiplication of the current matrix
+by the matrix(1,0,0,1,tx,ty)
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_matrix.js.html">classes/matrix.js</a>, <a href="classes_matrix.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                translation by x
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ty</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                translation by y
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Matrix</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

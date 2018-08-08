@@ -117,6 +117,15 @@ module.exports = function (Flatten) {
         }
 
         /**
+         * Returns true if equals to query segment, false otherwise
+         * @param {Seg} seg - query segment
+         * @returns {boolean}
+         */
+        equalTo(seg) {
+            return this.ps.equalTo(seg.ps) && this.pe.equalTo(seg.pe);
+        }
+
+        /**
          * Returns true if segment contains point
          * @param {Point} pt Query point
          * @returns {boolean}
@@ -269,8 +278,31 @@ module.exports = function (Flatten) {
          * @param {Vector} vec
          * @returns {Segment}
          */
-        translate(vec) {
-            return new Segment(this.ps.translate(vec), this.pe.translate(vec));
+        translate(...args) {
+            return new Segment(this.ps.translate(...args), this.pe.translate(...args));
+        }
+
+        /**
+         * Return new segment rotated by given angle around given point
+         * If point omitted, rotate around origin (0,0)
+         * Positive value of angle defines rotation counter clockwise, negative - clockwise
+         * @param {number} angle - rotation angle in radians
+         * @param {Point} center - center point, default is (0,0)
+         * @returns {Segment}
+         */
+        rotate(angle = 0, center = new Flatten.Point()) {
+            let m = new Flatten.Matrix();
+            m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
+            return this.transform(m);
+        }
+
+        /**
+         * Return new segment transformed using affine transformation matrix
+         * @param {Matrix} matrix - affine transformation matrix
+         * @returns {Segment} - transformed segment
+         */
+        transform(matrix = new Flatten.Matrix()) {
+            return new Segment(this.ps.transform(matrix), this.pe.transform(matrix))
         }
 
         /**

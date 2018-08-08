@@ -21,7 +21,8 @@ module.exports = function(Flatten) {
              */
             this.pt = new Flatten.Point();
             /**
-             * Normal unit vector to a line
+             * Normal vector to a line <br/>
+             * Vector is normalized (length == 1)
              * @type {Vector}
              */
             this.norm = new Flatten.Vector(0,1);
@@ -46,6 +47,7 @@ module.exports = function(Flatten) {
                     }
                     this.pt = a1.clone();
                     this.norm = a2.clone();
+                    this.norm = this.norm.normalize();
                     return;
                 }
 
@@ -55,6 +57,7 @@ module.exports = function(Flatten) {
                     }
                     this.pt = a2.clone();
                     this.norm = a1.clone();
+                    this.norm = this.norm.normalize();
                     return;
                 }
             }
@@ -107,8 +110,7 @@ module.exports = function(Flatten) {
          * @returns {boolean}
          */
         incidentTo(other_line) {
-            return ( (this.norm.equalTo(other_line.norm) || this.norm.equalTo(other_line.norm.invert())) &&
-                this.pt.on(other_line));
+            return this.parallelTo(other_line) && this.pt.on(other_line);
         }
 
         /**
@@ -231,14 +233,14 @@ module.exports = function(Flatten) {
         static intersectLine2Circle(line, circle) {
             let ip = [];
             let prj = circle.pc.projectionOn(line);            // projection of circle center on line
-            let dist = circle.pc.distanceTo(prj)[0];              // distance from circle center to projection
+            let dist = circle.pc.distanceTo(prj)[0];           // distance from circle center to projection
 
             if (Flatten.Utils.EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
                 ip.push(prj);
             }
             else if (Flatten.Utils.LT(dist, circle.r)) {       // return two intersection points
-                var delta = Math.sqrt(circle.r*circle.r - dist*dist);
-                var v_trans, pt;
+                let delta = Math.sqrt(circle.r*circle.r - dist*dist);
+                let v_trans, pt;
 
                 v_trans = line.norm.rotate90CCW().multiply(delta);
                 pt = prj.translate(v_trans);

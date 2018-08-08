@@ -30,6 +30,10 @@ describe('#Flatten.Vector', function() {
         let vector = new Flatten.Vector(ps,pe);
         expect(vector).to.deep.equal({x:2, y:1});
     });
+    it('Constructor Vector([x, y]) creates vector [x, y]', function () {
+        let vector = new Flatten.Vector(1,1);
+        expect(vector).to.deep.equal({x:1, y:1});
+    });
     it('Constructor Vector with illegal parameters throw error', function () {
         let ps = new Flatten.Point(1,1);
         let fn = function() { new Flatten.Vector(ps,2) };
@@ -99,5 +103,49 @@ describe('#Flatten.Vector', function() {
         let expected_vector = new Flatten.Vector(1, -1);
         let equals = rotated_vector.equalTo(expected_vector);
         expect(equals).to.equal(true);
+    });
+    it ('Method add return sum of two vectors', function() {
+        let v1 = vector(2,1);
+        let v2 = vector(1,2);
+        expect(v1.add(v2)).to.deep.equal({x:3,y:3});
+    });
+    it ('Method subtract returns difference between two vectors', function() {
+        let v1 = vector(2,1);
+        let v2 = vector(1,2);
+        expect(v1.subtract(v2)).to.deep.equal({x:1,y:-1});
+    });
+    it ('Method angle returns angle between two vectors', function() {
+        let v = vector(3,0);
+        let v1 = vector(3,3);
+        let v2 = vector(0,3);
+        let v3 = vector(-3,0);
+        let v4 = vector(-3,-3);
+        let v5 = vector(0,-3);
+        let v6 = vector(3,-3);
+
+        expect(Flatten.Utils.EQ(v.angleTo(v), 0)).to.be.true;
+        expect(Flatten.Utils.EQ(v.angleTo(v1), Math.PI/4)).to.be.true;
+        expect(Flatten.Utils.EQ(v.angleTo(v2), Math.PI/2)).to.be.true;
+        expect(Flatten.Utils.EQ(v.angleTo(v3), Math.PI)).to.be.true;
+        expect(Flatten.Utils.EQ(v.angleTo(v4), 5*Math.PI/4)).to.be.true;
+        expect(Flatten.Utils.EQ(v.angleTo(v5), 3*Math.PI/2)).to.be.true;
+        expect(Flatten.Utils.EQ(v.angleTo(v6), 7*Math.PI/4)).to.be.true;
+    });
+    it ('Method projection returns new vector case 1', function() {
+        let v1 = vector(3,3);
+        let v2 = vector(10,0);
+        expect(v1.projectionOn(v2)).to.deep.equal({x:3,y:0})
+    });
+    it ('Method projection returns new vector case 2', function() {
+        let v1 = vector(-3,3);
+        let v2 = vector(10,0);
+        let vp = vector(-3,0);
+        expect(v1.projectionOn(v2).equalTo(vp)).to.be.true;
+    });
+    it ('Method projection returns new vector case 3', function() {
+        let v1 = vector(3,3);
+        let v2 = vector(-3,3);
+        let vp = vector(0,0);
+        expect(v1.projectionOn(v2).equalTo(vp)).to.be.true;
     });
 });
