@@ -537,14 +537,40 @@ module.exports = function (Flatten) {
             return this.edges.map(edge => edge.toJSON());
         }
 
-        svg() {
-            let svgStr = `\nM${this.first.start.x},${this.first.start.y}`;
+        /**
+         * Return string to draw single face in polygon as svg path. Use this method when
+         * you want to display different faces with different attributes
+         * @param attrs - json structure with attributes for svg path element,
+         * like "stroke", "strokeWidth", "fill", "fillOpacity"
+         * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillOpacity: "1"
+         * @param pathDefined - define whether svg path string already defined or not.
+         * If set to <b><i>false</i></b>, string will be enclosed into <b><i>path</i></b> element
+         * This value is default, so in most of the cases this parameter can be omitted
+         * @returns {string}
+         */
+        svg(attrs = {}, pathDefined = false) {
+            let {stroke, strokeWidth, fill, fillOpacity, id, className} = attrs;
+            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
+            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
+
+            let svgStr = "";
+
+            if (!pathDefined) {
+                svgStr += `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+            }
+
+            svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
 
             for (let edge of this) {
                 svgStr += edge.svg();
             }
 
             svgStr += ` z`;
+
+            if (!pathDefined) {
+                svgStr += `" >\n</path>`;
+            }
+
             return svgStr;
         }
 

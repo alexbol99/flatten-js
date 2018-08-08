@@ -142,4 +142,25 @@ describe('#Flatten.Face', function() {
         let orientation = [...reversed_poly.faces][0].orientation();
         expect(orientation).to.equal(Flatten.ORIENTATION.CW);
     });
+    it('Method svg can return string to be used to generate svg path', function () {
+        "use strict";
+
+        let {segment, point, circle, box, Polygon} = Flatten
+
+        // Define model
+        let shapes = [point(200, 100), point(200, 300), point(440, 300), point(300, 200), point(440, 150),
+            point(500, 150), point(640, 200), point(500, 300), point(740, 300), point(740, 100)]
+        let polygon = new Polygon();
+        polygon.addFace(shapes);
+        polygon.addFace([circle(point(250, 150),30).toArc()])
+        polygon.addFace([circle(point(650, 250),30).toArc()])
+
+        let svg = ""
+        let faces = [...polygon.faces]
+        svg += faces[0].svg({stroke:"yellow"})
+        svg += faces[1].svg({fill:"lightgreen"})
+        svg += faces[2].svg({fill:"lightblue"})
+
+        expect(svg.length).not.to.be.zero;
+    });
 });

@@ -289,8 +289,8 @@ module.exports = function(Flatten) {
         /**
          * Return string to draw polygon in svg
          * @param attrs  - json structure with attributes for svg path element,
-         * like "stroke", "strokeWidth", "fill", "fillRule"
-         * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd"
+         * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
+         * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
          * @returns {string}
          */
         svg(attrs = {}) {
@@ -301,7 +301,7 @@ module.exports = function(Flatten) {
 
             let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
             for (let face of this.faces) {
-                svgStr += face.svg();
+                svgStr += face.svg({}, true);
             }
             svgStr += `" >\n</path>`;
 
