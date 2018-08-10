@@ -19,7 +19,7 @@
   "keywords": [
     "geometry",
     "computational geometry",
-    "two-dimentional geometry",
+    "2d",
     "algorithms",
     "shape",
     "contour",
@@ -27,8 +27,7 @@
     "distance",
     "intersection",
     "point in polygon",
-    "two-dimensional search",
-    "spatial index"
+    "spatial search"
   ],
   "author": "Alex Bol <alexbol99@gmail.com> (https://github.com/alexbol99)",
   "license": "MIT",
