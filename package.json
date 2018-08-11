@@ -3,6 +3,7 @@
   "version": "0.5.4",
   "description": "Javascript library for 2d geometry",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "mocha --reporter spec",
     "doc": "jsdoc -t ./node_modules/minami -d ./docs -r ./ README.md",
