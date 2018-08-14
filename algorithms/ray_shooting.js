@@ -12,7 +12,7 @@ module.exports = function(Flatten) {
         // }
 
         // 1. Quick reject
-        if (polygon.box.notIntersect(point.box)) {
+        if (polygon.box.not_intersect(point.box)) {
             return Flatten.OUTSIDE;
         }
 

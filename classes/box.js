@@ -84,7 +84,7 @@ module.exports = function(Flatten) {
          * @param {Box} other_box - other box to test
          * @returns {boolean}
          */
-        notIntersect(other_box) {
+        not_intersect(other_box) {
             return (
                 this.xmax < other_box.xmin ||
                 this.xmin > other_box.xmax ||
@@ -99,7 +99,7 @@ module.exports = function(Flatten) {
          * @returns {boolean}
          */
         intersect(other_box) {
-            return !this.notIntersect(other_box);
+            return !this.not_intersect(other_box);
         }
 
         /**

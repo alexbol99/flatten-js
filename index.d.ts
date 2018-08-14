@@ -2,6 +2,9 @@
 // Project: https://github.com/alexbol99/flatten-js
 // Definitions by: Alex Bol
 
+import IntervalTree = require("flatten-interval-tree");
+/// <reference types="flatten-interval-tree" />
+
 declare namespace Flatten {
     interface SVGAttributes {
         r?: number,
@@ -12,6 +15,21 @@ declare namespace Flatten {
         fillOpacity?: number,
         id? : string,
         className?: string
+    }
+
+    type Comparable = any;      // any object that implements operators '<' and '==' and 'max'
+    interface Interval {
+        low: Comparable;
+        high: Comparable;
+
+        readonly  max: Comparable;
+
+        clone(): Interval;
+        less_than(other_interval: Interval) : boolean;
+        equal_to(other_interval: Interval) : boolean;
+        intersect(other_interval: Interval) : boolean;
+        not_intersect(other_interval: Interval) : boolean;
+        output() : any;
     }
 
     class Arc {
@@ -80,7 +98,8 @@ declare namespace Flatten {
         intersect(box: Box): boolean;
         less_than(box: Box): boolean;
         merge(box: Box): Box;
-        notIntersect(box: Box): boolean;
+        not_intersect(box: Box): boolean;
+        output() : void;
         set(xmin: number, ymin: number, xmax: number, ymax: number): void;
         svg(attrs?: SVGAttributes): string;
     }
@@ -256,19 +275,25 @@ declare namespace Flatten {
         translate(vector: Vector) : Matrix;
     }
 
+    // any object that has "box" property that implements "Interval" interface may be indexable
+    // all shapes has box property that fits Interval interface
+    interface IndexableElement {
+        box: Interval;
+    }
+
     // @ts-ignore (Set)
     class PlanarSet extends Set {
         constructor();
 
         // members
-        index: Object; // TODO: import IntervalTree declaration
+        index: IntervalTree;
 
         // public methods
-        add(shape: Shape): PlanarSet;  // TODO: declare interface for indexable element
-        delete(shape: Shape): boolean; // TODO: declare interface for indexable element
+        add(element: IndexableElement): PlanarSet;
+        delete(element: IndexableElement): boolean;
         clear() : void;
-        hit(pt: Point): Shape[];       // TODO: output array maybe array of keys or array of values
-        search(box: Box): Shape[];     // TODO: output array maybe array of keys or array of values
+        hit(pt: Point): IndexableElement[];
+        search(box: Box): IndexableElement[];
         svg(): string;
     }
 

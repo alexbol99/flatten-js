@@ -152,7 +152,7 @@ module.exports = function(Flatten) {
         static intersectCirle2Circle(circle1, circle2) {
             let ip = [];
 
-            if (circle1.box.notIntersect(circle2.box)) {
+            if (circle1.box.not_intersect(circle2.box)) {
                 return ip;
             }
 

@@ -389,7 +389,7 @@ module.exports = function(Flatten) {
         static intersectArc2Arc(arc1, arc2) {
             var ip = [];
 
-            if (arc1.box.notIntersect(arc2.box)) {
+            if (arc1.box.not_intersect(arc2.box)) {
                 return ip;
             }
 
@@ -430,7 +430,7 @@ module.exports = function(Flatten) {
         static intersectArc2Circle(arc, circle) {
             let ip = [];
 
-            if (arc.box.notIntersect(circle.box)) {
+            if (arc.box.not_intersect(circle.box)) {
                 return ip;
             }
 

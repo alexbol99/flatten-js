@@ -1,6 +1,7 @@
 'use strict';
 
 import Flatten from "./index.js";
+import IntervalTree = require("flatten-interval-tree");
 
 const {Point, Circle, Line, Segment, Arc, Box, Ray, Polygon} = Flatten;
 const { Vector, Matrix, PlanarSet} = Flatten;
