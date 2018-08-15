@@ -289,7 +289,7 @@ declare namespace Flatten {
         index: IntervalTree;
 
         // public methods
-        add(element: IndexableElement): PlanarSet;
+        add(element: IndexableElement): this;
         delete(element: IndexableElement): boolean;
         clear() : void;
         hit(pt: Point): IndexableElement[];
