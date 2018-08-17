@@ -138,7 +138,7 @@ describe('#Flatten.Segment', function() {
         it('Intersection with Segment - boxes not intersecting, quick reject', function () {
             let segment1 = new Flatten.Segment(new Flatten.Point(0,0), new Flatten.Point(2,2));
             let segment2 = new Flatten.Segment(new Flatten.Point(-0.5,2.5), new Flatten.Point(-2,-4));
-            expect(segment1.box.notIntersect(segment2.box)).to.equal(true);
+            expect(segment1.box.not_intersect(segment2.box)).to.equal(true);
             expect(segment1.intersect(segment2).length).to.equal(0);
         });
         it('Intersection with Line - not parallel segments case (one point)', function () {

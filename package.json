@@ -1,6 +1,6 @@
 {
   "name": "flatten-js",
-  "version": "0.5.4",
+  "version": "0.6.1",
   "description": "Javascript library for 2d geometry",
   "main": "index.js",
   "types": "index.d.ts",
@@ -56,6 +56,6 @@
     "webpack-cli": "^2.1.5"
   },
   "dependencies": {
-    "flatten-interval-tree": "^0.1.7"
+    "flatten-interval-tree": "^0.2.1"
   }
 }

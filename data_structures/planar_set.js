@@ -55,17 +55,12 @@ module.exports = function (Flatten) {
             return deleted;
         }
 
-        // update(shape) {
-        //     if (super.has(shape)) {
-        //         this.delete(shape);
-        //     }
-        //     this.add(shape);
-        //
-        //     return this;
-        // }
-
+        /**
+         * Clear planar set
+         */
         clear() {
-
+            super.clear();
+            this.index = new IntervalTree();
         }
 
         /**

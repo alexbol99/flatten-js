@@ -350,7 +350,7 @@ module.exports = function (Flatten) {
             let ip = [];
 
             // quick reject
-            if (seg1.box.notIntersect(seg2.box)) {
+            if (seg1.box.not_intersect(seg2.box)) {
                 return ip;
             }
 
@@ -404,7 +404,7 @@ module.exports = function (Flatten) {
         static intersectSegment2Circle(segment, circle) {
             let ips = [];
 
-            if (segment.box.notIntersect(circle.box)) {
+            if (segment.box.not_intersect(circle.box)) {
                 return ips;
             }
 
@@ -434,7 +434,7 @@ module.exports = function (Flatten) {
         static intersectSegment2Arc(segment, arc) {
             let ip = [];
 
-            if (segment.box.notIntersect(arc.box)) {
+            if (segment.box.not_intersect(arc.box)) {
                 return ip;
             }
 

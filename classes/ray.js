@@ -86,7 +86,7 @@ module.exports = function(Flatten) {
         intersectRay2Segment(ray, segment) {
             let ip = [];
 
-            if (ray.box.notIntersect(segment.box)) {
+            if (ray.box.not_intersect(segment.box)) {
                 return ip;
             }
 
@@ -112,7 +112,7 @@ module.exports = function(Flatten) {
         intersectRay2Arc(ray, arc) {
             let ip = [];
 
-            if (ray.box.notIntersect(arc.box)) {
+            if (ray.box.not_intersect(arc.box)) {
                 return ip;
             }
 

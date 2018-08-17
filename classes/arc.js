@@ -16,7 +16,7 @@ module.exports = function(Flatten) {
          * @param {number} r - arc radius
          * @param {number} startAngle - start angle in radians from 0 to 2*PI
          * @param {number} endAngle - end angle in radians from 0 to 2*PI
-         * @param {boolean} counterClockwise - arc direction, true - clockwise (or {@link Flatten.CCW}), false - counter clockwise (or {@link Flatten.CW)}
+         * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counter clockwise
          */
         constructor(pc=new Flatten.Point(), r=1, startAngle=0, endAngle=2*Math.PI, counterClockwise=true) {
             this.pc = pc.clone();
@@ -161,7 +161,7 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         middle() {
-            let endAngle = this.counterClockwise === Flatten.CCW ? this.startAngle + this.sweep/2 : this.startAngle - this.sweep/2;
+            let endAngle = this.counterClockwise ? this.startAngle + this.sweep/2 : this.startAngle - this.sweep/2;
             let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
             return arc.end;
         }
@@ -389,7 +389,7 @@ module.exports = function(Flatten) {
         static intersectArc2Arc(arc1, arc2) {
             var ip = [];
 
-            if (arc1.box.notIntersect(arc2.box)) {
+            if (arc1.box.not_intersect(arc2.box)) {
                 return ip;
             }
 
@@ -430,7 +430,7 @@ module.exports = function(Flatten) {
         static intersectArc2Circle(arc, circle) {
             let ip = [];
 
-            if (arc.box.notIntersect(circle.box)) {
+            if (arc.box.not_intersect(circle.box)) {
                 return ip;
             }
 

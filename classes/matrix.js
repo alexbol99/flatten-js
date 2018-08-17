@@ -110,7 +110,7 @@ module.exports = function(Flatten) {
         };
 
         /**
-         * Return new matrix as result of mutiplication of the current matrix
+         * Return new matrix as a result of multiplication of the current matrix
          * by the matrix (sx,0,0,sy,0,0) that defines scaling
          * @param sx
          * @param sy

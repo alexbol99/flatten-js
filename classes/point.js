@@ -140,8 +140,8 @@ module.exports = function(Flatten) {
          * @returns {Point}
          */
         transform(m) {
-            let [x,y] = m.transform([this.x,this.y]);
-            return new Flatten.Point(x,y)
+            // let [x,y] = m.transform([this.x,this.y]);
+            return new Flatten.Point(m.transform([this.x,this.y]))
         }
 
         /**
