@@ -11,7 +11,8 @@
     "npm-publish": "npm version patch; git push && git push --tags; npm publish",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/*",
     "build": "webpack --progress --mode=production --config webpack.config.js",
-    "build-umd": "webpack --progress --mode=production --config webpack.config.umd.js"
+    "build-umd": "webpack --progress --mode=production --config webpack.config.umd.js",
+    "build-commonjs2": "webpack --progress --mode=development --config webpack.config.commonjs2.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,9 @@
     "node": ">=4.2.4"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
     "chai": "^3.5.0",
     "coveralls": "^2.12.0",
     "istanbul": "^0.4.5",
@@ -48,8 +52,8 @@
     "jsdom-global": "2.1.1",
     "minami": "^1.2.3",
     "mocha": "^3.2.0",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14"
+    "webpack": "^4.16.5",
+    "webpack-cli": "^2.1.5"
   },
   "dependencies": {
     "flatten-interval-tree": "^0.1.7"

@@ -4,21 +4,26 @@
 
 # Javascript library for 2d geometry
 
-FlattenJS is a small javascript library (about 45 Kb minified) for manipulating abstract geometrical objects like point, vector, line, segment,
+FlattenJS is a javascript library (less than 50 Kb minified) for manipulating abstract geometrical shapes like point, vector, line, segment,
 circle, arc and polygon. Shapes may be organized into Planar Set - searchable container which support spatial queries.
 
 FlattenJS provides a lot of useful methods and algorithms like finding intersections, checking inclusion, calculating distance, and more.
-Polygon model is rather comprehensive and supports multi polygons with many islands and holes. Edges of polygon may be circular arcs.
+Polygon model is rather comprehensive and supports multi polygons with many islands and holes. Edges of polygon may be circular arcs or segments.
 Some algorithms like [Boolean Operations](https://github.com/alexbol99/flatten-boolean-op) and [Offset](https://github.com/alexbol99/flatten-offset),
 implemented in separate packages.     
  
-This library works in any modern browser as well as under nodejs.
-But may be the best way to start working with FlattebJS is to use awesome [Observable](https://beta.observablehq.com/) javascript interactive notebooks. <br/>
-There are several FlattenJS tutorials published in Observable Notebooks, see below.  
+This library designed to work in any modern browser as well as under nodejs.
+It is written in plain javascript with es6 syntax elements.
+You can use es5 precompiled bundled package (added in v0.6.2) if you need to support old browsers.
+
+TypeScript users may take advantage of static type checking with typescript definition file index.d.ts included into the package.
 
 FlattenJS does not concern too much about visualization.
-Anyway, all objects have svg() method, that returns a string which may be inserted into SVG container. 
+Anyway, all objects have svg() methods, that returns a string which may be inserted into SVG container. 
 This works pretty well together with  [d3js](https://d3js.org/) library. But it is definitely possible to create bridges to other graphic libraries.
+
+The best way to start working with FlattenJS is to use awesome [Observable](https://beta.observablehq.com/) javascript interactive notebooks.
+There are several FlattenJS tutorials published in Observable Notebooks, see below.
 
 Full documentation may be found [here](https://alexbol99.github.io/flatten-js/index.html)
 
@@ -28,22 +33,50 @@ Full documentation may be found [here](https://alexbol99.github.io/flatten-js/in
 
 ## Usage
 
-Require full package:
-```javascript
-    let Flatten = require('flatten-js');
-```
+Package may be required in different ways:
 
-Or require minified package
-```javascript
-    let Flatten = require('flatten-js.umd.min.js');
-```
-
-Also in es6 style:
+##### Require as es6 module:
 ```javascript
     import Flatten from 'flatten-js';
 ```
 
-Then create some construction:
+##### Require as CommonJS package (nodejs) 
+```javascript
+    const Flatten = require('flatten-js');
+```
+
+##### Require minified package precompiled into UMD format.
+ [Observable](https://beta.observablehq.com/) notebooks requires this format.
+
+```javascript
+    const Flatten = require('flatten-js.umd.min.js');
+```
+
+##### Require precompiled to es5 package in Commonjs2 format.
+
+```javascript
+    import Flatten from "flatten-js/dist/flatten.commonjs2"
+```
+This package is not minified.
+
+This is the way you have to consume the package for [React](https://reactjs.org/) library, at least when you use
+[create-react-library](https://github.com/facebook/create-react-app) starter kit:
+```
+""
+    Some third-party packages don't compile their code to ES5 before publishing to npm.
+    This often causes problems in the ecosystem because neither browsers (except for most modern versions)
+    nor some tools currently support all ES6 features.
+    We recommend to publish code on npm as ES5 at least for a few more years.
+""    
+```
+You can see example of **FlattenJS + React** usage in [flatten-react-demo](https://github.com/alexbol99/flatten-react-demo) project.
+It is live [here](https://alexbol99.github.io/flatten-react-demo/). 
+Just clone it from the GitHub, install dependencies and start working using *npm start* or
+compile it to production using *npm run build*.
+
+## Example
+
+After module required, you can create some construction:
 ```javascript
     // extract object creators
     let {point, circle, segment} = Flatten;
@@ -54,7 +87,6 @@ Then create some construction:
     let c = circle(point(200, 110), 50);
     let ip = s1.intersect(s2);
 ```
-
 You may test the code above also in [NPM RunKit](https://npm.runkit.com/flatten-js)
 
 ## Tutorials
