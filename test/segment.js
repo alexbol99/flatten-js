@@ -168,6 +168,25 @@ describe('#Flatten.Segment', function() {
             expect(segment.intersect(circle).length).to.equal(1);
             expect(segment.intersect(circle)[0].equalTo(ip_expected)).to.equal(true);
         });
+        it('Intersection with Polygon', function () {
+            let segment = new Flatten.Segment(150,-20,150,60);
+
+            let points = [
+                point(100, 20),
+                point(200, 20),
+                point(200, 40),
+                point(100, 40)
+            ];
+
+            let poly = new Polygon();
+            let face = poly.addFace(points);
+
+            let ip_expected = new Flatten.Point(0, 2);
+            let ip = segment.intersect(poly);
+            expect(ip.length).to.equal(2);
+            expect(ip[0].equalTo(point(150,20))).to.be.true;
+            expect(ip[1].equalTo(point(150,40))).to.be.true;
+        });
     });
     describe('#Flatten.Segment.DistanceTo', function() {
         it('Distance to Segment Case 1 Intersected Segments', function () {

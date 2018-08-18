@@ -129,10 +129,14 @@ module.exports = function(Flatten) {
 
         /**
          * Returns array of intersection points
-         * @param {Shape} shape - shape to intersect with of the type Line, Circle, Segment, Arc
+         * @param {Shape} shape - shape to intersect with
          * @returns {Point[]}
          */
         intersect(shape) {
+            if (shape instanceof Flatten.Point) {
+                return this.contains(shape) ? [shape] : [];
+            }
+
             if (shape instanceof Flatten.Line) {
                 return Line.intersectLine2Line(this, shape);
             }
@@ -148,6 +152,11 @@ module.exports = function(Flatten) {
             if (shape instanceof Flatten.Arc) {
                 return Line.intersectLine2Arc(this, shape);
             }
+
+            if (shape instanceof Flatten.Polygon) {
+                return Flatten.Polygon.intersectShape2Polygon(this, shape);
+            }
+
         }
 
         /**

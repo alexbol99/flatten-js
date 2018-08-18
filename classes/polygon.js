@@ -51,6 +51,14 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Return true is polygon has no edges
+         * @returns {boolean}
+         */
+        isEmpty() {
+            return this.edges.size === 0;
+        }
+
+        /**
          * Add new face to polygon. Returns added face
          * @param {Points[]|Segments[]|Arcs[]} args - list of points or list of shapes (segments and arcs)
          * which comprise a closed loop
@@ -211,6 +219,28 @@ module.exports = function(Flatten) {
         }
 
         /**
+         * Return array of intersection points between polygon and other shape
+         * @param shape Shape of the one of supported types <br/>
+         * @returns {Point[]}
+         */
+        intersect(shape) {
+            if (shape instanceof Flatten.Point) {
+                return this.contains(shape) ? [shape] : [];
+            }
+
+            if (shape instanceof Flatten.Circle ||
+                shape instanceof Flatten.Line ||
+                shape instanceof Flatten.Segment ||
+                shape instanceof Flatten.Arc) {
+                return Polygon.intersectShape2Polygon(shape, this);
+            }
+
+            if (shape instanceof  Flatten.Polygon) {
+                return Polygon.intersectPolygon2Polygon(shape, this);
+            }
+        }
+
+        /**
          * Return true if polygon is valid for boolean operations
          * Polygon is valid if <br/>
          * 1. All faces are simple polygons (there are no self-intersected polygons) <br/>
@@ -284,6 +314,44 @@ module.exports = function(Flatten) {
                 newPolygon.addFace(shapes);
             }
             return newPolygon;
+        }
+
+        static intersectShape2Polygon(shape, polygon) {
+            let ip = [];
+
+            if (polygon.isEmpty() || shape.box.not_intersect(polygon.box)) {
+                return ip;
+            }
+
+            let resp_edges = polygon.edges.search(shape.box);
+
+            for (let edge of resp_edges) {
+                for (let pt of shape.intersect(edge.shape)) {
+                    ip.push(pt);
+                }
+            }
+
+            return ip;
+        }
+
+        static intersectPolygon2Polygon(polygon1, polygon2) {
+            let ip = [];
+
+            if (polygon1.isEmpty() || polygon2.isEmpty()) {
+                return ip;
+            }
+
+            if (polygon1.box.not_intersect(polygon2.box)) {
+                return ip;
+            }
+
+            for (let edge1 of polygon1.edges) {
+                for (let pt of Polygon.intersectShape2Polygon(edge1.shape, polygon2)) {
+                    ip.push(pt);
+                }
+            }
+
+            return ip;
         }
 
         /**

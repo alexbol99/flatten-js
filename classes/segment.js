@@ -2,6 +2,7 @@
  * Created by Alex Bol on 3/10/2017.
  */
 
+
 "use strict";
 
 module.exports = function (Flatten) {
@@ -136,11 +137,14 @@ module.exports = function (Flatten) {
 
         /**
          * Returns array of intersection points between segment and other shape
-         * @param {Shape} shape - Shape of the one of supported types Line, Circle, Segment, Arc <br/>
-         * TODO: support Polygon and Planar Set
+         * @param {Shape} shape - Shape of the one of supported types <br/>
          * @returns {Point[]}
          */
         intersect(shape) {
+            if (shape instanceof Flatten.Point) {
+                return this.contains(shape) ? [shape] : [];
+            }
+
             if (shape instanceof Flatten.Line) {
                 return Segment.intersectSegment2Line(this, shape);
             }
@@ -155,6 +159,10 @@ module.exports = function (Flatten) {
 
             if (shape instanceof Flatten.Arc) {
                 return Segment.intersectSegment2Arc(this, shape);
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                return Flatten.Polygon.intersectShape2Polygon(this, shape);
             }
         }
 
