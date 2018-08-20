@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Global - Documentation</title>
+    <title>Arc - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Arc</h1>
     
 
     
@@ -42,8 +42,10 @@
 <header>
     
         <h2>
-        
+        Arc
         </h2>
+        
+            <div class="class-description">Class representing a circular arc</div>
         
     
 </header>
@@ -52,8 +54,20 @@
     <div class="container-overview">
     
         
+<div class="section-method">
 
-        
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id=".Arc"><span class="type-signature"></span>new Arc<span class="signature">(pc, r, startAngle, endAngle, counterClockwise)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
 
 
 <dl class="details">
@@ -83,6 +97,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line12">line 12</a>
+    </li></ul></dd>
+    
 
     
 
@@ -92,7 +111,184 @@
 </dl>
 
 
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
         
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Point</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                arc center
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                arc radius
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startAngle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                start angle in radians from 0 to 2*PI
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endAngle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                end angle in radians from 0 to 2*PI
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>counterClockwise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>boolean</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                arc direction, true - clockwise, false - counter clockwise
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
     
     </div>
 
@@ -112,13 +308,13 @@
         
             
 <div class="section-members">
-<h4 class="name" id="DP_TOL"><span class="type-signature">(constant) </span>DP_TOL<span class="type-signature"></span></h4>
+<h4 class="name" id="box"><span class="type-signature"></span>box<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Created by Alex Bol on 2/18/2017.
+    Get bounding box of the arc
 </div>
 
 
@@ -154,7 +350,697 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_utils.js.html">utils/utils.js</a>, <a href="utils_utils.js.html#line5">line 5</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line151">line 151</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="center"><span class="type-signature"></span>center<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get center of arc
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line131">line 131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="counterClockwise"><span class="type-signature"></span>counterClockwise<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    Arc orientation
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>boolean</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="end"><span class="type-signature"></span>end<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get end point of arc
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="endAngle"><span class="type-signature"></span>endAngle<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    Arc end angle in radians
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>number</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="length"><span class="type-signature"></span>length<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get arc length
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line143">line 143</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="pc"><span class="type-signature"></span>pc<span class="type-signature"> :Point</span></h4>
+
+
+
+
+<div class="description">
+    Arc center
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>Point</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="r"><span class="type-signature"></span>r<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    Arc radius
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>number</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="start"><span class="type-signature"></span>start<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get start point of arc
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="startAngle"><span class="type-signature"></span>startAngle<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    Arc start angle in radians
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>number</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="sweep"><span class="type-signature"></span>sweep<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get sweep angle in radians. Sweep angle is non-negative number from 0 to 2*PI
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -185,14 +1071,14 @@
 
     
 
-    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="breakToFunctional"><span class="type-signature"></span>breakToFunctional<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Arcs>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Return array of edges from first to last
+    Breaks arc in extreme point 0, pi/2, pi, 3*pi/2 and returns array of sub-arcs
 </div>
 
 
@@ -228,7 +1114,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line3530">line 3530</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line299">line 299</a>
     </li></ul></dd>
     
 
@@ -270,7 +1156,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Array</code></span>
+<span class="param-type"><code>Array.&lt;Arcs></code></span>
 
 
     </dd>
@@ -289,14 +1175,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(other_box)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="chordHeight"><span class="type-signature"></span>chordHeight<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns true if not intersected with other box
+    Returns chord height ("sagitta") of the arc
 </div>
 
 
@@ -332,342 +1218,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line2065">line 2065</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other_box</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Box</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                other box to test
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt1, pt2)</span><span class="type-signature"> &rarr; {Number|Segment}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Calculate distance and shortest segment between points
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line136">line 136</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pt1</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>pt2</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Number</code></span>
-|
-
-<span class="param-type"><code>Segment</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    - distance and shortest segment
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"> &rarr; {Vector}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return inverted vector
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line6599">line 6599</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line217">line 217</a>
     </li></ul></dd>
     
 
@@ -709,7 +1260,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Vector</code></span>
+<span class="param-type"><code>number</code></span>
 
 
     </dd>
@@ -728,14 +1279,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"> &rarr; {Vector}</span></h4>
+    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {Arc}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns vector rotated 90 degrees clockwise
+    Return new instance of arc
 </div>
 
 
@@ -771,7 +1322,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line6588">line 6588</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -813,7 +1364,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Vector</code></span>
+<span class="param-type"><code>Arc</code></span>
 
 
     </dd>
@@ -832,495 +1383,7 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(key, value)</span><span class="type-signature"> &rarr; {Node}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Insert new item into interval tree
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line7190">line 7190</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                interval object or array of two numbers [low, high]
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                value representing any object (optional)
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Node</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    - returns reference to inserted node as an object {key:interval, value: value}
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(v)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if vectors are equal up to <a href="http://localhost:63342/flatten-js/docs/global.html#DP_TOL">DP_TOL</a>tolerance
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line6497">line 6497</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Vector</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(other_matrix)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns result of multiplication of this matrix by other matrix
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4309">line 4309</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other_matrix</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Matrix</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                matrix to multiply by
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Matrix</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="contains"><span class="type-signature"></span>contains<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
 
     
 
@@ -1363,7 +1426,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line1368">line 1368</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line163">line 163</a>
     </li></ul></dd>
     
 
@@ -1476,14 +1539,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="distanceTo"><span class="type-signature"></span>distanceTo<span class="signature">(shape)</span><span class="type-signature"> &rarr; {number|Segment}</span></h4>
 
     
 
 
 
 <div class="description">
-    Return string to draw segment in svg
+    Calculate distance and shortest segment from arc to shape and return array [distance, shortest segment]
 </div>
 
 
@@ -1519,7 +1582,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line6097">line 6097</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line254">line 254</a>
     </li></ul></dd>
     
 
@@ -1563,13 +1626,13 @@
 
         <tr>
             
-                <td class="name"><code>attrs</code></td>
+                <td class="name"><code>shape</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>Object</code></span>
+<span class="param-type"><code>Shape</code></span>
 
 
             
@@ -1580,7 +1643,7 @@
             
 
             <td class="description last">
-                Object with attributes for svg path element,like "stroke", "strokeWidth" <br/>Defaults are stroke:"black", strokeWidth:"1"
+                Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
                 
             </td>
         </tr>
@@ -1604,8 +1667,8 @@
 
 <div class="section-returns">
 <h5>Returns:</h5>
-
-        
+<ul>
+        <li>
 
 <dl class="param-type">
     <dt>
@@ -1613,155 +1676,19 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>string</code></span>
+<span class="param-type"><code>number</code></span>
 
 
     </dd>
 </dl>
 
 
-    
+<div class="param-desc">
+    distance from arc to shape
 </div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
+</li>
     
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(seg)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if equals to query segment, false otherwise
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line5821">line 5821</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>seg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Seg</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                query segment
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
+        <li>
 
 <dl class="param-type">
     <dt>
@@ -1769,171 +1696,380 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns array of intersection points between ray and segment or arc
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line5576">line 5576</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type"><code>Segment</code></span>
-|
 
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    shortest segment between arc and shape (started at arc, ended at shape)
+</div>
+</li>
+    </ul>
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="intersect"><span class="type-signature"></span>intersect<span class="signature">(shape)</span><span class="type-signature"> &rarr; {Array.&lt;Points>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns array of intersection points between arc and other shape
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line226">line 226</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Shape</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Shape of the one of supported types <br/>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Array.&lt;Points></code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="middle"><span class="type-signature"></span>middle<span class="signature">()</span><span class="type-signature"> &rarr; {Point}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return middle point of the arc
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line207">line 207</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Point</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="reverse"><span class="type-signature"></span>reverse<span class="signature">()</span><span class="type-signature"> &rarr; {Arc}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns new arc with swapped start and end angles and reversed direction
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line381">line 381</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
 <span class="param-type"><code>Arc</code></span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                Shape to intersect with ray
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Array</code></span>
-
-
     </dd>
 </dl>
 
-
-<div class="param-desc">
-    array of intersection points
-</div>
 
     
 </div>
@@ -1947,14 +2083,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt, arc)</span><span class="type-signature"> &rarr; {Number|Segment}</span></h4>
+    <h4 class="name" id="rotate"><span class="type-signature"></span>rotate<span class="signature">(angle, center)</span><span class="type-signature"> &rarr; {Arc}</span></h4>
 
     
 
 
 
 <div class="description">
-    Calculate distance and shortest segment between point and arc
+    Return new segment rotated by given angle around given pointIf point omitted, rotate around origin (0,0)Positive value of angle defines rotation counter clockwise, negative - clockwise
 </div>
 
 
@@ -1990,7 +2126,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line231">line 231</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line404">line 404</a>
     </li></ul></dd>
     
 
@@ -2024,184 +2160,7 @@
         
 
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pt</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>arc</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Number</code></span>
-|
-
-<span class="param-type"><code>Segment</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    - distance and shortest segment
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(args)</span><span class="type-signature"> &rarr; {Face}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Add new face to polygon. Returns added face
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4850">line 4850</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -2213,19 +2172,13 @@
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>angle</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>Array.&lt;Points></code></span>
-|
-
-<span class="param-type"><code>Array.&lt;Segments></code></span>
-|
-
-<span class="param-type"><code>Array.&lt;Arcs></code></span>
+<span class="param-type"><code>number</code></span>
 
 
             
@@ -2234,148 +2187,24 @@
             
 
             
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
 
             <td class="description last">
-                list of points or list of shapes (segments and arcs)which comprise a closed loop
+                rotation angle in radians
                 
             </td>
         </tr>
 
     
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Face</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return true if circle contains point
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line2299">line 2299</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
 
         <tr>
             
-                <td class="name"><code>pt</code></td>
+                <td class="name"><code>center</code></td>
             
 
             <td class="type">
@@ -2390,9 +2219,13 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">
-                test point
+                center point, default is (0,0)
                 
             </td>
         </tr>
@@ -2425,7 +2258,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>boolean</code></span>
+<span class="param-type"><code>Arc</code></span>
 
 
     </dd>
@@ -2444,14 +2277,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="split"><span class="type-signature"></span>split<span class="signature">(pt)</span><span class="type-signature"> &rarr; {Array.&lt;Arc>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Return string to draw circle in svg
+    When given point belongs to arc, return array of two arcs split by this point. If points is incidentto start or end point of the arc, return clone of the arc. If point does not belong to the arcs, returnempty array.
 </div>
 
 
@@ -2487,163 +2320,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line2438">line 2438</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                json structure with attributes of svg circle element,like "stroke", "strokeWidth", "fill" <br/>Defaults are stroke:"black", strokeWidth:"1", fill:"none"
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>string</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if points are equal up to <a href="global.html#DP_TOL">Flatten.Utils.DP_TOL</a> tolerance
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4514">line 4514</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line185">line 185</a>
     </li></ul></dd>
     
 
@@ -2737,7 +2414,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>boolean</code></span>
+<span class="param-type"><code>Array.&lt;Arc></code></span>
 
 
     </dd>
@@ -2756,14 +2433,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"> &rarr; {Point}</span></h4>
+    <h4 class="name" id="svg"><span class="type-signature"></span>svg<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 
 
 
 <div class="description">
-    Method clone returns new copied instance of point
+    Return string to draw arc in svg
 </div>
 
 
@@ -2799,111 +2476,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4502">line 4502</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Point</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(other_line)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return true if parallel or incident to other line
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line3870">line 3870</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line533">line 533</a>
     </li></ul></dd>
     
 
@@ -2947,13 +2520,13 @@
 
         <tr>
             
-                <td class="name"><code>other_line</code></td>
+                <td class="name"><code>attrs</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>Line</code></span>
+<span class="param-type"><code>Object</code></span>
 
 
             
@@ -2964,7 +2537,7 @@
             
 
             <td class="description last">
-                line to check
+                json structure with attributes of svg path element,like "stroke", "strokeWidth", "fill" <br/>Defaults are stroke:"black", strokeWidth:"1", fill:"none"
                 
             </td>
         </tr>
@@ -2997,7 +2570,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>boolean</code></span>
+<span class="param-type"><code>string</code></span>
 
 
     </dd>
@@ -3016,14 +2589,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(matrix)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="tangentInEnd"><span class="type-signature"></span>tangentInEnd<span class="signature">()</span><span class="type-signature"> &rarr; {Vector}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns true if two matrix are equal parameter by parameter
+    Return tangent unit vector in the end point in the direction from end to start
 </div>
 
 
@@ -3059,7 +2632,319 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4381">line 4381</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line370">line 370</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Vector</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="tangentInStart"><span class="type-signature"></span>tangentInStart<span class="signature">()</span><span class="type-signature"> &rarr; {Vector}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return tangent unit vector in the start point in the direction from start to end
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line359">line 359</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Vector</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="toJSON"><span class="type-signature"></span>toJSON<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns JSON object. This method defines how data will beserialized when called JSON.stringify method with this object
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line557">line 557</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Object</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="transform"><span class="type-signature"></span>transform<span class="signature">(matrix)</span><span class="type-signature"> &rarr; {Arc}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return new arc transformed using affine transformation matrix <br/>Note, that non-equal scaling by x and y (matrix[0] != matrix[3]) produce illegal resultTODO: support non-equal scaling arc to ellipse or throw exception ?
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line417">line 417</a>
     </li></ul></dd>
     
 
@@ -3120,7 +3005,7 @@
             
 
             <td class="description last">
-                other matrix
+                affine transformation matrix
                 
             </td>
         </tr>
@@ -3153,16 +3038,12 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>boolean</code></span>
+<span class="param-type"><code>Arc</code></span>
 
 
     </dd>
 </dl>
 
-
-<div class="param-desc">
-    true if equal, false otherwise
-</div>
 
     
 </div>
@@ -3176,14 +3057,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(sx, sy)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
+    <h4 class="name" id="translate"><span class="type-signature"></span>translate<span class="signature">(vec)</span><span class="type-signature"> &rarr; {Segment}</span></h4>
 
     
 
 
 
 <div class="description">
-    Return new matrix as result of mutiplication of the current matrixby the matrix (sx,0,0,sy,0,0) that defines scaling
+    Returns new arc translated by vector vec
 </div>
 
 
@@ -3219,7 +3100,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4369">line 4369</a>
+        <a href="classes_arc.js.html">classes/arc.js</a>, <a href="classes_arc.js.html#line390">line 390</a>
     </li></ul></dd>
     
 
@@ -3263,31 +3144,15 @@
 
         <tr>
             
-                <td class="name"><code>sx</code></td>
+                <td class="name"><code>vec</code></td>
             
 
             <td class="type">
             
-            </td>
-
-            
-
-            
-
-            <td class="description last">
                 
-                
-            </td>
-        </tr>
+<span class="param-type"><code>Vector</code></span>
 
-    
 
-        <tr>
-            
-                <td class="name"><code>sy</code></td>
-            
-
-            <td class="type">
             
             </td>
 
@@ -3329,505 +3194,12 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Matrix</code></span>
+<span class="param-type"><code>Segment</code></span>
 
 
     </dd>
 </dl>
 
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(angle)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return new matrix as a result of multiplication of the current matrixby the matrix that defines rotation by given angle (in radians) aroundpoint (0,0) in counter clockwise direction
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4353">line 4353</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>angle</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Matrix</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(tx, ty)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return new matrix as a result of multiplication of the current matrixby the matrix(1,0,0,1,tx,ty)
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4323">line 4323</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>tx</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                translation by x
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ty</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                translation by y
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Matrix</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(vector)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Transform vector [x,y] using transformation matrix. <br/>Vector [x,y] is an abstract array[2] of numbers and not a FlattenJS object <br/>The result is also an abstract vector [x',y'] = A * [x,y]:<code>[x'       [ ax + by + tx y'   =     cx + dy + ty 1]                    1 ]</code>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4297">line 4297</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>vector</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Array.&lt;number></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                array[2] of numbers
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Array.&lt;number></code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    transformation result - array[2] of numbers
-</div>
 
     
 </div>

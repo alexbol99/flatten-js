@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>classes/line.js - Documentation</title>
+    <title>Ray - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,349 +29,656 @@
 
 <div id="main">
     
-    <h1 class="page-title">classes/line.js</h1>
+    <h1 class="page-title">Ray</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Created by Alex Bol on 2/20/2017.
- */
-"use strict";
+        <h2>
+        Ray
+        </h2>
+        
+            <div class="class-description">Class representing a horizontal ray, used by ray shooting algorithm</div>
+        
+    
+</header>
 
-module.exports = function(Flatten) {
-    /**
-     * Class representing a line
-     * @type {Line}
-     */
-    Flatten.Line = class Line {
-        /**
-         * Line may be constructed by point and normal vector or by two points that a line passes through
-         * @param {Point} pt - point that a line passes through
-         * @param {Vector|Point} norm - normal vector to a line or second point a line passes through
-         */
-        constructor(...args) {
-            /**
-             * Point a line passes through
-             * @type {Point}
-             */
-            this.pt = new Flatten.Point();
-            /**
-             * Normal vector to a line &lt;br/>
-             * Vector is normalized (length == 1)
-             * @type {Vector}
-             */
-            this.norm = new Flatten.Vector(0,1);
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-            if (args.length == 0) {
-                return;
-            }
+    
+    <h2>Constructor</h2>
+    
 
-            if (args.length == 1 &amp;&amp; args[0] instanceof Object &amp;&amp; args[0].name === "line") {
-                let {pt, norm} = args[0];
-                this.pt = new Flatten.Point(pt);
-                this.norm = new Flatten.Vector(norm);
-                return;
-            }
+    <h4 class="name" id=".Ray"><span class="type-signature"></span>new Ray<span class="signature">(pt)</span><span class="type-signature"></span></h4>
 
-            if (args.length == 2) {
-                let a1 = args[0];
-                let a2 = args[1];
+    
 
-                if (a1 instanceof Flatten.Point &amp;&amp; a2 instanceof Flatten.Point) {
-                    this.pt = a1;
-                    this.norm = Line.points2norm(a1, a2);
-                    return;
-                }
 
-                if (a1 instanceof Flatten.Point &amp;&amp; a2 instanceof Flatten.Vector) {
-                    if (Flatten.Utils.EQ_0(a2.x) &amp;&amp; Flatten.Utils.EQ_0(a2.y)) {
-                        throw Flatten.Errors.ILLEGAL_PARAMETERS;
-                    }
-                    this.pt = a1.clone();
-                    this.norm = a2.clone();
-                    this.norm = this.norm.normalize();
-                    return;
-                }
 
-                if (a1 instanceof Flatten.Vector &amp;&amp; a2 instanceof Flatten.Point) {
-                    if (Flatten.Utils.EQ_0(a1.x) &amp;&amp; Flatten.Utils.EQ_0(a1.y)) {
-                        throw Flatten.Errors.ILLEGAL_PARAMETERS;
-                    }
-                    this.pt = a2.clone();
-                    this.norm = a1.clone();
-                    this.norm = this.norm.normalize();
-                    return;
-                }
-            }
+<div class="description">
+    Construct ray by setting start point
+</div>
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
-        }
 
-        /**
-         * Returns cloned new instance of a line
-         * @returns {Line}
-         */
-        clone() {
-            return new Flatten.Line(this.pt, this.norm);
-        }
 
-        /**
-         * Slope of the line - angle in radians between line and axe x from 0 to 2PI
-         * @returns {number} - slope of the line
-         */
-        get slope() {
-            let vec = new Flatten.Vector(this.norm.y, -this.norm.x);
-            return vec.slope;
-        }
 
-        /**
-         * Get coefficients [A,B,C] of a standard line equation in the form Ax + By = C
-         * @code [A, B, C] = line.standard
-         * @returns {number[]} - array of coefficients
-         */
-        get standard() {
-            let A = this.norm.x;
-            let B = this.norm.y;
-            let C = this.norm.dot(this.pt);
 
-            return [A,B,C];
-        }
+<dl class="details">
 
-        /**
-         * Return true if parallel or incident to other line
-         * @param {Line} other_line - line to check
-         * @returns {boolean}
-         */
-        parallelTo(other_line) {
-            return Flatten.Utils.EQ_0(this.norm.cross(other_line.norm));
-        }
+    
 
-        /**
-         * Returns true if incident to other line
-         * @param {Line} other_line - line to check
-         * @returns {boolean}
-         */
-        incidentTo(other_line) {
-            return this.parallelTo(other_line) &amp;&amp; this.pt.on(other_line);
-        }
+    
 
-        /**
-         * Returns true if point belongs to line
-         * @param {Point} pt Query point
-         * @returns {boolean}
-         */
-        contains(pt) {
-            if (this.pt.equalTo(pt)) {
-                return true;
-            }
-            /* Line contains point if vector to point is orthogonal to the line normal vector */
-            let vec = new Flatten.Vector(this.pt, pt);
-            return Flatten.Utils.EQ_0(this.norm.dot(vec));
-        }
+    
 
-        /**
-         * Returns array of intersection points
-         * @param {Shape} shape - shape to intersect with
-         * @returns {Point[]}
-         */
-        intersect(shape) {
-            if (shape instanceof Flatten.Point) {
-                return this.contains(shape) ? [shape] : [];
-            }
+    
 
-            if (shape instanceof Flatten.Line) {
-                return Line.intersectLine2Line(this, shape);
-            }
+    
 
-            if (shape instanceof Flatten.Circle) {
-                return Line.intersectLine2Circle(this, shape);
-            }
+    
 
-            if (shape instanceof Flatten.Segment) {
-                return shape.intersect(this);
-            }
+    
 
-            if (shape instanceof Flatten.Arc) {
-                return Line.intersectLine2Arc(this, shape);
-            }
+    
 
-            if (shape instanceof Flatten.Polygon) {
-                return Flatten.Polygon.intersectShape2Polygon(this, shape);
-            }
+    
 
-        }
+    
 
-        /**
-         * Calculate distance and shortest segment from line to shape and returns array [distance, shortest_segment]
-         * @param {Shape} shape Shape of the one of the types Point, Circle, Segment, Arc, Polygon
-         * @returns {Number}
-         * @returns {Segment}
-         */
-        distanceTo(shape) {
-            let {Distance} = Flatten;
+    
 
-            if (shape instanceof Flatten.Point) {
-                let [distance, shortest_segment] = Distance.point2line(shape, this);
-                shortest_segment = shortest_segment.reverse();
-                return [distance, shortest_segment];
-            }
+    
 
-            if (shape instanceof Flatten.Circle) {
-                let [distance, shortest_segment] = Distance.circle2line(shape, this);
-                shortest_segment = shortest_segment.reverse();
-                return [distance, shortest_segment];
-            }
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
 
-            if (shape instanceof Flatten.Segment) {
-                let [distance, shortest_segment] = Distance.segment2line(shape, this);
-                return [distance, shortest_segment.reverse()];
-            }
+    
 
-            if (shape instanceof Flatten.Arc) {
-                let [distance, shortest_segment] = Distance.arc2line(shape, this);
-                return [distance, shortest_segment.reverse()];
-            }
+    
 
-            if (shape instanceof Flatten.Polygon) {
-                let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
-                return [distance, shortest_segment];
-            }
-        }
+    
+</dl>
 
-        /**
-         * Return string to draw svg segment representing line inside given box
-         * @param {Box} box Box representing drawing area
-         * @param {Object} attrs - json structure with attributes of svg circle element
-         */
-        svg(box, attrs = {}) {
-            let ip = Line.intersectLine2Box(this, box);
-            if (ip.length === 0)
-                return "";
-            let ps = ip[0];
-            let pe = ip.length == 2 ? ip[1] : ip.find( pt => !pt.equalTo(ps) );
-            if (pe === undefined) pe = ps;
-            let segment = new Flatten.Segment(ps, pe);
-            return segment.svg(attrs);
-        }
 
-        /**
-         * Returns JSON object. This method defines how data will be
-         * serialized when called JSON.stringify method with this object
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({},this,{name:"line"});
-        }
 
-        static points2norm(pt1, pt2) {
-            if (pt1.equalTo(pt2)) {
-                throw Flatten.Errors.ILLEGAL_PARAMETERS;
-            }
-            let vec = new Flatten.Vector(pt1, pt2);
-            let unit = vec.normalize();
-            return unit.rotate90CCW();
-        }
 
-        static intersectLine2Line(line1, line2) {
-            let ip = [];
 
-            let [A1, B1, C1] = line1.standard;
-            let [A2, B2, C2] = line2.standard;
 
-            /* Cramer's rule */
-            let det = A1*B2 - B1*A2;
-            let detX = C1*B2 - B1*C2;
-            let detY = A1*C2 - C1*A2;
 
-            if (!Flatten.Utils.EQ_0(det)) {
-                let new_ip = new Flatten.Point( detX/det, detY/det );
-                ip.push(new_ip);
-            }
-            return ip;
-        }
 
-        static intersectLine2Circle(line, circle) {
-            let ip = [];
-            let prj = circle.pc.projectionOn(line);            // projection of circle center on line
-            let dist = circle.pc.distanceTo(prj)[0];           // distance from circle center to projection
 
-            if (Flatten.Utils.EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
-                ip.push(prj);
-            }
-            else if (Flatten.Utils.LT(dist, circle.r)) {       // return two intersection points
-                let delta = Math.sqrt(circle.r*circle.r - dist*dist);
-                let v_trans, pt;
+    <h5>Parameters:</h5>
+    
 
-                v_trans = line.norm.rotate90CCW().multiply(delta);
-                pt = prj.translate(v_trans);
-                ip.push(pt);
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
 
-                v_trans = line.norm.rotate90CW().multiply(delta);
-                pt = prj.translate(v_trans);
-                ip.push(pt);
-            }
-            return ip;
-        }
+        <th>Type</th>
 
-        static intersectLine2Box(line, box) {
-            let pts = [
-                new Flatten.Point(box.xmin, box.ymin),
-                new Flatten.Point(box.xmax, box.ymin),
-                new Flatten.Point(box.xmax, box.ymax),
-                new Flatten.Point(box.xmin, box.ymax)
-            ];
-            let segs = [
-                new Flatten.Segment(pts[0], pts[1]),
-                new Flatten.Segment(pts[1], pts[2]),
-                new Flatten.Segment(pts[2], pts[3]),
-                new Flatten.Segment(pts[3], pts[0])
-            ];
+        
 
-            let ips =  [];
+        
 
-            for(let seg of segs) {
-                let ips_tmp = seg.intersect(line);
-                for (let ip of ips_tmp) {
-                    ips.push(ip);
-                }
-            };
-            return ips;
-        }
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-        static intersectLine2Arc(line, arc) {
-            let ip = [];
+    <tbody>
+    
 
-            if (Line.intersectLine2Box(line, arc.box).length == 0) {
-                return ip;
-            }
+        <tr>
+            
+                <td class="name"><code>pt</code></td>
+            
 
-            let circle = new Flatten.Circle(arc.pc, arc.r);
-            let ip_tmp = line.intersect(circle);
-            for (let pt of ip_tmp) {
-                if (pt.on(arc)) {
-                    ip.push(pt);
-                }
-            }
+            <td class="type">
+            
+                
+<span class="param-type"><code>Point</code></span>
 
-            return ip;
-        }
-    };
 
-    /**
-     * Function to create line equivalent to "new" constructor
-     * @param args
-     */
-    Flatten.line = (...args) => new Flatten.Line(...args);
-};
-</code></pre>
-        </article>
-    </section>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                start point
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="box"><span class="type-signature"></span>box<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns half-infinite bounding box of the ray
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="norm"><span class="type-signature"></span>norm<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Return ray normal vector (0,1) - horizontal ray
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="start"><span class="type-signature"></span>start<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Return ray start point
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {Ray}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns copied instance of the ray object
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Ray</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="intersect"><span class="type-signature"></span>intersect<span class="signature">(shape)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns array of intersection points between ray and segment or arc
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_ray.js.html">classes/ray.js</a>, <a href="classes_ray.js.html#line76">line 76</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Segment</code></span>
+|
+
+<span class="param-type"><code>Arc</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Shape to intersect with ray
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Array</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    array of intersection points
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

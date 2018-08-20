@@ -31,6 +31,13 @@ module.exports = function(Flatten) {
                 return;
             }
 
+            if (args.length == 1 && args[0] instanceof Object && args[0].name === "line") {
+                let {pt, norm} = args[0];
+                this.pt = new Flatten.Point(pt);
+                this.norm = new Flatten.Vector(norm);
+                return;
+            }
+
             if (args.length == 2) {
                 let a1 = args[0];
                 let a2 = args[1];
@@ -210,6 +217,15 @@ module.exports = function(Flatten) {
             if (pe === undefined) pe = ps;
             let segment = new Flatten.Segment(ps, pe);
             return segment.svg(attrs);
+        }
+
+        /**
+         * Returns JSON object. This method defines how data will be
+         * serialized when called JSON.stringify method with this object
+         * @returns {Object}
+         */
+        toJSON() {
+            return Object.assign({},this,{name:"line"});
         }
 
         static points2norm(pt1, pt2) {

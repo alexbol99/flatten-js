@@ -43,6 +43,13 @@ module.exports = function(Flatten) {
                 }
             }
 
+            if (args.length === 1 && args[0] instanceof Object && args[0].name === "point") {
+                let {x, y} = args[0];
+                this.x = x;
+                this.y = y;
+                return;
+            }
+
             if (args.length === 2) {
                 if (typeof(args[0]) == "number" && typeof(args[1]) == "number") {
                     this.x = args[0];
@@ -270,6 +277,14 @@ module.exports = function(Flatten) {
             return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 3}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${id_str} ${class_str} />`;
         }
 
+        /**
+         * Returns JSON object. This method defines how data will be
+         * serialized when called JSON.stringify method with this object
+         * @returns {Object}
+         */
+        toJSON() {
+            return Object.assign({},this,{name:"point"});
+        }
     };
 
     /**

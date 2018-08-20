@@ -164,5 +164,12 @@ describe('#Flatten.Line', function() {
         expect(svg.search("id")).to.not.equal(-1);
         expect(svg.search("class")).to.not.equal(-1);
     });
+    it('May stringify and parse line', function() {
+        let l = line(point(4, 0), point(0, 4));
+        let str = JSON.stringify(l)
+        let l_json = JSON.parse(str);
+        let l_parsed = line(l_json);
+        expect(l_parsed).to.deep.equal(l);
+    });
 });
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Global - Documentation</title>
+    <title>Point - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Point</h1>
     
 
     
@@ -42,8 +42,10 @@
 <header>
     
         <h2>
-        
+        Point
         </h2>
+        
+            <div class="class-description">Class representing a point</div>
         
     
 </header>
@@ -52,8 +54,24 @@
     <div class="container-overview">
     
         
+<div class="section-method">
 
-        
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id=".Point"><span class="type-signature"></span>new Point<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Point may be constructed by two numbers, or by array of two numbers
+</div>
+
+
+
 
 
 <dl class="details">
@@ -83,6 +101,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
 
     
 
@@ -92,7 +115,106 @@
 </dl>
 
 
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
         
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                x-coordinate (float number)
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                y-coordinate (float number)
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
     
     </div>
 
@@ -112,13 +234,13 @@
         
             
 <div class="section-members">
-<h4 class="name" id="DP_TOL"><span class="type-signature">(constant) </span>DP_TOL<span class="type-signature"></span></h4>
+<h4 class="name" id="box"><span class="type-signature"></span>box<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Created by Alex Bol on 2/18/2017.
+    Returns bounding box of a point
 </div>
 
 
@@ -154,7 +276,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_utils.js.html">utils/utils.js</a>, <a href="utils_utils.js.html#line5">line 5</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line69">line 69</a>
     </li></ul></dd>
     
 
@@ -166,6 +288,154 @@
 </dl>
 
 
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="x"><span class="type-signature"></span>x<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    x-coordinate (float number)
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>number</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="y"><span class="type-signature"></span>y<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    y-coordinate (float number)
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>number</code></span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -185,14 +455,14 @@
 
     
 
-    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {Point}</span></h4>
 
     
 
 
 
 <div class="description">
-    Return array of edges from first to last
+    Method clone returns new copied instance of point
 </div>
 
 
@@ -228,7 +498,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line3530">line 3530</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -270,1196 +540,9 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Array</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(other_box)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if not intersected with other box
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line2065">line 2065</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other_box</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Box</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                other box to test
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt1, pt2)</span><span class="type-signature"> &rarr; {Number|Segment}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Calculate distance and shortest segment between points
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line136">line 136</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pt1</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>pt2</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Number</code></span>
-|
-
-<span class="param-type"><code>Segment</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    - distance and shortest segment
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"> &rarr; {Vector}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return inverted vector
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line6599">line 6599</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Vector</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"> &rarr; {Vector}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns vector rotated 90 degrees clockwise
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line6588">line 6588</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Vector</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(key, value)</span><span class="type-signature"> &rarr; {Node}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Insert new item into interval tree
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line7190">line 7190</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                interval object or array of two numbers [low, high]
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                value representing any object (optional)
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Node</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    - returns reference to inserted node as an object {key:interval, value: value}
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(v)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if vectors are equal up to <a href="http://localhost:63342/flatten-js/docs/global.html#DP_TOL">DP_TOL</a>tolerance
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line6497">line 6497</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Vector</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(other_matrix)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns result of multiplication of this matrix by other matrix
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4309">line 4309</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other_matrix</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Matrix</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                matrix to multiply by
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Matrix</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if arc contains point, false otherwise
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line1368">line 1368</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pt</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type"><code>Point</code></span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                point to test
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
     </dd>
 </dl>
 
@@ -1476,14 +559,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="distanceTo"><span class="type-signature"></span>distanceTo<span class="signature">(shape)</span><span class="type-signature"> &rarr; {number|Segment}</span></h4>
 
     
 
 
 
 <div class="description">
-    Return string to draw segment in svg
+    Calculate distance and shortest segment from point to shape and return as array [distance, shortest segment]
 </div>
 
 
@@ -1519,7 +602,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line6097">line 6097</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line190">line 190</a>
     </li></ul></dd>
     
 
@@ -1563,13 +646,13 @@
 
         <tr>
             
-                <td class="name"><code>attrs</code></td>
+                <td class="name"><code>shape</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>Object</code></span>
+<span class="param-type"><code>Shape</code></span>
 
 
             
@@ -1580,7 +663,7 @@
             
 
             <td class="description last">
-                Object with attributes for svg path element,like "stroke", "strokeWidth" <br/>Defaults are stroke:"black", strokeWidth:"1"
+                Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
                 
             </td>
         </tr>
@@ -1604,8 +687,8 @@
 
 <div class="section-returns">
 <h5>Returns:</h5>
-
-        
+<ul>
+        <li>
 
 <dl class="param-type">
     <dt>
@@ -1613,318 +696,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>string</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(seg)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if equals to query segment, false otherwise
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line5821">line 5821</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>seg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Seg</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                query segment
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns array of intersection points between ray and segment or arc
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line5576">line 5576</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Segment</code></span>
-|
-
-<span class="param-type"><code>Arc</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                Shape to intersect with ray
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Array</code></span>
+<span class="param-type"><code>number</code></span>
 
 
     </dd>
@@ -1932,167 +704,11 @@
 
 
 <div class="param-desc">
-    array of intersection points
+    distance from point to shape
 </div>
-
+</li>
     
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt, arc)</span><span class="type-signature"> &rarr; {Number|Segment}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Calculate distance and shortest segment between point and arc
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line231">line 231</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pt</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>arc</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
+        <li>
 
 <dl class="param-type">
     <dt>
@@ -2100,9 +716,6 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Number</code></span>
-|
-
 <span class="param-type"><code>Segment</code></span>
 
 
@@ -2111,172 +724,10 @@
 
 
 <div class="param-desc">
-    - distance and shortest segment
+    shortest segment between point and shape (started at point, ended at shape)
 </div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(args)</span><span class="type-signature"> &rarr; {Face}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Add new face to polygon. Returns added face
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4850">line 4850</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Array.&lt;Points></code></span>
-|
-
-<span class="param-type"><code>Array.&lt;Segments></code></span>
-|
-
-<span class="param-type"><code>Array.&lt;Arcs></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                list of points or list of shapes (segments and arcs)which comprise a closed loop
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Face</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
+</li>
+    </ul>
 </div>
 
 
@@ -2288,319 +739,7 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return true if circle contains point
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line2299">line 2299</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pt</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Point</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                test point
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return string to draw circle in svg
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line2438">line 2438</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>attrs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                json structure with attributes of svg circle element,like "stroke", "strokeWidth", "fill" <br/>Defaults are stroke:"black", strokeWidth:"1", fill:"none"
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>string</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="equalTo"><span class="type-signature"></span>equalTo<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
 
     
 
@@ -2643,7 +782,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4514">line 4514</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line90">line 90</a>
     </li></ul></dd>
     
 
@@ -2756,14 +895,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"> &rarr; {Point}</span></h4>
+    <h4 class="name" id="leftTo"><span class="type-signature"></span>leftTo<span class="signature">(line)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
 
     
 
 
 
 <div class="description">
-    Method clone returns new copied instance of point
+    Returns true if point belongs to the "left" semi-plane, which means, point belongs to the same semi plane where line normal vector points toReturn false if point belongs to the "right" semi-plane or to the line itself
 </div>
 
 
@@ -2799,7 +938,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4502">line 4502</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line178">line 178</a>
     </li></ul></dd>
     
 
@@ -2816,6 +955,526 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>line</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Line</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Query line
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>boolean</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="lessThan"><span class="type-signature"></span>lessThan<span class="signature">(pt)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Defines predicate "less than" between points. Returns true if the point is less than query points, false otherwise <br/>By definition point1 < point2 if {point1.y < point2.y || point1.y == point2.y && point1.x < point2.y <br/>Numeric values compared with <a href="global.html#DP_TOL">Flatten.Utils.DP_TOL</a> tolerance
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line101">line 101</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Point</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Query point
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>boolean</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="on"><span class="type-signature"></span>on<span class="signature">(shape)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns true if point is on a shape, false otherwise
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line233">line 233</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Shape</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>boolean</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="projectionOn"><span class="type-signature"></span>projectionOn<span class="signature">(line)</span><span class="type-signature"> &rarr; {Point}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns projection point on given line
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line159">line 159</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>line</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Line</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Line this point be projected on
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -2860,14 +1519,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(other_line)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="rotate"><span class="type-signature"></span>rotate<span class="signature">(angle, center<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Point}</span></h4>
 
     
 
 
 
 <div class="description">
-    Return true if parallel or incident to other line
+    Returns new point rotated by given angle around given center point.If center point is omitted, rotates around zero point (0,0).Positive value of angle defines rotation in counter clockwise direction,negative angle defines rotation in clockwise clockwise direction
 </div>
 
 
@@ -2903,7 +1562,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line3870">line 3870</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -2935,495 +1594,11 @@
         <th>Type</th>
 
         
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other_line</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Line</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                line to check
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(matrix)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns true if two matrix are equal parameter by parameter
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4381">line 4381</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
+        <th>Attributes</th>
         
 
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>matrix</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Matrix</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                other matrix
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    true if equal, false otherwise
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(sx, sy)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return new matrix as result of mutiplication of the current matrixby the matrix (sx,0,0,sy,0,0) that defines scaling
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4369">line 4369</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>sx</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sy</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Matrix</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(angle)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return new matrix as a result of multiplication of the current matrixby the matrix that defines rotation by given angle (in radians) aroundpoint (0,0) in counter clockwise direction
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4353">line 4353</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -3440,14 +1615,73 @@
 
             <td class="type">
             
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">
+                angle in radians
                 
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>center</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Point</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    (0,0)
+                
+                </td>
+            
+
+            <td class="description last">
+                center
                 
             </td>
         </tr>
@@ -3480,7 +1714,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Matrix</code></span>
+<span class="param-type"><code>Point</code></span>
 
 
     </dd>
@@ -3499,14 +1733,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(tx, ty)</span><span class="type-signature"> &rarr; {Matrix}</span></h4>
+    <h4 class="name" id="svg"><span class="type-signature"></span>svg<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Return new matrix as a result of multiplication of the current matrixby the matrix(1,0,0,1,tx,ty)
+    Return string to draw point in svg as circle with radius "r" <br/>Accept any valid attributes of svg elements as svg objectDefaults attribues are: <br/>{   r:"3",   stroke:"black",   strokeWidth:"1",   fill:"red"}
 </div>
 
 
@@ -3542,7 +1776,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4323">line 4323</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line272">line 272</a>
     </li></ul></dd>
     
 
@@ -3586,13 +1820,13 @@
 
         <tr>
             
-                <td class="name"><code>tx</code></td>
+                <td class="name"><code>attrs</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>number</code></span>
+<span class="param-type"><code>Object</code></span>
 
 
             
@@ -3603,33 +1837,7 @@
             
 
             <td class="description last">
-                translation by x
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ty</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                translation by y
+                Any valid attributes of svg circle element, like "r", "stroke", "strokeWidth", "fill"
                 
             </td>
         </tr>
@@ -3662,7 +1870,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Matrix</code></span>
+<span class="param-type"><code>String</code></span>
 
 
     </dd>
@@ -3681,14 +1889,14 @@
 
     
 
-    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(vector)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
+    <h4 class="name" id="toJSON"><span class="type-signature"></span>toJSON<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
 <div class="description">
-    Transform vector [x,y] using transformation matrix. <br/>Vector [x,y] is an abstract array[2] of numbers and not a FlattenJS object <br/>The result is also an abstract vector [x',y'] = A * [x,y]:<code>[x'       [ ax + by + tx y'   =     cx + dy + ty 1]                    1 ]</code>
+    Returns JSON object. This method defines how data will beserialized when called JSON.stringify method with this object
 </div>
 
 
@@ -3724,7 +1932,267 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dist_flatten.commonjs2.js.html">dist/flatten.commonjs2.js</a>, <a href="dist_flatten.commonjs2.js.html#line4297">line 4297</a>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line285">line 285</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Object</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="transform"><span class="type-signature"></span>transform<span class="signature">(m)</span><span class="type-signature"> &rarr; {Point}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return new point transformed by affine transformation matrix m
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line149">line 149</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>m</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Matrix</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                affine transformation matrix (a,b,c,d,tx,ty)
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Point</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="translate"><span class="type-signature"></span>translate<span class="signature">(vector)</span><span class="type-signature"> &rarr; {Point}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns new point translated by given vector.Translation vector may by also defined by a pair of numbers.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="classes_point.js.html">classes/point.js</a>, <a href="classes_point.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -3774,7 +2242,7 @@
             <td class="type">
             
                 
-<span class="param-type"><code>Array.&lt;number></code></span>
+<span class="param-type"><code>Vector</code></span>
 
 
             
@@ -3785,7 +2253,36 @@
             
 
             <td class="description last">
-                array[2] of numbers
+                Translation vector defined as Flatten.Vector or
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code></code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+|
+
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Translation vector defined as pair of numbers
                 
             </td>
         </tr>
@@ -3818,16 +2315,12 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Array.&lt;number></code></span>
+<span class="param-type"><code>Point</code></span>
 
 
     </dd>
 </dl>
 
-
-<div class="param-desc">
-    transformation result - array[2] of numbers
-</div>
 
     
 </div>

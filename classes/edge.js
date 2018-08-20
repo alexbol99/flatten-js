@@ -213,10 +213,7 @@ module.exports = function(Flatten) {
         }
 
         toJSON() {
-            let json = this.shape.clone();
-            // json.name = this.shape.constructor.name;          // not pass webpack minification
-            json.name = this.shape instanceof  Flatten.Segment ? "segment" : "arc";
-            return json;
+            return this.shape.toJSON();
         }
     };
 };

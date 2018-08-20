@@ -16,17 +16,32 @@ module.exports = function(Flatten) {
          * @param {Point} pc - circle center point
          * @param {number} r - circle radius
          */
-        constructor(pc, r) {
+        constructor(...args) {
             /**
              * Circle center
              * @type {Point}
              */
-            this.pc = pc;
+            this.pc = new Flatten.Point();
             /**
              * Circle radius
              * @type {number}
              */
-            this.r = r;
+            this.r = 1;
+
+            if (args.length == 1 && args[0] instanceof Object && args[0].name === "circle") {
+                let {pc, r} = args[0];
+                this.pc = new Flatten.Point(pc);
+                this.r = r;
+                return;
+            }
+            else {
+                let [pc, r] = [...args];
+                this.pc = pc.clone();
+                this.r = r;
+                return;
+            }
+
+            throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -235,6 +250,15 @@ module.exports = function(Flatten) {
             let class_str = (className && className.length > 0) ? `class="${className}"` : "";
 
             return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} />`;
+        }
+
+        /**
+         * Returns JSON object. This method defines how data will be
+         * serialized when called JSON.stringify method with this object
+         * @returns {Object}
+         */
+        toJSON() {
+            return Object.assign({},this,{name:"circle"});
         }
     };
 

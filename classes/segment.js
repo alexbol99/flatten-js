@@ -39,6 +39,13 @@ module.exports = function (Flatten) {
                 return;
             }
 
+            if (args.length == 1 && args[0] instanceof Object && args[0].name === "segment") {
+                let {ps,pe} = args[0];
+                this.ps = new Flatten.Point(ps.x, ps.y);
+                this.pe = new Flatten.Point(pe.x, pe.y);
+                return;
+            }
+
             if (args.length == 2 && args[0] instanceof Flatten.Point && args[1] instanceof Flatten.Point) {
                 this.ps = args[0].clone();
                 this.pe = args[1].clone();
@@ -484,6 +491,15 @@ module.exports = function (Flatten) {
 
             return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" ${id_str} ${class_str} />`;
 
+        }
+
+        /**
+         * Returns JSON object. This method defines how data will be
+         * serialized when called JSON.stringify method with this object
+         * @returns {Object}
+         */
+        toJSON() {
+            return Object.assign({},this,{name:"segment"});
         }
     };
 

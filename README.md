@@ -4,10 +4,11 @@
 
 # Javascript library for 2d geometry
 
-FlattenJS is a javascript library (less than 50 Kb minified) for manipulating abstract geometrical shapes like point, vector, line, segment,
+FlattenJS is a javascript library (about 50 Kb minified) for manipulating abstract geometrical shapes like point, vector, line, segment,
 circle, arc and polygon. Shapes may be organized into Planar Set - searchable container which support spatial queries.
 
-FlattenJS provides a lot of useful methods and algorithms like finding intersections, checking inclusion, calculating distance, and more.
+FlattenJS provides a lot of useful methods and algorithms like finding intersections, checking inclusion, calculating distance, apply
+transformations and more.
 Polygon model is rather comprehensive and supports multi polygons with many islands and holes. Edges of polygon may be circular arcs or segments.
 Some algorithms like [Boolean Operations](https://github.com/alexbol99/flatten-boolean-op) and [Offset](https://github.com/alexbol99/flatten-offset),
 implemented in separate packages.     
