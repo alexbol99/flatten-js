@@ -249,7 +249,7 @@ declare namespace Flatten {
         dot(v: Vector): number;
         equalTo(v: Vector): boolean;
         invert(): Vector;
-        multiple(scalar: number): Vector;
+        multiply(scalar: number): Vector;
         normalize(): Vector;
         projectionOn(v: Vector): Vector;
         rotate(angle: number): Vector;
