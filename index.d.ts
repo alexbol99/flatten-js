@@ -64,7 +64,7 @@ declare namespace Flatten {
         contains(pt: Point): boolean;
         chordHeight(): number;
         distanceTo(geom: Shape | PlanarSet): [number, Segment];
-        intersect(shape: Line | Circle | Segment | Arc): Array<Point>;
+        intersect(shape: Shape): Array<Point>;
         middle(): Point;
         reverse(): Arc;
         rotate(angle: number, center: Point): Arc;
@@ -75,6 +75,7 @@ declare namespace Flatten {
         transform(matrix?: Matrix): Arc;
         translate(vec: Vector): Arc;
         translate(x:number, y:number): Arc;
+        toJSON() : Object;
     }
 
     class Box {
@@ -119,9 +120,10 @@ declare namespace Flatten {
         clone(): Circle;
         contains(pt: Point): boolean;
         distanceTo(geom: Shape | PlanarSet): [number, Segment];
-        intersect(shape: Line | Circle | Segment | Arc): Array<Point>;
+        intersect(shape: Shape): Array<Point>;
         svg(attrs?: SVGAttributes): string;
         toArc(counterclockwise?: boolean): Arc;
+        toJSON() : Object;
     }
 
     class Line {
@@ -142,9 +144,10 @@ declare namespace Flatten {
         contains(pt: Point): boolean;
         distanceTo(shape: Shape): [number, Segment];
         incidentTo(line: Line): boolean;
-        intersect(shape: Line | Circle | Segment | Arc): Point[];
+        intersect(shape: Shape): Point[];
         parallelTo(line: Line): boolean;
         svg(box: Box, attrs?: SVGAttributes): string;
+        toJSON() : Object;
     }
 
     class Point {
@@ -172,6 +175,7 @@ declare namespace Flatten {
         transform(matrix: Matrix): Point;
         translate(vec: Vector): Point;
         translate(x: number, y: number): Point;
+        toJSON() : Object;
     }
 
     class Ray {
@@ -210,7 +214,7 @@ declare namespace Flatten {
         contains(pt: Point): boolean;
         distanceTo(shape: Shape): [number, Segment];
         equalTo(seg: Segment): boolean;
-        intersect(shape: Line | Circle | Segment | Arc): Point[];
+        intersect(shape: Shape): Point[];
         isZeroLength(): boolean;
         middle(): Point;
         reverse(): Segment;
@@ -222,6 +226,7 @@ declare namespace Flatten {
         translate(vec: Vector): Segment;
         translate(x: number, y: number): Segment;
         svg(attrs?: SVGAttributes): string;
+        toJSON() : Object;
     }
 
     class Vector {
@@ -251,6 +256,7 @@ declare namespace Flatten {
         rotate90CCW(): Vector;
         rotate90CW(): Vector;
         subtract(v: Vector): Vector;
+        toJSON() : Object;
     }
 
     class Matrix {
@@ -385,12 +391,14 @@ declare namespace Flatten {
         contains(pt: Point): boolean;
         deleteFace(face: Face): boolean;
         distanceTo(shape: Shape): [number, Segment];
+        intersect(shape: Shape): Point[];
         isValid(): boolean;
         removeChain(face: Face, edgeFrom: Edge, edgeTo: Edge): void;
         rotate(angle?: number, center?: Point): Polygon;
         svg(attrs?: SVGAttributes): string;
         transform(matrix?: Matrix): Polygon;
         translate(vec: Vector): Polygon;
+        toJSON() : Object;
     }
 
     type Shape = Point | Line | Circle | Segment | Arc | Polygon;

@@ -1141,7 +1141,7 @@ module.exports = function (Flatten) {
         // }
 
         // 1. Quick reject
-        if (polygon.box.notIntersect(point.box)) {
+        if (polygon.box.not_intersect(point.box)) {
             return Flatten.OUTSIDE;
         }
 
@@ -1321,22 +1321,74 @@ module.exports = function (Flatten) {
          * @param {number} r - arc radius
          * @param {number} startAngle - start angle in radians from 0 to 2*PI
          * @param {number} endAngle - end angle in radians from 0 to 2*PI
-         * @param {boolean} counterClockwise - arc direction, true - clockwise (or {@link Flatten.CCW}), false - counter clockwise (or {@link Flatten.CW)}
+         * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counter clockwise
          */
         function Arc() {
-            var pc = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Flatten.Point();
-            var r = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-            var startAngle = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-            var endAngle = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2 * Math.PI;
-            var counterClockwise = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
-
             _classCallCheck(this, Arc);
 
-            this.pc = pc.clone();
-            this.r = r;
-            this.startAngle = startAngle;
-            this.endAngle = endAngle;
-            this.counterClockwise = counterClockwise;
+            /**
+             * Arc center
+             * @type {Point}
+             */
+            this.pc = new Flatten.Point();
+            /**
+             * Arc radius
+             * @type {number}
+             */
+            this.r = 1;
+            /**
+             * Arc start angle in radians
+             * @type {number}
+             */
+            this.startAngle = 0;
+            /**
+             * Arc end angle in radians
+             * @type {number}
+             */
+            this.endAngle = 2 * Math.PI;
+            /**
+             * Arc orientation
+             * @type {boolean}
+             */
+            this.counterClockwise = Flatten.CCW;
+
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            if (args.length == 0) return;
+
+            if (args.length == 1 && args[0] instanceof Object && args[0].name === "arc") {
+                var _args$ = args[0],
+                    pc = _args$.pc,
+                    r = _args$.r,
+                    startAngle = _args$.startAngle,
+                    endAngle = _args$.endAngle,
+                    counterClockwise = _args$.counterClockwise;
+
+                this.pc = new Flatten.Point(pc.x, pc.y);
+                this.r = r;
+                this.startAngle = startAngle;
+                this.endAngle = endAngle;
+                this.counterClockwise = counterClockwise;
+                return;
+            } else {
+                var _ref = [].concat(args),
+                    _pc = _ref[0],
+                    _r = _ref[1],
+                    _startAngle = _ref[2],
+                    _endAngle = _ref[3],
+                    _counterClockwise = _ref[4];
+
+                this.pc = _pc.clone();
+                this.r = _r;
+                this.startAngle = _startAngle;
+                this.endAngle = _endAngle;
+                this.counterClockwise = _counterClockwise;
+                return;
+            }
+
+            throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -1408,7 +1460,7 @@ module.exports = function (Flatten) {
         }, {
             key: "middle",
             value: function middle() {
-                var endAngle = this.counterClockwise === Flatten.CCW ? this.startAngle + this.sweep / 2 : this.startAngle - this.sweep / 2;
+                var endAngle = this.counterClockwise ? this.startAngle + this.sweep / 2 : this.startAngle - this.sweep / 2;
                 var arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
                 return arc.end;
             }
@@ -1426,14 +1478,16 @@ module.exports = function (Flatten) {
 
             /**
              * Returns array of intersection points between arc and other shape
-             * @param {Shape} shape Shape of the one of supported types Line, Circle, Segment, Arc <br/>
-             * TODO: support Polygon and Planar Set
+             * @param {Shape} shape Shape of the one of supported types <br/>
              * @returns {Points[]}
              */
 
         }, {
             key: "intersect",
             value: function intersect(shape) {
+                if (shape instanceof Flatten.Point) {
+                    return this.contains(shape) ? [shape] : [];
+                }
                 if (shape instanceof Flatten.Line) {
                     return shape.intersect(this);
                 }
@@ -1445,6 +1499,9 @@ module.exports = function (Flatten) {
                 }
                 if (shape instanceof Flatten.Arc) {
                     return Arc.intersectArc2Arc(this, shape);
+                }
+                if (shape instanceof Flatten.Polygon) {
+                    return Flatten.Polygon.intersectShape2Polygon(this, shape);
                 }
             }
 
@@ -1634,10 +1691,10 @@ module.exports = function (Flatten) {
         }, {
             key: "translate",
             value: function translate() {
-                var _pc;
+                var _pc2;
 
                 var arc = this.clone();
-                arc.pc = (_pc = this.pc).translate.apply(_pc, arguments);
+                arc.pc = (_pc2 = this.pc).translate.apply(_pc2, arguments);
                 return arc;
             }
 
@@ -1739,6 +1796,18 @@ module.exports = function (Flatten) {
                 } else {
                     return "\n<path d=\"M" + this.start.x + "," + this.start.y + "\n                             A" + this.r + "," + this.r + " 0 " + largeArcFlag + "," + sweepFlag + " " + this.end.x + "," + this.end.y + "\"\n                    stroke=\"" + (stroke || "black") + "\" stroke-width=\"" + (strokeWidth || 1) + "\" fill=\"" + (fill || "none") + "\" " + id_str + " " + class_str + " />";
                 }
+            }
+
+            /**
+             * Returns JSON object. This method defines how data will be
+             * serialized when called JSON.stringify method with this object
+             * @returns {Object}
+             */
+
+        }, {
+            key: "toJSON",
+            value: function toJSON() {
+                return Object.assign({}, this, { name: "arc" });
             }
         }, {
             key: "sweep",
@@ -1849,7 +1918,7 @@ module.exports = function (Flatten) {
             value: function intersectArc2Arc(arc1, arc2) {
                 var ip = [];
 
-                if (arc1.box.notIntersect(arc2.box)) {
+                if (arc1.box.not_intersect(arc2.box)) {
                     return ip;
                 }
 
@@ -1911,7 +1980,7 @@ module.exports = function (Flatten) {
             value: function intersectArc2Circle(arc, circle) {
                 var ip = [];
 
-                if (arc.box.notIntersect(circle.box)) {
+                if (arc.box.not_intersect(circle.box)) {
                     return ip;
                 }
 
@@ -1966,8 +2035,8 @@ module.exports = function (Flatten) {
      * @param args
      */
     Flatten.arc = function () {
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
+        for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+            args[_key2] = arguments[_key2];
         }
 
         return new (Function.prototype.bind.apply(Flatten.Arc, [null].concat(args)))();
@@ -2054,7 +2123,7 @@ module.exports = function (Flatten) {
              */
 
         }, {
-            key: "notIntersect",
+            key: "not_intersect",
 
 
             /**
@@ -2062,7 +2131,7 @@ module.exports = function (Flatten) {
              * @param {Box} other_box - other box to test
              * @returns {boolean}
              */
-            value: function notIntersect(other_box) {
+            value: function not_intersect(other_box) {
                 return this.xmax < other_box.xmin || this.xmin > other_box.xmax || this.ymax < other_box.ymin || this.ymin > other_box.ymax;
             }
 
@@ -2075,7 +2144,7 @@ module.exports = function (Flatten) {
         }, {
             key: "intersect",
             value: function intersect(other_box) {
-                return !this.notIntersect(other_box);
+                return !this.not_intersect(other_box);
             }
 
             /**
@@ -2255,19 +2324,43 @@ module.exports = function (Flatten) {
          * @param {Point} pc - circle center point
          * @param {number} r - circle radius
          */
-        function Circle(pc, r) {
+        function Circle() {
             _classCallCheck(this, Circle);
 
             /**
              * Circle center
              * @type {Point}
              */
-            this.pc = pc;
+            this.pc = new Flatten.Point();
             /**
              * Circle radius
              * @type {number}
              */
-            this.r = r;
+            this.r = 1;
+
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            if (args.length == 1 && args[0] instanceof Object && args[0].name === "circle") {
+                var _args$ = args[0],
+                    pc = _args$.pc,
+                    r = _args$.r;
+
+                this.pc = new Flatten.Point(pc);
+                this.r = r;
+                return;
+            } else {
+                var _ref = [].concat(args),
+                    _pc = _ref[0],
+                    _r = _ref[1];
+
+                this.pc = _pc.clone();
+                this.r = _r;
+                return;
+            }
+
+            throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -2316,13 +2409,16 @@ module.exports = function (Flatten) {
 
             /**
              * Returns array of intersection points between circle and other shape
-             * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc
+             * @param {Shape} shape Shape of the one of supported types
              * @returns {Point[]}
              */
 
         }, {
             key: "intersect",
             value: function intersect(shape) {
+                if (shape instanceof Flatten.Point) {
+                    return this.contains(shape) ? [shape] : [];
+                }
                 if (shape instanceof Flatten.Line) {
                     return shape.intersect(this);
                 }
@@ -2337,6 +2433,9 @@ module.exports = function (Flatten) {
 
                 if (shape instanceof Flatten.Arc) {
                     return shape.intersect(this);
+                }
+                if (shape instanceof Flatten.Polygon) {
+                    return Flatten.Polygon.intersectShape2Polygon(this, shape);
                 }
             }
 
@@ -2450,6 +2549,18 @@ module.exports = function (Flatten) {
 
                 return "\n<circle cx=\"" + this.pc.x + "\" cy=\"" + this.pc.y + "\" r=\"" + this.r + "\" stroke=\"" + (stroke || "black") + "\" stroke-width=\"" + (strokeWidth || 1) + "\" fill=\"" + (fill || "none") + "\" fill-opacity=\"" + (fillOpacity || 1.0) + "\" " + id_str + " " + class_str + " />";
             }
+
+            /**
+             * Returns JSON object. This method defines how data will be
+             * serialized when called JSON.stringify method with this object
+             * @returns {Object}
+             */
+
+        }, {
+            key: "toJSON",
+            value: function toJSON() {
+                return Object.assign({}, this, { name: "circle" });
+            }
         }, {
             key: "center",
             get: function get() {
@@ -2471,7 +2582,7 @@ module.exports = function (Flatten) {
             value: function intersectCirle2Circle(circle1, circle2) {
                 var ip = [];
 
-                if (circle1.box.notIntersect(circle2.box)) {
+                if (circle1.box.not_intersect(circle2.box)) {
                     return ip;
                 }
 
@@ -2542,8 +2653,8 @@ module.exports = function (Flatten) {
      * @param args
      */
     Flatten.circle = function () {
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
+        for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+            args[_key2] = arguments[_key2];
         }
 
         return new (Function.prototype.bind.apply(Flatten.Circle, [null].concat(args)))();
@@ -2765,10 +2876,7 @@ module.exports = function (Flatten) {
         }, {
             key: "toJSON",
             value: function toJSON() {
-                var json = this.shape.clone();
-                // json.name = this.shape.constructor.name;          // not pass webpack minification
-                json.name = this.shape instanceof Flatten.Segment ? "segment" : "arc";
-                return json;
+                return this.shape.toJSON();
             }
         }, {
             key: "start",
@@ -2916,9 +3024,9 @@ module.exports = function (Flatten) {
 
                                     var flattenShape = void 0;
                                     if (shape.name === "segment") {
-                                        flattenShape = new Segment(shape.ps.x, shape.ps.y, shape.pe.x, shape.pe.y);
+                                        flattenShape = new Segment(shape);
                                     } else {
-                                        flattenShape = new Arc(new Point(shape.pc.x, shape.pc.y), shape.r, shape.startAngle, shape.endAngle, shape.counterClockwise);
+                                        flattenShape = new Arc(shape);
                                     }
                                     flattenShapes.push(flattenShape);
                                 }
@@ -3452,40 +3560,14 @@ module.exports = function (Flatten) {
             }
 
             /**
-             * Return string to draw single face in polygon as svg path. Use this method when
-             * you want to display different faces with different attributes
-             * @param attrs - json structure with attributes for svg path element,
-             * like "stroke", "strokeWidth", "fill", "fillOpacity"
-             * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillOpacity: "1"
-             * @param pathDefined - define whether svg path string already defined or not.
-             * If set to <b><i>false</i></b>, string will be enclosed into <b><i>path</i></b> element
-             * This value is default, so in most of the cases this parameter can be omitted
+             * Returns string to be assigned to "d" attribute inside defined "path"
              * @returns {string}
              */
 
         }, {
             key: "svg",
             value: function svg() {
-                var attrs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                var pathDefined = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-                var stroke = attrs.stroke,
-                    strokeWidth = attrs.strokeWidth,
-                    fill = attrs.fill,
-                    fillOpacity = attrs.fillOpacity,
-                    id = attrs.id,
-                    className = attrs.className;
-
-                var id_str = id && id.length > 0 ? "id=\"" + id + "\"" : "";
-                var class_str = className && className.length > 0 ? "class=\"" + className + "\"" : "";
-
-                var svgStr = "";
-
-                if (!pathDefined) {
-                    svgStr += "\n<path stroke=\"" + (stroke || "black") + "\" stroke-width=\"" + (strokeWidth || 1) + "\" fill=\"" + (fill || "lightcyan") + "\" fill-opacity=\"" + (fillOpacity || 1.0) + "\" " + id_str + " " + class_str + " d=\"";
-                }
-
-                svgStr += "\nM" + this.first.start.x + "," + this.first.start.y;
-
+                var svgStr = "\nM" + this.first.start.x + "," + this.first.start.y;
                 var _iteratorNormalCompletion8 = true;
                 var _didIteratorError8 = false;
                 var _iteratorError8 = undefined;
@@ -3512,11 +3594,6 @@ module.exports = function (Flatten) {
                 }
 
                 svgStr += " z";
-
-                if (!pathDefined) {
-                    svgStr += "\" >\n</path>";
-                }
-
                 return svgStr;
             }
         }, {
@@ -3803,13 +3880,27 @@ module.exports = function (Flatten) {
              */
             this.norm = new Flatten.Vector(0, 1);
 
-            if (arguments.length == 0) {
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            if (args.length == 0) {
                 return;
             }
 
-            if (arguments.length == 2) {
-                var a1 = arguments.length <= 0 ? undefined : arguments[0];
-                var a2 = arguments.length <= 1 ? undefined : arguments[1];
+            if (args.length == 1 && args[0] instanceof Object && args[0].name === "line") {
+                var _args$ = args[0],
+                    pt = _args$.pt,
+                    norm = _args$.norm;
+
+                this.pt = new Flatten.Point(pt);
+                this.norm = new Flatten.Vector(norm);
+                return;
+            }
+
+            if (args.length == 2) {
+                var a1 = args[0];
+                var a2 = args[1];
 
                 if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Point) {
                     this.pt = a1;
@@ -3902,13 +3993,17 @@ module.exports = function (Flatten) {
 
             /**
              * Returns array of intersection points
-             * @param {Shape} shape - shape to intersect with of the type Line, Circle, Segment, Arc
+             * @param {Shape} shape - shape to intersect with
              * @returns {Point[]}
              */
 
         }, {
             key: "intersect",
             value: function intersect(shape) {
+                if (shape instanceof Flatten.Point) {
+                    return this.contains(shape) ? [shape] : [];
+                }
+
                 if (shape instanceof Flatten.Line) {
                     return Line.intersectLine2Line(this, shape);
                 }
@@ -3923,6 +4018,10 @@ module.exports = function (Flatten) {
 
                 if (shape instanceof Flatten.Arc) {
                     return Line.intersectLine2Arc(this, shape);
+                }
+
+                if (shape instanceof Flatten.Polygon) {
+                    return Flatten.Polygon.intersectShape2Polygon(this, shape);
                 }
             }
 
@@ -4007,6 +4106,18 @@ module.exports = function (Flatten) {
                 if (pe === undefined) pe = ps;
                 var segment = new Flatten.Segment(ps, pe);
                 return segment.svg(attrs);
+            }
+
+            /**
+             * Returns JSON object. This method defines how data will be
+             * serialized when called JSON.stringify method with this object
+             * @returns {Object}
+             */
+
+        }, {
+            key: "toJSON",
+            value: function toJSON() {
+                return Object.assign({}, this, { name: "line" });
             }
         }, {
             key: "slope",
@@ -4204,8 +4315,8 @@ module.exports = function (Flatten) {
      * @param args
      */
     Flatten.line = function () {
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
+        for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+            args[_key2] = arguments[_key2];
         }
 
         return new (Function.prototype.bind.apply(Flatten.Line, [null].concat(args)))();
@@ -4360,7 +4471,7 @@ module.exports = function (Flatten) {
 
 
             /**
-             * Return new matrix as result of mutiplication of the current matrix
+             * Return new matrix as a result of multiplication of the current matrix
              * by the matrix (sx,0,0,sy,0,0) that defines scaling
              * @param sx
              * @param sy
@@ -4417,8 +4528,6 @@ module.exports = function (Flatten) {
 "use strict";
 
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4472,6 +4581,16 @@ module.exports = function (Flatten) {
                     this.y = arr[1];
                     return;
                 }
+            }
+
+            if (args.length === 1 && args[0] instanceof Object && args[0].name === "point") {
+                var _args$ = args[0],
+                    x = _args$.x,
+                    y = _args$.y;
+
+                this.x = x;
+                this.y = y;
+                return;
             }
 
             if (args.length === 2) {
@@ -4587,12 +4706,8 @@ module.exports = function (Flatten) {
         }, {
             key: "transform",
             value: function transform(m) {
-                var _m$transform = m.transform([this.x, this.y]),
-                    _m$transform2 = _slicedToArray(_m$transform, 2),
-                    x = _m$transform2[0],
-                    y = _m$transform2[1];
-
-                return new Flatten.Point(x, y);
+                // let [x,y] = m.transform([this.x,this.y]);
+                return new Flatten.Point(m.transform([this.x, this.y]));
             }
 
             /**
@@ -4743,6 +4858,18 @@ module.exports = function (Flatten) {
                 var class_str = className && className.length > 0 ? "class=\"" + className + "\"" : "";
                 return "\n<circle cx=\"" + this.x + "\" cy=\"" + this.y + "\" r=\"" + (r || 3) + "\" stroke=\"" + (stroke || "black") + "\" stroke-width=\"" + (strokeWidth || 1) + "\" fill=\"" + (fill || "red") + "\" " + id_str + " " + class_str + " />";
             }
+
+            /**
+             * Returns JSON object. This method defines how data will be
+             * serialized when called JSON.stringify method with this object
+             * @returns {Object}
+             */
+
+        }, {
+            key: "toJSON",
+            value: function toJSON() {
+                return Object.assign({}, this, { name: "point" });
+            }
         }, {
             key: "box",
             get: function get() {
@@ -4838,8 +4965,16 @@ module.exports = function (Flatten) {
 
 
         _createClass(Polygon, [{
-            key: "addFace",
+            key: "isEmpty",
 
+
+            /**
+             * Return true is polygon has no edges
+             * @returns {boolean}
+             */
+            value: function isEmpty() {
+                return this.edges.size === 0;
+            }
 
             /**
              * Add new face to polygon. Returns added face
@@ -4847,6 +4982,9 @@ module.exports = function (Flatten) {
              * which comprise a closed loop
              * @returns {Face}
              */
+
+        }, {
+            key: "addFace",
             value: function addFace() {
                 for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
                     args[_key] = arguments[_key];
@@ -5154,6 +5292,28 @@ module.exports = function (Flatten) {
             }
 
             /**
+             * Return array of intersection points between polygon and other shape
+             * @param shape Shape of the one of supported types <br/>
+             * @returns {Point[]}
+             */
+
+        }, {
+            key: "intersect",
+            value: function intersect(shape) {
+                if (shape instanceof Flatten.Point) {
+                    return this.contains(shape) ? [shape] : [];
+                }
+
+                if (shape instanceof Flatten.Circle || shape instanceof Flatten.Line || shape instanceof Flatten.Segment || shape instanceof Flatten.Arc) {
+                    return Polygon.intersectShape2Polygon(shape, this);
+                }
+
+                if (shape instanceof Flatten.Polygon) {
+                    return Polygon.intersectPolygon2Polygon(shape, this);
+                }
+            }
+
+            /**
              * Return true if polygon is valid for boolean operations
              * Polygon is valid if <br/>
              * 1. All faces are simple polygons (there are no self-intersected polygons) <br/>
@@ -5399,6 +5559,9 @@ module.exports = function (Flatten) {
 
                 return newPolygon;
             }
+        }, {
+            key: "svg",
+
 
             /**
              * Return string to draw polygon in svg
@@ -5407,9 +5570,6 @@ module.exports = function (Flatten) {
              * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
              * @returns {string}
              */
-
-        }, {
-            key: "svg",
             value: function svg() {
                 var attrs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 var stroke = attrs.stroke,
@@ -5433,7 +5593,7 @@ module.exports = function (Flatten) {
                     for (var _iterator13 = this.faces[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
                         var face = _step13.value;
 
-                        svgStr += face.svg({}, true);
+                        svgStr += face.svg();
                     }
                 } catch (err) {
                     _didIteratorError13 = true;
@@ -5451,9 +5611,15 @@ module.exports = function (Flatten) {
                 }
 
                 svgStr += "\" >\n</path>";
-
                 return svgStr;
             }
+
+            /**
+             * Returns JSON object. This method defines how data will be
+             * serialized when called JSON.stringify method with this object
+             * @returns {Object}
+             */
+
         }, {
             key: "toJSON",
             value: function toJSON() {
@@ -5480,6 +5646,128 @@ module.exports = function (Flatten) {
                 return [].concat(_toConsumableArray(this.edges)).map(function (edge) {
                     return edge.start;
                 });
+            }
+        }], [{
+            key: "intersectShape2Polygon",
+            value: function intersectShape2Polygon(shape, polygon) {
+                var ip = [];
+
+                if (polygon.isEmpty() || shape.box.not_intersect(polygon.box)) {
+                    return ip;
+                }
+
+                var resp_edges = polygon.edges.search(shape.box);
+
+                var _iteratorNormalCompletion14 = true;
+                var _didIteratorError14 = false;
+                var _iteratorError14 = undefined;
+
+                try {
+                    for (var _iterator14 = resp_edges[Symbol.iterator](), _step14; !(_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done); _iteratorNormalCompletion14 = true) {
+                        var edge = _step14.value;
+                        var _iteratorNormalCompletion15 = true;
+                        var _didIteratorError15 = false;
+                        var _iteratorError15 = undefined;
+
+                        try {
+                            for (var _iterator15 = shape.intersect(edge.shape)[Symbol.iterator](), _step15; !(_iteratorNormalCompletion15 = (_step15 = _iterator15.next()).done); _iteratorNormalCompletion15 = true) {
+                                var pt = _step15.value;
+
+                                ip.push(pt);
+                            }
+                        } catch (err) {
+                            _didIteratorError15 = true;
+                            _iteratorError15 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion15 && _iterator15.return) {
+                                    _iterator15.return();
+                                }
+                            } finally {
+                                if (_didIteratorError15) {
+                                    throw _iteratorError15;
+                                }
+                            }
+                        }
+                    }
+                } catch (err) {
+                    _didIteratorError14 = true;
+                    _iteratorError14 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion14 && _iterator14.return) {
+                            _iterator14.return();
+                        }
+                    } finally {
+                        if (_didIteratorError14) {
+                            throw _iteratorError14;
+                        }
+                    }
+                }
+
+                return ip;
+            }
+        }, {
+            key: "intersectPolygon2Polygon",
+            value: function intersectPolygon2Polygon(polygon1, polygon2) {
+                var ip = [];
+
+                if (polygon1.isEmpty() || polygon2.isEmpty()) {
+                    return ip;
+                }
+
+                if (polygon1.box.not_intersect(polygon2.box)) {
+                    return ip;
+                }
+
+                var _iteratorNormalCompletion16 = true;
+                var _didIteratorError16 = false;
+                var _iteratorError16 = undefined;
+
+                try {
+                    for (var _iterator16 = polygon1.edges[Symbol.iterator](), _step16; !(_iteratorNormalCompletion16 = (_step16 = _iterator16.next()).done); _iteratorNormalCompletion16 = true) {
+                        var edge1 = _step16.value;
+                        var _iteratorNormalCompletion17 = true;
+                        var _didIteratorError17 = false;
+                        var _iteratorError17 = undefined;
+
+                        try {
+                            for (var _iterator17 = Polygon.intersectShape2Polygon(edge1.shape, polygon2)[Symbol.iterator](), _step17; !(_iteratorNormalCompletion17 = (_step17 = _iterator17.next()).done); _iteratorNormalCompletion17 = true) {
+                                var pt = _step17.value;
+
+                                ip.push(pt);
+                            }
+                        } catch (err) {
+                            _didIteratorError17 = true;
+                            _iteratorError17 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion17 && _iterator17.return) {
+                                    _iterator17.return();
+                                }
+                            } finally {
+                                if (_didIteratorError17) {
+                                    throw _iteratorError17;
+                                }
+                            }
+                        }
+                    }
+                } catch (err) {
+                    _didIteratorError16 = true;
+                    _iteratorError16 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion16 && _iterator16.return) {
+                            _iterator16.return();
+                        }
+                    } finally {
+                        if (_didIteratorError16) {
+                            throw _iteratorError16;
+                        }
+                    }
+                }
+
+                return ip;
             }
         }]);
 
@@ -5587,7 +5875,7 @@ module.exports = function (Flatten) {
             value: function intersectRay2Segment(ray, segment) {
                 var ip = [];
 
-                if (ray.box.notIntersect(segment.box)) {
+                if (ray.box.not_intersect(segment.box)) {
                     return ip;
                 }
 
@@ -5636,7 +5924,7 @@ module.exports = function (Flatten) {
             value: function intersectRay2Arc(ray, arc) {
                 var ip = [];
 
-                if (ray.box.notIntersect(arc.box)) {
+                if (ray.box.not_intersect(arc.box)) {
                     return ip;
                 }
 
@@ -5777,6 +6065,16 @@ module.exports = function (Flatten) {
                 return;
             }
 
+            if (args.length == 1 && args[0] instanceof Object && args[0].name === "segment") {
+                var _args$ = args[0],
+                    ps = _args$.ps,
+                    pe = _args$.pe;
+
+                this.ps = new Flatten.Point(ps.x, ps.y);
+                this.pe = new Flatten.Point(pe.x, pe.y);
+                return;
+            }
+
             if (args.length == 2 && args[0] instanceof Flatten.Point && args[1] instanceof Flatten.Point) {
                 this.ps = args[0].clone();
                 this.pe = args[1].clone();
@@ -5836,14 +6134,17 @@ module.exports = function (Flatten) {
 
             /**
              * Returns array of intersection points between segment and other shape
-             * @param {Shape} shape - Shape of the one of supported types Line, Circle, Segment, Arc <br/>
-             * TODO: support Polygon and Planar Set
+             * @param {Shape} shape - Shape of the one of supported types <br/>
              * @returns {Point[]}
              */
 
         }, {
             key: "intersect",
             value: function intersect(shape) {
+                if (shape instanceof Flatten.Point) {
+                    return this.contains(shape) ? [shape] : [];
+                }
+
                 if (shape instanceof Flatten.Line) {
                     return Segment.intersectSegment2Line(this, shape);
                 }
@@ -5858,6 +6159,10 @@ module.exports = function (Flatten) {
 
                 if (shape instanceof Flatten.Arc) {
                     return Segment.intersectSegment2Arc(this, shape);
+                }
+
+                if (shape instanceof Flatten.Polygon) {
+                    return Flatten.Polygon.intersectShape2Polygon(this, shape);
                 }
             }
 
@@ -6107,6 +6412,18 @@ module.exports = function (Flatten) {
 
                 return "\n<line x1=\"" + this.start.x + "\" y1=\"" + this.start.y + "\" x2=\"" + this.end.x + "\" y2=\"" + this.end.y + "\" stroke=\"" + (stroke || "black") + "\" stroke-width=\"" + (strokeWidth || 1) + "\" " + id_str + " " + class_str + " />";
             }
+
+            /**
+             * Returns JSON object. This method defines how data will be
+             * serialized when called JSON.stringify method with this object
+             * @returns {Object}
+             */
+
+        }, {
+            key: "toJSON",
+            value: function toJSON() {
+                return Object.assign({}, this, { name: "segment" });
+            }
         }, {
             key: "start",
             get: function get() {
@@ -6207,7 +6524,7 @@ module.exports = function (Flatten) {
                 var ip = [];
 
                 // quick reject
-                if (seg1.box.notIntersect(seg2.box)) {
+                if (seg1.box.not_intersect(seg2.box)) {
                     return ip;
                 }
 
@@ -6262,7 +6579,7 @@ module.exports = function (Flatten) {
             value: function intersectSegment2Circle(segment, circle) {
                 var ips = [];
 
-                if (segment.box.notIntersect(circle.box)) {
+                if (segment.box.not_intersect(circle.box)) {
                     return ips;
                 }
 
@@ -6318,7 +6635,7 @@ module.exports = function (Flatten) {
             value: function intersectSegment2Arc(segment, arc) {
                 var ip = [];
 
-                if (segment.box.notIntersect(arc.box)) {
+                if (segment.box.not_intersect(arc.box)) {
                     return ip;
                 }
 
@@ -6445,6 +6762,16 @@ module.exports = function (Flatten) {
                     this.y = arr[1];
                     return;
                 }
+            }
+
+            if (args.length === 1 && args[0] instanceof Object && args[0].name === "vector") {
+                var _args$ = args[0],
+                    x = _args$.x,
+                    y = _args$.y;
+
+                this.x = x;
+                this.y = y;
+                return;
             }
 
             if (args.length === 2) {
@@ -6655,6 +6982,18 @@ module.exports = function (Flatten) {
                 var d = this.dot(n);
                 return n.multiply(d);
             }
+
+            /**
+             * Returns JSON object. This method defines how data will be
+             * serialized when called JSON.stringify method with this object
+             * @returns {Object}
+             */
+
+        }, {
+            key: "toJSON",
+            value: function toJSON() {
+                return Object.assign({}, this, { name: "vector" });
+            }
         }, {
             key: "slope",
             get: function get() {
@@ -6783,18 +7122,16 @@ module.exports = function (Flatten) {
                 return deleted;
             }
 
-            // update(shape) {
-            //     if (super.has(shape)) {
-            //         this.delete(shape);
-            //     }
-            //     this.add(shape);
-            //
-            //     return this;
-            // }
+            /**
+             * Clear planar set
+             */
 
         }, {
             key: "clear",
-            value: function clear() {}
+            value: function clear() {
+                _get(PlanarSet.prototype.__proto__ || Object.getPrototypeOf(PlanarSet.prototype), "clear", this).call(this);
+                this.index = new IntervalTree();
+            }
 
             /**
              * 2d range search in planar set.<br/>
@@ -6877,17 +7214,17 @@ var Flatten = function Flatten() {
     this.CW = false;
     this.ORIENTATION = { CCW: -1, CW: 1, NOT_ORIENTABLE: 0 };
     this.PIx2 = 2 * Math.PI;
-    this.PI_2 = 0.5 * Math.PI;
+    // this.PI_2 = 0.5 * Math.PI;
     this.INSIDE = 1;
     this.OUTSIDE = 0;
     this.BOUNDARY = 2;
     this.CONTAINS = 3;
     this.INTERLACE = 4;
-    this.CLIP_INSIDE = 1;
-    this.CLIP_OUTSIDE = 0;
-    this.BOOLEAN_UNION = 1;
-    this.BOOLEAN_INTERSECT = 2;
-    this.BOOLEAN_SUBTRACT = 3;
+    // this.CLIP_INSIDE = 1;
+    // this.CLIP_OUTSIDE = 0;
+    // this.BOOLEAN_UNION = 1;
+    // this.BOOLEAN_INTERSECT = 2;
+    // this.BOOLEAN_SUBTRACT = 3;
     this.OVERLAP_SAME = 1;
     this.OVERLAP_OPPOSITE = 2;
     this.Utils = Utils;

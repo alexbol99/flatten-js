@@ -349,7 +349,7 @@ describe('#Flatten.Polygon', function() {
         polygon.addFace(points);
         polygon.addFace([circle(point(175,150), 30).toArc()]);
 
-        let string = JSON.stringify(polygon);
+        let string = JSON.stringify(polygon,null," ");
 
         let jsonPolygon = JSON.parse(string);
         let newPolygon = new Polygon();

@@ -42,6 +42,13 @@ module.exports = function(Flatten) {
                 }
             }
 
+            if (args.length === 1 && args[0] instanceof Object && args[0].name === "vector") {
+                let {x, y} = args[0];
+                this.x = x;
+                this.y = y;
+                return;
+            }
+
             if (args.length === 2) {
                 let a1 = args[0];
                 let a2 = args[1];
@@ -219,6 +226,15 @@ module.exports = function(Flatten) {
             let n = v.normalize();
             let d = this.dot(n);
             return n.multiply(d);
+        }
+
+        /**
+         * Returns JSON object. This method defines how data will be
+         * serialized when called JSON.stringify method with this object
+         * @returns {Object}
+         */
+        toJSON() {
+            return Object.assign({},this,{name:"vector"});
         }
     };
 

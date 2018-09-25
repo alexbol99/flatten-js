@@ -222,7 +222,7 @@ describe('#Flatten.Point', function() {
         expect(svg.search("stroke")).to.not.equal(-1);
         expect(svg.search("stroke-width")).to.not.equal(-1);
         expect(svg.search("fill")).to.not.equal(-1);
-    })
+    });
     it('Method svg() with extra parameters may add additional attributes', function() {
         let pt = new Flatten.Point(-2,2);
         let svg = pt.svg({id:"123",className:"name"});
@@ -231,5 +231,19 @@ describe('#Flatten.Point', function() {
         expect(svg.search("fill")).to.not.equal(-1);
         expect(svg.search("id")).to.not.equal(-1);
         expect(svg.search("class")).to.not.equal(-1);
-    })
+    });
+    it('May stringify and parse point', function() {
+        let pt = new Flatten.Point(-20,30);
+        let str = JSON.stringify(pt);
+        let pt_json = JSON.parse(str);
+        let pt_new = new Point(pt_json);
+        expect(pt_new).to.deep.equal(pt);
+    });
+    it('May stringify and parse array of points', function() {
+        let pts = [point(-20,30), point(-5,18), point(40,28)];
+        let str = JSON.stringify(pts);
+        let pts_json = JSON.parse(str);
+        let pts_new = pts_json.map(pt_json => point(pt_json));
+        expect(pts_new.length).to.equal(3);
+    });
 });

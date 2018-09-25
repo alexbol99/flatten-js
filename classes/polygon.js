@@ -369,13 +369,17 @@ module.exports = function(Flatten) {
 
             let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
             for (let face of this.faces) {
-                svgStr += face.svg({}, true);
+                svgStr += face.svg();
             }
             svgStr += `" >\n</path>`;
-
             return svgStr;
         }
 
+        /**
+         * Returns JSON object. This method defines how data will be
+         * serialized when called JSON.stringify method with this object
+         * @returns {Object}
+         */
         toJSON() {
             return [...this.faces].map(face => face.toJSON());
         }

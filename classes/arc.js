@@ -18,12 +18,56 @@ module.exports = function(Flatten) {
          * @param {number} endAngle - end angle in radians from 0 to 2*PI
          * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counter clockwise
          */
-        constructor(pc=new Flatten.Point(), r=1, startAngle=0, endAngle=2*Math.PI, counterClockwise=true) {
-            this.pc = pc.clone();
-            this.r = r;
-            this.startAngle = startAngle;
-            this.endAngle = endAngle;
-            this.counterClockwise = counterClockwise;
+        constructor(...args) {
+            /**
+             * Arc center
+             * @type {Point}
+             */
+            this.pc = new Flatten.Point();
+            /**
+             * Arc radius
+             * @type {number}
+             */
+            this.r = 1;
+            /**
+             * Arc start angle in radians
+             * @type {number}
+             */
+            this.startAngle = 0;
+            /**
+             * Arc end angle in radians
+             * @type {number}
+             */
+            this.endAngle = 2*Math.PI;
+            /**
+             * Arc orientation
+             * @type {boolean}
+             */
+            this.counterClockwise = Flatten.CCW;
+
+            if (args.length == 0)
+                return;
+
+            if (args.length == 1 && args[0] instanceof Object && args[0].name === "arc") {
+                let {pc, r, startAngle, endAngle, counterClockwise} = args[0];
+                this.pc = new Flatten.Point(pc.x, pc.y);
+                this.r = r;
+                this.startAngle = startAngle;
+                this.endAngle = endAngle;
+                this.counterClockwise = counterClockwise;
+                return;
+            }
+            else {
+                let [pc, r, startAngle, endAngle, counterClockwise] = [...args];
+                this.pc = pc.clone();
+                this.r = r;
+                this.startAngle = startAngle;
+                this.endAngle = endAngle;
+                this.counterClockwise = counterClockwise;
+                return;
+            }
+
+            throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -503,6 +547,15 @@ module.exports = function(Flatten) {
                              A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
                     stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`
             }
+        }
+
+        /**
+         * Returns JSON object. This method defines how data will be
+         * serialized when called JSON.stringify method with this object
+         * @returns {Object}
+         */
+        toJSON() {
+            return Object.assign({},this,{name:"arc"});
         }
     };
 
