@@ -228,14 +228,17 @@ module.exports = function(Flatten) {
                 return this.contains(shape) ? [shape] : [];
             }
 
+            if (shape instanceof Flatten.Line) {
+                return Polygon.intersectLine2Polygon(shape, this);
+            }
+
             if (shape instanceof Flatten.Circle ||
-                shape instanceof Flatten.Line ||
                 shape instanceof Flatten.Segment ||
                 shape instanceof Flatten.Arc) {
                 return Polygon.intersectShape2Polygon(shape, this);
             }
 
-            if (shape instanceof  Flatten.Polygon) {
+            if (shape instanceof Flatten.Polygon) {
                 return Polygon.intersectPolygon2Polygon(shape, this);
             }
         }
@@ -319,7 +322,7 @@ module.exports = function(Flatten) {
         static intersectShape2Polygon(shape, polygon) {
             let ip = [];
 
-            if (polygon.isEmpty() || shape.box.not_intersect(polygon.box)) {
+            if ( polygon.isEmpty() || shape.box.not_intersect(polygon.box) ) {
                 return ip;
             }
 
@@ -327,6 +330,22 @@ module.exports = function(Flatten) {
 
             for (let edge of resp_edges) {
                 for (let pt of shape.intersect(edge.shape)) {
+                    ip.push(pt);
+                }
+            }
+
+            return ip;
+        }
+
+        static intersectLine2Polygon(line, polygon) {
+            let ip = [];
+
+            if ( polygon.isEmpty() ) {
+                return ip;
+            }
+
+            for (let edge of polygon.edges) {
+                for (let pt of line.intersect(edge.shape)) {
                     ip.push(pt);
                 }
             }

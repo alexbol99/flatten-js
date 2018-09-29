@@ -36,8 +36,8 @@ module.exports = function(Flatten) {
             }
             else {
                 let [pc, r] = [...args];
-                this.pc = pc.clone();
-                this.r = r;
+                if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
+                if (r !== undefined) this.r = r;
                 return;
             }
 
