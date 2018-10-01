@@ -2,10 +2,12 @@
  * Created by Alex Bol on 3/17/2017.
  */
 
+
 "use strict";
 
 module.exports = function (Flatten) {
-    let {Point, Segment, Arc, Box, Edge} = Flatten;
+    let {Point, point, Segment, segment, Arc, Box, Edge, Circle} = Flatten;
+
     /**
      * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
      * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}.
@@ -94,6 +96,20 @@ module.exports = function (Flatten) {
                     for (let edge of face) {
                         polygon.edges.add(edge);
                     }
+                }
+                /* Instantiate face from circle circle in CCW orientation */
+                else if (args[0] instanceof Circle) {
+                    this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
+                }
+                /* Instantiate face from a box in CCW orientation */
+                else if (args[0] instanceof Box) {
+                    let box = args[0];
+                    this.shapes2face(polygon.edges, [
+                        segment(point(box.xmin, box.ymin), point(box.xmax, box.ymin)),
+                        segment(point(box.xmax, box.ymin), point(box.xmax, box.ymax)),
+                        segment(point(box.xmax, box.ymax), point(box.xmin, box.ymax)),
+                        segment(point(box.xmin, box.ymax), point(box.xmin, box.ymin))
+                    ]);
                 }
             }
             /* If passed two edges, consider them as start and end of the face loop */

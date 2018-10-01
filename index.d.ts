@@ -384,7 +384,7 @@ declare namespace Flatten {
         readonly vertices: Point[];
 
         // public methods
-        addFace(args: Array<Point> | Array<Segment | Arc>): Face;
+        addFace(args: Array<Point> | Array<Segment | Arc> | Circle | Box): Face;
         addVertex(edge: Edge, pt: Point): Edge;
         area(): number;
         clone(): Polygon;

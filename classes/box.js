@@ -181,6 +181,14 @@ module.exports = function(Flatten) {
             let height = this.ymax - this.ymin;
 
             return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`;
-        }
+        };
     };
+
+    /**
+     * Shortcut to create new circle
+     * @param args
+     * @returns {Box}
+     */
+    Flatten.box = (...args) => new Flatten.Box(...args);
+
 };

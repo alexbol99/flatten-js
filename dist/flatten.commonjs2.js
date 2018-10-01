@@ -2286,6 +2286,19 @@ module.exports = function (Flatten) {
 
         return Box;
     }();
+
+    /**
+     * Shortcut to create new circle
+     * @param args
+     * @returns {Box}
+     */
+    Flatten.box = function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return new (Function.prototype.bind.apply(Flatten.Box, [null].concat(args)))();
+    };
 };
 
 /***/ }),
@@ -2942,10 +2955,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 module.exports = function (Flatten) {
     var Point = Flatten.Point,
+        point = Flatten.point,
         Segment = Flatten.Segment,
+        segment = Flatten.segment,
         Arc = Flatten.Arc,
         Box = Flatten.Box,
-        Edge = Flatten.Edge;
+        Edge = Flatten.Edge,
+        Circle = Flatten.Circle;
+
     /**
      * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
      * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}.
@@ -2985,7 +3002,11 @@ module.exports = function (Flatten) {
             this._box = undefined; // new Box();
             this._orientation = undefined;
 
-            if ((arguments.length <= 1 ? 0 : arguments.length - 1) == 0) {
+            for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                args[_key - 1] = arguments[_key];
+            }
+
+            if (args.length == 0) {
                 return;
             }
 
@@ -2993,10 +3014,10 @@ module.exports = function (Flatten) {
              1) array of shapes that performs close loop or
              2) array of points that performs set of vertices
              */
-            if ((arguments.length <= 1 ? 0 : arguments.length - 1) == 1) {
-                if ((arguments.length <= 1 ? undefined : arguments[1]) instanceof Array) {
+            if (args.length == 1) {
+                if (args[0] instanceof Array) {
                     // let argsArray = args[0];
-                    var shapes = arguments.length <= 1 ? undefined : arguments[1]; // argsArray[0];
+                    var shapes = args[0]; // argsArray[0];
                     if (shapes.length == 0) return;
 
                     if (shapes.every(function (shape) {
@@ -3049,8 +3070,8 @@ module.exports = function (Flatten) {
                         }
                 }
                 /* Create new face and copy edges into polygon.edges set */
-                else if ((arguments.length <= 1 ? undefined : arguments[1]) instanceof Face) {
-                        var face = arguments.length <= 1 ? undefined : arguments[1];
+                else if (args[0] instanceof Face) {
+                        var face = args[0];
                         this.first = face.first;
                         this.last = face.last;
                         var _iteratorNormalCompletion2 = true;
@@ -3078,13 +3099,22 @@ module.exports = function (Flatten) {
                             }
                         }
                     }
+                    /* Instantiate face from circle circle in CCW orientation */
+                    else if (args[0] instanceof Circle) {
+                            this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
+                        }
+                        /* Instantiate face from a box in CCW orientation */
+                        else if (args[0] instanceof Box) {
+                                var box = args[0];
+                                this.shapes2face(polygon.edges, [segment(point(box.xmin, box.ymin), point(box.xmax, box.ymin)), segment(point(box.xmax, box.ymin), point(box.xmax, box.ymax)), segment(point(box.xmax, box.ymax), point(box.xmin, box.ymax)), segment(point(box.xmin, box.ymax), point(box.xmin, box.ymin))]);
+                            }
             }
             /* If passed two edges, consider them as start and end of the face loop */
             /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
             /* Assume that edges already copied to polygon.edges set in the clip algorithm !!! */
-            if ((arguments.length <= 1 ? 0 : arguments.length - 1) == 2 && (arguments.length <= 1 ? undefined : arguments[1]) instanceof Edge && (arguments.length <= 2 ? undefined : arguments[2]) instanceof Edge) {
-                this.first = arguments.length <= 1 ? undefined : arguments[1]; // first edge in face or undefined
-                this.last = arguments.length <= 2 ? undefined : arguments[2]; // last edge in face or undefined
+            if (args.length == 2 && args[0] instanceof Edge && args[1] instanceof Edge) {
+                this.first = args[0]; // first edge in face or undefined
+                this.last = args[1]; // last edge in face or undefined
                 this.last.next = this.first;
                 this.first.prev = this.last;
 

@@ -7,7 +7,7 @@ let Flatten = require('../index');
 // let Flatten = require('../dist/flatten.min');
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} = Flatten;
-let {point, vector, circle, line, segment, arc} = Flatten;
+let {point, vector, circle, line, segment, arc, box} = Flatten;
 
 describe('#Flatten.Polygon', function() {
     it('May create new instance of Polygon', function () {
@@ -67,6 +67,31 @@ describe('#Flatten.Polygon', function() {
         polygon.addFace(segments2);
         expect(polygon.edges.size).to.equal(6);
         expect(polygon.faces.size).to.equal(2);
+    });
+    it('Can construct polygon from Circle in CCW orientation', function() {
+        let polygon = new Polygon();
+        polygon.addFace(circle(point(3,3),50));
+        expect(polygon.faces.size).to.equal(1);
+        expect(polygon.edges.size).to.equal(1);
+        expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
+    });
+    it('Can construct polygon from a box in CCW orientation', function() {
+        let polygon = new Polygon();
+        polygon.addFace(box(30,40,100,200));
+        expect(polygon.faces.size).to.equal(1);
+        expect(polygon.edges.size).to.equal(4);
+        expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
+    });
+    it('Can construct polygon from a box and circle as a hole', function() {
+        let polygon = new Polygon();
+        polygon.addFace(box(0,0,100,100));
+        polygon.addFace(circle(point(40,40),20)).reverse();    // change orientation to CW
+        expect(polygon.faces.size).to.equal(2);
+        expect(polygon.edges.size).to.equal(5);
+        expect([...polygon.faces][0].size).to.equal(4);
+        expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
+        expect([...polygon.faces][1].size).to.equal(1);
+        expect([...polygon.faces][1].orientation()).to.equal(Flatten.ORIENTATION.CW);
     });
     it('Can remove faces from polygon', function () {
         let polygon = new Polygon();
