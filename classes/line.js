@@ -161,7 +161,7 @@ module.exports = function(Flatten) {
             }
 
             if (shape instanceof Flatten.Polygon) {
-                return Flatten.Polygon.intersectShape2Polygon(this, shape);
+                return Flatten.Polygon.intersectLine2Polygon(this, shape);
             }
 
         }

@@ -13,43 +13,56 @@ describe('#Flatten.Arc', function() {
         let arc = new Flatten.Arc();
         expect(arc).to.be.an.instanceof(Flatten.Arc);
     });
-    it('Default constructor constructs full circle unit arc with zero center and sweep 2PI CW', function() {
+    it('Default constructor constructs full circle unit arc with zero center and sweep 2PI CCW', function() {
         let arc = new Flatten.Arc();
         expect(arc.pc).to.deep.equal({x: 0, y: 0});
         expect(arc.sweep).to.equal(Flatten.PIx2);
-        expect(arc.counterClockwise).to.equal(true);
+        expect(arc.counterClockwise).to.equal(Flatten.CCW);
     });
-    it('Constructor can create different CCW arcs if counterClockwise=true', function () {
-        let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/4, 3*Math.PI/4, true);
+    it('Constructor creates CCW arc if parameter counterClockwise is omitted', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/4, 3*Math.PI/4);
         expect(arc.sweep).to.equal(Math.PI/2);
+        expect(arc.counterClockwise).to.equal(Flatten.CCW);
     });
-    it('Constructor can create different CCW arcs if counterClockwise=true', function () {
-        let arc = new Flatten.Arc(new Flatten.Point(), 1, 3*Math.PI/4, Math.PI/4, true);
-        expect(arc.sweep).to.equal(3*Math.PI/2);
-    });
-    it('Constructor can create different CCW arcs if counterClockwise=true', function () {
-        let arc = new Flatten.Arc(new Flatten.Point(3,4), 1, Math.PI/4, -Math.PI/4, true);
-        expect(arc.sweep).to.equal(3*Math.PI/2);
-    });
-    it('Constructor can create different CCW arcs if counterClockwise=true', function () {
-        let arc = new Flatten.Arc(new Flatten.Point(2,-2), 1, -Math.PI/4, Math.PI/4, true);
+    it('Constructor can create different CCW arcs if counterClockwise=true 1', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
         expect(arc.sweep).to.equal(Math.PI/2);
+        expect(arc.counterClockwise).to.equal(Flatten.CCW);
     });
-    it('Constructor can create different CW arcs if counterClockwise=false', function () {
-        let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/4, 3*Math.PI/4, false);
+    it('Constructor can create different CCW arcs if counterClockwise=true 2', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, 3*Math.PI/4, Math.PI/4, Flatten.CCW);
         expect(arc.sweep).to.equal(3*Math.PI/2);
+        expect(arc.counterClockwise).to.equal(Flatten.CCW);
     });
-    it('Constructor can create different CW arcs if counterClockwise=false', function () {
-        let arc = new Flatten.Arc(new Flatten.Point(), 1, 3*Math.PI/4, Math.PI/4, false);
-        expect(arc.sweep).to.equal(Math.PI/2);
-    });
-    it('Constructor can create different CW arcs if counterClockwise=false', function () {
-        let arc = new Flatten.Arc(new Flatten.Point(3,4), 1, Math.PI/4, -Math.PI/4, false);
-        expect(arc.sweep).to.equal(Math.PI/2);
-    });
-    it('Constructor can create different CW arcs if counterClockwise=false', function () {
-        let arc = new Flatten.Arc(new Flatten.Point(2,-2), 1, -Math.PI/4, Math.PI/4, false);
+    it('Constructor can create different CCW arcs if counterClockwise=true 3', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(3,4), 1, Math.PI/4, -Math.PI/4, Flatten.CCW);
         expect(arc.sweep).to.equal(3*Math.PI/2);
+        expect(arc.counterClockwise).to.equal(Flatten.CCW);
+    });
+    it('Constructor can create different CCW arcs if counterClockwise=true 4', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(2,-2), 1, -Math.PI/4, Math.PI/4, Flatten.CCW);
+        expect(arc.sweep).to.equal(Math.PI/2);
+        expect(arc.counterClockwise).to.equal(Flatten.CCW);
+    });
+    it('Constructor can create different CW arcs if counterClockwise=false 1', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, Math.PI/4, 3*Math.PI/4, Flatten.CW);
+        expect(arc.sweep).to.equal(3*Math.PI/2);
+        expect(arc.counterClockwise).to.equal(Flatten.CW);
+    });
+    it('Constructor can create different CW arcs if counterClockwise=false 2', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(), 1, 3*Math.PI/4, Math.PI/4, Flatten.CW);
+        expect(arc.sweep).to.equal(Math.PI/2);
+        expect(arc.counterClockwise).to.equal(Flatten.CW);
+    });
+    it('Constructor can create different CW arcs if counterClockwise=false 3', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(3,4), 1, Math.PI/4, -Math.PI/4, Flatten.CW);
+        expect(arc.sweep).to.equal(Math.PI/2);
+        expect(arc.counterClockwise).to.equal(Flatten.CW);
+    });
+    it('Constructor can create different CW arcs if counterClockwise=false 4', function () {
+        let arc = new Flatten.Arc(new Flatten.Point(2,-2), 1, -Math.PI/4, Math.PI/4, Flatten.CW);
+        expect(arc.sweep).to.equal(3*Math.PI/2);
+        expect(arc.counterClockwise).to.equal(Flatten.CW);
     });
     it('In order to construct full circle, set end_angle = start_angle + 2pi', function () {
         let arc = new Flatten.Arc(new Flatten.Point(), 5, Math.PI, 3*Math.PI, true);
@@ -220,6 +233,21 @@ describe('#Flatten.Arc', function() {
             let arc2 = new Arc(point(), 1, Math.PI/4, 3*Math.PI/4, false);
             let ip = arc1.intersect(arc2);
             expect(ip.length).to.equal(4);
+        });
+        it('Intersect arc with polygon', function() {
+            let points = [
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 200),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ];
+            let polygon = new Polygon();
+            polygon.addFace(points);
+            let arc = new Arc(point(150,50), 50, Math.PI/3, 5*Math.PI/3, Flatten.CCW);
+            expect(arc.intersect(polygon).length).to.equal(1);
         });
     });
     it('Calculate signed area under circular arc, full circle case, CCW', function() {

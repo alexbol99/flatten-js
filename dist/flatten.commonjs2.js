@@ -1380,11 +1380,11 @@ module.exports = function (Flatten) {
                     _endAngle = _ref[3],
                     _counterClockwise = _ref[4];
 
-                this.pc = _pc.clone();
-                this.r = _r;
-                this.startAngle = _startAngle;
-                this.endAngle = _endAngle;
-                this.counterClockwise = _counterClockwise;
+                if (_pc && _pc instanceof Flatten.Point) this.pc = _pc.clone();
+                if (_r !== undefined) this.r = _r;
+                if (_startAngle !== undefined) this.startAngle = _startAngle;
+                if (_endAngle !== undefined) this.endAngle = _endAngle;
+                if (_counterClockwise !== undefined) this.counterClockwise = _counterClockwise;
                 return;
             }
 
@@ -2286,6 +2286,19 @@ module.exports = function (Flatten) {
 
         return Box;
     }();
+
+    /**
+     * Shortcut to create new circle
+     * @param args
+     * @returns {Box}
+     */
+    Flatten.box = function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return new (Function.prototype.bind.apply(Flatten.Box, [null].concat(args)))();
+    };
 };
 
 /***/ }),
@@ -2355,8 +2368,8 @@ module.exports = function (Flatten) {
                     _pc = _ref[0],
                     _r = _ref[1];
 
-                this.pc = _pc.clone();
-                this.r = _r;
+                if (_pc && _pc instanceof Flatten.Point) this.pc = _pc.clone();
+                if (_r !== undefined) this.r = _r;
                 return;
             }
 
@@ -2942,10 +2955,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 module.exports = function (Flatten) {
     var Point = Flatten.Point,
+        point = Flatten.point,
         Segment = Flatten.Segment,
+        segment = Flatten.segment,
         Arc = Flatten.Arc,
         Box = Flatten.Box,
-        Edge = Flatten.Edge;
+        Edge = Flatten.Edge,
+        Circle = Flatten.Circle;
+
     /**
      * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
      * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}.
@@ -2985,7 +3002,11 @@ module.exports = function (Flatten) {
             this._box = undefined; // new Box();
             this._orientation = undefined;
 
-            if ((arguments.length <= 1 ? 0 : arguments.length - 1) == 0) {
+            for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                args[_key - 1] = arguments[_key];
+            }
+
+            if (args.length == 0) {
                 return;
             }
 
@@ -2993,10 +3014,10 @@ module.exports = function (Flatten) {
              1) array of shapes that performs close loop or
              2) array of points that performs set of vertices
              */
-            if ((arguments.length <= 1 ? 0 : arguments.length - 1) == 1) {
-                if ((arguments.length <= 1 ? undefined : arguments[1]) instanceof Array) {
+            if (args.length == 1) {
+                if (args[0] instanceof Array) {
                     // let argsArray = args[0];
-                    var shapes = arguments.length <= 1 ? undefined : arguments[1]; // argsArray[0];
+                    var shapes = args[0]; // argsArray[0];
                     if (shapes.length == 0) return;
 
                     if (shapes.every(function (shape) {
@@ -3049,8 +3070,8 @@ module.exports = function (Flatten) {
                         }
                 }
                 /* Create new face and copy edges into polygon.edges set */
-                else if ((arguments.length <= 1 ? undefined : arguments[1]) instanceof Face) {
-                        var face = arguments.length <= 1 ? undefined : arguments[1];
+                else if (args[0] instanceof Face) {
+                        var face = args[0];
                         this.first = face.first;
                         this.last = face.last;
                         var _iteratorNormalCompletion2 = true;
@@ -3078,13 +3099,22 @@ module.exports = function (Flatten) {
                             }
                         }
                     }
+                    /* Instantiate face from circle circle in CCW orientation */
+                    else if (args[0] instanceof Circle) {
+                            this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
+                        }
+                        /* Instantiate face from a box in CCW orientation */
+                        else if (args[0] instanceof Box) {
+                                var box = args[0];
+                                this.shapes2face(polygon.edges, [segment(point(box.xmin, box.ymin), point(box.xmax, box.ymin)), segment(point(box.xmax, box.ymin), point(box.xmax, box.ymax)), segment(point(box.xmax, box.ymax), point(box.xmin, box.ymax)), segment(point(box.xmin, box.ymax), point(box.xmin, box.ymin))]);
+                            }
             }
             /* If passed two edges, consider them as start and end of the face loop */
             /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
             /* Assume that edges already copied to polygon.edges set in the clip algorithm !!! */
-            if ((arguments.length <= 1 ? 0 : arguments.length - 1) == 2 && (arguments.length <= 1 ? undefined : arguments[1]) instanceof Edge && (arguments.length <= 2 ? undefined : arguments[2]) instanceof Edge) {
-                this.first = arguments.length <= 1 ? undefined : arguments[1]; // first edge in face or undefined
-                this.last = arguments.length <= 2 ? undefined : arguments[2]; // last edge in face or undefined
+            if (args.length == 2 && args[0] instanceof Edge && args[1] instanceof Edge) {
+                this.first = args[0]; // first edge in face or undefined
+                this.last = args[1]; // last edge in face or undefined
                 this.last.next = this.first;
                 this.first.prev = this.last;
 
@@ -3408,6 +3438,7 @@ module.exports = function (Flatten) {
             key: "signedArea",
             value: function signedArea() {
                 var sArea = 0;
+                var ymin = this.box.ymin;
                 var _iteratorNormalCompletion6 = true;
                 var _didIteratorError6 = false;
                 var _iteratorError6 = undefined;
@@ -3416,7 +3447,7 @@ module.exports = function (Flatten) {
                     for (var _iterator6 = this[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
                         var edge = _step6.value;
 
-                        sArea += edge.shape.definiteIntegral(this.box.ymin);
+                        sArea += edge.shape.definiteIntegral(ymin);
                     }
                 } catch (err) {
                     _didIteratorError6 = true;
@@ -3463,80 +3494,6 @@ module.exports = function (Flatten) {
             }
 
             /**
-             * Check relation between face and other polygon
-             * on strong assumption that they are NOT INTERSECTED <br/>
-             * Then there are 4 options: <br/>
-             * face disjoint to polygon - Flatten.OUTSIDE <br/>
-             * face inside polygon - Flatten.INSIDE <br/>
-             * face contains polygon - Flatten.CONTAIN <br/>
-             * face interlaced with polygon: inside some face and contains other face - Flatten.INTERLACE <br/>
-             * @param {Polygon} polygon - Polygon to check relation
-             */
-
-        }, {
-            key: "getRelation",
-            value: function getRelation(polygon) {
-                this.first.bv = this.first.bvStart = this.first.bvEnd = undefined;
-                var bvThisInOther = this.first.setInclusion(polygon);
-                var resp = polygon.faces.search(this.box);
-                if (resp.length === 0) {
-                    return bvThisInOther; // OUTSIDE or INSIDE
-                } else {
-                    // possible INTERLACE
-                    var polyTmp = new Flatten.Polygon();
-                    polyTmp.addFace(this);
-
-                    var numInsideThis = 0;
-                    var _iteratorNormalCompletion7 = true;
-                    var _didIteratorError7 = false;
-                    var _iteratorError7 = undefined;
-
-                    try {
-                        for (var _iterator7 = resp[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                            var face = _step7.value;
-
-                            face.first.bv = face.first.bvStart = face.first.bvEnd = undefined;
-                            var bvOtherInThis = face.first.setInclusion(polyTmp);
-                            if (bvOtherInThis === Flatten.INSIDE) {
-                                numInsideThis++;
-                            }
-                        }
-                    } catch (err) {
-                        _didIteratorError7 = true;
-                        _iteratorError7 = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion7 && _iterator7.return) {
-                                _iterator7.return();
-                            }
-                        } finally {
-                            if (_didIteratorError7) {
-                                throw _iteratorError7;
-                            }
-                        }
-                    }
-
-                    if (bvThisInOther === Flatten.OUTSIDE) {
-                        if (numInsideThis === 0) {
-                            // none inside this - outside
-                            return Flatten.OUTSIDE;
-                        } else if (numInsideThis === resp.length) {
-                            // all from resp inside this - contains or interlace
-                            if (resp.length === polygon.faces.size) {
-                                return Flatten.CONTAINS; // all faces from polygon are in response - contains
-                            } else {
-                                return Flatten.INTERLACE; // some faces inside - interlace
-                            }
-                        } else {
-                            return Flatten.INTERLACE; // some faces inside - interlace
-                        }
-                    } else if (bvThisInOther === Flatten.INSIDE) {
-                        return numInsideThis === 0 ? Flatten.INSIDE : Flatten.INTERLACE;
-                    }
-                }
-            }
-
-            /**
              * Returns true if face of the polygon is simple (no self-intersection points found)
              * NOTE: this method is incomplete because it doe not exclude touching points
              * Real self intersection inverts orientation of the polygon.
@@ -3568,27 +3525,27 @@ module.exports = function (Flatten) {
             key: "svg",
             value: function svg() {
                 var svgStr = "\nM" + this.first.start.x + "," + this.first.start.y;
-                var _iteratorNormalCompletion8 = true;
-                var _didIteratorError8 = false;
-                var _iteratorError8 = undefined;
+                var _iteratorNormalCompletion7 = true;
+                var _didIteratorError7 = false;
+                var _iteratorError7 = undefined;
 
                 try {
-                    for (var _iterator8 = this[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-                        var edge = _step8.value;
+                    for (var _iterator7 = this[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                        var edge = _step7.value;
 
                         svgStr += edge.svg();
                     }
                 } catch (err) {
-                    _didIteratorError8 = true;
-                    _iteratorError8 = err;
+                    _didIteratorError7 = true;
+                    _iteratorError7 = err;
                 } finally {
                     try {
-                        if (!_iteratorNormalCompletion8 && _iterator8.return) {
-                            _iterator8.return();
+                        if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                            _iterator7.return();
                         }
                     } finally {
-                        if (_didIteratorError8) {
-                            throw _iteratorError8;
+                        if (_didIteratorError7) {
+                            throw _iteratorError7;
                         }
                     }
                 }
@@ -3606,27 +3563,27 @@ module.exports = function (Flatten) {
              */
             get: function get() {
                 var face_edges = [];
-                var _iteratorNormalCompletion9 = true;
-                var _didIteratorError9 = false;
-                var _iteratorError9 = undefined;
+                var _iteratorNormalCompletion8 = true;
+                var _didIteratorError8 = false;
+                var _iteratorError8 = undefined;
 
                 try {
-                    for (var _iterator9 = this[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
-                        var edge = _step9.value;
+                    for (var _iterator8 = this[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+                        var edge = _step8.value;
 
                         face_edges.push(edge);
                     }
                 } catch (err) {
-                    _didIteratorError9 = true;
-                    _iteratorError9 = err;
+                    _didIteratorError8 = true;
+                    _iteratorError8 = err;
                 } finally {
                     try {
-                        if (!_iteratorNormalCompletion9 && _iterator9.return) {
-                            _iterator9.return();
+                        if (!_iteratorNormalCompletion8 && _iterator8.return) {
+                            _iterator8.return();
                         }
                     } finally {
-                        if (_didIteratorError9) {
-                            throw _iteratorError9;
+                        if (_didIteratorError8) {
+                            throw _iteratorError8;
                         }
                     }
                 }
@@ -3643,27 +3600,27 @@ module.exports = function (Flatten) {
             key: "size",
             get: function get() {
                 var counter = 0;
-                var _iteratorNormalCompletion10 = true;
-                var _didIteratorError10 = false;
-                var _iteratorError10 = undefined;
+                var _iteratorNormalCompletion9 = true;
+                var _didIteratorError9 = false;
+                var _iteratorError9 = undefined;
 
                 try {
-                    for (var _iterator10 = this[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
-                        var edge = _step10.value;
+                    for (var _iterator9 = this[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+                        var edge = _step9.value;
 
                         counter++;
                     }
                 } catch (err) {
-                    _didIteratorError10 = true;
-                    _iteratorError10 = err;
+                    _didIteratorError9 = true;
+                    _iteratorError9 = err;
                 } finally {
                     try {
-                        if (!_iteratorNormalCompletion10 && _iterator10.return) {
-                            _iterator10.return();
+                        if (!_iteratorNormalCompletion9 && _iterator9.return) {
+                            _iterator9.return();
                         }
                     } finally {
-                        if (_didIteratorError10) {
-                            throw _iteratorError10;
+                        if (_didIteratorError9) {
+                            throw _iteratorError9;
                         }
                     }
                 }
@@ -3681,27 +3638,27 @@ module.exports = function (Flatten) {
             get: function get() {
                 if (this._box === undefined) {
                     var box = new Flatten.Box();
-                    var _iteratorNormalCompletion11 = true;
-                    var _didIteratorError11 = false;
-                    var _iteratorError11 = undefined;
+                    var _iteratorNormalCompletion10 = true;
+                    var _didIteratorError10 = false;
+                    var _iteratorError10 = undefined;
 
                     try {
-                        for (var _iterator11 = this[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
-                            var edge = _step11.value;
+                        for (var _iterator10 = this[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+                            var edge = _step10.value;
 
                             box = box.merge(edge.box);
                         }
                     } catch (err) {
-                        _didIteratorError11 = true;
-                        _iteratorError11 = err;
+                        _didIteratorError10 = true;
+                        _iteratorError10 = err;
                     } finally {
                         try {
-                            if (!_iteratorNormalCompletion11 && _iterator11.return) {
-                                _iterator11.return();
+                            if (!_iteratorNormalCompletion10 && _iterator10.return) {
+                                _iterator10.return();
                             }
                         } finally {
-                            if (_didIteratorError11) {
-                                throw _iteratorError11;
+                            if (_didIteratorError10) {
+                                throw _iteratorError10;
                             }
                         }
                     }
@@ -3727,26 +3684,26 @@ module.exports = function (Flatten) {
                 var int_points = [];
 
                 // calculate intersections
-                var _iteratorNormalCompletion12 = true;
-                var _didIteratorError12 = false;
-                var _iteratorError12 = undefined;
+                var _iteratorNormalCompletion11 = true;
+                var _didIteratorError11 = false;
+                var _iteratorError11 = undefined;
 
                 try {
-                    for (var _iterator12 = face[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
-                        var edge1 = _step12.value;
+                    for (var _iterator11 = face[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
+                        var edge1 = _step11.value;
 
 
                         // request edges of polygon in the box of edge1
                         var resp = edges.search(edge1.box);
 
                         // for each edge2 in response
-                        var _iteratorNormalCompletion13 = true;
-                        var _didIteratorError13 = false;
-                        var _iteratorError13 = undefined;
+                        var _iteratorNormalCompletion12 = true;
+                        var _didIteratorError12 = false;
+                        var _iteratorError12 = undefined;
 
                         try {
-                            for (var _iterator13 = resp[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
-                                var edge2 = _step13.value;
+                            for (var _iterator12 = resp[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
+                                var edge2 = _step12.value;
 
 
                                 // Skip itself
@@ -3759,13 +3716,13 @@ module.exports = function (Flatten) {
                                 var ip = edge1.shape.intersect(edge2.shape);
 
                                 // for each intersection point
-                                var _iteratorNormalCompletion14 = true;
-                                var _didIteratorError14 = false;
-                                var _iteratorError14 = undefined;
+                                var _iteratorNormalCompletion13 = true;
+                                var _didIteratorError13 = false;
+                                var _iteratorError13 = undefined;
 
                                 try {
-                                    for (var _iterator14 = ip[Symbol.iterator](), _step14; !(_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done); _iteratorNormalCompletion14 = true) {
-                                        var pt = _step14.value;
+                                    for (var _iterator13 = ip[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
+                                        var pt = _step13.value;
 
 
                                         // skip start-end connections
@@ -3777,16 +3734,16 @@ module.exports = function (Flatten) {
                                         if (exitOnFirst) break;
                                     }
                                 } catch (err) {
-                                    _didIteratorError14 = true;
-                                    _iteratorError14 = err;
+                                    _didIteratorError13 = true;
+                                    _iteratorError13 = err;
                                 } finally {
                                     try {
-                                        if (!_iteratorNormalCompletion14 && _iterator14.return) {
-                                            _iterator14.return();
+                                        if (!_iteratorNormalCompletion13 && _iterator13.return) {
+                                            _iterator13.return();
                                         }
                                     } finally {
-                                        if (_didIteratorError14) {
-                                            throw _iteratorError14;
+                                        if (_didIteratorError13) {
+                                            throw _iteratorError13;
                                         }
                                     }
                                 }
@@ -3794,16 +3751,16 @@ module.exports = function (Flatten) {
                                 if (int_points.length > 0 && exitOnFirst) break;
                             }
                         } catch (err) {
-                            _didIteratorError13 = true;
-                            _iteratorError13 = err;
+                            _didIteratorError12 = true;
+                            _iteratorError12 = err;
                         } finally {
                             try {
-                                if (!_iteratorNormalCompletion13 && _iterator13.return) {
-                                    _iterator13.return();
+                                if (!_iteratorNormalCompletion12 && _iterator12.return) {
+                                    _iterator12.return();
                                 }
                             } finally {
-                                if (_didIteratorError13) {
-                                    throw _iteratorError13;
+                                if (_didIteratorError12) {
+                                    throw _iteratorError12;
                                 }
                             }
                         }
@@ -3811,16 +3768,16 @@ module.exports = function (Flatten) {
                         if (int_points.length > 0 && exitOnFirst) break;
                     }
                 } catch (err) {
-                    _didIteratorError12 = true;
-                    _iteratorError12 = err;
+                    _didIteratorError11 = true;
+                    _iteratorError11 = err;
                 } finally {
                     try {
-                        if (!_iteratorNormalCompletion12 && _iterator12.return) {
-                            _iterator12.return();
+                        if (!_iteratorNormalCompletion11 && _iterator11.return) {
+                            _iterator11.return();
                         }
                     } finally {
-                        if (_didIteratorError12) {
-                            throw _iteratorError12;
+                        if (_didIteratorError11) {
+                            throw _iteratorError11;
                         }
                     }
                 }
@@ -4021,7 +3978,7 @@ module.exports = function (Flatten) {
                 }
 
                 if (shape instanceof Flatten.Polygon) {
-                    return Flatten.Polygon.intersectShape2Polygon(this, shape);
+                    return Flatten.Polygon.intersectLine2Polygon(this, shape);
                 }
             }
 
@@ -5304,7 +5261,11 @@ module.exports = function (Flatten) {
                     return this.contains(shape) ? [shape] : [];
                 }
 
-                if (shape instanceof Flatten.Circle || shape instanceof Flatten.Line || shape instanceof Flatten.Segment || shape instanceof Flatten.Arc) {
+                if (shape instanceof Flatten.Line) {
+                    return Polygon.intersectLine2Polygon(shape, this);
+                }
+
+                if (shape instanceof Flatten.Circle || shape instanceof Flatten.Segment || shape instanceof Flatten.Arc) {
                     return Polygon.intersectShape2Polygon(shape, this);
                 }
 
@@ -5708,15 +5669,11 @@ module.exports = function (Flatten) {
                 return ip;
             }
         }, {
-            key: "intersectPolygon2Polygon",
-            value: function intersectPolygon2Polygon(polygon1, polygon2) {
+            key: "intersectLine2Polygon",
+            value: function intersectLine2Polygon(line, polygon) {
                 var ip = [];
 
-                if (polygon1.isEmpty() || polygon2.isEmpty()) {
-                    return ip;
-                }
-
-                if (polygon1.box.not_intersect(polygon2.box)) {
+                if (polygon.isEmpty()) {
                     return ip;
                 }
 
@@ -5725,14 +5682,14 @@ module.exports = function (Flatten) {
                 var _iteratorError16 = undefined;
 
                 try {
-                    for (var _iterator16 = polygon1.edges[Symbol.iterator](), _step16; !(_iteratorNormalCompletion16 = (_step16 = _iterator16.next()).done); _iteratorNormalCompletion16 = true) {
-                        var edge1 = _step16.value;
+                    for (var _iterator16 = polygon.edges[Symbol.iterator](), _step16; !(_iteratorNormalCompletion16 = (_step16 = _iterator16.next()).done); _iteratorNormalCompletion16 = true) {
+                        var edge = _step16.value;
                         var _iteratorNormalCompletion17 = true;
                         var _didIteratorError17 = false;
                         var _iteratorError17 = undefined;
 
                         try {
-                            for (var _iterator17 = Polygon.intersectShape2Polygon(edge1.shape, polygon2)[Symbol.iterator](), _step17; !(_iteratorNormalCompletion17 = (_step17 = _iterator17.next()).done); _iteratorNormalCompletion17 = true) {
+                            for (var _iterator17 = line.intersect(edge.shape)[Symbol.iterator](), _step17; !(_iteratorNormalCompletion17 = (_step17 = _iterator17.next()).done); _iteratorNormalCompletion17 = true) {
                                 var pt = _step17.value;
 
                                 ip.push(pt);
@@ -5763,6 +5720,68 @@ module.exports = function (Flatten) {
                     } finally {
                         if (_didIteratorError16) {
                             throw _iteratorError16;
+                        }
+                    }
+                }
+
+                return ip;
+            }
+        }, {
+            key: "intersectPolygon2Polygon",
+            value: function intersectPolygon2Polygon(polygon1, polygon2) {
+                var ip = [];
+
+                if (polygon1.isEmpty() || polygon2.isEmpty()) {
+                    return ip;
+                }
+
+                if (polygon1.box.not_intersect(polygon2.box)) {
+                    return ip;
+                }
+
+                var _iteratorNormalCompletion18 = true;
+                var _didIteratorError18 = false;
+                var _iteratorError18 = undefined;
+
+                try {
+                    for (var _iterator18 = polygon1.edges[Symbol.iterator](), _step18; !(_iteratorNormalCompletion18 = (_step18 = _iterator18.next()).done); _iteratorNormalCompletion18 = true) {
+                        var edge1 = _step18.value;
+                        var _iteratorNormalCompletion19 = true;
+                        var _didIteratorError19 = false;
+                        var _iteratorError19 = undefined;
+
+                        try {
+                            for (var _iterator19 = Polygon.intersectShape2Polygon(edge1.shape, polygon2)[Symbol.iterator](), _step19; !(_iteratorNormalCompletion19 = (_step19 = _iterator19.next()).done); _iteratorNormalCompletion19 = true) {
+                                var pt = _step19.value;
+
+                                ip.push(pt);
+                            }
+                        } catch (err) {
+                            _didIteratorError19 = true;
+                            _iteratorError19 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion19 && _iterator19.return) {
+                                    _iterator19.return();
+                                }
+                            } finally {
+                                if (_didIteratorError19) {
+                                    throw _iteratorError19;
+                                }
+                            }
+                        }
+                    }
+                } catch (err) {
+                    _didIteratorError18 = true;
+                    _iteratorError18 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion18 && _iterator18.return) {
+                            _iterator18.return();
+                        }
+                    } finally {
+                        if (_didIteratorError18) {
+                            throw _iteratorError18;
                         }
                     }
                 }
@@ -7220,11 +7239,6 @@ var Flatten = function Flatten() {
     this.BOUNDARY = 2;
     this.CONTAINS = 3;
     this.INTERLACE = 4;
-    // this.CLIP_INSIDE = 1;
-    // this.CLIP_OUTSIDE = 0;
-    // this.BOOLEAN_UNION = 1;
-    // this.BOOLEAN_INTERSECT = 2;
-    // this.BOOLEAN_SUBTRACT = 3;
     this.OVERLAP_SAME = 1;
     this.OVERLAP_OPPOSITE = 2;
     this.Utils = Utils;
@@ -8126,42 +8140,53 @@ module.exports = {
  * Created by Alex Bol on 2/18/2017.
  */
 
+/**
+ * Global constant DP_TOL is used for comparison of floating point numbers.
+ * It is set to 0.000001.
+ * @type {number}
+ */
 var DP_TOL = 0.000001;
 var DECIMALS = 3;
 
 module.exports = {
   DP_TOL: DP_TOL,
   /**
+   * Returns *true* if value comparable to zero
    * @return {boolean}
    */
   EQ_0: function EQ_0(x) {
     return x < DP_TOL && x > -DP_TOL;
   },
   /**
+   * Returns *true* if two values are equal up to DP_TOL
    * @return {boolean}
    */
   EQ: function EQ(x, y) {
     return x - y < DP_TOL && x - y > -DP_TOL;
   },
   /**
+   * Returns *true* if first argument greater than second argument up to DP_TOL
    * @return {boolean}
    */
   GT: function GT(x, y) {
     return x - y > DP_TOL;
   },
   /**
+   * Returns *true* if first argument greater than or equal to second argument up to DP_TOL
    * @return {boolean}
    */
   GE: function GE(x, y) {
     return x - y > -DP_TOL;
   },
   /**
+   * Returns *true* if first argument less than second argument up to DP_TOL
    * @return {boolean}
    */
   LT: function LT(x, y) {
     return x - y < -DP_TOL;
   },
   /**
+   * Returns *true* if first argument less than or equal to second argument up to DP_TOL
    * @return {boolean}
    */
   LE: function LE(x, y) {

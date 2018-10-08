@@ -59,11 +59,11 @@ module.exports = function(Flatten) {
             }
             else {
                 let [pc, r, startAngle, endAngle, counterClockwise] = [...args];
-                this.pc = pc.clone();
-                this.r = r;
-                this.startAngle = startAngle;
-                this.endAngle = endAngle;
-                this.counterClockwise = counterClockwise;
+                if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
+                if (r !== undefined) this.r = r;
+                if (startAngle !== undefined) this.startAngle = startAngle;
+                if (endAngle!== undefined) this.endAngle = endAngle;
+                if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
                 return;
             }
 

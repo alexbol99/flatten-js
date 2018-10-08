@@ -249,7 +249,7 @@ declare namespace Flatten {
         dot(v: Vector): number;
         equalTo(v: Vector): boolean;
         invert(): Vector;
-        multiple(scalar: number): Vector;
+        multiply(scalar: number): Vector;
         normalize(): Vector;
         projectionOn(v: Vector): Vector;
         rotate(angle: number): Vector;
@@ -384,7 +384,7 @@ declare namespace Flatten {
         readonly vertices: Point[];
 
         // public methods
-        addFace(args: Array<Point> | Array<Segment | Arc>): Face;
+        addFace(args: Array<Point> | Array<Segment | Arc> | Circle | Box): Face;
         addVertex(edge: Edge, pt: Point): Edge;
         area(): number;
         clone(): Polygon;

@@ -7,7 +7,7 @@ let Flatten = require('../index');
 // let Flatten = require('../dist/flatten.min');
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} = Flatten;
-let {point, vector, circle, line, segment, arc} = Flatten;
+let {point, vector, circle, line, segment, arc, box} = Flatten;
 
 describe('#Flatten.Polygon', function() {
     it('May create new instance of Polygon', function () {
@@ -67,6 +67,31 @@ describe('#Flatten.Polygon', function() {
         polygon.addFace(segments2);
         expect(polygon.edges.size).to.equal(6);
         expect(polygon.faces.size).to.equal(2);
+    });
+    it('Can construct polygon from Circle in CCW orientation', function() {
+        let polygon = new Polygon();
+        polygon.addFace(circle(point(3,3),50));
+        expect(polygon.faces.size).to.equal(1);
+        expect(polygon.edges.size).to.equal(1);
+        expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
+    });
+    it('Can construct polygon from a box in CCW orientation', function() {
+        let polygon = new Polygon();
+        polygon.addFace(box(30,40,100,200));
+        expect(polygon.faces.size).to.equal(1);
+        expect(polygon.edges.size).to.equal(4);
+        expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
+    });
+    it('Can construct polygon from a box and circle as a hole', function() {
+        let polygon = new Polygon();
+        polygon.addFace(box(0,0,100,100));
+        polygon.addFace(circle(point(40,40),20)).reverse();    // change orientation to CW
+        expect(polygon.faces.size).to.equal(2);
+        expect(polygon.edges.size).to.equal(5);
+        expect([...polygon.faces][0].size).to.equal(4);
+        expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
+        expect([...polygon.faces][1].size).to.equal(1);
+        expect([...polygon.faces][1].orientation()).to.equal(Flatten.ORIENTATION.CW);
     });
     it('Can remove faces from polygon', function () {
         let polygon = new Polygon();
@@ -394,5 +419,73 @@ describe('#Flatten.Polygon', function() {
         polygon.addFace(points);
         expect(polygon.isValid()).to.be.false;
     });
+    describe('#Flatten.Polygon.intersect(shape) methods', function() {
+        it('Intersect arc with polygon', function() {
+            let points = [
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 200),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ];
+            let polygon = new Polygon();
+            polygon.addFace(points);
+            let arc = new Arc(point(150,50), 50, Math.PI/3, 5*Math.PI/3, Flatten.CCW);
+            expect(polygon.intersect(arc).length).to.equal(1);
+        });
+        it('Intersect circle with polygon', function() {
+            let points = [
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 200),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ];
+            let polygon = new Polygon();
+            polygon.addFace(points);
+            let circle = new Circle(point(150,50), 50);
+            expect(circle.intersect(polygon).length).to.equal(2);
+        });
+        it('Line to polygon intersection', function() {
+            "use strict";
 
+            let points = [
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 200),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ];
+            let polygon = new Polygon();
+            polygon.addFace(points);
+
+            let line = new Flatten.Line(point(100, 20), point(300, 200));
+            expect(polygon.intersect(line).length).to.equal(4);
+        });
+        it('Intersection with Polygon', function () {
+            let segment = new Flatten.Segment(150,-20,150,60);
+
+            let points = [
+                point(100, 20),
+                point(200, 20),
+                point(200, 40),
+                point(100, 40)
+            ];
+
+            let poly = new Polygon();
+            let face = poly.addFace(points);
+
+            let ip_expected = new Flatten.Point(0, 2);
+            let ip = poly.intersect(segment);
+            expect(ip.length).to.equal(2);
+            expect(ip[0].equalTo(point(150,20))).to.be.true;
+            expect(ip[1].equalTo(point(150,40))).to.be.true;
+        });
+    });
 });

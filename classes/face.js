@@ -2,10 +2,12 @@
  * Created by Alex Bol on 3/17/2017.
  */
 
+
 "use strict";
 
 module.exports = function (Flatten) {
-    let {Point, Segment, Arc, Box, Edge} = Flatten;
+    let {Point, point, Segment, segment, Arc, Box, Edge, Circle} = Flatten;
+
     /**
      * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
      * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}.
@@ -94,6 +96,20 @@ module.exports = function (Flatten) {
                     for (let edge of face) {
                         polygon.edges.add(edge);
                     }
+                }
+                /* Instantiate face from circle circle in CCW orientation */
+                else if (args[0] instanceof Circle) {
+                    this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
+                }
+                /* Instantiate face from a box in CCW orientation */
+                else if (args[0] instanceof Box) {
+                    let box = args[0];
+                    this.shapes2face(polygon.edges, [
+                        segment(point(box.xmin, box.ymin), point(box.xmax, box.ymin)),
+                        segment(point(box.xmax, box.ymin), point(box.xmax, box.ymax)),
+                        segment(point(box.xmax, box.ymax), point(box.xmin, box.ymax)),
+                        segment(point(box.xmin, box.ymax), point(box.xmin, box.ymin))
+                    ]);
                 }
             }
             /* If passed two edges, consider them as start and end of the face loop */
@@ -387,8 +403,9 @@ module.exports = function (Flatten) {
          */
         signedArea() {
             let sArea = 0;
+            let ymin = this.box.ymin;
             for (let edge of this) {
-                sArea += edge.shape.definiteIntegral(this.box.ymin);
+                sArea += edge.shape.definiteIntegral(ymin);
             }
             return sArea;
         }
@@ -416,57 +433,6 @@ module.exports = function (Flatten) {
                 }
             }
             return this._orientation;
-        }
-
-        /**
-         * Check relation between face and other polygon
-         * on strong assumption that they are NOT INTERSECTED <br/>
-         * Then there are 4 options: <br/>
-         * face disjoint to polygon - Flatten.OUTSIDE <br/>
-         * face inside polygon - Flatten.INSIDE <br/>
-         * face contains polygon - Flatten.CONTAIN <br/>
-         * face interlaced with polygon: inside some face and contains other face - Flatten.INTERLACE <br/>
-         * @param {Polygon} polygon - Polygon to check relation
-         */
-        getRelation(polygon) {
-            this.first.bv = this.first.bvStart = this.first.bvEnd = undefined;
-            let bvThisInOther = this.first.setInclusion(polygon);
-            let resp = polygon.faces.search(this.box);
-            if (resp.length === 0) {
-                return bvThisInOther;        // OUTSIDE or INSIDE
-            }
-            else {                           // possible INTERLACE
-                let polyTmp = new Flatten.Polygon();
-                polyTmp.addFace(this);
-
-                let numInsideThis = 0;
-                for (let face of resp) {
-                    face.first.bv = face.first.bvStart = face.first.bvEnd = undefined;
-                    let bvOtherInThis = face.first.setInclusion(polyTmp);
-                    if (bvOtherInThis === Flatten.INSIDE) {
-                        numInsideThis++;
-                    }
-                }
-                if (bvThisInOther === Flatten.OUTSIDE) {
-                    if (numInsideThis === 0) {                   // none inside this - outside
-                        return Flatten.OUTSIDE;
-                    }
-                    else if (numInsideThis === resp.length) {      // all from resp inside this - contains or interlace
-                        if (resp.length === polygon.faces.size) {
-                            return Flatten.CONTAINS;               // all faces from polygon are in response - contains
-                        }
-                        else {
-                            return Flatten.INTERLACE;              // some faces inside - interlace
-                        }
-                    }
-                    else {
-                        return Flatten.INTERLACE;                  // some faces inside - interlace
-                    }
-                }
-                else if (bvThisInOther === Flatten.INSIDE) {
-                    return numInsideThis === 0 ? Flatten.INSIDE : Flatten.INTERLACE;
-                }
-            }
         }
 
         /**
