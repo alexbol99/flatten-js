@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Added and documented toJSON() method to all shape classes&#10;Reverted face.svg() method to return only path description string for &quot;d&quot; attribute">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/edge.js" afterDir="false" />
-    </list>
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Fix issue #3 in flatten-boolean-op: Infinite loop during subtraction op&#10;- Edge::setOverlap() method : remove orientation check for arc, rely only on points equality" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -69,14 +66,14 @@
           <entry key="json" value="4" />
           <entry key="md" value="36" />
           <entry key="ts" value="6067" />
-          <entry key="txt" value="433" />
+          <entry key="txt" value="589" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="4" />
           <entry key="JavaScript" value="2347" />
-          <entry key="PLAIN_TEXT" value="469" />
+          <entry key="PLAIN_TEXT" value="625" />
           <entry key="TypeScript" value="6067" />
         </counts>
       </usages-collector>
@@ -88,8 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5525">
-              <caret line="325" column="61" selection-start-line="325" selection-start-column="61" selection-end-line="325" selection-end-column="61" />
+            <state relative-caret-position="5644">
+              <caret line="332" column="61" selection-start-line="332" selection-start-column="61" selection-end-line="332" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -98,7 +95,7 @@
         <entry file="file://$PROJECT_DIR$/test/line.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2720">
-              <caret line="160" column="57" selection-start-line="160" selection-start-column="57" selection-end-line="160" selection-end-column="57" />
+              <caret line="180" column="57" selection-start-line="180" selection-start-column="57" selection-end-line="180" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -107,7 +104,7 @@
         <entry file="file://$PROJECT_DIR$/classes/face.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="430" column="13" selection-start-line="428" selection-start-column="15" selection-end-line="428" selection-end-column="16" />
+              <caret line="435" column="9" selection-start-line="435" selection-start-column="9" selection-end-line="435" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -139,10 +136,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
+            <state relative-caret-position="958">
               <caret line="61" selection-start-line="61" selection-end-line="61" />
             </state>
           </provider>
@@ -166,11 +163,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/edge.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="455">
-              <caret line="167" column="63" lean-forward="true" selection-start-line="167" selection-start-column="63" selection-end-line="167" selection-end-column="63" />
+              <caret line="167" column="63" selection-start-line="167" selection-start-column="63" selection-end-line="167" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -562,14 +559,7 @@
       <workItem from="1538036014283" duration="2474000" />
       <workItem from="1538634678807" duration="579000" />
       <workItem from="1538894969478" duration="604000" />
-      <workItem from="1538981270388" duration="2343000" />
-    </task>
-    <task id="LOCAL-00060" summary="Ray shooting ready to test">
-      <created>1504505095847</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1504505095848</updated>
+      <workItem from="1538981270388" duration="2680000" />
     </task>
     <task id="LOCAL-00061" summary="- Ray shooting test &amp; fix bugs&#10;- Added method contains to Polygon&#10;- Changed method box of Arc">
       <created>1504649296751</created>
@@ -907,7 +897,14 @@
       <option name="project" value="LOCAL" />
       <updated>1534771470464</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="Fix issue #3 in flatten-boolean-op: Infinite loop during subtraction op&#10;- Edge::setOverlap() method : remove orientation check for arc, rely only on points equality">
+      <created>1538999887208</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1538999887208</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -943,7 +940,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="675272000" />
+    <option name="totallyTimeSpent" value="675609000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -957,7 +954,7 @@
   <component name="ToolWindowManager">
     <frame x="140" y="10" width="1668" height="1015" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19325154" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19325154" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
@@ -976,7 +973,7 @@
       <window_info anchor="bottom" id="Version Control" order="13" sideWeight="0.49661538" weight="0.35225955" />
       <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.50396824" side_tool="true" weight="0.3221321" />
       <window_info anchor="bottom" id="Messages" order="15" weight="0.44663572" />
-      <window_info anchor="bottom" id="Terminal" order="16" sideWeight="0.4934555" visible="true" weight="0.32093024" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="16" sideWeight="0.4934555" visible="true" weight="0.32093024" />
       <window_info anchor="bottom" id="TypeScript" order="17" weight="0.32946634" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1011,7 +1008,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Added parameter &quot;edges&quot; to face.append, face.remove, face.insert methods&#10;- Edited documentation" />
     <MESSAGE value="Boolean operations test and fix (union)&#10;- Circle::toArc() method - end angle -pi instead of 3pi&#10;- Face::getRelation - initialize edges bv flags before recalcuation&#10;- Polygon::addVertex - no edges.update method in PlanarSet anymore, use delete and add&#10;- Ray shooting - skip vertex ip if between same edges and already counted&#10;- Ray shooting - fix technical bug in sorting&#10;- BooleanOp&#10; - clone both polygons in clip&#10; - calculate inclusion flags with original polygons for performance&#10; - consider face id when sorting intersection points&#10; - remove not relevant between points belong to same face" />
     <MESSAGE value="Move Boolean Operations to separate package" />
     <MESSAGE value="Support polygon serialization methods using JSON.stringify and JSON.parse" />
@@ -1036,14 +1032,15 @@
     <MESSAGE value="- Finished Typescript declarations file index.d.ts&#10;- Upgrade dependencies" />
     <MESSAGE value="- clean" />
     <MESSAGE value="Added and documented toJSON() method to all shape classes&#10;Reverted face.svg() method to return only path description string for &quot;d&quot; attribute" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added and documented toJSON() method to all shape classes&#10;Reverted face.svg() method to return only path description string for &quot;d&quot; attribute" />
+    <MESSAGE value="Fix issue #3 in flatten-boolean-op: Infinite loop during subtraction op&#10;- Edge::setOverlap() method : remove orientation check for arc, rely only on points equality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix issue #3 in flatten-boolean-op: Infinite loop during subtraction op&#10;- Edge::setOverlap() method : remove orientation check for arc, rely only on points equality" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/arc.js</url>
-          <line>54</line>
+          <line>67</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
@@ -1340,15 +1337,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5525">
-          <caret line="325" column="61" selection-start-line="325" selection-start-column="61" selection-end-line="325" selection-end-column="61" />
+        <state relative-caret-position="5644">
+          <caret line="332" column="61" selection-start-line="332" selection-start-column="61" selection-end-line="332" selection-end-column="61" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/line.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2720">
-          <caret line="160" column="57" selection-start-line="160" selection-start-column="57" selection-end-line="160" selection-end-column="57" />
+          <caret line="180" column="57" selection-start-line="180" selection-start-column="57" selection-end-line="180" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -1373,13 +1370,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -1397,14 +1387,21 @@
     <entry file="file://$PROJECT_DIR$/classes/face.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="430" column="13" selection-start-line="428" selection-start-column="15" selection-end-line="428" selection-end-column="16" />
+          <caret line="435" column="9" selection-start-line="435" selection-start-column="9" selection-end-line="435" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/edge.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="455">
-          <caret line="167" column="63" lean-forward="true" selection-start-line="167" selection-start-column="63" selection-end-line="167" selection-end-column="63" />
+          <caret line="167" column="63" selection-start-line="167" selection-start-column="63" selection-end-line="167" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="958">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
         </state>
       </provider>
     </entry>

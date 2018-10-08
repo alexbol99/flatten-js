@@ -2843,9 +2843,11 @@ module.exports = function (Flatten) {
                         flag = Flatten.OVERLAP_OPPOSITE;
                     }
                 } else if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
-                    if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.counterClockwise === shape2.counterClockwise && shape1.middle().equalTo(shape2.middle())) {
+                    if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && /*shape1.counterClockwise === shape2.counterClockwise &&*/
+                    shape1.middle().equalTo(shape2.middle())) {
                         flag = Flatten.OVERLAP_SAME;
-                    } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.counterClockwise !== shape2.counterClockwise && shape1.middle().equalTo(shape2.middle())) {
+                    } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && /*shape1.counterClockwise !== shape2.counterClockwise &&*/
+                    shape1.middle().equalTo(shape2.middle())) {
                         flag = Flatten.OVERLAP_OPPOSITE;
                     }
                 } else if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Arc || shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Segment) {
@@ -4935,8 +4937,12 @@ module.exports = function (Flatten) {
 
             /**
              * Add new face to polygon. Returns added face
-             * @param {Points[]|Segments[]|Arcs[]} args - list of points or list of shapes (segments and arcs)
-             * which comprise a closed loop
+             * @param {Points[]|Segments[]|Arcs[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
+             * 1) array of points that describe closed path (edges are segments) <br/>
+             * 2) array of shapes (segments and arcs) which describe closed path <br/>
+             * 3) circle - will be added as counterclockwise arc <br/>
+             * 4) box - will be added as counterclockwise rectangle <br/>
+             * You can chain method face.reverse() is you need to change direction of the creates face
              * @returns {Face}
              */
 
