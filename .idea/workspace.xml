@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Request from flatten-boolean-op to support circle and box:&#10;- added option to addFace() method to add circle and box">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Fix issue #18 Division by zero error when checking if polygon contains a point&#10;- skip zero-length edges in ray shooting algorithm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algorithms/ray_shooting.js" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms/ray_shooting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ray_shooting.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/ray_shooting.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -61,19 +59,19 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="3739" />
+          <entry key="js" value="3747" />
           <entry key="json" value="59" />
           <entry key="md" value="1744" />
           <entry key="ts" value="2104" />
-          <entry key="txt" value="582" />
+          <entry key="txt" value="649" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="49" />
-          <entry key="JavaScript" value="3739" />
+          <entry key="JavaScript" value="3747" />
           <entry key="Markdown" value="1141" />
-          <entry key="PLAIN_TEXT" value="1185" />
+          <entry key="PLAIN_TEXT" value="1252" />
           <entry key="TypeScript" value="2104" />
           <entry key="tsconfig" value="10" />
         </counts>
@@ -100,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="119" column="30" selection-start-line="119" selection-start-column="30" selection-end-line="119" selection-end-column="30" />
+            <state relative-caret-position="294">
+              <caret line="109" column="7" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -109,17 +107,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="180" column="22" selection-start-line="180" selection-start-column="22" selection-end-line="180" selection-end-column="22" />
+            <state relative-caret-position="345">
+              <caret line="181" column="12" selection-start-line="181" selection-start-column="12" selection-end-line="181" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="92" column="47" lean-forward="true" selection-start-line="92" selection-start-column="47" selection-end-line="92" selection-end-column="47" />
+            <state relative-caret-position="248">
+              <caret line="123" column="8" selection-start-line="123" selection-start-column="8" selection-end-line="123" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -142,11 +140,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1462">
-              <caret line="86" column="42" selection-start-line="86" selection-start-column="42" selection-end-line="86" selection-end-column="42" />
+            <state relative-caret-position="1259">
+              <caret line="483" column="16" selection-start-line="483" selection-start-column="16" selection-end-line="483" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -286,10 +284,10 @@
         <option value="$PROJECT_DIR$/index.d.ts" />
         <option value="$PROJECT_DIR$/classes/face.js" />
         <option value="$PROJECT_DIR$/classes/box.js" />
-        <option value="$PROJECT_DIR$/test/polygon.js" />
         <option value="$PROJECT_DIR$/classes/polygon.js" />
-        <option value="$PROJECT_DIR$/test/ray_shooting.js" />
         <option value="$PROJECT_DIR$/algorithms/ray_shooting.js" />
+        <option value="$PROJECT_DIR$/test/ray_shooting.js" />
+        <option value="$PROJECT_DIR$/test/polygon.js" />
       </list>
     </option>
   </component>
@@ -330,11 +328,6 @@
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -590,14 +583,7 @@
       <workItem from="1543006631255" duration="595000" />
       <workItem from="1543165851294" duration="597000" />
       <workItem from="1543256069229" duration="594000" />
-      <workItem from="1544122587152" duration="2395000" />
-    </task>
-    <task id="LOCAL-00056" summary="Added class Ray">
-      <created>1504346206838</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1504346206838</updated>
+      <workItem from="1544122587152" duration="2753000" />
     </task>
     <task id="LOCAL-00057" summary="Added ray shooting algorithm (not completed)">
       <created>1504417089586</created>
@@ -935,25 +921,17 @@
       <option name="project" value="LOCAL" />
       <updated>1538387199188</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="Fix issue #18 Division by zero error when checking if polygon contains a point&#10;- skip zero-length edges in ray shooting algorithm">
+      <created>1544132014853</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1544132014853</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="#Flatten_Polygon_Can_construct_polygon_from_a_box_and_circle_as_a_hole - 2018.10.01 at 11h 34m 22s.xml">
-      <configuration name="#Flatten.Polygon.Can construct polygon from a box and circle as a hole" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Polygon - 2018.10.01 at 11h 34m 27s.xml">
-      <configuration name="#Flatten.Polygon" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 11m 04s.xml">
-      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 12m 44s.xml">
-      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 13m 16s.xml">
-      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
     <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 16m 03s.xml">
       <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
     </history-entry>
@@ -969,9 +947,24 @@
     <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 27m 24s.xml">
       <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
     </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 28m 05s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 28m 41s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Flatten_Polygon_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 30m 17s.xml">
+      <configuration name="#Flatten.Polygon.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Flatten_Polygon_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 30m 28s.xml">
+      <configuration name="#Flatten.Polygon.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 30m 53s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="656195000" />
+    <option name="totallyTimeSpent" value="656553000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -984,21 +977,20 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="244" y="33" width="1635" height="985" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25923607" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25923607" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49968693" weight="0.36670688" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49968693" weight="0.32810616" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39806998" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39806998" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32942554" />
       <window_info anchor="bottom" id="SFDX" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49611902" weight="0.2424608" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49611902" visible="true" weight="0.2424608" />
       <window_info anchor="bottom" id="Debug Logs" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5003131" side_tool="true" weight="0.32810616" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
@@ -1020,7 +1012,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added method setInclusion with some tests" />
     <MESSAGE value="Started Clip algorithm" />
     <MESSAGE value="- Added parameter &quot;edges&quot; to face.append, face.remove, face.insert methods&#10;- Edited documentation" />
     <MESSAGE value="Boolean operations test and fix (union)&#10;- Circle::toArc() method - end angle -pi instead of 3pi&#10;- Face::getRelation - initialize edges bv flags before recalcuation&#10;- Polygon::addVertex - no edges.update method in PlanarSet anymore, use delete and add&#10;- Ray shooting - skip vertex ip if between same edges and already counted&#10;- Ray shooting - fix technical bug in sorting&#10;- BooleanOp&#10; - clone both polygons in clip&#10; - calculate inclusion flags with original polygons for performance&#10; - consider face id when sorting intersection points&#10; - remove not relevant between points belong to same face" />
@@ -1045,17 +1036,12 @@
     <MESSAGE value="Fix type (issue #12)" />
     <MESSAGE value="Bug fixing:&#10;- issue #13 Intersect between a line and polygon doesn't work - fixed, added some tests&#10;- issue #15 Arc direction is undefined when parameter counterClockwise is omitted - fixed, now if omitted, set default value Flatten.CCW&#10;- remove method Face::getRelation(polygon) (fix for issue #2 from flatten-boolean-op: Issue with intersection of circle and box) - method was incorrect" />
     <MESSAGE value="Request from flatten-boolean-op to support circle and box:&#10;- added option to addFace() method to add circle and box" />
-    <option name="LAST_COMMIT_MESSAGE" value="Request from flatten-boolean-op to support circle and box:&#10;- added option to addFace() method to add circle and box" />
+    <MESSAGE value="Fix issue #18 Division by zero error when checking if polygon contains a point&#10;- skip zero-length edges in ray shooting algorithm" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix issue #18 Division by zero error when checking if polygon contains a point&#10;- skip zero-length edges in ray shooting algorithm" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/ray_shooting.js</url>
-          <line>119</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/algorithms/ray_shooting.js</url>
           <line>71</line>
@@ -1329,13 +1315,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="86" column="42" selection-start-line="86" selection-start-column="42" selection-end-line="86" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/face.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2771">
@@ -1378,24 +1357,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
+    <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="119" column="30" selection-start-line="119" selection-start-column="30" selection-end-line="119" selection-end-column="30" />
+        <state relative-caret-position="248">
+          <caret line="123" column="8" selection-start-line="123" selection-start-column="8" selection-end-line="123" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="180" column="22" selection-start-line="180" selection-start-column="22" selection-end-line="180" selection-end-column="22" />
+        <state relative-caret-position="345">
+          <caret line="181" column="12" selection-start-line="181" selection-start-column="12" selection-end-line="181" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
+    <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="92" column="47" lean-forward="true" selection-start-line="92" selection-start-column="47" selection-end-line="92" selection-end-column="47" />
+        <state relative-caret-position="294">
+          <caret line="109" column="7" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/polygon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1259">
+          <caret line="483" column="16" selection-start-line="483" selection-start-column="16" selection-end-line="483" selection-end-column="16" />
         </state>
       </provider>
     </entry>
