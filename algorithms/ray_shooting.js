@@ -66,6 +66,9 @@ module.exports = function(Flatten) {
                     continue;
                 }
                 let prev_edge = intersection.edge.prev;
+                while (Flatten.Utils.EQ_0(prev_edge.length)) {
+                    prev_edge = prev_edge.prev;
+                }
                 let prev_tangent = prev_edge.shape.tangentInEnd();
                 let prev_point = intersection.pt.translate(prev_tangent);
 
@@ -86,6 +89,9 @@ module.exports = function(Flatten) {
                     continue;
                 }
                 let next_edge = intersection.edge.next;
+                while (Flatten.Utils.EQ_0(next_edge.length)) {
+                    next_edge = next_edge.next;
+                }
                 let next_tangent = next_edge.shape.tangentInStart();
                 let next_point = intersection.pt.translate(next_tangent);
 

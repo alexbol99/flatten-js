@@ -1,50 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Bug fixing:&#10;- issue #13 Intersect between a line and polygon doesn't work - fixed, added some tests&#10;- issue #15 Arc direction is undefined when parameter counterClockwise is omitted - fixed, now if omitted, set default value Flatten.CCW&#10;- remove method Face::getRelation(polygon) (fix for issue #2 from flatten-boolean-op: Issue with intersection of circle and box) - method was incorrect">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Request from flatten-boolean-op to support circle and box:&#10;- added option to addFace() method to add circle and box">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/face.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.commonjs2.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.commonjs2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.commonjs2.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.commonjs2.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Arc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Box.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Circle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Edge.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Face.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Image.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Image.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Line.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Matrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Matrix.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.PlanarSet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Point.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Polygon.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Ray.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Segment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Flatten.Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Flatten.Vector.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_image.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_image.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_matrix.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithms/ray_shooting.js" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms/ray_shooting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ray_shooting.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/ray_shooting.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -66,19 +26,23 @@
     <session id="2049464021">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="13" />
           <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.4" value="2" />
-          <entry key="project.open.time.5" value="3" />
+          <entry key="project.open.time.5" value="4" />
           <entry key="project.open.time.6" value="2" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.open.time.8" value="6" />
+          <entry key="project.open.time.9" value="2" />
+          <entry key="project.opened" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="2" />
-          <entry key="js" value="64" />
+          <entry key="html" value="3" />
+          <entry key="js" value="68" />
           <entry key="json" value="5" />
           <entry key="md" value="4" />
           <entry key="ts" value="7" />
@@ -86,9 +50,9 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="2" />
+          <entry key="HTML" value="3" />
           <entry key="JSON" value="4" />
-          <entry key="JavaScript" value="64" />
+          <entry key="JavaScript" value="68" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="TypeScript" value="7" />
@@ -97,19 +61,19 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="3642" />
+          <entry key="js" value="3739" />
           <entry key="json" value="59" />
           <entry key="md" value="1744" />
           <entry key="ts" value="2104" />
-          <entry key="txt" value="444" />
+          <entry key="txt" value="582" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="49" />
-          <entry key="JavaScript" value="3642" />
+          <entry key="JavaScript" value="3739" />
           <entry key="Markdown" value="1141" />
-          <entry key="PLAIN_TEXT" value="1047" />
+          <entry key="PLAIN_TEXT" value="1185" />
           <entry key="TypeScript" value="2104" />
           <entry key="tsconfig" value="10" />
         </counts>
@@ -125,28 +89,55 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.js">
+        <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+            <state relative-caret-position="425">
+              <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
+        <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+            <state relative-caret-position="250">
+              <caret line="119" column="30" selection-start-line="119" selection-start-column="30" selection-end-line="119" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="180" column="22" selection-start-line="180" selection-start-column="22" selection-end-line="180" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/classes/polygon.js">
+        <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="67" column="55" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
+            <state relative-caret-position="189">
+              <caret line="92" column="47" lean-forward="true" selection-start-line="92" selection-start-column="47" selection-end-line="92" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/segment.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="166">
+              <caret line="236" column="23" selection-start-line="236" selection-start-column="23" selection-end-line="236" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/vector.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="149">
+              <caret line="143" column="31" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -154,7 +145,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
+            <state relative-caret-position="1462">
               <caret line="86" column="42" selection-start-line="86" selection-start-column="42" selection-end-line="86" selection-end-column="42" />
             </state>
           </provider>
@@ -163,7 +154,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/face.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2184">
+            <state relative-caret-position="2771">
               <caret line="163" column="8" selection-start-line="163" selection-start-column="8" selection-end-line="163" selection-end-column="8" />
             </state>
           </provider>
@@ -172,7 +163,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/face.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9">
+            <state relative-caret-position="5457">
               <caret line="321" column="16" selection-start-line="321" selection-start-column="11" selection-end-line="321" selection-end-column="16" />
             </state>
           </provider>
@@ -181,7 +172,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/box.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
+            <state relative-caret-position="3179">
               <caret line="187" column="36" selection-start-line="187" selection-start-column="36" selection-end-line="187" selection-end-column="36" />
             </state>
           </provider>
@@ -257,7 +248,6 @@
         <option value="$PROJECT_DIR$/algorithms/clip.js" />
         <option value="$PROJECT_DIR$/classes/ray.js" />
         <option value="$PROJECT_DIR$/classes/vector.js" />
-        <option value="$PROJECT_DIR$/algorithms/ray_shooting.js" />
         <option value="$PROJECT_DIR$/algorithms/boolean_op.js" />
         <option value="$PROJECT_DIR$/test/boolean_op.js" />
         <option value="$PROJECT_DIR$/rollup.config.js" />
@@ -266,7 +256,6 @@
         <option value="$PROJECT_DIR$/test/box.js" />
         <option value="$PROJECT_DIR$/test/planar_set.js" />
         <option value="$PROJECT_DIR$/test/ray.js" />
-        <option value="$PROJECT_DIR$/test/ray_shooting.js" />
         <option value="$PROJECT_DIR$/test/svg.js" />
         <option value="$PROJECT_DIR$/test/vector.js" />
         <option value="$PROJECT_DIR$/classes/point.js" />
@@ -299,6 +288,8 @@
         <option value="$PROJECT_DIR$/classes/box.js" />
         <option value="$PROJECT_DIR$/test/polygon.js" />
         <option value="$PROJECT_DIR$/classes/polygon.js" />
+        <option value="$PROJECT_DIR$/test/ray_shooting.js" />
+        <option value="$PROJECT_DIR$/algorithms/ray_shooting.js" />
       </list>
     </option>
   </component>
@@ -323,8 +314,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="197" />
-    <option name="y" value="24" />
+    <option name="x" value="244" />
+    <option name="y" value="33" />
     <option name="width" value="1635" />
     <option name="height" value="985" />
   </component>
@@ -343,7 +334,7 @@
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -358,7 +349,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../aboutmathpartner" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../burger-builder" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.prettier" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -402,7 +393,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Polygon">
+  <component name="RunManager" selected="Mocha.#Flatten.Polygon.Issue #18 Division by zero error when checking if polygon contains a point">
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -410,6 +401,21 @@
       <tasks />
       <arguments />
       <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/ray_shooting.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Ray_Shooting" />
+        <name value="Issue #18 Division by zero error when checking if polygon contains a point" />
+      </test-names>
       <method v="2" />
     </configuration>
     <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
@@ -456,7 +462,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Polygon.Can construct polygon with Circle with default orientation (CCW)" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Polygon.Issue #18 Division by zero error when checking if polygon contains a point" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -467,39 +473,24 @@
       <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
       <test-names>
         <name value="#Flatten.Polygon" />
-        <name value="Can construct polygon with Circle with default orientation (CCW)" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="#Flatten.Polygon.Can construct polygon with Circle with explicitly set orientation (CW)" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
-      <test-names>
-        <name value="#Flatten.Polygon" />
-        <name value="Can construct polygon with Circle with explicitly set orientation (CW)" />
+        <name value="Issue #18 Division by zero error when checking if polygon contains a point" />
       </test-names>
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Mocha.#Flatten.Polygon.Can construct polygon with Circle with default orientation (CCW)" />
-      <item itemvalue="Mocha.#Flatten.Polygon.Can construct polygon with Circle with explicitly set orientation (CW)" />
       <item itemvalue="Mocha.#Flatten.Polygon.Can construct polygon from a box in CCW orientation" />
       <item itemvalue="Mocha.#Flatten.Polygon.Can construct polygon from a box and circle as a hole" />
       <item itemvalue="Mocha.#Flatten.Polygon" />
+      <item itemvalue="Mocha.#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" />
+      <item itemvalue="Mocha.#Flatten.Polygon.Issue #18 Division by zero error when checking if polygon contains a point" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Mocha.#Flatten.Polygon.Issue #18 Division by zero error when checking if polygon contains a point" />
+        <item itemvalue="Mocha.#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" />
         <item itemvalue="Mocha.#Flatten.Polygon" />
         <item itemvalue="Mocha.#Flatten.Polygon.Can construct polygon from a box and circle as a hole" />
         <item itemvalue="Mocha.#Flatten.Polygon.Can construct polygon from a box in CCW orientation" />
-        <item itemvalue="Mocha.#Flatten.Polygon.Can construct polygon with Circle with default orientation (CCW)" />
-        <item itemvalue="Mocha.#Flatten.Polygon.Can construct polygon with Circle with explicitly set orientation (CW)" />
       </list>
     </recent_temporary>
   </component>
@@ -586,14 +577,20 @@
       <workItem from="1533992882922" duration="11108000" />
       <workItem from="1534435503704" duration="13089000" />
       <workItem from="1534500113223" duration="3080000" />
-      <workItem from="1538376831475" duration="5358000" />
-    </task>
-    <task id="LOCAL-00055" summary="- polygon add methods get Box, get Vertices, deleteFace, clone&#10;- make face iterable by edges">
-      <created>1504263866824</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1504263866824</updated>
+      <workItem from="1538376831475" duration="6687000" />
+      <workItem from="1540494055939" duration="652000" />
+      <workItem from="1540560619253" duration="1417000" />
+      <workItem from="1540754453691" duration="598000" />
+      <workItem from="1540836536201" duration="593000" />
+      <workItem from="1541167495345" duration="590000" />
+      <workItem from="1541442128115" duration="597000" />
+      <workItem from="1541765068241" duration="599000" />
+      <workItem from="1541879752786" duration="599000" />
+      <workItem from="1542230480327" duration="599000" />
+      <workItem from="1543006631255" duration="595000" />
+      <workItem from="1543165851294" duration="597000" />
+      <workItem from="1543256069229" duration="594000" />
+      <workItem from="1544122587152" duration="2395000" />
     </task>
     <task id="LOCAL-00056" summary="Added class Ray">
       <created>1504346206838</created>
@@ -931,43 +928,50 @@
       <option name="project" value="LOCAL" />
       <updated>1538225643255</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="Request from flatten-boolean-op to support circle and box:&#10;- added option to addFace() method to add circle and box">
+      <created>1538387199188</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1538387199188</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="#Flatten_Polygon_Can_construct_polygon_with_Circle_with_default_orientation_(CCW) - 2018.10.01 at 11h 17m 10s.xml">
-      <configuration name="#Flatten.Polygon.Can construct polygon with Circle with default orientation (CCW)" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_construct_polygon_with_Circle_with_default_orientation_(CCW) - 2018.10.01 at 11h 17m 32s.xml">
-      <configuration name="#Flatten.Polygon.Can construct polygon with Circle with default orientation (CCW)" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_construct_polygon_with_Circle_with_explicitly_set_orientation_(CW) - 2018.10.01 at 11h 18m 42s.xml">
-      <configuration name="#Flatten.Polygon.Can construct polygon with Circle with explicitly set orientation (CW)" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_construct_polygon_with_Circle_with_default_orientation_(CCW) - 2018.10.01 at 11h 21m 59s.xml">
-      <configuration name="#Flatten.Polygon.Can construct polygon with Circle with default orientation (CCW)" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_construct_polygon_from_a_box_in_CCW_orientation - 2018.10.01 at 11h 26m 24s.xml">
-      <configuration name="#Flatten.Polygon.Can construct polygon from a box in CCW orientation" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_construct_polygon_from_a_box_in_CCW_orientation - 2018.10.01 at 11h 26m 41s.xml">
-      <configuration name="#Flatten.Polygon.Can construct polygon from a box in CCW orientation" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_construct_polygon_from_a_box_in_CCW_orientation - 2018.10.01 at 11h 28m 36s.xml">
-      <configuration name="#Flatten.Polygon.Can construct polygon from a box in CCW orientation" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Polygon_Can_construct_polygon_from_a_box_in_CCW_orientation - 2018.10.01 at 11h 28m 54s.xml">
-      <configuration name="#Flatten.Polygon.Can construct polygon from a box in CCW orientation" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
     <history-entry file="#Flatten_Polygon_Can_construct_polygon_from_a_box_and_circle_as_a_hole - 2018.10.01 at 11h 34m 22s.xml">
       <configuration name="#Flatten.Polygon.Can construct polygon from a box and circle as a hole" configurationId="mocha-javascript-test-runner" />
     </history-entry>
     <history-entry file="#Flatten_Polygon - 2018.10.01 at 11h 34m 27s.xml">
       <configuration name="#Flatten.Polygon" configurationId="mocha-javascript-test-runner" />
     </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 11m 04s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 12m 44s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 13m 16s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 16m 03s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 23m 35s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 26m 09s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 26m 38s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="#Algorithms_Ray_Shooting_Issue_#18_Division_by_zero_error_when_checking_if_polygon_contains_a_point - 2018.12.06 at 23h 27m 24s.xml">
+      <configuration name="#Algorithms.Ray_Shooting.Issue #18 Division by zero error when checking if polygon contains a point" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="644441000" />
+    <option name="totallyTimeSpent" value="656195000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -979,22 +983,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="197" y="24" width="1635" height="985" extended-state="0" />
+    <frame x="244" y="33" width="1635" height="985" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25923607" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25923607" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49968693" weight="0.36670688" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49968693" weight="0.32810616" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39806998" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39806998" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32942554" />
       <window_info anchor="bottom" id="SFDX" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49611902" visible="true" weight="0.2424608" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49611902" weight="0.2424608" />
       <window_info anchor="bottom" id="Debug Logs" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5003131" side_tool="true" weight="0.32810616" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
@@ -1016,7 +1020,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Rename splitFace to addVertex. Fix bugs and add tests" />
     <MESSAGE value="Added method setInclusion with some tests" />
     <MESSAGE value="Started Clip algorithm" />
     <MESSAGE value="- Added parameter &quot;edges&quot; to face.append, face.remove, face.insert methods&#10;- Edited documentation" />
@@ -1041,9 +1044,26 @@
     <MESSAGE value="Add missing intersections with polygon methods for Segment, Arc, Line, Circle, Polygon" />
     <MESSAGE value="Fix type (issue #12)" />
     <MESSAGE value="Bug fixing:&#10;- issue #13 Intersect between a line and polygon doesn't work - fixed, added some tests&#10;- issue #15 Arc direction is undefined when parameter counterClockwise is omitted - fixed, now if omitted, set default value Flatten.CCW&#10;- remove method Face::getRelation(polygon) (fix for issue #2 from flatten-boolean-op: Issue with intersection of circle and box) - method was incorrect" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug fixing:&#10;- issue #13 Intersect between a line and polygon doesn't work - fixed, added some tests&#10;- issue #15 Arc direction is undefined when parameter counterClockwise is omitted - fixed, now if omitted, set default value Flatten.CCW&#10;- remove method Face::getRelation(polygon) (fix for issue #2 from flatten-boolean-op: Issue with intersection of circle and box) - method was incorrect" />
+    <MESSAGE value="Request from flatten-boolean-op to support circle and box:&#10;- added option to addFace() method to add circle and box" />
+    <option name="LAST_COMMIT_MESSAGE" value="Request from flatten-boolean-op to support circle and box:&#10;- added option to addFace() method to add circle and box" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/ray_shooting.js</url>
+          <line>119</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/algorithms/ray_shooting.js</url>
+          <line>71</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
         <watch expression="this" language="JavaScript" />
@@ -1054,6 +1074,21 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>Flatten.Utils.EQ_0(prev_edge.length)</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>prev_edge.length</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>intersections</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>Flatten.flatten</expression-string>
         <language-id>JavaScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -1061,13 +1096,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dist/flatten.min.js" />
     <entry file="file://$PROJECT_DIR$/webpack.config.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1161,13 +1189,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="22" column="55" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/planar_set.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1217,20 +1238,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2684">
-          <caret line="158" column="51" selection-start-line="158" selection-start-column="51" selection-end-line="158" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-606">
-          <caret line="30" column="36" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/arc.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1259,13 +1266,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="56" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/line.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2550">
@@ -1284,14 +1284,6 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="1071">
           <caret line="51" column="3" lean-forward="true" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1734">
-            <caret line="102" selection-start-line="102" selection-end-line="102" />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -1316,62 +1308,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/box.js">
+    <entry file="file://$PROJECT_DIR$/flatten-js-tests.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="187" column="36" selection-start-line="187" selection-start-column="36" selection-end-line="187" selection-end-column="36" />
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/polygon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1462">
+          <caret line="86" column="42" selection-start-line="86" selection-start-column="42" selection-end-line="86" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/face.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2184">
+        <state relative-caret-position="2771">
           <caret line="163" column="8" selection-start-line="163" selection-start-column="8" selection-end-line="163" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/face.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9">
+        <state relative-caret-position="5457">
           <caret line="321" column="16" selection-start-line="321" selection-start-column="11" selection-end-line="321" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/polygon.js">
+    <entry file="file://$PROJECT_DIR$/classes/box.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="86" column="42" selection-start-line="86" selection-start-column="42" selection-end-line="86" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flatten-js-tests.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#15#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+        <state relative-caret-position="3179">
+          <caret line="187" column="36" selection-start-line="187" selection-start-column="36" selection-end-line="187" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+        <state relative-caret-position="425">
+          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/segment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="236" column="23" selection-start-line="236" selection-start-column="23" selection-end-line="236" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/vector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="143" column="31" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/ray_shooting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="119" column="30" selection-start-line="119" selection-start-column="30" selection-end-line="119" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="67" column="55" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
+        <state relative-caret-position="324">
+          <caret line="180" column="22" selection-start-line="180" selection-start-column="22" selection-end-line="180" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithms/ray_shooting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="92" column="47" lean-forward="true" selection-start-line="92" selection-start-column="47" selection-end-line="92" selection-end-column="47" />
         </state>
       </provider>
     </entry>

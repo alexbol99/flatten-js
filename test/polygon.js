@@ -488,4 +488,16 @@ describe('#Flatten.Polygon', function() {
             expect(ip[1].equalTo(point(150,40))).to.be.true;
         });
     });
+    it('Issue #18 Division by zero error when checking if polygon contains a point',function() {
+        const points = [
+            new Flatten.Point(-0.0774582, 51.4791865),
+            new Flatten.Point(-0.0784252, 51.4792941),
+            new Flatten.Point(-0.0774582, 51.4791865)
+        ];
+        const poly = new Flatten.Polygon();
+        poly.addFace(points);
+        const pp = new Flatten.Point(-0.07776044568759738, 51.47918678917519);
+        const contains = poly.contains(pp);
+        expect(contains).to.be.equal(false);
+    });
 });
