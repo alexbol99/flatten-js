@@ -160,11 +160,11 @@ module.exports = function(Flatten) {
                 }
             }
             else if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
-                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.counterClockwise === shape2.counterClockwise &&
+                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && /*shape1.counterClockwise === shape2.counterClockwise &&*/
                     shape1.middle().equalTo(shape2.middle())) {
                     flag = Flatten.OVERLAP_SAME;
                 }
-                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.counterClockwise !== shape2.counterClockwise &&
+                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && /*shape1.counterClockwise !== shape2.counterClockwise &&*/
                     shape1.middle().equalTo(shape2.middle())) {
                     flag = Flatten.OVERLAP_OPPOSITE;
                 }
