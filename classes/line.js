@@ -206,7 +206,7 @@ module.exports = function(Flatten) {
         /**
          * Return string to draw svg segment representing line inside given box
          * @param {Box} box Box representing drawing area
-         * @param {Object} attrs - json structure with attributes of svg circle element
+         * @param {Object} attrs - an object with attributes of svg circle element
          */
         svg(box, attrs = {}) {
             let ip = Line.intersectLine2Box(this, box);
@@ -220,8 +220,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns JSON object. This method defines how data will be
-         * serialized when called JSON.stringify method with this object
+         * This method returns an object that defines how data will be
+         * serialized when called JSON.stringify() method
          * @returns {Object}
          */
         toJSON() {

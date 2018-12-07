@@ -167,7 +167,7 @@ module.exports = function(Flatten) {
 
         /**
          * Return string to draw circle in svg
-         * @param {Object} attrs - json structure with attributes of svg rectangle element,
+         * @param {Object} attrs - an object with attributes of svg rectangle element,
          * like "stroke", "strokeWidth", "fill" <br/>
          * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
          * @returns {string}

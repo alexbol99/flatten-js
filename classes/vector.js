@@ -229,8 +229,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns JSON object. This method defines how data will be
-         * serialized when called JSON.stringify method with this object
+         * This method returns an object that defines how data will be
+         * serialized when called JSON.stringify() method
          * @returns {Object}
          */
         toJSON() {

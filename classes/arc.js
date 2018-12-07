@@ -525,7 +525,7 @@ module.exports = function(Flatten) {
 
         /**
          * Return string to draw arc in svg
-         * @param {Object} attrs - json structure with attributes of svg path element,
+         * @param {Object} attrs - an object with attributes of svg path element,
          * like "stroke", "strokeWidth", "fill" <br/>
          * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
          * @returns {string}
@@ -550,8 +550,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns JSON object. This method defines how data will be
-         * serialized when called JSON.stringify method with this object
+         * This method returns an object that defines how data will be
+         * serialized when called JSON.stringify() method
          * @returns {Object}
          */
         toJSON() {

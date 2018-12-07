@@ -379,7 +379,7 @@ module.exports = function(Flatten) {
 
         /**
          * Return string to draw polygon in svg
-         * @param attrs  - json structure with attributes for svg path element,
+         * @param attrs  - an object with attributes for svg path element,
          * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
          * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
          * @returns {string}
@@ -399,8 +399,8 @@ module.exports = function(Flatten) {
         }
 
         /**
-         * Returns JSON object. This method defines how data will be
-         * serialized when called JSON.stringify method with this object
+         * This method returns an object that defines how data will be
+         * serialized when called JSON.stringify() method
          * @returns {Object}
          */
         toJSON() {
