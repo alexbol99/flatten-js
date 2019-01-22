@@ -161,6 +161,6 @@ describe('#Flatten.Face', function() {
         svg += faces[1].svg({fill:"lightgreen"})
         svg += faces[2].svg({fill:"lightblue"})
 
-        expect(svg.length).not.to.be.zero;
+        expect(svg.length).not.to.equal(0);
     });
 });
