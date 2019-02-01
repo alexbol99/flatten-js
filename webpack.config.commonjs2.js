@@ -17,6 +17,9 @@ const config = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['babel-preset-env'],
+                        plugins: [["babel-plugin-transform-builtin-classes", {
+                          "globals": ["Set"]
+                        }]],
                         babelrc: false
                     }
                 }
