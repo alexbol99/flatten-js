@@ -5,7 +5,8 @@
 'use strict';
 
 let expect = require('chai').expect;
-let Flatten = require('../index');
+let Flatten = require('../dist/flatten.commonjs2');
+// let now = require("performance-now");
 
 let {Point, Segment, Circle, Box, PlanarSet, Distance} = Flatten;
 let {point, segment, vector, circle} = Flatten;

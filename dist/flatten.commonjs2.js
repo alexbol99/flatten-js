@@ -1773,7 +1773,7 @@ module.exports = function (Flatten) {
 
             /**
              * Return string to draw arc in svg
-             * @param {Object} attrs - json structure with attributes of svg path element,
+             * @param {Object} attrs - an object with attributes of svg path element,
              * like "stroke", "strokeWidth", "fill" <br/>
              * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
              * @returns {string}
@@ -1805,8 +1805,8 @@ module.exports = function (Flatten) {
             }
 
             /**
-             * Returns JSON object. This method defines how data will be
-             * serialized when called JSON.stringify method with this object
+             * This method returns an object that defines how data will be
+             * serialized when called JSON.stringify() method
              * @returns {Object}
              */
 
@@ -2226,7 +2226,7 @@ module.exports = function (Flatten) {
 
             /**
              * Return string to draw circle in svg
-             * @param {Object} attrs - json structure with attributes of svg rectangle element,
+             * @param {Object} attrs - an object with attributes of svg rectangle element,
              * like "stroke", "strokeWidth", "fill" <br/>
              * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
              * @returns {string}
@@ -2548,7 +2548,7 @@ module.exports = function (Flatten) {
 
             /**
              * Return string to draw circle in svg
-             * @param {Object} attrs - json structure with attributes of svg circle element,
+             * @param {Object} attrs - an object with attributes of svg circle element,
              * like "stroke", "strokeWidth", "fill" <br/>
              * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
              * @returns {string}
@@ -2570,8 +2570,8 @@ module.exports = function (Flatten) {
             }
 
             /**
-             * Returns JSON object. This method defines how data will be
-             * serialized when called JSON.stringify method with this object
+             * This method returns an object that defines how data will be
+             * serialized when called JSON.stringify() method
              * @returns {Object}
              */
 
@@ -4054,7 +4054,7 @@ module.exports = function (Flatten) {
             /**
              * Return string to draw svg segment representing line inside given box
              * @param {Box} box Box representing drawing area
-             * @param {Object} attrs - json structure with attributes of svg circle element
+             * @param {Object} attrs - an object with attributes of svg circle element
              */
 
         }, {
@@ -4074,8 +4074,8 @@ module.exports = function (Flatten) {
             }
 
             /**
-             * Returns JSON object. This method defines how data will be
-             * serialized when called JSON.stringify method with this object
+             * This method returns an object that defines how data will be
+             * serialized when called JSON.stringify() method
              * @returns {Object}
              */
 
@@ -4825,8 +4825,8 @@ module.exports = function (Flatten) {
             }
 
             /**
-             * Returns JSON object. This method defines how data will be
-             * serialized when called JSON.stringify method with this object
+             * This method returns an object that defines how data will be
+             * serialized when called JSON.stringify() method
              * @returns {Object}
              */
 
@@ -5538,7 +5538,7 @@ module.exports = function (Flatten) {
 
             /**
              * Return string to draw polygon in svg
-             * @param attrs  - json structure with attributes for svg path element,
+             * @param attrs  - an object with attributes for svg path element,
              * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
              * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
              * @returns {string}
@@ -5588,8 +5588,8 @@ module.exports = function (Flatten) {
             }
 
             /**
-             * Returns JSON object. This method defines how data will be
-             * serialized when called JSON.stringify method with this object
+             * This method returns an object that defines how data will be
+             * serialized when called JSON.stringify() method
              * @returns {Object}
              */
 
@@ -6425,7 +6425,7 @@ module.exports = function (Flatten) {
 
             /**
              * Return string to draw segment in svg
-             * @param {Object} attrs - Object with attributes for svg path element,
+             * @param {Object} attrs - an object with attributes for svg path element,
              * like "stroke", "strokeWidth" <br/>
              * Defaults are stroke:"black", strokeWidth:"1"
              * @returns {string}
@@ -6445,8 +6445,8 @@ module.exports = function (Flatten) {
             }
 
             /**
-             * Returns JSON object. This method defines how data will be
-             * serialized when called JSON.stringify method with this object
+             * This method returns an object that defines how data will be
+             * serialized when called JSON.stringify() method
              * @returns {Object}
              */
 
@@ -7015,8 +7015,8 @@ module.exports = function (Flatten) {
             }
 
             /**
-             * Returns JSON object. This method defines how data will be
-             * serialized when called JSON.stringify method with this object
+             * This method returns an object that defines how data will be
+             * serialized when called JSON.stringify() method
              * @returns {Object}
              */
 
@@ -7079,6 +7079,8 @@ module.exports = function (Flatten) {
 
 // require("babel-polyfill");
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
@@ -7091,6 +7093,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var _fixBabelExtend = function (O) {
+    var gPO = O.getPrototypeOf || function (o) {
+        return o.__proto__;
+    },
+        sPO = O.setPrototypeOf || function (o, p) {
+        o.__proto__ = p;
+        return o;
+    },
+        construct = (typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === 'object' ? Reflect.construct : function (Parent, args, Class) {
+        var Constructor,
+            a = [null];
+        a.push.apply(a, args);
+        Constructor = Parent.bind.apply(Parent, a);
+        return sPO(new Constructor(), Class.prototype);
+    };
+
+    return function fixBabelExtend(Class) {
+        var Parent = gPO(Class);
+        return sPO(Class, sPO(function Super() {
+            return construct(Parent, arguments, gPO(this).constructor);
+        }, Parent));
+    };
+}(Object);
+
 var IntervalTree = __webpack_require__(/*! flatten-interval-tree */ "./node_modules/flatten-interval-tree/index.js");
 
 module.exports = function (Flatten) {
@@ -7099,7 +7125,7 @@ module.exports = function (Flatten) {
      * perform spatial queries. Planar set is an extension of Set container, so it supports
      * Set properties and methods
      */
-    Flatten.PlanarSet = function (_Set) {
+    Flatten.PlanarSet = _fixBabelExtend(function (_Set) {
         _inherits(PlanarSet, _Set);
 
         /**
@@ -7210,7 +7236,7 @@ module.exports = function (Flatten) {
         }]);
 
         return PlanarSet;
-    }(Set);
+    }(Set));
 };
 
 /***/ }),
