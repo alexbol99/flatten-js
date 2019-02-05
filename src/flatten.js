@@ -1,6 +1,6 @@
 import * as Constants from './utils/constants';
 import * as Utils from './utils/utils';
-import * as Errors from './utils/errors';
+import Errors from './utils/errors';
 
 let Flatten = {
     Utils: Utils,

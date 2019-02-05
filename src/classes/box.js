@@ -10,7 +10,7 @@ import Flatten from '../flatten';
  * Class Box represent bounding box of the shape
  * @type {Box}
  */
-class Box {
+export class Box {
     /**
      *
      * @param {number} xmin - minimal x coordinate
@@ -192,4 +192,5 @@ Flatten.Box = Box;
  * @param args
  * @returns {Box}
  */
-Flatten.box = (...args) => new Flatten.Box(...args);
+export const box = (...args) => new Flatten.Box(...args);
+Flatten.box = box;

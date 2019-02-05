@@ -11,7 +11,7 @@ import Flatten from '../flatten';
  * Class representing a segment
  * @type {Segment}
  */
-class Segment {
+export class Segment {
     /**
      *
      * @param {Point} ps - start point
@@ -507,4 +507,5 @@ Flatten.Segment = Segment;
 /**
  * Shortcut method to create new segment
  */
-Flatten.segment = (...args) => new Flatten.Segment(...args);
+export const segment = (...args) => new Flatten.Segment(...args);
+Flatten.segment = segment

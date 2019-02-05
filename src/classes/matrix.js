@@ -12,7 +12,7 @@ import Flatten from '../flatten';
  * </pre
  * @type {Matrix}
  */
-class Matrix {
+export class Matrix {
     /**
      * Construct new instance of affine transformation matrix <br/>
      * If parameters omitted, construct identity matrix a = 1, d = 1
@@ -141,4 +141,5 @@ Flatten.Matrix = Matrix;
  * Function to create matrix equivalent to "new" constructor
  * @param args
  */
-Flatten.matrix = (...args) => new Flatten.Matrix(...args);
+export const matrix = (...args) => new Flatten.Matrix(...args);
+Flatten.matrix = matrix;

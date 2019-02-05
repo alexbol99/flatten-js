@@ -9,7 +9,7 @@ import Flatten from '../flatten';
  * Class representing a point
  * @type {Point}
  */
-class Point {
+export class Point {
     /**
      * Point may be constructed by two numbers, or by array of two numbers
      * @param {number} x - x-coordinate (float number)
@@ -289,4 +289,7 @@ Flatten.Point = Point;
  * Function to create point equivalent to "new" constructor
  * @param args
  */
-Flatten.point = (...args) => new Flatten.Point(...args);
+export const point = (...args) => new Flatten.Point(...args);
+Flatten.point = point;
+
+// export {Point};

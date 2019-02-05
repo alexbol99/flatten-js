@@ -13,7 +13,7 @@ let {Arc, vector} = Flatten;
  * Class representing a circle
  * @type {Circle}
  */
-class Circle {
+export class Circle {
     /**
      *
      * @param {Point} pc - circle center point
@@ -269,4 +269,6 @@ Flatten.Circle = Circle;
  * Shortcut to create new circle
  * @param args
  */
-Flatten.circle = (...args) => new Flatten.Circle(...args);
+export const circle = (...args) => new Flatten.Circle(...args);
+Flatten.circle = circle;
+

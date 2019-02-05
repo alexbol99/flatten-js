@@ -11,7 +11,7 @@ import Flatten from '../flatten';
  * Class representing a circular arc
  * @type {Arc}
  */
-class Arc {
+export class Arc {
     /**
      *
      * @param {Point} pc - arc center
@@ -561,4 +561,5 @@ Flatten.Arc = Arc;
  * Function to create arc equivalent to "new" constructor
  * @param args
  */
-Flatten.arc = (...args) => new Flatten.Arc(...args);
+export const arc = (...args) => new Flatten.Arc(...args);
+Flatten.arc = arc;

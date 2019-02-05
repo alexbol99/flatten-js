@@ -11,7 +11,7 @@ import Flatten from '../flatten';
  *
  * @type {Edge}
  */
-class Edge {
+export class Edge {
     /**
      * Construct new instance of edge
      * @param {Shape} shape Shape of type Segment of Arc

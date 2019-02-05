@@ -9,7 +9,7 @@ let {Point, Segment, Line, Circle, Arc, Box, Vector} = Flatten;
  * Class representing a horizontal ray, used by ray shooting algorithm
  * @type {Ray}
  */
-class Ray {
+export class Ray {
     /**
      * Construct ray by setting start point
      * @param {Point} pt - start point
@@ -132,4 +132,6 @@ class Ray {
 };
 
 Flatten.Ray = Ray;
-Flatten.ray = (...args) => new Flatten.Ray(...args);
+
+export const ray = (...args) => new Flatten.Ray(...args);
+Flatten.ray = ray;

@@ -10,7 +10,7 @@ import Flatten from '../flatten';
  * Class representing a line
  * @type {Line}
  */
-class Line {
+export class Line {
     /**
      * Line may be constructed by point and normal vector or by two points that a line passes through
      * @param {Point} pt - point that a line passes through
@@ -329,4 +329,5 @@ Flatten.Line = Line;
  * Function to create line equivalent to "new" constructor
  * @param args
  */
-Flatten.line = (...args) => new Flatten.Line(...args);
+export const line = (...args) => new Flatten.Line(...args);
+Flatten.line = line;

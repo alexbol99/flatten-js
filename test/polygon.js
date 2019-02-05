@@ -5,8 +5,8 @@
 import { expect } from 'chai';
 import Flatten from '../index';
 
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} = Flatten;
-let {point, vector, circle, line, segment, arc, box} = Flatten;
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../index';
+import {point, vector, circle, line, segment, arc, box} from '../index';
 
 describe('#Flatten.Polygon', function() {
     it('May create new instance of Polygon', function () {
@@ -464,11 +464,11 @@ describe('#Flatten.Polygon', function() {
             let polygon = new Polygon();
             polygon.addFace(points);
 
-            let line = new Flatten.Line(point(100, 20), point(300, 200));
+            let line = new Line(point(100, 20), point(300, 200));
             expect(polygon.intersect(line).length).to.equal(4);
         });
         it('Intersection with Polygon', function () {
-            let segment = new Flatten.Segment(150,-20,150,60);
+            let segment = new Segment(150,-20,150,60);
 
             let points = [
                 point(100, 20),
@@ -480,7 +480,7 @@ describe('#Flatten.Polygon', function() {
             let poly = new Polygon();
             let face = poly.addFace(points);
 
-            let ip_expected = new Flatten.Point(0, 2);
+            let ip_expected = new Point(0, 2);
             let ip = poly.intersect(segment);
             expect(ip.length).to.equal(2);
             expect(ip[0].equalTo(point(150,20))).to.be.true;
@@ -489,13 +489,13 @@ describe('#Flatten.Polygon', function() {
     });
     it('Issue #18 Division by zero error when checking if polygon contains a point',function() {
         const points = [
-            new Flatten.Point(-0.0774582, 51.4791865),
-            new Flatten.Point(-0.0784252, 51.4792941),
-            new Flatten.Point(-0.0774582, 51.4791865)
+            new Point(-0.0774582, 51.4791865),
+            new Point(-0.0784252, 51.4792941),
+            new Point(-0.0774582, 51.4791865)
         ];
-        const poly = new Flatten.Polygon();
+        const poly = new Polygon();
         poly.addFace(points);
-        const pp = new Flatten.Point(-0.07776044568759738, 51.47918678917519);
+        const pp = new Point(-0.07776044568759738, 51.47918678917519);
         const contains = poly.contains(pp);
         expect(contains).to.be.equal(false);
     });

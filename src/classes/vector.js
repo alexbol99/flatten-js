@@ -11,7 +11,7 @@ import Flatten from '../flatten';
  * Class representing a vector
  * @type {Vector}
  */
-class Vector {
+export class Vector {
     /**
      * Vector may be constructed by two points, or by two float numbers,
      * or by array of two numbers
@@ -246,5 +246,6 @@ Flatten.Vector = Vector;
  * Function to create vector equivalent to "new" constructor
  * @param args
  */
-Flatten.vector = (...args) => new Flatten.Vector(...args);
+export const vector = (...args) => new Flatten.Vector(...args);
+Flatten.vector = vector;
 

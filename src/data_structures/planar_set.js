@@ -15,7 +15,7 @@ import IntervalTree from 'flatten-interval-tree';
  * perform spatial queries. Planar set is an extension of Set container, so it supports
  * Set properties and methods
  */
-class PlanarSet extends Set {
+export class PlanarSet extends Set {
     /**
      * Create new empty instance of PlanarSet
      */
@@ -96,4 +96,4 @@ class PlanarSet extends Set {
     }
 }
 
-Flatten.PlanarSet = PlanarSet; 
+Flatten.PlanarSet = PlanarSet;

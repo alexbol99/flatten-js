@@ -15,7 +15,7 @@ let {ray_shoot} = Flatten;
  * Face, in turn, is a closed loop of [edges]{@link Flatten.Edge}, where edge may be segment or circular arc<br/>
  * @type {Polygon}
  */
-class Polygon {
+export class Polygon {
     /**
      * Constructor creates new instance of polygon.<br/>
      * New polygon is empty. Add face to the polygon using method <br/>

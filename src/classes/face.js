@@ -31,7 +31,7 @@ let {Point, point, Segment, segment, Arc, Box, Edge, Circle} = Flatten;
  *   edge = edge.next;
  * } while (edge != face.first)
  */
-class Face {
+export class Face {
     constructor(polygon, ...args) {
         /**
          * Reference to the first edge in face

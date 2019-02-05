@@ -3,12 +3,11 @@
 
 import Flatten from '../flatten';
 
-
 /**
  * Class representing a Image shape
  * @type {Image}
  */
-class Image {
+export class Image {
     constructor() {
         this.uri = "";
         /**

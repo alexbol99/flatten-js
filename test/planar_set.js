@@ -7,8 +7,8 @@
 import { expect } from 'chai';
 import Flatten from '../index';
 
-let {Point, Segment, Circle, Box, PlanarSet, Distance} = Flatten;
-let {point, segment, vector, circle} = Flatten;
+import {Point, Segment, Circle, Box, PlanarSet, Distance} from '../index';
+import {point, segment, vector, circle} from '../index';
 
 describe('#Data_structures.PlanarSet', function() {
     it('Class PlanarSet defined', function() {
@@ -20,8 +20,8 @@ describe('#Data_structures.PlanarSet', function() {
     });
     it('May add planar objects', function () {
         let planarSet = new PlanarSet();
-        let segment = new Flatten.Segment(1,2,4,5);
-        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
+        let segment = new Segment(1,2,4,5);
+        let circle = new Circle(new Point(3,3), 5);
         planarSet.add(segment);
         planarSet.add(circle);
         expect(planarSet.has(segment)).to.equal(true);
@@ -30,8 +30,8 @@ describe('#Data_structures.PlanarSet', function() {
     });
     it('May delete planar objects', function () {
         let planarSet = new PlanarSet();
-        let segment = new Flatten.Segment(1,2,4,5);
-        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
+        let segment = new Segment(1,2,4,5);
+        let circle = new Circle(new Point(3,3), 5);
         planarSet.add(segment);
         planarSet.add(circle);
         planarSet.delete(segment);
@@ -40,15 +40,15 @@ describe('#Data_structures.PlanarSet', function() {
     });
     it('May not add same object twice (without error ?) ', function () {
         let planarSet = new PlanarSet();
-        let segment = new Flatten.Segment(1,2,4,5);
+        let segment = new Segment(1,2,4,5);
         planarSet.add(segment);
         planarSet.add(segment);
         expect(planarSet.size).to.equal(1);
     });
     it('May update planar objects', function() {
         let planarSet = new PlanarSet();
-        let segment = new Flatten.Segment(1,2,4,5);
-        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
+        let segment = new Segment(1,2,4,5);
+        let circle = new Circle(new Point(3,3), 5);
         planarSet.add(segment);
         planarSet.add(circle);
 
@@ -121,7 +121,7 @@ describe('#Data_structures.PlanarSet', function() {
 
         let pt = point(300,200);
 
-        let [dist, shortest_segment] = Distance.shape2planarSet(pt, set);
+        let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(pt, set);
         expect(dist).to.equal(20);
     });
 
