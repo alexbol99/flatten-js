@@ -4,8 +4,8 @@
 
 'use strict';
 
-let expect = require('chai').expect;
-let Flatten = require('../index');
+import { expect } from 'chai';
+import Flatten from '../src/index';
 
 let {Point, Segment, Circle, Box, PlanarSet, Distance} = Flatten;
 let {point, segment, vector, circle} = Flatten;

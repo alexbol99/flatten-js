@@ -2,218 +2,213 @@
  * Created by Alex Bol on 3/17/2017.
  */
 
-module.exports = function(Flatten) {
+import Flatten from '../flatten';
+
+
+/**
+ * Class representing an edge of polygon. Edge shape may be Segment or Arc.
+ * Each edge contains references to the next and previous edges in the face of the polygon.
+ *
+ * @type {Edge}
+ */
+class Edge {
     /**
-     * Class representing an edge of polygon. Edge shape may be Segment or Arc.
-     * Each edge contains references to the next and previous edges in the face of the polygon.
-     *
-     * @type {Edge}
+     * Construct new instance of edge
+     * @param {Shape} shape Shape of type Segment of Arc
      */
-    Flatten.Edge = class Edge {
+    constructor(shape) {
         /**
-         * Construct new instance of edge
-         * @param {Shape} shape Shape of type Segment of Arc
+         * Shape of the edge: Segment or Arc
          */
-        constructor(shape) {
-            /**
-             * Shape of the edge: Segment or Arc
-             */
-            this.shape = shape;
-            /**
-             * Pointer to the next edge in the face
-             */
-            this.next;
-            /**
-             * Pointer to the previous edge in the face
-             */
-            this.prev;
-            /**
-             * Pointer to the face containing this edge
-             * @type {Face}
-             */
-            this.face;
-            /**
-             * "Arc distance" from the face start
-             * @type {number}
-             */
-            this.arc_length = 0;
-            /**
-             * Start inclusion flag (inside/outside/boundary)
-             * @type {Boolean}
-             */
-            this.bvStart = undefined;
-            /**
-             * End inclusion flag (inside/outside/boundary)
-             * @type {Boolean}
-             */
-            this.bvEnd = undefined;
-            /**
-             * Edge inclusion flag (Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY)
-             * @type {*}
-             */
-            this.bv = undefined;
-            /**
-             * Overlap flag for boundary edge (Flatten.OVERLAP_SAME/Flatten.OVERLAP_OPPOSITE)
-             * @type {*}
-             */
-            this.overlap = undefined;
-        }
-
+        this.shape = shape;
         /**
-         * Get edge start point
+         * Pointer to the next edge in the face
          */
-        get start() {
-            return this.shape.start;
-        }
-
+        this.next;
         /**
-         * Get edge end point
+         * Pointer to the previous edge in the face
          */
-        get end() {
-            return this.shape.end;
-        }
-
+        this.prev;
         /**
-         * Get edge length
+         * Pointer to the face containing this edge
+         * @type {Face}
          */
-        get length() {
-            return this.shape.length;
-        }
-
+        this.face;
         /**
-         * Get bounding box of the edge
-         * @returns {Box}
+         * "Arc distance" from the face start
+         * @type {number}
          */
-        get box() {
-            return this.shape.box;
-        }
-
-        isSegment() {
-            return this.shape instanceof Flatten.Segment;
-        }
-
-        isArc() {
-            return this.shape instanceof Flatten.Arc;
-        }
+        this.arc_length = 0;
         /**
-         * Get middle point of the edge
-         * @returns {Point}
+         * Start inclusion flag (inside/outside/boundary)
+         * @type {Boolean}
          */
-        middle() {
-            return this.shape.middle();
-        }
-
+        this.bvStart = undefined;
         /**
-         * Returns true if point belongs to the edge, false otherwise
-         * @param {Point} pt - test point
+         * End inclusion flag (inside/outside/boundary)
+         * @type {Boolean}
          */
-        contains(pt) {
-            return this.shape.contains(pt);
-        }
-
+        this.bvEnd = undefined;
         /**
-         * Set inclusion flag of the edge with respect to another polygon
-         * Inclusion flag is one of Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY
-         * @param polygon
+         * Edge inclusion flag (Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY)
+         * @type {*}
          */
-        setInclusion(polygon) {
-            if (this.bv !== undefined) return this.bv;
-
-            if (this.bvStart === undefined) {
-                this.bvStart = Flatten.ray_shoot(polygon, this.start);
-            }
-            if (this.bvEnd === undefined) {
-                this.bvEnd = Flatten.ray_shoot(polygon, this.end);
-            }
-            /* At least one end outside - the whole edge outside */
-            if (this.bvStart === Flatten.OUTSIDE || this.bvEnd == Flatten.OUTSIDE) {
-                this.bv = Flatten.OUTSIDE;
-            }
-            /* At least one end inside - the whole edge inside */
-            else if (this.bvStart === Flatten.INSIDE || this.bvEnd == Flatten.INSIDE) {
-                this.bv = Flatten.INSIDE;
-            }
-            /* Both are boundary - check the middle point */
-            else {
-                let bvMiddle = Flatten.ray_shoot(polygon, this.middle());
-                this.bv = bvMiddle;
-            }
-            return this.bv;
-        }
-
+        this.bv = undefined;
         /**
-         * Set overlapping between two coincident boundary edges
-         * Overlapping flag is one of Flatten.OVERLAP_SAME or Flatten.OVERLAP_OPPOSITE
-         * @param edge
+         * Overlap flag for boundary edge (Flatten.OVERLAP_SAME/Flatten.OVERLAP_OPPOSITE)
+         * @type {*}
          */
-        setOverlap(edge) {
-            let flag = undefined;
-            let shape1 = this.shape;
-            let shape2 = edge.shape;
+        this.overlap = undefined;
+    }
 
-            if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
-                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end)) {
-                    flag = Flatten.OVERLAP_SAME;
-                }
-                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start)) {
-                    flag = Flatten.OVERLAP_OPPOSITE;
-                }
-            }
-            else if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
-                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && /*shape1.counterClockwise === shape2.counterClockwise &&*/
-                    shape1.middle().equalTo(shape2.middle())) {
-                    flag = Flatten.OVERLAP_SAME;
-                }
-                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && /*shape1.counterClockwise !== shape2.counterClockwise &&*/
-                    shape1.middle().equalTo(shape2.middle())) {
-                    flag = Flatten.OVERLAP_OPPOSITE;
-                }
-            }
-            else if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Arc ||
-                shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Segment) {
-                if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.middle().equalTo(shape2.middle())) {
-                    flag = Flatten.OVERLAP_SAME;
-                }
-                else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.middle().equalTo(shape2.middle())) {
-                    flag = Flatten.OVERLAP_OPPOSITE;
-                }
-            }
+    /**
+     * Get edge start point
+     */
+    get start() {
+        return this.shape.start;
+    }
 
-            /* Do not update overlap flag if already set on previous chain */
-            if (this.overlap === undefined) this.overlap = flag;
-            if (edge.overlap === undefined) edge.overlap = flag;
+    /**
+     * Get edge end point
+     */
+    get end() {
+        return this.shape.end;
+    }
+
+    /**
+     * Get edge length
+     */
+    get length() {
+        return this.shape.length;
+    }
+
+    /**
+     * Get bounding box of the edge
+     * @returns {Box}
+     */
+    get box() {
+        return this.shape.box;
+    }
+
+    isSegment() {
+        return this.shape instanceof Flatten.Segment;
+    }
+
+    isArc() {
+        return this.shape instanceof Flatten.Arc;
+    }
+
+    /**
+     * Get middle point of the edge
+     * @returns {Point}
+     */
+    middle() {
+        return this.shape.middle();
+    }
+
+    /**
+     * Returns true if point belongs to the edge, false otherwise
+     * @param {Point} pt - test point
+     */
+    contains(pt) {
+        return this.shape.contains(pt);
+    }
+
+    /**
+     * Set inclusion flag of the edge with respect to another polygon
+     * Inclusion flag is one of Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY
+     * @param polygon
+     */
+    setInclusion(polygon) {
+        if (this.bv !== undefined) return this.bv;
+
+        if (this.bvStart === undefined) {
+            this.bvStart = Flatten.ray_shoot(polygon, this.start);
+        }
+        if (this.bvEnd === undefined) {
+            this.bvEnd = Flatten.ray_shoot(polygon, this.end);
+        }
+        /* At least one end outside - the whole edge outside */
+        if (this.bvStart === Flatten.OUTSIDE || this.bvEnd == Flatten.OUTSIDE) {
+            this.bv = Flatten.OUTSIDE;
+        }
+        /* At least one end inside - the whole edge inside */
+        else if (this.bvStart === Flatten.INSIDE || this.bvEnd == Flatten.INSIDE) {
+            this.bv = Flatten.INSIDE;
+        }
+        /* Both are boundary - check the middle point */
+        else {
+            let bvMiddle = Flatten.ray_shoot(polygon, this.middle());
+            this.bv = bvMiddle;
+        }
+        return this.bv;
+    }
+
+    /**
+     * Set overlapping between two coincident boundary edges
+     * Overlapping flag is one of Flatten.OVERLAP_SAME or Flatten.OVERLAP_OPPOSITE
+     * @param edge
+     */
+    setOverlap(edge) {
+        let flag = undefined;
+        let shape1 = this.shape;
+        let shape2 = edge.shape;
+
+        if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
+            if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end)) {
+                flag = Flatten.OVERLAP_SAME;
+            } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start)) {
+                flag = Flatten.OVERLAP_OPPOSITE;
+            }
+        } else if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
+            if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && /*shape1.counterClockwise === shape2.counterClockwise &&*/
+                shape1.middle().equalTo(shape2.middle())) {
+                flag = Flatten.OVERLAP_SAME;
+            } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && /*shape1.counterClockwise !== shape2.counterClockwise &&*/
+                shape1.middle().equalTo(shape2.middle())) {
+                flag = Flatten.OVERLAP_OPPOSITE;
+            }
+        } else if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Arc ||
+            shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Segment) {
+            if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.middle().equalTo(shape2.middle())) {
+                flag = Flatten.OVERLAP_SAME;
+            } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.middle().equalTo(shape2.middle())) {
+                flag = Flatten.OVERLAP_OPPOSITE;
+            }
         }
 
-        svg() {
-            if (this.shape instanceof Flatten.Segment) {
-                return ` L${this.shape.end.x},${this.shape.end.y}`;
-            }
-            else if (this.shape instanceof  Flatten.Arc) {
-                let arc = this.shape;
-                let largeArcFlag;
-                let sweepFlag = arc.counterClockwise ? "1" : "0";
+        /* Do not update overlap flag if already set on previous chain */
+        if (this.overlap === undefined) this.overlap = flag;
+        if (edge.overlap === undefined) edge.overlap = flag;
+    }
 
-                // Draw full circe arc as special case: split it into two half-circles
-                if (Flatten.Utils.EQ(arc.sweep, 2*Math.PI)) {
-                    let sign = arc.counterClockwise ? 1 : -1;
-                    let halfArc1 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle, arc.startAngle + sign*Math.PI, arc.counterClockwise);
-                    let halfArc2 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle + sign*Math.PI, arc.endAngle, arc.counterClockwise);
+    svg() {
+        if (this.shape instanceof Flatten.Segment) {
+            return ` L${this.shape.end.x},${this.shape.end.y}`;
+        } else if (this.shape instanceof Flatten.Arc) {
+            let arc = this.shape;
+            let largeArcFlag;
+            let sweepFlag = arc.counterClockwise ? "1" : "0";
 
-                    largeArcFlag = "0";
+            // Draw full circe arc as special case: split it into two half-circles
+            if (Flatten.Utils.EQ(arc.sweep, 2 * Math.PI)) {
+                let sign = arc.counterClockwise ? 1 : -1;
+                let halfArc1 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle, arc.startAngle + sign * Math.PI, arc.counterClockwise);
+                let halfArc2 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle + sign * Math.PI, arc.endAngle, arc.counterClockwise);
 
-                    return ` A${halfArc1.r},${halfArc1.r} 0 ${largeArcFlag},${sweepFlag} ${halfArc1.end.x},${halfArc1.end.y}
+                largeArcFlag = "0";
+
+                return ` A${halfArc1.r},${halfArc1.r} 0 ${largeArcFlag},${sweepFlag} ${halfArc1.end.x},${halfArc1.end.y}
                     A${halfArc2.r},${halfArc2.r} 0 ${largeArcFlag},${sweepFlag} ${halfArc2.end.x},${halfArc2.end.y}`
-                }
-                else {
-                    largeArcFlag = arc.sweep <= Math.PI ? "0" : "1";
+            } else {
+                largeArcFlag = arc.sweep <= Math.PI ? "0" : "1";
 
-                    return ` A${arc.r},${arc.r} 0 ${largeArcFlag},${sweepFlag} ${arc.end.x},${arc.end.y}`;
-                }
+                return ` A${arc.r},${arc.r} 0 ${largeArcFlag},${sweepFlag} ${arc.end.x},${arc.end.y}`;
             }
         }
+    }
 
-        toJSON() {
-            return this.shape.toJSON();
-        }
-    };
+    toJSON() {
+        return this.shape.toJSON();
+    }
 };

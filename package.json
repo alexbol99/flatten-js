@@ -5,7 +5,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "test": "mocha --reporter spec",
+    "test": "mocha --require @babel/register --reporter spec",
     "doc": "jsdoc -t ./node_modules/minami -d ./docs -r ./ README.md",
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
     "npm-publish": "npm version patch; git push && git push --tags; npm publish",
@@ -41,6 +41,11 @@
     "node": ">=4.2.4"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-builtin-classes": "^0.6.1",

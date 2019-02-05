@@ -4,10 +4,8 @@
 
 'use strict';
 
-require('jsdom-global')();
-let expect = require('chai').expect;
-let Flatten = require('../index');
-let fs = require('fs');
+import { expect } from 'chai';
+import Flatten from '../src/index';
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray, Matrix} = Flatten;
 let {point, vector, circle, line, segment, arc, ray} = Flatten;

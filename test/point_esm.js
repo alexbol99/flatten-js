@@ -5,6 +5,7 @@
 
 import { expect } from 'chai';
 import Flatten from '../src/index';
+
 // let Flatten = require('../dist/flatten.min');
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
@@ -13,8 +14,8 @@ let {point, vector, circle, line, segment, arc, ray, matrix} = Flatten;
 
 describe('#Flatten.Point', function() {
     it('May create new Point', function() {
-        let point = new Flatten.Point();
-        expect(point).to.be.an.instanceof(Flatten.Point);
+        let point = new Point();
+        expect(point).to.be.an.instanceof(Point);
     });
     it('Default constructor creates new (0,0) point', function() {
         let point = new Flatten.Point();

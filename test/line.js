@@ -3,8 +3,8 @@
  */
 'use strict';
 
-let expect = require('chai').expect;
-let Flatten = require('../index');
+import { expect } from 'chai';
+import Flatten from '../src/index';
 // let Flatten = require('../dist/flatten.min');
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;

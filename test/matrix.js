@@ -1,7 +1,7 @@
 'use strict';
 
-let expect = require('chai').expect;
-let Flatten = require('../index');
+import { expect } from 'chai';
+import Flatten from '../src/index';
 
 let {Matrix} = Flatten;
 
