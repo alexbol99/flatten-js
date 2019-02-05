@@ -1,51 +1,24 @@
 /**
  * Created by Alex Bol on 2/18/2017.
  */
-'use strict';
 
-let Utils = require("./utils/utils");
-let Errors = require("./utils/errors");
+import Flatten from './src/flatten';
+import * as Utils from "./src/utils/utils";
+import * as Errors from "./src/utils/errors";
+import * as Matrix from './src/classes/matrix';
+import * as PlanarSet from './src/data_structures/planar_set';
+import * as Point from './src/classes/point';
+import * as Vector from './src/classes/vector';
+import * as Line from './src/classes/line';
+import * as Circle from './src/classes/circle';
+import * as Segment from './src/classes/segment';
+import * as Arc from './src/classes/arc';
+import * as Box from './src/classes/box';
+import * as Edge from './src/classes/edge';
+import * as Face from './src/classes/face';
+import * as Ray from './src/classes/ray';
+import * as Ray_shooting from './src/algorithms/ray_shooting';
+import * as Polygon from './src/classes/polygon';
+import * as Distance from './src/algorithms/distance';
 
-/**
- * FlattenJS - library for 2d geometry
- * @type {Flatten}
- */
-let Flatten = class Flatten {
-    constructor() {
-        this.DP_TOL = Utils.DP_TOL;
-        this.CCW = true;
-        this.CW = false;
-        this.ORIENTATION = {CCW:-1, CW:1, NOT_ORIENTABLE: 0};
-        this.PIx2 = 2 * Math.PI;
-        // this.PI_2 = 0.5 * Math.PI;
-        this.INSIDE = 1;
-        this.OUTSIDE = 0;
-        this.BOUNDARY = 2;
-        this.CONTAINS = 3;
-        this.INTERLACE = 4;
-        this.OVERLAP_SAME = 1;
-        this.OVERLAP_OPPOSITE = 2;
-        this.Utils = Utils;
-        this.Errors = Errors;
-    }
-};
-
-let f = new Flatten();
-
-require("./classes/matrix")(f);
-require("./data_structures/planar_set")(f);
-require("./classes/point")(f);
-require("./classes/vector")(f);
-require("./classes/line")(f);
-require("./classes/circle")(f);
-require("./classes/segment")(f);
-require("./classes/arc")(f);
-require("./classes/box")(f);
-require("./classes/edge")(f);
-require("./classes/face")(f);
-require("./classes/ray")(f);
-require("./algorithms/ray_shooting")(f);
-require("./classes/polygon")(f);
-require("./algorithms/distance")(f);
-
-module.exports = f;
+export default Flatten;

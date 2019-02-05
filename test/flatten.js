@@ -5,13 +5,19 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../src/index';
+import Flatten from '../index';
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray, Matrix} = Flatten;
 let {point, vector, circle, line, segment, arc, ray} = Flatten;
 let {Distance, PlanarSet} = Flatten;
 
 describe('#Flatten-JS', function() {
+    it('Namespace Flatten defined', function () {
+        expect(Flatten).to.exist;
+    });
+    it('Constant DP_TOL is defined', function () {
+        expect(Flatten.DP_TOL).to.exist;
+    });
     it('Class Matrix defined', function() {
         expect(Matrix).to.exist;
     });

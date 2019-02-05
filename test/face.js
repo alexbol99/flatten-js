@@ -2,8 +2,7 @@
  * Created by Alex Bol on 9/8/2017.
  */
 import { expect } from 'chai';
-import Flatten from '../src/index';
-// let Flatten = require('../dist/flatten.min');
+import Flatten from '../index';
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} = Flatten;
 let {point, vector, circle, line, segment, arc} = Flatten;

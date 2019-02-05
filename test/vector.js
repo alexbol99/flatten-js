@@ -5,11 +5,9 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../src/index';
+import Flatten from '../index';
 
-// let Flatten = require('../dist/flatten.min');
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
-
 let {point, vector, circle, line, segment, arc, ray} = Flatten;
 
 describe('#Flatten.Vector', function() {

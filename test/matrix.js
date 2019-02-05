@@ -1,10 +1,9 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../src/index';
+import Flatten from '../index';
 
 let {Matrix} = Flatten;
-
 let {matrix,point} = Flatten;
 
 describe('#Flatten.Matrix', function() {

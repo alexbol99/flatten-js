@@ -507,3 +507,5 @@ class Face {
     }
 
 };
+
+Flatten.Face = Face;

@@ -212,3 +212,5 @@ class Edge {
         return this.shape.toJSON();
     }
 };
+
+Flatten.Edge = Edge;

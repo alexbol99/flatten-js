@@ -1,10 +1,7 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../src/index';
-
-// let Flatten = require('../dist/flatten.min');
-// let now = require("performance-now");
+import Flatten from '../index';
 
 let {Polygon} = Flatten;
 let {point, segment, arc, circle} = Flatten;

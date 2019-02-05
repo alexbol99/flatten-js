@@ -4,8 +4,7 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../src/index';
-// let Flatten = require('../dist/flatten.min');
+import Flatten from '../index';
 
 let {Box} = Flatten;
 

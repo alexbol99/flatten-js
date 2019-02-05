@@ -4,6 +4,8 @@
 
 # Javascript library for 2d geometry
 
+**This  version is Beta**
+
 FlattenJS is a javascript library (about 50 Kb minified) for manipulating abstract geometrical shapes like point, vector, line, segment,
 circle, arc and polygon. Shapes may be organized into Planar Set - searchable container which support spatial queries.
 
