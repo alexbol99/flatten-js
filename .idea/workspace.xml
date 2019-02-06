@@ -1,24 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Finished to move all files to es modules, test pass">
-      <change afterPath="$PROJECT_DIR$/dist/flatten.cjs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/flatten.esm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/flatten.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.commonjs2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.commonjs2.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/flatten.umd.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Rollup build esm, umd and cjs, removed webpack, added entry points">
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/distance.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/distance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/flatten.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/flatten.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/planar_set-cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/planar_set-cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.commonjs2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.umd.js" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,7 +32,7 @@
           <entry key="js" value="514" />
           <entry key="json" value="29" />
           <entry key="md" value="35" />
-          <entry key="txt" value="97" />
+          <entry key="txt" value="163" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -56,12 +40,12 @@
           <entry key="JSON" value="29" />
           <entry key="JavaScript" value="514" />
           <entry key="Markdown" value="35" />
-          <entry key="PLAIN_TEXT" value="97" />
+          <entry key="PLAIN_TEXT" value="163" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="js" value="57" />
+          <entry key="js" value="58" />
           <entry key="json" value="2" />
           <entry key="md" value="1" />
           <entry key="ts" value="1" />
@@ -70,7 +54,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="57" />
+          <entry key="JavaScript" value="58" />
           <entry key="Markdown" value="1" />
           <entry key="TypeScript" value="1" />
         </counts>
@@ -101,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="255">
+              <caret line="15" column="24" lean-forward="true" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -119,7 +103,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.d.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
@@ -169,10 +153,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/polygon.js">
+        <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+            <state relative-caret-position="340">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
         </entry>
@@ -754,14 +738,7 @@
       <workItem from="1548102569393" duration="13492000" />
       <workItem from="1549127937203" duration="14772000" />
       <workItem from="1549361926970" duration="447000" />
-      <workItem from="1549456658690" duration="3963000" />
-    </task>
-    <task id="LOCAL-00066" summary="Complete distance methods and move all to algorithms">
-      <created>1505584828432</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1505584828432</updated>
+      <workItem from="1549456658690" duration="4115000" />
     </task>
     <task id="LOCAL-00067" summary="clean workspace">
       <created>1505598763031</created>
@@ -1099,7 +1076,14 @@
       <option name="project" value="LOCAL" />
       <updated>1549362132448</updated>
     </task>
-    <option name="localTasksCounter" value="115" />
+    <task id="LOCAL-00115" summary="Rollup build esm, umd and cjs, removed webpack, added entry points">
+      <created>1549463576337</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1549463576338</updated>
+    </task>
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1135,7 +1119,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="698084000" />
+    <option name="totallyTimeSpent" value="698236000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1204,7 +1188,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add method isSimple to check if no self intersection points (incomplete version)" />
     <MESSAGE value="Special case for zero-length segment in Segment Class methods" />
     <MESSAGE value="Update README.md - add link to Observable tutorials" />
     <MESSAGE value="Updated documentation and package" />
@@ -1229,7 +1212,8 @@
     <MESSAGE value="- Brunch 1.0.0-beta - initial commit" />
     <MESSAGE value="Finished to move all files to es modules, test pass" />
     <MESSAGE value="Update mocha command for travis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update mocha command for travis" />
+    <MESSAGE value="Rollup build esm, umd and cjs, removed webpack, added entry points" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rollup build esm, umd and cjs, removed webpack, added entry points" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1467,13 +1451,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/line.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -1559,13 +1536,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1573,6 +1543,20 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="24" lean-forward="true" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
         </state>
       </provider>
     </entry>
