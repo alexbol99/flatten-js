@@ -1,8 +1,11 @@
 {
   "name": "flatten-js",
-  "version": "0.6.8",
+  "version": "1.0.0",
   "description": "Javascript library for 2d geometry",
-  "main": "index.js",
+  "main": "dist/flatten.cjs.js",
+  "umd:main": "dist/flatten.umd.js",
+  "unpkg": "dist/flatten.umd.js",
+  "module": "dist/flatten.esm.js",
   "types": "index.d.ts",
   "scripts": {
     "test": "mocha --require @babel/register --reporter spec",
@@ -10,9 +13,7 @@
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
     "npm-publish": "npm version patch; git push && git push --tags; npm publish",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- --require @babel/register -R spec test/*",
-    "build": "webpack --progress --mode=production --config webpack.config.js",
-    "build-umd": "webpack --progress --mode=production --config webpack.config.umd.js",
-    "build-commonjs2": "webpack --progress --mode=development --config webpack.config.commonjs2.js"
+    "build": "rollup -c",
   },
   "repository": {
     "type": "git",
@@ -52,8 +53,8 @@
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
     "mocha": "^5.2.0",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^2.1.5"
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-terser": "^4.0.4"
   },
   "dependencies": {
     "flatten-interval-tree": "^0.3.3"

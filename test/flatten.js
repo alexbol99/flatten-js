@@ -7,9 +7,7 @@
 import { expect } from 'chai';
 import Flatten from '../index';
 
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray, Matrix} = Flatten;
-let {point, vector, circle, line, segment, arc, ray} = Flatten;
-let {Distance, PlanarSet} = Flatten;
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray, Matrix, Distance} from '../index';
 
 describe('#Flatten-JS', function() {
     it('Namespace Flatten defined', function () {

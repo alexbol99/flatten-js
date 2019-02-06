@@ -19,6 +19,6 @@ export {Face} from './src/classes/face';
 export {Ray, ray} from './src/classes/ray';
 import * as Ray_shooting from './src/algorithms/ray_shooting';
 export {Polygon} from './src/classes/polygon';
-import * as Distance from './src/algorithms/distance';
+export {Distance} from './src/algorithms/distance';
 
 export default Flatten;

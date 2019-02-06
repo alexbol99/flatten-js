@@ -4,12 +4,9 @@
 
 'use strict';
 
-let expect = require('chai').expect;
-let Flatten = require('../dist/flatten.commonjs2');
-// let now = require("performance-now");
-
-let {Point, Segment, Circle, Box, PlanarSet, Distance} = Flatten;
-let {point, segment, vector, circle} = Flatten;
+import { expect } from 'chai';
+import Flatten, {Point, Segment, Circle, Box, PlanarSet, Distance} from '../dist/flatten.esm';
+import {point, segment, vector, circle} from '../dist/flatten.esm';
 
 describe('#Data_structures.PlanarSet', function() {
     it('Class PlanarSet defined', function() {
@@ -122,7 +119,7 @@ describe('#Data_structures.PlanarSet', function() {
 
         let pt = point(300,200);
 
-        let [dist, shortest_segment] = Distance.shape2planarSet(pt, set);
+        let [dist, shortest_segment] = pt.distanceTo(set);
         expect(dist).to.equal(20);
     });
 

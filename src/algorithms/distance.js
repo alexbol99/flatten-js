@@ -8,7 +8,7 @@ let {Polygon, Point, Segment, Arc, Circle, Line, Ray, Vector} = Flatten;
 
 let {vector} = Flatten;
 
-class Distance {
+export class Distance {
     /**
      * Calculate distance and shortest segment between points
      * @param pt1
