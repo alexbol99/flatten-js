@@ -3,10 +3,7 @@
 // let IntervalTree = require('flatten-interval-tree');
 import IntervalTree from 'flatten-interval-tree';
 import Flatten from '../flatten';
-
-let {Polygon, Point, Segment, Arc, Circle, Line, Ray, Vector} = Flatten;
-
-let {vector} = Flatten;
+let {Segment, Line, vector} = Flatten;
 
 export class Distance {
     /**

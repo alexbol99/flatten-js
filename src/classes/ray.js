@@ -1,8 +1,6 @@
 "use strict";
 
 import Flatten from '../flatten';
-
-
 let {Point, Segment, Line, Circle, Arc, Box, Vector} = Flatten;
 
 /**

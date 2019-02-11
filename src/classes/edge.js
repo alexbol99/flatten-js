@@ -3,7 +3,7 @@
  */
 
 import Flatten from '../flatten';
-
+import {ray_shoot} from "../algorithms/ray_shooting";
 
 /**
  * Class representing an edge of polygon. Edge shape may be Segment or Arc.
@@ -123,10 +123,10 @@ export class Edge {
         if (this.bv !== undefined) return this.bv;
 
         if (this.bvStart === undefined) {
-            this.bvStart = Flatten.ray_shoot(polygon, this.start);
+            this.bvStart = ray_shoot(polygon, this.start);
         }
         if (this.bvEnd === undefined) {
-            this.bvEnd = Flatten.ray_shoot(polygon, this.end);
+            this.bvEnd = ray_shoot(polygon, this.end);
         }
         /* At least one end outside - the whole edge outside */
         if (this.bvStart === Flatten.OUTSIDE || this.bvEnd == Flatten.OUTSIDE) {
@@ -138,7 +138,7 @@ export class Edge {
         }
         /* Both are boundary - check the middle point */
         else {
-            let bvMiddle = Flatten.ray_shoot(polygon, this.middle());
+            let bvMiddle = ray_shoot(polygon, this.middle());
             this.bv = bvMiddle;
         }
         return this.bv;

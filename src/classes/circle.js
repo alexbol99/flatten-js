@@ -5,7 +5,7 @@
 "use strict";
 
 import Flatten from '../flatten';
-
+import {Distance} from '../algorithms/distance';
 
 let {Arc, vector} = Flatten;
 
@@ -130,33 +130,30 @@ export class Circle {
 
      */
     distanceTo(shape) {
-        let {Distance} = Flatten;
-        let {point2circle, circle2circle, circle2line, segment2circle, arc2circle} = Distance;
-
         if (shape instanceof Flatten.Point) {
-            let [distance, shortest_segment] = point2circle(shape, this);
+            let [distance, shortest_segment] = Distance.point2circle(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }
 
         if (shape instanceof Flatten.Circle) {
-            let [distance, shortest_segment] = circle2circle(this, shape);
+            let [distance, shortest_segment] = Distance.circle2circle(this, shape);
             return [distance, shortest_segment];
         }
 
         if (shape instanceof Flatten.Line) {
-            let [distance, shortest_segment] = circle2line(this, shape);
+            let [distance, shortest_segment] = Distance.circle2line(this, shape);
             return [distance, shortest_segment];
         }
 
         if (shape instanceof Flatten.Segment) {
-            let [distance, shortest_segment] = segment2circle(shape, this);
+            let [distance, shortest_segment] = Distance.segment2circle(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }
 
         if (shape instanceof Flatten.Arc) {
-            let [distance, shortest_segment] = arc2circle(shape, this);
+            let [distance, shortest_segment] = Distance.arc2circle(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }

@@ -3,9 +3,8 @@
  */
 
 "use strict";
-
 import Flatten from '../flatten';
-
+import {Distance} from "../algorithms/distance";
 
 /**
  * Class representing a circular arc
@@ -253,8 +252,6 @@ export class Arc {
 
      */
     distanceTo(shape) {
-        let {Distance} = Flatten;
-
         if (shape instanceof Flatten.Point) {
             let [dist, shortest_segment] = Distance.point2arc(shape, this);
             shortest_segment = shortest_segment.reverse();

@@ -1,9 +1,10 @@
 
 "use strict";
 import Flatten from '../flatten';
-let {Polygon, Point, Segment, Arc, Line, Ray} = Flatten;
+import * as Utils from '../utils/utils';
+let {Segment, Line, Ray} = Flatten;
 
-Flatten.ray_shoot = function (polygon, point) {
+export const ray_shoot = function(polygon, point) {
     let contains = undefined;
 
     // if (!(polygon instanceof Polygon && point instanceof Point)) {
@@ -15,7 +16,7 @@ Flatten.ray_shoot = function (polygon, point) {
         return Flatten.OUTSIDE;
     }
 
-    let ray = new Ray(point);
+    let ray = new Flatten.Ray(point);
     let line = new Line(ray.pt, ray.norm);
 
     // 2. Locate relevant edges of the polygon
@@ -44,10 +45,10 @@ Flatten.ray_shoot = function (polygon, point) {
 
     // 4. Sort intersection in x-ascending order
     intersections.sort((i1, i2) => {
-        if (Flatten.Utils.LT(i1.pt.x, i2.pt.x)) {
+        if (Utils.LT(i1.pt.x, i2.pt.x)) {
             return -1;
         }
-        if (Flatten.Utils.GT(i1.pt.x, i2.pt.x)) {
+        if (Utils.GT(i1.pt.x, i2.pt.x)) {
             return 1;
         }
         return 0;
@@ -65,7 +66,7 @@ Flatten.ray_shoot = function (polygon, point) {
                 continue;
             }
             let prev_edge = intersection.edge.prev;
-            while (Flatten.Utils.EQ_0(prev_edge.length)) {
+            while (Utils.EQ_0(prev_edge.length)) {
                 prev_edge = prev_edge.prev;
             }
             let prev_tangent = prev_edge.shape.tangentInEnd();
@@ -87,7 +88,7 @@ Flatten.ray_shoot = function (polygon, point) {
                 continue;
             }
             let next_edge = intersection.edge.next;
-            while (Flatten.Utils.EQ_0(next_edge.length)) {
+            while (Utils.EQ_0(next_edge.length)) {
                 next_edge = next_edge.next;
             }
             let next_tangent = next_edge.shape.tangentInStart();
@@ -108,8 +109,8 @@ Flatten.ray_shoot = function (polygon, point) {
             } else {
                 /* Check if ray does not touch the curve in the extremal (top or bottom) point */
                 let box = intersection.edge.shape.box;
-                if (!(Flatten.Utils.EQ(intersection.pt.y, box.ymin) ||
-                    Flatten.Utils.EQ(intersection.pt.y, box.ymax))) {
+                if (!(Utils.EQ(intersection.pt.y, box.ymin) ||
+                    Utils.EQ(intersection.pt.y, box.ymax))) {
                     counter++;
                 }
             }

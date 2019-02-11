@@ -2,12 +2,14 @@
  * Created by Alex Bol on 3/15/2017.
  */
 
+
 "use strict";
 
 import Flatten from '../flatten';
+import {ray_shoot} from "../algorithms/ray_shooting";
+import {Distance} from "../algorithms/distance";
 
 let {Edge, Face, PlanarSet, Box} = Flatten;
-let {ray_shoot} = Flatten;
 
 /**
  * Class representing a polygon.<br/>
@@ -190,7 +192,7 @@ export class Polygon {
      * @returns {Number | Segment}
      */
     distanceTo(shape) {
-        let {Distance} = Flatten;
+        // let {Distance} = Flatten;
 
         if (shape instanceof Flatten.Point) {
             let [dist, shortest_segment] = Distance.point2polygon(shape, this);

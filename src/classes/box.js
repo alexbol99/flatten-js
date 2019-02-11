@@ -5,7 +5,6 @@
 
 import Flatten from '../flatten';
 
-
 /**
  * Class Box represent bounding box of the shape
  * @type {Box}
