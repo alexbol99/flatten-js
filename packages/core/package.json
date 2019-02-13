@@ -1,12 +1,12 @@
 {
-  "name": "flatten-js",
+  "name": "@flatten-js/core",
   "version": "1.0.0",
   "description": "Javascript library for 2d geometry",
-  "main": "dist/flatten.cjs.js",
-  "umd:main": "dist/flatten.umd.js",
-  "unpkg": "dist/flatten.umd.js",
-  "module": "dist/flatten.esm.js",
-  "types": "index.d.ts",
+  "main": "packages/core/dist/main.cjs.js",
+  "umd:main": "packages/core/dist/main.umd.js",
+  "unpkg": "packages/core/dist/main.umd.js",
+  "module": "packages/core/dist/main.esm.js",
+  "types": "packages/core/index.d.ts",
   "scripts": {
     "test": "mocha --require @babel/register --reporter spec",
     "doc": "jsdoc -t ./node_modules/minami -d ./docs -r ./ README.md",
@@ -40,21 +40,6 @@
   "homepage": "https://github.com/alexbol99/flatten-js#readme",
   "engines": {
     "node": ">=4.2.4"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/register": "^7.0.0",
-    "chai": "^4.2.0",
-    "coveralls": "^3.0.2",
-    "istanbul": "^0.4.5",
-    "jsdoc": "^3.5.5",
-    "minami": "^1.2.3",
-    "mocha": "^5.2.0",
-    "rollup-plugin-node-resolve": "^4.0.0",
-    "rollup-plugin-terser": "^4.0.4"
   },
   "dependencies": {
     "flatten-interval-tree": "^0.3.4"
