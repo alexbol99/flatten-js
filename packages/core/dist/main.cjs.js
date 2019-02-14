@@ -5436,4 +5436,4 @@ exports.arc = arc;
 exports.box = box;
 exports.ray = ray;
 exports.ray_shoot = ray_shoot;
-exports.Flatten = Flatten;
+exports.default = Flatten;

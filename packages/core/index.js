@@ -28,4 +28,4 @@ export {Utils, Errors} from 'flatten-js';
 export {Matrix, PlanarSet, Point, Vector, Segment, Line, Circle, Arc, Box, Edge, Face, Ray, Polygon} from 'flatten-js';
 export {matrix, point, vector, circle, line, segment, arc, box, ray} from 'flatten-js';
 export {ray_shoot} from 'flatten-js';
-export {default as Flatten} from 'flatten-js';
+export {default} from 'flatten-js';

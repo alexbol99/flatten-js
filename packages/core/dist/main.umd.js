@@ -5438,7 +5438,7 @@
     exports.box = box;
     exports.ray = ray;
     exports.ray_shoot = ray_shoot;
-    exports.Flatten = Flatten;
+    exports.default = Flatten;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
