@@ -5411,4 +5411,29 @@ Flatten.Distance = Distance;
  * Created by Alex Bol on 2/18/2017.
  */
 
-exports.default = Flatten;
+exports.Utils = Utils;
+exports.Errors = errors;
+exports.Matrix = Matrix;
+exports.PlanarSet = PlanarSet;
+exports.Point = Point;
+exports.Vector = Vector;
+exports.Segment = Segment;
+exports.Line = Line;
+exports.Circle = Circle;
+exports.Arc = Arc;
+exports.Box = Box;
+exports.Edge = Edge;
+exports.Face = Face;
+exports.Ray = Ray;
+exports.Polygon = Polygon;
+exports.matrix = matrix;
+exports.point = point;
+exports.vector = vector;
+exports.circle = circle;
+exports.line = line;
+exports.segment = segment;
+exports.arc = arc;
+exports.box = box;
+exports.ray = ray;
+exports.ray_shoot = ray_shoot;
+exports.Flatten = Flatten;
