@@ -1,6 +1,6 @@
 {
   "name": "@flatten-js/core",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Javascript library for 2d geometry",
   "main": "packages/core/dist/main.cjs.js",
   "umd:main": "packages/core/dist/main.umd.js",
@@ -12,7 +12,7 @@
     "doc": "jsdoc -t ./node_modules/minami -d ./docs -r ./ README.md",
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
     "npm-publish": "npm version patch; git push && git push --tags; npm publish",
-    "npm-publish-beta": "npm publish --tag beta --access public",
+    "npm-publish-beta": "npm publish --access public",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- --require @babel/register -R spec test/*",
     "build": "rollup -c"
   },

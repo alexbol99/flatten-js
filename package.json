@@ -1,6 +1,6 @@
 {
   "name": "flatten-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Javascript library for 2d geometry",
   "main": "dist/flatten.cjs.js",
   "umd:main": "dist/flatten.umd.js",
