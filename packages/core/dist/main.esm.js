@@ -5408,4 +5408,3 @@ Flatten.Distance = Distance;
  */
 
 export default Flatten;
-export { Utils, errors as Errors, Matrix, matrix, PlanarSet, Point, point, Vector, vector, Segment, segment, Line, line, Circle, circle, Arc, arc, Box, box, Edge, Face, Ray, ray, ray_shoot, Polygon, Distance };
