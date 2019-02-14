@@ -5,8 +5,8 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten, {Point, Segment, Circle, Box, PlanarSet, Distance} from '../dist/flatten.esm';
-import {point, segment, vector, circle} from '../dist/flatten.esm';
+import Flatten, {Point, Segment, Circle, Box, PlanarSet, Distance} from '../dist/flatten.cjs';
+import {point, segment, vector, circle} from '../dist/flatten.cjs';
 
 describe('#Data_structures.PlanarSet', function() {
     it('Class PlanarSet defined', function() {

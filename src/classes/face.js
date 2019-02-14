@@ -7,8 +7,6 @@
 
 import Flatten from '../flatten';
 
-let {Point, point, Segment, segment, Arc, Box, Edge, Circle} = Flatten;
-
 /**
  * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
  * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}.
@@ -61,12 +59,12 @@ export class Face {
                     return;
 
                 if (shapes.every((shape) => {
-                    return shape instanceof Point
+                    return shape instanceof Flatten.Point
                 })) {
                     let segments = Face.points2segments(shapes);
                     this.shapes2face(polygon.edges, segments);
                 } else if (shapes.every((shape) => {
-                    return (shape instanceof Segment || shape instanceof Arc)
+                    return (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc)
                 })) {
                     this.shapes2face(polygon.edges, shapes);
                 }
@@ -78,9 +76,9 @@ export class Face {
                     for (let shape of shapes) {
                         let flattenShape;
                         if (shape.name === "segment") {
-                            flattenShape = new Segment(shape);
+                            flattenShape = new Flatten.Segment(shape);
                         } else {
-                            flattenShape = new Arc(shape);
+                            flattenShape = new Flatten.Arc(shape);
                         }
                         flattenShapes.push(flattenShape);
                     }
@@ -97,24 +95,24 @@ export class Face {
                 }
             }
             /* Instantiate face from circle circle in CCW orientation */
-            else if (args[0] instanceof Circle) {
+            else if (args[0] instanceof Flatten.Circle) {
                 this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
             }
             /* Instantiate face from a box in CCW orientation */
-            else if (args[0] instanceof Box) {
+            else if (args[0] instanceof Flatten.Box) {
                 let box = args[0];
                 this.shapes2face(polygon.edges, [
-                    segment(point(box.xmin, box.ymin), point(box.xmax, box.ymin)),
-                    segment(point(box.xmax, box.ymin), point(box.xmax, box.ymax)),
-                    segment(point(box.xmax, box.ymax), point(box.xmin, box.ymax)),
-                    segment(point(box.xmin, box.ymax), point(box.xmin, box.ymin))
+                    new Flatten.Segment(new Flatten.Point(box.xmin, box.ymin), new Flatten.Point(box.xmax, box.ymin)),
+                    new Flatten.Segment(new Flatten.Point(box.xmax, box.ymin), new Flatten.Point(box.xmax, box.ymax)),
+                    new Flatten.Segment(new Flatten.Point(box.xmax, box.ymax), new Flatten.Point(box.xmin, box.ymax)),
+                    new Flatten.Segment(new Flatten.Point(box.xmin, box.ymax), new Flatten.Point(box.xmin, box.ymin))
                 ]);
             }
         }
         /* If passed two edges, consider them as start and end of the face loop */
         /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
         /* Assume that edges already copied to polygon.edges set in the clip algorithm !!! */
-        if (args.length == 2 && args[0] instanceof Edge && args[1] instanceof Edge) {
+        if (args.length == 2 && args[0] instanceof Flatten.Edge && args[1] instanceof Flatten.Edge) {
             this.first = args[0];                          // first edge in face or undefined
             this.last = args[1];                           // last edge in face or undefined
             this.last.next = this.first;
@@ -191,14 +189,14 @@ export class Face {
     static points2segments(points) {
         let segments = [];
         for (let i = 0; i < points.length; i++) {
-            segments.push(new Segment(points[i], points[(i + 1) % points.length]));
+            segments.push(new Flatten.Segment(points[i], points[(i + 1) % points.length]));
         }
         return segments;
     }
 
     shapes2face(edges, shapes) {
         for (let shape of shapes) {
-            let edge = new Edge(shape);
+            let edge = new Flatten.Edge(shape);
             this.append(edges, edge);
             // this.box = this.box.merge(shape.box);
             // edges.add(edge);

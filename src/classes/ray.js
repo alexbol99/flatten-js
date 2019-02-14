@@ -1,7 +1,6 @@
 "use strict";
 
 import Flatten from '../flatten';
-let {Point, Segment, Line, Circle, Arc, Box, Vector} = Flatten;
 
 /**
  * Class representing a horizontal ray, used by ray shooting algorithm
@@ -13,19 +12,19 @@ export class Ray {
      * @param {Point} pt - start point
      */
     constructor(...args) {
-        this.pt = new Point();
+        this.pt = new Flatten.Point();
 
         if (args.length == 0) {
             return;
         }
 
-        if (args.length == 1 && args[0] instanceof Point) {
+        if (args.length == 1 && args[0] instanceof Flatten.Point) {
             this.pt = args[0].clone();
             return;
         }
 
         if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-            this.pt = new Point(args[0], args[1]);
+            this.pt = new Flatten.Point(args[0], args[1]);
             return;
         }
 
@@ -45,7 +44,7 @@ export class Ray {
      * @returns {Box} - bounding box
      */
     get box() {
-        return new Box(
+        return new Flatten.Box(
             this.pt.x,
             this.pt.y,
             Number.POSITIVE_INFINITY,
@@ -66,7 +65,7 @@ export class Ray {
      * @returns {Vector} - ray normal vector
      */
     get norm() {
-        return new Vector(0, 1);
+        return new Flatten.Vector(0, 1);
     }
 
     /**
@@ -75,11 +74,11 @@ export class Ray {
      * @returns {Array} array of intersection points
      */
     intersect(shape) {
-        if (shape instanceof Segment) {
+        if (shape instanceof Flatten.Segment) {
             return this.intersectRay2Segment(this, shape);
         }
 
-        if (shape instanceof Arc) {
+        if (shape instanceof Flatten.Arc) {
             return this.intersectRay2Arc(this, shape);
         }
     }
@@ -91,7 +90,7 @@ export class Ray {
             return ip;
         }
 
-        let line = new Line(ray.start, ray.norm);
+        let line = new Flatten.Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(segment);
 
         for (let pt of ip_tmp) {
@@ -117,7 +116,7 @@ export class Ray {
             return ip;
         }
 
-        let line = new Line(ray.start, ray.norm);
+        let line = new Flatten.Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(arc);
 
         for (let pt of ip_tmp) {

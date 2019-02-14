@@ -5,7 +5,6 @@
 
 import Flatten from '../flatten';
 
-
 /**
  * Class representing a line
  * @type {Line}
@@ -175,32 +174,30 @@ export class Line {
      * @returns {Segment}
      */
     distanceTo(shape) {
-        let {Distance} = Flatten;
-
         if (shape instanceof Flatten.Point) {
-            let [distance, shortest_segment] = Distance.point2line(shape, this);
+            let [distance, shortest_segment] = Flatten.Distance.point2line(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }
 
         if (shape instanceof Flatten.Circle) {
-            let [distance, shortest_segment] = Distance.circle2line(shape, this);
+            let [distance, shortest_segment] = Flatten.Distance.circle2line(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }
 
         if (shape instanceof Flatten.Segment) {
-            let [distance, shortest_segment] = Distance.segment2line(shape, this);
+            let [distance, shortest_segment] = Flatten.Distance.segment2line(shape, this);
             return [distance, shortest_segment.reverse()];
         }
 
         if (shape instanceof Flatten.Arc) {
-            let [distance, shortest_segment] = Distance.arc2line(shape, this);
+            let [distance, shortest_segment] = Flatten.Distance.arc2line(shape, this);
             return [distance, shortest_segment.reverse()];
         }
 
         if (shape instanceof Flatten.Polygon) {
-            let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
+            let [distance, shortest_segment] = Flatten.Distance.shape2polygon(this, shape);
             return [distance, shortest_segment];
         }
     }

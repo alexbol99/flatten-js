@@ -6,7 +6,6 @@
 "use strict";
 import Flatten from '../flatten';
 
-
 /**
  * Class representing a segment
  * @type {Segment}
@@ -181,41 +180,39 @@ export class Segment {
      * @returns {Segment} shortest segment between segment and shape (started at segment, ended at shape)
      */
     distanceTo(shape) {
-        let {Distance} = Flatten;
-
         if (shape instanceof Flatten.Point) {
-            let [dist, shortest_segment] = Distance.point2segment(shape, this);
+            let [dist, shortest_segment] = Flatten.Distance.point2segment(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [dist, shortest_segment];
         }
 
         if (shape instanceof Flatten.Circle) {
-            let [dist, shortest_segment] = Distance.segment2circle(this, shape);
+            let [dist, shortest_segment] = Flatten.Distance.segment2circle(this, shape);
             return [dist, shortest_segment];
         }
 
         if (shape instanceof Flatten.Line) {
-            let [dist, shortest_segment] = Distance.segment2line(this, shape);
+            let [dist, shortest_segment] = Flatten.Distance.segment2line(this, shape);
             return [dist, shortest_segment];
         }
 
         if (shape instanceof Flatten.Segment) {
-            let [dist, shortest_segment] = Distance.segment2segment(this, shape);
+            let [dist, shortest_segment] = Flatten.Distance.segment2segment(this, shape);
             return [dist, shortest_segment];
         }
 
         if (shape instanceof Flatten.Arc) {
-            let [dist, shortest_segment] = Distance.segment2arc(this, shape);
+            let [dist, shortest_segment] = Flatten.Distance.segment2arc(this, shape);
             return [dist, shortest_segment];
         }
 
         if (shape instanceof Flatten.Polygon) {
-            let [dist, shortest_segment] = Distance.shape2polygon(this, shape);
+            let [dist, shortest_segment] = Flatten.Distance.shape2polygon(this, shape);
             return [dist, shortest_segment];
         }
 
         if (shape instanceof Flatten.PlanarSet) {
-            let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
+            let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
             return [dist, shortest_segment];
         }
     }

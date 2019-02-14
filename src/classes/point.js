@@ -185,8 +185,6 @@ export class Point {
      * @returns {Segment} shortest segment between point and shape (started at point, ended at shape)
      */
     distanceTo(shape) {
-        let {Distance} = Flatten;
-
         if (shape instanceof Point) {
             let dx = shape.x - this.x;
             let dy = shape.y - this.y;
@@ -194,31 +192,31 @@ export class Point {
         }
 
         if (shape instanceof Flatten.Line) {
-            return Distance.point2line(this, shape);
+            return Flatten.Distance.point2line(this, shape);
         }
 
         if (shape instanceof Flatten.Circle) {
-            return Distance.point2circle(this, shape);
+            return Flatten.Distance.point2circle(this, shape);
         }
 
         if (shape instanceof Flatten.Segment) {
-            return Distance.point2segment(this, shape);
+            return Flatten.Distance.point2segment(this, shape);
         }
 
         if (shape instanceof Flatten.Arc) {
             // let [dist, ...rest] = Distance.point2arc(this, shape);
             // return dist;
-            return Distance.point2arc(this, shape);
+            return Flatten.Distance.point2arc(this, shape);
         }
 
         if (shape instanceof Flatten.Polygon) {
             // let [dist, ...rest] = Distance.point2polygon(this, shape);
             // return dist;
-            return Distance.point2polygon(this, shape);
+            return Flatten.Distance.point2polygon(this, shape);
         }
 
         if (shape instanceof Flatten.PlanarSet) {
-            return Distance.shape2planarSet(this, shape);
+            return Flatten.Distance.shape2planarSet(this, shape);
         }
     }
 

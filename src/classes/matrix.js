@@ -2,7 +2,6 @@
 
 import Flatten from '../flatten';
 
-
 /**
  * Class representing an affine transformation 3x3 matrix:
  * <pre>

@@ -4,11 +4,8 @@
 
 "use strict";
 
-// require("babel-polyfill");
 import Flatten from '../flatten';
 import IntervalTree from 'flatten-interval-tree';
-// let IntervalTree = require('flatten-interval-tree');
-
 
 /**
  * Class representing a planar set - a generic container with ability to keep and retrieve shapes and

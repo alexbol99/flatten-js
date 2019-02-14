@@ -12,6 +12,7 @@
     "doc": "jsdoc -t ./node_modules/minami -d ./docs -r ./ README.md",
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
     "npm-publish": "npm version patch; git push && git push --tags; npm publish",
+    "npm-publish": "npm publish --tag beta",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- --require @babel/register -R spec test/*",
     "build": "rollup -c"
   },

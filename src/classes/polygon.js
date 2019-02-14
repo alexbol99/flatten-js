@@ -7,9 +7,6 @@
 
 import Flatten from '../flatten';
 import {ray_shoot} from "../algorithms/ray_shooting";
-import {Distance} from "../algorithms/distance";
-
-let {Edge, Face, PlanarSet, Box} = Flatten;
 
 /**
  * Class representing a polygon.<br/>
@@ -30,12 +27,12 @@ export class Polygon {
          * Container of faces (closed loops), may be empty
          * @type {PlanarSet}
          */
-        this.faces = new PlanarSet();
+        this.faces = new Flatten.PlanarSet();
         /**
          * Container of edges
          * @type {PlanarSet}
          */
-        this.edges = new PlanarSet();
+        this.edges = new Flatten.PlanarSet();
     }
 
     /**
@@ -43,7 +40,7 @@ export class Polygon {
      * @returns {Box}
      */
     get box() {
-        return [...this.faces].reduce((acc, face) => acc.merge(face.box), new Box());
+        return [...this.faces].reduce((acc, face) => acc.merge(face.box), new Flatten.Box());
     }
 
     /**
@@ -73,7 +70,7 @@ export class Polygon {
      * @returns {Face}
      */
     addFace(...args) {
-        let face = new Face(this, ...args);
+        let face = new Flatten.Face(this, ...args);
         this.faces.add(face);
         return face;
     }
@@ -195,7 +192,7 @@ export class Polygon {
         // let {Distance} = Flatten;
 
         if (shape instanceof Flatten.Point) {
-            let [dist, shortest_segment] = Distance.point2polygon(shape, this);
+            let [dist, shortest_segment] = Flatten.Distance.point2polygon(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [dist, shortest_segment];
         }
@@ -204,7 +201,7 @@ export class Polygon {
             shape instanceof Flatten.Line ||
             shape instanceof Flatten.Segment ||
             shape instanceof Flatten.Arc) {
-            let [dist, shortest_segment] = Distance.shape2polygon(shape, this);
+            let [dist, shortest_segment] = Flatten.Distance.shape2polygon(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [dist, shortest_segment];
         }
@@ -217,7 +214,7 @@ export class Polygon {
             for (let edge of this.edges) {
                 // let [dist, shortest_segment] = Distance.shape2polygon(edge.shape, shape);
                 let min_stop = min_dist_and_segment[0];
-                [dist, shortest_segment] = Distance.shape2planarSet(edge.shape, shape.edges, min_stop);
+                [dist, shortest_segment] = Flatten.Distance.shape2planarSet(edge.shape, shape.edges, min_stop);
                 if (Flatten.Utils.LT(dist, min_stop)) {
                     min_dist_and_segment = [dist, shortest_segment];
                 }

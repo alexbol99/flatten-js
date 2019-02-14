@@ -2,7 +2,6 @@
 "use strict";
 import Flatten from '../flatten';
 import * as Utils from '../utils/utils';
-let {Segment, Line, Ray} = Flatten;
 
 export const ray_shoot = function(polygon, point) {
     let contains = undefined;
@@ -17,7 +16,7 @@ export const ray_shoot = function(polygon, point) {
     }
 
     let ray = new Flatten.Ray(point);
-    let line = new Line(ray.pt, ray.norm);
+    let line = new Flatten.Line(ray.pt, ray.norm);
 
     // 2. Locate relevant edges of the polygon
     let resp_edges = polygon.edges.search(ray.box);
@@ -104,7 +103,7 @@ export const ray_shoot = function(polygon, point) {
                 counter++;
             }
         } else {        /* intersection point is not a coincident with a vertex */
-            if (intersection.edge.shape instanceof Segment) {
+            if (intersection.edge.shape instanceof Flatten.Segment) {
                 counter++;
             } else {
                 /* Check if ray does not touch the curve in the extremal (top or bottom) point */

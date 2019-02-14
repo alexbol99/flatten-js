@@ -3,7 +3,6 @@
 // let IntervalTree = require('flatten-interval-tree');
 import IntervalTree from 'flatten-interval-tree';
 import Flatten from '../flatten';
-let {Segment, Line, vector} = Flatten;
 
 export class Distance {
     /**
@@ -24,8 +23,8 @@ export class Distance {
      */
     static point2line(pt, line) {
         let closest_point = pt.projectionOn(line);
-        let vec = vector(pt, closest_point);
-        return [vec.length, new Segment(pt, closest_point)];
+        let vec = new Flatten.Vector(pt, closest_point);
+        return [vec.length, new Flatten.Segment(pt, closest_point)];
     }
 
     /**
@@ -37,12 +36,12 @@ export class Distance {
     static point2circle(pt, circle) {
         let [dist2center, shortest_dist] = pt.distanceTo(circle.center);
         if (Flatten.Utils.EQ_0(dist2center)) {
-            return [circle.r, new Segment(pt, circle.toArc().start)];
+            return [circle.r, new Flatten.Segment(pt, circle.toArc().start)];
         } else {
             let dist = Math.abs(dist2center - circle.r);
-            let v = vector(circle.pc, pt).normalize().multiply(circle.r);
+            let v = new Flatten.Vector(circle.pc, pt).normalize().multiply(circle.r);
             let closest_point = circle.pc.translate(v);
-            return [dist, new Segment(pt, closest_point)];
+            return [dist, new Flatten.Segment(pt, closest_point)];
         }
     }
 
@@ -74,7 +73,7 @@ export class Distance {
             dist = Math.abs(v_unit.cross(v_ps2pt));
             /* dist = abs(v_unit x v_ps2pt) */
             closest_point = segment.start.translate(v_unit.multiply(v_unit.dot(v_ps2pt)));
-            return [dist, new Segment(pt, closest_point)];
+            return [dist, new Flatten.Segment(pt, closest_point)];
         } else if (start_sp < 0) {                             /* point is out of scope closer to ps */
             return pt.distanceTo(segment.start);
         } else {                                               /* point is out of scope closer to pe */
@@ -113,7 +112,7 @@ export class Distance {
     static segment2line(seg, line) {
         let ip = seg.intersect(line);
         if (ip.length > 0) {
-            return [0, new Segment(ip[0], ip[0])];   // distance = 0, closest point is the first point
+            return [0, new Flatten.Segment(ip[0], ip[0])];   // distance = 0, closest point is the first point
         }
         let dist_and_segment = [];
         dist_and_segment.push(Distance.point2line(seg.start, line));
@@ -131,9 +130,9 @@ export class Distance {
      * @returns {Number | Segment} - distance and shortest segment
      */
     static segment2segment(seg1, seg2) {
-        let ip = Segment.intersectSegment2Segment(seg1, seg2);
+        let ip = Flatten.Segment.intersectSegment2Segment(seg1, seg2);
         if (ip.length > 0) {
-            return [0, new Segment(ip[0], ip[0])];   // distance = 0, closest point is the first point
+            return [0, new Flatten.Segment(ip[0], ip[0])];   // distance = 0, closest point is the first point
         }
 
         // Seg1 and seg2 not intersected
@@ -158,7 +157,7 @@ export class Distance {
         /* Case 1 Segment and circle intersected. Return the first point and zero distance */
         let ip = seg.intersect(circle);
         if (ip.length > 0) {
-            return [0, new Segment(ip[0], ip[0])];
+            return [0, new Flatten.Segment(ip[0], ip[0])];
         }
 
         // No intersection between segment and circle
@@ -191,7 +190,7 @@ export class Distance {
         /* Case 1 Segment and arc intersected. Return the first point and zero distance */
         let ip = seg.intersect(arc);
         if (ip.length > 0) {
-            return [0, new Segment(ip[0], ip[0])];
+            return [0, new Flatten.Segment(ip[0], ip[0])];
         }
 
         // No intersection between segment and arc
@@ -235,7 +234,7 @@ export class Distance {
     static circle2circle(circle1, circle2) {
         let ip = circle1.intersect(circle2);
         if (ip.length > 0) {
-            return [0, new Segment(ip[0], ip[0])];
+            return [0, new Flatten.Segment(ip[0], ip[0])];
         }
 
         // Case 1. Concentric circles. Convert to arcs and take distance between two arc starts
@@ -245,7 +244,7 @@ export class Distance {
             return Distance.point2point(arc1.start, arc2.start);
         } else {
             // Case 2. Not concentric circles
-            let line = new Line(circle1.center, circle2.center);
+            let line = new Flatten.Line(circle1.center, circle2.center);
             let ip1 = line.intersect(circle1);
             let ip2 = line.intersect(circle2);
 
@@ -270,7 +269,7 @@ export class Distance {
     static circle2line(circle, line) {
         let ip = circle.intersect(line);
         if (ip.length > 0) {
-            return [0, new Segment(ip[0], ip[0])];
+            return [0, new Flatten.Segment(ip[0], ip[0])];
         }
 
         let [dist_from_center, shortest_segment_from_center] = Distance.point2line(circle.center, line);
@@ -289,7 +288,7 @@ export class Distance {
         /* Case 1 Line and arc intersected. Return the first point and zero distance */
         let ip = line.intersect(arc);
         if (ip.length > 0) {
-            return [0, new Segment(ip[0], ip[0])];
+            return [0, new Flatten.Segment(ip[0], ip[0])];
         }
 
         let circle = new Flatten.Circle(arc.center, arc.r);
@@ -324,7 +323,7 @@ export class Distance {
     static arc2circle(arc, circle2) {
         let ip = arc.intersect(circle2);
         if (ip.length > 0) {
-            return [0, new Segment(ip[0], ip[0])];
+            return [0, new Flatten.Segment(ip[0], ip[0])];
         }
 
         let circle1 = new Flatten.Circle(arc.center, arc.r);
@@ -353,7 +352,7 @@ export class Distance {
     static arc2arc(arc1, arc2) {
         let ip = arc1.intersect(arc2);
         if (ip.length > 0) {
-            return [0, new Segment(ip[0], ip[0])];
+            return [0, new Flatten.Segment(ip[0], ip[0])];
         }
 
         let circle1 = new Flatten.Circle(arc1.center, arc1.r);
@@ -412,9 +411,9 @@ export class Distance {
      * @returns {Number | Segment} - distance and shortest segment
      */
     static point2polygon(point, polygon) {
-        let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
+        let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
         for (let edge of polygon.edges) {
-            let [dist, shortest_segment] = (edge.shape instanceof Segment) ?
+            let [dist, shortest_segment] = (edge.shape instanceof Flatten.Segment) ?
                 Distance.point2segment(point, edge.shape) : Distance.point2arc(point, edge.shape);
             if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
                 min_dist_and_segment = [dist, shortest_segment];
@@ -424,7 +423,7 @@ export class Distance {
     }
 
     static shape2polygon(shape, polygon) {
-        let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
+        let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
         for (let edge of polygon.edges) {
             let [dist, shortest_segment] = shape.distanceTo(edge.shape);
             if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
@@ -433,56 +432,6 @@ export class Distance {
         }
         return min_dist_and_segment;
     }
-
-    /*
-            static arc2polygon(arc, polygon) {
-                let ip = arc.intersect(polygon);
-                if (ip.length > 0) {
-                    return [0, new Segment(ip[0], ip[0])];
-                }
-
-                let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
-                for (let edge of polygon.edges) {
-                    let [dist, shortest_segment] = arc.distanceTo(edge.shape);
-                    if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
-                        min_dist_and_segment = [dist, shortest_segment];
-                    }
-                }
-                return min_dist_and_segment;
-            }
-
-            static line2polygon(line, polygon) {
-                let ip = line.intersect(polygon);
-                if (ip.length > 0) {
-                    return [0, new Segment(ip[0], ip[0])];
-                }
-
-                let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
-                for (let edge of polygon.edges) {
-                    let [dist, shortest_segment] = line.distanceTo(edge.shape);
-                    if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
-                        min_dist_and_segment = [dist, shortest_segment];
-                    }
-                }
-                return min_dist_and_segment;
-            }
-
-            static circle2polygon(circle, polygon) {
-                let ip = circle.intersect(polygon);
-                if (ip.length > 0) {
-                    return [0, new Segment(ip[0], ip[0])];
-                }
-
-                let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
-                for (let edge of polygon.edges) {
-                    let [dist, shortest_segment] = circle.distanceTo(edge.shape);
-                    if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
-                        min_dist_and_segment = [dist, shortest_segment];
-                    }
-                }
-                return min_dist_and_segment;
-            }
-    */
 
     /**
      * Calculate distance and shortest segment between two polygons

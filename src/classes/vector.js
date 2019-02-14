@@ -6,7 +6,6 @@
 
 import Flatten from '../flatten';
 
-
 /**
  * Class representing a vector
  * @type {Vector}
@@ -77,7 +76,7 @@ export class Vector {
      * @returns {Vector}
      */
     clone() {
-        return new Vector(this.x, this.y);
+        return new Flatten.Vector(this.x, this.y);
     }
 
     /**
@@ -114,7 +113,7 @@ export class Vector {
      * @returns {Vector}
      */
     multiply(scalar) {
-        return (new Vector(scalar * this.x, scalar * this.y));
+        return (new Flatten.Vector(scalar * this.x, scalar * this.y));
     }
 
     /**
@@ -144,7 +143,7 @@ export class Vector {
      */
     normalize() {
         if (!Flatten.Utils.EQ_0(this.length)) {
-            return (new Vector(this.x / this.length, this.y / this.length));
+            return (new Flatten.Vector(this.x / this.length, this.y / this.length));
         }
         throw Flatten.Errors.ZERO_DIVISION;
     }
