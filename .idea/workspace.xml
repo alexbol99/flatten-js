@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Rollup build esm, umd and cjs, removed webpack, added entry points">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Export everything what is necessary from @flatten-js/core">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/core/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/core/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/core/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/core/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/core/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/core/package.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,7 +32,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/packages/core/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
@@ -57,10 +53,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/packages/core/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-374">
+            <state relative-caret-position="34">
               <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
             </state>
           </provider>
@@ -249,8 +245,8 @@
         <option value="$PROJECT_DIR$/src/algorithms/distance.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/packages/core/README.md" />
-        <option value="$PROJECT_DIR$/packages/core/package.json" />
         <option value="$PROJECT_DIR$/packages/core/index.js" />
+        <option value="$PROJECT_DIR$/packages/core/package.json" />
       </list>
     </option>
   </component>
@@ -566,13 +562,6 @@
       <workItem from="1549127937203" duration="14772000" />
       <workItem from="1549361926970" duration="447000" />
       <workItem from="1549456658690" duration="4115000" />
-    </task>
-    <task id="LOCAL-00070" summary="Fix bugs, add more tests for better coverage">
-      <created>1506290232878</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1506290232878</updated>
     </task>
     <task id="LOCAL-00071" summary="- Add new Distance shape2planarSet method based on interval trees&#10;- Updated point2shape methods to return [dist, shortest_segment]&#10;- Added new get vertices methods to Segment, Arc and Point (for viewer app)">
       <created>1507907379884</created>
@@ -910,7 +899,14 @@
       <option name="project" value="LOCAL" />
       <updated>1550141231022</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="Export everything what is necessary from @flatten-js/core">
+      <created>1550179999874</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1550179999874</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -946,7 +942,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="723246000" />
+    <option name="totallyTimeSpent" value="723341000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1012,7 +1008,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Typo in README" />
     <MESSAGE value="Fix bug in face.insertEdge" />
     <MESSAGE value="Update package" />
     <MESSAGE value="Fix bug in Segment intersection methods" />
@@ -1037,7 +1032,8 @@
     <MESSAGE value="Create packages/core for scoped package @flatten-js/core" />
     <MESSAGE value="Remove destructing of Flatten namespace for better build" />
     <MESSAGE value="Upgrade flateen-js version and @flatten-js/core version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Upgrade flateen-js version and @flatten-js/core version" />
+    <MESSAGE value="Export everything what is necessary from @flatten-js/core" />
+    <option name="LAST_COMMIT_MESSAGE" value="Export everything what is necessary from @flatten-js/core" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1413,13 +1409,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packages/core/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-374">
-          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/core/dist/main.umd.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="481">
@@ -1438,6 +1427,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/core/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
         </state>
       </provider>
     </entry>
