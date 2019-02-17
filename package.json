@@ -1,11 +1,11 @@
 {
-  "name": "flatten-js",
-  "version": "1.0.1",
+  "name": "@flatten-js/core",
+  "version": "1.0.6",
   "description": "Javascript library for 2d geometry",
-  "main": "dist/flatten.cjs.js",
-  "umd:main": "dist/flatten.umd.js",
-  "unpkg": "dist/flatten.umd.js",
-  "module": "dist/flatten.esm.js",
+  "main": "dist/main.cjs.js",
+  "umd:main": "dist/main.umd.js",
+  "unpkg": "dist/main.umd.js",
+  "module": "dist/main.esm.js",
   "types": "index.d.ts",
   "scripts": {
     "test": "mocha --require @babel/register --reporter spec",

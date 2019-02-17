@@ -5,19 +5,19 @@ export default {
     input: 'index.js',
     output: [
         {
-            file: 'dist/flatten.cjs.js',
+            file: 'dist/main.cjs.js',
             format: 'cjs',
             exports: 'named'
         },
         {
-            file: 'dist/flatten.esm.js',
+            file: 'dist/main.esm.js',
             format: 'esm',
             exports: 'named'
         },
         {
-            file: 'dist/flatten.umd.js',
+            file: 'dist/main.umd.js',
             format: 'umd',
-            name: 'flatten',
+            name: '@flatten-js/core',
             exports: 'named'
         },
     ],

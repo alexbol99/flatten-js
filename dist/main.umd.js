@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = global || self, factory(global.flatten = {}));
+    (global = global || self, factory(global['@flatten-js/core'] = {}));
 }(this, function (exports) { 'use strict';
 
     const DP_TOL = 0.000001;
