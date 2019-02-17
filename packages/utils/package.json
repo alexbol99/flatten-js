@@ -1,0 +1,14 @@
+{
+  "name": "@flatten-js/utils",
+  "version": "1.0.0",
+  "description": "Utilities for flatten-js library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "npm-publish": "npm publish --access public",
+    "build": "rollup -c"
+  },
+  "keywords": [],
+  "author": "“Alex <“alexbol99@gmail.com”> (“https://github.com/alexbol99/flatten-red-black-tree)",
+  "license": "MIT"
+}
