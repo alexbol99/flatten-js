@@ -431,7 +431,7 @@
      * Created by Alex Bol on 3/31/2017.
      */
 
-    const nil_node = new Node();
+    // const nil_node = new Node();
 
     /**
      * Implementation of interval binary search tree <br/>
@@ -447,6 +447,7 @@
          */
         constructor() {
             this.root = null;
+            this.nil_node = new Node();
         }
 
         /**
@@ -499,7 +500,7 @@
          * @returns {boolean}
          */
         isEmpty() {
-            return (this.root == null || this.root == nil_node);
+            return (this.root == null || this.root == this.nil_node);
         }
 
         /**
@@ -510,7 +511,7 @@
          */
         insert(key, value = key) {
             if (key === undefined) return;
-            let insert_node = new Node(key, value, nil_node, nil_node, null, RB_TREE_COLOR_RED);
+            let insert_node = new Node(key, value, this.nil_node, this.nil_node, null, RB_TREE_COLOR_RED);
             this.tree_insert(insert_node);
             this.recalc_max(insert_node);
             return insert_node;
@@ -594,11 +595,11 @@
             let current_node = this.root;
             let parent_node = null;
 
-            if (this.root == null || this.root == nil_node) {
+            if (this.root == null || this.root == this.nil_node) {
                 this.root = insert_node;
             }
             else {
-                while (current_node != nil_node) {
+                while (current_node != this.nil_node) {
                     parent_node = current_node;
                     if (insert_node.less_than(current_node)) {
                         current_node = current_node.left;
@@ -680,7 +681,7 @@
             let cut_node;   // node to be cut - either delete_node or successor_node  ("y" from 14.4)
             let fix_node;   // node to fix rb tree property   ("x" from 14.4)
 
-            if (delete_node.left == nil_node || delete_node.right == nil_node) {  // delete_node has less then 2 children
+            if (delete_node.left == this.nil_node || delete_node.right == this.nil_node) {  // delete_node has less then 2 children
                 cut_node = delete_node;
             }
             else {                                                    // delete_node has 2 children
@@ -688,7 +689,7 @@
             }
 
             // fix_node if single child of cut_node
-            if (cut_node.left != nil_node) {
+            if (cut_node.left != this.nil_node) {
                 fix_node = cut_node.left;
             }
             else {
@@ -696,7 +697,7 @@
             }
 
             // remove cut_node from parent
-            /*if (fix_node != nil_node) {*/
+            /*if (fix_node != this.nil_node) {*/
                 fix_node.parent = cut_node.parent;
             /*}*/
 
@@ -724,7 +725,7 @@
                 this.recalc_max(delete_node);       // update max property upward from delete_node to root
             }
 
-            if (/*fix_node != nil_node && */cut_node.color == RB_TREE_COLOR_BLACK) {
+            if (/*fix_node != this.nil_node && */cut_node.color == RB_TREE_COLOR_BLACK) {
                 this.delete_fixup(fix_node);
             }
         }
@@ -800,7 +801,7 @@
         }
 
         tree_search(node, search_node) {
-            if (node == null || node == nil_node)
+            if (node == null || node == this.nil_node)
                 return undefined;
 
             if (search_node.equal_to(node)) {
@@ -817,17 +818,17 @@
         // Original search_interval method; container res support push() insertion
         // Search all intervals intersecting given one
         tree_search_interval(node, search_node, res) {
-            if (node != null && node != nil_node) {
-                // if (node->left != nil_node && node->left->max >= low) {
-                if (node.left != nil_node && !node.not_intersect_left_subtree(search_node)) {
+            if (node != null && node != this.nil_node) {
+                // if (node->left != this.nil_node && node->left->max >= low) {
+                if (node.left != this.nil_node && !node.not_intersect_left_subtree(search_node)) {
                     this.tree_search_interval(node.left, search_node, res);
                 }
                 // if (low <= node->high && node->low <= high) {
                 if (node.intersect(search_node)) {
                     res.push(node);
                 }
-                // if (node->right != nil_node && node->low <= high) {
-                if (node.right != nil_node && !node.not_intersect_right_subtree(search_node)) {
+                // if (node->right != this.nil_node && node->low <= high) {
+                if (node.right != this.nil_node && !node.not_intersect_right_subtree(search_node)) {
                     this.tree_search_interval(node.right, search_node, res);
                 }
             }
@@ -835,7 +836,7 @@
 
         local_minimum(node) {
             let node_min = node;
-            while (node_min.left != null && node_min.left != nil_node) {
+            while (node_min.left != null && node_min.left != this.nil_node) {
                 node_min = node_min.left;
             }
             return node_min;
@@ -844,7 +845,7 @@
         // not in use
         local_maximum(node) {
             let node_max = node;
-            while (node_max.right != null && node_max.right != nil_node) {
+            while (node_max.right != null && node_max.right != this.nil_node) {
                 node_max = node_max.right;
             }
             return node_max;
@@ -855,7 +856,7 @@
             let current_node;
             let parent_node;
 
-            if (node.right != nil_node) {
+            if (node.right != this.nil_node) {
                 node_successor = this.local_minimum(node.right);
             }
             else {
@@ -882,7 +883,7 @@
 
             x.right = y.left;           // b goes to x.right
 
-            if (y.left != nil_node) {
+            if (y.left != this.nil_node) {
                 y.left.parent = x;     // x becomes parent of b
             }
             y.parent = x.parent;       // move parent
@@ -901,12 +902,12 @@
             y.left = x;                 // x becomes left child of y
             x.parent = y;               // and y becomes parent of x
 
-            if (x != null && x != nil_node) {
+            if (x != null && x != this.nil_node) {
                 x.update_max();
             }
 
             y = x.parent;
-            if (y != null && y != nil_node) {
+            if (y != null && y != this.nil_node) {
                 y.update_max();
             }
         }
@@ -916,7 +917,7 @@
 
             y.left = x.right;           // b goes to y.left
 
-            if (x.right != nil_node) {
+            if (x.right != this.nil_node) {
                 x.right.parent = y;        // y becomes parent of b
             }
             x.parent = y.parent;          // move parent
@@ -935,18 +936,18 @@
             x.right = y;                 // y becomes right child of x
             y.parent = x;               // and x becomes parent of y
 
-            if (y != null && y != nil_node) {
+            if (y != null && y != this.nil_node) {
                 y.update_max();
             }
 
             x = y.parent;
-            if (x != null && x != nil_node) {
+            if (x != null && x != this.nil_node) {
                 x.update_max();
             }
         }
 
         tree_walk(node, action) {
-            if (node != null && node != nil_node) {
+            if (node != null && node != this.nil_node) {
                 this.tree_walk(node.left, action);
                 // arr.push(node.toArray());
                 action(node);
@@ -975,13 +976,13 @@
             if (node.color == RB_TREE_COLOR_BLACK) {
                 height++;
             }
-            if (node.left != nil_node) {
+            if (node.left != this.nil_node) {
                 heightLeft = this.testBlackHeightProperty(node.left);
             }
             else {
                 heightLeft = 1;
             }
-            if (node.right != nil_node) {
+            if (node.right != this.nil_node) {
                 heightRight = this.testBlackHeightProperty(node.right);
             }
             else {

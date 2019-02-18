@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Rename branch v1.0.0 to be @flatten-js/core&#10;- Build @flatten-js/core from the /src, not from ./packages/core">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Upgrade interval tree dependency">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
@@ -23,41 +23,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="343">
+              <caret line="59" column="36" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dist/main.esm.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="361">
+              <caret line="1015" column="18" selection-start-line="1015" selection-start-column="18" selection-end-line="1015" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dist/main.umd.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="1723" column="9" selection-start-line="1723" selection-start-column="9" selection-end-line="1723" selection-end-column="9" />
+            <state relative-caret-position="89">
+              <caret line="429" column="7" lean-forward="true" selection-start-line="429" selection-start-column="7" selection-end-line="429" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/box.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="195" lean-forward="true" selection-start-line="195" selection-end-line="195" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/arc.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
-              <folding>
-                <element signature="e#15#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/planar_set-cjs.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
+              <caret line="195" selection-start-line="195" selection-end-line="195" />
             </state>
           </provider>
         </entry>
@@ -132,7 +129,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>distance</find>
       <find>Polygon</find>
       <find>intersection</find>
       <find>arc</find>
@@ -160,8 +156,9 @@
       <find>exports</find>
       <find>IntervalTree</find>
       <find>addFace</find>
-      <find>Node</find>
       <find>Interval</find>
+      <find>N</find>
+      <find>Node</find>
     </findStrings>
     <replaceStrings>
       <replace>{Number | Segment}</replace>
@@ -241,8 +238,8 @@
         <option value="$PROJECT_DIR$/packages/utils/index.js" />
         <option value="$PROJECT_DIR$/rollup.config.js" />
         <option value="$PROJECT_DIR$/test/planar_set-cjs.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/dist/main.umd.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -253,8 +250,8 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="532" />
-    <option name="y" value="12" />
+    <option name="x" value="203" />
+    <option name="y" value="17" />
     <option name="width" value="1711" />
     <option name="height" value="985" />
   </component>
@@ -275,17 +272,6 @@
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
               <item name="dist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -354,16 +340,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="build (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/packages/core/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <configuration name="build (2)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/packages/utils/package.json" />
       <command value="run" />
@@ -404,6 +380,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="#test esm" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -418,19 +404,19 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="npm.build (1)" />
-      <item itemvalue="npm.npm-publish" />
       <item itemvalue="npm.npm-publish (1)" />
       <item itemvalue="npm.build (2)" />
       <item itemvalue="npm.build" />
+      <item itemvalue="npm.test" />
+      <item itemvalue="npm.npm-publish" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.npm-publish" />
         <item itemvalue="npm.build (2)" />
         <item itemvalue="npm.npm-publish (1)" />
-        <item itemvalue="npm.build (1)" />
-        <item itemvalue="npm.npm-publish" />
       </list>
     </recent_temporary>
   </component>
@@ -538,21 +524,7 @@
       <workItem from="1549456658690" duration="4115000" />
       <workItem from="1550238375478" duration="5929000" />
       <workItem from="1550413727384" duration="1591000" />
-      <workItem from="1550473846108" duration="2906000" />
-    </task>
-    <task id="LOCAL-00074" summary="Changes in Readme.md">
-      <created>1508657557780</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1508657557782</updated>
-    </task>
-    <task id="LOCAL-00075" summary="Change in readme">
-      <created>1508660540823</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1508660540823</updated>
+      <workItem from="1550473846108" duration="5460000" />
     </task>
     <task id="LOCAL-00076" summary="Added Inversion class, not tested and not documented yet">
       <created>1515320826906</created>
@@ -883,7 +855,21 @@
       <option name="project" value="LOCAL" />
       <updated>1550414329821</updated>
     </task>
-    <option name="localTasksCounter" value="123" />
+    <task id="LOCAL-00123" summary="- Rename branch v1.0.0 to be @flatten-js/core&#10;- Build @flatten-js/core from the /src, not from ./packages/core">
+      <created>1550477425085</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1550477425088</updated>
+    </task>
+    <task id="LOCAL-00124" summary="- Upgrade interval tree dependency">
+      <created>1550478614607</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1550478614607</updated>
+    </task>
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -919,7 +905,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="736110000" />
+    <option name="totallyTimeSpent" value="738664000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -931,7 +917,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="532" y="12" width="1711" height="985" extended-state="0" />
+    <frame x="203" y="17" width="1711" height="985" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19306634" />
@@ -939,14 +925,14 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49968693" visible="true" weight="0.36608186" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49754602" weight="0.34137514" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49754602" visible="true" weight="0.34096387" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.42553192" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993865" weight="0.32906976" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4993865" weight="0.32906976" />
       <window_info anchor="bottom" id="SFDX" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49447852" visible="true" weight="0.34819278" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49447852" weight="0.3939759" />
       <window_info anchor="bottom" id="Debug Logs" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5055215" side_tool="true" weight="0.35" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
@@ -985,7 +971,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix bug in Segment intersection methods" />
     <MESSAGE value="clean" />
     <MESSAGE value="some documentation" />
     <MESSAGE value="Enable face.svg() method to display different faces with different styles (attributes)" />
@@ -1010,7 +995,8 @@
     <MESSAGE value="Export everything what is necessary from @flatten-js/core" />
     <MESSAGE value="Missing default export" />
     <MESSAGE value="- Rename branch v1.0.0 to be @flatten-js/core&#10;- Build @flatten-js/core from the /src, not from ./packages/core" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Rename branch v1.0.0 to be @flatten-js/core&#10;- Build @flatten-js/core from the /src, not from ./packages/core" />
+    <MESSAGE value="- Upgrade interval tree dependency" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Upgrade interval tree dependency" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1060,7 +1046,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/packages/core/.travis.yml" />
     <entry file="file://$PROJECT_DIR$/packages/core/node_modules/flatten-interval-tree/src/classes/intervalTree.js" />
     <entry file="file://$PROJECT_DIR$/src/classes/line.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1300,13 +1285,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dist/flatten.cjs.js" />
     <entry file="file://$PROJECT_DIR$/dist/flatten.umd.js" />
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="49" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/arc.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -1371,17 +1349,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/main.umd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="1723" column="9" selection-start-line="1723" selection-start-column="9" selection-end-line="1723" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/box.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="195" lean-forward="true" selection-start-line="195" selection-end-line="195" />
+          <caret line="195" selection-start-line="195" selection-end-line="195" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/main.esm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="1015" column="18" selection-start-line="1015" selection-start-column="18" selection-end-line="1015" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/main.umd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="429" column="7" lean-forward="true" selection-start-line="429" selection-start-column="7" selection-end-line="429" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="59" column="36" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
         </state>
       </provider>
     </entry>
