@@ -1,6 +1,6 @@
 {
   "name": "@flatten-js/core",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Javascript library for 2d geometry",
   "main": "dist/main.cjs.js",
   "umd:main": "dist/main.umd.js",
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.3.3",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
@@ -57,6 +57,6 @@
     "rollup-plugin-terser": "^4.0.4"
   },
   "dependencies": {
-    "flatten-interval-tree": "^0.3.4"
+    "flatten-interval-tree": "^0.3.5"
   }
 }

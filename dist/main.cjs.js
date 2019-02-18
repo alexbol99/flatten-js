@@ -351,7 +351,7 @@ const RB_TREE_COLOR_BLACK = 1;
  * Created by Alex Bol on 4/1/2017.
  */
 
-const Node = class Node {
+class Node {
     constructor(key = undefined, value = undefined,
                 left = null, right = null, parent = null, color = RB_TREE_COLOR_BLACK) {
         this.left = left;                     // reference to left child node
@@ -423,7 +423,7 @@ const Node = class Node {
         let low = this.right.max.low ? this.right.max.low : this.right.item.key.low;
         return val_less_than(search_node.item.key.high, low);
     }
-};
+}
 
 /**
  * Created by Alex Bol on 3/31/2017.
@@ -434,12 +434,12 @@ const nil_node = new Node();
 /**
  * Implementation of interval binary search tree <br/>
  * Interval tree stores items which are couples of {key:interval, value: value} <br/>
- * Interval is an object with high and low properties or simply array of numeric [low,high] values <br />
+ * Interval is an object with high and low properties or simply array of pairs [low,high] of numeric values <br />
  * If interval is an object, it should implement and expose methods less_than, equals_to, intersect and others,
  * see documentation
  * @type {IntervalTree}
  */
-const IntervalTree = class IntervalTree {
+class IntervalTree {
     /**
      * Construct new empty instance of IntervalTree
      */
@@ -458,14 +458,24 @@ const IntervalTree = class IntervalTree {
     }
 
     /**
-     * Returns array of sorted keys in the ascended order
+     * Returns array of sorted keys in the ascending order
      * @returns {Array}
      */
     get keys() {
-        const res = [];
+        let res = [];
         this.tree_walk(this.root, (node) => res.push(
             node.item.key.output ? node.item.key.output() : node.item.key
         ));
+        return res;
+    }
+
+    /**
+     * Return array of values in the ascending keys order
+     * @returns {Array}
+     */
+    get values() {
+        let res = [];
+        this.tree_walk(this.root, (node) => res.push(node.item.value));
         return res;
     }
 
@@ -474,8 +484,11 @@ const IntervalTree = class IntervalTree {
      * @returns {Array}
      */
     get items() {
-        const res = [];
-        this.tree_walk(this.root, (node) => res.push(node.item));
+        let res = [];
+        this.tree_walk(this.root, (node) => res.push({
+            key: node.item.key.output ? node.item.key.output() : node.item.key,
+            value: node.item.value
+        }));
         return res;
     }
 
@@ -556,7 +569,16 @@ const IntervalTree = class IntervalTree {
      */
     forEach(visitor) {
         this.tree_walk(this.root, (node) => visitor(node.item.key, node.item.value));
-    };
+    }
+
+    /** Value Mapper. Walk through every node and map node value to another value
+    * @param callback(value, key) - function to be called for each tree item
+    */
+    map(callback) {
+        const tree = new IntervalTree();
+        this.tree_walk(this.root, (node) => tree.insert(node.item.key, callback(node.item.value, node.item.key)));
+        return tree;
+    }
 
     recalc_max(node) {
         let node_current = node;
@@ -969,7 +991,7 @@ const IntervalTree = class IntervalTree {
         height += heightLeft;
         return height;
     };
-};
+}
 
 /**
  * Created by Alex Bol on 3/12/2017.
