@@ -289,50 +289,110 @@
      * Created by Alex Bol on 4/1/2017.
      */
 
+    /**
+     * Interval is a pair of numbers or a pair of any comparable objects on which may be defined predicates
+     * *equal*, *less* and method *max(p1, p1)* that returns maximum in a pair.
+     * When interval is an object rather than pair of numbers, this object should have properties *low*, *high*, *max*
+     * and implement methods *less_than(), equal_to(), intersect(), not_intersect(), clone(), output()*.
+     * Two static methods *comparable_max(), comparable_less_than()* define how to compare values in pair. <br/>
+     * This interface is described in typescript definition file *index.d.ts*
+     *
+     * Axis aligned rectangle is an example of such interval.
+     * We may look at rectangle as an interval between its low left and top right corners.
+     * See **Box** class in [flatten-js](https://github.com/alexbol99/flatten-js) library as the example
+     * of Interval interface implementation
+     * @type {Interval}
+     */
     const Interval = class Interval {
+        /**
+         * Accept two comparable values and creates new instance of interval
+         * Predicate Interval.comparable_less(low, high) supposed to return true on these values
+         * @param low
+         * @param high
+         */
         constructor(low, high) {
             this.low = low;
             this.high = high;
         }
 
+        /**
+         * Returns maximum value of the interval
+         * @returns {*|Comparable}
+         */
         get max() {
             return this.high;
         }
 
-        interval(low, high) {
-            return new Interval(low, high);
-        }
 
+        /**
+         * Clone interval
+         * @returns {Interval}
+         */
         clone() {
             return new Interval(this.low, this.high);
         }
 
+        /**
+         * Predicate returns true is this interval less than other interval
+         * @param other_interval
+         * @returns {boolean}
+         */
         less_than(other_interval) {
             return this.low < other_interval.low ||
                 this.low == other_interval.low && this.high < other_interval.high;
         }
 
+        /**
+         * Predicate returns true is this interval equals to other interval
+         * @param other_interval
+         * @returns {boolean}
+         */
         equal_to(other_interval) {
             return this.low == other_interval.low && this.high == other_interval.high;
         }
 
+        /**
+         * Predicate returns true if this interval intersects other interval
+         * @param other_interval
+         * @returns {boolean}
+         */
         intersect(other_interval) {
             return !this.not_intersect(other_interval);
         }
 
+        /**
+         * Predicate returns true if this interval does not intersect other interval
+         * @param other_interval
+         * @returns {boolean}
+         */
         not_intersect(other_interval) {
             return (this.high < other_interval.low || other_interval.high < this.low);
         }
 
+        /**
+         * Returns how key should return
+         */
         output() {
             return [this.low, this.high];
         }
 
-        maximal_val(val1, val2) {
+        /**
+         * Function returns maximum between two comparable values
+         * @param val1
+         * @param val2
+         * @returns {number}
+         */
+        comparable_max(val1, val2) {
             return Math.max(val1, val2);
         }
 
-        val_less_than(val1, val2 ) {     // trait to compare max property with item ?
+        /**
+         * Predicate returns true if first value less than second value
+         * @param val1
+         * @param val2
+         * @returns {boolean}
+         */
+        comparable_less_than(val1, val2 ) {
             return val1 < val2;
         }
     };
@@ -403,27 +463,27 @@
             // use key (Interval) max property instead of key.high
             this.max = this.item.key ? this.item.key.max : undefined;
             if (this.right && this.right.max) {
-                let maximal_val = this.item.key.maximal_val;
-                this.max = maximal_val(this.max, this.right.max);
+                const comparable_max = this.item.key.comparable_max;
+                this.max = comparable_max(this.max, this.right.max);
             }
             if (this.left && this.left.max) {
-                let maximal_val = this.item.key.maximal_val;
-                this.max = maximal_val(this.max, this.left.max);
+                const comparable_max = this.item.key.comparable_max;
+                this.max = comparable_max(this.max, this.left.max);
             }
         }
 
         // Other_node does not intersect any node of left subtree, if this.left.max < other_node.item.key.low
         not_intersect_left_subtree(search_node) {
-            let val_less_than = this.item.key.val_less_than;
+            const comparable_less_than = this.item.key.comparable_less_than;
             let high = this.left.max.high ? this.left.max.high : this.left.max;
-            return val_less_than(high, search_node.item.key.low);
+            return comparable_less_than(high, search_node.item.key.low);
         }
 
         // Other_node does not intersect right subtree if other_node.item.key.high < this.right.key.low
         not_intersect_right_subtree(search_node) {
-            let val_less_than = this.item.key.val_less_than;
+            const comparable_less_than = this.item.key.comparable_less_than;
             let low = this.right.max.low ? this.right.max.low : this.right.item.key.low;
-            return val_less_than(search_node.item.key.high, low);
+            return comparable_less_than(search_node.item.key.high, low);
         }
     }
 
@@ -436,9 +496,7 @@
     /**
      * Implementation of interval binary search tree <br/>
      * Interval tree stores items which are couples of {key:interval, value: value} <br/>
-     * Interval is an object with high and low properties or simply array of pairs [low,high] of numeric values <br />
-     * If interval is an object, it should implement and expose methods less_than, equals_to, intersect and others,
-     * see documentation
+     * Interval is an object with high and low properties or simply pair [low,high] of numeric values <br />
      * @type {IntervalTree}
      */
     class IntervalTree {
@@ -3417,12 +3475,12 @@
             return this.clone();
         }
 
-        maximal_val(box1, box2) {
+        comparable_max(box1, box2) {
             // return pt1.lessThan(pt2) ? pt2.clone() : pt1.clone();
             return box1.merge(box2);
         }
 
-        val_less_than(pt1, pt2) {
+        comparable_less_than(pt1, pt2) {
             return pt1.lessThan(pt2);
         }
 

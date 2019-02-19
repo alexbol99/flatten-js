@@ -5,7 +5,7 @@
 "use strict";
 
 import Flatten from '../flatten';
-import IntervalTree from 'flatten-interval-tree';
+import IntervalTree from '@flatten-js/interval-tree';
 
 /**
  * Class representing a planar set - a generic container with ability to keep and retrieve shapes and

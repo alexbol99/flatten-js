@@ -1,7 +1,7 @@
 "use strict";
 
 // let IntervalTree = require('flatten-interval-tree');
-import IntervalTree from 'flatten-interval-tree';
+import IntervalTree from '@flatten-js/interval-tree';
 import Flatten from '../flatten';
 
 export class Distance {
