@@ -4,28 +4,28 @@
     <bookmark url="file://$PROJECT_DIR$/test/planar_set.js" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Upgrade interval tree dependency 0.3.6">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Upgrade interval tree dependency to scoped package @flatten-js/interval-tree&#10;- Remove not exported classes and redundant packages/core folder">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_matrix.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/dist/main.cjs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/dist/main.esm.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/dist/main.umd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/core/rollup.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/distance.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/distance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/image.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/inversion.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_structures/planar_set.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/planar_set.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-46">
-              <caret line="31" column="21" lean-forward="true" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+            <state relative-caret-position="34">
+              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -69,10 +69,19 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="1309">
-                <caret line="101" column="12" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
+              <first_editor relative-caret-position="323">
+                <caret line="22" selection-start-line="22" selection-end-line="22" />
               </first_editor>
               <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/flatten.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="9" column="98" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="98" />
             </state>
           </provider>
         </entry>
@@ -90,6 +99,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/point.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="80" selection-start-line="9" selection-end-line="9" selection-end-column="80" />
+              <folding>
+                <element signature="e#59#89#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/circle.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="127">
@@ -99,22 +120,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/algorithms/distance.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="573" column="32" selection-start-line="573" selection-start-column="32" selection-end-line="573" selection-end-column="32" />
-              <folding>
-                <element signature="e#71#120#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/box.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="179">
-              <caret line="149" lean-forward="true" selection-start-line="149" selection-end-line="149" />
+              <caret line="149" selection-start-line="149" selection-end-line="149" />
             </state>
           </provider>
         </entry>
@@ -259,8 +268,8 @@
         <option value="$PROJECT_DIR$/src/algorithms/distance.js" />
         <option value="$PROJECT_DIR$/test/planar_set.js" />
         <option value="$PROJECT_DIR$/src/classes/box.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/index.d.ts" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
@@ -299,6 +308,11 @@
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
               <item name="packages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -377,11 +391,21 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="npm-publish" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="doc" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="npm-publish" />
+        <script value="doc" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="generate-docs" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -412,22 +436,6 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Data_structures.PlanarSet.May calculate distance between shape and planar set" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/planar_set.js</test-file>
-      <test-names>
-        <name value="#Data_structures.PlanarSet" />
-        <name value="May calculate distance between shape and planar set" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <configuration name="#test esm" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -443,19 +451,19 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Data_structures.PlanarSet.May calculate distance between shape and planar set" />
       <item itemvalue="Mocha.#Data_structures.PlanarSet" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.test" />
-      <item itemvalue="npm.npm-publish" />
+      <item itemvalue="npm.doc" />
+      <item itemvalue="npm.generate-docs" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="npm.test" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.generate-docs" />
+        <item itemvalue="npm.doc" />
         <item itemvalue="Mocha.#Data_structures.PlanarSet" />
-        <item itemvalue="Mocha.#Data_structures.PlanarSet.May calculate distance between shape and planar set" />
-        <item itemvalue="npm.npm-publish" />
       </list>
     </recent_temporary>
   </component>
@@ -563,14 +571,7 @@
       <workItem from="1549456658690" duration="4115000" />
       <workItem from="1550238375478" duration="5929000" />
       <workItem from="1550413727384" duration="1591000" />
-      <workItem from="1550473846108" duration="22283000" />
-    </task>
-    <task id="LOCAL-00077" summary="Added spliFace method to polygon class">
-      <created>1515961791026</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1515961791026</updated>
+      <workItem from="1550473846108" duration="24442000" />
     </task>
     <task id="LOCAL-00078" summary="Rename splitFace to addVertex. Fix bugs and add tests">
       <created>1515999265104</created>
@@ -908,7 +909,14 @@
       <option name="project" value="LOCAL" />
       <updated>1550482340226</updated>
     </task>
-    <option name="localTasksCounter" value="126" />
+    <task id="LOCAL-00126" summary="- Upgrade interval tree dependency to scoped package @flatten-js/interval-tree&#10;- Remove not exported classes and redundant packages/core folder">
+      <created>1550587829946</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1550587829946</updated>
+    </task>
+    <option name="localTasksCounter" value="127" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -944,7 +952,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="755487000" />
+    <option name="totallyTimeSpent" value="757646000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -959,12 +967,12 @@
     <frame x="197" y="28" width="1711" height="985" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19306634" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19306634" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49968693" visible="true" weight="0.36608186" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49754602" visible="true" weight="0.23614457" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49754602" visible="true" weight="0.23614457" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5060241" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1010,7 +1018,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="some documentation" />
     <MESSAGE value="Enable face.svg() method to display different faces with different styles (attributes)" />
     <MESSAGE value="Just typo" />
     <MESSAGE value="Add missing intersections with polygon methods for Segment, Arc, Line, Circle, Polygon" />
@@ -1035,7 +1042,8 @@
     <MESSAGE value="- Rename branch v1.0.0 to be @flatten-js/core&#10;- Build @flatten-js/core from the /src, not from ./packages/core" />
     <MESSAGE value="- Upgrade interval tree dependency" />
     <MESSAGE value="- Upgrade interval tree dependency 0.3.6" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Upgrade interval tree dependency 0.3.6" />
+    <MESSAGE value="- Upgrade interval tree dependency to scoped package @flatten-js/interval-tree&#10;- Remove not exported classes and redundant packages/core folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Upgrade interval tree dependency to scoped package @flatten-js/interval-tree&#10;- Remove not exported classes and redundant packages/core folder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1167,13 +1175,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/flatten.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/utils/rollup.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1278,15 +1279,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#59#89#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1455,17 +1447,7 @@
     <entry file="file://$PROJECT_DIR$/src/classes/box.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
-          <caret line="149" lean-forward="true" selection-start-line="149" selection-end-line="149" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1309">
-            <caret line="101" column="12" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
-          </first_editor>
-          <second_editor />
+          <caret line="149" selection-start-line="149" selection-end-line="149" />
         </state>
       </provider>
     </entry>
@@ -1481,10 +1463,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/flatten.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="9" column="98" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/point.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="80" selection-start-line="9" selection-end-line="9" selection-end-column="80" />
+          <folding>
+            <element signature="e#59#89#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="323">
+            <caret line="22" selection-start-line="22" selection-end-line="22" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="31" column="21" lean-forward="true" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+        <state relative-caret-position="34">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
         </state>
       </provider>
     </entry>

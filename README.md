@@ -1,86 +1,67 @@
-[![npm version](https://badge.fury.io/js/flatten-js.svg)](https://badge.fury.io/js/flatten-js)
+[![npm version](https://badge.fury.io/js/%40flatten-js%2Fcore.svg)](https://badge.fury.io/js/%40flatten-js%2Fcore)
 [![Build Status](https://travis-ci.org/alexbol99/flatten-js.svg?branch=master)](https://travis-ci.org/alexbol99/flatten-js)
 [![Coverage Status](https://coveralls.io/repos/github/alexbol99/flatten-js/badge.svg?branch=master)](https://coveralls.io/github/alexbol99/flatten-js?branch=master)
 
 # Javascript library for 2d geometry
 
-FlattenJS is a javascript library (about 50 Kb minified) for manipulating abstract geometrical shapes like point, vector, line, segment,
+**flatten-js** is a javascript library for manipulating abstract geometrical shapes like point, vector, line, segment,
 circle, arc and polygon. Shapes may be organized into Planar Set - searchable container which support spatial queries.
 
-FlattenJS provides a lot of useful methods and algorithms like finding intersections, checking inclusion, calculating distance, apply
+**flatten-js** provides a lot of useful methods and algorithms like finding intersections, checking inclusion, calculating distance, apply
 transformations and more.
-Polygon model is rather comprehensive and supports multi polygons with many islands and holes. Edges of polygon may be circular arcs or segments.
-Some algorithms like [Boolean Operations](https://github.com/alexbol99/flatten-boolean-op) and [Offset](https://github.com/alexbol99/flatten-offset),
-implemented in separate packages.     
- 
-This library designed to work in any modern browser as well as under nodejs.
-It is written in plain javascript with es6 syntax elements.
-You can use es5 precompiled bundled package (added in v0.6.2) if you need to support old browsers.
 
+Library consists of several packages, published under scope **@flatten-js/** (will be more):
+
+| Name        | Description  |
+| ------------- |:-------------:|
+| [@flatten-js/core](https://www.npmjs.com/package/@flatten-js/core)                   | Basic classes and operations
+| [@flatten-js/interval-tree](https://www.npmjs.com/package/@flatten-js/interval-tree) | Interval binary search tree 
+| [@flatten-js/boolean-op](https://www.npmjs.com/package/@flatten-js/boolean-op)    | Boolean operations
+
+
+NOTE: Package [flatten-js](https://www.npmjs.com/package/flatten-js) is not supported and will be deprecated soon.
+
+Read documentation for each package to understand which dependencies should be installed with the package
+
+Library provides different entry points suitable for various targets.
 TypeScript users may take advantage of static type checking with typescript definition file index.d.ts included into the package.
 
-FlattenJS does not concern too much about visualization.
+**flatten-js** does not concern too much about visualization.
 Anyway, all objects have svg() methods, that returns a string which may be inserted into SVG container. 
 This works pretty well together with  [d3js](https://d3js.org/) library. But it is definitely possible to create bridges to other graphic libraries.
 
 The best way to start working with FlattenJS is to use awesome [Observable](https://beta.observablehq.com/) javascript interactive notebooks.
-There are several FlattenJS tutorials published in Observable Notebooks, see below.
+There are several **flatten-js** tutorials published in Observable Notebooks, see below.
 
-Full documentation may be found [here](https://alexbol99.github.io/flatten-js/index.html)
+Full documentation may be found here: [https://alexbol99.github.io/flatten-js/index.html](https://alexbol99.github.io/flatten-js/index.html)
 
 ## Installation
 
-    npm install --save flatten-js
+    npm install --save @flatten-js/core
 
 ## Usage
 
-Package may be required in different ways:
-
-##### Require as es6 module:
 ```javascript
-    import Flatten from 'flatten-js';
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Matrix, PlanarSet} from '@flatten-js/core';
 ```
 
-##### Require as CommonJS package (nodejs) 
+It is possible to import Flatten namespace as default import, and then destruct all classes from it. 
 ```javascript
-    const Flatten = require('flatten-js');
+import Flatten from '@flatten-js/core'
+const {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Matrix, PlanarSet} = Flatten;
 ```
 
-##### Require minified package precompiled into UMD format.
- [Observable](https://beta.observablehq.com/) notebooks requires this format.
-
+Some classes have shortcuts to avoid annoying *new* constructor:
 ```javascript
-    const Flatten = require('flatten-js.umd.min.js');
+import {point, vector, circle, line, segment, arc, ray, matrix} from '@flatten-js/core';
 ```
-
-##### Require precompiled to es5 package in Commonjs2 format.
-
-```javascript
-    import Flatten from "flatten-js/dist/flatten.commonjs2"
-```
-This package is not minified.
-
-This is the way you have to consume the package for [React](https://reactjs.org/) library, at least when you use
-[create-react-library](https://github.com/facebook/create-react-app) starter kit:
-```
-""
-    Some third-party packages don't compile their code to ES5 before publishing to npm.
-    This often causes problems in the ecosystem because neither browsers (except for most modern versions)
-    nor some tools currently support all ES6 features.
-    We recommend to publish code on npm as ES5 at least for a few more years.
-""    
-```
-You can see example of **FlattenJS + React** usage in [flatten-react-demo](https://github.com/alexbol99/flatten-react-demo) project.
-It is live [here](https://alexbol99.github.io/flatten-react-demo/). 
-Just clone it from the GitHub, install dependencies and start working using *npm start* or
-compile it to production using *npm run build*.
 
 ## Example
 
-After module required, you can create some construction:
+After module imported, it is possible to create some construction:
 ```javascript
     // extract object creators
-    let {point, circle, segment} = Flatten;
+    import {point, circle, segment} from '@flatten-js/core';
 
     // make some construction
     let s1 = segment(10,10,200,200);
@@ -88,7 +69,8 @@ After module required, you can create some construction:
     let c = circle(point(200, 110), 50);
     let ip = s1.intersect(s2);
 ```
-You may test the code above also in [NPM RunKit](https://npm.runkit.com/flatten-js)
+
+You may test the code above also in [NPM RunKit](https://npm.runkit.com/@flatten-js/core)
 
 ## Tutorials
 
@@ -99,6 +81,6 @@ You may test the code above also in [NPM RunKit](https://npm.runkit.com/flatten-
 
 ## Contacts
 
-Follow me on [Twitter](https://twitter.com/alex_bol_)
+Follow me on Twitter [@alex_bol_](https://twitter.com/alex_bol_)
 
 
