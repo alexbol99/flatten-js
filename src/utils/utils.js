@@ -2,12 +2,7 @@
  * Created by Alex Bol on 2/18/2017.
  */
 
-/**
- * Global constant DP_TOL is used for comparison of floating point numbers.
- * It is set to 0.000001.
- * @type {number}
- */
-export const DP_TOL = 0.000001;
+import {DP_TOL} from "./constants";
 
 export const DECIMALS = 3;
 

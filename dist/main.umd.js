@@ -4,18 +4,42 @@
     (global = global || self, factory(global['@flatten-js/core'] = {}));
 }(this, function (exports) { 'use strict';
 
+    /**
+     * Global constant DP_TOL is used for comparison of floating point numbers.
+     * It is set to 0.000001.
+     * @type {number}
+     */
     const DP_TOL = 0.000001;
+
+    /**
+     * Global constant CCW defines counter clockwise direction of arc
+     * @type {boolean}
+     */
     const CCW = true;
+
+    /**
+     * Global constant CW defines clockwise direction of arc
+     * @type {boolean}
+     */
     const CW = false;
+
+    /**
+     * Defines orientation for face of the polygon: clockwise, counter clockwise
+     * or not orientable in the case of self-intersection
+     * @type {{CW: number, CCW: number, NOT_ORIENTABLE: number}}
+     */
     const ORIENTATION = {CCW:-1, CW:1, NOT_ORIENTABLE: 0};
+
     const PIx2 = 2 * Math.PI;
+
     const INSIDE = 1;
     const OUTSIDE = 0;
     const BOUNDARY = 2;
     const CONTAINS = 3;
     const INTERLACE = 4;
-    const OVERLAP_SAME = 1;
-    const OVERLAP_OPPOSITE = 2;
+
+    // export const OVERLAP_SAME = 1;
+    // export const OVERLAP_OPPOSITE = 2;
 
     var Constants = /*#__PURE__*/Object.freeze({
         DP_TOL: DP_TOL,
@@ -27,21 +51,12 @@
         OUTSIDE: OUTSIDE,
         BOUNDARY: BOUNDARY,
         CONTAINS: CONTAINS,
-        INTERLACE: INTERLACE,
-        OVERLAP_SAME: OVERLAP_SAME,
-        OVERLAP_OPPOSITE: OVERLAP_OPPOSITE
+        INTERLACE: INTERLACE
     });
 
     /**
      * Created by Alex Bol on 2/18/2017.
      */
-
-    /**
-     * Global constant DP_TOL is used for comparison of floating point numbers.
-     * It is set to 0.000001.
-     * @type {number}
-     */
-    const DP_TOL$1 = 0.000001;
 
     const DECIMALS = 3;
 
@@ -50,7 +65,7 @@
      * @return {boolean}
      */
     function EQ_0(x) {
-        return ((x) < DP_TOL$1 && (x) > -DP_TOL$1);
+        return ((x) < DP_TOL && (x) > -DP_TOL);
     }
 
     /**
@@ -58,7 +73,7 @@
      * @return {boolean}
      */
     function EQ(x, y) {
-        return ((x) - (y) < DP_TOL$1 && (x) - (y) > -DP_TOL$1);
+        return ((x) - (y) < DP_TOL && (x) - (y) > -DP_TOL);
     }
 
     /**
@@ -66,7 +81,7 @@
      * @return {boolean}
      */
     function GT(x, y) {
-        return ((x) - (y) > DP_TOL$1);
+        return ((x) - (y) > DP_TOL);
     }
 
     /**
@@ -74,7 +89,7 @@
      * @return {boolean}
      */
     function GE(x, y) {
-        return ((x) - (y) > -DP_TOL$1);
+        return ((x) - (y) > -DP_TOL);
     }
 
     /**
@@ -82,7 +97,7 @@
      * @return {boolean}
      */
     function LT(x, y) {
-        return ((x) - (y) < -DP_TOL$1)
+        return ((x) - (y) < -DP_TOL)
     }
 
     /**
@@ -90,11 +105,10 @@
      * @return {boolean}
      */
     function LE(x, y) {
-        return ((x) - (y) < DP_TOL$1);
+        return ((x) - (y) < DP_TOL);
     }
 
     var Utils = /*#__PURE__*/Object.freeze({
-        DP_TOL: DP_TOL$1,
         DECIMALS: DECIMALS,
         EQ_0: EQ_0,
         EQ: EQ,
@@ -108,16 +122,28 @@
      * Created by Alex Bol on 2/19/2017.
      */
 
+    /**
+     * Class of system errors
+     */
     class Errors {
+        /**
+         * Throw error ILLEGAL_PARAMETERS when cannot instantiate from given parameter
+         * @returns {ReferenceError}
+         * @constructor
+         */
         static get ILLEGAL_PARAMETERS() {
             return new ReferenceError('Illegal Parameters');
         }
+
+        /**
+         * Throw error ZERO_DIVISION to catch situation of zero division
+         * @returns {Error}
+         * @constructor
+         */
         static get ZERO_DIVISION() {
             return new Error('Zero division');
         }
     }
-    // export const ILLEGAL_PARAMETERS = new ReferenceError('Illegal Parameters');
-    // export const ZERO_DIVISION = new Error('Zero division');
 
     var errors = /*#__PURE__*/Object.freeze({
         default: Errors
@@ -5521,6 +5547,15 @@
     exports.ray_shoot = ray_shoot;
     exports.Polygon = Polygon;
     exports.Distance = Distance;
+    exports.DP_TOL = DP_TOL;
+    exports.CCW = CCW;
+    exports.CW = CW;
+    exports.ORIENTATION = ORIENTATION;
+    exports.INSIDE = INSIDE;
+    exports.OUTSIDE = OUTSIDE;
+    exports.BOUNDARY = BOUNDARY;
+    exports.CONTAINS = CONTAINS;
+    exports.INTERLACE = INTERLACE;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
