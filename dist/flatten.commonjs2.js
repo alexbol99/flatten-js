@@ -7657,6 +7657,20 @@ var IntervalTree = function () {
                 return visitor(node.item.key, node.item.value);
             });
         }
+
+        /** Value Mapper. Walk through every node and map node value to another value
+         * @param callback(value, key) - function to be called for each tree item
+         */
+
+    }, {
+        key: 'map',
+        value: function map(callback) {
+            var tree = new IntervalTree();
+            this.tree_walk(this.root, function (node) {
+                return tree.insert(node.item.key, callback(node.item.value, node.item.key));
+            });
+            return tree;
+        }
     }, {
         key: 'recalc_max',
         value: function recalc_max(node) {
@@ -8042,7 +8056,7 @@ var IntervalTree = function () {
         value: function tree_walk(node, action) {
             if (node != null && node != nil_node) {
                 this.tree_walk(node.left, action);
-                // arr.push(node.toArray());
+                // arr.push(node.output());
                 action(node);
                 this.tree_walk(node.right, action);
             }
@@ -8100,6 +8114,12 @@ var IntervalTree = function () {
             });
             return count;
         }
+
+        /**
+         * Returns array of sorted keys in the ascending order
+         * @returns {Array}
+         */
+
     }, {
         key: 'keys',
         get: function get() {
@@ -8109,6 +8129,42 @@ var IntervalTree = function () {
             });
             return res;
         }
+
+        /**
+         * Return array of values in the ascending keys order
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'values',
+        get: function get() {
+            var res = [];
+            this.tree_walk(this.root, function (node) {
+                return res.push(node.item.value);
+            });
+            return res;
+        }
+
+        /**
+         * Returns array of items (<key,value> pairs) in the ascended keys order
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'items',
+        get: function get() {
+            var res = [];
+            this.tree_walk(this.root, function (node) {
+                return res.push({ key: node.item.key.output(), value: node.item.value });
+            });
+            return res;
+        }
+
+        /**
+         * Returns true if tree is empty
+         * @returns {boolean}
+         */
+
     }, {
         key: 'isEmpty',
         get: function get() {

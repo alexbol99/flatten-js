@@ -28,6 +28,14 @@ There are several FlattenJS tutorials published in Observable Notebooks, see bel
 
 Full documentation may be found [here](https://alexbol99.github.io/flatten-js/index.html)
 
+## Important note
+
+#### This package is not supported and will be deprecated soon. Consider moving to the scoped version [@flatten-js/core](https://www.npmjs.com/package/@flatten-js/core).
+
+## Contacts
+
+Follow me on Twitter [@alex_bol_](https://twitter.com/alex_bol_)
+
 ## Installation
 
     npm install --save flatten-js
@@ -97,8 +105,5 @@ You may test the code above also in [NPM RunKit](https://npm.runkit.com/flatten-
 3. [![Planar Set](https://user-images.githubusercontent.com/6965440/41164948-0dde3b66-6b45-11e8-8a1a-b70f4ad228c1.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-planar-set)
 4. [![polygons](https://user-images.githubusercontent.com/6965440/41164949-0e0ccd1e-6b45-11e8-9400-009c8ba6e7e3.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-polygons)
 
-## Contacts
-
-Follow me on [Twitter](https://twitter.com/alex_bol_)
 
 
