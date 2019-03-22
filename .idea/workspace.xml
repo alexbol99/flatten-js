@@ -4,13 +4,8 @@
     <bookmark url="file://$PROJECT_DIR$/test/planar_set.js" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Export constants&#10;- Build packages and documentation">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- create patch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/nodejs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/examples/nodejs/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/box.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,12 +25,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="-573">
-                <caret line="31" column="18" lean-forward="true" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
+                <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
               </first_editor>
               <second_editor />
             </state>
@@ -46,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/examples/nodejs/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -64,15 +59,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/create-react-app/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
@@ -80,15 +66,6 @@
               <folding>
                 <element signature="e#46#82#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dist/main.umd.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94554">
-              <caret line="5562" selection-start-line="5562" selection-end-line="5562" />
             </state>
           </provider>
         </entry>
@@ -105,8 +82,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="986">
-              <caret line="58" column="40" selection-start-line="58" selection-start-column="40" selection-end-line="58" selection-end-column="40" />
+            <state relative-caret-position="-34">
+              <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docs/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="71" lean-forward="true" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.jsdoc.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="23" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -253,11 +248,11 @@
         <option value="$PROJECT_DIR$/src/utils/utils.js" />
         <option value="$PROJECT_DIR$/src/utils/constants.js" />
         <option value="$PROJECT_DIR$/src/utils/errors.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/classes/box.js" />
         <option value="$PROJECT_DIR$/examples/create-react-app/package.json" />
         <option value="$PROJECT_DIR$/examples/nodejs/index.js" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -268,8 +263,8 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="224" />
-    <option name="y" value="45" />
+    <option name="x" value="217" />
+    <option name="y" value="46" />
     <option name="width" value="1697" />
     <option name="height" value="979" />
   </component>
@@ -345,7 +340,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.generate-docs">
+  <component name="RunManager" selected="npm.npm-publish">
     <configuration name="index.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/flatten-js/examples/browser/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -421,11 +416,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.npm-publish" />
         <item itemvalue="npm.generate-docs" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.cover" />
         <item itemvalue="JavaScript Debug.index.html (1)" />
-        <item itemvalue="npm.npm-publish" />
       </list>
     </recent_temporary>
   </component>
@@ -539,21 +534,7 @@
       <workItem from="1552505312393" duration="1714000" />
       <workItem from="1552751714201" duration="2734000" />
       <workItem from="1553250178367" duration="635000" />
-      <workItem from="1553250966924" duration="1677000" />
-    </task>
-    <task id="LOCAL-00080" summary="Started Clip algorithm">
-      <created>1516344168300</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1516344168300</updated>
-    </task>
-    <task id="LOCAL-00081" summary="- Added parameter &quot;edges&quot; to face.append, face.remove, face.insert methods&#10;- Edited documentation">
-      <created>1517951715054</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1517951715054</updated>
+      <workItem from="1553250966924" duration="4437000" />
     </task>
     <task id="LOCAL-00082" summary="Boolean operations test and fix (union)&#10;- Circle::toArc() method - end angle -pi instead of 3pi&#10;- Face::getRelation - initialize edges bv flags before recalcuation&#10;- Polygon::addVertex - no edges.update method in PlanarSet anymore, use delete and add&#10;- Ray shooting - skip vertex ip if between same edges and already counted&#10;- Ray shooting - fix technical bug in sorting&#10;- BooleanOp&#10; - clone both polygons in clip&#10; - calculate inclusion flags with original polygons for performance&#10; - consider face id when sorting intersection points&#10; - remove not relevant between points belong to same face">
       <created>1518175902680</created>
@@ -884,7 +865,21 @@
       <option name="project" value="LOCAL" />
       <updated>1551038873608</updated>
     </task>
-    <option name="localTasksCounter" value="129" />
+    <task id="LOCAL-00129" summary="- Update dependency, build, documentation">
+      <created>1553252978093</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1553252978094</updated>
+    </task>
+    <task id="LOCAL-00130" summary="- create patch">
+      <created>1553253087861</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1553253087861</updated>
+    </task>
+    <option name="localTasksCounter" value="131" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -920,7 +915,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="778929000" />
+    <option name="totallyTimeSpent" value="781689000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -932,22 +927,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="216" y="51" width="1697" height="979" extended-state="0" />
+    <frame x="217" y="46" width="1697" height="979" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2591923" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2591923" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49968693" weight="0.36608186" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49754602" weight="0.31604344" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49754602" visible="true" weight="0.39854193" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.50542825" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993865" weight="0.32906976" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4993865" weight="0.32906976" />
       <window_info anchor="bottom" id="SFDX" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49447852" visible="true" weight="0.3961118" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49447852" weight="0.3961118" />
       <window_info anchor="bottom" id="Debug Logs" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5055215" side_tool="true" weight="0.35" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
@@ -986,8 +981,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add missing intersections with polygon methods for Segment, Arc, Line, Circle, Polygon" />
-    <MESSAGE value="Fix type (issue #12)" />
     <MESSAGE value="Bug fixing:&#10;- issue #13 Intersect between a line and polygon doesn't work - fixed, added some tests&#10;- issue #15 Arc direction is undefined when parameter counterClockwise is omitted - fixed, now if omitted, set default value Flatten.CCW&#10;- remove method Face::getRelation(polygon) (fix for issue #2 from flatten-boolean-op: Issue with intersection of circle and box) - method was incorrect" />
     <MESSAGE value="Request from flatten-boolean-op to support circle and box:&#10;- added option to addFace() method to add circle and box" />
     <MESSAGE value="Fix issue #18 Division by zero error when checking if polygon contains a point&#10;- skip zero-length edges in ray shooting algorithm" />
@@ -1011,7 +1004,9 @@
     <MESSAGE value="- Upgrade interval tree dependency to scoped package @flatten-js/interval-tree&#10;- Remove not exported classes and redundant packages/core folder" />
     <MESSAGE value="Remove redundant file flatten-js-test.ts" />
     <MESSAGE value="- Export constants&#10;- Build packages and documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Export constants&#10;- Build packages and documentation" />
+    <MESSAGE value="- Update dependency, build, documentation" />
+    <MESSAGE value="- create patch" />
+    <option name="LAST_COMMIT_MESSAGE" value="- create patch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1101,7 +1096,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/packages/core/package.json" />
     <entry file="file://$PROJECT_DIR$/test/vector.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -1263,13 +1257,6 @@
     <entry file="file://$PROJECT_DIR$/examples/typescript/main.js" />
     <entry file="file://$PROJECT_DIR$/examples/typescript/main.ts" />
     <entry file="file://$PROJECT_DIR$/examples/typescript/tsconfig.json" />
-    <entry file="file://$PROJECT_DIR$/docs/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="71" lean-forward="true" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="952">
@@ -1339,8 +1326,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dist/main.umd.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94554">
-          <caret line="5562" selection-start-line="5562" selection-end-line="5562" />
+        <state relative-caret-position="94418">
+          <caret line="5554" selection-start-line="5554" selection-end-line="5554" />
         </state>
       </provider>
     </entry>
@@ -1372,7 +1359,7 @@
     <entry file="file://$PROJECT_DIR$/examples/nodejs/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
@@ -1386,6 +1373,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-573">
+            <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -1396,20 +1393,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/.jsdoc.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="58" column="40" selection-start-line="58" selection-start-column="40" selection-end-line="58" selection-end-column="40" />
+        <state relative-caret-position="34">
+          <caret line="2" column="23" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-573">
-            <caret line="31" column="18" lean-forward="true" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-34">
+          <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="71" lean-forward="true" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="71" />
         </state>
       </provider>
     </entry>
