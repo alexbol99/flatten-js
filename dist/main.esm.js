@@ -402,7 +402,7 @@ const Interval = class Interval {
      * @param val2
      * @returns {number}
      */
-    comparable_max(val1, val2) {
+    static comparable_max(val1, val2) {
         return Math.max(val1, val2);
     }
 
@@ -412,7 +412,7 @@ const Interval = class Interval {
      * @param val2
      * @returns {boolean}
      */
-    comparable_less_than(val1, val2 ) {
+    static comparable_less_than(val1, val2 ) {
         return val1 < val2;
     }
 };
@@ -483,25 +483,25 @@ class Node {
         // use key (Interval) max property instead of key.high
         this.max = this.item.key ? this.item.key.max : undefined;
         if (this.right && this.right.max) {
-            const comparable_max = this.item.key.comparable_max;
+            const comparable_max = this.item.key.constructor.comparable_max;  // static method
             this.max = comparable_max(this.max, this.right.max);
         }
         if (this.left && this.left.max) {
-            const comparable_max = this.item.key.comparable_max;
+            const comparable_max = this.item.key.constructor.comparable_max;  // static method
             this.max = comparable_max(this.max, this.left.max);
         }
     }
 
     // Other_node does not intersect any node of left subtree, if this.left.max < other_node.item.key.low
     not_intersect_left_subtree(search_node) {
-        const comparable_less_than = this.item.key.comparable_less_than;
+        const comparable_less_than = this.item.key.constructor.comparable_less_than;  // static method
         let high = this.left.max.high ? this.left.max.high : this.left.max;
         return comparable_less_than(high, search_node.item.key.low);
     }
 
     // Other_node does not intersect right subtree if other_node.item.key.high < this.right.key.low
     not_intersect_right_subtree(search_node) {
-        const comparable_less_than = this.item.key.comparable_less_than;
+        const comparable_less_than = this.item.key.constructor.comparable_less_than;  // static method
         let low = this.right.max.low ? this.right.max.low : this.right.item.key.low;
         return comparable_less_than(search_node.item.key.high, low);
     }
@@ -625,22 +625,14 @@ class IntervalTree {
      * Returns array of entry values which keys intersect with given interval <br/>
      * If no values stored in the tree, returns array of keys which intersect given interval
      * @param interval - search interval, or array [low, high]
+     * @param outputMapperFn(value,key) - optional function that maps (value, key) to custom output
      * @returns {Array}
      */
-    search(interval) {
+    search(interval, outputMapperFn = (value, key) => value ? value : key.output()) {
         let search_node = new Node(interval);
         let resp_nodes = [];
         this.tree_search_interval(this.root, search_node, resp_nodes);
-        let resp = [];
-        resp_nodes.forEach((node) => {
-            if (node.item.value) {         // if there are values, return only values
-                resp.push(node.item.value);
-            }
-            else {                         // otherwise, return keys
-                resp.push(node.item.key.output());
-            }
-        }, []);
-        return resp;
+        return resp_nodes.map(node => outputMapperFn(node.item.value, node.item.key))
     }
 
     /**
@@ -3495,12 +3487,12 @@ class Box {
         return this.clone();
     }
 
-    comparable_max(box1, box2) {
+    static comparable_max(box1, box2) {
         // return pt1.lessThan(pt2) ? pt2.clone() : pt1.clone();
         return box1.merge(box2);
     }
 
-    comparable_less_than(pt1, pt2) {
+    static comparable_less_than(pt1, pt2) {
         return pt1.lessThan(pt2);
     }
 

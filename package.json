@@ -56,6 +56,6 @@
     "rollup-plugin-terser": "^4.0.4"
   },
   "dependencies": {
-    "@flatten-js/interval-tree": "^1.0.4"
+    "@flatten-js/interval-tree": "^1.0.5"
   }
 }

@@ -143,12 +143,12 @@ export class Box {
         return this.clone();
     }
 
-    comparable_max(box1, box2) {
+    static comparable_max(box1, box2) {
         // return pt1.lessThan(pt2) ? pt2.clone() : pt1.clone();
         return box1.merge(box2);
     }
 
-    comparable_less_than(pt1, pt2) {
+    static comparable_less_than(pt1, pt2) {
         return pt1.lessThan(pt2);
     }
 
