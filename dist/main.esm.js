@@ -32,8 +32,8 @@ const BOUNDARY = 2;
 const CONTAINS = 3;
 const INTERLACE = 4;
 
-// export const OVERLAP_SAME = 1;
-// export const OVERLAP_OPPOSITE = 2;
+const OVERLAP_SAME = 1;
+const OVERLAP_OPPOSITE = 2;
 
 var Constants = /*#__PURE__*/Object.freeze({
     DP_TOL: DP_TOL,
@@ -45,7 +45,9 @@ var Constants = /*#__PURE__*/Object.freeze({
     OUTSIDE: OUTSIDE,
     BOUNDARY: BOUNDARY,
     CONTAINS: CONTAINS,
-    INTERLACE: INTERLACE
+    INTERLACE: INTERLACE,
+    OVERLAP_SAME: OVERLAP_SAME,
+    OVERLAP_OPPOSITE: OVERLAP_OPPOSITE
 });
 
 /**

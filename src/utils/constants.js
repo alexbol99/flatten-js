@@ -33,5 +33,5 @@ export const BOUNDARY = 2;
 export const CONTAINS = 3;
 export const INTERLACE = 4;
 
-// export const OVERLAP_SAME = 1;
-// export const OVERLAP_OPPOSITE = 2;
+export const OVERLAP_SAME = 1;
+export const OVERLAP_OPPOSITE = 2;
