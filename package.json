@@ -7,11 +7,18 @@
   "unpkg": "dist/main.umd.js",
   "module": "dist/main.esm.js",
   "types": "index.d.ts",
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
   "scripts": {
-    "test": "mocha --require @babel/register --reporter spec",
+    "test": "nyc --reporter=html --reporter=text mocha -R spec",
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
-    "npm-publish": "npm publish --access public",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- --require @babel/register -R spec test/*",
+    "publish": "npm publish --access public",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rollup -c"
   },
   "repository": {
@@ -46,12 +53,14 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
+    "babel-plugin-istanbul": "^5.1.1",
     "chai": "^4.2.0",
-    "coveralls": "^3.0.2",
-    "istanbul": "^0.4.5",
+    "coveralls": "^3.0.3",
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
     "mocha": "^5.2.0",
+    "nyc": "^13.3.0",
+    "rollup": "^1.7.3",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-terser": "^4.0.4"
   },
