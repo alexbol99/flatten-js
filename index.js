@@ -22,6 +22,7 @@ export {Ray, ray} from './src/classes/ray';
 export {ray_shoot} from './src/algorithms/ray_shooting';
 export {Polygon} from './src/classes/polygon';
 export {Distance} from './src/algorithms/distance';
+export {inverse} from './src/algorithms/inversion';
 
 export {DP_TOL, CCW, CW, ORIENTATION, INSIDE, OUTSIDE, BOUNDARY, CONTAINS, INTERLACE } from './src/utils/constants';
 

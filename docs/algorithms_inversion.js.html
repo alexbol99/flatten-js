@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>classes/vector.js - Documentation</title>
+    <title>algorithms/inversion.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">classes/vector.js</h1>
+    <h1 class="page-title">algorithms/inversion.js</h1>
     
 
     
@@ -40,256 +40,73 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Created by Alex Bol on 2/19/2017.
+ * Created by Alex Bol on 3/7/2017.
  */
-
 "use strict";
 
-import Flatten from '../flatten';
+import Flatten from "../flatten";
+import * as Utils from '../utils/utils';
 
 /**
- * Class representing a vector
- * @type {Vector}
+ * Inversion is a transformation of the Euclidean plane that maps generalized circles
+ * (where line is considered as a circle with infinite radius) into generalized circles
+ * See also https://en.wikipedia.org/wiki/Inversive_geometry and
+ * http://mathworld.wolfram.com/Inversion.html &lt;br/>
+ * Inversion also may be considered as a reflection of the point in the plane with respect
+ * to inversion circle so that R^2 = OP * OP',
+ * where &lt;br/>
+ * O - center of inversion circle &lt;br/>
+ * R - radius of inversion circle &lt;br/>
+ * P - point of plane &lt;br/>
+ * P' - inversion of the point P
+ *
+ * @param {Line | Circle} shape - shape to be transformed
+ * @param {Circle} inversion_circle - inversion circle
+ * @returns {Line | Circle} - result of transformation
  */
-export class Vector {
-    /**
-     * Vector may be constructed by two points, or by two float numbers,
-     * or by array of two numbers
-     * @param {Point} ps - start point
-     * @param {Point} pe - end point
-     */
-    constructor(...args) {
-        /**
-         * x-coordinate of a vector (float number)
-         * @type {number}
-         */
-        this.x = 0;
-        /**
-         * y-coordinate of a vector (float number)
-         * @type {number}
-         */
-        this.y = 0;
+function inverse(shape, inversion_circle) {
+    let dist, shortest_segment;
+    let dx, dy;
+    let s;
+    let v;
+    let r;
+    let d;
+    let pt;
 
-        /* return zero vector */
-        if (args.length === 0) {
-            return;
+    if (shape instanceof Flatten.Line) {
+        [dist, shortest_segment] = inversion_circle.pc.distanceTo(shape);
+        if (Utils.EQ_0(dist)) {            // Line passing through inversion center, is mapping to itself
+            return shape.clone();
+        } else {                           // Line not passing through inversion center is mapping into circle
+            r = inversion_circle.r * inversion_circle.r / (2 * dist);
+            v = new Flatten.Vector(inversion_circle.pc, shortest_segment.end);
+            v = v.multiply(r / dist);
+            return new Flatten.Circle(inversion_circle.pc.translate(v), r);
         }
+    } else if (shape instanceof Flatten.Circle) {
+        [dist, shortest_segment] = inversion_circle.pc.distanceTo(shape.pc);
+        if (Utils.EQ(dist, shape.r)) {     // Circle passing through inversion center mapped into line
+            d = inversion_circle.r * inversion_circle.r / (2 * shape.r);
+            v = new Flatten.Vector(shape.pc, inversion_circle.pc);
+            v = v.normalize();
+            pt = inversion_circle.pc.translate(v.multiply(d));
+            return new Flatten.Line(pt, v);
+        } else {                           // Circle not passing through inversion center - map into another circle */
+            /* Taken from http://mathworld.wolfram.com */
 
-        if (args.length === 1 &amp;&amp; args[0] instanceof Array &amp;&amp; args[0].length === 2) {
-            let arr = args[0];
-            if (typeof (arr[0]) == "number" &amp;&amp; typeof (arr[1]) == "number") {
-                this.x = arr[0];
-                this.y = arr[1];
-                return;
-            }
+            dx = shape.pc.x - inversion_circle.pc.x;
+            dy = shape.pc.y - inversion_circle.pc.y;
+
+            s = inversion_circle.r * inversion_circle.r / (dx * dx + dy * dy - shape.r * shape.r);
+
+            let pc = new Flatten.Point(inversion_circle.pc.x + s * dx, inversion_circle.pc.y + s * dy);
+
+            return new Flatten.Circle(pc, Math.abs(s) * shape.r);
         }
-
-        if (args.length === 1 &amp;&amp; args[0] instanceof Object &amp;&amp; args[0].name === "vector") {
-            let {x, y} = args[0];
-            this.x = x;
-            this.y = y;
-            return;
-        }
-
-        if (args.length === 2) {
-            let a1 = args[0];
-            let a2 = args[1];
-
-            if (typeof (a1) == "number" &amp;&amp; typeof (a2) == "number") {
-                this.x = a1;
-                this.y = a2;
-                return;
-            }
-
-            if (a1 instanceof Flatten.Point &amp;&amp; a2 instanceof Flatten.Point) {
-                this.x = a2.x - a1.x;
-                this.y = a2.y - a1.y;
-                return;
-            }
-
-        }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
-    }
-
-    /**
-     * Method clone returns new instance of Vector
-     * @returns {Vector}
-     */
-    clone() {
-        return new Flatten.Vector(this.x, this.y);
-    }
-
-    /**
-     * Slope of the vector in radians from 0 to 2PI
-     * @returns {number}
-     */
-    get slope() {
-        let angle = Math.atan2(this.y, this.x);
-        if (angle &lt; 0) angle = 2 * Math.PI + angle;
-        return angle;
-    }
-
-    /**
-     * Length of vector
-     * @returns {number}
-     */
-    get length() {
-        return Math.sqrt(this.dot(this));
-    }
-
-    /**
-     * Returns true if vectors are equal up to [DP_TOL]{@link http://localhost:63342/flatten-js/docs/global.html#DP_TOL}
-     * tolerance
-     * @param {Vector} v
-     * @returns {boolean}
-     */
-    equalTo(v) {
-        return Flatten.Utils.EQ(this.x, v.x) &amp;&amp; Flatten.Utils.EQ(this.y, v.y);
-    }
-
-    /**
-     * Returns new vector multiplied by scalar
-     * @param {number} scalar
-     * @returns {Vector}
-     */
-    multiply(scalar) {
-        return (new Flatten.Vector(scalar * this.x, scalar * this.y));
-    }
-
-    /**
-     * Returns scalar product (dot product) of two vectors &lt;br/>
-     * &lt;code>dot_product = (this * v)&lt;/code>
-     * @param {Vector} v Other vector
-     * @returns {number}
-     */
-    dot(v) {
-        return (this.x * v.x + this.y * v.y);
-    }
-
-    /**
-     * Returns vector product (cross product) of two vectors &lt;br/>
-     * &lt;code>cross_product = (this x v)&lt;/code>
-     * @param {Vector} v Other vector
-     * @returns {number}
-     */
-    cross(v) {
-        return (this.x * v.y - this.y * v.x);
-    }
-
-    /**
-     * Returns unit vector.&lt;br/>
-     * Throw error if given vector has zero length
-     * @returns {Vector}
-     */
-    normalize() {
-        if (!Flatten.Utils.EQ_0(this.length)) {
-            return (new Flatten.Vector(this.x / this.length, this.y / this.length));
-        }
-        throw Flatten.Errors.ZERO_DIVISION;
-    }
-
-    /**
-     * Returns new vector rotated by given angle,
-     * positive angle defines rotation in counter clockwise direction,
-     * negative - in clockwise direction
-     * @param {number} angle - Angle in radians
-     * @returns {Vector}
-     */
-    rotate(angle) {
-        let point = new Flatten.Point(this.x, this.y);
-        let rpoint = point.rotate(angle);
-        return new Flatten.Vector(rpoint.x, rpoint.y);
-    }
-
-    /**
-     * Returns vector rotated 90 degrees counter clockwise
-     * @returns {Vector}
-     */
-    rotate90CCW() {
-        return new Flatten.Vector(-this.y, this.x);
-    };
-
-    /**
-     * Returns vector rotated 90 degrees clockwise
-     * @returns {Vector}
-     */
-    rotate90CW() {
-        return new Flatten.Vector(this.y, -this.x);
-    };
-
-    /**
-     * Return inverted vector
-     * @returns {Vector}
-     */
-    invert() {
-        return new Flatten.Vector(-this.x, -this.y);
-    }
-
-    /**
-     * Return result of addition of other vector to this vector as a new vector
-     * @param {Vector} v Other vector
-     * @returns {Vector}
-     */
-    add(v) {
-        return new Flatten.Vector(this.x + v.x, this.y + v.y);
-    }
-
-    /**
-     * Return result of subtraction of other vector from current vector as a new vector
-     * @param {Vector} v Another vector
-     * @returns {Vector}
-     */
-    subtract(v) {
-        return new Flatten.Vector(this.x - v.x, this.y - v.y);
-    }
-
-    /**
-     * Return angle between this vector and other vector. &lt;br/>
-     * Angle is measured from 0 to 2*PI in the counter clockwise direction
-     * from current vector to other.
-     * @param {Vector} v Another vector
-     * @returns {number}
-     */
-    angleTo(v) {
-        let norm1 = this.normalize();
-        let norm2 = v.normalize();
-        let angle = Math.atan2(norm1.cross(norm2), norm1.dot(norm2));
-        if (angle &lt; 0) angle += 2 * Math.PI;
-        return angle;
-    }
-
-    /**
-     * Return vector projection of the current vector on another vector
-     * @param {Vector} v Another vector
-     * @returns {Vector}
-     */
-    projectionOn(v) {
-        let n = v.normalize();
-        let d = this.dot(n);
-        return n.multiply(d);
-    }
-
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "vector"});
     }
 };
 
-Flatten.Vector = Vector;
-
-/**
- * Function to create vector equivalent to "new" constructor
- * @param args
- */
-export const vector = (...args) => new Flatten.Vector(...args);
-Flatten.vector = vector;
-
-</code></pre>
+export default inverse;</code></pre>
         </article>
     </section>
 
