@@ -1,16 +1,15 @@
 'use strict';
 
-let expect = require('chai').expect;
-let Flatten = require('../index');
+import { expect } from 'chai';
+import Flatten from '../index';
 
-let {Matrix} = Flatten;
-
-let {matrix,point} = Flatten;
+import {Matrix} from '../index';
+import {matrix,point} from '../index';
 
 describe('#Flatten.Matrix', function() {
     it('May create new instance of Matrix', function () {
         let matrix = new Matrix();
-        expect(matrix).to.be.an.instanceof(Flatten.Matrix);
+        expect(matrix).to.be.an.instanceof(Matrix);
     });
     it('Default constructor creates identity matrix', function () {
         let matrix = new Matrix();

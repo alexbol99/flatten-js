@@ -1,13 +1,9 @@
 'use strict';
 
-let expect = require('chai').expect;
-let Flatten = require('../index');
-// let Flatten = require('../dist/flatten.min');
-// let now = require("performance-now");
-
-let {Polygon} = Flatten;
-let {point, segment, arc, circle} = Flatten;
-let {ray_shoot} = Flatten;
+import { expect } from 'chai';
+import Flatten from '../index';
+import {Polygon, point,circle} from '../index';
+import {ray_shoot} from "../src/algorithms/ray_shooting";
 
 describe('#Algorithms.Ray_Shooting', function() {
     it('Function defined', function () {

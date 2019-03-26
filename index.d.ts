@@ -2,8 +2,8 @@
 // Project: https://github.com/alexbol99/flatten-js
 // Definitions by: Alex Bol
 
-import IntervalTree = require("flatten-interval-tree");
-/// <reference types="flatten-interval-tree" />
+import IntervalTree = require("@flatten-js/interval-tree");
+/// <reference types="@flatten-js/interval-tree" />
 
 declare namespace Flatten {
     interface SVGAttributes {
@@ -18,6 +18,8 @@ declare namespace Flatten {
     }
 
     type Comparable = any;      // any object that implements operators '<' and '==' and 'max'
+    type Value = any;
+
     interface Interval {
         low: Comparable;
         high: Comparable;
@@ -30,6 +32,9 @@ declare namespace Flatten {
         intersect(other_interval: Interval) : boolean;
         not_intersect(other_interval: Interval) : boolean;
         output() : any;
+
+        comparable_max(arg1: Comparable, arg2: Comparable) : Comparable;
+        comparable_less_than(arg1: Comparable, arg2: Comparable ) : boolean;
     }
 
     class Arc {
@@ -78,7 +83,7 @@ declare namespace Flatten {
         toJSON() : Object;
     }
 
-    class Box {
+    class Box implements Interval {
         constructor(xmin?: number, ymin?: number, xmax?: number, ymax?: number);
 
         //members
@@ -94,15 +99,18 @@ declare namespace Flatten {
         readonly max: Box;
 
         // public methods
-        clone(): Box;
-        equal_to(box: Box): boolean;
-        intersect(box: Box): boolean;
-        less_than(box: Box): boolean;
+        clone(): Interval;
+        equal_to(box: Interval): boolean;
+        intersect(box: Interval): boolean;
+        less_than(box: Interval): boolean;
         merge(box: Box): Box;
-        not_intersect(box: Box): boolean;
+        not_intersect(box: Interval): boolean;
         output() : void;
         set(xmin: number, ymin: number, xmax: number, ymax: number): void;
         svg(attrs?: SVGAttributes): string;
+
+        comparable_max(arg1: Comparable, arg2: Comparable) : Comparable;
+        comparable_less_than(arg1: Comparable, arg2: Comparable ) : boolean;
     }
 
     class Circle {

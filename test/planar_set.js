@@ -4,11 +4,11 @@
 
 'use strict';
 
-let expect = require('chai').expect;
-let Flatten = require('../index');
+import { expect } from 'chai';
+import Flatten from '../index';
 
-let {Point, Segment, Circle, Box, PlanarSet, Distance} = Flatten;
-let {point, segment, vector, circle} = Flatten;
+import {Point, Segment, Circle, Box, PlanarSet, Distance} from '../index';
+import {point, segment, vector, circle} from '../index';
 
 describe('#Data_structures.PlanarSet', function() {
     it('Class PlanarSet defined', function() {
@@ -20,8 +20,8 @@ describe('#Data_structures.PlanarSet', function() {
     });
     it('May add planar objects', function () {
         let planarSet = new PlanarSet();
-        let segment = new Flatten.Segment(1,2,4,5);
-        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
+        let segment = new Segment(1,2,4,5);
+        let circle = new Circle(new Point(3,3), 5);
         planarSet.add(segment);
         planarSet.add(circle);
         expect(planarSet.has(segment)).to.equal(true);
@@ -30,8 +30,8 @@ describe('#Data_structures.PlanarSet', function() {
     });
     it('May delete planar objects', function () {
         let planarSet = new PlanarSet();
-        let segment = new Flatten.Segment(1,2,4,5);
-        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
+        let segment = new Segment(1,2,4,5);
+        let circle = new Circle(new Point(3,3), 5);
         planarSet.add(segment);
         planarSet.add(circle);
         planarSet.delete(segment);
@@ -40,15 +40,15 @@ describe('#Data_structures.PlanarSet', function() {
     });
     it('May not add same object twice (without error ?) ', function () {
         let planarSet = new PlanarSet();
-        let segment = new Flatten.Segment(1,2,4,5);
+        let segment = new Segment(1,2,4,5);
         planarSet.add(segment);
         planarSet.add(segment);
         expect(planarSet.size).to.equal(1);
     });
     it('May update planar objects', function() {
         let planarSet = new PlanarSet();
-        let segment = new Flatten.Segment(1,2,4,5);
-        let circle = new Flatten.Circle(new Flatten.Point(3,3), 5);
+        let segment = new Segment(1,2,4,5);
+        let circle = new Circle(new Point(3,3), 5);
         planarSet.add(segment);
         planarSet.add(circle);
 
@@ -121,9 +121,66 @@ describe('#Data_structures.PlanarSet', function() {
 
         let pt = point(300,200);
 
-        let [dist, shortest_segment] = Distance.shape2planarSet(pt, set);
+        let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(pt, set);
         expect(dist).to.equal(20);
     });
+    it('May clean planar set', function () {
+
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 270),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+
+        let circles = points.map( point => circle(point, 50));
+
+        let set = new PlanarSet();
+        for (let circle of circles) {
+            set.add(circle);
+        }
+        expect(set.size).to.equal(7);
+
+        set.clear();
+        expect(set.size).to.equal(0);
+    });
+    it('May perform hit test and return shapes under given point', function () {
+
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 270),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+
+        let circles = points.map( point => circle(point, 50));
+
+        let planarSet = new PlanarSet();
+        for (let circle of circles) {
+            planarSet.add(circle);
+        }
+
+        let resp = planarSet.hit(point(340,250));
+
+        expect(resp.length).to.equal(1);
+    });
+
+    it('May create svg content string', function () {
+        let planarSet = new PlanarSet();
+        let segment = new Segment(1,1,2,2);
+        let circle = new Circle(new Point(3,3), 1);
+        planarSet.add(segment);
+        planarSet.add(circle);
+
+        expect(planarSet.svg()).to.exist;
+    });
+
 
     // it('May give same result as search without index', function() {
     //     let random = function(min, max) { return Math.floor(Math.random() * max) + min;}

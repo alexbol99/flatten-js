@@ -1,12 +1,11 @@
 /**
  * Created by Alex Bol on 9/8/2017.
  */
-let expect = require('chai').expect;
-let Flatten = require('../index');
-// let Flatten = require('../dist/flatten.min');
+import { expect } from 'chai';
+import Flatten from '../index';
 
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} = Flatten;
-let {point, vector, circle, line, segment, arc} = Flatten;
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../index';
+import {point, vector, circle, line, segment, arc} from '../index';
 
 describe('#Flatten.Face', function() {
     "use strict";

@@ -1,51 +1,29 @@
 /**
  * Created by Alex Bol on 2/18/2017.
  */
-'use strict';
 
-let Utils = require("./utils/utils");
-let Errors = require("./utils/errors");
+import Flatten from './src/flatten';
+import * as Utils from "./src/utils/utils";
+import * as Errors from "./src/utils/errors";
 
-/**
- * FlattenJS - library for 2d geometry
- * @type {Flatten}
- */
-let Flatten = class Flatten {
-    constructor() {
-        this.DP_TOL = Utils.DP_TOL;
-        this.CCW = true;
-        this.CW = false;
-        this.ORIENTATION = {CCW:-1, CW:1, NOT_ORIENTABLE: 0};
-        this.PIx2 = 2 * Math.PI;
-        // this.PI_2 = 0.5 * Math.PI;
-        this.INSIDE = 1;
-        this.OUTSIDE = 0;
-        this.BOUNDARY = 2;
-        this.CONTAINS = 3;
-        this.INTERLACE = 4;
-        this.OVERLAP_SAME = 1;
-        this.OVERLAP_OPPOSITE = 2;
-        this.Utils = Utils;
-        this.Errors = Errors;
-    }
-};
+export {Utils, Errors};
+export {Matrix, matrix} from './src/classes/matrix';
+export {PlanarSet} from './src/data_structures/planar_set';
+export {Point, point} from './src/classes/point';
+export {Vector, vector} from './src/classes/vector';
+export {Segment, segment} from './src/classes/segment';
+export {Line, line} from './src/classes/line';
+export {Circle, circle} from './src/classes/circle';
+export {Arc, arc} from './src/classes/arc';
+export {Box, box} from './src/classes/box';
+export {Edge} from './src/classes/edge';
+export {Face} from './src/classes/face';
+export {Ray, ray} from './src/classes/ray';
+export {ray_shoot} from './src/algorithms/ray_shooting';
+export {Polygon} from './src/classes/polygon';
+export {Distance} from './src/algorithms/distance';
+export {inverse} from './src/algorithms/inversion';
 
-let f = new Flatten();
+export {DP_TOL, CCW, CW, ORIENTATION, INSIDE, OUTSIDE, BOUNDARY, CONTAINS, INTERLACE } from './src/utils/constants';
 
-require("./classes/matrix")(f);
-require("./data_structures/planar_set")(f);
-require("./classes/point")(f);
-require("./classes/vector")(f);
-require("./classes/line")(f);
-require("./classes/circle")(f);
-require("./classes/segment")(f);
-require("./classes/arc")(f);
-require("./classes/box")(f);
-require("./classes/edge")(f);
-require("./classes/face")(f);
-require("./classes/ray")(f);
-require("./algorithms/ray_shooting")(f);
-require("./classes/polygon")(f);
-require("./algorithms/distance")(f);
-
-module.exports = f;
+export default Flatten;

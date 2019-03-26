@@ -4,16 +4,19 @@
 
 'use strict';
 
-require('jsdom-global')();
-let expect = require('chai').expect;
-let Flatten = require('../index');
-let fs = require('fs');
+import { expect } from 'chai';
+import Flatten from '../index';
 
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray, Matrix} = Flatten;
-let {point, vector, circle, line, segment, arc, ray} = Flatten;
-let {Distance, PlanarSet} = Flatten;
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray, Matrix, Distance} from '../index';
+import {inverse} from '../index';
 
 describe('#Flatten-JS', function() {
+    it('Namespace Flatten defined', function () {
+        expect(Flatten).to.exist;
+    });
+    it('Constant DP_TOL is defined', function () {
+        expect(Flatten.DP_TOL).to.exist;
+    });
     it('Class Matrix defined', function() {
         expect(Matrix).to.exist;
     });
@@ -53,5 +56,8 @@ describe('#Flatten-JS', function() {
     it('Namespace Distance defined', function() {
         expect(Distance).to.exist;
     });
+    it('Method inverse defined', function() {
+        expect(inverse).to.exist;
+    })
 });
 

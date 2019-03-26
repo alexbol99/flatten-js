@@ -4,12 +4,11 @@
 
 'use strict';
 
-let expect = require('chai').expect;
-let Flatten = require('../index');
-// let Flatten = require('../dist/flatten.min');
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
+import { expect } from 'chai';
+import Flatten from '../index';
 
-let {point, vector, circle, line, segment, arc, ray} = Flatten;
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../index';
+import {point, vector, circle, line, segment, arc, ray} from '../index';
 
 describe('#Flatten.Ray', function() {
     it('May create new instance of Ray', function () {

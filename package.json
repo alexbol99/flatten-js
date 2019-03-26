@@ -1,18 +1,25 @@
 {
-  "name": "flatten-js",
-  "version": "0.6.9",
+  "name": "@flatten-js/core",
+  "version": "1.0.12",
   "description": "Javascript library for 2d geometry",
-  "main": "index.js",
+  "main": "dist/main.cjs.js",
+  "umd:main": "dist/main.umd.js",
+  "unpkg": "dist/main.umd.js",
+  "module": "dist/main.esm.js",
   "types": "index.d.ts",
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
   "scripts": {
-    "test": "mocha --reporter spec",
-    "doc": "jsdoc -t ./node_modules/minami -d ./docs -r ./ README.md",
+    "test": "nyc --reporter=html --reporter=text mocha -R spec",
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
-    "npm-publish": "npm version patch; git push && git push --tags; npm publish",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/*",
-    "build": "webpack --progress --mode=production --config webpack.config.js",
-    "build-umd": "webpack --progress --mode=production --config webpack.config.umd.js",
-    "build-commonjs2": "webpack --progress --mode=development --config webpack.config.commonjs2.js"
+    "publish": "npm publish --access public",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -20,7 +27,6 @@
   },
   "keywords": [
     "geometry",
-    "computational geometry",
     "2d",
     "algorithms",
     "shape",
@@ -29,7 +35,8 @@
     "distance",
     "intersection",
     "point in polygon",
-    "spatial search"
+    "spatial search",
+    "affine transformations"
   ],
   "author": "Alex Bol <alexbol99@gmail.com> (https://github.com/alexbol99)",
   "license": "MIT",
@@ -41,22 +48,23 @@
     "node": ">=4.2.4"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-transform-builtin-classes": "^0.6.1",
-    "babel-preset-env": "^1.7.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
+    "babel-plugin-istanbul": "^5.1.1",
     "chai": "^4.2.0",
-    "coveralls": "^3.0.2",
-    "istanbul": "^0.4.5",
+    "coveralls": "^3.0.3",
     "jsdoc": "^3.5.5",
-    "jsdom": "9.12.0",
-    "jsdom-global": "2.1.1",
     "minami": "^1.2.3",
     "mocha": "^5.2.0",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^2.1.5"
+    "nyc": "^13.3.0",
+    "rollup": "^1.7.3",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-terser": "^4.0.4"
   },
   "dependencies": {
-    "flatten-interval-tree": "^0.2.2"
+    "@flatten-js/interval-tree": "^1.0.5"
   }
 }
