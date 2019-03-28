@@ -17,7 +17,7 @@
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha -R spec",
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
-    "publish": "npm publish --access public",
+    "publish-npm": "npm publish --access public",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rollup -c"
   },
