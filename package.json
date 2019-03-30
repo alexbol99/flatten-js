@@ -15,7 +15,7 @@
     "instrument": false
   },
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha -R spec",
+    "test": "cross-env NODE_ENV=test nyc --reporter=text-lcov --reporter=text --reporter=html mocha --exit",
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
     "publish-npm": "npm publish --access public",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -56,9 +56,10 @@
     "babel-plugin-istanbul": "^5.1.1",
     "chai": "^4.2.0",
     "coveralls": "^3.0.3",
+    "cross-env": "^5.2.0",
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.2",
     "nyc": "^13.3.0",
     "rollup": "^1.7.3",
     "rollup-plugin-node-resolve": "^4.0.0",

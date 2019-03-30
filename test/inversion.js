@@ -5,10 +5,8 @@
 
 import { expect } from 'chai';
 
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../index';
-
+import {Circle, Line, } from '../index';
 import {point, circle, line} from '../index';
-
 import {inverse} from '../src/algorithms/inversion';
 
 describe('#Flatten.Inversion', function() {
