@@ -3878,6 +3878,200 @@
     Flatten.Edge = Edge;
 
     /**
+     * Class implements bidirectional non-circular linked list
+     */
+    class LinkedList {
+        constructor(first, last) {
+            this.first = first;
+            this.last = last || this.first;
+        }
+
+        [Symbol.iterator]() {
+            let value = undefined;
+            return {
+                next: () => {
+                    value = value ? value.next : this.first;
+                    return {value: value, done: value === undefined};
+                }
+            };
+        };
+
+        /**
+         * Return number of elements in the list
+         * @returns {number}
+         */
+        get size() {
+            let counter = 0;
+            for (let edge of this) {
+                counter++;
+            }
+            return counter;
+        }
+
+        /**
+         * Return array of elements from first to last
+         * @returns {Array}
+         */
+        toArray() {
+            let elements = [];
+            for (let element of this) {
+                elements.push(element);
+            }
+            return elements;
+        }
+
+
+        /**
+         * Append new element to the end of the list
+         * @param element
+         * @returns {LinkedList}
+         */
+        append(element) {
+            if (this.isEmpty()) {
+                this.first = element;
+            } else {
+                element.prev = this.last;
+                this.last.next = element;
+            }
+
+            // update edge to be last
+            this.last = element;
+
+            // nullify non-circular links
+            this.last.next = undefined;
+            this.first.prev = undefined;
+            return this;
+        }
+
+        /**
+         * Insert new element to the list after elementBefore
+         * @param newElement
+         * @param elementBefore
+         * @returns {LinkedList}
+         */
+        insert(newElement, elementBefore) {
+            if (this.isEmpty()) {
+                this.first = newElement;
+                this.last = newElement;
+            } else {
+                /* set links to new element */
+                let elementAfter = elementBefore.next;
+                elementBefore.next = newElement;
+                if (elementAfter) elementAfter.prev = newElement;
+
+                /* set links from new element */
+                newElement.prev = elementBefore;
+                newElement.next = elementAfter;
+
+                /* extend list if new element added after the last element */
+                if (this.last === elementBefore)
+                    this.last = newElement;
+            }
+            // nullify non-circular links
+            this.last.next = undefined;
+            this.first.prev = undefined;
+            return this;
+        }
+
+        /**
+         * Remove element from the list
+         * @param element
+         * @returns {LinkedList}
+         */
+        remove(element) {
+            // special case if last edge removed
+            if (element === this.first && element === this.last) {
+                this.first = undefined;
+                this.last = undefined;
+            } else {
+                // update linked list
+                if (element.prev) element.prev.next = element.next;
+                if (element.next) element.next.prev = element.prev;
+                // update first if need
+                if (element === this.first) {
+                    this.first = element.next;
+                }
+                // update last if need
+                if (element === this.last) {
+                    this.last = element.prev;
+                }
+            }
+            return this;
+        }
+
+        /**
+         * Return true if list is empty
+         * @returns {boolean}
+         */
+        isEmpty() {
+            return this.first === undefined;
+        }
+
+    }
+
+    /**
+     * Class implements circular bidirectional linked list
+     */
+    class CircularLinkedList extends LinkedList {
+        constructor(first, last) {
+            super(first, last);
+            this.setCircularLinks();
+        }
+
+        setCircularLinks() {
+            if (this.isEmpty()) return;
+            this.last.next = this.first;
+            this.first.prev = this.last;
+        }
+
+        [Symbol.iterator]() {
+            let element = undefined;
+            return {
+                next: () => {
+                    let value = element ? element : this.first;
+                    let done = this.first ? (element ? element === this.first : false) : true;
+                    element = value ? value.next : undefined;
+                    return {value: value, done: done};
+                }
+            };
+        };
+
+        /**
+         * Append new element to the end of the list
+         * @param element
+         * @returns {CircularLinkedList}
+         */
+        append(element) {
+            super.append(element);
+            this.setCircularLinks();
+            return this;
+        }
+
+        /**
+         * Insert new element to the list after elementBefore
+         * @param newElement
+         * @param elementBefore
+         * @returns {CircularLinkedList}
+         */
+        insert(newElement, elementBefore) {
+            super.insert(newElement, elementBefore);
+            this.setCircularLinks();
+            return this;
+        }
+
+        /**
+         * Remove element from the list
+         * @param element
+         * @returns {CircularLinkedList}
+         */
+        remove(element) {
+            super.remove(element);
+            // this.setCircularLinks();
+            return this;
+        }
+    }
+
+    /**
      * Created by Alex Bol on 3/17/2017.
      */
 
@@ -3903,16 +4097,17 @@
      *   edge = edge.next;
      * } while (edge != face.first)
      */
-    class Face {
+    class Face extends CircularLinkedList {
         constructor(polygon, ...args) {
+            super();            // construct empty list of edges
             /**
              * Reference to the first edge in face
              */
-            this.first;
+            // this.first;
             /**
              * Reference to the last edge in face
              */
-            this.last;
+            // this.last;
 
             this._box = undefined;  // new Box();
             this._orientation = undefined;
@@ -3994,55 +4189,18 @@
 
                 // set arc length
                 this.setArcLength();
-                /*
-                 let edge = this.first;
-                 edge.arc_length = 0;
-                 edge = edge.next;
-                 while (edge !== this.first) {
-                 edge.arc_length = edge.prev.arc_length + edge.prev.length;
-                 edge = edge.next;
-                 }
-                 */
 
                 // this.box = this.getBox();
                 // this.orientation = this.getOrientation();      // face direction cw or ccw
             }
         }
 
-        [Symbol.iterator]() {
-            let edge = undefined;
-            return {
-                next: () => {
-                    let value = edge ? edge : this.first;
-                    let done = this.first ? (edge ? edge === this.first : false) : true;
-                    edge = value ? value.next : undefined;
-                    return {value: value, done: done};
-                }
-            };
-        };
-
         /**
          * Return array of edges from first to last
          * @returns {Array}
          */
         get edges() {
-            let face_edges = [];
-            for (let edge of this) {
-                face_edges.push(edge);
-            }
-            return face_edges;
-        }
-
-        /**
-         * Return number of edges in the face
-         * @returns {number}
-         */
-        get size() {
-            let counter = 0;
-            for (let edge of this) {
-                counter++;
-            }
-            return counter;
+            return this.toArray();
         }
 
         /**
@@ -4079,43 +4237,16 @@
         }
 
         /**
-         * Returns true if face is empty, false otherwise
-         * @returns {boolean}
-         */
-        isEmpty() {
-            return (this.first === undefined && this.last === undefined)
-        }
-
-        /**
          * Append given edge after the last edge (and before the first edge). <br/>
          * This method mutates current object and does not return any value
          * @param {PlanarSet} edges - Container of edges
          * @param {Edge} edge - Edge to be appended to the linked list
          */
         append(edges, edge) {
-            if (this.first === undefined) {
-                edge.prev = edge;
-                edge.next = edge;
-                this.first = edge;
-                this.last = edge;
-                edge.arc_length = 0;
-            } else {
-                // append to end
-                edge.prev = this.last;
-                this.last.next = edge;
-
-                // update edge to be last
-                this.last = edge;
-
-                // restore circular links
-                this.last.next = this.first;
-                this.first.prev = this.last;
-
-                // set arc length
-                edge.arc_length = edge.prev.arc_length + edge.prev.length;
-            }
+            super.append(edge);
+            // set arc length
+            this.setOneEdgeArcLength(edge);
             edge.face = this;
-
             edges.add(edge);      // Add new edges into edges container
         }
 
@@ -4127,34 +4258,10 @@
          * @param {Edge} edgeBefore - Edge to insert newEdge after it
          */
         insert(edges, newEdge, edgeBefore) {
-            if (this.first === undefined) {
-                newEdge.prev = newEdge;
-                newEdge.next = newEdge;
-                this.first = newEdge;
-                this.last = newEdge;
-            } else {
-                /* set links to new edge */
-                let edgeAfter = edgeBefore.next;
-                edgeBefore.next = newEdge;
-                edgeAfter.prev = newEdge;
-
-                /* set links from new edge */
-                newEdge.prev = edgeBefore;
-                newEdge.next = edgeAfter;
-
-                /* extend chain if new edge added after last edge */
-                if (this.last === edgeBefore)
-                    this.first = newEdge;
-            }
-            newEdge.face = this;
-
+            super.insert(newEdge, edgeBefore);
             // set arc length
-            if (newEdge.prev === this.last) {
-                newEdge.arc_length = 0;
-            } else {
-                newEdge.arc_length = newEdge.prev.arc_length + newEdge.prev.length;
-            }
-
+            this.setOneEdgeArcLength(newEdge);
+            newEdge.face = this;
             edges.add(newEdge);      // Add new edges into edges container
         }
 
@@ -4165,23 +4272,9 @@
          * @param {Edge} edge - Edge to be removed
          */
         remove(edges, edge) {
-            // special case if last edge removed
-            if (edge === this.first && edge === this.last) {
-                this.first = undefined;
-                this.last = undefined;
-            } else {
-                // update linked list
-                edge.prev.next = edge.next;
-                edge.next.prev = edge.prev;
-                // update first if need
-                if (edge === this.first) {
-                    this.first = edge.next;
-                }
-                // update last if need
-                if (edge === this.last) {
-                    this.last = edge.prev;
-                }
-            }
+            super.remove(edge);
+            // Recalculate arc length
+            this.setArcLength();
             edges.delete(edge);      // delete from PlanarSet of edges and update index
         }
 
@@ -4209,7 +4302,6 @@
                     edge.next = edge;
                     this.first = edge;
                     this.last = edge;
-                    edge.arc_length = 0;
                 } else {
                     // append to end
                     edge.prev = this.last;
@@ -4222,9 +4314,9 @@
                     this.last.next = this.first;
                     this.first.prev = this.last;
 
-                    // set arc length
-                    edge.arc_length = edge.prev.arc_length + edge.prev.length;
                 }
+                // set arc length
+                this.setOneEdgeArcLength(edge);
             }
 
             // Recalculate orientation, if set
@@ -4241,12 +4333,16 @@
          */
         setArcLength() {
             for (let edge of this) {
-                if (edge === this.first) {
-                    edge.arc_length = 0.0;
-                } else {
-                    edge.arc_length = edge.prev.arc_length + edge.prev.length;
-                }
+                this.setOneEdgeArcLength(edge);
                 edge.face = this;
+            }
+        }
+
+        setOneEdgeArcLength(edge) {
+            if (edge === this.first) {
+                edge.arc_length = 0.0;
+            } else {
+                edge.arc_length = edge.prev.arc_length + edge.prev.length;
             }
         }
 
@@ -5595,6 +5691,8 @@
     exports.Matrix = Matrix;
     exports.ORIENTATION = ORIENTATION;
     exports.OUTSIDE = OUTSIDE;
+    exports.OVERLAP_OPPOSITE = OVERLAP_OPPOSITE;
+    exports.OVERLAP_SAME = OVERLAP_SAME;
     exports.PlanarSet = PlanarSet;
     exports.Point = Point;
     exports.Polygon = Polygon;

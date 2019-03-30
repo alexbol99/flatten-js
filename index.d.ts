@@ -1,9 +1,30 @@
-// Type definitions for flatten-js library v0.6
+// Type definitions for flatten-js library
 // Project: https://github.com/alexbol99/flatten-js
 // Definitions by: Alex Bol
 
 import IntervalTree = require("@flatten-js/interval-tree");
 /// <reference types="@flatten-js/interval-tree" />
+
+interface LinkedListElement {
+    next: LinkedListElement | null,
+    prev: LinkedListElement | null
+}
+
+interface LinkedList {
+    // members
+    first: LinkedListElement;
+    last: LinkedListElement;
+
+    // getters
+    readonly size: number;
+
+    // public methods
+    append(element: LinkedListElement): LinkedList;
+    insert(newElement: LinkedListElement, prevElement: LinkedListElement): LinkedList;
+    remove(element: LinkedListElement): LinkedList;
+    toArray(): LinkedListElement[];
+    isEmpty(): boolean;
+}
 
 declare namespace Flatten {
     interface SVGAttributes {
