@@ -15,7 +15,7 @@
     "instrument": false
   },
   "scripts": {
-    "test": "cross-env NODE_ENV=test nyc --reporter=text-lcov --reporter=text --reporter=html mocha --exit",
+    "test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html mocha",
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
     "publish-npm": "npm publish --access public",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

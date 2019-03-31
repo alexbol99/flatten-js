@@ -2,29 +2,8 @@
 // Project: https://github.com/alexbol99/flatten-js
 // Definitions by: Alex Bol
 
-import IntervalTree = require("@flatten-js/interval-tree");
+import IntervalTree from "@flatten-js/interval-tree";
 /// <reference types="@flatten-js/interval-tree" />
-
-interface LinkedListElement {
-    next: LinkedListElement | null,
-    prev: LinkedListElement | null
-}
-
-interface LinkedList {
-    // members
-    first: LinkedListElement;
-    last: LinkedListElement;
-
-    // getters
-    readonly size: number;
-
-    // public methods
-    append(element: LinkedListElement): LinkedList;
-    insert(newElement: LinkedListElement, prevElement: LinkedListElement): LinkedList;
-    remove(element: LinkedListElement): LinkedList;
-    toArray(): LinkedListElement[];
-    isEmpty(): boolean;
-}
 
 declare namespace Flatten {
     interface SVGAttributes {
@@ -57,6 +36,29 @@ declare namespace Flatten {
         comparable_max(arg1: Comparable, arg2: Comparable) : Comparable;
         comparable_less_than(arg1: Comparable, arg2: Comparable ) : boolean;
     }
+
+    class LinkedListElement {
+        next: LinkedListElement | null;
+        prev: LinkedListElement | null;
+    }
+
+    class LinkedList {
+        // members
+        first: LinkedListElement;
+        last: LinkedListElement;
+
+        // getters
+        readonly size: number;
+
+        // public methods
+        append(element: LinkedListElement): LinkedList;
+        insert(newElement: LinkedListElement, prevElement: LinkedListElement): LinkedList;
+        remove(element: LinkedListElement): LinkedList;
+        toArray(): LinkedListElement[];
+        isEmpty(): boolean;
+    }
+
+    class CircularLinkedList extends LinkedList {}
 
     class Arc {
         constructor(
@@ -373,7 +375,7 @@ declare namespace Flatten {
         setOverlap(edge: Edge) : EdgeOverlappingType;
     }
 
-    class Face {
+    class Face extends CircularLinkedList {
         // constructor is not documented and should not be called implicitly
 
         // members
@@ -386,14 +388,22 @@ declare namespace Flatten {
         readonly edges: Edge[];
 
         // public methods
+
+        // Overriding methods Face.append(PlanarSet, Edge) has different number of parameters
+        // than refactored method LinkedList.append(LinkedListElement).
+        // also Face.insert(), Face.remove()
+
+        // noinspection JSAnnotator
         append(edges: PlanarSet, edge: Edge): void;
+        // noinspection JSAnnotator
+        insert(edges: PlanarSet, newEdge: Edge, edgeBefore: Edge): void;
+        // noinspection JSAnnotator
+        remove(edges: PlanarSet, edge: Edge): void;
+
         area(): number;
         getRelation(polygon: Polygon): RelationType;
-        insert(edges: PlanarSet, newEdge: Edge, edgeBefore: Edge): void;
-        isEmpty(): boolean;
         isSimple(edges: Edge[]): boolean;
         orientation(): Flatten.ORIENTATION.PolygonOrientationType;
-        remove(edges: PlanarSet, edge: Edge): void;
         reverse(): void;
         setArcLength(): void;
         signedArea(): number;
