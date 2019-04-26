@@ -17,11 +17,14 @@ Library consists of several packages, published under scope **@flatten-js/**:
 | [@flatten-js/core](https://www.npmjs.com/package/@flatten-js/core)                   | Basic classes and operations
 | [@flatten-js/interval-tree](https://www.npmjs.com/package/@flatten-js/interval-tree) | Interval binary search tree 
 | [@flatten-js/boolean-op](https://www.npmjs.com/package/@flatten-js/boolean-op)    | Boolean operations
+| [@flatten-js/polygon-offset](https://www.npmjs.com/package/@flatten-js/polygon-offset)    | Polygon offset
 
 
 NOTE: Package [flatten-js](https://www.npmjs.com/package/flatten-js) is not supported and will be deprecated soon.
 
-Library provides different entry points suitable for various targets.
+Packages are distributed in 3 formats: commonjs, umd and es6 modules. Package.json file
+provides various entry points suitable for different targets.
+
 TypeScript users may take advantage of static type checking with typescript definition file index.d.ts included into the package.
 
 **flatten-js** does not concern too much about visualization.
@@ -76,9 +79,10 @@ You may test the code above also in [NPM RunKit](https://npm.runkit.com/@flatten
 
 ## Tutorials
 
-1. [![Getting Started](https://user-images.githubusercontent.com/6965440/41164953-0e3700b6-6b45-11e8-982f-de3c5bc2012d.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-getting-started)
-2. [![Messing Around](https://user-images.githubusercontent.com/6965440/41164955-0e6019ec-6b45-11e8-9501-1565ccd75e0d.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-messing-around)
-3. [![Planar Set](https://user-images.githubusercontent.com/6965440/41164948-0dde3b66-6b45-11e8-8a1a-b70f4ad228c1.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-planar-set)
-4. [![polygons](https://user-images.githubusercontent.com/6965440/41164949-0e0ccd1e-6b45-11e8-9400-009c8ba6e7e3.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-polygons)
+| | |
+| ------------- |-------------:|
+| [![Getting Started](https://user-images.githubusercontent.com/6965440/41164953-0e3700b6-6b45-11e8-982f-de3c5bc2012d.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-getting-started)| [![Messing Around](https://user-images.githubusercontent.com/6965440/41164955-0e6019ec-6b45-11e8-9501-1565ccd75e0d.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-messing-around) |
+| [![Planar Set](https://user-images.githubusercontent.com/6965440/41164948-0dde3b66-6b45-11e8-8a1a-b70f4ad228c1.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-planar-set) | [![polygons](https://user-images.githubusercontent.com/6965440/41164949-0e0ccd1e-6b45-11e8-9400-009c8ba6e7e3.PNG)](https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-polygons) |
+
 
 
