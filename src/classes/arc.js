@@ -339,7 +339,8 @@ export class Arc {
             } else {
                 new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, this.endAngle, this.counterClockwise);
             }
-            if (!Flatten.Utils.EQ_0(new_arc.length)) {
+            // It could be 2*PI when occasionally start = 0 and end = 2*PI but this is not valid for breakToFunctional
+            if (!Flatten.Utils.EQ_0(new_arc.length) && !Flatten.Utils.EQ(new_arc.sweep, 2*Math.PI)) {
                 func_arcs_array.push(new_arc.clone());
             }
         }
