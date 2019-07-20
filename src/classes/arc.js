@@ -4,6 +4,7 @@
 
 "use strict";
 import Flatten from '../flatten';
+import * as Intersection from '../algorithms/intersection';
 
 /**
  * Class representing a circular arc
@@ -227,19 +228,19 @@ export class Arc {
             return this.contains(shape) ? [shape] : [];
         }
         if (shape instanceof Flatten.Line) {
-            return shape.intersect(this);
+            return Intersection.intersectLine2Arc(shape, this);
         }
         if (shape instanceof Flatten.Circle) {
-            return Flatten.Arc.intersectArc2Circle(this, shape);
+            return Intersection.intersectArc2Circle(this, shape);
         }
         if (shape instanceof Flatten.Segment) {
-            return shape.intersect(this);
+            return Intersection.intersectSegment2Arc(shape, this);
         }
         if (shape instanceof Flatten.Arc) {
-            return Flatten.Arc.intersectArc2Arc(this, shape);
+            return Intersection.intersectArc2Arc(this, shape);
         }
         if (shape instanceof Flatten.Polygon) {
-            return Flatten.Polygon.intersectShape2Polygon(this, shape);
+            return Intersection.intersectArc2Polygon(this, shape);
         }
     }
 
@@ -428,74 +429,6 @@ export class Arc {
         let r = vector(center, start).length;
 
         return new Flatten.Arc(center, r, startAngle, endAngle, counterClockwise);
-    }
-
-    static intersectArc2Arc(arc1, arc2) {
-        var ip = [];
-
-        if (arc1.box.not_intersect(arc2.box)) {
-            return ip;
-        }
-
-        // Special case: overlapping arcs
-        // May return up to 4 intersection points
-        if (arc1.pc.equalTo(arc2.pc) && Flatten.Utils.EQ(arc1.r, arc2.r)) {
-            let pt;
-
-            pt = arc1.start;
-            if (pt.on(arc2))
-                ip.push(pt);
-
-            pt = arc1.end;
-            if (pt.on(arc2))
-                ip.push(pt);
-
-            pt = arc2.start;
-            if (pt.on(arc1)) ip.push(pt);
-
-            pt = arc2.end;
-            if (pt.on(arc1)) ip.push(pt);
-
-            return ip;
-        }
-
-        // Common case
-        let circle1 = new Flatten.Circle(arc1.pc, arc1.r);
-        let circle2 = new Flatten.Circle(arc2.pc, arc2.r);
-        let ip_tmp = circle1.intersect(circle2);
-        for (let pt of ip_tmp) {
-            if (pt.on(arc1) && pt.on(arc2)) {
-                ip.push(pt);
-            }
-        }
-        return ip;
-    }
-
-    static intersectArc2Circle(arc, circle) {
-        let ip = [];
-
-        if (arc.box.not_intersect(circle.box)) {
-            return ip;
-        }
-
-        // Case when arc center incident to circle center
-        // Return arc's end points as 2 intersection points
-        if (circle.pc.equalTo(arc.pc) && Flatten.Utils.EQ(circle.r, arc.r)) {
-            ip.push(arc.start);
-            ip.push(arc.end);
-            return ip;
-        }
-
-        // Common case
-        let circle1 = circle;
-        let circle2 = new Flatten.Circle(arc.pc, arc.r);
-        let ip_tmp = circle1.intersect(circle2);
-        for (let pt of ip_tmp) {
-            if (pt.on(arc)) {
-                ip.push(pt);
-            }
-        }
-        return ip;
     }
 
     definiteIntegral(ymin = 0) {

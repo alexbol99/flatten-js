@@ -5,6 +5,7 @@
 "use strict";
 
 import Flatten from '../flatten';
+import * as Intersection from '../algorithms/intersection';
 
 /**
  * Class representing a circle
@@ -100,22 +101,22 @@ export class Circle {
             return this.contains(shape) ? [shape] : [];
         }
         if (shape instanceof Flatten.Line) {
-            return shape.intersect(this);
+            return Intersection.intersectLine2Circle(shape, this);
         }
 
         if (shape instanceof Flatten.Segment) {
-            return shape.intersect(this);
+            return Intersection.intersectSegment2Circle(shape, this);
         }
 
         if (shape instanceof Flatten.Circle) {
-            return Circle.intersectCirle2Circle(this, shape);
+            return Intersection.intersectCirle2Circle(shape, this);
         }
 
         if (shape instanceof Flatten.Arc) {
-            return shape.intersect(this);
+            return Intersection.intersectArc2Circle(shape, this);
         }
         if (shape instanceof Flatten.Polygon) {
-            return Flatten.Polygon.intersectShape2Polygon(this, shape);
+            return Intersection.intersectCircle2Polygon(this, shape);
         }
     }
 
@@ -164,72 +165,6 @@ export class Circle {
             let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
             return [dist, shortest_segment];
         }
-    }
-
-    static intersectCirle2Circle(circle1, circle2) {
-        let ip = [];
-
-        if (circle1.box.not_intersect(circle2.box)) {
-            return ip;
-        }
-
-        let vec = new Flatten.Vector(circle1.pc, circle2.pc);
-
-        let r1 = circle1.r;
-        let r2 = circle2.r;
-
-        // Degenerated circle
-        if (Flatten.Utils.EQ_0(r1) || Flatten.Utils.EQ_0(r2))
-            return ip;
-
-        // In case of equal circles return one leftmost point
-        if (Flatten.Utils.EQ_0(vec.x) && Flatten.Utils.EQ_0(vec.y) && Flatten.Utils.EQ(r1, r2)) {
-            ip.push(circle1.pc.translate(-r1, 0));
-            return ip;
-        }
-
-        let dist = circle1.pc.distanceTo(circle2.pc)[0];
-
-        if (Flatten.Utils.GT(dist, r1 + r2))               // circles too far, no intersections
-            return ip;
-
-        if (Flatten.Utils.LT(dist, Math.abs(r1 - r2)))     // one circle is contained within another, no intersections
-            return ip;
-
-        // Normalize vector.
-        vec.x /= dist;
-        vec.y /= dist;
-
-        let pt;
-
-        // Case of touching from outside or from inside - single intersection point
-        // TODO: check this specifically not sure if correct
-        if (Flatten.Utils.EQ(dist, r1 + r2) || Flatten.Utils.EQ(dist, Math.abs(r1 - r2))) {
-            pt = circle1.pc.translate(r1 * vec.x, r1 * vec.y);
-            ip.push(pt);
-            return ip;
-        }
-
-        // Case of two intersection points
-
-        // Distance from first center to center of common chord:
-        //   a = (r1^2 - r2^2 + d^2) / 2d
-        // Separate for better accuracy
-        let a = (r1 * r1) / (2 * dist) - (r2 * r2) / (2 * dist) + dist / 2;
-
-        let mid_pt = circle1.pc.translate(a * vec.x, a * vec.y);
-        let h = Math.sqrt(r1 * r1 - a * a);
-        // let norm;
-
-        // norm = vec.rotate90CCW().multiply(h);
-        pt = mid_pt.translate(vec.rotate90CCW().multiply(h));
-        ip.push(pt);
-
-        // norm = vec.rotate90CW();
-        pt = mid_pt.translate(vec.rotate90CW().multiply(h));
-        ip.push(pt);
-
-        return ip;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 // let IntervalTree = require('flatten-interval-tree');
 import IntervalTree from '@flatten-js/interval-tree';
+import * as Intersection from '../algorithms/intersection';
 import Flatten from '../flatten';
 
 export class Distance {
@@ -130,7 +131,7 @@ export class Distance {
      * @returns {Number | Segment} - distance and shortest segment
      */
     static segment2segment(seg1, seg2) {
-        let ip = Flatten.Segment.intersectSegment2Segment(seg1, seg2);
+        let ip = Intersection.intersectSegment2Segment(seg1, seg2);
         if (ip.length > 0) {
             return [0, new Flatten.Segment(ip[0], ip[0])];   // distance = 0, closest point is the first point
         }

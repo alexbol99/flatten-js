@@ -4,6 +4,7 @@
 "use strict";
 
 import Flatten from '../flatten';
+import * as Intersection from '../algorithms/intersection';
 
 /**
  * Class representing a line
@@ -146,23 +147,23 @@ export class Line {
         }
 
         if (shape instanceof Flatten.Line) {
-            return Line.intersectLine2Line(this, shape);
+            return Intersection.intersectLine2Line(this, shape);
         }
 
         if (shape instanceof Flatten.Circle) {
-            return Line.intersectLine2Circle(this, shape);
+            return Intersection.intersectLine2Circle(this, shape);
         }
 
         if (shape instanceof Flatten.Segment) {
-            return shape.intersect(this);
+            return Intersection.intersectSegment2Line(shape, this);
         }
 
         if (shape instanceof Flatten.Arc) {
-            return Line.intersectLine2Arc(this, shape);
+            return Intersection.intersectLine2Arc(this, shape);
         }
 
         if (shape instanceof Flatten.Polygon) {
-            return Flatten.Polygon.intersectLine2Polygon(this, shape);
+            return  Intersection.intersectLine2Polygon(this, shape);
         }
 
     }
@@ -208,7 +209,7 @@ export class Line {
      * @param {Object} attrs - an object with attributes of svg circle element
      */
     svg(box, attrs = {}) {
-        let ip = Line.intersectLine2Box(this, box);
+        let ip = Intersection.intersectLine2Box(this, box);
         if (ip.length === 0)
             return "";
         let ps = ip[0];
@@ -234,90 +235,6 @@ export class Line {
         let vec = new Flatten.Vector(pt1, pt2);
         let unit = vec.normalize();
         return unit.rotate90CCW();
-    }
-
-    static intersectLine2Line(line1, line2) {
-        let ip = [];
-
-        let [A1, B1, C1] = line1.standard;
-        let [A2, B2, C2] = line2.standard;
-
-        /* Cramer's rule */
-        let det = A1 * B2 - B1 * A2;
-        let detX = C1 * B2 - B1 * C2;
-        let detY = A1 * C2 - C1 * A2;
-
-        if (!Flatten.Utils.EQ_0(det)) {
-            let new_ip = new Flatten.Point(detX / det, detY / det);
-            ip.push(new_ip);
-        }
-        return ip;
-    }
-
-    static intersectLine2Circle(line, circle) {
-        let ip = [];
-        let prj = circle.pc.projectionOn(line);            // projection of circle center on line
-        let dist = circle.pc.distanceTo(prj)[0];           // distance from circle center to projection
-
-        if (Flatten.Utils.EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
-            ip.push(prj);
-        } else if (Flatten.Utils.LT(dist, circle.r)) {       // return two intersection points
-            let delta = Math.sqrt(circle.r * circle.r - dist * dist);
-            let v_trans, pt;
-
-            v_trans = line.norm.rotate90CCW().multiply(delta);
-            pt = prj.translate(v_trans);
-            ip.push(pt);
-
-            v_trans = line.norm.rotate90CW().multiply(delta);
-            pt = prj.translate(v_trans);
-            ip.push(pt);
-        }
-        return ip;
-    }
-
-    static intersectLine2Box(line, box) {
-        let pts = [
-            new Flatten.Point(box.xmin, box.ymin),
-            new Flatten.Point(box.xmax, box.ymin),
-            new Flatten.Point(box.xmax, box.ymax),
-            new Flatten.Point(box.xmin, box.ymax)
-        ];
-        let segs = [
-            new Flatten.Segment(pts[0], pts[1]),
-            new Flatten.Segment(pts[1], pts[2]),
-            new Flatten.Segment(pts[2], pts[3]),
-            new Flatten.Segment(pts[3], pts[0])
-        ];
-
-        let ips = [];
-
-        for (let seg of segs) {
-            let ips_tmp = seg.intersect(line);
-            for (let ip of ips_tmp) {
-                ips.push(ip);
-            }
-        }
-        ;
-        return ips;
-    }
-
-    static intersectLine2Arc(line, arc) {
-        let ip = [];
-
-        if (Line.intersectLine2Box(line, arc.box).length == 0) {
-            return ip;
-        }
-
-        let circle = new Flatten.Circle(arc.pc, arc.r);
-        let ip_tmp = line.intersect(circle);
-        for (let pt of ip_tmp) {
-            if (pt.on(arc)) {
-                ip.push(pt);
-            }
-        }
-
-        return ip;
     }
 };
 

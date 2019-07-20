@@ -7,6 +7,7 @@
 
 import Flatten from '../flatten';
 import {ray_shoot} from "../algorithms/ray_shooting";
+import * as Intersection from "../algorithms/intersection";
 
 /**
  * Class representing a polygon.<br/>
@@ -234,17 +235,23 @@ export class Polygon {
         }
 
         if (shape instanceof Flatten.Line) {
-            return Polygon.intersectLine2Polygon(shape, this);
+            return Intersection.intersectLine2Polygon(shape, this);
         }
 
-        if (shape instanceof Flatten.Circle ||
-            shape instanceof Flatten.Segment ||
-            shape instanceof Flatten.Arc) {
-            return Polygon.intersectShape2Polygon(shape, this);
+        if (shape instanceof Flatten.Circle) {
+            return Intersection.intersectCircle2Polygon(shape, this);
+        }
+
+        if (shape instanceof Flatten.Segment) {
+            return Intersection.intersectSegment2Polygon(shape, this);
+        }
+
+        if (shape instanceof Flatten.Arc) {
+            return Intersection.intersectArc2Polygon(shape, this);
         }
 
         if (shape instanceof Flatten.Polygon) {
-            return Polygon.intersectPolygon2Polygon(shape, this);
+            return Intersection.intersectPolygon2Polygon(shape, this);
         }
     }
 
@@ -322,60 +329,6 @@ export class Polygon {
             newPolygon.addFace(shapes);
         }
         return newPolygon;
-    }
-
-    static intersectShape2Polygon(shape, polygon) {
-        let ip = [];
-
-        if (polygon.isEmpty() || shape.box.not_intersect(polygon.box)) {
-            return ip;
-        }
-
-        let resp_edges = polygon.edges.search(shape.box);
-
-        for (let edge of resp_edges) {
-            for (let pt of shape.intersect(edge.shape)) {
-                ip.push(pt);
-            }
-        }
-
-        return ip;
-    }
-
-    static intersectLine2Polygon(line, polygon) {
-        let ip = [];
-
-        if (polygon.isEmpty()) {
-            return ip;
-        }
-
-        for (let edge of polygon.edges) {
-            for (let pt of line.intersect(edge.shape)) {
-                ip.push(pt);
-            }
-        }
-
-        return ip;
-    }
-
-    static intersectPolygon2Polygon(polygon1, polygon2) {
-        let ip = [];
-
-        if (polygon1.isEmpty() || polygon2.isEmpty()) {
-            return ip;
-        }
-
-        if (polygon1.box.not_intersect(polygon2.box)) {
-            return ip;
-        }
-
-        for (let edge1 of polygon1.edges) {
-            for (let pt of Polygon.intersectShape2Polygon(edge1.shape, polygon2)) {
-                ip.push(pt);
-            }
-        }
-
-        return ip;
     }
 
     /**

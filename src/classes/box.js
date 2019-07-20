@@ -81,6 +81,14 @@ export class Box {
     }
 
     /**
+     * Return property box like all other shapes
+     * @returns {Box}
+     */
+    get box() {
+        return this.clone();
+    }
+
+    /**
      * Returns true if not intersected with other box
      * @param {Box} other_box - other box to test
      * @returns {boolean}

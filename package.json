@@ -59,13 +59,13 @@
     "cross-env": "^5.2.0",
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
-    "mocha": "^6.0.2",
-    "nyc": "^13.3.0",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
     "rollup": "^1.7.3",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-terser": "^4.0.4"
   },
   "dependencies": {
-    "@flatten-js/interval-tree": "^1.0.5"
+    "@flatten-js/interval-tree": "^1.0.7"
   }
 }

@@ -76,6 +76,25 @@ describe('#LinkedList', function () {
         expect(element10.prev).to.be.equal(element5);
         expect(list.last).to.be.equal(element10);
     });
+    it('May insert element to the beginning of linked list if elementBefore is null', function () {
+        let list = new LinkedList();
+        let element1 = {val: "one", next: undefined, prev: undefined};
+        let element2 = {val: "two", next: undefined, prev: undefined};
+        let element3 = {val: "three", next: undefined, prev: undefined};
+        let element4 = {val: "four", next: undefined, prev: undefined};
+        let element5 = {val: "five", next: undefined, prev: undefined};
+        let element10 = {val: "ten", next: undefined, prev: undefined};
+        list.append(element1);
+        list.append(element2);
+        list.append(element3);
+        list.append(element4);
+        list.append(element5);
+        list.insert(element10, null);
+        expect(list.size).to.be.equal(6);
+        expect(element1.prev).to.be.equal(element10);
+        expect(element10.next).to.be.equal(element1);
+        expect(list.first).to.be.equal(element10);
+    });
     it('May insert element to the empty list', function () {
         let list = new LinkedList();
         let element1 = {val: "one", next: undefined, prev: undefined};

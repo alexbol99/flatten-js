@@ -5,6 +5,7 @@
 
 "use strict";
 import Flatten from '../flatten';
+import * as Intersection from '../algorithms/intersection';
 
 /**
  * Class representing a segment
@@ -153,23 +154,23 @@ export class Segment {
         }
 
         if (shape instanceof Flatten.Line) {
-            return Segment.intersectSegment2Line(this, shape);
+            return Intersection.intersectSegment2Line(this, shape);
         }
 
         if (shape instanceof Flatten.Segment) {
-            return Segment.intersectSegment2Segment(this, shape);
+            return  Intersection.intersectSegment2Segment(this, shape);
         }
 
         if (shape instanceof Flatten.Circle) {
-            return Segment.intersectSegment2Circle(this, shape);
+            return Intersection.intersectSegment2Circle(this, shape);
         }
 
         if (shape instanceof Flatten.Arc) {
-            return Segment.intersectSegment2Arc(this, shape);
+            return Intersection.intersectSegment2Arc(this, shape);
         }
 
         if (shape instanceof Flatten.Polygon) {
-            return Flatten.Polygon.intersectShape2Polygon(this, shape);
+            return  Intersection.intersectSegment2Polygon(this, shape);
         }
     }
 
@@ -324,153 +325,6 @@ export class Segment {
      */
     isZeroLength() {
         return this.ps.equalTo(this.pe)
-    }
-
-    static intersectSegment2Line(seg, line) {
-        let ip = [];
-
-        // Boundary cases
-        if (seg.ps.on(line)) {
-            ip.push(seg.ps);
-        }
-        // If both ends lay on line, return two intersection points
-        if (seg.pe.on(line) && !seg.isZeroLength()) {
-            ip.push(seg.pe);
-        }
-
-        if (ip.length > 0) {
-            return ip;          // done, intersection found
-        }
-
-        // If zero-length segment and nothing found, return no intersections
-        if (seg.isZeroLength()) {
-            return ip;
-        }
-
-        // Not a boundary case, check if both points are on the same side and
-        // hence there is no intersection
-        if (seg.ps.leftTo(line) && seg.pe.leftTo(line) ||
-            !seg.ps.leftTo(line) && !seg.pe.leftTo(line)) {
-            return ip;
-        }
-
-        // Calculate intersection between lines
-        let line1 = new Flatten.Line(seg.ps, seg.pe);
-        return line1.intersect(line);
-    }
-
-    static intersectSegment2Segment(seg1, seg2) {
-        let ip = [];
-
-        // quick reject
-        if (seg1.box.not_intersect(seg2.box)) {
-            return ip;
-        }
-
-        // Special case of seg1 zero length
-        if (seg1.isZeroLength()) {
-            if (seg1.ps.on(seg2)) {
-                ip.push(seg1.ps);
-            }
-            return ip;
-        }
-
-        // Special case of seg2 zero length
-        if (seg2.isZeroLength()) {
-            if (seg2.ps.on(seg1)) {
-                ip.push(seg2.ps);
-            }
-            return ip;
-        }
-
-        // Neither seg1 nor seg2 is zero length
-        let line1 = new Flatten.Line(seg1.ps, seg1.pe);
-        let line2 = new Flatten.Line(seg2.ps, seg2.pe);
-
-        // Check overlapping between segments in case of incidence
-        // If segments touching, add one point. If overlapping, add two points
-        if (line1.incidentTo(line2)) {
-            if (seg1.ps.on(seg2)) {
-                ip.push(seg1.ps);
-            }
-            if (seg1.pe.on(seg2)) {
-                ip.push(seg1.pe);
-            }
-            if (seg2.ps.on(seg1) && !seg2.ps.equalTo(seg1.ps) && !seg2.ps.equalTo(seg1.pe)) {
-                ip.push(seg2.ps);
-            }
-            if (seg2.pe.on(seg1) && !seg2.pe.equalTo(seg1.ps) && !seg2.pe.equalTo(seg1.pe)) {
-                ip.push(seg2.pe);
-            }
-        } else {                /* not incident - parallel or intersect */
-            // Calculate intersection between lines
-            let new_ip = line1.intersect(line2);
-            if (new_ip.length > 0 && new_ip[0].on(seg1) && new_ip[0].on(seg2)) {
-                ip.push(new_ip[0]);
-            }
-        }
-
-        return ip;
-    }
-
-    static intersectSegment2Circle(segment, circle) {
-        let ips = [];
-
-        if (segment.box.not_intersect(circle.box)) {
-            return ips;
-        }
-
-        // Special case of zero length segment
-        if (segment.isZeroLength()) {
-            let [dist, shortest_segment] = segment.ps.distanceTo(circle.pc);
-            if (Flatten.Utils.EQ(dist, circle.r)) {
-                ips.push(segment.ps);
-            }
-            return ips;
-        }
-
-        // Non zero-length segment
-        let line = new Flatten.Line(segment.ps, segment.pe);
-
-        let ips_tmp = line.intersect(circle);
-
-        for (let ip of ips_tmp) {
-            if (ip.on(segment)) {
-                ips.push(ip);
-            }
-        }
-
-        return ips;
-    }
-
-    static intersectSegment2Arc(segment, arc) {
-        let ip = [];
-
-        if (segment.box.not_intersect(arc.box)) {
-            return ip;
-        }
-
-        // Special case of zero-length segment
-        if (segment.isZeroLength()) {
-            if (segment.ps.on(arc)) {
-                ip.push(segment.ps);
-            }
-            return ip;
-        }
-
-        // Non-zero length segment
-        let line = new Flatten.Line(segment.ps, segment.pe);
-        let circle = new Flatten.Circle(arc.pc, arc.r);
-
-        let ip_tmp = line.intersect(circle);
-
-        for (let pt of ip_tmp) {
-            if (pt.on(segment) && pt.on(arc)) {
-                ip.push(pt);
-            }
-        }
-        return ip;
-
     }
 
     /**

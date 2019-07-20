@@ -74,7 +74,13 @@ class LinkedList {
         if (this.isEmpty()) {
             this.first = newElement;
             this.last = newElement;
-        } else {
+        }
+        else if (elementBefore === null || elementBefore === undefined) {
+            newElement.next = this.first;
+            this.first.prev = newElement;
+            this.first = newElement;
+        }
+        else {
             /* set links to new element */
             let elementAfter = elementBefore.next;
             elementBefore.next = newElement;
