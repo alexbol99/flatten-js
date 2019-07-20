@@ -149,7 +149,7 @@ declare namespace Flatten {
 
         // public methods
         clone(): Circle;
-        contains(pt: Point): boolean;
+        contains(shape: Shape): boolean;
         distanceTo(geom: Shape | PlanarSet): [number, Segment];
         intersect(shape: Shape): Array<Point>;
         svg(attrs?: SVGAttributes): string;
@@ -427,7 +427,7 @@ declare namespace Flatten {
         addVertex(edge: Edge, pt: Point): Edge;
         area(): number;
         clone(): Polygon;
-        contains(pt: Point): boolean;
+        contains(shape: Shape): boolean;
         deleteFace(face: Face): boolean;
         distanceTo(shape: Shape): [number, Segment];
         intersect(shape: Shape): Point[];

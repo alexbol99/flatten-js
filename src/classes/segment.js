@@ -328,6 +328,49 @@ export class Segment {
     }
 
     /**
+     * Returns true if segment within 2-dimensional shape, which is same as shape.contains(segment)
+     * Shape is supposed to be one of 2-dimensional shapes: Polygon, Circle, Box
+     * @param {Polygon | Circle | Box} shape
+     * @returns {boolean}
+     */
+    within(shape) {
+        if (shape instanceof Flatten.Polygon) {
+            return shape.contains(this)
+        }
+    }
+
+    /**
+     * Returns true if segment intersect given shape boundary at least in one point, false otherwise
+     * @param {Shape} shape
+     * @returns {boolean}
+     */
+    intersects(shape) {
+        return this.intersect(shape).length > 0
+    }
+
+    /**
+     * Return true if segment crosses shape boundary of fully within the shape
+     * @param {Polygon | Circle | Box} shape
+     * @returns {boolean}
+     */
+    crosses(shape) {
+        if (shape instanceof Flatten.Polygon) {
+            return shape.intersects(this) || shape.contains(this)
+        }
+    }
+
+    /**
+     * Return true if segment does not intersect boundary or lays inside shape
+     * @param {Shape} shape
+     * @returns {boolean}
+     */
+    disjoint(shape) {
+        if (shape instanceof Flatten.Polygon) {
+            return !this.crosses(shape);
+        }
+    }
+
+    /**
      * Return string to draw segment in svg
      * @param {Object} attrs - an object with attributes for svg path element,
      * like "stroke", "strokeWidth" <br/>

@@ -74,12 +74,33 @@ export class Circle {
     }
 
     /**
-     * Return true if circle contains point
-     * @param {Point} pt - test point
+     * Return true if circle contains shape: no point of shape lies outside of the circle
+     * @param {Shape} shape - test shape
      * @returns {boolean}
      */
-    contains(pt) {
-        return Flatten.Utils.LE(pt.distanceTo(this.center)[0], this.r);
+    contains(shape) {
+        if (shape instanceof Flatten.Point) {
+            return Flatten.Utils.LE(shape.distanceTo(this.center)[0], this.r);
+        }
+
+        if (shape instanceof Flatten.Segment) {
+            return Flatten.Utils.LE(shape.start.distanceTo(this.center)[0], this.r) &&
+                Flatten.Utils.LE(shape.end.distanceTo(this.center)[0], this.r);
+        }
+
+        if (shape instanceof Flatten.Arc) {
+            return this.intersect(shape).length === 0 &&
+                Flatten.Utils.LE(shape.start.distanceTo(this.center)[0], this.r) &&
+                Flatten.Utils.LE(shape.end.distanceTo(this.center)[0], this.r);
+        }
+
+        if (shape instanceof Flatten.Circle) {
+            return this.intersect(shape).length === 0 &&
+                Flatten.Utils.LE(shape.r, this.r) &&
+                Flatten.Utils.LE(shape.center.distanceTo(this.center)[0], this.r);
+        }
+
+        /* TODO: box, polygon */
     }
 
     /**

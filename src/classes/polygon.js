@@ -174,14 +174,24 @@ export class Polygon {
     }
 
     /**
-     * Returns true if polygon contains point, including polygon boundary, false otherwise
-     * Point in polygon test based on ray shooting algorithm
-     * @param {Point} point - test point
+     * Returns true if polygon contains shape: no point of shape lies outside of the polygon,
+     * false otherwise
+     * @param {Shape} shape - test shape
      * @returns {boolean}
      */
-    contains(point) {
-        let rel = ray_shoot(this, point);
-        return (rel == Flatten.INSIDE || rel == Flatten.BOUNDARY) ? true : false;
+    contains(shape) {
+        if (shape instanceof Flatten.Point) {
+            let rel = ray_shoot(this, point);
+            return rel == Flatten.INSIDE || rel == Flatten.BOUNDARY;
+        }
+
+        if (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc) {
+            let edge = new Flatten.Edge(shape);
+            let rel = edge.setInclusion(this);
+            return rel == Flatten.INSIDE || rel == Flatten.BOUNDARY;
+        }
+
+        // TODO: support Box and Circle
     }
 
     /**
