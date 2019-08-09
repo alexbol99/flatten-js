@@ -468,7 +468,7 @@ declare namespace Flatten.ORIENTATION {
 }
 
 declare namespace Flatten.Utils {
-    const DP_TOL: number;
+    DP_TOL: number;
     function EQ_0(x: number) : boolean;
     function GT(x: number, y: number) : boolean;
     function GE(x: number, y: number) : boolean;

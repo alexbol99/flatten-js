@@ -2,7 +2,15 @@
  * Created by Alex Bol on 2/18/2017.
  */
 
-import {DP_TOL} from "./constants";
+
+/**
+ * DP_TOL is used for comparison of floating point numbers.
+ * It is set to 0.000001.
+ * @type {number}
+ */
+var DP_TOL = 0.000001;
+export function setTolerance(tolerance) {DP_TOL = tolerance;}
+export function getTolerance() {return DP_TOL;}
 
 export const DECIMALS = 3;
 
