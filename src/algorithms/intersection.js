@@ -7,7 +7,6 @@
 "use strict";
 
 import Flatten from "../flatten";
-import * as Utils from '../utils/utils';
 
 export function intersectLine2Line(line1, line2) {
     let ip = [];
@@ -71,14 +70,13 @@ export function intersectLine2Box(line, box) {
             ips.push(ip);
         }
     }
-    ;
     return ips;
 }
 
 export function intersectLine2Arc(line, arc) {
     let ip = [];
 
-    if (intersectLine2Box(line, arc.box).length == 0) {
+    if (intersectLine2Box(line, arc.box).length === 0) {
         return ip;
     }
 

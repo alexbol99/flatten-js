@@ -90,7 +90,7 @@ export class Point {
 
     /**
      * Defines predicate "less than" between points. Returns true if the point is less than query points, false otherwise <br/>
-     * By definition point1 < point2 if {point1.y < point2.y || point1.y == point2.y && point1.x < point2.y <br/>
+     * By definition point1 < point2 if {point1.y < point2.y || point1.y == point2.y && point1.x < point2.x <br/>
      * Numeric values compared with [Flatten.Utils.DP_TOL]{@link DP_TOL} tolerance
      * @param {Point} pt Query point
      * @returns {boolean}

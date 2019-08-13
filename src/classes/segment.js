@@ -29,31 +29,31 @@ export class Segment {
          */
         this.pe = new Flatten.Point();
 
-        if (args.length == 0) {
+        if (args.length === 0) {
             return;
         }
 
-        if (args.length == 1 && args[0] instanceof Array && args[0].length == 4) {
+        if (args.length === 1 && args[0] instanceof Array && args[0].length === 4) {
             let coords = args[0];
             this.ps = new Flatten.Point(coords[0], coords[1]);
             this.pe = new Flatten.Point(coords[2], coords[3]);
             return;
         }
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "segment") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "segment") {
             let {ps, pe} = args[0];
             this.ps = new Flatten.Point(ps.x, ps.y);
             this.pe = new Flatten.Point(pe.x, pe.y);
             return;
         }
 
-        if (args.length == 2 && args[0] instanceof Flatten.Point && args[1] instanceof Flatten.Point) {
+        if (args.length === 2 && args[0] instanceof Flatten.Point && args[1] instanceof Flatten.Point) {
             this.ps = args[0].clone();
             this.pe = args[1].clone();
             return;
         }
 
-        if (args.length == 4) {
+        if (args.length === 4) {
             this.ps = new Flatten.Point(args[0], args[1]);
             this.pe = new Flatten.Point(args[2], args[3]);
             return;
@@ -325,49 +325,6 @@ export class Segment {
      */
     isZeroLength() {
         return this.ps.equalTo(this.pe)
-    }
-
-    /**
-     * Returns true if segment within 2-dimensional shape, which is same as shape.contains(segment)
-     * Shape is supposed to be one of 2-dimensional shapes: Polygon, Circle, Box
-     * @param {Polygon | Circle | Box} shape
-     * @returns {boolean}
-     */
-    within(shape) {
-        if (shape instanceof Flatten.Polygon) {
-            return shape.contains(this)
-        }
-    }
-
-    /**
-     * Returns true if segment intersect given shape boundary at least in one point, false otherwise
-     * @param {Shape} shape
-     * @returns {boolean}
-     */
-    intersects(shape) {
-        return this.intersect(shape).length > 0
-    }
-
-    /**
-     * Return true if segment crosses shape boundary of fully within the shape
-     * @param {Polygon | Circle | Box} shape
-     * @returns {boolean}
-     */
-    crosses(shape) {
-        if (shape instanceof Flatten.Polygon) {
-            return shape.intersects(this) || shape.contains(this)
-        }
-    }
-
-    /**
-     * Return true if segment does not intersect boundary or lays inside shape
-     * @param {Shape} shape
-     * @returns {boolean}
-     */
-    disjoint(shape) {
-        if (shape instanceof Flatten.Polygon) {
-            return !this.crosses(shape);
-        }
     }
 
     /**

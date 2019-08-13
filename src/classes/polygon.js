@@ -181,14 +181,14 @@ export class Polygon {
      */
     contains(shape) {
         if (shape instanceof Flatten.Point) {
-            let rel = ray_shoot(this, point);
-            return rel == Flatten.INSIDE || rel == Flatten.BOUNDARY;
+            let rel = ray_shoot(this, shape);
+            return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
         }
 
         if (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc) {
             let edge = new Flatten.Edge(shape);
             let rel = edge.setInclusion(this);
-            return rel == Flatten.INSIDE || rel == Flatten.BOUNDARY;
+            return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
         }
 
         // TODO: support Box and Circle
