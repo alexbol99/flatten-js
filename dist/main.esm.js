@@ -1,11 +1,4 @@
 /**
- * Global constant DP_TOL is used for comparison of floating point numbers.
- * It is set to 0.000001.
- * @type {number}
- */
-const DP_TOL = 0.000001;
-
-/**
  * Global constant CCW defines counter clockwise direction of arc
  * @type {boolean}
  */
@@ -36,7 +29,6 @@ const OVERLAP_SAME = 1;
 const OVERLAP_OPPOSITE = 2;
 
 var Constants = /*#__PURE__*/Object.freeze({
-    DP_TOL: DP_TOL,
     CCW: CCW,
     CW: CW,
     ORIENTATION: ORIENTATION,
@@ -53,6 +45,16 @@ var Constants = /*#__PURE__*/Object.freeze({
 /**
  * Created by Alex Bol on 2/18/2017.
  */
+
+
+/**
+ * DP_TOL is used for comparison of floating point numbers.
+ * It is set to 0.000001.
+ * @type {number}
+ */
+var DP_TOL = 0.000001;
+function setTolerance(tolerance) {DP_TOL = tolerance;}
+function getTolerance() {return DP_TOL;}
 
 const DECIMALS = 3;
 
@@ -105,6 +107,8 @@ function LE(x, y) {
 }
 
 var Utils = /*#__PURE__*/Object.freeze({
+    setTolerance: setTolerance,
+    getTolerance: getTolerance,
     DECIMALS: DECIMALS,
     EQ_0: EQ_0,
     EQ: EQ,
@@ -166,6 +170,11 @@ let Flatten = {
 };
 
 for (let c in Constants) {Flatten[c] = Constants[c];}
+
+Object.defineProperty(Flatten, 'DP_TOL', {
+    get:function(){return getTolerance()}, 
+    set:function(value){setTolerance(value);}
+});
 
 /**
  * Class representing an affine transformation 3x3 matrix:
@@ -5800,4 +5809,4 @@ function inverse(shape, inversion_circle) {
  */
 
 export default Flatten;
-export { Arc, BOUNDARY, Box, CCW, CONTAINS, CW, Circle, DP_TOL, Distance, Edge, errors as Errors, Face, INSIDE, INTERLACE, Line, Matrix, ORIENTATION, OUTSIDE, OVERLAP_OPPOSITE, OVERLAP_SAME, PlanarSet, Point, Polygon, Ray, Segment, Utils, Vector, arc, box, circle, inverse, line, matrix, point, ray, ray_shoot, segment, vector };
+export { Arc, BOUNDARY, Box, CCW, CONTAINS, CW, Circle, Distance, Edge, errors as Errors, Face, INSIDE, INTERLACE, Line, Matrix, ORIENTATION, OUTSIDE, OVERLAP_OPPOSITE, OVERLAP_SAME, PlanarSet, Point, Polygon, Ray, Segment, Utils, Vector, arc, box, circle, inverse, line, matrix, point, ray, ray_shoot, segment, vector };

@@ -5,13 +5,6 @@
 }(this, function (exports) { 'use strict';
 
     /**
-     * Global constant DP_TOL is used for comparison of floating point numbers.
-     * It is set to 0.000001.
-     * @type {number}
-     */
-    const DP_TOL = 0.000001;
-
-    /**
      * Global constant CCW defines counter clockwise direction of arc
      * @type {boolean}
      */
@@ -42,7 +35,6 @@
     const OVERLAP_OPPOSITE = 2;
 
     var Constants = /*#__PURE__*/Object.freeze({
-        DP_TOL: DP_TOL,
         CCW: CCW,
         CW: CW,
         ORIENTATION: ORIENTATION,
@@ -59,6 +51,16 @@
     /**
      * Created by Alex Bol on 2/18/2017.
      */
+
+
+    /**
+     * DP_TOL is used for comparison of floating point numbers.
+     * It is set to 0.000001.
+     * @type {number}
+     */
+    var DP_TOL = 0.000001;
+    function setTolerance(tolerance) {DP_TOL = tolerance;}
+    function getTolerance() {return DP_TOL;}
 
     const DECIMALS = 3;
 
@@ -111,6 +113,8 @@
     }
 
     var Utils = /*#__PURE__*/Object.freeze({
+        setTolerance: setTolerance,
+        getTolerance: getTolerance,
         DECIMALS: DECIMALS,
         EQ_0: EQ_0,
         EQ: EQ,
@@ -172,6 +176,11 @@
     };
 
     for (let c in Constants) {Flatten[c] = Constants[c];}
+
+    Object.defineProperty(Flatten, 'DP_TOL', {
+        get:function(){return getTolerance()}, 
+        set:function(value){setTolerance(value);}
+    });
 
     /**
      * Class representing an affine transformation 3x3 matrix:
@@ -5812,7 +5821,6 @@
     exports.CONTAINS = CONTAINS;
     exports.CW = CW;
     exports.Circle = Circle;
-    exports.DP_TOL = DP_TOL;
     exports.Distance = Distance;
     exports.Edge = Edge;
     exports.Errors = errors;
