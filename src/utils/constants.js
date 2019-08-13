@@ -1,11 +1,3 @@
-
-/**
- * Global constant DP_TOL is used for comparison of floating point numbers.
- * It is set to 0.000001.
- * @type {number}
- */
-export const DP_TOL = 0.000001;
-
 /**
  * Global constant CCW defines counter clockwise direction of arc
  * @type {boolean}

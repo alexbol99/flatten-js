@@ -24,4 +24,9 @@ let Flatten = {
 
 for (let c in Constants) {Flatten[c] = Constants[c]}
 
+Object.defineProperty(Flatten, 'DP_TOL', {
+    get:function(){return Utils.getTolerance()}, 
+    set:function(value){Utils.setTolerance(value)}
+});
+
 export default Flatten;
