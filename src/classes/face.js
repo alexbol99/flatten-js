@@ -355,6 +355,10 @@ export class Face extends CircularLinkedList {
                 if (edge1 === edge2)
                     continue;
 
+                // Skip is edge2 belongs to another face
+                if (edge2.face !== face)
+                    continue;
+
                 // Skip next and previous edge if both are segment (if one of them arc - calc intersection)
                 if (edge1.shape instanceof Flatten.Segment && edge2.shape instanceof Flatten.Segment &&
                     (edge1.next === edge2 || edge1.prev === edge2))
