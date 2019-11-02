@@ -14,15 +14,38 @@ export function intersectLine2Line(line1, line2) {
     let [A1, B1, C1] = line1.standard;
     let [A2, B2, C2] = line2.standard;
 
-    /* Crammer rule */
+    /* Cramer's rule */
     let det = A1 * B2 - B1 * A2;
     let detX = C1 * B2 - B1 * C2;
     let detY = A1 * C2 - C1 * A2;
 
     if (!Flatten.Utils.EQ_0(det)) {
-        let new_ip = new Flatten.Point(detX / det, detY / det);
-        ip.push(new_ip);
+        let x, y;
+
+        if (B1 === 0) {        // vertical line x  = C1/A1, where A1 == +1 or -1
+            x = C1/A1;
+            y = detY / det;
+        }
+        else if (B2 === 0) {   // vertical line x = C2/A2, where A2 = +1 or -1
+            x = C2/A2;
+            y = detY / det;
+        }
+        else if (A1 === 0) {   // horizontal line y = C1/B1, where B1 = +1 or -1
+            x = detX / det;
+            y = C1/B1;
+        }
+        else if (A2 === 0) {   // horizontal line y = C2/B2, where B2 = +1 or -1
+            x = detX / det;
+            y = C2/B2;
+        }
+        else {
+            x = detX / det;
+            y = detY / det;
+        }
+
+        ip.push(new Flatten.Point(x, y));
     }
+
     return ip;
 }
 
