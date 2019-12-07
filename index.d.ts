@@ -393,11 +393,14 @@ declare namespace Flatten {
         // than refactored method LinkedList.append(LinkedListElement).
         // also Face.insert(), Face.remove()
 
-        // noinspection JSAnnotator
+
+        append(element: LinkedListElement):LinkedList;
         append(edges: PlanarSet, edge: Edge): void;
-        // noinspection JSAnnotator
+
+        insert(element: LinkedListElement): LinkedList;
         insert(edges: PlanarSet, newEdge: Edge, edgeBefore: Edge): void;
-        // noinspection JSAnnotator
+
+        remove(element: LinkedListElement): LinkedList;
         remove(edges: PlanarSet, edge: Edge): void;
 
         area(): number;
@@ -468,7 +471,7 @@ declare namespace Flatten.ORIENTATION {
 }
 
 declare namespace Flatten.Utils {
-    DP_TOL: number;
+    var DP_TOL: number;
     function EQ_0(x: number) : boolean;
     function GT(x: number, y: number) : boolean;
     function GE(x: number, y: number) : boolean;
