@@ -165,6 +165,10 @@ export class Segment {
             return Intersection.intersectSegment2Circle(this, shape);
         }
 
+        if (shape instanceof Flatten.Box) {
+            return Intersection.intersectSegment2Box(this, shape);
+        }
+
         if (shape instanceof Flatten.Arc) {
             return Intersection.intersectSegment2Arc(this, shape);
         }

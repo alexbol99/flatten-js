@@ -72,22 +72,8 @@ export function intersectLine2Circle(line, circle) {
 }
 
 export function intersectLine2Box(line, box) {
-    let pts = [
-        new Flatten.Point(box.xmin, box.ymin),
-        new Flatten.Point(box.xmax, box.ymin),
-        new Flatten.Point(box.xmax, box.ymax),
-        new Flatten.Point(box.xmin, box.ymax)
-    ];
-    let segs = [
-        new Flatten.Segment(pts[0], pts[1]),
-        new Flatten.Segment(pts[1], pts[2]),
-        new Flatten.Segment(pts[2], pts[3]),
-        new Flatten.Segment(pts[3], pts[0])
-    ];
-
     let ips = [];
-
-    for (let seg of segs) {
+    for (let seg of box.toSegments()) {
         let ips_tmp = intersectSegment2Line(seg, line);
         for (let ip of ips_tmp) {
             ips.push(ip);
@@ -261,7 +247,18 @@ export function intersectSegment2Arc(segment, arc) {
 
 }
 
-export function intersectCirle2Circle(circle1, circle2) {
+export function intersectSegment2Box(segment, box) {
+    let ips = [];
+    for (let seg of box.toSegments()) {
+        let ips_tmp = intersectSegment2Segment(seg, segment);
+        for (let ip of ips_tmp) {
+            ips.push(ip);
+        }
+    }
+    return ips;
+}
+
+export function intersectCircle2Circle(circle1, circle2) {
     let ip = [];
 
     if (circle1.box.not_intersect(circle2.box)) {
@@ -327,6 +324,17 @@ export function intersectCirle2Circle(circle1, circle2) {
     return ip;
 }
 
+export function intersectCircle2Box(circle, box) {
+    let ips = [];
+    for (let seg of box.toSegments()) {
+        let ips_tmp = intersectSegment2Circle(seg, circle);
+        for (let ip of ips_tmp) {
+            ips.push(ip);
+        }
+    }
+    return ips;
+}
+
 export function intersectArc2Arc(arc1, arc2) {
     var ip = [];
 
@@ -386,13 +394,24 @@ export function intersectArc2Circle(arc, circle) {
     // Common case
     let circle1 = circle;
     let circle2 = new Flatten.Circle(arc.pc, arc.r);
-    let ip_tmp = intersectCirle2Circle(circle1, circle2);
+    let ip_tmp = intersectCircle2Circle(circle1, circle2);
     for (let pt of ip_tmp) {
         if (pt.on(arc)) {
             ip.push(pt);
         }
     }
     return ip;
+}
+
+export function intersectArc2Box(arc, box) {
+    let ips = [];
+    for (let seg of box.toSegments()) {
+        let ips_tmp = intersectSegment2Arc(seg, arc);
+        for (let ip of ips_tmp) {
+            ips.push(ip);
+        }
+    }
+    return ips;
 }
 
 export function intersectEdge2Segment(edge, segment) {
@@ -513,4 +532,14 @@ export function intersectPolygon2Polygon(polygon1, polygon2) {
     return ip;
 }
 
-
+export function intersectBox2Box(box1, box2) {
+    let ip = [];
+    for (let segment1 of box1.toSegments()) {
+        for (let segment2 of box2.toSegments()) {
+            for (let pt of intersectSegment2Segment(segment1, segment2)) {
+                ip.push(pt)
+            }
+        }
+    }
+    return ip;
+}

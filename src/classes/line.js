@@ -154,6 +154,10 @@ export class Line {
             return Intersection.intersectLine2Circle(this, shape);
         }
 
+        if (shape instanceof Flatten.Box) {
+            return Intersection.intersectLine2Box(this, shape);
+        }
+
         if (shape instanceof Flatten.Segment) {
             return Intersection.intersectSegment2Line(shape, this);
         }

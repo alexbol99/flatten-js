@@ -175,6 +175,33 @@ export class Box {
     }
 
     /**
+     * Transform box into array of points from low left corner in counter clockwise
+     * @returns {Point[]}
+     */
+    toPoints() {
+        return [
+            new Flatten.Point(this.xmin, this.ymin),
+            new Flatten.Point(this.xmax, this.ymin),
+            new Flatten.Point(this.xmax, this.ymax),
+            new Flatten.Point(this.xmin, this.ymax)
+        ];
+    }
+
+    /**
+     * Transform box into array of segments from low left corner in counter clockwise
+     * @returns {Segment[]}
+     */
+    toSegments() {
+        let pts = this.toPoints();
+        return [
+            new Flatten.Segment(pts[0], pts[1]),
+            new Flatten.Segment(pts[1], pts[2]),
+            new Flatten.Segment(pts[2], pts[3]),
+            new Flatten.Segment(pts[3], pts[0])
+        ];
+    }
+
+    /**
      * Return string to draw circle in svg
      * @param {Object} attrs - an object with attributes of svg rectangle element,
      * like "stroke", "strokeWidth", "fill" <br/>

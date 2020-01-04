@@ -236,6 +236,9 @@ export class Arc {
         if (shape instanceof Flatten.Segment) {
             return Intersection.intersectSegment2Arc(shape, this);
         }
+        if (shape instanceof Flatten.Box) {
+            return Intersection.intersectArc2Box(this, shape);
+        }
         if (shape instanceof Flatten.Arc) {
             return Intersection.intersectArc2Arc(this, shape);
         }

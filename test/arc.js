@@ -247,6 +247,21 @@ describe('#Flatten.Arc', function() {
             let arc = new Arc(point(150,50), 50, Math.PI/3, 5*Math.PI/3, Flatten.CCW);
             expect(arc.intersect(polygon).length).to.equal(1);
         });
+        it('Intersect arc with box', function() {
+            let points = [
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 200),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ];
+            let polygon = new Polygon();
+            polygon.addFace(points);
+            let arc = new Arc(point(150,50), 50, Math.PI/3, 5*Math.PI/3, Flatten.CCW);
+            expect(arc.intersect(polygon.box).length).to.equal(1);
+        });
     });
     it('Calculate signed area under circular arc, full circle case, CCW', function() {
         let arc = new Arc(point(0,1), 1, 0, 2*Math.PI, true);

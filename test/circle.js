@@ -132,6 +132,21 @@ describe('#Flatten.Circle', function() {
         let circle = new Circle(point(150,50), 50);
         expect(circle.intersect(polygon).length).to.equal(2);
     });
+    it('Intersect circle with box', function() {
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 200),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+        let polygon = new Polygon();
+        polygon.addFace(points);
+        let circle = new Circle(point(150,50), 50);
+        expect(circle.intersect(polygon.box).length).to.equal(2);
+    });
     describe('#Flatten.Circle.DistanceTo', function() {
         it('Can measure distance between circle and point', function() {
             let c = circle(point(200,200), 50);

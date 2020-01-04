@@ -130,7 +130,11 @@ export class Circle {
         }
 
         if (shape instanceof Flatten.Circle) {
-            return Intersection.intersectCirle2Circle(shape, this);
+            return Intersection.intersectCircle2Circle(shape, this);
+        }
+
+        if (shape instanceof Flatten.Box) {
+            return Intersection.intersectCircle2Box(this, shape);
         }
 
         if (shape instanceof Flatten.Arc) {

@@ -148,6 +148,26 @@ describe('#Flatten.Line', function() {
             let ip = line.intersect(polygon);
             expect(ip.length).to.equal(4);
         });
+        it('Line to box intersection', function() {
+            "use strict";
+
+            let points = [
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 200),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ];
+            let polygon = new Polygon();
+            polygon.addFace(points);
+
+            let line = new Flatten.Line(point(100, 20), point(300, 200));
+
+            let ip = line.intersect(polygon.box);
+            expect(ip.length).to.equal(2);
+        });
     });
     it('May check if two lines are parallel', function () {
         let line1 = new Flatten.Line(new Flatten.Point(0, 2), new Flatten.Point(2, 0));

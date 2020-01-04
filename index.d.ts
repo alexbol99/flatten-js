@@ -443,7 +443,7 @@ declare namespace Flatten {
         toJSON() : Object;
     }
 
-    type Shape = Point | Line | Circle | Segment | Arc | Polygon;
+    type Shape = Point | Line | Circle | Box | Segment | Arc | Polygon;
 
     function point(x?: number, y?: number): Point;
     function point(arr?: [number, number]);
