@@ -3,7 +3,7 @@
  */
 
 import { expect } from 'chai';
-import Flatten from '../index';
+import Flatten, {matrix} from '../index';
 
 import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../index';
 import {point, vector, circle, line, segment, arc, box} from '../index';
@@ -486,6 +486,59 @@ describe('#Flatten.Polygon', function() {
             expect(ip[0].equalTo(point(150,20))).to.be.true;
             expect(ip[1].equalTo(point(150,40))).to.be.true;
         });
+    });
+    it('Can translate polygon', function() {
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 200),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+        let polygon = new Polygon();
+        polygon.addFace(points);
+
+        let newPolygon = polygon.translate(vector(100,50));
+        expect(newPolygon.faces.size).to.equal(1);
+        expect(newPolygon.edges.size).to.equal(7);
+    });
+    it('Can rotate polygon', function() {
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 200),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+        let polygon = new Polygon();
+        polygon.addFace(points);
+
+        let newPolygon = polygon.rotate(Math.PI/2, polygon.box.center);
+        expect(newPolygon.faces.size).to.equal(1);
+        expect(newPolygon.edges.size).to.equal(7);
+    });
+    it('Can transform polygon', function() {
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 200),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+        let polygon = new Polygon();
+        polygon.addFace(points);
+
+        let pc = polygon.box.center;
+        let m = matrix().translate(pc.x,pc.y).rotate(Math.PI/2).translate(-pc.x,-pc.y);
+        let newPolygon = polygon.transform(m);
+        expect(newPolygon.faces.size).to.equal(1);
+        expect(newPolygon.edges.size).to.equal(7);
     });
     it('Issue #18 Division by zero error when checking if polygon contains a point',function() {
         const points = [

@@ -136,6 +136,14 @@ export class Face extends CircularLinkedList {
     }
 
     /**
+     * Return array of shapes which comprise face
+     * @returns {(Flatten.Segment | Flatten.Arc)[]}
+     */
+    get shapes() {
+        return this.edges.map(edge => edge.shape.clone());
+    }
+
+    /**
      * Return bounding box of the face
      * @returns {Box}
      */
@@ -391,6 +399,16 @@ export class Face extends CircularLinkedList {
 
         }
         return int_points;
+    }
+
+    /**
+     * Returns new polygon created from one face
+     * @returns {Flatten.Polygon}
+     */
+    toPolygon() {
+        let poly = new Flatten.Polygon();
+        poly.addFace(this.shapes);
+        return poly;
     }
 
     toJSON() {

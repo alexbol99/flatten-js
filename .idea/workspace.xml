@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/test/planar_set.js" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fix bug in Face::getSelfIntersections()">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Add intersections to box methods (for Arc, Circle, Line, Segment)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/polygon.js" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/.tmp/" />
-    <ignored path="$PROJECT_DIR$/temp/" />
-    <ignored path="$PROJECT_DIR$/tmp/" />
-    <ignored path="$PROJECT_DIR$/.idea/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,95 +18,6 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/algorithms/intersection.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1241">
-              <caret line="73" column="25" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/line.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1836">
-              <caret line="109" column="25" selection-start-line="109" selection-start-column="25" selection-end-line="109" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils/constants.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/tolerance.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils/utils.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/point.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1581">
-              <caret line="93" column="82" selection-start-line="93" selection-start-column="82" selection-end-line="93" selection-end-column="82" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/vector.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/ray.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="108" column="18" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/segment.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="60" selection-start-line="60" selection-end-line="60" />
-              <folding>
-                <element signature="e#61#94#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -125,53 +27,6 @@
         <option value="JavaScript File" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>construction</find>
-      <find>OVERLAP_SAME</find>
-      <find>exist</find>
-      <find>pc</find>
-      <find>PolygonOrientationType</find>
-      <find>SVGAttributes</find>
-      <find>LinkedListElement</find>
-      <find>LinkListElement</find>
-      <find>next</find>
-      <find>Flatten</find>
-      <find>last</find>
-      <find>append</find>
-      <find>LinkedList</find>
-      <find>eol</find>
-      <find>isEmp</find>
-      <find>setArcLength</find>
-      <find>arc_length</find>
-      <find>setOneEdgeArcLength</find>
-      <find>point</find>
-      <find>circle</find>
-      <find>line</find>
-      <find>IntervalTree</find>
-      <find>Face</find>
-      <find>getOrientation</find>
-      <find>orientation</find>
-      <find>intersection</find>
-      <find>normalizeAngle</find>
-      <find />
-      <find>breakToFunctional</find>
-      <find>points2norm</find>
-    </findStrings>
-    <replaceStrings>
-      <replace />
-      <replace>reverse</replace>
-      <replace>flatten.min</replace>
-      <replace />
-      <replace>../../</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir />
-      <dir />
-      <dir />
-      <dir />
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
@@ -185,125 +40,17 @@
       <GitPushTagMode />
     </option>
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/classes/line.js" />
-        <option value="$PROJECT_DIR$/src/classes/matrix.js" />
-        <option value="$PROJECT_DIR$/src/classes/point.js" />
-        <option value="$PROJECT_DIR$/src/classes/ray.js" />
-        <option value="$PROJECT_DIR$/src/classes/segment.js" />
-        <option value="$PROJECT_DIR$/src/classes/vector.js" />
-        <option value="$PROJECT_DIR$/src/classes/polygon.js" />
-        <option value="$PROJECT_DIR$/packages/core/README.md" />
-        <option value="$PROJECT_DIR$/packages/core/index.js" />
-        <option value="$PROJECT_DIR$/packages/core/package.json" />
-        <option value="$PROJECT_DIR$/packages/utils/rollup.config.js" />
-        <option value="$PROJECT_DIR$/packages/utils/package.json" />
-        <option value="$PROJECT_DIR$/packages/utils/index.js" />
-        <option value="$PROJECT_DIR$/rollup.config.js" />
-        <option value="$PROJECT_DIR$/test/planar_set-cjs.js" />
-        <option value="$PROJECT_DIR$/dist/main.umd.js" />
-        <option value="$PROJECT_DIR$/src/data_structures/planar_set.js" />
-        <option value="$PROJECT_DIR$/src/algorithms/distance.js" />
-        <option value="$PROJECT_DIR$/examples/typescript/package.json" />
-        <option value="$PROJECT_DIR$/flatten-js-tests.js" />
-        <option value="$PROJECT_DIR$/examples/typescript/index.html" />
-        <option value="$PROJECT_DIR$/examples/es6-module/index.html" />
-        <option value="$PROJECT_DIR$/examples/typescript/main.js" />
-        <option value="$PROJECT_DIR$/examples/typescript/main.ts" />
-        <option value="$PROJECT_DIR$/examples/typescript/tsconfig.json" />
-        <option value="$PROJECT_DIR$/src/utils/utils.js" />
-        <option value="$PROJECT_DIR$/src/utils/errors.js" />
-        <option value="$PROJECT_DIR$/src/classes/box.js" />
-        <option value="$PROJECT_DIR$/examples/create-react-app/package.json" />
-        <option value="$PROJECT_DIR$/examples/nodejs/index.js" />
-        <option value="$PROJECT_DIR$/src/utils/constants.js" />
-        <option value="$PROJECT_DIR$/.travis.yml" />
-        <option value="$PROJECT_DIR$/test/planar_set.js" />
-        <option value="$PROJECT_DIR$/src/algorithms/inversion.js" />
-        <option value="$PROJECT_DIR$/test/flatten.js" />
-        <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/src/data_structures/bidirectional_linked_list.js" />
-        <option value="$PROJECT_DIR$/test/linked_list.js" />
-        <option value="$PROJECT_DIR$/src/data_structures/linked_list.js" />
-        <option value="$PROJECT_DIR$/src/classes/edge.js" />
-        <option value="$PROJECT_DIR$/src/classes/face.js" />
-        <option value="$PROJECT_DIR$/src/data_structures/circular_linked_list.js" />
-        <option value="$PROJECT_DIR$/test/inversion.js" />
-        <option value="$PROJECT_DIR$/.babelrc" />
-        <option value="$PROJECT_DIR$/index.d.ts" />
-        <option value="$PROJECT_DIR$/src/data_structures/intersections.js" />
-        <option value="$PROJECT_DIR$/src/classes/path.js" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/classes/arc.js" />
-        <option value="$PROJECT_DIR$/src/algorithms/intersection.js" />
-        <option value="$PROJECT_DIR$/package.json" />
-      </list>
-    </option>
-  </component>
   <component name="JsFlowSettings">
     <service-enabled>false</service-enabled>
     <exe-path />
     <other-services-enabled>false</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="150" />
-    <option name="y" value="32" />
-    <option name="width" value="1746" />
-    <option name="height" value="957" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="flatten-js" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="algorithms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+  <component name="ProjectId" id="1WAPN3ASzDmjaf35ofvOBEHB9tk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -313,7 +60,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/dist/flatten.umd.js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flatten-interval-tree" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.prettier" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -350,19 +97,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\test" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="Mocha.#Flatten.Polygon.Can rotate polygon">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -382,11 +117,11 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="coverage" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="publish-npm" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="coverage" />
+        <script value="publish-npm" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -402,39 +137,42 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Polygon.Can rotate polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
+      <test-names>
+        <name value="#Flatten.Polygon" />
+        <name value="Can rotate polygon" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="#Flatten.Polygon.Can translate polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
       <extra-mocha-options>--require @babel/register</extra-mocha-options>
       <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/point.js</test-file>
+      <test-file>$PROJECT_DIR$/test/polygon.js</test-file>
       <test-names>
-        <name value="#Flatten.Point" />
-        <name value="#Flatten.Point.Distance methods" />
-        <name value="Method distanceTo returns distance to arc" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="#Flatten.Ray" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options>--require @babel/register</extra-mocha-options>
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/ray.js</test-file>
-      <test-names>
-        <name value="#Flatten.Ray" />
+        <name value="#Flatten.Polygon" />
+        <name value="Can translate polygon" />
       </test-names>
       <method v="2" />
     </configuration>
     <configuration name="#test esm" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
@@ -446,21 +184,33 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" />
-      <item itemvalue="Mocha.#Flatten.Ray" />
+      <item itemvalue="Mocha.#Flatten.Polygon.Can translate polygon" />
       <item itemvalue="npm.build" />
-      <item itemvalue="npm.coverage" />
       <item itemvalue="npm.test" />
+      <item itemvalue="npm.publish-npm" />
+      <item itemvalue="Mocha.#Flatten.Polygon.Can rotate polygon" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
+        <item itemvalue="Mocha.#Flatten.Polygon.Can rotate polygon" />
+        <item itemvalue="Mocha.#Flatten.Polygon.Can translate polygon" />
         <item itemvalue="npm.test" />
-        <item itemvalue="Mocha.#Flatten.Ray" />
-        <item itemvalue="Mocha.#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" />
-        <item itemvalue="npm.coverage" />
+        <item itemvalue="npm.publish-npm" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -585,21 +335,9 @@
       <workItem from="1561804615326" duration="1446000" />
       <workItem from="1572464820710" duration="4486000" />
       <workItem from="1572810281488" duration="1083000" />
-      <workItem from="1578055451900" duration="1526000" />
-    </task>
-    <task id="LOCAL-00085" summary="Create minified bundle">
-      <created>1521579719927</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1521579719927</updated>
-    </task>
-    <task id="LOCAL-00086" summary="Deploy minified bundle">
-      <created>1521580295614</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1521580295614</updated>
+      <workItem from="1578055451900" duration="11469000" />
+      <workItem from="1578589166143" duration="144000" />
+      <workItem from="1578589389142" duration="12360000" />
     </task>
     <task id="LOCAL-00087" summary="Move method setOverlap from BooleanOp package">
       <created>1523166412468</created>
@@ -930,43 +668,22 @@
       <option name="project" value="LOCAL" />
       <updated>1556280247696</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="- Integrate pull requests and build new version&#10;16eb559 by OldrichDlouhy Fix TypeScript definitions #34&#10;74e333a by dependabot/npm_and_yarn/marked-0.3.19">
+      <created>1578121702846</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1578121702846</updated>
+    </task>
+    <task id="LOCAL-00135" summary="- Add intersections to box methods (for Arc, Circle, Line, Segment)">
+      <created>1578130710471</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1578130710471</updated>
+    </task>
+    <option name="localTasksCounter" value="136" />
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="#Flatten_Point_#Flatten_Point_Distance_methods_Method_distanceTo_returns_distance_to_arc - 2019.04.27 at 08h 34m 52s.xml">
-      <configuration name="#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Point_#Flatten_Point_Distance_methods_Method_distanceTo_returns_distance_to_arc - 2019.04.27 at 08h 35m 57s.xml">
-      <configuration name="#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Point_#Flatten_Point_Distance_methods_Method_distanceTo_returns_distance_to_arc - 2019.04.27 at 08h 36m 07s.xml">
-      <configuration name="#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Point_#Flatten_Point_Distance_methods_Method_distanceTo_returns_distance_to_arc - 2019.04.27 at 08h 36m 14s.xml">
-      <configuration name="#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Point_#Flatten_Point_Distance_methods_Method_distanceTo_returns_distance_to_arc - 2019.04.27 at 08h 36m 26s.xml">
-      <configuration name="#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Point_#Flatten_Point_Distance_methods_Method_distanceTo_returns_distance_to_arc - 2019.04.27 at 08h 36m 33s.xml">
-      <configuration name="#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Point_#Flatten_Point_Distance_methods_Method_distanceTo_returns_distance_to_arc - 2019.04.27 at 08h 36m 39s.xml">
-      <configuration name="#Flatten.Point.#Flatten.Point.Distance methods.Method distanceTo returns distance to arc" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Ray - 2019.11.02 at 19h 19m 41s.xml">
-      <configuration name="#Flatten.Ray" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Ray - 2019.11.02 at 19h 20m 18s.xml">
-      <configuration name="#Flatten.Ray" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#Flatten_Ray - 2019.11.02 at 19h 28m 41s.xml">
-      <configuration name="#Flatten.Ray" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-  </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="848785000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -977,64 +694,10 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="150" y="32" width="1746" height="957" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1411007" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info id="npm" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49968693" weight="0.36608186" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49754602" visible="true" weight="0.3895131" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.48700175" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993865" weight="0.32906976" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4993865" weight="0.30836454" />
-      <window_info anchor="bottom" id="SFDX" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49447852" weight="0.4662045" />
-      <window_info anchor="bottom" id="Debug Logs" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5055215" side_tool="true" weight="0.35" />
-      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Execute Anonymous" order="13" />
-      <window_info anchor="bottom" id="TypeScript" order="14" weight="0.22097379" />
-      <window_info anchor="bottom" id="Log Manager" order="15" />
-      <window_info anchor="bottom" id="Salesforce" order="16" />
-      <window_info anchor="bottom" id="Messages" order="17" weight="0.44753477" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.32933754" />
-    </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1904474" />
-      <window_info id="Structure" order="1" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.35842294" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.42578125" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3572282" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32735962" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5033846" side_tool="true" weight="0.32533014" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49661538" weight="0.3213859" />
-      <window_info anchor="bottom" id="Messages" order="9" weight="0.44753477" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49768057" visible="true" weight="0.22249389" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.32933754" />
-    </layout-to-restore>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Submit compiled packages" />
-    <MESSAGE value="clean workspace" />
     <MESSAGE value="fix vulnerabilities" />
     <MESSAGE value="fix broken test" />
     <MESSAGE value="- Fixed bug with cjs build: PlanarSet cannot be instantiated&#10;See https://github.com/alexbol99/flatten-js/pull/20" />
@@ -1058,7 +721,95 @@
     <MESSAGE value="- update coverage tool istanbul to nyc&#10;- update script for coverall integration tool&#10;- added some tests for PlanarSet&#10;- build, generate docs" />
     <MESSAGE value="- implement LinkedList, CircularLinkedList&#10;- implement Face as an extension of CircularLinkedList" />
     <MESSAGE value="- update README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="- update README.md" />
+    <MESSAGE value="- Integrate pull requests and build new version&#10;16eb559 by OldrichDlouhy Fix TypeScript definitions #34&#10;74e333a by dependabot/npm_and_yarn/marked-0.3.19" />
+    <MESSAGE value="- Add intersections to box methods (for Arc, Circle, Line, Segment)" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Add intersections to box methods (for Arc, Circle, Line, Segment)" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578641497206">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578641497206" />
+    <state x="972" y="235" key="#xdebugger.evaluate" timestamp="1578641295910">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="972" y="235" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1578641295910" />
+    <state x="781" y="119" key="CommitChangelistDialog2" timestamp="1578595203912">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="781" y="119" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578595203912" />
+    <state width="736" height="466" key="DebuggerActiveHint" timestamp="1578641273125">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="736" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1578641273125" />
+    <state width="1362" height="304" key="GridCell.Tab.0.bottom" timestamp="1578641499545">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578641499545" />
+    <state width="1362" height="304" key="GridCell.Tab.0.center" timestamp="1578641499545">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="304" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578641499545" />
+    <state width="1362" height="304" key="GridCell.Tab.0.left" timestamp="1578641499545">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="304" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578641499545" />
+    <state width="1362" height="304" key="GridCell.Tab.0.right" timestamp="1578641499545">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="304" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578641499545" />
+    <state width="1362" height="280" key="GridCell.Tab.1.bottom" timestamp="1578641474234">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="280" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578641474234" />
+    <state width="1362" height="280" key="GridCell.Tab.1.center" timestamp="1578641474234">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="280" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578641474234" />
+    <state width="1362" height="280" key="GridCell.Tab.1.left" timestamp="1578641474234">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="280" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578641474234" />
+    <state width="1362" height="280" key="GridCell.Tab.1.right" timestamp="1578641474234">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="280" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578641474234" />
+    <state width="1362" height="280" key="GridCell.Tab.2.bottom" timestamp="1578641474235">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="280" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578641474235" />
+    <state width="1362" height="280" key="GridCell.Tab.2.center" timestamp="1578641474234">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="280" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578641474234" />
+    <state width="1362" height="280" key="GridCell.Tab.2.left" timestamp="1578641474234">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="280" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578641474234" />
+    <state width="1362" height="280" key="GridCell.Tab.2.right" timestamp="1578641474235">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="280" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578641474235" />
+    <state width="1362" height="405" key="GridCell.Tab.3.bottom" timestamp="1578641322113">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="405" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578641322113" />
+    <state width="1362" height="405" key="GridCell.Tab.3.center" timestamp="1578641322113">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="405" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578641322113" />
+    <state width="1362" height="405" key="GridCell.Tab.3.left" timestamp="1578641322113">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="405" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578641322113" />
+    <state width="1362" height="405" key="GridCell.Tab.3.right" timestamp="1578641322113">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1362" height="405" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578641322113" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1578592087662">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578592087662" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1074,11 +825,6 @@
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/arc.js</url>
-          <line>66</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/ray.js</url>
           <line>44</line>
         </line-breakpoint>
@@ -1091,328 +837,6 @@
         <watch expression="_index" />
       </configuration>
     </watches-manager>
-  </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="evaluateExpression">
-      <expression>
-        <expression-string>C1/A1</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>set.index.values</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>set.index.height()</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>set.index.testBlackHeightProperty(set.index.root)</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tree.values</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tree.keys</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tree.size</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>Flatten</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>Flatten.Utils.EQ_0(prev_edge.length)</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data_structures/planar_set.js" />
-    <entry file="file://$PROJECT_DIR$/.jsdoc.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/polygon.js" />
-    <entry file="file://$PROJECT_DIR$/classes/face.js" />
-    <entry file="file://$PROJECT_DIR$/docs/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="56" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/utils.js" />
-    <entry file="file://$PROJECT_DIR$/test/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="20" column="94" selection-start-line="20" selection-start-column="94" selection-end-line="20" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/linked_list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2380">
-          <caret line="119" selection-start-line="119" selection-end-line="119" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.nyc_output/2de14a1f-1dd2-4096-8a57-08e8a81394e1.json" />
-    <entry file="file://$PROJECT_DIR$/.nyc_output/184d1974-4062-4e2f-9f32-f0ceec8f545a.json" />
-    <entry file="file://$PROJECT_DIR$/.nyc_output/7f7a379d-abf7-4ab5-b1ed-91fd74b9e6e3.json" />
-    <entry file="file://$PROJECT_DIR$/.nyc_output/859d32ca-f46b-4153-922f-ce8fef06ac83.json" />
-    <entry file="file://$PROJECT_DIR$/.nyc_output/faa621fd-5507-4dd0-97b9-25f4bc4461b4.json" />
-    <entry file="file://$PROJECT_DIR$/src/data_structures/circular_linked_list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/coveralls/bin/coveralls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="31" selection-start-line="8" selection-end-line="12" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/planar_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="80" column="8" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.nyc_output/9c3beb23-b83e-4f7b-92b0-0fd5bab9dfbb.json" />
-    <entry file="file://$PROJECT_DIR$/coverage/lcov-report/index.html" />
-    <entry file="file://$PROJECT_DIR$/coverage/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-174" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="422" column="35" selection-start-line="422" selection-start-column="35" selection-end-line="422" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/intersections.js" />
-    <entry file="file://$PROJECT_DIR$/src/classes/path.js" />
-    <entry file="file://$PROJECT_DIR$/test/flatten.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="61" column="3" selection-start-line="61" selection-start-column="3" selection-end-line="61" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.babelrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/create-react-app/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/create-react-app/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/linked_list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2074">
-          <caret line="123" column="13" selection-start-line="123" selection-start-column="13" selection-end-line="123" selection-end-column="13" />
-          <folding>
-            <element signature="e#15#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/inversion.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ROADMAP.md" />
-    <entry file="file://$PROJECT_DIR$/README.md" />
-    <entry file="file://$PROJECT_DIR$/src/classes/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="300" column="41" lean-forward="true" selection-start-line="300" selection-start-column="41" selection-end-line="300" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#15#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="131" selection-start-line="131" selection-end-line="131" />
-          <folding>
-            <element signature="e#59#89#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/ray.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4743">
-          <caret line="281" column="22" selection-start-line="281" selection-start-column="22" selection-end-line="281" selection-end-column="22" />
-          <folding>
-            <element signature="e#62#95#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/edge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#46#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6579">
-          <caret line="388" column="53" selection-start-line="388" selection-start-column="53" selection-end-line="388" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/intersection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="73" column="25" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/line.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="109" column="25" selection-start-line="109" selection-start-column="25" selection-end-line="109" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/tolerance.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/utils.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1581">
-          <caret line="93" column="82" selection-start-line="93" selection-start-column="82" selection-end-line="93" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
-          <folding>
-            <element signature="e#61#94#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-765" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/ray.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="108" column="18" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
   </component>
   <component name="masterDetails">
     <states>

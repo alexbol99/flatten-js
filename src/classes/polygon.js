@@ -155,11 +155,7 @@ export class Polygon {
     clone() {
         let polygon = new Polygon();
         for (let face of this.faces) {
-            let shapes = [];
-            for (let edge of face) {
-                shapes.push(edge.shape.clone());
-            }
-            polygon.addFace(shapes);
+            polygon.addFace(face.shapes);
         }
         return polygon;
     }
@@ -295,11 +291,7 @@ export class Polygon {
     translate(vec) {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
-            let shapes = [];
-            for (let edge of face) {
-                shapes.push(edge.shape.translate(vec));
-            }
-            newPolygon.addFace(shapes);
+            newPolygon.addFace(face.shapes.map( shape => shape.translate(vec)));
         }
         return newPolygon;
     }
@@ -315,11 +307,7 @@ export class Polygon {
     rotate(angle = 0, center = new Flatten.Point()) {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
-            let shapes = [];
-            for (let edge of face) {
-                shapes.push(edge.shape.rotate(angle, center));
-            }
-            newPolygon.addFace(shapes);
+            newPolygon.addFace(face.shapes.map( shape => shape.rotate(angle, center)));
         }
         return newPolygon;
     }
@@ -332,11 +320,7 @@ export class Polygon {
     transform(matrix = new Flatten.Matrix()) {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
-            let shapes = [];
-            for (let edge of face) {
-                shapes.push(edge.shape.transform(matrix));
-            }
-            newPolygon.addFace(shapes);
+            newPolygon.addFace(face.shapes.map( shape => shape.transform(matrix)));
         }
         return newPolygon;
     }
@@ -369,6 +353,14 @@ export class Polygon {
      */
     toJSON() {
         return [...this.faces].map(face => face.toJSON());
+    }
+
+    /**
+     * Return array of
+     * @returns {Flatten.Polygon[]}
+     */
+    toArray() {
+        return [...this.faces].map(face => face.toPolygon());
     }
 }
 
