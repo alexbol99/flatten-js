@@ -14,7 +14,7 @@ import {ray_shoot} from "../algorithms/ray_shooting";
 export class Edge {
     /**
      * Construct new instance of edge
-     * @param {Shape} shape Shape of type Segment of Arc
+     * @param {Shape} shape Shape of type Segment or Arc
      */
     constructor(shape) {
         /**
