@@ -523,14 +523,14 @@
         // Other_node does not intersect any node of left subtree, if this.left.max < other_node.item.key.low
         not_intersect_left_subtree(search_node) {
             const comparable_less_than = this.item.key.constructor.comparable_less_than;  // static method
-            let high = this.left.max.high ? this.left.max.high : this.left.max;
+            let high = this.left.max.high !== undefined ? this.left.max.high : this.left.max;
             return comparable_less_than(high, search_node.item.key.low);
         }
 
         // Other_node does not intersect right subtree if other_node.item.key.high < this.right.key.low
         not_intersect_right_subtree(search_node) {
             const comparable_less_than = this.item.key.constructor.comparable_less_than;  // static method
-            let low = this.right.max.low ? this.right.max.low : this.right.item.key.low;
+            let low = this.right.max.low !== undefined ? this.right.max.low : this.right.item.key.low;
             return comparable_less_than(search_node.item.key.high, low);
         }
     }
@@ -1791,22 +1791,8 @@
     }
 
     function intersectLine2Box(line, box) {
-        let pts = [
-            new Flatten.Point(box.xmin, box.ymin),
-            new Flatten.Point(box.xmax, box.ymin),
-            new Flatten.Point(box.xmax, box.ymax),
-            new Flatten.Point(box.xmin, box.ymax)
-        ];
-        let segs = [
-            new Flatten.Segment(pts[0], pts[1]),
-            new Flatten.Segment(pts[1], pts[2]),
-            new Flatten.Segment(pts[2], pts[3]),
-            new Flatten.Segment(pts[3], pts[0])
-        ];
-
         let ips = [];
-
-        for (let seg of segs) {
+        for (let seg of box.toSegments()) {
             let ips_tmp = intersectSegment2Line(seg, line);
             for (let ip of ips_tmp) {
                 ips.push(ip);
@@ -1980,7 +1966,18 @@
 
     }
 
-    function intersectCirle2Circle(circle1, circle2) {
+    function intersectSegment2Box(segment, box) {
+        let ips = [];
+        for (let seg of box.toSegments()) {
+            let ips_tmp = intersectSegment2Segment(seg, segment);
+            for (let ip of ips_tmp) {
+                ips.push(ip);
+            }
+        }
+        return ips;
+    }
+
+    function intersectCircle2Circle(circle1, circle2) {
         let ip = [];
 
         if (circle1.box.not_intersect(circle2.box)) {
@@ -2046,6 +2043,17 @@
         return ip;
     }
 
+    function intersectCircle2Box(circle, box) {
+        let ips = [];
+        for (let seg of box.toSegments()) {
+            let ips_tmp = intersectSegment2Circle(seg, circle);
+            for (let ip of ips_tmp) {
+                ips.push(ip);
+            }
+        }
+        return ips;
+    }
+
     function intersectArc2Arc(arc1, arc2) {
         var ip = [];
 
@@ -2105,13 +2113,24 @@
         // Common case
         let circle1 = circle;
         let circle2 = new Flatten.Circle(arc.pc, arc.r);
-        let ip_tmp = intersectCirle2Circle(circle1, circle2);
+        let ip_tmp = intersectCircle2Circle(circle1, circle2);
         for (let pt of ip_tmp) {
             if (pt.on(arc)) {
                 ip.push(pt);
             }
         }
         return ip;
+    }
+
+    function intersectArc2Box(arc, box) {
+        let ips = [];
+        for (let seg of box.toSegments()) {
+            let ips_tmp = intersectSegment2Arc(seg, arc);
+            for (let ip of ips_tmp) {
+                ips.push(ip);
+            }
+        }
+        return ips;
     }
 
     function intersectEdge2Segment(edge, segment) {
@@ -2392,6 +2411,10 @@
 
             if (shape instanceof Flatten.Circle) {
                 return intersectSegment2Circle(this, shape);
+            }
+
+            if (shape instanceof Flatten.Box) {
+                return intersectSegment2Box(this, shape);
             }
 
             if (shape instanceof Flatten.Arc) {
@@ -2741,6 +2764,10 @@
                 return intersectLine2Circle(this, shape);
             }
 
+            if (shape instanceof Flatten.Box) {
+                return intersectLine2Box(this, shape);
+            }
+
             if (shape instanceof Flatten.Segment) {
                 return intersectSegment2Line(shape, this);
             }
@@ -2959,7 +2986,11 @@
             }
 
             if (shape instanceof Flatten.Circle) {
-                return intersectCirle2Circle(shape, this);
+                return intersectCircle2Circle(shape, this);
+            }
+
+            if (shape instanceof Flatten.Box) {
+                return intersectCircle2Box(this, shape);
             }
 
             if (shape instanceof Flatten.Arc) {
@@ -3283,6 +3314,9 @@
             }
             if (shape instanceof Flatten.Segment) {
                 return intersectSegment2Arc(shape, this);
+            }
+            if (shape instanceof Flatten.Box) {
+                return intersectArc2Box(this, shape);
             }
             if (shape instanceof Flatten.Arc) {
                 return intersectArc2Arc(this, shape);
@@ -3715,6 +3749,33 @@
         }
 
         /**
+         * Transform box into array of points from low left corner in counter clockwise
+         * @returns {Point[]}
+         */
+        toPoints() {
+            return [
+                new Flatten.Point(this.xmin, this.ymin),
+                new Flatten.Point(this.xmax, this.ymin),
+                new Flatten.Point(this.xmax, this.ymax),
+                new Flatten.Point(this.xmin, this.ymax)
+            ];
+        }
+
+        /**
+         * Transform box into array of segments from low left corner in counter clockwise
+         * @returns {Segment[]}
+         */
+        toSegments() {
+            let pts = this.toPoints();
+            return [
+                new Flatten.Segment(pts[0], pts[1]),
+                new Flatten.Segment(pts[1], pts[2]),
+                new Flatten.Segment(pts[2], pts[3]),
+                new Flatten.Segment(pts[3], pts[0])
+            ];
+        }
+
+        /**
          * Return string to draw circle in svg
          * @param {Object} attrs - an object with attributes of svg rectangle element,
          * like "stroke", "strokeWidth", "fill" <br/>
@@ -3873,7 +3934,7 @@
     class Edge {
         /**
          * Construct new instance of edge
-         * @param {Shape} shape Shape of type Segment of Arc
+         * @param {Shape} shape Shape of type Segment or Arc
          */
         constructor(shape) {
             /**
@@ -4406,6 +4467,14 @@
         }
 
         /**
+         * Return array of shapes which comprise face
+         * @returns {Array}
+         */
+        get shapes() {
+            return this.edges.map(edge => edge.shape.clone());
+        }
+
+        /**
          * Return bounding box of the face
          * @returns {Box}
          */
@@ -4431,53 +4500,52 @@
         shapes2face(edges, shapes) {
             for (let shape of shapes) {
                 let edge = new Flatten.Edge(shape);
-                this.append(edges, edge);
+                this.append(edge);
                 // this.box = this.box.merge(shape.box);
-                // edges.add(edge);
+                edges.add(edge);
             }
             // this.orientation = this.getOrientation();              // face direction cw or ccw
         }
 
         /**
          * Append given edge after the last edge (and before the first edge). <br/>
-         * This method mutates current object and does not return any value
-         * @param {PlanarSet} edges - Container of edges
          * @param {Edge} edge - Edge to be appended to the linked list
+         * @returns {Face}
          */
-        append(edges, edge) {
+        append(edge) {
             super.append(edge);
             // set arc length
             this.setOneEdgeArcLength(edge);
             edge.face = this;
-            edges.add(edge);      // Add new edges into edges container
+            // edges.add(edge);      // Add new edges into edges container
+            return this;
         }
 
         /**
          * Insert edge newEdge into the linked list after the edge edgeBefore <br/>
-         * This method mutates current object and does not return any value
-         * @param {PlanarSet} edges - Container of edges
          * @param {Edge} newEdge - Edge to be inserted into linked list
          * @param {Edge} edgeBefore - Edge to insert newEdge after it
+         * @returns {Face}
          */
-        insert(edges, newEdge, edgeBefore) {
+        insert(newEdge, edgeBefore) {
             super.insert(newEdge, edgeBefore);
             // set arc length
             this.setOneEdgeArcLength(newEdge);
             newEdge.face = this;
-            edges.add(newEdge);      // Add new edges into edges container
+            return this;
         }
 
         /**
          * Remove the given edge from the linked list of the face <br/>
-         * This method mutates current object and does not return any value
          * @param {PlanarSet} edges - Container of edges
          * @param {Edge} edge - Edge to be removed
+         * @returns {Face}
          */
-        remove(edges, edge) {
+        remove(edge) {
             super.remove(edge);
             // Recalculate arc length
             this.setArcLength();
-            edges.delete(edge);      // delete from PlanarSet of edges and update index
+            return this;
         }
 
         /**
@@ -4661,6 +4729,16 @@
 
             }
             return int_points;
+        }
+
+        /**
+         * Returns new polygon created from one face
+         * @returns {Flatten.Polygon}
+         */
+        toPolygon() {
+            let poly = new Flatten.Polygon();
+            poly.addFace(this.shapes);
+            return poly;
         }
 
         toJSON() {
@@ -4910,8 +4988,8 @@
                 return;
             }
             for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
-                face.remove(this.edges, edge);
-                // this.edges.delete(edge);      // delete from PlanarSet of edges and update index
+                face.remove(edge);
+                this.edges.delete(edge);      // delete from PlanarSet of edges and update index
                 if (face.isEmpty()) {
                     this.deleteFace(face);    // delete from PlanarSet of faces and update index
                     break;
@@ -4935,7 +5013,10 @@
             let edgeBefore = edge.prev;
 
             /* Insert first split edge into linked list after edgeBefore */
-            edge.face.insert(this.edges, newEdge, edgeBefore);
+            edge.face.insert(newEdge, edgeBefore);
+
+            // Insert new edge to the edges container and 2d index
+            this.edges.add(newEdge);
 
             // Remove old edge from edges container and 2d index
             this.edges.delete(edge);
@@ -4963,11 +5044,7 @@
         clone() {
             let polygon = new Polygon();
             for (let face of this.faces) {
-                let shapes = [];
-                for (let edge of face) {
-                    shapes.push(edge.shape.clone());
-                }
-                polygon.addFace(shapes);
+                polygon.addFace(face.shapes);
             }
             return polygon;
         }
@@ -5103,11 +5180,7 @@
         translate(vec) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                let shapes = [];
-                for (let edge of face) {
-                    shapes.push(edge.shape.translate(vec));
-                }
-                newPolygon.addFace(shapes);
+                newPolygon.addFace(face.shapes.map( shape => shape.translate(vec)));
             }
             return newPolygon;
         }
@@ -5123,11 +5196,7 @@
         rotate(angle = 0, center = new Flatten.Point()) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                let shapes = [];
-                for (let edge of face) {
-                    shapes.push(edge.shape.rotate(angle, center));
-                }
-                newPolygon.addFace(shapes);
+                newPolygon.addFace(face.shapes.map( shape => shape.rotate(angle, center)));
             }
             return newPolygon;
         }
@@ -5140,11 +5209,7 @@
         transform(matrix = new Flatten.Matrix()) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                let shapes = [];
-                for (let edge of face) {
-                    shapes.push(edge.shape.transform(matrix));
-                }
-                newPolygon.addFace(shapes);
+                newPolygon.addFace(face.shapes.map( shape => shape.transform(matrix)));
             }
             return newPolygon;
         }
@@ -5177,6 +5242,14 @@
          */
         toJSON() {
             return [...this.faces].map(face => face.toJSON());
+        }
+
+        /**
+         * Return array of
+         * @returns {Flatten.Polygon[]}
+         */
+        toArray() {
+            return [...this.faces].map(face => face.toPolygon());
         }
     }
 

@@ -102,8 +102,8 @@ export class Polygon {
             return;
         }
         for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
-            face.remove(this.edges, edge);
-            // this.edges.delete(edge);      // delete from PlanarSet of edges and update index
+            face.remove(edge);
+            this.edges.delete(edge);      // delete from PlanarSet of edges and update index
             if (face.isEmpty()) {
                 this.deleteFace(face);    // delete from PlanarSet of faces and update index
                 break;
@@ -127,7 +127,10 @@ export class Polygon {
         let edgeBefore = edge.prev;
 
         /* Insert first split edge into linked list after edgeBefore */
-        edge.face.insert(this.edges, newEdge, edgeBefore);
+        edge.face.insert(newEdge, edgeBefore);
+
+        // Insert new edge to the edges container and 2d index
+        this.edges.add(newEdge);
 
         // Remove old edge from edges container and 2d index
         this.edges.delete(edge);

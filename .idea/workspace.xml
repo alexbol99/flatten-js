@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Add intersections to box methods (for Arc, Circle, Line, Segment)">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Add new methods Face::shapes (getter function) and Face::toPolygon(), Polygon::toArray()&#10;- Simplify code for polygon transform methods, add tests, docs updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Arc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Box.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Circle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/CircularLinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/CircularLinkedList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Edge.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Errors.ILLEGAL_PARAMETERS.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.ILLEGAL_PARAMETERS.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Errors.ZERO_DIVISION.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.ZERO_DIVISION.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Face.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Line.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/LinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/LinkedList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Matrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Matrix.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/PlanarSet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Point.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Polygon.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Ray.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Segment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Vector.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_matrix.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_constants.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_constants.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/face.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +68,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
-        <option value="tsconfig.json" />
         <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="tsconfig.json" />
       </list>
     </option>
   </component>
@@ -97,7 +143,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Polygon.Can rotate polygon">
+  <component name="RunManager" selected="npm.build">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -117,11 +163,11 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="publish-npm" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="publish-npm" />
+        <script value="generate-docs" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -187,16 +233,16 @@
       <item itemvalue="Mocha.#Flatten.Polygon.Can translate polygon" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.test" />
-      <item itemvalue="npm.publish-npm" />
       <item itemvalue="Mocha.#Flatten.Polygon.Can rotate polygon" />
+      <item itemvalue="npm.generate-docs" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.build" />
+        <item itemvalue="npm.generate-docs" />
+        <item itemvalue="npm.test" />
         <item itemvalue="Mocha.#Flatten.Polygon.Can rotate polygon" />
         <item itemvalue="Mocha.#Flatten.Polygon.Can translate polygon" />
-        <item itemvalue="npm.test" />
-        <item itemvalue="npm.publish-npm" />
-        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -337,14 +383,7 @@
       <workItem from="1572810281488" duration="1083000" />
       <workItem from="1578055451900" duration="11469000" />
       <workItem from="1578589166143" duration="144000" />
-      <workItem from="1578589389142" duration="12360000" />
-    </task>
-    <task id="LOCAL-00087" summary="Move method setOverlap from BooleanOp package">
-      <created>1523166412468</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1523166412468</updated>
+      <workItem from="1578589389142" duration="18697000" />
     </task>
     <task id="LOCAL-00088" summary="Option to add any valid attribute to svg() methods + tests">
       <created>1523385802528</created>
@@ -682,7 +721,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578130710471</updated>
     </task>
-    <option name="localTasksCounter" value="136" />
+    <task id="LOCAL-00136" summary="- Add new methods Face::shapes (getter function) and Face::toPolygon(), Polygon::toArray()&#10;- Simplify code for polygon transform methods, add tests, docs updated">
+      <created>1578644089358</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1578644089358</updated>
+    </task>
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="TodoView">
@@ -697,8 +743,18 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix vulnerabilities" />
     <MESSAGE value="fix broken test" />
     <MESSAGE value="- Fixed bug with cjs build: PlanarSet cannot be instantiated&#10;See https://github.com/alexbol99/flatten-js/pull/20" />
     <MESSAGE value="- Brunch 1.0.0-beta - initial commit" />
@@ -723,41 +779,46 @@
     <MESSAGE value="- update README.md" />
     <MESSAGE value="- Integrate pull requests and build new version&#10;16eb559 by OldrichDlouhy Fix TypeScript definitions #34&#10;74e333a by dependabot/npm_and_yarn/marked-0.3.19" />
     <MESSAGE value="- Add intersections to box methods (for Arc, Circle, Line, Segment)" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Add intersections to box methods (for Arc, Circle, Line, Segment)" />
+    <MESSAGE value="- Add new methods Face::shapes (getter function) and Face::toPolygon(), Polygon::toArray()&#10;- Simplify code for polygon transform methods, add tests, docs updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Add new methods Face::shapes (getter function) and Face::toPolygon(), Polygon::toArray()&#10;- Simplify code for polygon transform methods, add tests, docs updated" />
   </component>
   <component name="WindowStateProjectService">
     <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578641497206">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578641497206" />
+    <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1578658887338">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1578658887338" />
     <state x="972" y="235" key="#xdebugger.evaluate" timestamp="1578641295910">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="972" y="235" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1578641295910" />
-    <state x="781" y="119" key="CommitChangelistDialog2" timestamp="1578595203912">
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1578659586503">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="781" y="119" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578595203912" />
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578659586503" />
     <state width="736" height="466" key="DebuggerActiveHint" timestamp="1578641273125">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="736" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1578641273125" />
-    <state width="1362" height="304" key="GridCell.Tab.0.bottom" timestamp="1578641499545">
+    <state width="1395" height="301" key="GridCell.Tab.0.bottom" timestamp="1578663165141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1362" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578641499545" />
-    <state width="1362" height="304" key="GridCell.Tab.0.center" timestamp="1578641499545">
+    <state width="1395" height="301" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578663165141" />
+    <state width="1395" height="301" key="GridCell.Tab.0.center" timestamp="1578663165141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1362" height="304" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578641499545" />
-    <state width="1362" height="304" key="GridCell.Tab.0.left" timestamp="1578641499545">
+    <state width="1395" height="301" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578663165141" />
+    <state width="1395" height="301" key="GridCell.Tab.0.left" timestamp="1578663165140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1362" height="304" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578641499545" />
-    <state width="1362" height="304" key="GridCell.Tab.0.right" timestamp="1578641499545">
+    <state width="1395" height="301" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578663165140" />
+    <state width="1395" height="301" key="GridCell.Tab.0.right" timestamp="1578663165141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1362" height="304" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578641499545" />
+    <state width="1395" height="301" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578663165141" />
     <state width="1362" height="280" key="GridCell.Tab.1.bottom" timestamp="1578641474234">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -806,10 +867,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1362" height="405" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578641322113" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1578592087662">
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1578644091990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578592087662" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578644091990" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

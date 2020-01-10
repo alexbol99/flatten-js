@@ -388,21 +388,9 @@ declare namespace Flatten {
         readonly edges: Edge[];
 
         // public methods
-
-        // Overriding methods Face.append(PlanarSet, Edge) has different number of parameters
-        // than refactored method LinkedList.append(LinkedListElement).
-        // also Face.insert(), Face.remove()
-
-
-        append(element: LinkedListElement):LinkedList;
-        append(edges: PlanarSet, edge: Edge): void;
-
-        insert(element: LinkedListElement): LinkedList;
-        insert(edges: PlanarSet, newEdge: Edge, edgeBefore: Edge): void;
-
-        remove(element: LinkedListElement): LinkedList;
-        remove(edges: PlanarSet, edge: Edge): void;
-
+        append(edge: Edge): Face;
+        insert(element: Edge): Face;
+        remove(element: Edge): Face;
         area(): number;
         getRelation(polygon: Polygon): RelationType;
         isSimple(edges: Edge[]): boolean;
@@ -410,6 +398,7 @@ declare namespace Flatten {
         reverse(): void;
         setArcLength(): void;
         signedArea(): number;
+        toPolygon(): Polygon;
         svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
     }
 
@@ -437,10 +426,11 @@ declare namespace Flatten {
         isValid(): boolean;
         removeChain(face: Face, edgeFrom: Edge, edgeTo: Edge): void;
         rotate(angle?: number, center?: Point): Polygon;
-        svg(attrs?: SVGAttributes): string;
         transform(matrix?: Matrix): Polygon;
         translate(vec: Vector): Polygon;
         toJSON() : Object;
+        toArray() : Polygon[];
+        svg(attrs?: SVGAttributes): string;
     }
 
     type Shape = Point | Line | Circle | Box | Segment | Arc | Polygon;

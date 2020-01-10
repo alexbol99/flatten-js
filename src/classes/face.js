@@ -137,7 +137,7 @@ export class Face extends CircularLinkedList {
 
     /**
      * Return array of shapes which comprise face
-     * @returns {(Flatten.Segment | Flatten.Arc)[]}
+     * @returns {Array}
      */
     get shapes() {
         return this.edges.map(edge => edge.shape.clone());
@@ -169,53 +169,52 @@ export class Face extends CircularLinkedList {
     shapes2face(edges, shapes) {
         for (let shape of shapes) {
             let edge = new Flatten.Edge(shape);
-            this.append(edges, edge);
+            this.append(edge);
             // this.box = this.box.merge(shape.box);
-            // edges.add(edge);
+            edges.add(edge);
         }
         // this.orientation = this.getOrientation();              // face direction cw or ccw
     }
 
     /**
      * Append given edge after the last edge (and before the first edge). <br/>
-     * This method mutates current object and does not return any value
-     * @param {PlanarSet} edges - Container of edges
      * @param {Edge} edge - Edge to be appended to the linked list
+     * @returns {Face}
      */
-    append(edges, edge) {
+    append(edge) {
         super.append(edge);
         // set arc length
         this.setOneEdgeArcLength(edge);
         edge.face = this;
-        edges.add(edge);      // Add new edges into edges container
+        // edges.add(edge);      // Add new edges into edges container
+        return this;
     }
 
     /**
      * Insert edge newEdge into the linked list after the edge edgeBefore <br/>
-     * This method mutates current object and does not return any value
-     * @param {PlanarSet} edges - Container of edges
      * @param {Edge} newEdge - Edge to be inserted into linked list
      * @param {Edge} edgeBefore - Edge to insert newEdge after it
+     * @returns {Face}
      */
-    insert(edges, newEdge, edgeBefore) {
+    insert(newEdge, edgeBefore) {
         super.insert(newEdge, edgeBefore);
         // set arc length
         this.setOneEdgeArcLength(newEdge);
         newEdge.face = this;
-        edges.add(newEdge);      // Add new edges into edges container
+        return this;
     }
 
     /**
      * Remove the given edge from the linked list of the face <br/>
-     * This method mutates current object and does not return any value
      * @param {PlanarSet} edges - Container of edges
      * @param {Edge} edge - Edge to be removed
+     * @returns {Face}
      */
-    remove(edges, edge) {
+    remove(edge) {
         super.remove(edge);
         // Recalculate arc length
         this.setArcLength();
-        edges.delete(edge);      // delete from PlanarSet of edges and update index
+        return this;
     }
 
     /**
