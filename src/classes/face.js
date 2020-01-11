@@ -59,12 +59,19 @@ export class Face extends CircularLinkedList {
                 if (shapes.length == 0)
                     return;
 
-                if (shapes.every((shape) => {
-                    return shape instanceof Flatten.Point
-                })) {
+                /* array of Flatten.Points */
+                if (shapes.every((shape) => {return shape instanceof Flatten.Point})) {
                     let segments = Face.points2segments(shapes);
                     this.shapes2face(polygon.edges, segments);
-                } else if (shapes.every((shape) => {
+                }
+                /* array of points as pairs of numbers */
+                else if (shapes.every((shape) => {return shape instanceof Array && shape.length === 2})) {
+                    let points = shapes.map((shape) => new Flatten.Point(shape[0],shape[1]));
+                    let segments = Face.points2segments(points);
+                    this.shapes2face(polygon.edges, segments);
+                }
+                /* array of segments ot arcs */
+                else if (shapes.every((shape) => {
                     return (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc)
                 })) {
                     this.shapes2face(polygon.edges, shapes);
@@ -405,9 +412,7 @@ export class Face extends CircularLinkedList {
      * @returns {Flatten.Polygon}
      */
     toPolygon() {
-        let poly = new Flatten.Polygon();
-        poly.addFace(this.shapes);
-        return poly;
+        return Flatten.Polygon(this.shapes);
     }
 
     toJSON() {

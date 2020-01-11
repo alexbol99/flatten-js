@@ -402,9 +402,13 @@ declare namespace Flatten {
         svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
     }
 
+    type NumericPair = [number,number];
+    type EdgeShape = Point | Segment | Arc ;
+    type LoopOfShapes = Array<EdgeShape | NumericPair>;
+    type MultiLoopOfShapes = Array<LoopOfShapes | Circle | Box>;
 
     class Polygon {
-        constructor();
+        constructor(args?: LoopOfShapes | Circle | Box | MultiLoopOfShapes);
 
         // members
         edges: PlanarSet;

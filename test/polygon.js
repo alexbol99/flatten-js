@@ -92,6 +92,29 @@ describe('#Flatten.Polygon', function() {
         expect([...polygon.faces][1].size).to.equal(1);
         expect([...polygon.faces][1].orientation()).to.equal(Flatten.ORIENTATION.CW);
     });
+    it('Can construct polygon using class constructor', function () {
+        let poly = new Polygon([
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 270),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ]);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(7);
+    });
+    it('Can construct polygon using array of pairs of numbers', function () {
+        let poly = new Polygon( [[1,1], [1,2], [2,2], [2,1]]);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(4);
+    });
+    it('Allow creation of Polygon from a Nested Array of Points #23', function () {
+        let poly = new Polygon([[[1,1],[1,3],[2,3],[2,1]], [[2,2], [2,3], [4,3], [4,2]]]);
+        expect(poly.faces.size).to.equal(2);
+        expect(poly.edges.size).to.equal(8);
+    });
     it('Can remove faces from polygon', function () {
         let polygon = new Polygon();
         let points = [
@@ -121,6 +144,17 @@ describe('#Flatten.Polygon', function() {
         expect(polygon.edges.size).to.equal(0);
         expect(polygon.faces.size).to.equal(0);
 
+    });
+    it('Can construct multi polygon using constructor', function () {
+        let points = [point(1,1), point(5,1), point(3, 5), point(-1,-1), point(-5,-1), point(-3, -5),];
+        let segments1 = [segment(points[0], points[1]), segment(points[1], points[2]), segment(points[2], points[0])];
+        let segments2 = [segment(points[3], points[4]), segment(points[4], points[5]), segment(points[5], points[3])];
+        let polygon = new Polygon([segments1, segments2]);
+
+        expect(polygon.faces.size).to.equal(2);
+        expect(polygon.edges.size).to.equal(6);
+        expect([...polygon.faces][0].size).to.equal(3);
+        expect([...polygon.faces][1].size).to.equal(3);
     });
     it('Can create new instance of the polygon', function() {
         let polygon = new Polygon();

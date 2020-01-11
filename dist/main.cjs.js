@@ -4388,12 +4388,19 @@ class Face extends CircularLinkedList {
                 if (shapes.length == 0)
                     return;
 
-                if (shapes.every((shape) => {
-                    return shape instanceof Flatten.Point
-                })) {
+                /* array of Flatten.Points */
+                if (shapes.every((shape) => {return shape instanceof Flatten.Point})) {
                     let segments = Face.points2segments(shapes);
                     this.shapes2face(polygon.edges, segments);
-                } else if (shapes.every((shape) => {
+                }
+                /* array of points as pairs of numbers */
+                else if (shapes.every((shape) => {return shape instanceof Array && shape.length === 2})) {
+                    let points = shapes.map((shape) => new Flatten.Point(shape[0],shape[1]));
+                    let segments = Face.points2segments(points);
+                    this.shapes2face(polygon.edges, segments);
+                }
+                /* array of segments ot arcs */
+                else if (shapes.every((shape) => {
                     return (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc)
                 })) {
                     this.shapes2face(polygon.edges, shapes);
@@ -4734,9 +4741,7 @@ class Face extends CircularLinkedList {
      * @returns {Flatten.Polygon}
      */
     toPolygon() {
-        let poly = new Flatten.Polygon();
-        poly.addFace(this.shapes);
-        return poly;
+        return Flatten.Polygon(this.shapes);
     }
 
     toJSON() {
@@ -4901,13 +4906,17 @@ Flatten.ray = ray;
  */
 class Polygon {
     /**
-     * Constructor creates new instance of polygon.<br/>
-     * New polygon is empty. Add face to the polygon using method <br/>
-     * <code>
-     *     polygon.addFace(Points[]|Segments[]|Arcs[])
-     * </code>
+     * Constructor creates new instance of polygon. With no arguments new polygon is empty.<br/>
+     * Constructor accepts as argument array that define loop of shapes
+     * or array of arrays in case of multi polygon <br/>
+     * Loop may be defined in different ways: <br/>
+     * - array of shapes of type Segment or Arc <br/>
+     * - array of points (Flatten.Point) <br/>
+     * - array of numeric pairs which represent points <br/>
+     * Alternatively, it is possible to use polygon.addFace method
+     * @param {args} - array of shapes or array of arrays
      */
-    constructor() {
+    constructor(...args) {
         /**
          * Container of faces (closed loops), may be empty
          * @type {PlanarSet}
@@ -4918,6 +4927,26 @@ class Polygon {
          * @type {PlanarSet}
          */
         this.edges = new Flatten.PlanarSet();
+
+        /* It may be array of something that represent one loop (face) or
+         array of arrays that represent multiple loops
+         */
+        if (args.length === 1 && args[0] instanceof Array) {
+            let argsArray = args[0];
+            if (argsArray.every((loop) => {return loop instanceof Array})) {
+                if  (argsArray.every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
+                    this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
+                }
+                else {
+                    for (let loop of argsArray) {   // multi-loop polygon
+                        this.faces.add(new Flatten.Face(this, loop));
+                    }
+                }
+            }
+            else {
+                this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon
+            }
+        }
     }
 
     /**
@@ -5252,6 +5281,12 @@ class Polygon {
 }
 
 Flatten.Polygon = Polygon;
+
+/**
+ * Shortcut method to create new polygon
+ */
+const polygon = (...args) => new Flatten.Polygon(...args);
+Flatten.polygon = polygon;
 
 class Distance {
     /**
