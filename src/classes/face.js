@@ -412,7 +412,7 @@ export class Face extends CircularLinkedList {
      * @returns {Flatten.Polygon}
      */
     toPolygon() {
-        return Flatten.Polygon(this.shapes);
+        return new Flatten.Polygon(this.shapes);
     }
 
     toJSON() {

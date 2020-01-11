@@ -586,4 +586,27 @@ describe('#Flatten.Polygon', function() {
         const contains = poly.contains(pp);
         expect(contains).to.be.equal(false);
     });
+    it('Can split polygon into islands (issue #9 in @flatten-js/boolean-op)', function() {
+        let p1 = point(20, 20);
+        let p2 = point(20, -20);
+        let p3 = point(-20, -20) ;
+        let p4 = point(-20, 20);
+        let p5 = point(10, 10);
+        let p6 = point(10, -10);
+        let p7 = point(-10, -10) ;
+        let p8 = point(-10, 10);
+        let p9 = point(30, 5);
+        let p10 = point(40, 5);
+        let p11 = point(40, -5) ;
+        let p12 = point(30, -5);
+
+        let polygon = new Polygon([[p9, p10, p11, p12],[p1, p2, p3, p4 ],[p5, p8, p7, p6 ]]);
+        let islandsArray = polygon.splitToIslands();
+
+        expect(islandsArray.length).to.equal(2);
+        expect(islandsArray[0].faces.size).to.equal(2);
+        expect(islandsArray[0].edges.size).to.equal(8);
+        expect(islandsArray[1].faces.size).to.equal(1);
+        expect(islandsArray[1].edges.size).to.equal(4);
+    });
 });
