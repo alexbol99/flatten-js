@@ -435,6 +435,7 @@ declare namespace Flatten {
         toJSON() : Object;
         toArray() : Polygon[];
         svg(attrs?: SVGAttributes): string;
+        splitToIslands() : Polygon[];
     }
 
     type Shape = Point | Line | Circle | Box | Segment | Arc | Polygon;

@@ -4737,7 +4737,7 @@ class Face extends CircularLinkedList {
      * @returns {Flatten.Polygon}
      */
     toPolygon() {
-        return Flatten.Polygon(this.shapes);
+        return new Flatten.Polygon(this.shapes);
     }
 
     toJSON() {
@@ -5273,6 +5273,35 @@ class Polygon {
      */
     toArray() {
         return [...this.faces].map(face => face.toPolygon());
+    }
+
+    /**
+     * Split polygon into array of polygons, where each polygon is an island with all
+     * hole that it contains
+     * @returns {Flatten.Polygon[]}
+     */
+    splitToIslands() {
+        let polygons = this.toArray();      // split into array of one-loop polygons
+        /* Sort polygons by area in descending order */
+        polygons.sort( (polygon1, polygon2) => polygon2.area() - polygon1.area() );
+        /* define orientation of the island by orientation of the first polygon in array */
+        let orientation = [...polygons[0].faces][0].orientation();
+        /* Create output array from polygons with same orientation as a first polygon (array of islands) */
+        let newPolygons = polygons.filter( polygon => [...polygon.faces][0].orientation() === orientation);
+        for (let polygon of polygons) {
+            let face = [...polygon.faces][0];
+            if (face.orientation() === orientation) continue;  // skip same orientation
+            /* Proceed with opposite orientation */
+            /* Look if any of island polygons contains tested polygon as a hole */
+            for (let islandPolygon of newPolygons) {
+                if (face.shapes.every(shape => islandPolygon.contains(shape))) {
+                    islandPolygon.addFace(face.shapes);      // add polygon as a hole in islandPolygon
+                    break;
+                }
+            }
+        }
+        // TODO: assert if not all polygons added into output
+        return newPolygons;
     }
 }
 
