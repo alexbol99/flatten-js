@@ -210,15 +210,16 @@ declare namespace Flatten {
     }
 
     class Ray {
-        constructor(pt: Point);
+        norm: Vector;
 
         // members
         pt: Point;
 
+        constructor(pt?: Point, norm?: Vector);
+
         // getters
         readonly start: Point;
         readonly box: Box;
-        readonly norm: Vector;
 
         // public methods
         clone(): Ray;

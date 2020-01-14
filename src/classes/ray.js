@@ -3,30 +3,42 @@
 import Flatten from '../flatten';
 
 /**
- * Class representing a horizontal ray, used by ray shooting algorithm
+ * Class representing a ray.
  * @type {Ray}
  */
 export class Ray {
     /**
-     * Construct ray by setting start point
+     * Ray may be constructed by setting start point and a normal vector
+     * Ray goes to the right direction with respect to the normal vector
+     * If normal vector is omitted ray is considered horizontal (normal vector is (0,1))
+     * If started point is omitted, ray is started at zero point
      * @param {Point} pt - start point
+     * @param {Vector} norm - normal vector
      */
-    constructor(...args) {
+    constructor(pt, norm) {
         this.pt = new Flatten.Point();
+        this.norm = new Flatten.Vector(0,1);
 
         if (args.length == 0) {
             return;
         }
 
-        if (args.length == 1 && args[0] instanceof Flatten.Point) {
+        if (args.length >= 1 && args[0] instanceof Flatten.Point) {
             this.pt = args[0].clone();
+        }
+
+        if (args.length === 1) {
             return;
         }
 
-        if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-            this.pt = new Flatten.Point(args[0], args[1]);
-            return;
+        if (args.length == 2 && args[1] instanceof Flatten.Vector) {
+            this.norm = args[1].clone();
         }
+
+        // if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
+        //     this.pt = new Flatten.Point(args[0], args[1]);
+        //     return;
+        // }
 
         throw Flatten.Errors.ILLEGAL_PARAMETERS;
     }
@@ -45,10 +57,10 @@ export class Ray {
      */
     get box() {
         return new Flatten.Box(
-            this.pt.x,
-            this.pt.y,
-            Number.POSITIVE_INFINITY,
-            this.pt.y
+            this.norm.x >= 0 ? this.pt.x : Number.NEGATIVE_INFINITY,
+            this.norm.y >= 0 ? this.pt.y : Number.NEGATIVE_INFINITY,
+            this.norm.x <= 0 ? this.pt.x : Number.POSITIVE_INFINITY,
+            this.norm.y <= 0 ? this.pt.y : Number.POSITIVE_INFINITY
         )
     }
 
@@ -58,14 +70,6 @@ export class Ray {
      */
     get start() {
         return this.pt;
-    }
-
-    /**
-     * Return ray normal vector (0,1) - horizontal ray
-     * @returns {Vector} - ray normal vector
-     */
-    get norm() {
-        return new Flatten.Vector(0, 1);
     }
 
     /**
