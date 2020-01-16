@@ -30,7 +30,7 @@ describe('#Flatten.Vector', function() {
         expect(vector).to.deep.equal({x:2, y:1});
     });
     it('Constructor Vector([x, y]) creates vector [x, y]', function () {
-        let vector = new Vector(1,1);
+        let vector = new Vector([1,1]);
         expect(vector).to.deep.equal({x:1, y:1});
     });
     it('Constructor Vector with illegal parameters throw error', function () {
@@ -113,6 +113,11 @@ describe('#Flatten.Vector', function() {
         let v2 = vector(1,2);
         expect(v1.subtract(v2)).to.deep.equal({x:1,y:-1});
     });
+    it('Method invert returns inverted vector', function() {
+        let v = new Vector(2,1);
+        expect(v.invert()).to.deep.equal({x:-2,y:-1});
+    });
+
     it ('Method angle returns angle between two vectors', function() {
         let v = vector(3,0);
         let v1 = vector(3,3);

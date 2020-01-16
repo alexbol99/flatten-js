@@ -15,7 +15,7 @@ export class Ray {
      * @param {Point} pt - start point
      * @param {Vector} norm - normal vector
      */
-    constructor(pt, norm) {
+    constructor(...args) {
         this.pt = new Flatten.Point();
         this.norm = new Flatten.Vector(0,1);
 
@@ -33,6 +33,7 @@ export class Ray {
 
         if (args.length == 2 && args[1] instanceof Flatten.Vector) {
             this.norm = args[1].clone();
+            return;
         }
 
         // if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
@@ -52,15 +53,25 @@ export class Ray {
     }
 
     /**
+     * Slope of the ray - angle in radians between ray and axe x from 0 to 2PI
+     * @returns {number} - slope of the line
+     */
+    get slope() {
+        let vec = new Flatten.Vector(this.norm.y, -this.norm.x);
+        return vec.slope;
+    }
+
+    /**
      * Returns half-infinite bounding box of the ray
      * @returns {Box} - bounding box
      */
     get box() {
+        let slope = this.slope;
         return new Flatten.Box(
-            this.norm.x >= 0 ? this.pt.x : Number.NEGATIVE_INFINITY,
-            this.norm.y >= 0 ? this.pt.y : Number.NEGATIVE_INFINITY,
-            this.norm.x <= 0 ? this.pt.x : Number.POSITIVE_INFINITY,
-            this.norm.y <= 0 ? this.pt.y : Number.POSITIVE_INFINITY
+            slope > Math.PI/2 && slope < 3*Math.PI/2 ? Number.NEGATIVE_INFINITY : this.pt.x,
+            slope >= 0 && slope <= Math.PI ? this.pt.y : Number.NEGATIVE_INFINITY,
+            slope >= Math.PI/2 && slope <= 3*Math.PI/2 ? this.pt.x : Number.POSITIVE_INFINITY,
+            slope >= Math.PI && slope <= 2*Math.PI || slope == 0 ? this.pt.y : Number.POSITIVE_INFINITY
         )
     }
 
@@ -70,6 +81,21 @@ export class Ray {
      */
     get start() {
         return this.pt;
+    }
+
+    /**
+     * Returns true if point belongs to ray
+     * @param {Point} pt Query point
+     * @returns {boolean}
+     */
+    contains(pt) {
+        if (this.pt.equalTo(pt)) {
+            return true;
+        }
+        /* Ray contains point if vector to point is orthogonal to the line normal vector
+            and cross product from vector to point is positive */
+        let vec = new Flatten.Vector(this.pt, pt);
+        return Flatten.Utils.EQ_0(this.norm.dot(vec)) && Flatten.Utils.GE(vec.cross(this.norm),0);
     }
 
     /**
@@ -98,7 +124,8 @@ export class Ray {
         let ip_tmp = line.intersect(segment);
 
         for (let pt of ip_tmp) {
-            if (Flatten.Utils.GE(pt.x, ray.start.x)) {
+            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
+            if (ray.contains(pt)) {
                 ip.push(pt);
             }
         }
@@ -124,7 +151,8 @@ export class Ray {
         let ip_tmp = line.intersect(arc);
 
         for (let pt of ip_tmp) {
-            if (Flatten.Utils.GE(pt.x, ray.start.x)) {
+            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
+            if (ray.contains(pt)) {
                 ip.push(pt);
             }
         }

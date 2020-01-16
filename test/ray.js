@@ -88,4 +88,81 @@ describe('#Flatten.Ray', function() {
         expect(ip[0]).to.be.deep.equal(point(3,3));
         expect(ip[1]).to.be.deep.equal(point(9,3));
     });
+    it ('May construct and treat ray by pi/4 slope', function () {
+        let r = ray(point(3,3),vector(Math.cos(3*Math.PI/4), Math.sin(3*Math.PI/4)));
+        let seg = segment(point(10,0),point(0,10));
+        expect(r.slope).to.equal(Math.PI/4);
+        expect(r.box.xmin).to.equal(3);
+        expect(r.box.ymin).to.equal(3);
+        expect(r.box.xmax).to.equal(Number.POSITIVE_INFINITY);
+        expect(r.box.ymax).to.equal(Number.POSITIVE_INFINITY);
+        expect(r.contains(point(5,5))).to.be.true;
+        expect(r.intersect(seg)[0].equalTo(point(5,5))).to.be.true;
+    });
+    it ('May construct and treat ray by pi/2 slope', function () {
+        let r = ray(point(3,3),vector(Math.cos(Math.PI), Math.sin(Math.PI)));
+        let seg = segment(point(-10,5),point(10,5));
+        expect(r.slope).to.equal(Math.PI/2);
+        expect(r.box.xmin).to.equal(3);
+        expect(r.box.ymin).to.equal(3);
+        expect(r.box.xmax).to.equal(3);
+        expect(r.box.ymax).to.equal(Number.POSITIVE_INFINITY);
+        expect(r.contains(point(3,5))).to.be.true;
+        expect(r.intersect(seg)[0].equalTo(point(3,5))).to.be.true;
+    });
+    it ('May construct and treat ray by 3*pi/4 slope', function () {
+        let r = ray(point(-3,3),vector(Math.cos(5*Math.PI/4), Math.sin(5*Math.PI/4)));
+        let seg = segment(point(-10,0),point(0,10));
+        expect(r.slope).to.equal(3*Math.PI/4);
+        expect(r.box.xmin).to.equal(Number.NEGATIVE_INFINITY);
+        expect(r.box.ymin).to.equal(3);
+        expect(r.box.xmax).to.equal(-3);
+        expect(r.box.ymax).to.equal(Number.POSITIVE_INFINITY);
+        expect(r.contains(point(-5,5))).to.be.true;
+        expect(r.intersect(seg)[0].equalTo(point(-5,5))).to.be.true;
+    });
+    it ('May construct and treat ray by pi slope', function () {
+        let r = ray(point(3,3),vector(Math.cos(3*Math.PI/2), Math.sin(3*Math.PI/2)));
+        let seg = segment(point(-10,0),point(-10,5));
+        expect(r.slope).to.equal(Math.PI);
+        expect(r.box.xmin).to.equal(Number.NEGATIVE_INFINITY);
+        expect(r.box.ymin).to.equal(3);
+        expect(r.box.xmax).to.equal(3);
+        expect(r.box.ymax).to.equal(3);
+        expect(r.contains(point(-10,3))).to.be.true;
+        expect(r.intersect(seg)[0].equalTo(point(-10,3))).to.be.true;
+    });
+    it ('May construct and treat ray by 5*pi/4 slope', function () {
+        let r = ray(point(-3,-3),vector(Math.cos(7*Math.PI/4), Math.sin(7*Math.PI/4)));
+        let seg = segment(point(-10,0),point(0,-10));
+        expect(Flatten.Utils.EQ(r.slope,5*Math.PI/4)).to.be.true;
+        expect(r.box.xmin).to.equal(Number.NEGATIVE_INFINITY);
+        expect(r.box.ymin).to.equal(Number.NEGATIVE_INFINITY);
+        expect(r.box.xmax).to.equal(-3);
+        expect(r.box.ymax).to.equal(-3);
+        expect(r.contains(point(-5,-5))).to.be.true;
+        expect(r.intersect(seg)[0].equalTo(point(-5,-5))).to.be.true;
+    });
+    it ('May construct and treat ray by 3*pi/2 slope', function () {
+        let r = ray(point(0,-3),vector(Math.cos(0), Math.sin(0)));
+        let seg = segment(point(10,-5),point(-10,-5));
+        expect(r.slope).to.equal(3*Math.PI/2);
+        expect(r.box.xmin).to.equal(0);
+        expect(r.box.ymin).to.equal(Number.NEGATIVE_INFINITY);
+        expect(r.box.xmax).to.equal(0);
+        expect(r.box.ymax).to.equal(-3);
+        expect(r.contains(point(0,-5))).to.be.true;
+        expect(r.intersect(seg)[0].equalTo(point(0,-5))).to.be.true;
+    });
+    it ('May construct and treat ray by 7*pi/4 slope', function () {
+        let r = ray(point(3,-3),vector(Math.cos(Math.PI/4), Math.sin(Math.PI/4)));
+        let seg = segment(point(10,0),point(0,-10));
+        expect(Flatten.Utils.EQ(r.slope,7*Math.PI/4)).to.be.true;
+        expect(r.box.xmin).to.equal(3);
+        expect(r.box.ymin).to.equal(Number.NEGATIVE_INFINITY);
+        expect(r.box.xmax).to.equal(Number.POSITIVE_INFINITY);
+        expect(r.box.ymax).to.equal(-3);
+        expect(r.contains(point(5,-5))).to.be.true;
+        expect(r.intersect(seg)[0].equalTo(point(5,-5))).to.be.true;
+    });
 });

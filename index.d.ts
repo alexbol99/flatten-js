@@ -214,15 +214,18 @@ declare namespace Flatten {
 
         // members
         pt: Point;
-
-        constructor(pt?: Point, norm?: Vector);
+        readonly slope: number;
 
         // getters
         readonly start: Point;
         readonly box: Box;
 
+        constructor(pt?: Point, norm?: Vector);
+
         // public methods
         clone(): Ray;
+
+        contains(pt: Point): boolean;
         intersect(shape: Segment | Arc): Point[];
     }
 
