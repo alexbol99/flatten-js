@@ -23,6 +23,7 @@ export {ray_shoot} from './src/algorithms/ray_shooting';
 export {Polygon} from './src/classes/polygon';
 export {Distance} from './src/algorithms/distance';
 export {inverse} from './src/algorithms/inversion';
+export {relate, disjoint, equals, touches, intersects} from './src/algorithms/relation';
 
 export {CCW, CW, ORIENTATION, INSIDE, OUTSIDE, BOUNDARY, CONTAINS, INTERLACE, OVERLAP_SAME, OVERLAP_OPPOSITE} from './src/utils/constants';
 

@@ -60,6 +60,57 @@ declare namespace Flatten {
 
     class CircularLinkedList extends LinkedList {}
 
+    type DE9IM_element = Array<Shape> | undefined;
+    /* Isn't possible to set length for tuple ? Really ? */
+    type DE9IM_matrix = [
+        DE9IM_element,DE9IM_element,DE9IM_element,
+        DE9IM_element,DE9IM_element,DE9IM_element,
+        DE9IM_element,DE9IM_element,DE9IM_element
+    ];
+
+    class DE9IM {
+        // member
+        m: DE9IM_matrix;
+
+        get I2I();
+
+        set I2I(geom: Array<Shape>);
+
+        get I2B();
+
+        set I2B(geom: Array<Shape>);
+
+        get I2E();
+
+        set I2E(geom: Array<Shape>);
+
+        get B2I();
+
+        set B2I(geom: Array<Shape>);
+
+        get B2B();
+
+        set B2B(geom: Array<Shape>);
+
+        get B2E();
+
+        set B2E(geom: Array<Shape>);
+
+        get E2I();
+
+        set E2I(geom: Array<Shape>);
+
+        get E2B();
+
+        set E2B(geom: Array<Shape>);
+
+        get E2E();
+
+        set E2E(geom: Array<Shape>);
+
+        toString() : string;
+    }
+
     class Arc {
         constructor(
             pc?: Point,
