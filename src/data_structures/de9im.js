@@ -21,7 +21,6 @@ class DE9IM {
     /**
      * Set Interior To Interior intersection
      * @param geom
-     * @constructor
      */
     set I2I(geom) {
         this.m[0] = geom;
@@ -34,7 +33,6 @@ class DE9IM {
     /**
      * Set Interior to Boundary intersection
      * @param geom
-     * @constructor
      */
     set I2B(geom) {
         this.m[1] = geom;
@@ -47,7 +45,6 @@ class DE9IM {
     /**
      * Set Interior to Exterior intersection
      * @param geom
-     * @constructor
      */
     set I2E(geom) {
         this.m[2] = geom;
@@ -60,7 +57,6 @@ class DE9IM {
     /**
      * Set Boundary to Interior intersection
      * @param geom
-     * @constructor
      */
     set B2I(geom) {
         this.m[3] = geom;
@@ -73,7 +69,6 @@ class DE9IM {
     /**
      * Set Boundary to Boundary intersection
      * @param geom
-     * @constructor
      */
     set B2B(geom) {
         this.m[4] = geom;
@@ -86,7 +81,6 @@ class DE9IM {
     /**
      * Set Boundary to Exterior intersection
      * @param geom
-     * @constructor
      */
     set B2E(geom) {
         this.m[5] = geom;
@@ -99,7 +93,6 @@ class DE9IM {
     /**
      * Set Exterior to Interior intersection
      * @param geom
-     * @constructor
      */
     set E2I(geom) {
         this.m[6] = geom;
@@ -112,7 +105,6 @@ class DE9IM {
     /**
      * Set Exterior to Boundary intersection
      * @param geom
-     * @constructor
      */
     set E2B(geom) {
         this.m[7] = geom;
@@ -125,7 +117,6 @@ class DE9IM {
     /**
      * Set Exterior to Exterior intersection
      * @param geom
-     * @constructor
      */
     set E2E(geom) {
         this.m[8] = geom;
