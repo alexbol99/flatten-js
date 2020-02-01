@@ -2614,6 +2614,8 @@ Flatten.segment = segment;
  * Created by Alex Bol on 2/20/2017.
  */
 
+let {vector: vector$1} = Flatten;
+
 /**
  * Class representing a line
  * @type {Line}
@@ -2632,7 +2634,8 @@ class Line {
         this.pt = new Flatten.Point();
         /**
          * Normal vector to a line <br/>
-         * Vector is normalized (length == 1)
+         * Vector is normalized (length == 1)<br/>
+         * Direction of the vector is chosen to satisfy inequality norm * p >= 0
          * @type {Vector}
          */
         this.norm = new Flatten.Vector(0, 1);
@@ -2655,6 +2658,9 @@ class Line {
             if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Point) {
                 this.pt = a1;
                 this.norm = Line.points2norm(a1, a2);
+                if (this.norm.dot(vector$1(this.pt.x,this.pt.y)) >= 0) {
+                    this.norm.invert();
+                }
                 return;
             }
 
@@ -2665,6 +2671,9 @@ class Line {
                 this.pt = a1.clone();
                 this.norm = a2.clone();
                 this.norm = this.norm.normalize();
+                if (this.norm.dot(vector$1(this.pt.x,this.pt.y)) >= 0) {
+                    this.norm.invert();
+                }
                 return;
             }
 
@@ -2675,6 +2684,9 @@ class Line {
                 this.pt = a2.clone();
                 this.norm = a1.clone();
                 this.norm = this.norm.normalize();
+                if (this.norm.dot(vector$1(this.pt.x,this.pt.y)) >= 0) {
+                    this.norm.invert();
+                }
                 return;
             }
         }
@@ -2742,6 +2754,35 @@ class Line {
         /* Line contains point if vector to point is orthogonal to the line normal vector */
         let vec = new Flatten.Vector(this.pt, pt);
         return Flatten.Utils.EQ_0(this.norm.dot(vec));
+    }
+
+    /**
+     * Return coordinate of the point that lays on the line in the transformed
+     * coordinate system where center is the projection of the point(0,0) to
+     * the line and axe y is collinear to the normal vector. <br/>
+     * This method assumes that point is on the line and does not check this
+     * @param pt
+     * @returns {number}
+     */
+    coord(pt) {
+        return vector$1(pt.x, pt.y).cross(this.norm);
+    }
+
+    /**
+     * Sort given array of points that lay on line with respect to coordinate on a line
+     * The method assumes that points lay on the line and does not check this
+     * @param {Point[]} pointsArray
+     */
+    sortPointsOnLine(pointsArray) {
+        pointsArray.sort( (pt1, pt2) => {
+            if (this.coord(pt1) < this.coord(pt2)) {
+                return -1;
+            }
+            if (this.coord(pt1) > this.coord(pt2)) {
+                return 1;
+            }
+            return 0;
+        });
     }
 
     /**
@@ -4164,14 +4205,19 @@ class LinkedList {
     }
 
     /**
-     * Return array of elements from first to last
+     * Return array of elements from start to end,
+     * If start or end not defined, take first as start, last as end
      * @returns {Array}
      */
-    toArray() {
+    toArray(start=undefined, end=undefined) {
         let elements = [];
-        for (let element of this) {
+        let from = start || this.first;
+        let to = end || this.last;
+        let element = from;
+        do {
             elements.push(element);
-        }
+            element = element.next;
+        } while (element !== to.next);
         return elements;
     }
 
@@ -4671,7 +4717,7 @@ class Face extends CircularLinkedList {
 
     /**
      * Returns true if face of the polygon is simple (no self-intersection points found)
-     * NOTE: this method is incomplete because it doe not exclude touching points
+     * NOTE: this method is incomplete because it does not exclude touching points
      * Real self intersection inverts orientation of the polygon.
      * But this is also good enough for the demonstration of the idea
      * @param {Edges} edges - reference to polygon.edges to provide search index
@@ -4734,6 +4780,22 @@ class Face extends CircularLinkedList {
 
         }
         return int_points;
+    }
+
+    /**
+     * Returns edge which contains given point
+     * @param {Point} pt
+     * @returns {Edge}
+     */
+    findEdgeByPoint(pt) {
+        let edgeFound;
+        for (let edge of this) {
+            if (edge.shape.contains(pt)) {
+                edgeFound = edge;
+                break;
+            }
+        }
+        return edgeFound;
     }
 
     /**
@@ -6004,6 +6066,320 @@ function inverse(shape, inversion_circle) {
     }
 }
 
+/*
+    Dimensionally extended 9-intersected model
+    See https://en.wikipedia.org/wiki/DE-9IM for more details
+ */
+class DE9IM {
+    /**
+     * Create new instance of DE9IM matrix
+     */
+    constructor() {
+        /**
+         * Array representing 3x3 intersection matrix
+         * @type {any[]}
+         */
+        this.m = new Array(9).fill(undefined);
+    }
+
+    get I2I() {
+        return this.m[0];
+    }
+
+    /**
+     * Set Interior To Interior intersection
+     * @param geom
+     */
+    set I2I(geom) {
+        this.m[0] = geom;
+    }
+
+    get I2B() {
+        return this.m[1];
+    }
+
+    /**
+     * Set Interior to Boundary intersection
+     * @param geom
+     */
+    set I2B(geom) {
+        this.m[1] = geom;
+    }
+
+    get I2E() {
+        return this.m[2];
+    }
+
+    /**
+     * Set Interior to Exterior intersection
+     * @param geom
+     */
+    set I2E(geom) {
+        this.m[2] = geom;
+    }
+
+    get B2I() {
+        return this.m[3];
+    }
+
+    /**
+     * Set Boundary to Interior intersection
+     * @param geom
+     */
+    set B2I(geom) {
+        this.m[3] = geom;
+    }
+
+    get B2B() {
+        return this.m[4];
+    }
+
+    /**
+     * Set Boundary to Boundary intersection
+     * @param geom
+     */
+    set B2B(geom) {
+        this.m[4] = geom;
+    }
+
+    get B2E() {
+        return this.m[5];
+    }
+
+    /**
+     * Set Boundary to Exterior intersection
+     * @param geom
+     */
+    set B2E(geom) {
+        this.m[5] = geom;
+    }
+
+    get E2I() {
+        return this.m[6];
+    }
+
+    /**
+     * Set Exterior to Interior intersection
+     * @param geom
+     */
+    set E2I(geom) {
+        this.m[6] = geom;
+    }
+
+    get E2B() {
+        return this.m[7];
+    }
+
+    /**
+     * Set Exterior to Boundary intersection
+     * @param geom
+     */
+    set E2B(geom) {
+        this.m[7] = geom;
+    }
+
+    get E2E() {
+        return this.m[8];
+    }
+
+    /**
+     * Set Exterior to Exterior intersection
+     * @param geom
+     */
+    set E2E(geom) {
+        this.m[8] = geom;
+    }
+
+    /**
+     * Return de9im matrix as string where<br/>
+     * - intersection is 'T'<br/>
+     * - not intersected is 'F'<br/>
+     * - not relevant is '*'<br/>
+     * For example, string 'FF**FF****' means 'DISJOINT'
+     * @returns {string}
+     */
+    toString() {
+        return this.m.map( e => {
+            if (e instanceof Array && e.length > 0) {
+                return 'T'
+            }
+            else if (e instanceof Array && e.length === 0) {
+                return 'F'
+            }
+            else {
+                return '*'
+            }
+        }).join("")
+    }
+}
+
+/*
+    Intersection points is a supplement structure for calculation
+    of arrangements in polygon. It connects intersection points to the
+    edges and faces of the polygon and helps to perform clip and split of the polygon
+ */
+
+/*
+    Calculate relationship between two shapes and return result in the form of
+    Dimensionally Extended nine-Intersection Matrix (https://en.wikipedia.org/wiki/DE-9IM)
+ */
+
+let {vector: vector$2,ray: ray$1,segment: segment$1,arc: arc$1,polygon: polygon$1} = Flatten;
+
+const DISJOINT = RegExp('FF.FF....');
+const EQUALS = RegExp('T.F..FFF.');
+const INTERSECTS = RegExp('T........|.T.......|...T.....|....T....');
+const TOUCHES = RegExp('FT.......|F..T.....|F...T....');
+
+/**
+ * Returns true if shapes have no points in common neither in interior nor in boundary
+ * @param shape1
+ * @param shape2
+ * @returns {boolean}
+ */
+function disjoint(shape1, shape2) {
+    let denim = relate(shape1, shape2);
+    return DISJOINT.test(denim.toString());
+}
+
+/**
+ * Returns true is shapes topologically equal:  their interiors intersect and
+ * no part of the interior or boundary of one geometry intersects the exterior of the other
+ * @param shape1
+ * @param shape2
+ * @returns {boolean}
+ */
+function equals(shape1, shape2) {
+    let denim = relate(shape1, shape2);
+    return EQUALS.test(denim.toString());
+}
+
+/**
+ * Returns true is shapes have at least one point in common, same as "not disjoint"
+ * @param shape1
+ * @param shape2
+ * @returns {boolean}
+ */
+function intersects(shape1, shape2) {
+    let denim = relate(shape1, shape2);
+    return INTERSECTS.test(denim.toString());
+}
+
+/**
+ * Returns true if shapes have at least one point in common, but their interiors do not intersect
+ * @param shape1
+ * @param shape2
+ * @returns {boolean}
+ */
+function touches(shape1, shape2) {
+    let denim = relate(shape1, shape2);
+    return TOUCHES.test(shape1, shape2);
+}
+
+/**
+ * Returns relation between two shapes as intersection 3x3 matrix, where each
+ * element contains relevant intersection as array of shapes.
+ * If there is no intersection, element contains empty array
+ * If intersection is irrelevant it left undefined. (For example, intersection
+ * between two exteriors is usually irrelevant)
+ * @param shape1
+ * @param shape2
+ * @returns {DE9IM}
+ */
+function relate(shape1, shape2) {
+    if (shape1 instanceof Flatten.Line && shape2 instanceof Flatten.Line) {
+        return relateLine2Line(shape1,  shape2);
+    }
+    else if (shape1 instanceof Flatten.Line && shape2 instanceof Flatten.Circle) {
+        return relateLine2Circle(shape1, shape2);
+    }
+}
+
+/**
+ * Return intersection between 2 lines as intersection matrix <br/>
+ * Note, the lines has no boundary so intersection between boundaries is irrelevant <br/>
+ * @param {Line} line1
+ * @param {Line} line2
+ * @returns {DE9IM}
+ */
+function relateLine2Line(line1, line2) {
+    let denim = new DE9IM();
+    let ip = intersectLine2Line(line1, line2);
+    if (ip.num === 0) {       // parallel or equal ?
+        if (line1.contains(line2.pt) && line2.contains(line1.pt)) {
+            denim.I2I = [line1];   // equal  'T*F**FFF*'
+            denim.I2E = denim.E2I = [];
+        }
+        else {                     // parallel - disjoint 'FFTFF*T**'
+            denim.I2I = [];
+            denim.I2E = [line1];
+            denim.E2I = [line2];
+        }
+    }
+    else {                       // intersected   'T********'
+        denim.I2I = ip;
+        denim.I2E = [ray$1(line1.pt, line1.norm), ray$1(line1.pt, line1.norm.invert())];
+        denim.E2I = [ray$1(line2.pt, line2.norm), ray$1(line2.pt, line2.norm.invert())];
+    }
+    return denim;
+}
+
+/**
+ * Return intersection between lines and circle as intersection matrix <br/>
+ * Intersection between line interior abd circle boundary are one or two intersection points
+ * Intersection between line interior and circle interior is a line segment inside circle
+ * Intersection between line interior and circle exterior are two rays outside circle
+ * Intersection between line exterior and circle interior are two circle segments cut by lines
+ * Other relations are irrelevant
+ * @param {Line} line
+ * @param {Circle} circle
+ * @returns {DE9IM}
+ */
+function relateLine2Circle(line,circle) {
+    let denim = new DE9IM();
+    let ip = intersectLine2Circle(line, circle);
+    if (ip.num === 0) {
+        denim.I2I = denim.I2B = [];
+        denim.I2E = [line];
+        denim.E2I = [circle];
+    }
+    else if (ip.num === 1) {
+        denim.I2I = [];
+        denim.I2B = ip;
+        /* I2E are two rays from intersection point */
+        let ray0 = ray$1(ip[0], line.norm.invert());
+        let ray1 = ray$1(ip[1], line.norm);
+        denim.I2E = [ray0, ray1];
+
+        denim.E2I = [circle];
+    }
+    else {       // ip.num == 2
+        line.sortPointsOnLine(ip);          // sort points on line
+
+        denim.I2I = segment$1(ip[0], ip[1]);
+        denim.I2B = ip;
+        /* I2E are two rays from intersection points outside of the circle */
+        let ray0 = ray$1(ip[0], line.norm.invert());
+        let ray1 = ray$1(ip[1], line.norm.invert());
+        denim.I2E = [ray0, ray1];
+
+        /* E2I are two circular segments. Choose the ccw orientation of the arcs */
+        let angle0 = vector$2(circle.pc, ip[0]).slope;
+        let angle1 = vector$2(circle.pc, ip[1].slope);
+        let poly1 = polygon$1([
+            arc$1(circle.pc, circle.r, angle0, angle1, Flatten.CCW),
+            segment$1(ip[1], ip[0])
+        ]);
+        let poly2 = polygon$1([
+            arc$1(circle.pc, circle.r, angle1, angle0, Flatten.CCW),
+            segment$1(ip[0], ip[1])
+        ]);
+        denim.E2I = [poly1, poly2];
+    }
+
+    return denim;
+}
+
 /**
  * Created by Alex Bol on 2/18/2017.
  */
@@ -6038,11 +6414,16 @@ exports.arc = arc;
 exports.box = box;
 exports.circle = circle;
 exports.default = Flatten;
+exports.disjoint = disjoint;
+exports.equals = equals;
+exports.intersects = intersects;
 exports.inverse = inverse;
 exports.line = line;
 exports.matrix = matrix;
 exports.point = point;
 exports.ray = ray;
 exports.ray_shoot = ray_shoot;
+exports.relate = relate;
 exports.segment = segment;
+exports.touches = touches;
 exports.vector = vector;

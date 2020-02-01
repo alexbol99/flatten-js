@@ -30,14 +30,19 @@ class LinkedList {
     }
 
     /**
-     * Return array of elements from first to last
+     * Return array of elements from start to end,
+     * If start or end not defined, take first as start, last as end
      * @returns {Array}
      */
-    toArray() {
+    toArray(start=undefined, end=undefined) {
         let elements = [];
-        for (let element of this) {
+        let from = start || this.first;
+        let to = end || this.last;
+        let element = from;
+        do {
             elements.push(element);
-        }
+            element = element.next;
+        } while (element !== to.next);
         return elements;
     }
 

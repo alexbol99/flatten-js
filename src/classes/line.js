@@ -6,6 +6,8 @@
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
 
+let {vector} = Flatten;
+
 /**
  * Class representing a line
  * @type {Line}
@@ -24,7 +26,8 @@ export class Line {
         this.pt = new Flatten.Point();
         /**
          * Normal vector to a line <br/>
-         * Vector is normalized (length == 1)
+         * Vector is normalized (length == 1)<br/>
+         * Direction of the vector is chosen to satisfy inequality norm * p >= 0
          * @type {Vector}
          */
         this.norm = new Flatten.Vector(0, 1);
@@ -47,6 +50,9 @@ export class Line {
             if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Point) {
                 this.pt = a1;
                 this.norm = Line.points2norm(a1, a2);
+                if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
+                    this.norm.invert();
+                }
                 return;
             }
 
@@ -57,6 +63,9 @@ export class Line {
                 this.pt = a1.clone();
                 this.norm = a2.clone();
                 this.norm = this.norm.normalize();
+                if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
+                    this.norm.invert();
+                }
                 return;
             }
 
@@ -67,6 +76,9 @@ export class Line {
                 this.pt = a2.clone();
                 this.norm = a1.clone();
                 this.norm = this.norm.normalize();
+                if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
+                    this.norm.invert();
+                }
                 return;
             }
         }
@@ -134,6 +146,35 @@ export class Line {
         /* Line contains point if vector to point is orthogonal to the line normal vector */
         let vec = new Flatten.Vector(this.pt, pt);
         return Flatten.Utils.EQ_0(this.norm.dot(vec));
+    }
+
+    /**
+     * Return coordinate of the point that lays on the line in the transformed
+     * coordinate system where center is the projection of the point(0,0) to
+     * the line and axe y is collinear to the normal vector. <br/>
+     * This method assumes that point is on the line and does not check this
+     * @param pt
+     * @returns {number}
+     */
+    coord(pt) {
+        return vector(pt.x, pt.y).cross(this.norm);
+    }
+
+    /**
+     * Sort given array of points that lay on line with respect to coordinate on a line
+     * The method assumes that points lay on the line and does not check this
+     * @param {Point[]} pointsArray
+     */
+    sortPointsOnLine(pointsArray) {
+        pointsArray.sort( (pt1, pt2) => {
+            if (this.coord(pt1) < this.coord(pt2)) {
+                return -1;
+            }
+            if (this.coord(pt1) > this.coord(pt2)) {
+                return 1;
+            }
+            return 0;
+        })
     }
 
     /**

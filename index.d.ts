@@ -54,7 +54,7 @@ declare namespace Flatten {
         append(element: LinkedListElement): LinkedList;
         insert(newElement: LinkedListElement, prevElement: LinkedListElement): LinkedList;
         remove(element: LinkedListElement): LinkedList;
-        toArray(): LinkedListElement[];
+        toArray(start?: LinkedListElement, end?: LinkedListElement): LinkedListElement[];
         isEmpty(): boolean;
     }
 
@@ -228,6 +228,8 @@ declare namespace Flatten {
         incidentTo(line: Line): boolean;
         intersect(shape: Shape): Point[];
         parallelTo(line: Line): boolean;
+        coord(pt: Point): number;
+        sortPointsOnLine(points: Point[]): undefined;
         svg(box: Box, attrs?: SVGAttributes): string;
         toJSON() : Object;
     }
@@ -453,6 +455,7 @@ declare namespace Flatten {
         reverse(): void;
         setArcLength(): void;
         signedArea(): number;
+        findEdgeByPoint(pt: Point): Edge | undefined;
         toPolygon(): Polygon;
         svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
     }

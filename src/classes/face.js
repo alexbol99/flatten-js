@@ -342,7 +342,7 @@ export class Face extends CircularLinkedList {
 
     /**
      * Returns true if face of the polygon is simple (no self-intersection points found)
-     * NOTE: this method is incomplete because it doe not exclude touching points
+     * NOTE: this method is incomplete because it does not exclude touching points
      * Real self intersection inverts orientation of the polygon.
      * But this is also good enough for the demonstration of the idea
      * @param {Edges} edges - reference to polygon.edges to provide search index
@@ -405,6 +405,22 @@ export class Face extends CircularLinkedList {
 
         }
         return int_points;
+    }
+
+    /**
+     * Returns edge which contains given point
+     * @param {Point} pt
+     * @returns {Edge}
+     */
+    findEdgeByPoint(pt) {
+        let edgeFound;
+        for (let edge of this) {
+            if (edge.shape.contains(pt)) {
+                edgeFound = edge;
+                break;
+            }
+        }
+        return edgeFound;
     }
 
     /**
