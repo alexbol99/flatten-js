@@ -532,4 +532,5 @@ declare namespace Flatten.Utils {
     function LE(x: number, y: number) : boolean;
 }
 
-export default Flatten;
+export = Flatten;
+export as namespace Flatten;
