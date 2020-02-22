@@ -4969,7 +4969,7 @@
         /**
          * Split ray with point and return array of segment and new ray
          * @param pt
-         * @returns {[Segment,Ray]}
+         * @returns [Segment,Ray]
          */
         split(pt) {
             if (!this.contains(pt))
@@ -5041,6 +5041,22 @@
             }
             return ip;
         }
+
+        /**
+         * Return string to draw svg segment representing ray inside given box
+         * @param {Box} box Box representing drawing area
+         * @param {Object} attrs - an object with attributes of svg segment element
+         */
+        svg(box, attrs = {}) {
+            let line = new Flatten.Line(this.pt, this.norm);
+            let ip = intersectLine2Box(line, box);
+            ip.filter( pt => this.contains(pt) );
+            if (ip.length === 0 || ip.length === 2)
+                return "";
+            let segment = new Flatten.Segment(this.pt, ip[0]);
+            return segment.svg(attrs);
+        }
+
     }
     Flatten.Ray = Ray;
 
