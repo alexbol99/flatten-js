@@ -139,14 +139,22 @@ export class Polygon {
      * Add point as a new vertex and split edge. Point supposed to belong to an edge.
      * When edge is split, new edge created from the start of the edge to the new vertex
      * and inserted before current edge.
-     * Current edge is trimmed and updated. Method returns new edge added.
+     * Current edge is trimmed and updated.
+     * Method returns new edge added. If no edge added, it returns edge before vertex
      * @param {Edge} edge Edge to be split with new vertex and then trimmed from start
      * @param {Point} pt Point to be added as a new vertex
      * @returns {Edge}
      */
     addVertex(pt, edge) {
         let shapes = edge.shape.split(pt);
-        if (shapes.length < 2) return;
+        // if (shapes.length < 2) return;
+
+        if (shapes[0] === undefined)   // point incident to edge start vertex, return previous edge
+            return edge.prev;
+
+        if (shapes[1] === undefined)   // point incident to edge end vertex, return edge itself
+            return edge;
+
         let newEdge = new Flatten.Edge(shapes[0]);
         let edgeBefore = edge.prev;
 
@@ -166,6 +174,60 @@ export class Polygon {
         this.edges.add(edge);
 
         return newEdge;
+    }
+
+    cutFace(pt1, pt2) {
+        let edge1 = this.findEdgeByPoint(pt1);
+        let edge2 = this.findEdgeByPoint(pt2);
+        if (edge1.face != edge2.face) return;
+
+        // Cut face into two and create new polygon with two faces
+        let edgeBefore1 = polygon.addVertex(pt1, edge1);
+        let edgeBefore2 = polygon.addVertex(pt2, edge2);
+
+        let face = edgeBefore1.face;
+        let newEdge1 = new Flatten.Edge(
+            new Flatten.Segment(edgeBefore1.end, edgeBefore2.end)
+        );
+        let newEdge2 = new Flatten.Edge(
+            new Flatten.Segment(edgeBefore2.end, edgeBefore1.end)
+        );
+
+        // Swap links
+        edgeBefore1.next.prev = newEdge2;
+        newEdge2.next = edgeBefore1.next;
+
+        edgeBefore1.next = newEdge1;
+        newEdge1.prev = edgeBefore1;
+
+        edgeBefore2.next.prev = newEdge1;
+        newEdge1.next = edgeBefore2.next;
+
+        edgeBefore2.next = newEdge2;
+        newEdge2.prev = edgeBefore2;
+
+        // Insert new edge to the edges container and 2d index
+        this.edges.add(newEdge1);
+        this.edges.add(newEdge2);
+
+        // Add two new faces
+        let face1 = this.addFace(newEdge1, edgeBefore1);
+        let face2 = this.addFace(newEdge2, edgeBefore2);
+
+        // Remove old face
+        this.faces.delete(face);
+
+        return [face1, face2];
+    }
+
+    findEdgeByPoint(pt) {
+        let edge;
+        for (let face of this.faces) {
+            edge = face.findEdgeByPoint(pt);
+            if (edge != undefined)
+                break;
+        }
+        return edge;
     }
 
     reverse() {

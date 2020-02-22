@@ -18,6 +18,7 @@ let Flatten = {
     Face: undefined,
     Ray: undefined,
     Ray_shooting: undefined,
+    Multiline: undefined,
     Polygon: undefined,
     Distance: undefined,
 };

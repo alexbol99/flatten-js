@@ -171,6 +171,7 @@
         Face: undefined,
         Ray: undefined,
         Ray_shooting: undefined,
+        Multiline: undefined,
         Polygon: undefined,
         Distance: undefined,
     };
@@ -2504,14 +2505,11 @@
          * @returns {Segment[]}
          */
         split(pt) {
-            if (!this.contains(pt))
-                return [];
+            if (this.start.equalTo(pt))
+                return [undefined, this.clone()];
 
-            if (this.start.equalTo(this.end))
-                return [this.clone()];
-
-            if (this.start.equalTo(pt) || this.end.equalTo(pt))
-                return [this];
+            if (this.end.equalTo(pt))
+                return [this.clone(), undefined];
 
             return [
                 new Flatten.Segment(this.start, pt),
@@ -2704,6 +2702,44 @@
             return new Flatten.Line(this.pt, this.norm);
         }
 
+        /* The following methods need for implementation of Edge interface
+        /**
+         * Line has no start point
+         * @returns {undefined}
+         */
+        get start() {return undefined;}
+
+        /**
+         * Line has no end point
+         */
+        get end() {return undefined;}
+
+        /**
+         * Return positive infinity number as length
+         * @returns {number}
+         */
+        get length() {return Number.POSITIVE_INFINITY;}
+
+        /**
+         * Returns infinite box
+         * @returns {Box}
+         */
+        get box() {
+            return new Flatten.Box(
+                Number.NEGATIVE_INFINITY,
+                Number.NEGATIVE_INFINITY,
+                Number.POSITIVE_INFINITY,
+                Number.POSITIVE_INFINITY
+            )
+        }
+
+        /**
+         * Middle point is undefined
+         * @returns {undefined}
+         */
+
+        get middle() {return undefined}
+
         /**
          * Slope of the line - angle in radians between line and axe x from 0 to 2PI
          * @returns {number} - slope of the line
@@ -2771,20 +2807,17 @@
         }
 
         /**
-         * Sort given array of points that lay on line with respect to coordinate on a line
-         * The method assumes that points lay on the line and does not check this
-         * @param {Point[]} pointsArray
+         * Split line with point and return array of two rays
+         * @param pt
+         * @returns {Ray[]}
          */
-        sortPointsOnLine(pointsArray) {
-            pointsArray.sort( (pt1, pt2) => {
-                if (this.coord(pt1) < this.coord(pt2)) {
-                    return -1;
-                }
-                if (this.coord(pt1) > this.coord(pt2)) {
-                    return 1;
-                }
-                return 0;
-            });
+        split(pt) {
+            if (!this.contains(pt))
+                return [];
+
+            return [
+                new Flatten.Ray(this.pt, this.norm.invert()),
+                new Flatten.Ray(this.pt, this.norm)];
         }
 
         /**
@@ -3303,14 +3336,11 @@
          * @returns {Arc[]}
          */
         split(pt) {
-            if (!this.contains(pt))
-                return [];
+            if (this.start.equalTo(pt))
+                return [undefined, this.clone()];
 
-            if (Flatten.Utils.EQ_0(this.sweep))
-                return [this.clone()];
-
-            if (this.start.equalTo(pt) || this.end.equalTo(pt))
-                return [this.clone()];
+            if (this.end.equalTo(pt))
+                return [this.clone(), undefined];
 
             let angle = new Flatten.Vector(this.pc, pt).slope;
 
@@ -3985,16 +4015,16 @@
             /**
              * Pointer to the next edge in the face
              */
-            this.next;
+            this.next = undefined;
             /**
              * Pointer to the previous edge in the face
              */
-            this.prev;
+            this.prev = undefined;
             /**
              * Pointer to the face containing this edge
              * @type {Face}
              */
-            this.face;
+            this.face = undefined;
             /**
              * "Arc distance" from the face start
              * @type {number}
@@ -4910,6 +4940,18 @@
         }
 
         /**
+         * Ray has no end point?
+         * @returns {undefined}
+         */
+        get end() {return undefined;}
+
+        /**
+         * Return positive infinity number as length
+         * @returns {number}
+         */
+        get length() {return Number.POSITIVE_INFINITY;}
+
+        /**
          * Returns true if point belongs to ray
          * @param {Point} pt Query point
          * @returns {boolean}
@@ -4918,10 +4960,25 @@
             if (this.pt.equalTo(pt)) {
                 return true;
             }
-            /* Ray contains point if vector to point is orthogonal to the line normal vector
+            /* Ray contains point if vector to point is orthogonal to the ray normal vector
                 and cross product from vector to point is positive */
             let vec = new Flatten.Vector(this.pt, pt);
             return Flatten.Utils.EQ_0(this.norm.dot(vec)) && Flatten.Utils.GE(vec.cross(this.norm),0);
+        }
+
+        /**
+         * Split ray with point and return array of segment and new ray
+         * @param pt
+         * @returns {[Segment,Ray]}
+         */
+        split(pt) {
+            if (!this.contains(pt))
+                return [];
+
+            return [
+                new Flatten.Segment(this.pt, pt),
+                new Flatten.Ray(pt, this.norm)
+            ]
         }
 
         /**
@@ -4989,6 +5046,135 @@
 
     const ray = (...args) => new Flatten.Ray(...args);
     Flatten.ray = ray;
+
+    /**
+     * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
+     * [segment]{@link Flatten.Segment}, [arc]{@link Flatten.Arc}, [line]{@link Flatten.Line} or [ray]{@link Flatten.Ray}
+     */
+    class Multiline extends LinkedList {
+        constructor(...args) {
+            super();
+
+            if (args.length === 0) {
+                return;
+            }
+
+            if (args.length == 1) {
+                if (args[0] instanceof Array) {
+                    let shapes = args[0];
+                    if (shapes.length == 0)
+                        return;
+
+                    // TODO: more strict validation:
+                    // there may be only one line
+                    // only first and last may be rays
+                    let validShapes = shapes.every((shape) => {
+                        return shape instanceof Flatten.Segment ||
+                            shape instanceof Flatten.Arc ||
+                            shape instanceof Flatten.Ray ||
+                            shape instanceof Flatten.Line
+                    });
+
+                    for (let shape of shapes) {
+                        let edge = new Flatten.Edge(shape);
+                        this.append(edge);
+                    }
+                }
+            }
+        }
+
+       /**
+         * Split edge and add new vertex, return new edge inserted
+         * @param pt
+         * @param edge
+         * @returns {Edge}
+         */
+        addVertex(pt, edge) {
+            let shapes = edge.shape.split(pt);
+            // if (shapes.length < 2) return;
+
+            if (shapes[0] === undefined)   // point incident to edge start vertex, return previous edge
+               return edge.prev;
+
+            if (shapes[1] === undefined)   // point incident to edge end vertex, return edge itself
+               return edge;
+
+            let newEdge = new Flatten.Edge(shapes[0]);
+            let edgeBefore = edge.prev;
+
+            /* Insert first split edge into linked list after edgeBefore */
+            this.insert(newEdge, edgeBefore);     // edge.face ?
+
+            // Update edge shape with second split edge keeping links
+            edge.shape = shapes[1];
+
+            return newEdge;
+        }
+
+        /**
+         * Split edges of multiline with intersection points and return mutated multiline
+         * @param ip
+         * @returns {Multiline}
+         */
+        split(ip) {
+            for (let pt of ip) {
+                let edge = this.findEdgeByPoint(pt);
+                this.addVertex(pt, edge);
+            }
+            return this;
+        }
+
+        /**
+         * Returns edge which contains given point
+         * @param {Point} pt
+         * @returns {Edge}
+         */
+        findEdgeByPoint(pt) {
+            let edgeFound;
+            for (let edge of this) {
+                if (edge.shape.contains(pt)) {
+                    edgeFound = edge;
+                    break;
+                }
+            }
+            return edgeFound;
+        }
+
+        /**
+         * Transform multiline into array of shapes
+         * @returns {Shape[]}
+         */
+        toShapes() {
+            return this.map(edge => edge.shape.clone())
+        }
+
+        toJSON() {
+            return this.edges.map(edge => edge.toJSON());
+        }
+
+        /**
+         * Returns string to be assigned to "d" attribute inside defined "path"
+         * TODO: extend for infinite Ray and Line
+         * @returns {string}
+         */
+        svg() {
+            let svgStr = `\nM${this.first.start.x},${this.first.start.y}`;
+            for (let edge of this) {
+                svgStr += edge.svg();
+            }
+            svgStr += ` z`;
+            return svgStr;
+        }
+    }
+
+    Flatten.Multiline = Multiline;
+
+    /**
+     * Shortcut function to create multiline
+     * @param args
+     */
+    const multiline = (...args) => new Flatten.Multiline(...args);
+    Flatten.multiline = multiline;
 
     /**
      * Created by Alex Bol on 3/15/2017.
@@ -5124,14 +5310,22 @@
          * Add point as a new vertex and split edge. Point supposed to belong to an edge.
          * When edge is split, new edge created from the start of the edge to the new vertex
          * and inserted before current edge.
-         * Current edge is trimmed and updated. Method returns new edge added.
+         * Current edge is trimmed and updated.
+         * Method returns new edge added. If no edge added, it returns edge before vertex
          * @param {Edge} edge Edge to be split with new vertex and then trimmed from start
          * @param {Point} pt Point to be added as a new vertex
          * @returns {Edge}
          */
         addVertex(pt, edge) {
             let shapes = edge.shape.split(pt);
-            if (shapes.length < 2) return;
+            // if (shapes.length < 2) return;
+
+            if (shapes[0] === undefined)   // point incident to edge start vertex, return previous edge
+                return edge.prev;
+
+            if (shapes[1] === undefined)   // point incident to edge end vertex, return edge itself
+                return edge;
+
             let newEdge = new Flatten.Edge(shapes[0]);
             let edgeBefore = edge.prev;
 
@@ -5151,6 +5345,60 @@
             this.edges.add(edge);
 
             return newEdge;
+        }
+
+        cutFace(pt1, pt2) {
+            let edge1 = this.findEdgeByPoint(pt1);
+            let edge2 = this.findEdgeByPoint(pt2);
+            if (edge1.face != edge2.face) return;
+
+            // Cut face into two and create new polygon with two faces
+            let edgeBefore1 = polygon.addVertex(pt1, edge1);
+            let edgeBefore2 = polygon.addVertex(pt2, edge2);
+
+            let face = edgeBefore1.face;
+            let newEdge1 = new Flatten.Edge(
+                new Flatten.Segment(edgeBefore1.end, edgeBefore2.end)
+            );
+            let newEdge2 = new Flatten.Edge(
+                new Flatten.Segment(edgeBefore2.end, edgeBefore1.end)
+            );
+
+            // Swap links
+            edgeBefore1.next.prev = newEdge2;
+            newEdge2.next = edgeBefore1.next;
+
+            edgeBefore1.next = newEdge1;
+            newEdge1.prev = edgeBefore1;
+
+            edgeBefore2.next.prev = newEdge1;
+            newEdge1.next = edgeBefore2.next;
+
+            edgeBefore2.next = newEdge2;
+            newEdge2.prev = edgeBefore2;
+
+            // Insert new edge to the edges container and 2d index
+            this.edges.add(newEdge1);
+            this.edges.add(newEdge2);
+
+            // Add two new faces
+            let face1 = this.addFace(newEdge1, edgeBefore1);
+            let face2 = this.addFace(newEdge2, edgeBefore2);
+
+            // Remove old face
+            this.faces.delete(face);
+
+            return [face1, face2];
+        }
+
+        findEdgeByPoint(pt) {
+            let edge;
+            for (let face of this.faces) {
+                edge = face.findEdgeByPoint(pt);
+                if (edge != undefined)
+                    break;
+            }
+            return edge;
         }
 
         reverse() {
@@ -6216,17 +6464,11 @@
     }
 
     /*
-        Intersection points is a supplement structure for calculation
-        of arrangements in polygon. It connects intersection points to the
-        edges and faces of the polygon and helps to perform clip and split of the polygon
-     */
-
-    /*
         Calculate relationship between two shapes and return result in the form of
         Dimensionally Extended nine-Intersection Matrix (https://en.wikipedia.org/wiki/DE-9IM)
      */
 
-    let {vector: vector$2,ray: ray$1,segment: segment$1,arc: arc$1,polygon: polygon$1} = Flatten;
+    let {vector: vector$2,ray: ray$1,segment: segment$1,arc: arc$1,polygon: polygon$1,multiline: multiline$1} = Flatten;
 
     const DISJOINT = RegExp('FF.FF....');
     const EQUALS = RegExp('T.F..FFF.');
@@ -6295,6 +6537,9 @@
         else if (shape1 instanceof Flatten.Line && shape2 instanceof Flatten.Circle) {
             return relateLine2Circle(shape1, shape2);
         }
+        else if (shape1 instanceof Flatten.Line && shape2 instanceof Flatten.Box) {
+            return relateLine2Box(shape1, shape2);
+        }
     }
 
     /**
@@ -6307,7 +6552,7 @@
     function relateLine2Line(line1, line2) {
         let denim = new DE9IM();
         let ip = intersectLine2Line(line1, line2);
-        if (ip.num === 0) {       // parallel or equal ?
+        if (ip.length === 0) {       // parallel or equal ?
             if (line1.contains(line2.pt) && line2.contains(line1.pt)) {
                 denim.I2I = [line1];   // equal  'T*F**FFF*'
                 denim.I2E = denim.E2I = [];
@@ -6320,8 +6565,10 @@
         }
         else {                       // intersected   'T********'
             denim.I2I = ip;
-            denim.I2E = [ray$1(line1.pt, line1.norm), ray$1(line1.pt, line1.norm.invert())];
-            denim.E2I = [ray$1(line2.pt, line2.norm), ray$1(line2.pt, line2.norm.invert())];
+            // denim.I2E = [ray(line1.pt, line1.norm), ray(line1.pt, line1.norm.invert())];
+            // denim.E2I = [ray(line2.pt, line2.norm), ray(line2.pt, line2.norm.invert())];
+            denim.I2E = multiline$1([line1]).split(ip).toShapes();
+            denim.E2I = multiline$1([line2]).split(ip).toShapes();
         }
         return denim;
     }
@@ -6340,30 +6587,35 @@
     function relateLine2Circle(line,circle) {
         let denim = new DE9IM();
         let ip = intersectLine2Circle(line, circle);
-        if (ip.num === 0) {
+        if (ip.length === 0) {
             denim.I2I = denim.I2B = [];
             denim.I2E = [line];
             denim.E2I = [circle];
         }
-        else if (ip.num === 1) {
+        else if (ip.length === 1) {
             denim.I2I = [];
             denim.I2B = ip;
             /* I2E are two rays from intersection point */
-            let ray0 = ray$1(ip[0], line.norm.invert());
-            let ray1 = ray$1(ip[1], line.norm);
-            denim.I2E = [ray0, ray1];
+            // let ray0 = ray(ip[0], line.norm.invert());
+            // let ray1 = ray(ip[1], line.norm);
+            // denim.I2E = [ray0, ray1];
 
+            denim.I2E = multiline$1([line]).split(ip).toShapes();
             denim.E2I = [circle];
         }
-        else {       // ip.num == 2
-            line.sortPointsOnLine(ip);          // sort points on line
+        else {       // ip.length == 2
+            sortPointsOnLine(line, ip);          // sort points on line
 
-            denim.I2I = segment$1(ip[0], ip[1]);
+            // split line to array of [ray,segment,ray]
+            let splitShapes = multiline$1([line]).split(ip).toShapes();
+
+            denim.I2I = [splitShapes[1]];   // segment(ip[0], ip[1]);
             denim.I2B = ip;
             /* I2E are two rays from intersection points outside of the circle */
-            let ray0 = ray$1(ip[0], line.norm.invert());
-            let ray1 = ray$1(ip[1], line.norm.invert());
-            denim.I2E = [ray0, ray1];
+            // let ray0 = ray(ip[0], line.norm.invert());
+            // let ray1 = ray(ip[1], line.norm.invert());
+            // denim.I2E = [ray0, ray1];
+            denim.I2E = [splitShapes[0],splitShapes[2]];
 
             /* E2I are two circular segments. Choose the ccw orientation of the arcs */
             let angle0 = vector$2(circle.pc, ip[0]).slope;
@@ -6380,6 +6632,89 @@
         }
 
         return denim;
+    }
+
+    /**
+     * Return intersection between lines and box as intersection matrix <br/>
+     * Intersection between line interior and box interior is a segment
+     * Intersection between line interior and box boundary may be one point, two points or segment
+     * Intersection between line interior and box exterior are two rays
+     * Intersection between line exterior and box interior are two polygons
+     * Other relations are irrelevant
+     * @param {Line} line
+     * @param {Box} box
+     * @returns {DE9IM}
+     */
+    function relateLine2Box(line, box) {
+        let denim = new DE9IM();
+        let ip = intersectLine2Box(line, box);
+        if (ip.length === 0) {
+            denim.I2I = denim.I2B = [];
+            denim.I2E = [line];
+            denim.E2I = [box];
+        }
+        else if (ip.length === 1) {
+            denim.I2I = [];
+            denim.I2B = ip;
+            /* I2E are two rays from intersection point */
+            // let ray0 = ray(ip[0], line.norm.invert());
+            // let ray1 = ray(ip[1], line.norm);
+            // denim.I2E = [ray0, ray1];
+            denim.I2E = multiline$1([line]).split(ip).toShapes();
+            denim.E2I = [box];
+        }
+        else {                     // ip.length == 2
+            sortPointsOnLine(line, ip);
+
+            // split line to array of [ray,segment,ray]
+            let splitShapes = multiline$1([line]).split(ip).toShapes();
+
+            /* Are two intersection points on the same segment of the box boundary ? */
+            if (box.toSegments().any( (segment) => segment.contains(ip[0]) && segment.contains(ip[1]) )) {
+                denim.I2I = [];                         // case of touching
+                denim.I2B = [segment$1(ip[0], ip[1])];
+
+                denim.E2I = [box];
+            }
+            else {                                       // case of intersection
+                denim.I2I = [splitShapes[1]];     // [segment(ip[0], ip[1])];
+                denim.I2B = ip;
+
+                // Intersection between exterior of the line and interior of the box is array of two polygons
+
+                // Create polygon from the box
+                let poly = polygon$1(box.toSegments());
+
+                // Cut polygon with segment between two points
+                let [face0, face1] = poly.cutFace(ip[0], ip[1]);
+
+                // Create two polygons from two faces
+                denim.E2I = [face0.toPolygon(), face1.toPolygon()];
+            }
+
+            // let ray0 = ray(ip[0], line.norm.invert());
+            // let ray1 = ray(ip[1], line.norm);
+            // denim.I2E = [ray0, ray1];
+            denim.I2E = [splitShapes[0], splitShapes[2]];
+        }
+        return denim;
+    }
+
+    /**
+     * Sort given array of points that lay on line with respect to coordinate on a line
+     * The method assumes that points lay on the line and does not check this
+     * @param {Point[]} pointsArray
+     */
+    function sortPointsOnLine(line, pointsArray) {
+        pointsArray.sort( (pt1, pt2) => {
+            if (line.coord(pt1) < line.coord(pt2)) {
+                return -1;
+            }
+            if (line.coord(pt1) > line.coord(pt2)) {
+                return 1;
+            }
+            return 0;
+        });
     }
 
     /**
@@ -6401,6 +6736,7 @@
     exports.INTERLACE = INTERLACE;
     exports.Line = Line;
     exports.Matrix = Matrix;
+    exports.Multiline = Multiline;
     exports.ORIENTATION = ORIENTATION;
     exports.OUTSIDE = OUTSIDE;
     exports.OVERLAP_OPPOSITE = OVERLAP_OPPOSITE;

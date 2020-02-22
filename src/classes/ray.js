@@ -84,6 +84,18 @@ export class Ray {
     }
 
     /**
+     * Ray has no end point?
+     * @returns {undefined}
+     */
+    get end() {return undefined;}
+
+    /**
+     * Return positive infinity number as length
+     * @returns {number}
+     */
+    get length() {return Number.POSITIVE_INFINITY;}
+
+    /**
      * Returns true if point belongs to ray
      * @param {Point} pt Query point
      * @returns {boolean}
@@ -92,10 +104,25 @@ export class Ray {
         if (this.pt.equalTo(pt)) {
             return true;
         }
-        /* Ray contains point if vector to point is orthogonal to the line normal vector
+        /* Ray contains point if vector to point is orthogonal to the ray normal vector
             and cross product from vector to point is positive */
         let vec = new Flatten.Vector(this.pt, pt);
         return Flatten.Utils.EQ_0(this.norm.dot(vec)) && Flatten.Utils.GE(vec.cross(this.norm),0);
+    }
+
+    /**
+     * Split ray with point and return array of segment and new ray
+     * @param pt
+     * @returns [Segment,Ray]
+     */
+    split(pt) {
+        if (!this.contains(pt))
+            return [];
+
+        return [
+            new Flatten.Segment(this.pt, pt),
+            new Flatten.Ray(pt, this.norm)
+        ]
     }
 
     /**

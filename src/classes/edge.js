@@ -24,16 +24,16 @@ export class Edge {
         /**
          * Pointer to the next edge in the face
          */
-        this.next;
+        this.next = undefined;
         /**
          * Pointer to the previous edge in the face
          */
-        this.prev;
+        this.prev = undefined;
         /**
          * Pointer to the face containing this edge
          * @type {Face}
          */
-        this.face;
+        this.face = undefined;
         /**
          * "Arc distance" from the face start
          * @type {number}

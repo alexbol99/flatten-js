@@ -94,6 +94,44 @@ export class Line {
         return new Flatten.Line(this.pt, this.norm);
     }
 
+    /* The following methods need for implementation of Edge interface
+    /**
+     * Line has no start point
+     * @returns {undefined}
+     */
+    get start() {return undefined;}
+
+    /**
+     * Line has no end point
+     */
+    get end() {return undefined;}
+
+    /**
+     * Return positive infinity number as length
+     * @returns {number}
+     */
+    get length() {return Number.POSITIVE_INFINITY;}
+
+    /**
+     * Returns infinite box
+     * @returns {Box}
+     */
+    get box() {
+        return new Flatten.Box(
+            Number.NEGATIVE_INFINITY,
+            Number.NEGATIVE_INFINITY,
+            Number.POSITIVE_INFINITY,
+            Number.POSITIVE_INFINITY
+        )
+    }
+
+    /**
+     * Middle point is undefined
+     * @returns {undefined}
+     */
+
+    get middle() {return undefined}
+
     /**
      * Slope of the line - angle in radians between line and axe x from 0 to 2PI
      * @returns {number} - slope of the line
@@ -161,20 +199,17 @@ export class Line {
     }
 
     /**
-     * Sort given array of points that lay on line with respect to coordinate on a line
-     * The method assumes that points lay on the line and does not check this
-     * @param {Point[]} pointsArray
+     * Split line with point and return array of two rays
+     * @param pt
+     * @returns {Ray[]}
      */
-    sortPointsOnLine(pointsArray) {
-        pointsArray.sort( (pt1, pt2) => {
-            if (this.coord(pt1) < this.coord(pt2)) {
-                return -1;
-            }
-            if (this.coord(pt1) > this.coord(pt2)) {
-                return 1;
-            }
-            return 0;
-        })
+    split(pt) {
+        if (!this.contains(pt))
+            return [];
+
+        return [
+            new Flatten.Ray(this.pt, this.norm.invert()),
+            new Flatten.Ray(this.pt, this.norm)];
     }
 
     /**

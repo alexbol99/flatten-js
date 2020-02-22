@@ -147,7 +147,7 @@ declare namespace Flatten {
         middle(): Point;
         reverse(): Arc;
         rotate(angle: number, center: Point): Arc;
-        split(pt: Point): Arc[];
+        split(pt: Point): [Arc | undefined, Arc | undefined];
         svg(attrs?: SVGAttributes): string;
         tangentInEnd(): Vector;
         tangentInStart(): Vector;
@@ -218,6 +218,10 @@ declare namespace Flatten {
         norm: Vector;
 
         // getters
+        readonly start: undefined;
+        readonly end: undefined;
+        readonly box: Box;
+        readonly length: number;
         readonly slope: number;
         readonly standard: [number, number, number];
 
@@ -229,7 +233,7 @@ declare namespace Flatten {
         intersect(shape: Shape): Point[];
         parallelTo(line: Line): boolean;
         coord(pt: Point): number;
-        sortPointsOnLine(points: Point[]): undefined;
+        split(pt: Point): [Ray, Ray];
         svg(box: Box, attrs?: SVGAttributes): string;
         toJSON() : Object;
     }
@@ -307,7 +311,7 @@ declare namespace Flatten {
         middle(): Point;
         reverse(): Segment;
         rotate(angle: number, center?: Point): Segment;
-        split(pt: Point): Segment[];
+        split(pt: Point): [Segment|undefined,Segment|undefined];
         tangentInStart(): Vector;
         tangentInEnd(): Vector;
         transform(matrix: Matrix): Segment;
@@ -404,10 +408,10 @@ declare namespace Flatten {
     enum EdgeOverlappingType {OVERLAP_SAME, OVERLAP_OPPOSITE}
 
     class Edge {
-        constructor(shape: Segment | Arc);
-
         // members
-        shape: Segment | Arc;
+        shape: Segment | Arc | Line | Ray;
+
+        constructor(shape: Segment | Arc | Line | Ray);
         face: Face;
         next: Edge;
         prev: Edge;
@@ -464,6 +468,8 @@ declare namespace Flatten {
     type EdgeShape = Point | Segment | Arc ;
     type LoopOfShapes = Array<EdgeShape | NumericPair>;
     type MultiLoopOfShapes = Array<LoopOfShapes | Circle | Box>;
+    type MultilineEdgeShape = Segment | Arc | Ray;
+    type MultilineShapes = Array<MultilineEdgeShape> | [Line]
 
     class Polygon {
         constructor(args?: LoopOfShapes | Circle | Box | MultiLoopOfShapes);
@@ -494,6 +500,18 @@ declare namespace Flatten {
         toArray() : Polygon[];
         svg(attrs?: SVGAttributes): string;
         splitToIslands() : Polygon[];
+        findEdgeByPoint(pt: Point): Edge;
+        cutFace(pt1: Point, pt2: Point): [Face, Face];
+    }
+
+    class Multiline extends LinkedList {
+        constructor(args?: MultilineShapes);
+
+        addVertex(pt: Point, edge: Edge): Edge;
+        split(ip: Point[]) : Multiline;
+        findEdgeByPoint(pt: Point): Edge | undefined;
+        toShapes(): MultilineShapes;
+        svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
     }
 
     type Shape = Point | Line | Circle | Box | Segment | Arc | Polygon;

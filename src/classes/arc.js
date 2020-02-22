@@ -183,14 +183,11 @@ export class Arc {
      * @returns {Arc[]}
      */
     split(pt) {
-        if (!this.contains(pt))
-            return [];
+        if (this.start.equalTo(pt))
+            return [undefined, this.clone()];
 
-        if (Flatten.Utils.EQ_0(this.sweep))
-            return [this.clone()];
-
-        if (this.start.equalTo(pt) || this.end.equalTo(pt))
-            return [this.clone()];
+        if (this.end.equalTo(pt))
+            return [this.clone(), undefined];
 
         let angle = new Flatten.Vector(this.pc, pt).slope;
 

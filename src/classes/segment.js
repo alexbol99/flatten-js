@@ -256,14 +256,11 @@ export class Segment {
      * @returns {Segment[]}
      */
     split(pt) {
-        if (!this.contains(pt))
-            return [];
+        if (this.start.equalTo(pt))
+            return [undefined, this.clone()];
 
-        if (this.start.equalTo(this.end))
-            return [this.clone()];
-
-        if (this.start.equalTo(pt) || this.end.equalTo(pt))
-            return [this];
+        if (this.end.equalTo(pt))
+            return [this.clone(), undefined];
 
         return [
             new Flatten.Segment(this.start, pt),
