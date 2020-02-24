@@ -5050,7 +5050,7 @@
         svg(box, attrs = {}) {
             let line = new Flatten.Line(this.pt, this.norm);
             let ip = intersectLine2Box(line, box);
-            ip.filter( pt => this.contains(pt) );
+            ip = ip.filter( pt => this.contains(pt) );
             if (ip.length === 0 || ip.length === 2)
                 return "";
             let segment = new Flatten.Segment(this.pt, ip[0]);

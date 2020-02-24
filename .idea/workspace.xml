@@ -28,6 +28,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="main.umd.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dist/main.umd.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="multiline.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/multiline.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -43,8 +52,8 @@
       <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/line.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="300" lean-forward="true" selection-start-line="285" selection-end-line="300" />
+            <state relative-caret-position="1562">
+              <caret line="302" column="31" selection-start-line="302" selection-start-column="31" selection-end-line="302" selection-end-column="31" />
               <folding>
                 <element signature="e#60#93#0" expanded="true" />
               </folding>
@@ -94,8 +103,8 @@
       <file leaf-file-name="ray.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/classes/ray.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="202" column="5" lean-forward="true" selection-start-line="202" selection-start-column="5" selection-end-line="202" selection-end-column="5" />
+            <state relative-caret-position="160">
+              <caret line="197" column="13" selection-start-line="197" selection-start-column="13" selection-end-line="197" selection-end-column="13" />
               <folding>
                 <element signature="e#15#48#0" expanded="true" />
               </folding>
@@ -108,19 +117,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1492">
               <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edge.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/edge.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="36" column="11" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#46#79#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -164,6 +160,7 @@
       <find>addFace</find>
       <find>split</find>
       <find>Line2</find>
+      <find>Ray</find>
     </findStrings>
     <replaceStrings>
       <replace>ip.length</replace>
@@ -217,8 +214,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="99" />
-    <option name="y" value="47" />
+    <option name="x" value="112" />
+    <option name="y" value="35" />
     <option name="width" value="1154" />
     <option name="height" value="697" />
   </component>
@@ -238,13 +235,12 @@
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="algorithms" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
@@ -257,11 +253,6 @@
               <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="data_structures" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -342,7 +333,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.generate-docs">
+  <component name="RunManager" selected="npm.build">
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -425,8 +416,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.generate-docs" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.generate-docs" />
         <item itemvalue="npm.test" />
         <item itemvalue="Mocha.#Flatten.Arrangement" />
         <item itemvalue="Mocha.#data_structures.DE9IM" />
@@ -573,20 +564,6 @@
       <workItem from="1578589389142" duration="42800000" />
       <workItem from="1578751038342" duration="12646000" />
       <workItem from="1579250841112" duration="12753000" />
-    </task>
-    <task id="LOCAL-00097" summary="clean">
-      <created>1528474338813</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1528474338813</updated>
-    </task>
-    <task id="LOCAL-00098" summary="some documentation">
-      <created>1533751007346</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1533751007347</updated>
     </task>
     <task id="LOCAL-00099" summary="Enable face.svg() method to display different faces with different styles (attributes)">
       <created>1533759080779</created>
@@ -917,7 +894,21 @@
       <option name="project" value="LOCAL" />
       <updated>1582383527553</updated>
     </task>
-    <option name="localTasksCounter" value="146" />
+    <task id="LOCAL-00146" summary="- Add Ray::svg() method">
+      <created>1582395374810</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1582395374811</updated>
+    </task>
+    <task id="LOCAL-00147" summary="- Add Ray::svg() method - compiled">
+      <created>1582395975953</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1582395975953</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -938,7 +929,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66701000" />
+    <option name="totallyTimeSpent" value="68270000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="99" y="47" width="1154" height="697" extended-state="0" />
@@ -995,8 +986,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Export everything what is necessary from @flatten-js/core" />
-    <MESSAGE value="Missing default export" />
     <MESSAGE value="- Rename branch v1.0.0 to be @flatten-js/core&#10;- Build @flatten-js/core from the /src, not from ./packages/core" />
     <MESSAGE value="- Upgrade interval tree dependency" />
     <MESSAGE value="- Upgrade interval tree dependency 0.3.6" />
@@ -1020,7 +1009,9 @@
     <MESSAGE value="- Create module algorithms/relations to calculate relationship between two shapes as a Dimensionally-Extended Nine Intersections Matrix (DE9IM) - not completed" />
     <MESSAGE value="- Add first methods to DE9IM intersection matrix calculation - line2line, line2circle and line2box (not tested)" />
     <MESSAGE value="- Add de9im relations line2circle, line2box, line2polyline (not tested)&#10;- Split line using new class multiline&#10;- new method Polygon::cutFace to cut face with segment between two intersection points" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Add de9im relations line2circle, line2box, line2polyline (not tested)&#10;- Split line using new class multiline&#10;- new method Polygon::cutFace to cut face with segment between two intersection points" />
+    <MESSAGE value="- Add Ray::svg() method" />
+    <MESSAGE value="- Add Ray::svg() method - compiled" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Add Ray::svg() method - compiled" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -1104,13 +1095,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/data_structures/planar_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="80" column="8" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.nyc_output/9c3beb23-b83e-4f7b-92b0-0fd5bab9dfbb.json" />
     <entry file="file://$PROJECT_DIR$/coverage/lcov-report/index.html" />
     <entry file="file://$PROJECT_DIR$/coverage/index.html">
@@ -1451,27 +1435,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/ray.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1492">
           <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/line.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="300" lean-forward="true" selection-start-line="285" selection-end-line="300" />
-          <folding>
-            <element signature="e#60#93#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1482,10 +1449,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/main.umd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/line.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1562">
+          <caret line="302" column="31" selection-start-line="302" selection-start-column="31" selection-end-line="302" selection-end-column="31" />
+          <folding>
+            <element signature="e#60#93#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/ray.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="202" column="5" lean-forward="true" selection-start-line="202" selection-start-column="5" selection-end-line="202" selection-end-column="5" />
+        <state relative-caret-position="160">
+          <caret line="197" column="13" selection-start-line="197" selection-start-column="13" selection-end-line="197" selection-end-column="13" />
           <folding>
             <element signature="e#15#48#0" expanded="true" />
           </folding>
