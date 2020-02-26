@@ -75,8 +75,10 @@ export function intersectLine2Box(line, box) {
     let ips = [];
     for (let seg of box.toSegments()) {
         let ips_tmp = intersectSegment2Line(seg, line);
-        for (let ip of ips_tmp) {
-            ips.push(ip);
+        for (let pt of ips_tmp) {
+            if (!ptInIntPoints(pt, ips)) {
+                ips.push(pt);
+            }
         }
     }
     return ips;
@@ -542,4 +544,8 @@ export function intersectBox2Box(box1, box2) {
         }
     }
     return ip;
+}
+
+function ptInIntPoints(new_pt, ip) {
+    return ip.some( pt => pt.equalTo(new_pt) )
 }

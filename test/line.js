@@ -80,6 +80,15 @@ describe('#Flatten.Line', function() {
         let line = new Flatten.Line(pt1, pt2);
         expect(line.contains(pt3)).to.equal(true);
     });
+    it('May split line by point into array of two rays',function() {
+        let pt = point(100,200);
+        let norm = vector(0,1);
+        let l = line(pt,norm);
+        let split_pt = point(300,200);
+        let res = l.split(split_pt);
+        expect(res[0]).to.deep.equal(ray(split_pt, norm.invert()));
+        expect(res[1]).to.deep.equal(ray(split_pt, norm));
+    });
     describe('#Flatten.Line.intersect methods return array of intersection points if intersection exist', function() {
         it('Line to line intersection ', function () {
             let line1 = new Flatten.Line(new Flatten.Point(0, 1), new Flatten.Point(2, 1));

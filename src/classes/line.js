@@ -208,8 +208,8 @@ export class Line {
             return [];
 
         return [
-            new Flatten.Ray(this.pt, this.norm.invert()),
-            new Flatten.Ray(this.pt, this.norm)];
+            new Flatten.Ray(pt, this.norm.invert()),
+            new Flatten.Ray(pt, this.norm)];
     }
 
     /**
