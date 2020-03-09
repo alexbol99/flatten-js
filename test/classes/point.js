@@ -4,10 +4,10 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../index';
+import Flatten from '../../index';
 
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../index';
-import {point, vector, circle, line, segment, arc, ray, matrix} from '../index';
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../../index';
+import {point, vector, circle, line, segment, arc, ray, matrix} from '../../index';
 
 describe('#Flatten.Point', function() {
     it('May create new Point', function() {

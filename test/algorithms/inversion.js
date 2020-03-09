@@ -5,9 +5,9 @@
 
 import { expect } from 'chai';
 
-import {Circle, Line, } from '../index';
-import {point, circle, line} from '../index';
-import {inverse} from '../src/algorithms/inversion';
+import {Circle, Line, } from '../../index';
+import {point, circle, line} from '../../index';
+import {inverse} from '../../src/algorithms/inversion';
 
 describe('#Flatten.Inversion', function() {
     it('Line passing through inversion center mapped into itself ', function () {

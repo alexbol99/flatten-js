@@ -3,10 +3,10 @@
  */
 
 import { expect } from 'chai';
-import Flatten, {matrix} from '../index';
+import Flatten, {matrix} from '../../index';
 
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../index';
-import {point, vector, circle, line, segment, arc, box} from '../index';
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../../index';
+import {point, vector, circle, line, segment, arc, box} from '../../index';
 
 describe('#Flatten.Polygon', function() {
     it('May create new instance of Polygon', function () {

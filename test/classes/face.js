@@ -2,10 +2,10 @@
  * Created by Alex Bol on 9/8/2017.
  */
 import { expect } from 'chai';
-import Flatten from '../index';
+import Flatten from '../../index';
 
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../index';
-import {point, vector, circle, line, segment, arc} from '../index';
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../../index';
+import {point, vector, circle, line, segment, arc} from '../../index';
 
 describe('#Flatten.Face', function() {
     "use strict";

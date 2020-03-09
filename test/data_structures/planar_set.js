@@ -5,10 +5,10 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../index';
+import Flatten from '../../index';
 
-import {Point, Segment, Circle, Box, PlanarSet, Distance} from '../index';
-import {point, segment, vector, circle} from '../index';
+import {Point, Segment, Circle, Box, PlanarSet, Distance} from '../../index';
+import {point, segment, vector, circle} from '../../index';
 
 describe('#Data_structures.PlanarSet', function() {
     it('Class PlanarSet defined', function() {

@@ -4,9 +4,9 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../index';
+import Flatten from '../../index';
 
-import {Box} from '../index';
+import {Box} from '../../index';
 
 describe('#Flatten.Box', function() {
     it('May create new instance of Box', function () {

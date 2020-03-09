@@ -1,10 +1,10 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../index';
+import Flatten from '../../index';
 
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../index';
-import {point, vector, circle, line, segment, arc, ray} from '../index';
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../../index';
+import {point, vector, circle, line, segment, arc, ray} from '../../index';
 
 describe('#Flatten.Arc', function() {
     it('May create new instance of Arc', function () {

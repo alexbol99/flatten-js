@@ -190,7 +190,7 @@ export class Line {
      * Return coordinate of the point that lays on the line in the transformed
      * coordinate system where center is the projection of the point(0,0) to
      * the line and axe y is collinear to the normal vector. <br/>
-     * This method assumes that point is on the line and does not check this
+     * This method assumes that point lays on the line and does not check it
      * @param pt
      * @returns {number}
      */

@@ -101,24 +101,39 @@ export class Multiline extends LinkedList {
      * @returns {Shape[]}
      */
     toShapes() {
-        return this.map(edge => edge.shape.clone())
-    }
-
-    toJSON() {
-        return this.edges.map(edge => edge.toJSON());
+        return [...this].map(edge => edge.shape.clone())
     }
 
     /**
-     * Returns string to be assigned to "d" attribute inside defined "path"
-     * TODO: extend for infinite Ray and Line
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
+     */
+    toJSON() {
+        return [...this].map(edge => edge.toJSON());
+    }
+
+    /**
+     * Return string to draw multiline in svg
+     * @param attrs  - an object with attributes for svg path element,
+     * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
+     * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+     * TODO: support infinite Ray and Line
      * @returns {string}
      */
-    svg() {
-        let svgStr = `\nM${this.first.start.x},${this.first.start.y}`;
+    svg(attrs = {}) {
+        let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
+        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
+        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
+
+        let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+        svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
         for (let edge of this) {
             svgStr += edge.svg();
         }
         svgStr += ` z`;
+        svgStr += `" >\n</path>`;
+
         return svgStr;
     }
 }

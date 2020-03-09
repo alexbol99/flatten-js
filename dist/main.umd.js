@@ -2804,7 +2804,7 @@
          * Return coordinate of the point that lays on the line in the transformed
          * coordinate system where center is the projection of the point(0,0) to
          * the line and axe y is collinear to the normal vector. <br/>
-         * This method assumes that point is on the line and does not check this
+         * This method assumes that point lays on the line and does not check it
          * @param pt
          * @returns {number}
          */
@@ -5167,24 +5167,39 @@
          * @returns {Shape[]}
          */
         toShapes() {
-            return this.map(edge => edge.shape.clone())
-        }
-
-        toJSON() {
-            return this.edges.map(edge => edge.toJSON());
+            return [...this].map(edge => edge.shape.clone())
         }
 
         /**
-         * Returns string to be assigned to "d" attribute inside defined "path"
-         * TODO: extend for infinite Ray and Line
+         * This method returns an object that defines how data will be
+         * serialized when called JSON.stringify() method
+         * @returns {Object}
+         */
+        toJSON() {
+            return [...this].map(edge => edge.toJSON());
+        }
+
+        /**
+         * Return string to draw multiline in svg
+         * @param attrs  - an object with attributes for svg path element,
+         * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
+         * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+         * TODO: support infinite Ray and Line
          * @returns {string}
          */
-        svg() {
-            let svgStr = `\nM${this.first.start.x},${this.first.start.y}`;
+        svg(attrs = {}) {
+            let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
+            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
+            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
+
+            let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+            svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
             for (let edge of this) {
                 svgStr += edge.svg();
             }
             svgStr += ` z`;
+            svgStr += `" >\n</path>`;
+
             return svgStr;
         }
     }
@@ -6349,11 +6364,15 @@
         constructor() {
             /**
              * Array representing 3x3 intersection matrix
-             * @type {any[]}
+             * @type {Shape[]}
              */
             this.m = new Array(9).fill(undefined);
         }
 
+        /**
+         * Get Interior To Interior intersection
+         * @returns {Shape[] | undefined}
+         */
         get I2I() {
             return this.m[0];
         }
@@ -6366,18 +6385,26 @@
             this.m[0] = geom;
         }
 
+        /**
+         * Get Interior To Boundary intersection
+         * @returns {Shape[] | undefined}
+         */
         get I2B() {
             return this.m[1];
         }
 
         /**
          * Set Interior to Boundary intersection
-         * @param geom
+         * @param geomc
          */
         set I2B(geom) {
             this.m[1] = geom;
         }
 
+        /**
+         * Get Interior To Exterior intersection
+         * @returns {Shape[] | undefined}
+         */
         get I2E() {
             return this.m[2];
         }
@@ -6390,6 +6417,10 @@
             this.m[2] = geom;
         }
 
+        /**
+         * Get Boundary To Interior intersection
+         * @returns {Shape[] | undefined}
+         */
         get B2I() {
             return this.m[3];
         }
@@ -6402,6 +6433,10 @@
             this.m[3] = geom;
         }
 
+        /**
+         * Get Boundary To Boundary intersection
+         * @returns {Shape[] | undefined}
+         */
         get B2B() {
             return this.m[4];
         }
@@ -6414,6 +6449,10 @@
             this.m[4] = geom;
         }
 
+        /**
+         * Get Boundary To Exterior intersection
+         * @returns {Shape[] | undefined}
+         */
         get B2E() {
             return this.m[5];
         }
@@ -6426,6 +6465,10 @@
             this.m[5] = geom;
         }
 
+        /**
+         * Get Exterior To Interior intersection
+         * @returns {Shape[] | undefined}
+         */
         get E2I() {
             return this.m[6];
         }
@@ -6438,6 +6481,10 @@
             this.m[6] = geom;
         }
 
+        /**
+         * Get Exterior To Boundary intersection
+         * @returns {Shape[] | undefined}
+         */
         get E2B() {
             return this.m[7];
         }
@@ -6450,6 +6497,10 @@
             this.m[7] = geom;
         }
 
+        /**
+         * Get Exterior to Exterior intersection
+         * @returns {Shape[] | undefined}
+         */
         get E2E() {
             return this.m[8];
         }

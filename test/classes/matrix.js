@@ -1,10 +1,10 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../index';
+import Flatten from '../../index';
 
-import {Matrix} from '../index';
-import {matrix,point} from '../index';
+import {Matrix} from '../../index';
+import {matrix,point} from '../../index';
 
 describe('#Flatten.Matrix', function() {
     it('May create new instance of Matrix', function () {

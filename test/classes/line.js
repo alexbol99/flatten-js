@@ -4,7 +4,7 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../index';
+import Flatten from '../../index';
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
 
@@ -88,6 +88,14 @@ describe('#Flatten.Line', function() {
         let res = l.split(split_pt);
         expect(res[0]).to.deep.equal(ray(split_pt, norm.invert()));
         expect(res[1]).to.deep.equal(ray(split_pt, norm));
+    });
+    it('May return 1-dim coordinate of point on line', function() {
+        let pt = point(100,200);
+        let norm = vector(0,1);
+        let l = line(pt,norm);
+
+        expect(l.coord( point(300,200) )).to.equal(300);
+        expect(l.coord( point(0,200) )).to.equal(0);
     });
     describe('#Flatten.Line.intersect methods return array of intersection points if intersection exist', function() {
         it('Line to line intersection ', function () {
