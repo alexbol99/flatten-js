@@ -39,7 +39,33 @@ export class Multiline extends LinkedList {
         }
     }
 
-   /**
+    /**
+     * (Getter) Return array of edges
+     * @returns {Edge[]}
+     */
+    get edges() {
+        return [...this];
+    }
+
+    /**
+     * (Getter) Return bounding box of the multiline
+     * @returns {Box}
+     */
+    get box() {
+        return this.edges.reduce( (acc,edge) => acc = acc.merge(edge.box), new Flatten.Box() );
+    }
+
+    /**
+     * (Getter) Returns array of vertices
+     * @returns {Point[]}
+     */
+    get vertices() {
+        let v = this.edges.map(edge => edge.start);
+        v.push(this.last.end);
+        return v;
+    }
+
+    /**
      * Split edge and add new vertex, return new edge inserted
      * @param pt
      * @param edge
@@ -101,7 +127,7 @@ export class Multiline extends LinkedList {
      * @returns {Shape[]}
      */
     toShapes() {
-        return [...this].map(edge => edge.shape.clone())
+        return this.edges.map(edge => edge.shape.clone())
     }
 
     /**
@@ -110,7 +136,7 @@ export class Multiline extends LinkedList {
      * @returns {Object}
      */
     toJSON() {
-        return [...this].map(edge => edge.toJSON());
+        return this.edges.map(edge => edge.toJSON());
     }
 
     /**

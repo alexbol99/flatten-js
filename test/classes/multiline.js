@@ -24,6 +24,35 @@ describe('#Flatten.Multiline', function() {
         let ml = new Flatten.Multiline(shapes);
         expect(ml.size).to.equal(2);
     });
+    it ('May get array of edges of multiline', function() {
+        let shapes = [
+            segment(point(0,0), point(50,100)),
+            segment(point(50,100), point(100,75))
+        ];
+        let ml = new Flatten.Multiline(shapes);
+        let other_shapes = ml.edges.map(edge => edge.shape);
+        expect(other_shapes[0]).to.be.deep.equal(shapes[0]);
+        expect(other_shapes[1]).to.be.deep.equal(shapes[1]);
+    });
+    it ('May get array of vertices of multiline', function() {
+        let shapes = [
+            segment(point(0,0), point(50,100)),
+            segment(point(50,100), point(100,75))
+        ];
+        let ml = new Flatten.Multiline(shapes);
+        let points = ml.vertices;
+        expect(points[0]).to.be.deep.equal(point(0,0));
+        expect(points[1]).to.be.deep.equal(point(50,100));
+        expect(points[2]).to.be.deep.equal(point(100,75));
+    });
+    it ('May get box of multiline', function() {
+        let shapes = [
+            segment(point(0,0), point(50,100)),
+            segment(point(50,100), point(100,75))
+        ];
+        let ml = new Flatten.Multiline(shapes);
+        expect(ml.box).to.deep.equal({xmin:0, ymin:0, xmax:100, ymax:100});
+    });
     it('May transform multiline to an array of shapes', function() {
         let shapes = [
             segment(point(0,0), point(50,100)),

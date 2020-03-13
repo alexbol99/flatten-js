@@ -2,75 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fix bug in line split">
-      <change afterPath="$PROJECT_DIR$/test/algorithms/relation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/classes/multiline.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/data_structures/de9im.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Arc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Box.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Circle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/CircularLinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/CircularLinkedList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/DE9IM.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/DE9IM.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Edge.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Errors.ILLEGAL_PARAMETERS.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.ILLEGAL_PARAMETERS.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Errors.ZERO_DIVISION.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.ZERO_DIVISION.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Face.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Line.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/LinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/LinkedList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Matrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Matrix.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/PlanarSet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Point.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Polygon.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Ray.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Segment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Vector.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_relation.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_relation.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_matrix.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_constants.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_constants.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/line.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/multiline.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_structures/de9im.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/de9im.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/arc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/circle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/de9im.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/face.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/inversion.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/inversion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/linked_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/data_structures/linked_list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/matrix.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/matrix.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/planar_set.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/data_structures/planar_set.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/ray.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ray_shooting.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/ray_shooting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/segment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/vector.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/vector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/multiline.js" afterDir="false" />
     </list>
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,61 +17,6 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/line.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2101">
-              <caret line="54" column="17" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
-              <folding>
-                <element signature="e#60#93#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/polygon.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-316">
-              <caret line="423" column="21" selection-start-line="423" selection-start-column="21" selection-end-line="423" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="relation.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/algorithms/relation.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="tolerance.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/tolerance.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-75" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.travis.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -146,43 +26,6 @@
         <option value="JavaScript File" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>proj</find>
-      <find>filterDuplicatedIntersections</find>
-      <find>addV</find>
-      <find>splitByIntersections</find>
-      <find>Face</find>
-      <find>segment2</find>
-      <find>ip.length</find>
-      <find>add</find>
-      <find>slo</find>
-      <find>shapes2face</find>
-      <find>con</find>
-      <find>sort</find>
-      <find>setOneEdgeArcLength</find>
-      <find>ray</find>
-      <find>vector</find>
-      <find>length</find>
-      <find>sortPointsOnLine</find>
-      <find>spl</find>
-      <find>splitPolygon</find>
-      <find>Edge</find>
-      <find>shapes</find>
-      <find>IntersectionPoints</find>
-      <find>addFace</find>
-      <find>split</find>
-      <find>Line2</find>
-      <find>Ray</find>
-      <find>intersectLine2Bo</find>
-      <find>ptInIntPoints</find>
-      <find>deep</find>
-      <find>points2norm</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>ip.length</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
@@ -196,117 +39,13 @@
       <GitPushTagMode />
     </option>
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/algorithms/arrangement.js" />
-        <option value="$PROJECT_DIR$/src/data_structures/linked_list.js" />
-        <option value="$PROJECT_DIR$/src/classes/box.js" />
-        <option value="$PROJECT_DIR$/src/flatten.js" />
-        <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/src/data_structures/intersectionPoints.js" />
-        <option value="$PROJECT_DIR$/test/arrangement.js" />
-        <option value="$PROJECT_DIR$/src/classes/segment.js" />
-        <option value="$PROJECT_DIR$/src/classes/arc.js" />
-        <option value="$PROJECT_DIR$/src/classes/face.js" />
-        <option value="$PROJECT_DIR$/src/classes/edge.js" />
-        <option value="$PROJECT_DIR$/src/algorithms/relation.js" />
-        <option value="$PROJECT_DIR$/src/classes/polygon.js" />
-        <option value="$PROJECT_DIR$/index.d.ts" />
-        <option value="$PROJECT_DIR$/src/classes/ray.js" />
-        <option value="$PROJECT_DIR$/src/algorithms/intersection.js" />
-        <option value="$PROJECT_DIR$/test/line.js" />
-        <option value="$PROJECT_DIR$/src/classes/line.js" />
-        <option value="$PROJECT_DIR$/test/multiline.js" />
-        <option value="$PROJECT_DIR$/src/classes/multiline.js" />
-        <option value="$PROJECT_DIR$/src/data_structures/de9im.js" />
-        <option value="$PROJECT_DIR$/test/de9im.js" />
-        <option value="$PROJECT_DIR$/test/relation.js" />
-        <option value="$PROJECT_DIR$/package.json" />
-      </list>
-    </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsFlowSettings">
     <service-enabled>false</service-enabled>
     <exe-path />
     <other-services-enabled>false</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="204" />
-    <option name="y" value="26" />
-    <option name="width" value="1270" />
-    <option name="height" value="697" />
-  </component>
   <component name="ProjectId" id="1WAPN3ASzDmjaf35ofvOBEHB9tk" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="algorithms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="data_structures" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="flatten-js" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -357,28 +96,17 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="npm.build">
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+    <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
       <arguments />
       <envs />
+      <method v="2" />
     </configuration>
-    <configuration name="build" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
@@ -386,8 +114,9 @@
       </scripts>
       <node-interpreter value="project" />
       <envs />
+      <method v="2" />
     </configuration>
-    <configuration name="generate-docs" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
+    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
@@ -395,23 +124,27 @@
       </scripts>
       <node-interpreter value="project" />
       <envs />
+      <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Line" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Multiline" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
       <extra-mocha-options>--require @babel/register</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/line.js</test-file>
+      <test-file>$PROJECT_DIR$/test/classes/multiline.js</test-file>
       <test-names>
-        <name value="#Flatten.Line" />
+        <name value="#Flatten.Multiline" />
       </test-names>
+      <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Multiline" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Multiline" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
@@ -421,10 +154,12 @@
       <test-names>
         <name value="#Flatten.Multiline" />
       </test-names>
+      <method v="2" />
     </configuration>
-    <configuration name="#data_structures.DE9IM" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#data_structures.DE9IM" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
@@ -434,10 +169,12 @@
       <test-names>
         <name value="#data_structures.DE9IM" />
       </test-names>
+      <method v="2" />
     </configuration>
-    <configuration name="#test esm" type="mocha-javascript-test-runner" factoryName="Mocha">
+    <configuration name="#test esm" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
@@ -445,10 +182,10 @@
       <test-kind>DIRECTORY</test-kind>
       <test-directory>$PROJECT_DIR$/test</test-directory>
       <recursive>false</recursive>
+      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Flatten.Line" />
       <item itemvalue="Mocha.#Flatten.Multiline" />
       <item itemvalue="Mocha.#data_structures.DE9IM" />
       <item itemvalue="npm.build" />
@@ -457,10 +194,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.build" />
+        <item itemvalue="Mocha.#Flatten.Multiline" />
+        <item itemvalue="Mocha.#Flatten.Multiline" />
         <item itemvalue="npm.generate-docs" />
         <item itemvalue="Mocha.#data_structures.DE9IM" />
-        <item itemvalue="Mocha.#Flatten.Multiline" />
-        <item itemvalue="Mocha.#Flatten.Line" />
       </list>
     </recent_temporary>
   </component>
@@ -951,73 +688,6 @@
     <option name="localTasksCounter" value="150" />
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="#Flatten_Multiline - 2020.03.08 at 22h 43m 46s.xml">
-      <configuration name="#Flatten.Multiline" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#data_structures_DE9IM - 2020.03.09 at 07h 36m 37s.xml">
-      <configuration name="#data_structures.DE9IM" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#data_structures_DE9IM - 2020.03.09 at 07h 36m 51s.xml">
-      <configuration name="#data_structures.DE9IM" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#data_structures_DE9IM - 2020.03.09 at 07h 37m 06s.xml">
-      <configuration name="#data_structures.DE9IM" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#data_structures_DE9IM - 2020.03.09 at 07h 37m 19s.xml">
-      <configuration name="#data_structures.DE9IM" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#data_structures_DE9IM - 2020.03.09 at 07h 39m 35s.xml">
-      <configuration name="#data_structures.DE9IM" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#data_structures_DE9IM - 2020.03.09 at 07h 40m 39s.xml">
-      <configuration name="#data_structures.DE9IM" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#data_structures_DE9IM - 2020.03.09 at 07h 41m 02s.xml">
-      <configuration name="#data_structures.DE9IM" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#data_structures_DE9IM - 2020.03.09 at 07h 42m 14s.xml">
-      <configuration name="#data_structures.DE9IM" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="#data_structures_DE9IM - 2020.03.09 at 07h 44m 34s.xml">
-      <configuration name="#data_structures.DE9IM" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-  </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83548000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="204" y="26" width="1270" height="697" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993865" weight="0.32906976" />
-      <window_info anchor="bottom" id="Messages" order="17" weight="0.44753477" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5055215" side_tool="true" weight="0.35" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49754602" weight="0.45060658" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4993865" weight="0.7920277" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49447852" visible="true" weight="0.3691508" />
-      <window_info anchor="bottom" id="TypeScript" order="14" weight="0.3275563" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18734989" />
-      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49968693" weight="0.51473135" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.48700175" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="SFDX" order="8" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info id="npm" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Debug Logs" order="10" />
-      <window_info anchor="bottom" id="Log Manager" order="15" />
-      <window_info anchor="bottom" id="Execute Anonymous" order="13" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Salesforce" order="16" />
-      <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.32933754" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -1027,12 +697,6 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -1070,60 +734,76 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" />
-    <state x="443" y="126" width="1329" height="785" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" />
-    <state x="443" y="126" width="1329" height="785" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040@0.0.1920.1040" />
-    <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser" />
-    <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" />
-    <state x="1088" y="381" key="#xdebugger.evaluate" />
-    <state x="1088" y="381" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" />
-    <state width="736" height="466" key="DebuggerActiveHint" />
-    <state width="736" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1535" height="332" key="GridCell.Tab.0.bottom" />
-    <state width="1535" height="332" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1535" height="332" key="GridCell.Tab.0.center" />
-    <state width="1535" height="332" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1535" height="332" key="GridCell.Tab.0.left" />
-    <state width="1535" height="332" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1535" height="332" key="GridCell.Tab.0.right" />
-    <state width="1535" height="332" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.1.bottom" />
-    <state width="1491" height="266" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.1.center" />
-    <state width="1491" height="266" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.1.left" />
-    <state width="1491" height="266" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.1.right" />
-    <state width="1491" height="266" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.2.bottom" />
-    <state width="1491" height="266" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.2.center" />
-    <state width="1491" height="266" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.2.left" />
-    <state width="1491" height="266" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.2.right" />
-    <state width="1491" height="266" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.3.bottom" />
-    <state width="1491" height="266" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.3.center" />
-    <state width="1491" height="266" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.3.left" />
-    <state width="1491" height="266" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" />
-    <state width="1491" height="266" key="GridCell.Tab.3.right" />
-    <state width="1491" height="266" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" />
-    <state x="907" y="233" key="RollbackChangesDialog" />
-    <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" />
-    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" />
-    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" />
-    <state x="763" y="242" width="672" height="677" key="run.anything.popup" />
-    <state x="763" y="242" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" />
-    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup" />
-    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" />
+    <state x="840" y="222" key="##Flatten.Multiline" timestamp="1584080621048">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="840" y="222" key="##Flatten.Multiline/0.0.1920.1040@0.0.1920.1040" timestamp="1584080621048" />
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584080675216">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584080675216" />
+    <state x="443" y="126" width="1329" height="785" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1584078987811" />
+    <state x="443" y="126" width="1329" height="785" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584078987811" />
+    <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="1088" y="381" key="#xdebugger.evaluate" timestamp="1584078987811" />
+    <state x="1088" y="381" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1584080855220">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1584080855220" />
+    <state width="736" height="466" key="DebuggerActiveHint" timestamp="1584078987811" />
+    <state width="736" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1535" height="368" key="GridCell.Tab.0.bottom" timestamp="1584080913578">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1535" height="368" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584080913578" />
+    <state width="1535" height="368" key="GridCell.Tab.0.center" timestamp="1584080913578">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1535" height="368" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584080913578" />
+    <state width="1535" height="368" key="GridCell.Tab.0.left" timestamp="1584080913578">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1535" height="368" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584080913578" />
+    <state width="1535" height="368" key="GridCell.Tab.0.right" timestamp="1584080913578">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1535" height="368" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584080913578" />
+    <state width="1491" height="266" key="GridCell.Tab.1.bottom" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.1.center" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.1.left" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.1.right" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.2.bottom" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.2.center" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.2.left" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.2.right" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.3.bottom" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.3.center" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.3.left" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.3.right" timestamp="1584078987811" />
+    <state width="1491" height="266" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="907" y="233" key="RollbackChangesDialog" timestamp="1584078987811" />
+    <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1584078987811" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584078987811" />
+    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="763" y="242" width="672" height="677" key="run.anything.popup" timestamp="1584078987811" />
+    <state x="763" y="242" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1584078987811" />
+    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1139,7 +819,6 @@
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
@@ -1148,427 +827,6 @@
         <watch expression="_index" />
       </configuration>
     </watches-manager>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/flatten.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="61" column="3" selection-start-line="61" selection-start-column="3" selection-end-line="61" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/create-react-app/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/create-react-app/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/data_structures/linked_list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2074">
-          <caret line="123" column="13" selection-start-line="123" selection-start-column="13" selection-end-line="123" selection-end-column="13" />
-          <folding>
-            <element signature="e#15#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/algorithms/inversion.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ROADMAP.md" />
-    <entry file="file://$PROJECT_DIR$/test/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1905">
-          <caret line="131" selection-start-line="131" selection-end-line="131" />
-          <folding>
-            <element signature="e#59#89#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="82" column="50" selection-start-line="82" selection-start-column="42" selection-end-line="82" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/intersection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="14" column="1" selection-end-line="14" selection-end-column="1" />
-          <folding>
-            <element signature="e#15#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/distance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="231" column="21" selection-start-line="231" selection-start-column="14" selection-end-line="231" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.babelrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#15#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="615">
-            <caret line="41" selection-start-line="41" selection-end-line="41" />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/data_structures/planar_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="166" column="9" selection-start-line="166" selection-start-column="9" selection-end-line="166" selection-end-column="9" />
-          <folding>
-            <element signature="e#61#91#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/de-9im.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="55" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
-          <folding>
-            <element signature="e#94#144#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/de-9im.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="49" column="39" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/inversion.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" column="60" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/circular_linked_list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1534" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2505">
-          <caret line="167" selection-start-line="167" selection-end-line="167" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/box.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="19" column="32" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="23" column="46" lean-forward="true" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/intersectionPoints.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="170" column="26" selection-start-line="170" selection-start-column="26" selection-end-line="170" selection-end-column="26" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#230#263#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/arrangement.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="52" column="61" selection-start-line="52" selection-start-column="61" selection-end-line="52" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/relation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2911">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#192#225#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/flatten.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="185" selection-start-line="185" selection-end-line="185" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/edge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="36" column="11" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#46#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/arrangement.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/ray.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1492">
-          <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/main.umd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/intersection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="93" column="29" selection-start-line="93" selection-start-column="29" selection-end-line="93" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="233" column="40" selection-start-line="233" selection-start-column="40" selection-end-line="233" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="21" selection-end-line="21" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#44#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/line.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="22" selection-start-line="13" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/linked_list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1559">
-          <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/multiline.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1778">
-          <caret line="157" selection-start-line="157" selection-end-line="157" />
-          <folding>
-            <element signature="e#44#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="352" selection-start-line="347" selection-end-line="352" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/multiline.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="110" column="7" selection-start-line="110" selection-start-column="7" selection-end-line="110" selection-end-column="7" />
-          <folding>
-            <element signature="e#15#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/data_structures/de9im.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
-          <folding>
-            <element signature="e#15#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/de9im.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="171" column="26" selection-start-line="171" selection-start-column="26" selection-end-line="171" selection-end-column="26" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/line.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2101">
-          <caret line="54" column="17" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
-          <folding>
-            <element signature="e#60#93#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4053">
-          <caret line="51" column="27" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="27" />
-          <folding>
-            <element signature="e#61#94#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-316">
-          <caret line="423" column="21" selection-start-line="423" selection-start-column="21" selection-end-line="423" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/ray.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1323">
-          <caret line="197" column="13" selection-start-line="197" selection-start-column="13" selection-end-line="197" selection-end-column="13" />
-          <folding>
-            <element signature="e#15#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/algorithms/relation.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/tolerance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
   </component>
   <component name="masterDetails">
     <states>
