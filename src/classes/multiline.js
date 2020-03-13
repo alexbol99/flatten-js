@@ -123,6 +123,37 @@ export class Multiline extends LinkedList {
     }
 
     /**
+     * Returns new multiline translated by vector vec
+     * @param {Vector} vec
+     * @returns {Multiline}
+     */
+    translate(vec) {
+        return new Multiline(this.edges.map( edge => edge.shape.translate(vec)));
+    }
+
+    /**
+     * Return new multiline rotated by given angle around given point
+     * If point omitted, rotate around origin (0,0)
+     * Positive value of angle defines rotation counter clockwise, negative - clockwise
+     * @param {number} angle - rotation angle in radians
+     * @param {Point} center - rotation center, default is (0,0)
+     * @returns {Multiline} - new rotated polygon
+     */
+    rotate(angle = 0, center = new Flatten.Point()) {
+        return new Multiline(this.edges.map( edge => edge.shape.rotate(angle, center) ));
+    }
+
+    /**
+     * Return new multiline transformed using affine transformation matrix
+     * Method does not support unbounded shapes
+     * @param {Matrix} matrix - affine transformation matrix
+     * @returns {Multiline} - new multiline
+     */
+    transform(matrix = new Flatten.Matrix()) {
+        return new Multiline(this.edges.map( edge => edge.shape.transform(matrix)));
+    }
+
+    /**
      * Transform multiline into array of shapes
      * @returns {Shape[]}
      */

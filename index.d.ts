@@ -507,10 +507,18 @@ declare namespace Flatten {
     class Multiline extends LinkedList {
         constructor(args?: MultilineShapes);
 
+        // getters
+        get edges() : Edge[];
+        get vertices(): Point[];
+        get box(): Box;
+
         addVertex(pt: Point, edge: Edge): Edge;
         split(ip: Point[]) : Multiline;
         findEdgeByPoint(pt: Point): Edge | undefined;
         toShapes(): MultilineShapes;
+        rotate(angle?: number, center?: Point): Multiline;
+        transform(matrix?: Matrix): Multiline;
+        translate(vec: Vector): Multiline;
         svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
     }
 

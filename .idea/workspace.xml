@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fix bug in line split">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Add method Multiline::Box">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/multiline.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/multiline.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -342,13 +345,6 @@
       <workItem from="1578751038342" duration="12646000" />
       <workItem from="1579250841112" duration="12753000" />
     </task>
-    <task id="LOCAL-00101" summary="Add missing intersections with polygon methods for Segment, Arc, Line, Circle, Polygon">
-      <created>1534599516331</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1534599516331</updated>
-    </task>
     <task id="LOCAL-00102" summary="Fix type (issue #12)">
       <created>1537910494232</created>
       <option name="number" value="00102" />
@@ -685,7 +681,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582719154238</updated>
     </task>
-    <option name="localTasksCounter" value="150" />
+    <task id="LOCAL-00150" summary="- Add method Multiline::Box">
+      <created>1584080987391</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1584080987392</updated>
+    </task>
+    <option name="localTasksCounter" value="151" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -705,7 +708,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Upgrade interval tree dependency 0.3.6" />
     <MESSAGE value="- Upgrade interval tree dependency to scoped package @flatten-js/interval-tree&#10;- Remove not exported classes and redundant packages/core folder" />
     <MESSAGE value="Remove redundant file flatten-js-test.ts" />
     <MESSAGE value="- Export constants&#10;- Build packages and documentation" />
@@ -730,7 +732,8 @@
     <MESSAGE value="- Add Ray::svg() method - compiled" />
     <MESSAGE value="- Fix bug in Ray::svg() method" />
     <MESSAGE value="- Fix bug in line split" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Fix bug in line split" />
+    <MESSAGE value="- Add method Multiline::Box" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Add method Multiline::Box" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -748,28 +751,28 @@
     <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
     <state x="1088" y="381" key="#xdebugger.evaluate" timestamp="1584078987811" />
     <state x="1088" y="381" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1584080855220">
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1584080986367">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1584080855220" />
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1584080986367" />
     <state width="736" height="466" key="DebuggerActiveHint" timestamp="1584078987811" />
     <state width="736" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state width="1535" height="368" key="GridCell.Tab.0.bottom" timestamp="1584080913578">
+    <state width="1535" height="368" key="GridCell.Tab.0.bottom" timestamp="1584081950529">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1535" height="368" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584080913578" />
-    <state width="1535" height="368" key="GridCell.Tab.0.center" timestamp="1584080913578">
+    <state width="1535" height="368" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584081950529" />
+    <state width="1535" height="368" key="GridCell.Tab.0.center" timestamp="1584081950529">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1535" height="368" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584080913578" />
-    <state width="1535" height="368" key="GridCell.Tab.0.left" timestamp="1584080913578">
+    <state width="1535" height="368" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584081950529" />
+    <state width="1535" height="368" key="GridCell.Tab.0.left" timestamp="1584081950528">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1535" height="368" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584080913578" />
-    <state width="1535" height="368" key="GridCell.Tab.0.right" timestamp="1584080913578">
+    <state width="1535" height="368" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584081950528" />
+    <state width="1535" height="368" key="GridCell.Tab.0.right" timestamp="1584081950529">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1535" height="368" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584080913578" />
+    <state width="1535" height="368" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584081950529" />
     <state width="1491" height="266" key="GridCell.Tab.1.bottom" timestamp="1584078987811" />
     <state width="1491" height="266" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
     <state width="1491" height="266" key="GridCell.Tab.1.center" timestamp="1584078987811" />
@@ -796,8 +799,10 @@
     <state width="1491" height="266" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
     <state x="907" y="233" key="RollbackChangesDialog" timestamp="1584078987811" />
     <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1584078987811" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1584080995360">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584080995360" />
     <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584078987811" />
     <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
     <state x="763" y="242" width="672" height="677" key="run.anything.popup" timestamp="1584078987811" />
