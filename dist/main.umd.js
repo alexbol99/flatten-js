@@ -4938,7 +4938,7 @@
          * @returns {Ray}
          */
         clone() {
-            return new Ray(this.pt);
+            return new Ray(this.pt, this.norm);
         }
 
         /**
