@@ -205,8 +205,9 @@ export class Polygon {
         if (edge1.face != edge2.face) return;
 
         // Cut face into two and create new polygon with two faces
-        let edgeBefore1 = polygon.addVertex(pt1, edge1);
-        let edgeBefore2 = polygon.addVertex(pt2, edge2);
+        let edgeBefore1 = this.addVertex(pt1, edge1);
+        edge2 = this.findEdgeByPoint(pt2);
+        let edgeBefore2 = this.addVertex(pt2, edge2);
 
         let face = edgeBefore1.face;
         let newEdge1 = new Flatten.Edge(

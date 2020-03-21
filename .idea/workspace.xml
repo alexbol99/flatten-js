@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/classes/ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/ray.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,8 +31,8 @@
       <file leaf-file-name="relation.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/algorithms/relation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1415">
-              <caret line="239" selection-start-line="239" selection-end-line="239" />
+            <state relative-caret-position="135">
+              <caret line="159" column="44" selection-start-line="159" selection-start-column="44" selection-end-line="159" selection-end-column="44" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#192#225#0" expanded="true" />
@@ -52,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ray.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ray.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/ray.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+            <state relative-caret-position="187">
+              <caret line="52" column="43" lean-forward="true" selection-start-line="52" selection-start-column="43" selection-end-line="52" selection-end-column="43" />
               <folding>
                 <element signature="e#15#48#0" expanded="true" />
               </folding>
@@ -64,20 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="multiline.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/classes/multiline.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="157" selection-start-line="157" selection-end-line="157" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="polygon.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/classes/polygon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="59" lean-forward="true" selection-start-line="9" selection-start-column="59" selection-end-line="9" selection-end-column="59" />
+            <state relative-caret-position="176">
+              <caret line="208" column="42" selection-start-line="208" selection-start-column="42" selection-end-line="208" selection-end-column="42" />
               <folding>
                 <element signature="e#62#95#0" expanded="true" />
               </folding>
@@ -138,9 +130,11 @@
       <find>spli</find>
       <find>set</find>
       <find>sort</find>
-      <find>cutFa</find>
       <find>split</find>
+      <find>clo</find>
+      <find>cutFa</find>
       <find>toShap</find>
+      <find>addVertex</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -163,10 +157,10 @@
         <option value="$PROJECT_DIR$/src/classes/circle.js" />
         <option value="$PROJECT_DIR$/src/classes/edge.js" />
         <option value="$PROJECT_DIR$/src/classes/line.js" />
-        <option value="$PROJECT_DIR$/src/algorithms/relation.js" />
         <option value="$PROJECT_DIR$/index.d.ts" />
-        <option value="$PROJECT_DIR$/src/classes/polygon.js" />
         <option value="$PROJECT_DIR$/src/classes/ray.js" />
+        <option value="$PROJECT_DIR$/src/algorithms/relation.js" />
+        <option value="$PROJECT_DIR$/src/classes/polygon.js" />
       </list>
     </option>
   </component>
@@ -693,27 +687,6 @@
       <workItem from="1578751038342" duration="12646000" />
       <workItem from="1579250841112" duration="12753000" />
     </task>
-    <task id="LOCAL-00103" summary="Bug fixing:&#10;- issue #13 Intersect between a line and polygon doesn't work - fixed, added some tests&#10;- issue #15 Arc direction is undefined when parameter counterClockwise is omitted - fixed, now if omitted, set default value Flatten.CCW&#10;- remove method Face::getRelation(polygon) (fix for issue #2 from flatten-boolean-op: Issue with intersection of circle and box) - method was incorrect">
-      <created>1538225643255</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1538225643255</updated>
-    </task>
-    <task id="LOCAL-00104" summary="Request from flatten-boolean-op to support circle and box:&#10;- added option to addFace() method to add circle and box">
-      <created>1538387199188</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1538387199188</updated>
-    </task>
-    <task id="LOCAL-00105" summary="Fix issue #18 Division by zero error when checking if polygon contains a point&#10;- skip zero-length edges in ray shooting algorithm">
-      <created>1544132014853</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1544132014853</updated>
-    </task>
     <task id="LOCAL-00106" summary="Fix issue #18 Division by zero error when checking if polygon contains a point&#10;- skip zero-length edges in ray shooting algorithm">
       <created>1544132127927</created>
       <option name="number" value="00106" />
@@ -1036,7 +1009,28 @@
       <option name="project" value="LOCAL" />
       <updated>1584806805656</updated>
     </task>
-    <option name="localTasksCounter" value="152" />
+    <task id="LOCAL-00152" summary="- Fixed bug in Ray::clone() method">
+      <created>1584815700698</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1584815700698</updated>
+    </task>
+    <task id="LOCAL-00153" summary="- Fixed bug in Ray::clone() method">
+      <created>1584815754710</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1584815754710</updated>
+    </task>
+    <task id="LOCAL-00154" summary="- Fixed bug in relationLine2Circle">
+      <created>1584816458136</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1584816458136</updated>
+    </task>
+    <option name="localTasksCounter" value="155" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1072,7 +1066,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20064000" />
+    <option name="totallyTimeSpent" value="21594000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="26" width="1270" height="697" extended-state="0" />
@@ -1132,8 +1126,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Remove redundant file flatten-js-test.ts" />
-    <MESSAGE value="- Export constants&#10;- Build packages and documentation" />
     <MESSAGE value="- Update dependency, build, documentation" />
     <MESSAGE value="- create patch" />
     <MESSAGE value="- update coverage tool istanbul to nyc&#10;- update script for coverall integration tool&#10;- added some tests for PlanarSet&#10;- build, generate docs" />
@@ -1157,7 +1149,9 @@
     <MESSAGE value="- Fix bug in line split" />
     <MESSAGE value="- Add method Multiline::Box" />
     <MESSAGE value="- Add methods Polygon::cut(), Line::split(), Line.sortPoints()&#10;- Simplify code, fix bugs and add tests for relation algorithms (not completed)" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Add methods Polygon::cut(), Line::split(), Line.sortPoints()&#10;- Simplify code, fix bugs and add tests for relation algorithms (not completed)" />
+    <MESSAGE value="- Fixed bug in Ray::clone() method" />
+    <MESSAGE value="- Fixed bug in relationLine2Circle" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fixed bug in relationLine2Circle" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -1332,6 +1326,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="497">
           <caret line="166" column="9" selection-start-line="166" selection-start-column="9" selection-end-line="166" selection-end-column="9" />
+          <folding>
+            <element signature="e#61#91#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1511,16 +1508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/algorithms/relation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="998">
-          <caret line="83" column="3" selection-start-line="83" selection-start-column="3" selection-end-line="83" selection-end-column="3" />
-          <folding>
-            <element signature="e#15#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/classes/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2116">
@@ -1569,12 +1556,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/polygon.js">
+    <entry file="file://$PROJECT_DIR$/test/classes/ray.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="59" lean-forward="true" selection-start-line="9" selection-start-column="59" selection-end-line="9" selection-end-column="59" />
+        <state relative-caret-position="15">
+          <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/classes/multiline.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="157" selection-start-line="157" selection-end-line="157" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/algorithms/relation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="83" column="3" selection-start-line="83" selection-start-column="3" selection-end-line="83" selection-end-column="3" />
           <folding>
-            <element signature="e#62#95#0" expanded="true" />
+            <element signature="e#15#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/ray.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="52" column="43" lean-forward="true" selection-start-line="52" selection-start-column="43" selection-end-line="52" selection-end-column="43" />
+          <folding>
+            <element signature="e#15#48#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1583,24 +1594,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/relation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1415">
-          <caret line="239" selection-start-line="239" selection-end-line="239" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#192#225#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/multiline.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="157" selection-start-line="157" selection-end-line="157" />
         </state>
       </provider>
     </entry>
@@ -1614,19 +1607,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/ray.js">
+    <entry file="file://$PROJECT_DIR$/src/algorithms/relation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
+        <state relative-caret-position="135">
+          <caret line="159" column="44" selection-start-line="159" selection-start-column="44" selection-end-line="159" selection-end-column="44" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#192#225#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/ray.js">
+    <entry file="file://$PROJECT_DIR$/src/classes/polygon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+        <state relative-caret-position="176">
+          <caret line="208" column="42" selection-start-line="208" selection-start-column="42" selection-end-line="208" selection-end-column="42" />
           <folding>
-            <element signature="e#15#48#0" expanded="true" />
+            <element signature="e#62#95#0" expanded="true" />
           </folding>
         </state>
       </provider>
