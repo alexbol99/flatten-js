@@ -122,6 +122,11 @@ export class Edge {
     setInclusion(polygon) {
         if (this.bv !== undefined) return this.bv;
 
+        if (this.shape instanceof Flatten.Line || this.shape instanceof Flatten.Ray) {
+            this.bv = Flatten.OUTSIDE;
+            return this.bv;
+        }
+
         if (this.bvStart === undefined) {
             this.bvStart = ray_shoot(polygon, this.start);
         }

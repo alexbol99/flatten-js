@@ -32,7 +32,7 @@ export class Ray {
             return;
         }
 
-        if (args.length == 2 && args[1] instanceof Flatten.Vector) {
+        if (args.length === 2 && args[1] instanceof Flatten.Vector) {
             this.norm = args[1].clone();
             return;
         }

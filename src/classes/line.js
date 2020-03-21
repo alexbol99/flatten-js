@@ -199,20 +199,6 @@ export class Line {
     }
 
     /**
-     * Split line with point and return array of two rays
-     * @param pt
-     * @returns {Ray[]}
-     */
-    split(pt) {
-        if (!this.contains(pt))
-            return [];
-
-        return [
-            new Flatten.Ray(pt, this.norm.invert()),
-            new Flatten.Ray(pt, this.norm)];
-    }
-
-    /**
      * Returns array of intersection points
      * @param {Shape} shape - shape to intersect with
      * @returns {Point[]}
@@ -281,6 +267,42 @@ export class Line {
             let [distance, shortest_segment] = Flatten.Distance.shape2polygon(this, shape);
             return [distance, shortest_segment];
         }
+    }
+
+    /**
+     * Split line with array of points and return array of shapes
+     * Assumed that all points lay on the line
+     * @param {Point[]}
+     * @returns {Shape[]}
+     */
+    split(pt) {
+        if (pt instanceof Flatten.Point) {
+            return [new Flatten.Ray(pt, this.norm.invert()), new Flatten.Ray(pt, this.norm)]
+        }
+        else {
+            let multiline = new Flatten.Multiline([this]);
+            let sorted_points = this.sortPoints(pt);
+            multiline.split(sorted_points);
+            return multiline.toShapes();
+        }
+    }
+
+    /**
+     * Sort given array of points that lay on line with respect to coordinate on a line
+     * The method assumes that points lay on the line and does not check this
+     * @param {Point[]} array of points
+     * @returns {Point[]} new array sorted
+     */
+    sortPoints(pts) {
+        return pts.slice().sort( (pt1, pt2) => {
+            if (this.coord(pt1) < this.coord(pt2)) {
+                return -1;
+            }
+            if (this.coord(pt1) > this.coord(pt2)) {
+                return 1;
+            }
+            return 0;
+        })
     }
 
     /**

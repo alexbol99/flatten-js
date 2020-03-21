@@ -176,6 +176,29 @@ export class Polygon {
         return newEdge;
     }
 
+    /**
+     * Cut polygon with line and return array of new polygons
+     * @param {Multiline} multiline
+     * @returns {Polygon[]}
+     */
+    cut(multiline) {
+        let cutPolygons = [];
+        for (let edge of multiline) {
+            if (edge.setInclusion(this) === Flatten.INSIDE) {
+                let [cutPoly1, cutPoly2] = this.cutFace(edge.shape.start, edge.shape.end);
+                cutPolygons.push(cutPoly1,cutPoly2);
+            }
+        }
+        return cutPolygons;
+    }
+
+    /**
+     * Cut face of polygon with a segment between two points and create two new polygons
+     * Supposed that a segments between points does not intersect any other edge
+     * @param {Point} pt1
+     * @param {Point} pt2
+     * @returns {Polygon[]}
+     */
     cutFace(pt1, pt2) {
         let edge1 = this.findEdgeByPoint(pt1);
         let edge2 = this.findEdgeByPoint(pt2);
@@ -217,9 +240,14 @@ export class Polygon {
         // Remove old face
         this.faces.delete(face);
 
-        return [face1, face2];
+        return [face1.toPolygon(), face2.toPolygon()];
     }
 
+    /**
+     * Returns the first founded edge of polygon that contains given point
+     * @param {Point} pt
+     * @returns {Edge}
+     */
     findEdgeByPoint(pt) {
         let edge;
         for (let face of this.faces) {
@@ -480,6 +508,7 @@ export class Polygon {
         // TODO: assert if not all polygons added into output
         return newPolygons;
     }
+
 }
 
 Flatten.Polygon = Polygon;

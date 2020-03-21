@@ -19,21 +19,10 @@ import {Multiline} from "../classes/multiline";
 
 let {vector,ray,segment,arc,polygon,multiline} = Flatten;
 
-const DISJOINT = RegExp('FF.FF....');
-const EQUALS = RegExp('T.F..FFF.');
-const INTERSECTS = RegExp('T........|.T.......|...T.....|....T....');
-const TOUCHES = RegExp('FT.......|F..T.....|F...T....');
-
-/**
- * Returns true if shapes have no points in common neither in interior nor in boundary
- * @param shape1
- * @param shape2
- * @returns {boolean}
- */
-export function disjoint(shape1, shape2) {
-    let denim = relate(shape1, shape2);
-    return DISJOINT.test(denim.toString());
-}
+// const DISJOINT = RegExp('FF.FF....');
+const EQUAL = RegExp('T.F..FFF.|T.F...F..');
+const INTERSECT = RegExp('T........|.T.......|...T.....|....T....');
+const TOUCH = RegExp('FT.......|F..T.....|F...T....');
 
 /**
  * Returns true is shapes topologically equal:  their interiors intersect and
@@ -42,9 +31,9 @@ export function disjoint(shape1, shape2) {
  * @param shape2
  * @returns {boolean}
  */
-export function equals(shape1, shape2) {
+export function equal(shape1, shape2) {
     let denim = relate(shape1, shape2);
-    return EQUALS.test(denim.toString());
+    return EQUAL.test(denim.toString());
 }
 
 /**
@@ -53,9 +42,9 @@ export function equals(shape1, shape2) {
  * @param shape2
  * @returns {boolean}
  */
-export function intersects(shape1, shape2) {
+export function intersect(shape1, shape2) {
     let denim = relate(shape1, shape2);
-    return INTERSECTS.test(denim.toString());
+    return INTERSECT.test(denim.toString());
 }
 
 /**
@@ -64,9 +53,19 @@ export function intersects(shape1, shape2) {
  * @param shape2
  * @returns {boolean}
  */
-export function touches(shape1, shape2) {
+export function touch(shape1, shape2) {
     let denim = relate(shape1, shape2);
-    return TOUCHES.test(shape1, shape2);
+    return TOUCH.test(denim.toString());
+}
+
+/**
+ * Returns true if shapes have no points in common neither in interior nor in boundary
+ * @param shape1
+ * @param shape2
+ * @returns {boolean}
+ */
+export function disjoint(shape1, shape2) {
+    return !intersect(shape1, shape2);
 }
 
 /**
@@ -89,6 +88,9 @@ export function relate(shape1, shape2) {
     else if (shape1 instanceof Flatten.Line && shape2 instanceof Flatten.Box) {
         return relateLine2Box(shape1, shape2);
     }
+    else if (shape1 instanceof Flatten.Line && shape2 instanceof Flatten.Polygon) {
+        return relateLine2Polygon(shape1, shape2);
+    }
 }
 
 /**
@@ -103,7 +105,7 @@ export function relateLine2Line(line1, line2) {
     let ip = intersectLine2Line(line1, line2);
     if (ip.length === 0) {       // parallel or equal ?
         if (line1.contains(line2.pt) && line2.contains(line1.pt)) {
-            denim.I2I = [line1];   // equal  'T*F**FFF*'
+            denim.I2I = [line1];   // equal  'T.F...F..'  - no boundary
             denim.I2E = denim.E2I = [];
         }
         else {                     // parallel - disjoint 'FFTFF*T**'
@@ -112,12 +114,10 @@ export function relateLine2Line(line1, line2) {
             denim.E2I = [line2];
         }
     }
-    else {                       // intersected   'T********'
+    else {                       // intersect   'T********'
         denim.I2I = ip;
-        // denim.I2E = [ray(line1.pt, line1.norm), ray(line1.pt, line1.norm.invert())];
-        // denim.E2I = [ray(line2.pt, line2.norm), ray(line2.pt, line2.norm.invert())];
-        denim.I2E = multiline([line1]).split(ip).toShapes();
-        denim.E2I = multiline([line2]).split(ip).toShapes();
+        denim.I2E = line1.split(ip);
+        denim.E2I = line2.split(ip);
     }
     return denim;
 }
@@ -144,40 +144,20 @@ export function relateLine2Circle(line,circle) {
     else if (ip.length === 1) {
         denim.I2I = [];
         denim.I2B = ip;
-        /* I2E are two rays from intersection point */
-        // let ray0 = ray(ip[0], line.norm.invert());
-        // let ray1 = ray(ip[1], line.norm);
-        // denim.I2E = [ray0, ray1];
+        denim.I2E = line.split(ip);
 
-        denim.I2E = multiline([line]).split(ip).toShapes();
         denim.E2I = [circle];
     }
     else {       // ip.length == 2
-        sortPointsOnLine(line, ip);          // sort points on line
+        let multiline = new Multiline([line]);
+        multiline.split(ip);
+        let splitShapes = multiline.toShapes();
 
-        // split line to array of [ray,segment,ray]
-        let splitShapes = multiline([line]).split(ip).toShapes();
-
-        denim.I2I = [splitShapes[1]];   // segment(ip[0], ip[1]);
+        denim.I2I = [splitShapes[1]];
         denim.I2B = ip;
-        /* I2E are two rays from intersection points outside of the circle */
-        // let ray0 = ray(ip[0], line.norm.invert());
-        // let ray1 = ray(ip[1], line.norm.invert());
-        // denim.I2E = [ray0, ray1];
-        denim.I2E = [splitShapes[0],splitShapes[2]];
+        denim.I2E = [splitShapes[0], splitShapes[2]];
 
-        /* E2I are two circular segments. Choose the ccw orientation of the arcs */
-        let angle0 = vector(circle.pc, ip[0]).slope;
-        let angle1 = vector(circle.pc, ip[1].slope);
-        let poly1 = polygon([
-            arc(circle.pc, circle.r, angle0, angle1, Flatten.CCW),
-            segment(ip[1], ip[0])
-        ]);
-        let poly2 = polygon([
-            arc(circle.pc, circle.r, angle1, angle0, Flatten.CCW),
-            segment(ip[0], ip[1])
-        ]);
-        denim.E2I = [poly1, poly2];
+        denim.E2I = polygon(circle.toArc()).cut(multiline);
     }
 
     return denim;
@@ -205,46 +185,30 @@ export function relateLine2Box(line, box) {
     else if (ip.length === 1) {
         denim.I2I = [];
         denim.I2B = ip;
-        /* I2E are two rays from intersection point */
-        // let ray0 = ray(ip[0], line.norm.invert());
-        // let ray1 = ray(ip[1], line.norm);
-        // denim.I2E = [ray0, ray1];
-        denim.I2E = multiline([line]).split(ip).toShapes();
+        denim.I2E = line.split(ip);
+
         denim.E2I = [box];
     }
     else {                     // ip.length == 2
-        sortPointsOnLine(line, ip);
-
-        // split line to array of [ray,segment,ray]
-        let splitShapes = multiline([line]).split(ip).toShapes();
+        let multiline = new Multiline([line]);
+        multiline.split(ip);
+        let splitShapes = multiline.toShapes();
 
         /* Are two intersection points on the same segment of the box boundary ? */
-        if (box.toSegments().any( (segment) => segment.contains(ip[0]) && segment.contains(ip[1]) )) {
+        if (box.toSegments().any( segment => segment.contains(ip[0]) && segment.contains(ip[1]) )) {
             denim.I2I = [];                         // case of touching
-            denim.I2B = [segment(ip[0], ip[1])];
+            denim.I2B = [splitShapes[1]];
+            denim.I2E = [splitShapes[0], splitShapes[2]];
 
             denim.E2I = [box];
         }
         else {                                       // case of intersection
-            denim.I2I = [splitShapes[1]];     // [segment(ip[0], ip[1])];
+            denim.I2I = [splitShapes[1]];            // [segment(ip[0], ip[1])];
             denim.I2B = ip;
+            denim.I2E = [splitShapes[0], splitShapes[2]];
 
-            // Intersection between exterior of the line and interior of the box is array of two polygons
-
-            // Create polygon from the box
-            let poly = polygon(box.toSegments());
-
-            // Cut polygon with segment between two points
-            let [face0, face1] = poly.cutFace(ip[0], ip[1]);
-
-            // Create two polygons from two faces
-            denim.E2I = [face0.toPolygon(), face1.toPolygon()];
+            denim.E2I = polygon(box.toSegments()).cut(multiline);
         }
-
-        // let ray0 = ray(ip[0], line.norm.invert());
-        // let ray1 = ray(ip[1], line.norm);
-        // denim.I2E = [ray0, ray1];
-        denim.I2E = [splitShapes[0], splitShapes[2]];
     }
     return denim;
 }
@@ -261,46 +225,15 @@ export function relateLine2Polygon(line, polygon) {
     else {
         let multiline = new Multiline([line]);
         multiline.split(ip);
-        for (let edge of multiline) {
-            edge.setInclusion(polygon);
-        }
-        let edges = multiline.toArray();
-        denim.I2I = edges.filter(edge => edge.bv === Flatten.INSIDE).map(edge => edge.shape);
-        denim.I2B = [];
-        for (let edge of edges) {
-            if (edge.bv === Flatten.BOUNDARY) {
-                denim.I2B.push(edge.shape)
-            }
-            else {
-                denim.I2B.push(edge.shape.start);
-                denim.I2B.push(edge.shape.end);
-            }
-        }
-        denim.I2E = edges.filter(edge => edge.bv === Flatten.OUTSIDE).map(edge => edge.shape);
 
-        denim.E2I = [];
-        for (let edge of denim.I2I) {
-            let [face1, face2] = polygon.cutFace(edge.shape.start, edge.shape.end);
-            denim.E2I.push(face1);
-            denim.E2I.push(face2);
-        }
+        [...multiline].forEach(edge => edge.setInclusion(polygon));
+
+        denim.I2I = [...multiline].filter(edge => edge.bv === Flatten.INSIDE).map(edge => edge.shape);
+        denim.I2B = [...multiline].forEach( edge => edge.bv === Flatten.BOUNDARY ?
+            denim.I2B.push(edge.shape) : denim.I2B.push(edge.shape.start, edge.shape.end) );
+        denim.I2E = [...multiline].filter(edge => edge.bv === Flatten.OUTSIDE).map(edge => edge.shape);
+
+        denim.E2I = polygon.cut(multiline);
     }
     return denim;
-}
-
-/**
- * Sort given array of points that lay on line with respect to coordinate on a line
- * The method assumes that points lay on the line and does not check this
- * @param {Point[]} pointsArray
- */
-function sortPointsOnLine(line, pointsArray) {
-    pointsArray.sort( (pt1, pt2) => {
-        if (line.coord(pt1) < line.coord(pt2)) {
-            return -1;
-        }
-        if (line.coord(pt1) > line.coord(pt2)) {
-            return 1;
-        }
-        return 0;
-    })
 }

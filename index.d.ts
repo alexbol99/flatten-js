@@ -233,7 +233,8 @@ declare namespace Flatten {
         intersect(shape: Shape): Point[];
         parallelTo(line: Line): boolean;
         coord(pt: Point): number;
-        split(pt: Point): [Ray, Ray];
+        split(pt: Point | Point[]): Edge[];
+        sortPoints(points: Point[]): Point[];
         svg(box: Box, attrs?: SVGAttributes): string;
         toJSON() : Object;
     }
@@ -496,12 +497,13 @@ declare namespace Flatten {
         rotate(angle?: number, center?: Point): Polygon;
         transform(matrix?: Matrix): Polygon;
         translate(vec: Vector): Polygon;
+        splitToIslands() : Polygon[];
+        findEdgeByPoint(pt: Point): Edge;
+        cutFace(pt1: Point, pt2: Point): [Polygon, Polygon];
+        cut(multiline: Multiline): Polygon[];
         toJSON() : Object;
         toArray() : Polygon[];
         svg(attrs?: SVGAttributes): string;
-        splitToIslands() : Polygon[];
-        findEdgeByPoint(pt: Point): Edge;
-        cutFace(pt1: Point, pt2: Point): [Face, Face];
     }
 
     class Multiline extends LinkedList {
