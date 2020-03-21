@@ -6792,7 +6792,7 @@ function relateLine2Circle(line,circle) {
         denim.I2B = ip;
         denim.I2E = [splitShapes[0], splitShapes[2]];
 
-        denim.E2I = polygon$1(circle.toArc()).cut(multiline);
+        denim.E2I = polygon$1([circle.toArc()]).cut(multiline);
     }
 
     return denim;
