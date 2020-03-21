@@ -6833,7 +6833,7 @@
             let splitShapes = multiline.toShapes();
 
             /* Are two intersection points on the same segment of the box boundary ? */
-            if (box.toSegments().any( segment => segment.contains(ip[0]) && segment.contains(ip[1]) )) {
+            if (box.toSegments().some( segment => segment.contains(ip[0]) && segment.contains(ip[1]) )) {
                 denim.I2I = [];                         // case of touching
                 denim.I2B = [splitShapes[1]];
                 denim.I2E = [splitShapes[0], splitShapes[2]];
