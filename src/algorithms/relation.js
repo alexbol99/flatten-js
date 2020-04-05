@@ -150,11 +150,12 @@ export function relateLine2Circle(line,circle) {
     }
     else {       // ip.length == 2
         let multiline = new Multiline([line]);
-        multiline.split(ip);
+        let ip_sorted = line.sortPoints(ip);
+        multiline.split(ip_sorted);
         let splitShapes = multiline.toShapes();
 
         denim.I2I = [splitShapes[1]];
-        denim.I2B = ip;
+        denim.I2B = ip_sorted;
         denim.I2E = [splitShapes[0], splitShapes[2]];
 
         denim.E2I = polygon([circle.toArc()]).cut(multiline);
@@ -191,7 +192,8 @@ export function relateLine2Box(line, box) {
     }
     else {                     // ip.length == 2
         let multiline = new Multiline([line]);
-        multiline.split(ip);
+        let ip_sorted = line.sortPoints(ip);
+        multiline.split(ip_sorted);
         let splitShapes = multiline.toShapes();
 
         /* Are two intersection points on the same segment of the box boundary ? */
@@ -204,7 +206,7 @@ export function relateLine2Box(line, box) {
         }
         else {                                       // case of intersection
             denim.I2I = [splitShapes[1]];            // [segment(ip[0], ip[1])];
-            denim.I2B = ip;
+            denim.I2B = ip_sorted;
             denim.I2E = [splitShapes[0], splitShapes[2]];
 
             denim.E2I = polygon(box.toSegments()).cut(multiline);
@@ -224,13 +226,13 @@ export function relateLine2Polygon(line, polygon) {
     }
     else {
         let multiline = new Multiline([line]);
-        multiline.split(ip);
+        let ip_sorted = line.sortPoints(ip);
+        multiline.split(ip_sorted);
 
         [...multiline].forEach(edge => edge.setInclusion(polygon));
 
         denim.I2I = [...multiline].filter(edge => edge.bv === Flatten.INSIDE).map(edge => edge.shape);
-        denim.I2B = [...multiline].forEach( edge => edge.bv === Flatten.BOUNDARY ?
-            denim.I2B.push(edge.shape) : denim.I2B.push(edge.shape.start, edge.shape.end) );
+        denim.I2B = [...multiline].slice(1).map( (edge) => edge.bv === Flatten.BOUNDARY ? edge.shape : edge.shape.start );
         denim.I2E = [...multiline].filter(edge => edge.bv === Flatten.OUTSIDE).map(edge => edge.shape);
 
         denim.E2I = polygon.cut(multiline);

@@ -6,7 +6,9 @@ import { expect } from 'chai';
 import Flatten, {matrix} from '../../index';
 
 import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../../index';
-import {point, vector, circle, line, segment, arc, box} from '../../index';
+import {point, vector, circle, line, segment, arc, box, multiline} from '../../index';
+import {intersectLine2Polygon} from "../../src/algorithms/intersection";
+import {Multiline} from "../../src/classes/multiline";
 
 describe('#Flatten.Polygon', function() {
     it('May create new instance of Polygon', function () {
@@ -608,5 +610,61 @@ describe('#Flatten.Polygon', function() {
         expect(islandsArray[0].edges.size).to.equal(8);
         expect(islandsArray[1].faces.size).to.equal(1);
         expect(islandsArray[1].edges.size).to.equal(4);
+    });
+    describe('#Flatten.Polygon.cut(multiline) methods', function() {
+        it('Can cut polygon with line. Case of non-intersection', function() {
+            let l = line( point(100,400), vector(0,1) );
+            let points = [point(100, 20), point(250, 75), point(350, 75), point(300, 200), point(170, 200), point(120, 350), point(70, 120) ];
+            let p = new Polygon(points);
+            let ip = intersectLine2Polygon(l, p);
+            let mline = multiline([l]);
+            mline.split(ip);
+            let cut_polygons = p.cut(mline);
+
+            expect(cut_polygons.length).to.equal(1);
+            expect(cut_polygons[0].faces.size).to.equal(p.faces.size);
+            expect(cut_polygons[0].edges.size).to.equal(p.edges.size);
+        });
+        it('Can cut polygon with multiline line. Case of touching in one point', function() {
+            let l = line( point(100,350), vector(0,1) );
+            let points = [point(100, 20), point(250, 75), point(350, 75), point(300, 200), point(170, 200), point(120, 350), point(70, 120) ];
+            let p = new Polygon(points);
+            let ip = intersectLine2Polygon(l, p);
+            let mline = multiline([l]);
+            mline.split(ip);
+            let cut_polygons = p.cut(mline);
+
+            expect(cut_polygons.length).to.equal(1);
+            expect(cut_polygons[0].faces.size).to.equal(p.faces.size);
+            expect(cut_polygons[0].edges.size).to.equal(p.edges.size);
+        });
+        it('Can cut polygon with line into 2 polygons', function() {
+            let l = line( point(100,175), vector(0,1) );
+            let points = [point(100, 20), point(250, 75), point(350, 75), point(300, 200), point(170, 200), point(120, 350), point(70, 120) ];
+            let p = new Polygon(points);
+            let ip = intersectLine2Polygon(l, p);
+            let mline = multiline([l]);
+            mline.split(ip);
+            let cut_polygons = p.cut(mline);
+
+            expect(cut_polygons.length).to.equal(2);
+            expect(cut_polygons[0].edges.size).to.equal(6);
+            expect(cut_polygons[1].edges.size).to.equal(5);
+        });
+        it('Can cut polygon with line into 3 polygons', function() {
+            let l = line( point(100,250), vector(0,1) );
+            let points = [point(100, 20), point(250, 75), point(350, 75), point(300, 350), point(170, 200), point(120, 350), point(70, 120) ];
+            let p = new Polygon(points);
+            let ip = intersectLine2Polygon(l, p);
+            let mline = multiline([l]);
+            mline.split(ip);
+            let cut_polygons = p.cut(mline);
+
+            expect(cut_polygons.length).to.equal(3);
+            expect(cut_polygons[0].edges.size).to.equal(9);
+            expect(cut_polygons[1].edges.size).to.equal(3);
+            expect(cut_polygons[2].edges.size).to.equal(3);
+        });
+
     });
 });

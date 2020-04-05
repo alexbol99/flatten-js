@@ -20,7 +20,7 @@ export {Edge} from './src/classes/edge';
 export {Face} from './src/classes/face';
 export {Ray, ray} from './src/classes/ray';
 export {ray_shoot} from './src/algorithms/ray_shooting';
-export {Multiline} from './src/classes/multiline';
+export {Multiline, multiline} from './src/classes/multiline';
 export {Polygon} from './src/classes/polygon';
 export {Distance} from './src/algorithms/distance';
 export {inverse} from './src/algorithms/inversion';

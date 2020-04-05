@@ -182,12 +182,25 @@ export class Polygon {
      * @returns {Polygon[]}
      */
     cut(multiline) {
-        let cutPolygons = [];
+        let cutPolygons = [this.clone()];
         for (let edge of multiline) {
-            if (edge.setInclusion(this) === Flatten.INSIDE) {
-                let [cutPoly1, cutPoly2] = this.cutFace(edge.shape.start, edge.shape.end);
-                cutPolygons.push(cutPoly1,cutPoly2);
+            if (edge.setInclusion(this) !== Flatten.INSIDE)
+                continue;
+
+            let cut_edge_start = edge.shape.start;
+            let cut_edge_end = edge.shape.end;
+
+            let newCutPolygons = [];
+            for (let polygon of cutPolygons) {
+                if (polygon.findEdgeByPoint(cut_edge_start) === undefined) {
+                    newCutPolygons.push(polygon);
+                }
+                else {
+                    let [cutPoly1, cutPoly2] = polygon.cutFace(cut_edge_start, cut_edge_end);
+                    newCutPolygons.push(cutPoly1, cutPoly2);
+                }
             }
+            cutPolygons = newCutPolygons;
         }
         return cutPolygons;
     }

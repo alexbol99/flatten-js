@@ -1,8 +1,9 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../../index';
+import Flatten, {multiline} from '../../index';
 import {relate, disjoint, equal, intersect, touch} from '../../src/algorithms/relation';
+import {intersectLine2Polygon} from "../../src/algorithms/intersection";
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
 
@@ -79,6 +80,54 @@ describe('#Algorithms.Relation', function() {
             expect(intersect(l, c)).to.be.true;
             expect(disjoint(l, c)).to.be.false;
             expect(touch(l, c)).to.be.false;
+        });
+    });
+    describe('#Algorithms.Relation.Line2Box', function() {
+        it ('Intersection case', () => {
+            let l = line( point(400,120), vector(0.5,1) );
+            let b = circle(point(300,150), 100).box;
+
+            expect(equal(l, b)).to.be.false;
+            expect(intersect(l, b)).to.be.true;
+            expect(disjoint(l, b)).to.be.false;
+            expect(touch(l, b)).to.be.false;
+        });
+    });
+
+    describe('#Algorithms.Relation.Line2Polygon', function() {
+        it ('Disjoint case', () => {
+            let l = line( point(400,0), vector(1,0) );
+            let points = [point(100, 20), point(250, 75), point(350, 75), point(300, 200), point(170, 200), point(120, 350), point(70, 120) ];
+            let p = new Polygon(points);
+
+            expect(disjoint(l, p)).to.be.true;
+            expect(equal(l, p)).to.be.false;
+            expect(intersect(l, p)).to.be.false;
+            expect(touch(l, p)).to.be.false;
+        });
+        it ('Touching case - touch in one point', () => {
+            let l = line( point(100,350), vector(0,1) );
+            let points = [point(100, 20), point(250, 75), point(350, 75), point(300, 200), point(170, 200), point(120, 350), point(70, 120) ];
+            let p = new Polygon(points);
+
+            expect(equal(l, p)).to.be.false;
+            expect(intersect(l, p)).to.be.true;
+            expect(disjoint(l, p)).to.be.false;
+            expect(touch(l, p)).to.be.true;
+        });
+        it ('Intersection case - 2 intersection point', () => {
+            let l = line( point(100,175), vector(0,1) );
+            let points = [point(100, 20), point(250, 75), point(350, 75), point(300, 200), point(170, 200), point(120, 350), point(70, 120) ];
+            let p = new Polygon(points);
+
+            let de9im = relate(l, p);
+            expect(de9im.I2I.length).to.equal(1);
+            expect(de9im.I2I[0]).to.be.instanceof(Flatten.Segment);
+
+            expect(equal(l, p)).to.be.false;
+            expect(intersect(l, p)).to.be.true;
+            expect(disjoint(l, p)).to.be.false;
+            expect(touch(l, p)).to.be.false;
         });
     });
 });

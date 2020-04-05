@@ -120,6 +120,10 @@ export class Ray {
         if (!this.contains(pt))
             return [];
 
+        if (this.pt.equalTo(pt)) {
+            return [this]
+        }
+
         return [
             new Flatten.Segment(this.pt, pt),
             new Flatten.Ray(pt, this.norm)

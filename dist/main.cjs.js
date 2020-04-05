@@ -5006,6 +5006,10 @@ class Ray {
         if (!this.contains(pt))
             return [];
 
+        if (this.pt.equalTo(pt)) {
+            return [this]
+        }
+
         return [
             new Flatten.Segment(this.pt, pt),
             new Flatten.Ray(pt, this.norm)
@@ -5472,12 +5476,25 @@ class Polygon {
      * @returns {Polygon[]}
      */
     cut(multiline) {
-        let cutPolygons = [];
+        let cutPolygons = [this.clone()];
         for (let edge of multiline) {
-            if (edge.setInclusion(this) === Flatten.INSIDE) {
-                let [cutPoly1, cutPoly2] = this.cutFace(edge.shape.start, edge.shape.end);
-                cutPolygons.push(cutPoly1,cutPoly2);
+            if (edge.setInclusion(this) !== Flatten.INSIDE)
+                continue;
+
+            let cut_edge_start = edge.shape.start;
+            let cut_edge_end = edge.shape.end;
+
+            let newCutPolygons = [];
+            for (let polygon of cutPolygons) {
+                if (polygon.findEdgeByPoint(cut_edge_start) === undefined) {
+                    newCutPolygons.push(polygon);
+                }
+                else {
+                    let [cutPoly1, cutPoly2] = polygon.cutFace(cut_edge_start, cut_edge_end);
+                    newCutPolygons.push(cutPoly1, cutPoly2);
+                }
             }
+            cutPolygons = newCutPolygons;
         }
         return cutPolygons;
     }
@@ -6786,11 +6803,12 @@ function relateLine2Circle(line,circle) {
     }
     else {       // ip.length == 2
         let multiline = new Multiline([line]);
-        multiline.split(ip);
+        let ip_sorted = line.sortPoints(ip);
+        multiline.split(ip_sorted);
         let splitShapes = multiline.toShapes();
 
         denim.I2I = [splitShapes[1]];
-        denim.I2B = ip;
+        denim.I2B = ip_sorted;
         denim.I2E = [splitShapes[0], splitShapes[2]];
 
         denim.E2I = polygon$1([circle.toArc()]).cut(multiline);
@@ -6827,7 +6845,8 @@ function relateLine2Box(line, box) {
     }
     else {                     // ip.length == 2
         let multiline = new Multiline([line]);
-        multiline.split(ip);
+        let ip_sorted = line.sortPoints(ip);
+        multiline.split(ip_sorted);
         let splitShapes = multiline.toShapes();
 
         /* Are two intersection points on the same segment of the box boundary ? */
@@ -6840,7 +6859,7 @@ function relateLine2Box(line, box) {
         }
         else {                                       // case of intersection
             denim.I2I = [splitShapes[1]];            // [segment(ip[0], ip[1])];
-            denim.I2B = ip;
+            denim.I2B = ip_sorted;
             denim.I2E = [splitShapes[0], splitShapes[2]];
 
             denim.E2I = polygon$1(box.toSegments()).cut(multiline);
@@ -6860,13 +6879,13 @@ function relateLine2Polygon(line, polygon) {
     }
     else {
         let multiline = new Multiline([line]);
-        multiline.split(ip);
+        let ip_sorted = line.sortPoints(ip);
+        multiline.split(ip_sorted);
 
         [...multiline].forEach(edge => edge.setInclusion(polygon));
 
         denim.I2I = [...multiline].filter(edge => edge.bv === Flatten.INSIDE).map(edge => edge.shape);
-        denim.I2B = [...multiline].forEach( edge => edge.bv === Flatten.BOUNDARY ?
-            denim.I2B.push(edge.shape) : denim.I2B.push(edge.shape.start, edge.shape.end) );
+        denim.I2B = [...multiline].slice(1).map( (edge) => edge.bv === Flatten.BOUNDARY ? edge.shape : edge.shape.start );
         denim.I2E = [...multiline].filter(edge => edge.bv === Flatten.OUTSIDE).map(edge => edge.shape);
 
         denim.E2I = polygon.cut(multiline);
@@ -6915,6 +6934,7 @@ exports.intersect = intersect;
 exports.inverse = inverse;
 exports.line = line;
 exports.matrix = matrix;
+exports.multiline = multiline;
 exports.point = point;
 exports.ray = ray;
 exports.ray_shoot = ray_shoot;
