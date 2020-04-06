@@ -514,6 +514,22 @@ export function intersectEdge2Polygon(edge, polygon) {
     return ip;
 }
 
+export function intersectMultiline2Polygon(multiline, polygon) {
+    let ip = [];
+
+    if (polygon.isEmpty() || multiline.size === 0) {
+        return ip;
+    }
+
+    for (let edge of multiline) {
+        for (let pt of intersectEdge2Polygon(edge, polygon)) {
+            ip.push(pt);
+        }
+    }
+
+    return ip;
+}
+
 export function intersectPolygon2Polygon(polygon1, polygon2) {
     let ip = [];
 
@@ -546,6 +562,22 @@ export function intersectBox2Box(box1, box2) {
     return ip;
 }
 
+export function intersectShape2Polygon(shape, polygon) {
+    if (shape instanceof Flatten.Line) {
+        return intersectLine2Polygon(shape, polygon);
+    }
+    else if (shape instanceof Flatten.Segment) {
+        return intersectSegment2Polygon(shape, polygon);
+    }
+    else if (shape instanceof Flatten.Arc) {
+        return intersectArc2Polygon(shape, polygon);
+    }
+    else {
+        return [];
+    }
+}
+
 function ptInIntPoints(new_pt, ip) {
     return ip.some( pt => pt.equalTo(new_pt) )
 }
+

@@ -424,6 +424,25 @@ export class Face extends CircularLinkedList {
     }
 
     /**
+     * Return chain edges between edgeFrom and edgeTo
+     * @param {Edge} edgeFrom
+     * @param {Edge} edgeTo
+     * @returns {Edge[]}
+     */
+    getChainEdges(edgeFrom, edgeTo) {
+        let edges = [];
+        if (edgeTo.next === edgeFrom) {           // Special case: return all face edges
+            edges = this.edges;
+        }
+        else {
+            for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
+                edges.push(edge);
+            }
+        }
+        return edges;
+    }
+
+    /**
      * Returns new polygon created from one face
      * @returns {Flatten.Polygon}
      */

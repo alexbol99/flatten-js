@@ -452,6 +452,26 @@ export class Arc {
     }
 
     /**
+     * Sort given array of points from arc start to end, assuming all points lay on the arc
+     * @param {Point[]} array of points
+     * @returns {Point[]} new array sorted
+     */
+    sortPoints(pts) {
+        let {vector} = Flatten;
+        return pts.slice().sort( (pt1, pt2) => {
+            let slope1 = vector(this.pc, pt1).slope;
+            let slope2 = vector(this.pc, pt2).slope;
+            if (slope1 < slope2) {
+                return -1;
+            }
+            if (slope1 > slope2) {
+                return 1;
+            }
+            return 0;
+        })
+    }
+
+    /**
      * Return string to draw arc in svg
      * @param {Object} attrs - an object with attributes of svg path element,
      * like "stroke", "strokeWidth", "fill" <br/>

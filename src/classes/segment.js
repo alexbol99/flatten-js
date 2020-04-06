@@ -329,6 +329,16 @@ export class Segment {
     }
 
     /**
+     * Sort given array of points from segment start to end, assuming all points lay on the segment
+     * @param {Point[]} array of points
+     * @returns {Point[]} new array sorted
+     */
+    sortPoints(pts) {
+        let line = new Flatten.Line(this.start, this.end);
+        return line.sortPoints(pts);
+    }
+
+    /**
      * Return string to draw segment in svg
      * @param {Object} attrs - an object with attributes for svg path element,
      * like "stroke", "strokeWidth" <br/>

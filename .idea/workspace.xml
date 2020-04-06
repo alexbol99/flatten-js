@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fixed bug in relationLine2Circle">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fixed bugs in relationLine2Polygon and Polygon::cut() method">
+      <change afterPath="$PROJECT_DIR$/src/algorithms/boolean_op.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/intersection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/intersection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/relation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/ray.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/relation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/arc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/segment.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +63,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flatten-interval-tree" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flatten-boolean-op" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.prettier" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -88,13 +85,6 @@
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\examples\typescript" />
-      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\packages\utils" />
-      <recent name="C:\Users\alexbol\WebstormProjects\flatten-js\packages\core" />
-      <recent name="C:\Users\alexbol\WebstormProjects\flatten-js" />
-      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\test" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test/algorithms" />
       <recent name="$PROJECT_DIR$/test/data_structures" />
@@ -102,8 +92,15 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\examples\typescript" />
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\examples\typescript" />
+      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\packages\utils" />
+      <recent name="C:\Users\alexbol\WebstormProjects\flatten-js\packages\core" />
+      <recent name="C:\Users\alexbol\WebstormProjects\flatten-js" />
+      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\test" />
+    </key>
   </component>
-  <component name="RunManager" selected="npm.test">
+  <component name="RunManager" selected="Mocha.#Algorithms.Relation">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -202,9 +199,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Mocha.#Algorithms.Relation" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.build" />
-        <item itemvalue="Mocha.#Algorithms.Relation" />
         <item itemvalue="Mocha.#Flatten.Polygon" />
         <item itemvalue="Mocha.#Algorithms.Relation.#Algorithms.Relation.Line2Polygon" />
       </list>
@@ -350,14 +347,7 @@
       <workItem from="1578589389142" duration="42800000" />
       <workItem from="1578751038342" duration="12646000" />
       <workItem from="1579250841112" duration="12753000" />
-      <workItem from="1586085458394" duration="6956000" />
-    </task>
-    <task id="LOCAL-00106" summary="Fix issue #18 Division by zero error when checking if polygon contains a point&#10;- skip zero-length edges in ray shooting algorithm">
-      <created>1544132127927</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1544132127927</updated>
+      <workItem from="1586085458394" duration="27877000" />
     </task>
     <task id="LOCAL-00107" summary="Submit compiled packages">
       <created>1544132412606</created>
@@ -695,7 +685,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584816458136</updated>
     </task>
-    <option name="localTasksCounter" value="155" />
+    <task id="LOCAL-00155" summary="- Fixed bugs in relationLine2Polygon and Polygon::cut() method">
+      <created>1586102595853</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1586102595853</updated>
+    </task>
+    <option name="localTasksCounter" value="156" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -715,7 +712,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Update dependency, build, documentation" />
     <MESSAGE value="- create patch" />
     <MESSAGE value="- update coverage tool istanbul to nyc&#10;- update script for coverall integration tool&#10;- added some tests for PlanarSet&#10;- build, generate docs" />
     <MESSAGE value="- implement LinkedList, CircularLinkedList&#10;- implement Face as an extension of CircularLinkedList" />
@@ -740,7 +736,8 @@
     <MESSAGE value="- Add methods Polygon::cut(), Line::split(), Line.sortPoints()&#10;- Simplify code, fix bugs and add tests for relation algorithms (not completed)" />
     <MESSAGE value="- Fixed bug in Ray::clone() method" />
     <MESSAGE value="- Fixed bug in relationLine2Circle" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Fixed bug in relationLine2Circle" />
+    <MESSAGE value="- Fixed bugs in relationLine2Polygon and Polygon::cut() method" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fixed bugs in relationLine2Polygon and Polygon::cut() method" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -760,30 +757,34 @@
     <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
     <state x="1088" y="381" key="#xdebugger.evaluate" timestamp="1584078987811" />
     <state x="1088" y="381" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1586085719938">
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1586102594737">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586085719938" />
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586102594737" />
     <state width="762" height="466" key="DebuggerActiveHint" timestamp="1586100054890">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="762" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1586100054890" />
-    <state width="1636" height="330" key="GridCell.Tab.0.bottom" timestamp="1586102424683">
+    <state x="860" y="273" key="FileChooserDialogImpl" timestamp="1586162259715">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="330" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586102424683" />
-    <state width="1636" height="330" key="GridCell.Tab.0.center" timestamp="1586102424683">
+    <state x="860" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586162259715" />
+    <state width="1640" height="255" key="GridCell.Tab.0.bottom" timestamp="1586185718971">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="330" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586102424683" />
-    <state width="1636" height="330" key="GridCell.Tab.0.left" timestamp="1586102424683">
+    <state width="1640" height="255" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586185718971" />
+    <state width="1640" height="255" key="GridCell.Tab.0.center" timestamp="1586185718971">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="330" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586102424683" />
-    <state width="1636" height="330" key="GridCell.Tab.0.right" timestamp="1586102424683">
+    <state width="1640" height="255" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586185718971" />
+    <state width="1640" height="255" key="GridCell.Tab.0.left" timestamp="1586185718971">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="330" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586102424683" />
+    <state width="1640" height="255" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586185718971" />
+    <state width="1640" height="255" key="GridCell.Tab.0.right" timestamp="1586185718971">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1640" height="255" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586185718971" />
     <state width="1636" height="437" key="GridCell.Tab.1.bottom" timestamp="1586100092406">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -834,16 +835,18 @@
     <state width="1636" height="437" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
     <state x="907" y="233" key="RollbackChangesDialog" timestamp="1584078987811" />
     <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1584080995360">
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1586102599404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584080995360" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586102599404" />
     <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584078987811" />
     <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
     <state x="763" y="242" width="672" height="677" key="run.anything.popup" timestamp="1584078987811" />
     <state x="763" y="242" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1584078987811" />
-    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1586161221034">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586161221034" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
