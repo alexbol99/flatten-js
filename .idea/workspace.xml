@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fixed bugs in relationLine2Polygon and Polygon::cut() method">
-      <change afterPath="$PROJECT_DIR$/src/algorithms/boolean_op.js" afterDir="false" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Added relatePolygon2Polygon method (not completes, not tested)">
+      <change afterPath="$PROJECT_DIR$/docs/Multiline.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/algorithms_boolean_op.js.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/classes_multiline.js.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Arc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Box.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Circle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/CircularLinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/CircularLinkedList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/DE9IM.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/DE9IM.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Edge.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Errors.ILLEGAL_PARAMETERS.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.ILLEGAL_PARAMETERS.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Errors.ZERO_DIVISION.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.ZERO_DIVISION.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Face.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Line.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/LinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/LinkedList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Matrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Matrix.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/PlanarSet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Point.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Polygon.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Ray.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Segment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Vector.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_relation.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_relation.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_matrix.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_constants.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_constants.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/boolean_op.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/algorithms/intersection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/intersection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/relation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/arc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/multiline.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/segment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/relation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/line.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +117,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flatten-boolean-op" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flatten-interval-tree" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.prettier" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -100,7 +154,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Relation">
+  <component name="RunManager" selected="npm.generate-docs">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -115,6 +169,16 @@
       <command value="run" />
       <scripts>
         <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="generate-docs" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -142,22 +206,6 @@
       <test-file>$PROJECT_DIR$/test/algorithms/relation.js</test-file>
       <test-names>
         <name value="#Algorithms.Relation" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="#Algorithms.Relation.#Algorithms.Relation.Line2Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/algorithms/relation.js</test-file>
-      <test-names>
-        <name value="#Algorithms.Relation" />
-        <name value="#Algorithms.Relation.Line2Polygon" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -192,18 +240,18 @@
     <list>
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Algorithms.Relation" />
-      <item itemvalue="Mocha.#Algorithms.Relation.#Algorithms.Relation.Line2Polygon" />
       <item itemvalue="Mocha.#Flatten.Polygon" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.test" />
+      <item itemvalue="npm.generate-docs" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Mocha.#Algorithms.Relation" />
-        <item itemvalue="npm.test" />
+        <item itemvalue="npm.generate-docs" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.test" />
+        <item itemvalue="Mocha.#Algorithms.Relation" />
         <item itemvalue="Mocha.#Flatten.Polygon" />
-        <item itemvalue="Mocha.#Algorithms.Relation.#Algorithms.Relation.Line2Polygon" />
       </list>
     </recent_temporary>
   </component>
@@ -347,14 +395,7 @@
       <workItem from="1578589389142" duration="42800000" />
       <workItem from="1578751038342" duration="12646000" />
       <workItem from="1579250841112" duration="12753000" />
-      <workItem from="1586085458394" duration="27877000" />
-    </task>
-    <task id="LOCAL-00107" summary="Submit compiled packages">
-      <created>1544132412606</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1544132412606</updated>
+      <workItem from="1586085458394" duration="50938000" />
     </task>
     <task id="LOCAL-00108" summary="clean workspace">
       <created>1544132457581</created>
@@ -692,7 +733,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586102595853</updated>
     </task>
-    <option name="localTasksCounter" value="156" />
+    <task id="LOCAL-00156" summary="- Added relatePolygon2Polygon method (not completes, not tested)">
+      <created>1586185851406</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1586185851406</updated>
+    </task>
+    <option name="localTasksCounter" value="157" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -712,7 +760,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- create patch" />
     <MESSAGE value="- update coverage tool istanbul to nyc&#10;- update script for coverall integration tool&#10;- added some tests for PlanarSet&#10;- build, generate docs" />
     <MESSAGE value="- implement LinkedList, CircularLinkedList&#10;- implement Face as an extension of CircularLinkedList" />
     <MESSAGE value="- update README.md" />
@@ -737,7 +784,8 @@
     <MESSAGE value="- Fixed bug in Ray::clone() method" />
     <MESSAGE value="- Fixed bug in relationLine2Circle" />
     <MESSAGE value="- Fixed bugs in relationLine2Polygon and Polygon::cut() method" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Fixed bugs in relationLine2Polygon and Polygon::cut() method" />
+    <MESSAGE value="- Added relatePolygon2Polygon method (not completes, not tested)" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added relatePolygon2Polygon method (not completes, not tested)" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -745,102 +793,106 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="840" y="222" key="##Flatten.Multiline/0.0.1920.1040@0.0.1920.1040" timestamp="1584080621048" />
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586081486423">
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586352094879">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586081486423" />
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586352094879" />
     <state x="443" y="126" width="1329" height="785" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1586099407191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="443" y="126" width="1329" height="785" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586099407191" />
     <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584078987811" />
     <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="1088" y="381" key="#xdebugger.evaluate" timestamp="1584078987811" />
-    <state x="1088" y="381" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1586102594737">
+    <state x="1416" y="107" key="#xdebugger.evaluate" timestamp="1586351972879">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586102594737" />
-    <state width="762" height="466" key="DebuggerActiveHint" timestamp="1586100054890">
+    <state x="1416" y="107" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1586351972879" />
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1586185850488">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="762" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1586100054890" />
-    <state x="860" y="273" key="FileChooserDialogImpl" timestamp="1586162259715">
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586185850488" />
+    <state width="774" height="466" key="DebuggerActiveHint" timestamp="1586351802131">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="860" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586162259715" />
-    <state width="1640" height="255" key="GridCell.Tab.0.bottom" timestamp="1586185718971">
+    <state width="774" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1586351802131" />
+    <state x="860" y="273" key="FileChooserDialogImpl" timestamp="1586342032335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1640" height="255" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586185718971" />
-    <state width="1640" height="255" key="GridCell.Tab.0.center" timestamp="1586185718971">
+    <state x="860" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586342032335" />
+    <state width="1413" height="359" key="GridCell.Tab.0.bottom" timestamp="1586352834674">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1640" height="255" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586185718971" />
-    <state width="1640" height="255" key="GridCell.Tab.0.left" timestamp="1586185718971">
+    <state width="1413" height="359" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586352834674" />
+    <state width="1413" height="359" key="GridCell.Tab.0.center" timestamp="1586352834674">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1640" height="255" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586185718971" />
-    <state width="1640" height="255" key="GridCell.Tab.0.right" timestamp="1586185718971">
+    <state width="1413" height="359" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586352834674" />
+    <state width="1413" height="359" key="GridCell.Tab.0.left" timestamp="1586352834674">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1640" height="255" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586185718971" />
-    <state width="1636" height="437" key="GridCell.Tab.1.bottom" timestamp="1586100092406">
+    <state width="1413" height="359" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586352834674" />
+    <state width="1413" height="359" key="GridCell.Tab.0.right" timestamp="1586352834674">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.1.center" timestamp="1586100092406">
+    <state width="1413" height="359" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586352834674" />
+    <state width="1730" height="304" key="GridCell.Tab.1.bottom" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.1.left" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
+    <state width="1730" height="304" key="GridCell.Tab.1.center" timestamp="1586352155079">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.1.right" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155079" />
+    <state width="1730" height="304" key="GridCell.Tab.1.left" timestamp="1586352155079">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.2.bottom" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155079" />
+    <state width="1730" height="304" key="GridCell.Tab.1.right" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.2.center" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
+    <state width="1730" height="304" key="GridCell.Tab.2.bottom" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.2.left" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
+    <state width="1730" height="304" key="GridCell.Tab.2.center" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.2.right" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
+    <state width="1730" height="304" key="GridCell.Tab.2.left" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.3.bottom" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
+    <state width="1730" height="304" key="GridCell.Tab.2.right" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.3.center" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
+    <state width="1730" height="304" key="GridCell.Tab.3.bottom" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.3.left" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
+    <state width="1730" height="304" key="GridCell.Tab.3.center" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
-    <state width="1636" height="437" key="GridCell.Tab.3.right" timestamp="1586100092406">
+    <state width="1730" height="304" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
+    <state width="1730" height="304" key="GridCell.Tab.3.left" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="437" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586100092406" />
+    <state width="1730" height="304" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
+    <state width="1730" height="304" key="GridCell.Tab.3.right" timestamp="1586352155080">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1730" height="304" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
     <state x="907" y="233" key="RollbackChangesDialog" timestamp="1584078987811" />
     <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1586102599404">
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1586185854904">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586102599404" />
-    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584078987811" />
-    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586185854904" />
+    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586342040067">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586342040067" />
     <state x="763" y="242" width="672" height="677" key="run.anything.popup" timestamp="1584078987811" />
     <state x="763" y="242" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
     <state x="757" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1586161221034">
@@ -876,20 +928,6 @@
         <watch expression="_index" />
       </configuration>
     </watches-manager>
-  </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="evaluateExpression">
-      <expression>
-        <expression-string>args</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>denim.toString()</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
   </component>
   <component name="masterDetails">
     <states>

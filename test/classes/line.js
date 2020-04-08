@@ -163,7 +163,7 @@ describe('#Flatten.Line', function() {
             let line = new Flatten.Line(point(100, 20), point(300, 200));
 
             let ip = line.intersect(polygon);
-            expect(ip.length).to.equal(4);
+            expect(ip.length).to.equal(2);
         });
         it('Line to box intersection', function() {
             "use strict";

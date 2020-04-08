@@ -465,7 +465,9 @@ export function intersectLine2Polygon(line, polygon) {
 
     for (let edge of polygon.edges) {
         for (let pt of intersectEdge2Line(edge, line)) {
-            ip.push(pt);
+            if (!ptInIntPoints(pt, ip)) {
+                ip.push(pt);
+            }
         }
     }
 

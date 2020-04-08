@@ -149,10 +149,10 @@ export class Polygon {
         let shapes = edge.shape.split(pt);
         // if (shapes.length < 2) return;
 
-        if (shapes[0] === undefined)   // point incident to edge start vertex, return previous edge
+        if (shapes[0] === null)   // point incident to edge start vertex, return previous edge
             return edge.prev;
 
-        if (shapes[1] === undefined)   // point incident to edge end vertex, return edge itself
+        if (shapes[1] === null)   // point incident to edge end vertex, return edge itself
             return edge;
 
         let newEdge = new Flatten.Edge(shapes[0]);

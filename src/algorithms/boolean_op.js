@@ -24,7 +24,7 @@ export const BOOLEAN_SUBTRACT = 3;
  * @returns {Flatten.Polygon}
  */
 export function unify(polygon1, polygon2) {
-    let res_poly = booleanOpBinary(polygon1, polygon2, BOOLEAN_UNION);
+    let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_UNION, true);
     return res_poly;
 }
 
@@ -36,9 +36,9 @@ export function unify(polygon1, polygon2) {
  * @returns {Flatten.Polygon}
  */
 export function subtract(polygon1, polygon2) {
-    let wrk_poly = polygon2.clone();
-    let wrk_poly_reversed = wrk_poly.reverse();
-    let res_poly = booleanOpBinary(polygon1, wrk_poly_reversed, BOOLEAN_SUBTRACT);
+    let polygon2_tmp = polygon2.clone();
+    let polygon2_reversed = polygon2_tmp.reverse();
+    let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2_reversed, BOOLEAN_SUBTRACT, true);
     return res_poly;
 }
 
@@ -50,67 +50,21 @@ export function subtract(polygon1, polygon2) {
  * @returns {Flatten.Polygon}
  */
 export function intersect(polygon1, polygon2) {
-    let res_poly = booleanOpBinary(polygon1, polygon2, BOOLEAN_INTERSECT);
+    let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_INTERSECT, true);
     return res_poly;
 }
 
-export function calculateIntersections(polygon1, polygon2) {
-    let intersections = getIntersections(polygon1, polygon2);
-    sortIntersections(intersections);
-    return intersections;
-}
+export function inner_clip(polygon1, polygon2) {
+    let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_INTERSECT, false);
 
-export function arrange(polygon1, polygon2, intersections) {
-    let arranged_polygon1 = polygon1.clone();
-    let arranged_polygon2 = polygon2.clone();
-
-    // split by intersection points
-    splitByIntersections(arranged_polygon1, intersections.int_points1_sorted);
-    splitByIntersections(arranged_polygon2, intersections.int_points2_sorted);
-
-    // filter duplicated intersection points
-    filterDuplicatedIntersections(intersections);
-
-    // process not intersected faces
-    let notIntersectedFacesRes = getNotIntersectedFaces(polygon1, intersections.int_points1);
-    let notIntersectedFacesWrk = getNotIntersectedFaces(polygon2, intersections.int_points2);
-
-    // calculate inclusion flag for not intersected faces
-    calcInclusionForNotIntersectedFaces(notIntersectedFacesRes, polygon2);
-    calcInclusionForNotIntersectedFaces(notIntersectedFacesWrk, polygon1);
-
-    // initialize inclusion flags for edges incident to intersections
-    initializeInclusionFlags(intersections.int_points1);
-    initializeInclusionFlags(intersections.int_points2);
-
-    // calculate inclusion flags only for edges incident to intersections
-    calculateInclusionFlags(intersections.int_points1, polygon2);
-    calculateInclusionFlags(intersections.int_points2, polygon1);
-
-    // TODO: fix bondary conflicts
-
-    // Set overlapping flags for boundary chains: SAME or OPPOSITE
-    setOverlappingFlags(intersections);
-
-    return [arranged_polygon1, arranged_polygon2];
-}
-
-export function arrangedBooleanOperation(res_poly, wrk_poly, intersections, op) {
-    filterNotRelevantEdges(res_poly, wrk_poly, intersections, op);
-    swapLinksAndRestore(res_poly, wrk_poly, op, intersections.int_points2);
-    return res_poly;
-}
-
-export function arrangedClipOperation(polygon1, polygon2, intersections, op) {
-    filterNotRelevantEdges(polygon1, polygon2, intersections, op);
     let clip_shapes1 = [];
-    for (let face of polygon1.faces) {
+    for (let face of res_poly.faces) {
         for (let edge of face) {
             clip_shapes1.push(edge)
         }
     }
     let clip_shapes2 = [];
-    for (let face of polygon2.faces) {
+    for (let face of wrk_poly.faces) {
         for (let edge of face) {
             clip_shapes2.push(edge)
         }
@@ -118,10 +72,62 @@ export function arrangedClipOperation(polygon1, polygon2, intersections, op) {
     return [clip_shapes1, clip_shapes2];
 }
 
+export function outer_clip(polygon1, polygon2) {
+    let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_SUBTRACT, false);
+
+    let clip_shapes1 = [];
+    for (let face of res_poly.faces) {
+        for (let edge of face) {
+            clip_shapes1.push(edge.shape)
+        }
+    }
+
+    return clip_shapes1;
+}
+
+export function calculateIntersections(polygon1, polygon2, op, restore) {
+    let res_poly = polygon1.clone();
+    let wrk_poly = polygon2.clone();
+
+    // get intersection points
+    let intersections = getIntersections(res_poly, wrk_poly);
+
+    // sort intersection points
+    sortIntersections(intersections);
+
+    // split by intersection points
+    splitByIntersections(res_poly, intersections.int_points1_sorted);
+    splitByIntersections(wrk_poly, intersections.int_points2_sorted);
+
+    // filter duplicated intersection points
+    filterDuplicatedIntersections(intersections);
+
+    let ip_sorted1 = intersections.int_points1_sorted.map( int_point => int_point.pt);
+    let ip_sorted2 = intersections.int_points2_sorted.map( int_point => int_point.pt);
+    return [ip_sorted1, ip_sorted2];
+}
+
 function filterNotRelevantEdges(res_poly, wrk_poly, intersections, op) {
     // keep not intersected faces for further remove and merge
     let notIntersectedFacesRes = getNotIntersectedFaces(res_poly, intersections.int_points1);
     let notIntersectedFacesWrk = getNotIntersectedFaces(wrk_poly, intersections.int_points2);
+
+    // calculate inclusion flag for not intersected faces
+    calcInclusionForNotIntersectedFaces(notIntersectedFacesRes, wrk_poly);
+    calcInclusionForNotIntersectedFaces(notIntersectedFacesWrk, res_poly);
+
+    // initialize inclusion flags for edges incident to intersections
+    initializeInclusionFlags(intersections.int_points1);
+    initializeInclusionFlags(intersections.int_points2);
+
+    // calculate inclusion flags only for edges incident to intersections
+    calculateInclusionFlags(intersections.int_points1, wrk_poly);
+    calculateInclusionFlags(intersections.int_points2, res_poly);
+
+    // TODO: fix bondary conflicts
+
+    // Set overlapping flags for boundary chains: SAME or OPPOSITE
+    setOverlappingFlags(intersections);
 
     // remove not relevant chains between intersection points
     removeNotRelevantChains(res_poly, op, intersections.int_points1_sorted, true);
@@ -155,12 +161,7 @@ function swapLinksAndRestore(res_poly, wrk_poly, intersections, op) {
 }
 
 
-function booleanOpBinary(res_poly, wrk_poly, op)
-{
-    return clip(res_poly, wrk_poly, op);
-}
-
-function clip(polygon1, polygon2, op)
+function booleanOpBinary(polygon1, polygon2, op, restore)
 {
     let res_poly = polygon1.clone();
     let wrk_poly = polygon2.clone();
@@ -178,30 +179,14 @@ function clip(polygon1, polygon2, op)
     // filter duplicated intersection points
     filterDuplicatedIntersections(intersections);
 
-    // keep not intersected faces for further remove and merge
-    let notIntersectedFacesRes = getNotIntersectedFaces(res_poly, intersections.int_points1);
-    let notIntersectedFacesWrk = getNotIntersectedFaces(wrk_poly, intersections.int_points2);
+    // calculate inclusion and remove not relevant edges
+    filterNotRelevantEdges(res_poly, wrk_poly, intersections, op);
 
-    // calculate inclusion flag for not intersected faces
-    calcInclusionForNotIntersectedFaces(notIntersectedFacesRes, wrk_poly);
-    calcInclusionForNotIntersectedFaces(notIntersectedFacesWrk, res_poly);
+    if (restore) {
+        swapLinksAndRestore(res_poly, wrk_poly, intersections, op);
+    }
 
-    // initialize inclusion flags for edges incident to intersections
-    initializeInclusionFlags(intersections.int_points1);
-    initializeInclusionFlags(intersections.int_points2);
-
-    // calculate inclusion flags only for edges incident to intersections
-    calculateInclusionFlags(intersections.int_points1, polygon2);
-    calculateInclusionFlags(intersections.int_points2, polygon1);
-
-    // TODO: fix bondary conflicts
-
-    // Set overlapping flags for boundary chains: SAME or OPPOSITE
-    setOverlappingFlags(intersections);
-
-    res_poly = arrangedBooleanOperation(res_poly, wrk_poly, intersections, op);
-
-    return res_poly;
+    return [res_poly, wrk_poly];
 }
 
 function getIntersections(polygon1, polygon2)
@@ -237,17 +222,32 @@ export function addToIntPoints(edge, pt, int_points)
 {
     let id = int_points.length;
     let split = edge.shape.split(pt);
-    if (split.length === 0) return;     // Means point does not belong to edge
+
+    let shapes = edge.shape.split(pt);
+
+    // if (shapes.length < 2) return;
+    if (split.length === 0) return;     // Point does not belong to edge ?
+
     let len = 0;
+    if (shapes[0] === null) {   // point incident to edge start vertex
+        len = 0;
+    }
+    else if (shapes[1] === null) {   // point incident to edge end vertex
+        len = edge.shape.length;
+    }
+/*
     if (split.length === 1) {           // Edge was not split
         if (edge.shape.start.equalTo(pt)) {
             len = 0;
         } else if (edge.shape.end.equalTo(pt)) {
             len = edge.shape.length;
         }
-    } else {                             // Edge was split into to edges
+    } */
+
+    else {                             // Edge was split into to edges
         len = split[0].length;
     }
+
     let is_vertex = NOT_VERTEX;
     if (Utils.EQ(len, 0)) {
         is_vertex |= START_VERTEX;
@@ -271,7 +271,7 @@ export function addToIntPoints(edge, pt, int_points)
 
 function sortIntersections(intersections)
 {
-    if (intersections.int_points1.length === 0) return;
+    // if (intersections.int_points1.length === 0) return;
 
     // augment intersections with new sorted arrays
     // intersections.int_points1_sorted = intersections.int_points1.slice().sort(compareFn);
@@ -326,6 +326,7 @@ export function splitByIntersections(polygon, int_points)
         let edge = int_point.edge_before;
 
         // recalculate vertex flag: it may be changed after previous split
+        int_point.is_vertex = NOT_VERTEX;
         if (edge.shape.start.equalTo(int_point.pt)) {
             int_point.is_vertex |= START_VERTEX;
         }
@@ -351,7 +352,7 @@ export function splitByIntersections(polygon, int_points)
     }
 }
 
-function filterDuplicatedIntersections(intersections)
+export function filterDuplicatedIntersections(intersections)
 {
     if (intersections.int_points1.length < 2) return;
 

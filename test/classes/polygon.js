@@ -501,7 +501,7 @@ describe('#Flatten.Polygon', function() {
             polygon.addFace(points);
 
             let line = new Line(point(100, 20), point(300, 200));
-            expect(polygon.intersect(line).length).to.equal(4);
+            expect(polygon.intersect(line).length).to.equal(2);
         });
         it('Intersection with Polygon', function () {
             let segment = new Segment(150,-20,150,60);

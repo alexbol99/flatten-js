@@ -2,12 +2,12 @@
 
 import { expect } from 'chai';
 import Flatten, {multiline} from '../../index';
-import {relate, disjoint, equal, intersect, touch} from '../../src/algorithms/relation';
+import {relate, disjoint, equal, intersect, touch, inside, contain, covered, cover} from '../../src/algorithms/relation';
 import {intersectLine2Polygon} from "../../src/algorithms/intersection";
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
 
-let {point, vector, circle, line, segment, arc, ray} = Flatten;
+let {point, vector, circle, line, segment, arc, ray, box} = Flatten;
 
 
 describe('#Algorithms.Relation', function() {
@@ -128,6 +128,83 @@ describe('#Algorithms.Relation', function() {
             expect(intersect(l, p)).to.be.true;
             expect(disjoint(l, p)).to.be.false;
             expect(touch(l, p)).to.be.false;
+        });
+    });
+    describe('#Algorithms.Relation.Polygoon2Polygon', function() {
+        it('May calculate relations. Disjoint case', () => {
+            let p1 = new Polygon(box(0,0,50,100).toSegments());
+            let p2 = new Polygon(box(100,50,150,150).toSegments());
+
+            let de9im = relate(p1, p2);
+
+            expect(de9im.I2I.length).to.equal(0);
+
+            expect(disjoint(p1, p2)).to.be.true;
+            expect(equal(p1, p2)).to.be.false;
+            expect(intersect(p1, p2)).to.be.false;
+            expect(touch(p1, p2)).to.be.false;
+            expect(inside(p1, p2)).to.be.false;
+            expect(contain(p1, p2)).to.be.false;
+        });
+        it('May calculate relations. Touching from outside case', () => {
+            let p1 = new Polygon(box(0,0,50,100).toSegments());
+            let p2 = new Polygon(box(50,50,100,150).toSegments());
+
+            let de9im = relate(p1, p2);
+
+            expect(disjoint(p1, p2)).to.be.false;
+            expect(equal(p1, p2)).to.be.false;
+            expect(intersect(p1, p2)).to.be.true;
+            expect(touch(p1, p2)).to.be.true;
+            expect(inside(p1, p2)).to.be.false;
+            expect(contain(p1, p2)).to.be.false;
+            expect(covered(p1,p2)).to.be.false;
+            expect(cover(p1,p2)).to.be.false;
+        });
+        it('May calculate relations. Case of inclusion', () => {
+            let p1 = new Polygon(box(0,0,50,100).toSegments());
+            let p2 = new Polygon(box(20,20,30,30).toSegments());
+
+            let de9im = relate(p1, p2);
+
+            expect(disjoint(p1, p2)).to.be.false;
+            expect(equal(p1, p2)).to.be.false;
+            expect(intersect(p1, p2)).to.be.true;
+            expect(touch(p1, p2)).to.be.false;
+            expect(inside(p1, p2)).to.be.false;
+            expect(contain(p1, p2)).to.be.true;
+            expect(covered(p1,p2)).to.be.false;
+            expect(cover(p1,p2)).to.be.true;
+        });
+        it('May calculate relations. Case of covered', () => {
+            let p1 = new Polygon(box(0,0,50,100).toSegments());
+            let p2 = new Polygon(box(20,0,50,30).toSegments());
+
+            let de9im = relate(p1, p2);
+
+            expect(disjoint(p1, p2)).to.be.false;
+            expect(equal(p1, p2)).to.be.false;
+            expect(intersect(p1, p2)).to.be.true;
+            expect(touch(p1, p2)).to.be.false;
+            expect(inside(p1, p2)).to.be.false;
+            expect(contain(p1, p2)).to.be.true;
+            expect(covered(p1,p2)).to.be.false;
+            expect(cover(p1,p2)).to.be.true;
+        });
+        it('May calculate relations. Case of intersected polygons', () => {
+            let p1 = new Polygon(box(0,0,50,100).toSegments());
+            let p2 = new Polygon(box(20,20,150,200).toSegments());
+
+            let de9im = relate(p1, p2);
+
+            expect(disjoint(p1, p2)).to.be.false;
+            expect(equal(p1, p2)).to.be.false;
+            expect(intersect(p1, p2)).to.be.true;
+            expect(touch(p1, p2)).to.be.false;
+            expect(inside(p1, p2)).to.be.false;
+            expect(contain(p1, p2)).to.be.false;
+            expect(covered(p1,p2)).to.be.false;
+            expect(cover(p1,p2)).to.be.false;
         });
     });
 });

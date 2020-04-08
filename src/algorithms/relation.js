@@ -27,7 +27,7 @@ export const EQUAL = RegExp('T.F..FFF.|T.F...F..');
 export const INTERSECT = RegExp('T........|.T.......|...T.....|....T....');
 export const TOUCH = RegExp('FT.......|F..T.....|F...T....');
 export const INSIDE = RegExp('T.F..F...');
-export const COVERED_BY = RegExp('T.F..F...|.TF..F...|..FT.F...|..F.TF...');
+export const COVERED = RegExp('T.F..F...|.TF..F...|..FT.F...|..F.TF...');
 
 /**
  * Returns true is shapes topologically equal:  their interiors intersect and
@@ -90,9 +90,9 @@ export function inside(shape1, shape2) {
  * @param shape2
  * @returns {boolean}
  */
-export function covered_by(shape1, shape2) {
+export function covered(shape1, shape2) {
     let denim = relate(shape1, shape2);
-    return COVERED_BY.test(denim.toString());
+    return COVERED.test(denim.toString());
 }
 
 /**
@@ -113,7 +113,7 @@ export function contain(shape1, shape2) {
  * @returns {boolean}
  */
 export function cover(shape1, shape2) {
-    return covered_by(shape2, shape1);
+    return covered(shape2, shape1);
 }
 
 /**
@@ -346,25 +346,24 @@ function relateShape2Polygon(shape, polygon) {
 function relatePolygon2Polygon(polygon1, polygon2) {
     let denim = new DE9IM();
 
-    let intersections = BooleanOp.calculateIntersections(polygon1, polygon2);
-    let [arranged_polygon1, arranged_polygon2] = BooleanOp.arrange(polygon1, polygon2, intersections);
-    let boolean_intersection = BooleanOp.arrangedBooleanOperation(arranged_polygon1, arranged_polygon2, intersections, BooleanOp.BOOLEAN_INTERSECT);
-    let boolean_difference1 = BooleanOp.arrangedBooleanOperation(arranged_polygon1, arranged_polygon2, intersections, BooleanOp.BOOLEAN_SUBTRACT);
-    let boolean_difference2 = BooleanOp.arrangedBooleanOperation(arranged_polygon2, arranged_polygon1, intersections, BooleanOp.BOOLEAN_SUBTRACT);
-    let [inner_clip_shapes1, inner_clip_shapes2] = BooleanOp.arrangedClipOperation(arranged_polygon1, arranged_polygon2, intersections, BooleanOp.BOOLEAN_INTERSECT);
-    let [outer_clip_shapes1, dummy_clip_shapes2] = BooleanOp.arrangedClipOperation(arranged_polygon1, arranged_polygon2, intersections, BooleanOp.BOOLEAN_SUBTRACT);
-    let [outer_clip_shapes2, dummy_clip_shapes1] = BooleanOp.arrangedClipOperation(arranged_polygon2, arranged_polygon1, intersections, BooleanOp.BOOLEAN_SUBTRACT);
+    let [ip_sorted1, ip_sorted2] = BooleanOp.calculateIntersections(polygon1, polygon2);
+    let boolean_intersection = BooleanOp.intersect(polygon1, polygon2);
+    let boolean_difference1 = BooleanOp.subtract(polygon1, polygon2);
+    let boolean_difference2 = BooleanOp.subtract(polygon1, polygon2);
+    let [inner_clip_shapes1, inner_clip_shapes2] = BooleanOp.inner_clip(polygon1, polygon2);
+    let outer_clip_shapes1 = BooleanOp.outer_clip(polygon1, polygon2);
+    let outer_clip_shapes2 = BooleanOp.outer_clip(polygon2, polygon1);
 
-    denim.I2I = [boolean_intersection];
+    denim.I2I = boolean_intersection.isEmpty() ? [] : [boolean_intersection];
     denim.I2B = inner_clip_shapes2;
-    denim.I2E = boolean_difference1;
+    denim.I2E = boolean_difference1.isEmpty() ? [] : [boolean_difference1];
 
     denim.B2I = inner_clip_shapes1;
-    denim.B2B = intersections.int_points1.map(int_point => int_point.pt);
-    denim.B2E = outer_clip_shapes2;
+    denim.B2B = ip_sorted1;
+    denim.B2E = outer_clip_shapes1;
 
-    denim.E2I = boolean_difference2;
-    denim.E2B = outer_clip_shapes1;
+    denim.E2I = boolean_difference2.isEmpty() ? [] : boolean_difference2;
+    denim.E2B = outer_clip_shapes2;
     // denim.E2E    not relevant meanwhile
 
     return denim;
