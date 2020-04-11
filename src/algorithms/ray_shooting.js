@@ -1,9 +1,17 @@
-
+/**
+ * @module RayShoot
+ */
 "use strict";
 import Flatten from '../flatten';
 import * as Utils from '../utils/utils';
 
-export const ray_shoot = function(polygon, point) {
+/**
+ * Implements ray shooting algorithm. Returns relation between point and polygon: inside, outside or boundary
+ * @param {Polgon} polygon - polygon to test
+ * @param {Point} point - point to test
+ * @returns {Flatten.Inside|Flatten.OUTSIDE|Flatten.Boundary}
+ */
+export function ray_shoot(polygon, point) {
     let contains = undefined;
 
     // if (!(polygon instanceof Polygon && point instanceof Point)) {

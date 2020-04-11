@@ -1,5 +1,6 @@
 /**
- * Class implements bidirectional non-circular linked list
+ * Class implements bidirectional non-circular linked list. <br/>
+ * LinkedListElement - object of any type that has properties next and prev.
  */
 class LinkedList {
     constructor(first, last) {
@@ -49,7 +50,7 @@ class LinkedList {
 
     /**
      * Append new element to the end of the list
-     * @param element
+     * @param {LinkedListElement} element
      * @returns {LinkedList}
      */
     append(element) {
@@ -71,8 +72,8 @@ class LinkedList {
 
     /**
      * Insert new element to the list after elementBefore
-     * @param newElement
-     * @param elementBefore
+     * @param {LinkedListElement} newElement
+     * @param {LinkedListElement} elementBefore
      * @returns {LinkedList}
      */
     insert(newElement, elementBefore) {
@@ -107,7 +108,7 @@ class LinkedList {
 
     /**
      * Remove element from the list
-     * @param element
+     * @param {LinkedListElement} element
      * @returns {LinkedList}
      */
     remove(element) {

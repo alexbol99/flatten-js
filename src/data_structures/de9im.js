@@ -2,6 +2,13 @@
     Dimensionally extended 9-intersected model
     See https://en.wikipedia.org/wiki/DE-9IM for more details
  */
+// const DISJOINT = RegExp('FF.FF....');
+const EQUAL = RegExp('T.F..FFF.|T.F...F..');
+const INTERSECT = RegExp('T........|.T.......|...T.....|....T....');
+const TOUCH = RegExp('FT.......|F..T.....|F...T....');
+const INSIDE = RegExp('T.F..F...');
+const COVERED = RegExp('T.F..F...|.TF..F...|..FT.F...|..F.TF...');
+
 class DE9IM {
     /**
      * Create new instance of DE9IM matrix
@@ -178,6 +185,26 @@ class DE9IM {
                 return '*'
             }
         }).join("")
+    }
+
+    equal() {
+        return EQUAL.test(this.toString());
+    }
+
+    intersect() {
+        return INTERSECT.test(this.toString());
+    }
+
+    touch() {
+        return TOUCH.test(this.toString());
+    }
+
+    inside() {
+        return INSIDE.test(this.toString());
+    }
+
+    covered() {
+        return COVERED.test(this.toString());
     }
 }
 

@@ -66,9 +66,17 @@ export class Multiline extends LinkedList {
     }
 
     /**
+     * Return new cloned instance of Multiline
+     * @returns {Multiline}
+     */
+    clone() {
+        return new Multiline(this.toShapes());
+    }
+
+    /**
      * Split edge and add new vertex, return new edge inserted
-     * @param pt
-     * @param edge
+     * @param {Point} pt - point on edge that will be added as new vertex
+     * @param {Edge} edge - edge to split
      * @returns {Edge}
      */
     addVertex(pt, edge) {
@@ -95,7 +103,7 @@ export class Multiline extends LinkedList {
 
     /**
      * Split edges of multiline with intersection points and return mutated multiline
-     * @param ip
+     * @param {Point[]} ip - array of points to be added as new vertices
      * @returns {Multiline}
      */
     split(ip) {

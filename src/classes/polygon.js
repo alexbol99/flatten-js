@@ -77,11 +77,54 @@ export class Polygon {
     }
 
     /**
+     * Create new cloned instance of the polygon
+     * @returns {Polygon}
+     */
+    clone() {
+        let polygon = new Polygon();
+        for (let face of this.faces) {
+            polygon.addFace(face.shapes);
+        }
+        return polygon;
+    }
+
+    /**
      * Return true is polygon has no edges
      * @returns {boolean}
      */
     isEmpty() {
         return this.edges.size === 0;
+    }
+
+    /**
+     * Return true if polygon is valid for boolean operations
+     * Polygon is valid if <br/>
+     * 1. All faces are simple polygons (there are no self-intersected polygons) <br/>
+     * 2. All faces are orientable and there is no island inside island or hole inside hole - TODO <br/>
+     * 3. There is no intersections between faces (excluding touching) - TODO <br/>
+     * @returns {boolean}
+     */
+    isValid() {
+        let valid = true;
+        // 1. Polygon is invalid if at least one face is not simple
+        for (let face of this.faces) {
+            if (!face.isSimple(this.edges)) {
+                valid = false;
+                break;
+            }
+        }
+        // 2. TODO: check if no island inside island and no hole inside hole
+        // 3. TODO: check the there is no intersection between faces
+        return valid;
+    }
+
+    /**
+     * Returns area of the polygon. Area of an island will be added, area of a hole will be subtracted
+     * @returns {number}
+     */
+    area() {
+        let signedArea = [...this.faces].reduce((acc, face) => acc + face.signedArea(), 0);
+        return Math.abs(signedArea);
     }
 
     /**
@@ -272,32 +315,44 @@ export class Polygon {
         return edge;
     }
 
+    /**
+     * Split polygon into array of polygons, where each polygon is an island with all
+     * hole that it contains
+     * @returns {Flatten.Polygon[]}
+     */
+    splitToIslands() {
+        let polygons = this.toArray();      // split into array of one-loop polygons
+        /* Sort polygons by area in descending order */
+        polygons.sort( (polygon1, polygon2) => polygon2.area() - polygon1.area() );
+        /* define orientation of the island by orientation of the first polygon in array */
+        let orientation = [...polygons[0].faces][0].orientation();
+        /* Create output array from polygons with same orientation as a first polygon (array of islands) */
+        let newPolygons = polygons.filter( polygon => [...polygon.faces][0].orientation() === orientation);
+        for (let polygon of polygons) {
+            let face = [...polygon.faces][0];
+            if (face.orientation() === orientation) continue;  // skip same orientation
+            /* Proceed with opposite orientation */
+            /* Look if any of island polygons contains tested polygon as a hole */
+            for (let islandPolygon of newPolygons) {
+                if (face.shapes.every(shape => islandPolygon.contains(shape))) {
+                    islandPolygon.addFace(face.shapes);      // add polygon as a hole in islandPolygon
+                    break;
+                }
+            }
+        }
+        // TODO: assert if not all polygons added into output
+        return newPolygons;
+    }
+
+    /**
+     * Reverse orientation of all faces to opposite
+     * @returns {Polygon}
+     */
     reverse() {
         for (let face of this.faces) {
             face.reverse();
         }
         return this;
-    }
-
-    /**
-     * Create new copied instance of the polygon
-     * @returns {Polygon}
-     */
-    clone() {
-        let polygon = new Polygon();
-        for (let face of this.faces) {
-            polygon.addFace(face.shapes);
-        }
-        return polygon;
-    }
-
-    /**
-     * Returns area of the polygon. Area of an island will be added, area of a hole will be subtracted
-     * @returns {number}
-     */
-    area() {
-        let signedArea = [...this.faces].reduce((acc, face) => acc + face.signedArea(), 0);
-        return Math.abs(signedArea);
     }
 
     /**
@@ -393,28 +448,6 @@ export class Polygon {
     }
 
     /**
-     * Return true if polygon is valid for boolean operations
-     * Polygon is valid if <br/>
-     * 1. All faces are simple polygons (there are no self-intersected polygons) <br/>
-     * 2. All faces are orientable and there is no island inside island or hole inside hole - TODO <br/>
-     * 3. There is no intersections between faces (excluding touching) - TODO <br/>
-     * @returns {boolean}
-     */
-    isValid() {
-        let valid = true;
-        // 1. Polygon is invalid if at least one face is not simple
-        for (let face of this.faces) {
-            if (!face.isSimple(this.edges)) {
-                valid = false;
-                break;
-            }
-        }
-        // 2. TODO: check if no island inside island and no hole inside hole
-        // 3. TODO: check the there is no intersection between faces
-        return valid;
-    }
-
-    /**
      * Returns new polygon translated by vector vec
      * @param {Vector} vec
      * @returns {Polygon}
@@ -457,6 +490,23 @@ export class Polygon {
     }
 
     /**
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
+     */
+    toJSON() {
+        return [...this.faces].map(face => face.toJSON());
+    }
+
+    /**
+     * Transform all faces into array of polygons
+     * @returns {Flatten.Polygon[]}
+     */
+    toArray() {
+        return [...this.faces].map(face => face.toPolygon());
+    }
+
+    /**
      * Return string to draw polygon in svg
      * @param attrs  - an object with attributes for svg path element,
      * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
@@ -476,53 +526,6 @@ export class Polygon {
         svgStr += `" >\n</path>`;
         return svgStr;
     }
-
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return [...this.faces].map(face => face.toJSON());
-    }
-
-    /**
-     * Return array of
-     * @returns {Flatten.Polygon[]}
-     */
-    toArray() {
-        return [...this.faces].map(face => face.toPolygon());
-    }
-
-    /**
-     * Split polygon into array of polygons, where each polygon is an island with all
-     * hole that it contains
-     * @returns {Flatten.Polygon[]}
-     */
-    splitToIslands() {
-        let polygons = this.toArray();      // split into array of one-loop polygons
-        /* Sort polygons by area in descending order */
-        polygons.sort( (polygon1, polygon2) => polygon2.area() - polygon1.area() );
-        /* define orientation of the island by orientation of the first polygon in array */
-        let orientation = [...polygons[0].faces][0].orientation();
-        /* Create output array from polygons with same orientation as a first polygon (array of islands) */
-        let newPolygons = polygons.filter( polygon => [...polygon.faces][0].orientation() === orientation);
-        for (let polygon of polygons) {
-            let face = [...polygon.faces][0];
-            if (face.orientation() === orientation) continue;  // skip same orientation
-            /* Proceed with opposite orientation */
-            /* Look if any of island polygons contains tested polygon as a hole */
-            for (let islandPolygon of newPolygons) {
-                if (face.shapes.every(shape => islandPolygon.contains(shape))) {
-                    islandPolygon.addFace(face.shapes);      // add polygon as a hole in islandPolygon
-                    break;
-                }
-            }
-        }
-        // TODO: assert if not all polygons added into output
-        return newPolygons;
-    }
-
 }
 
 Flatten.Polygon = Polygon;

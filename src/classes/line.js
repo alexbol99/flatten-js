@@ -87,7 +87,7 @@ export class Line {
     }
 
     /**
-     * Returns cloned new instance of a line
+     * Return new cloned instance of line
      * @returns {Line}
      */
     clone() {
@@ -129,7 +129,6 @@ export class Line {
      * Middle point is undefined
      * @returns {undefined}
      */
-
     get middle() {return undefined}
 
     /**
@@ -191,7 +190,7 @@ export class Line {
      * coordinate system where center is the projection of the point(0,0) to
      * the line and axe y is collinear to the normal vector. <br/>
      * This method assumes that point lays on the line and does not check it
-     * @param pt
+     * @param {Point} pt - point on line
      * @returns {number}
      */
     coord(pt) {
@@ -290,7 +289,7 @@ export class Line {
     /**
      * Sort given array of points that lay on line with respect to coordinate on a line
      * The method assumes that points lay on the line and does not check this
-     * @param {Point[]} array of points
+     * @param {Point[]} pts - array of points
      * @returns {Point[]} new array sorted
      */
     sortPoints(pts) {
@@ -303,6 +302,15 @@ export class Line {
             }
             return 0;
         })
+    }
+
+    /**
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
+     */
+    toJSON() {
+        return Object.assign({}, this, {name: "line"});
     }
 
     /**
@@ -319,15 +327,6 @@ export class Line {
         if (pe === undefined) pe = ps;
         let segment = new Flatten.Segment(ps, pe);
         return segment.svg(attrs);
-    }
-
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "line"});
     }
 
     static points2norm(pt1, pt2) {

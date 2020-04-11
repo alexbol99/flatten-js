@@ -63,7 +63,7 @@ export class Segment {
     }
 
     /**
-     * Method clone copies segment and returns a new instance
+     * Return new cloned instance of segment
      * @returns {Segment}
      */
     clone() {
@@ -339,6 +339,15 @@ export class Segment {
     }
 
     /**
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
+     */
+    toJSON() {
+        return Object.assign({}, this, {name: "segment"});
+    }
+
+    /**
      * Return string to draw segment in svg
      * @param {Object} attrs - an object with attributes for svg path element,
      * like "stroke", "strokeWidth" <br/>
@@ -355,14 +364,6 @@ export class Segment {
 
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "segment"});
-    }
 };
 
 Flatten.Segment = Segment;

@@ -5,6 +5,8 @@
 import Flatten from './src/flatten';
 import * as Utils from "./src/utils/utils";
 import * as Errors from "./src/utils/errors";
+import * as BooleanOperations from './src/algorithms/boolean_op';
+import * as Relations from './src/algorithms/relation';
 
 export {Utils, Errors};
 export {Matrix, matrix} from './src/classes/matrix';
@@ -21,11 +23,12 @@ export {Face} from './src/classes/face';
 export {Ray, ray} from './src/classes/ray';
 export {ray_shoot} from './src/algorithms/ray_shooting';
 export {Multiline, multiline} from './src/classes/multiline';
-export {Polygon} from './src/classes/polygon';
+export {Polygon, polygon} from './src/classes/polygon';
 export {Distance} from './src/algorithms/distance';
 export {inverse} from './src/algorithms/inversion';
-export {relate, disjoint, equal, touch, intersect} from './src/algorithms/relation';
+export {BooleanOperations};
+export {Relations};
 
-export {CCW, CW, ORIENTATION, INSIDE, OUTSIDE, BOUNDARY, CONTAINS, INTERLACE, OVERLAP_SAME, OVERLAP_OPPOSITE} from './src/utils/constants';
+export {CCW, CW, ORIENTATION, INSIDE, OUTSIDE, BOUNDARY} from './src/utils/constants';
 
 export default Flatten;

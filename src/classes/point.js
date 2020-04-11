@@ -68,7 +68,7 @@ export class Point {
     }
 
     /**
-     * Method clone returns new copied instance of point
+     * Return new cloned instance of point
      * @returns {Point}
      */
     clone() {
@@ -252,6 +252,15 @@ export class Point {
     }
 
     /**
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
+     */
+    toJSON() {
+        return Object.assign({}, this, {name: "point"});
+    }
+
+    /**
      * Return string to draw point in svg as circle with radius "r" <br/>
      * Accept any valid attributes of svg elements as svg object
      * Defaults attribues are: <br/>
@@ -272,14 +281,6 @@ export class Point {
         return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 3}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${id_str} ${class_str} />`;
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "point"});
-    }
 };
 
 Flatten.Point = Point;

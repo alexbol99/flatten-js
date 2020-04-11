@@ -4,7 +4,7 @@
 
 # Javascript library for 2d geometry
 
-**flatten-js** is a javascript library for manipulating abstract geometrical shapes like point, vector, line, segment,
+**flatten-js** is a javascript library for manipulating abstract geometrical shapes like point, vector, line, ray, segment,
 circle, arc and polygon. Shapes may be organized into Planar Set - searchable container which support spatial queries.
 
 **flatten-js** provides a lot of useful methods and algorithms like finding intersections, checking inclusion, calculating distance, applying
@@ -47,18 +47,18 @@ Follow me on Twitter [@alex_bol_](https://twitter.com/alex_bol_)
 ## Usage
 
 ```javascript
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Matrix, PlanarSet} from '@flatten-js/core';
+import {Point, Vector, Circle, Line, Ray, Segment, Arc, Box, Polygon, Matrix, PlanarSet} from '@flatten-js/core';
 ```
 
 It is possible to import Flatten namespace as default import, and then destruct all classes from it. 
 ```javascript
 import Flatten from '@flatten-js/core'
-const {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Matrix, PlanarSet} = Flatten;
+const {Point, Vector, Circle, Line, Ray, Segment, Arc, Box, Polygon, Matrix, PlanarSet} = Flatten;
 ```
 
 Some classes have shortcuts to avoid annoying *new* constructor:
 ```javascript
-import {point, vector, circle, line, segment, arc, ray, matrix} from '@flatten-js/core';
+import {point, vector, circle, line, ray, segment, arc, polygon, matrix} from '@flatten-js/core';
 ```
 
 ## Example

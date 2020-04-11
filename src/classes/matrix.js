@@ -32,7 +32,7 @@ export class Matrix {
     }
 
     /**
-     * Returns a clone of the Matrix instance.
+     * Return new cloned instance of matrix
      * @return {Matrix}
      **/
     clone() {
@@ -99,7 +99,7 @@ export class Matrix {
      * Return new matrix as a result of multiplication of the current matrix
      * by the matrix that defines rotation by given angle (in radians) around
      * point (0,0) in counter clockwise direction
-     * @param angle
+     * @param {number} angle - angle in radians
      * @returns {Matrix}
      */
     rotate(angle) {
@@ -111,8 +111,8 @@ export class Matrix {
     /**
      * Return new matrix as a result of multiplication of the current matrix
      * by the matrix (sx,0,0,sy,0,0) that defines scaling
-     * @param sx
-     * @param sy
+     * @param {number} sx
+     * @param {number} sy
      * @returns {Matrix}
      */
     scale(sx, sy) {

@@ -1,6 +1,9 @@
 /**
  * Created by Alex Bol on 12/02/2018.
  */
+/**
+ * @module BooleanOp
+ */
 "use strict";
 import Flatten from '../flatten';
 import * as Utils from '../utils/utils';
@@ -19,9 +22,9 @@ export const BOOLEAN_SUBTRACT = 3;
 /**
  * Unify two polygons polygons and returns new polygon. <br/>
  * Point belongs to the resulted polygon if it belongs to the first OR to the second polygon
- * @param {Flatten.Polygon} polygon1 - first operand
- * @param {Flatten.Polygon} polygon2 - second operand
- * @returns {Flatten.Polygon}
+ * @param {Polygon} polygon1 - first operand
+ * @param {Polygon} polygon2 - second operand
+ * @returns {Polygon}
  */
 export function unify(polygon1, polygon2) {
     let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_UNION, true);
@@ -31,9 +34,9 @@ export function unify(polygon1, polygon2) {
 /**
  * Subtract second polygon from the first and returns new polygon
  * Point belongs to the resulted polygon if it belongs to the first polygon AND NOT to the second polygon
- * @param {Flatten.Polygon} polygon1 - first operand
- * @param {Flatten.Polygon} polygon2 - second operand
- * @returns {Flatten.Polygon}
+ * @param {Polygon} polygon1 - first operand
+ * @param {Polygon} polygon2 - second operand
+ * @returns {Polygon}
  */
 export function subtract(polygon1, polygon2) {
     let polygon2_tmp = polygon2.clone();
@@ -45,16 +48,23 @@ export function subtract(polygon1, polygon2) {
 /**
  * Intersect two polygons and returns new polygon
  * Point belongs to the resultes polygon is it belongs to the first AND to the second polygon
- * @param {Flatten.Polygon} polygon1 - first operand
- * @param {Flatten.Polygon} polygon2 - second operand
- * @returns {Flatten.Polygon}
+ * @param {Polygon} polygon1 - first operand
+ * @param {Polygon} polygon2 - second operand
+ * @returns {Polygon}
  */
 export function intersect(polygon1, polygon2) {
     let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_INTERSECT, true);
     return res_poly;
 }
 
-export function inner_clip(polygon1, polygon2) {
+/**
+ * Returns boundary of intersection between two polygons as two arrays of shapes (Segments/Arcs) <br/>
+ * The first array are shapes from the first polygon, the second array are shapes from the second
+ * @param {Polygon} polygon1 - first operand
+ * @param {Polygon} polygon2 - second operand
+ * @returns {Shape[][]}
+ */
+export function innerClip(polygon1, polygon2) {
     let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_INTERSECT, false);
 
     let clip_shapes1 = [];
@@ -72,7 +82,13 @@ export function inner_clip(polygon1, polygon2) {
     return [clip_shapes1, clip_shapes2];
 }
 
-export function outer_clip(polygon1, polygon2) {
+/**
+ * Returns boundary of subtraction of the second polygon from first polygon as array of shapes
+ * @param {Polygon} polygon1 - first operand
+ * @param {Polygon} polygon2 - second operand
+ * @returns {Shape[]}
+ */
+export function outerClip(polygon1, polygon2) {
     let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_SUBTRACT, false);
 
     let clip_shapes1 = [];
@@ -85,7 +101,15 @@ export function outer_clip(polygon1, polygon2) {
     return clip_shapes1;
 }
 
-export function calculateIntersections(polygon1, polygon2, op, restore) {
+/**
+ * Returns intersection points between boundaries of two polygons as two array of points <br/>
+ * Points in the first array belong to first polygon, points from the second - to the second.
+ * Points in each array are ordered according to the direction of the correspondent polygon
+ * @param {Polygon} polygon1 - first operand
+ * @param {Polygon} polygon2 - second operand
+ * @returns {Point[][]}
+ */
+export function calculateIntersections(polygon1, polygon2) {
     let res_poly = polygon1.clone();
     let wrk_poly = polygon2.clone();
 

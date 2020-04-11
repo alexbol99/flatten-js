@@ -19,14 +19,17 @@ export class Edge {
     constructor(shape) {
         /**
          * Shape of the edge: Segment or Arc
+         * @type {Segment|Arc}
          */
         this.shape = shape;
         /**
          * Pointer to the next edge in the face
+         * @type {Edge}
          */
         this.next = undefined;
         /**
          * Pointer to the previous edge in the face
+         * @type {Edge}
          */
         this.prev = undefined;
         /**
@@ -41,12 +44,12 @@ export class Edge {
         this.arc_length = 0;
         /**
          * Start inclusion flag (inside/outside/boundary)
-         * @type {Boolean}
+         * @type {*}
          */
         this.bvStart = undefined;
         /**
          * End inclusion flag (inside/outside/boundary)
-         * @type {Boolean}
+         * @type {*}
          */
         this.bvEnd = undefined;
         /**

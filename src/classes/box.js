@@ -41,7 +41,7 @@ export class Box {
     }
 
     /**
-     * Clones and returns new instance of box
+     * Return new cloned instance of box
      * @returns {Box}
      */
     clone() {

@@ -1,7 +1,8 @@
 import LinkedList from './linked_list';
 
 /**
- * Class implements circular bidirectional linked list
+ * Class implements circular bidirectional linked list <br/>
+ * LinkedListElement - object of any type that has properties next and prev.
  */
 class CircularLinkedList extends LinkedList {
     constructor(first, last) {
@@ -29,7 +30,7 @@ class CircularLinkedList extends LinkedList {
 
     /**
      * Append new element to the end of the list
-     * @param element
+     * @param {LinkedListElement} element - new element to be appended
      * @returns {CircularLinkedList}
      */
     append(element) {
@@ -40,8 +41,8 @@ class CircularLinkedList extends LinkedList {
 
     /**
      * Insert new element to the list after elementBefore
-     * @param newElement
-     * @param elementBefore
+     * @param {LinkedListElement} newElement - new element to be inserted
+     * @param {LinkedListElement} elementBefore - element in the list to insert after it
      * @returns {CircularLinkedList}
      */
     insert(newElement, elementBefore) {
@@ -52,7 +53,7 @@ class CircularLinkedList extends LinkedList {
 
     /**
      * Remove element from the list
-     * @param element
+     * @param {LinkedListElement} element - element to be removed from the list
      * @returns {CircularLinkedList}
      */
     remove(element) {

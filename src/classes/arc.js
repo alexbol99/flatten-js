@@ -71,7 +71,7 @@ export class Arc {
     }
 
     /**
-     * Return new instance of arc
+     * Return new cloned instance of arc
      * @returns {Arc}
      */
     clone() {
@@ -472,6 +472,15 @@ export class Arc {
     }
 
     /**
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
+     */
+    toJSON() {
+        return Object.assign({}, this, {name: "arc"});
+    }
+
+    /**
      * Return string to draw arc in svg
      * @param {Object} attrs - an object with attributes of svg path element,
      * like "stroke", "strokeWidth", "fill" <br/>
@@ -496,14 +505,6 @@ export class Arc {
         }
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "arc"});
-    }
 };
 
 Flatten.Arc = Arc;

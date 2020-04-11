@@ -61,7 +61,7 @@ declare namespace Flatten {
     class CircularLinkedList extends LinkedList {}
 
     type DE9IM_element = Array<Shape> | undefined;
-    /* Isn't possible to set length for tuple ? Really ? */
+    /* Impossible to set length for tuple ? Really ? */
     type DE9IM_matrix = [
         DE9IM_element,DE9IM_element,DE9IM_element,
         DE9IM_element,DE9IM_element,DE9IM_element,
@@ -137,24 +137,24 @@ declare namespace Flatten {
         readonly box: Box;
 
         // public methods
-        breakToFunctional(): Array<Arc>;
-        chordHeight(): number;
         clone(): Arc;
         contains(pt: Point): boolean;
-        chordHeight(): number;
-        distanceTo(geom: Shape | PlanarSet): [number, Segment];
-        intersect(shape: Shape): Array<Point>;
-        middle(): Point;
-        reverse(): Arc;
-        rotate(angle: number, center: Point): Arc;
         split(pt: Point): [Arc | undefined, Arc | undefined];
-        svg(attrs?: SVGAttributes): string;
+        middle(): Point;
+        chordHeight(): number;
+        intersect(shape: Shape): Array<Point>;
+        distanceTo(geom: Shape | PlanarSet): [number, Segment];
+        breakToFunctional(): Array<Arc>;
         tangentInEnd(): Vector;
         tangentInStart(): Vector;
-        transform(matrix?: Matrix): Arc;
+        reverse(): Arc;
         translate(vec: Vector): Arc;
         translate(x:number, y:number): Arc;
+        rotate(angle: number, center: Point): Arc;
+        transform(matrix?: Matrix): Arc;
+        sortPoints(pts: Array<Point>): Array<Point>;
         toJSON() : Object;
+        svg(attrs?: SVGAttributes): string;
     }
 
     class Box implements Interval {
@@ -173,14 +173,14 @@ declare namespace Flatten {
         readonly max: Box;
 
         // public methods
-        clone(): Interval;
-        equal_to(box: Interval): boolean;
-        intersect(box: Interval): boolean;
-        less_than(box: Interval): boolean;
+        clone(): Box;
+        not_intersect(box: Box): boolean;
+        intersect(box: Box): boolean;
         merge(box: Box): Box;
-        not_intersect(box: Interval): boolean;
-        output() : void;
+        less_than(box: Box): boolean;
+        equal_to(box: Box): boolean;
         set(xmin: number, ymin: number, xmax: number, ymax: number): void;
+        output() : Box;
         svg(attrs?: SVGAttributes): string;
 
         comparable_max(arg1: Comparable, arg2: Comparable) : Comparable;
@@ -201,11 +201,11 @@ declare namespace Flatten {
         // public methods
         clone(): Circle;
         contains(shape: Shape): boolean;
-        distanceTo(geom: Shape | PlanarSet): [number, Segment];
-        intersect(shape: Shape): Array<Point>;
-        svg(attrs?: SVGAttributes): string;
         toArc(counterclockwise?: boolean): Arc;
+        intersect(shape: Shape): Array<Point>;
+        distanceTo(geom: Shape | PlanarSet): [number, Segment];
         toJSON() : Object;
+        svg(attrs?: SVGAttributes): string;
     }
 
     class Line {
@@ -227,16 +227,16 @@ declare namespace Flatten {
 
         // public methods
         clone(): Line;
-        contains(pt: Point): boolean;
-        distanceTo(shape: Shape): [number, Segment];
-        incidentTo(line: Line): boolean;
-        intersect(shape: Shape): Point[];
         parallelTo(line: Line): boolean;
+        incidentTo(line: Line): boolean;
+        contains(pt: Point): boolean;
         coord(pt: Point): number;
-        split(pt: Point | Point[]): Edge[];
+        intersect(shape: Shape): Point[];
+        distanceTo(shape: Shape): [number, Segment];
+        split(pt: Point | Point[]): Shape[];
         sortPoints(points: Point[]): Point[];
-        svg(box: Box, attrs?: SVGAttributes): string;
         toJSON() : Object;
+        svg(box: Box, attrs?: SVGAttributes): string;
     }
 
     class Point {
@@ -253,38 +253,38 @@ declare namespace Flatten {
 
         // public methods
         clone(): Point;
-        distanceTo(geom: Shape | PlanarSet): [number, Segment];
         equalTo(pt: Point): boolean;
-        leftTo(line: Line): boolean;
         lessThan(pt: Point): boolean;
-        on(shape: Point | Shape): boolean;
-        projectionOn(line: Line): Point;
         rotate(angle: number, center?: Point): Point;
-        svg(attrs?: SVGAttributes): string;
         transform(matrix: Matrix): Point;
         translate(vec: Vector): Point;
         translate(x: number, y: number): Point;
+        projectionOn(line: Line): Point;
+        distanceTo(geom: Shape | PlanarSet): [number, Segment];
+        leftTo(line: Line): boolean;
+        on(shape: Point | Shape): boolean;
         toJSON() : Object;
+        svg(attrs?: SVGAttributes): string;
     }
 
     class Ray {
-        norm: Vector;
-
         // members
         pt: Point;
-        readonly slope: number;
+        norm: Vector;
 
         // getters
         readonly start: Point;
         readonly box: Box;
+        readonly slope: number;
 
         constructor(pt?: Point, norm?: Vector);
 
         // public methods
         clone(): Ray;
-
         contains(pt: Point): boolean;
+        split(pt: Point[]): Shape[];
         intersect(shape: Segment | Arc): Point[];
+        svg(box: Box, attrs?: SVGAttributes): string;
     }
 
     class Segment {
@@ -304,22 +304,22 @@ declare namespace Flatten {
 
         // public methods
         clone(): Segment;
-        contains(pt: Point): boolean;
-        distanceTo(shape: Shape): [number, Segment];
         equalTo(seg: Segment): boolean;
+        contains(pt: Point): boolean;
         intersect(shape: Shape): Point[];
-        isZeroLength(): boolean;
-        middle(): Point;
-        reverse(): Segment;
-        rotate(angle: number, center?: Point): Segment;
-        split(pt: Point): [Segment|undefined,Segment|undefined];
+        distanceTo(shape: Shape): [number, Segment];
         tangentInStart(): Vector;
         tangentInEnd(): Vector;
+        reverse(): Segment;
+        split(pt: Point): [Segment|null,Segment|null];
+        middle(): Point;
+        rotate(angle: number, center?: Point): Segment;
         transform(matrix: Matrix): Segment;
         translate(vec: Vector): Segment;
         translate(x: number, y: number): Segment;
-        svg(attrs?: SVGAttributes): string;
+        isZeroLength(): boolean;
         toJSON() : Object;
+        svg(attrs?: SVGAttributes): string;
     }
 
     class Vector {
@@ -335,20 +335,20 @@ declare namespace Flatten {
         readonly slope: number;
 
         // public methods
-        add(v: Vector): Vector;
-        angleTo(v: Vector): number;
         clone(): Vector;
-        cross(v: Vector): number;
-        dot(v: Vector): number;
         equalTo(v: Vector): boolean;
-        invert(): Vector;
         multiply(scalar: number): Vector;
+        dot(v: Vector): number;
+        cross(v: Vector): number;
         normalize(): Vector;
-        projectionOn(v: Vector): Vector;
         rotate(angle: number): Vector;
         rotate90CCW(): Vector;
         rotate90CW(): Vector;
+        invert(): Vector;
+        add(v: Vector): Vector;
         subtract(v: Vector): Vector;
+        angleTo(v: Vector): number;
+        projectionOn(v: Vector): Vector;
         toJSON() : Object;
     }
 
@@ -403,7 +403,6 @@ declare namespace Flatten {
     const CONTAINS = 3;
     const INTERLACE = 4;
     enum EdgeRelationType {INSIDE, OUTSIDE, BOUNDARY}
-    enum RelationType {INSIDE, OUTSIDE, BOUNDARY, CONTAINS, INTERLACE}
     const OVERLAP_SAME = 1;
     const OVERLAP_OPPOSITE = 2;
     enum EdgeOverlappingType {OVERLAP_SAME, OVERLAP_OPPOSITE}
@@ -453,13 +452,12 @@ declare namespace Flatten {
         append(edge: Edge): Face;
         insert(element: Edge): Face;
         remove(element: Edge): Face;
-        area(): number;
-        getRelation(polygon: Polygon): RelationType;
-        isSimple(edges: Edge[]): boolean;
-        orientation(): Flatten.ORIENTATION.PolygonOrientationType;
         reverse(): void;
         setArcLength(): void;
+        area(): number;
         signedArea(): number;
+        orientation(): Flatten.ORIENTATION.PolygonOrientationType;
+        isSimple(edges: Edge[]): boolean;
         findEdgeByPoint(pt: Point): Edge | undefined;
         toPolygon(): Polygon;
         svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
@@ -484,23 +482,25 @@ declare namespace Flatten {
         readonly vertices: Point[];
 
         // public methods
-        addFace(args: Array<Point> | Array<Segment | Arc> | Circle | Box): Face;
-        addVertex(edge: Edge, pt: Point): Edge;
-        area(): number;
         clone(): Polygon;
-        contains(shape: Shape): boolean;
+        isEmpty(): boolean;
+        isValid(): boolean;
+        area(): number;
+        addFace(args: Array<Point> | Array<Segment | Arc> | Circle | Box): Face;
         deleteFace(face: Face): boolean;
+        removeChain(face: Face, edgeFrom: Edge, edgeTo: Edge): void;
+        addVertex(edge: Edge, pt: Point): Edge;
+        cut(multiline: Multiline): Polygon[];
+        cutFace(pt1: Point, pt2: Point): [Polygon, Polygon];
+        findEdgeByPoint(pt: Point): Edge;
+        splitToIslands() : Polygon[];
+        reverse(): Polygon;
+        contains(shape: Shape): boolean;
         distanceTo(shape: Shape): [number, Segment];
         intersect(shape: Shape): Point[];
-        isValid(): boolean;
-        removeChain(face: Face, edgeFrom: Edge, edgeTo: Edge): void;
         rotate(angle?: number, center?: Point): Polygon;
         transform(matrix?: Matrix): Polygon;
         translate(vec: Vector): Polygon;
-        splitToIslands() : Polygon[];
-        findEdgeByPoint(pt: Point): Edge;
-        cutFace(pt1: Point, pt2: Point): [Polygon, Polygon];
-        cut(multiline: Multiline): Polygon[];
         toJSON() : Object;
         toArray() : Polygon[];
         svg(attrs?: SVGAttributes): string;
@@ -514,17 +514,19 @@ declare namespace Flatten {
         get vertices(): Point[];
         get box(): Box;
 
+        clone(): Multiline;
         addVertex(pt: Point, edge: Edge): Edge;
         split(ip: Point[]) : Multiline;
         findEdgeByPoint(pt: Point): Edge | undefined;
-        toShapes(): MultilineShapes;
         rotate(angle?: number, center?: Point): Multiline;
         transform(matrix?: Matrix): Multiline;
         translate(vec: Vector): Multiline;
-        svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
+        toShapes(): MultilineShapes;
+        toJSON() : Object;
+        svg(attrs?: SVGAttributes): string;
     }
 
-    type Shape = Point | Line | Circle | Box | Segment | Arc | Polygon;
+    type Shape = Point | Line | Ray | Circle | Box | Segment | Arc | Polygon;
 
     function point(x?: number, y?: number): Point;
     function point(arr?: [number, number]);
@@ -558,6 +560,26 @@ declare namespace Flatten.Utils {
     function GE(x: number, y: number) : boolean;
     function LT(x: number, y: number) : boolean;
     function LE(x: number, y: number) : boolean;
+}
+
+declare namespace Flatten.BooleanOperations {
+    function unify(polygon1: Polygon, polygon2: Polygon): Polygon;
+    function subtract(polygon1: Polygon, polygon2: Polygon): Polygon;
+    function intersect(polygon1: Polygon, polygon2: Polygon): Polygon;
+    function innerClip(polygon1: Polygon, polygon2: Polygon): [Shape[], Shape[]];
+    function outerClip(polygon1: Polygon, polygon2: Polygon): Shape[];
+    function calculateIntersections(polygon1: Polygon, polygon2: Polygon): [Point[],Point[]];
+}
+
+declare namespace Flatten.Relations {
+    function relate(shape1: Shape, shape2: Shape): DE9IM_matrix;
+    function equal(shape1: Shape, shape2: Shape): boolean;
+    function intersect(shape1: Shape, shape2: Shape): boolean;
+    function touch(shape1: Shape, shape2: Shape): boolean;
+    function disjoint(shape1: Shape, shape2: Shape): boolean;
+    function inside(shape1: Shape, shape2: Shape): boolean;
+    function covered(shape1: Shape, shape2: Shape): boolean;
+    function cover(shape1: Shape, shape2: Shape): boolean;
 }
 
 export default Flatten;

@@ -46,7 +46,7 @@ export class Ray {
     }
 
     /**
-     * Returns copied instance of the ray object
+     * Return new cloned instance of ray
      * @returns {Ray}
      */
     clone() {
@@ -113,7 +113,7 @@ export class Ray {
 
     /**
      * Split ray with point and return array of segment and new ray
-     * @param pt
+     * @param {Point} pt
      * @returns [Segment,Ray]
      */
     split(pt) {

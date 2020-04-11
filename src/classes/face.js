@@ -184,7 +184,7 @@ export class Face extends CircularLinkedList {
     }
 
     /**
-     * Append given edge after the last edge (and before the first edge). <br/>
+     * Append edge after the last edge of the face (and before the first edge). <br/>
      * @param {Edge} edge - Edge to be appended to the linked list
      * @returns {Face}
      */
@@ -213,7 +213,6 @@ export class Face extends CircularLinkedList {
 
     /**
      * Remove the given edge from the linked list of the face <br/>
-     * @param {PlanarSet} edges - Container of edges
      * @param {Edge} edge - Edge to be removed
      * @returns {Face}
      */
@@ -226,7 +225,8 @@ export class Face extends CircularLinkedList {
 
     /**
      * Reverse orientation of the face: first edge become last and vice a verse,
-     * all edges starts and ends swapped, direction of arcs inverted.
+     * all edges starts and ends swapped, direction of arcs inverted. If face was oriented
+     * clockwise, it becomes counter clockwise and vice versa
      */
     reverse() {
         // collect edges in revert order with reverted shapes
@@ -342,9 +342,8 @@ export class Face extends CircularLinkedList {
 
     /**
      * Returns true if face of the polygon is simple (no self-intersection points found)
-     * NOTE: this method is incomplete because it does not exclude touching points
-     * Real self intersection inverts orientation of the polygon.
-     * But this is also good enough for the demonstration of the idea
+     * NOTE: this method is incomplete because it does not exclude touching points.
+     * Self intersection test should check if polygon change orientation in the test point.
      * @param {Edges} edges - reference to polygon.edges to provide search index
      * @returns {boolean}
      */
@@ -409,7 +408,7 @@ export class Face extends CircularLinkedList {
 
     /**
      * Returns edge which contains given point
-     * @param {Point} pt
+     * @param {Point} pt - test point
      * @returns {Edge}
      */
     findEdgeByPoint(pt) {
@@ -424,27 +423,8 @@ export class Face extends CircularLinkedList {
     }
 
     /**
-     * Return chain edges between edgeFrom and edgeTo
-     * @param {Edge} edgeFrom
-     * @param {Edge} edgeTo
-     * @returns {Edge[]}
-     */
-    getChainEdges(edgeFrom, edgeTo) {
-        let edges = [];
-        if (edgeTo.next === edgeFrom) {           // Special case: return all face edges
-            edges = this.edges;
-        }
-        else {
-            for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
-                edges.push(edge);
-            }
-        }
-        return edges;
-    }
-
-    /**
      * Returns new polygon created from one face
-     * @returns {Flatten.Polygon}
+     * @returns {Polygon}
      */
     toPolygon() {
         return new Flatten.Polygon(this.shapes);

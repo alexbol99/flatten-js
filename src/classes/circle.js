@@ -45,7 +45,7 @@ export class Circle {
     }
 
     /**
-     * Method clone returns new instance of a Circle
+     * Return new cloned instance of circle
      * @returns {Circle}
      */
     clone() {
@@ -193,6 +193,15 @@ export class Circle {
     }
 
     /**
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
+     */
+    toJSON() {
+        return Object.assign({}, this, {name: "circle"});
+    }
+
+    /**
      * Return string to draw circle in svg
      * @param {Object} attrs - an object with attributes of svg circle element,
      * like "stroke", "strokeWidth", "fill" <br/>
@@ -208,14 +217,6 @@ export class Circle {
         return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} />`;
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "circle"});
-    }
 };
 
 Flatten.Circle = Circle;
