@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Improved documentation and TypeScript type definition, fixed some bugs">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fix bug in relateShapeToPolygon">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/relation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +95,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\test" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="npm.test">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -183,10 +183,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.test" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.generate-docs" />
-        <item itemvalue="npm.test" />
         <item itemvalue="Mocha.#Algorithms.Relation" />
       </list>
     </recent_temporary>
@@ -331,14 +331,7 @@
       <workItem from="1578589389142" duration="42800000" />
       <workItem from="1578751038342" duration="12646000" />
       <workItem from="1579250841112" duration="12753000" />
-      <workItem from="1586085458394" duration="75627000" />
-    </task>
-    <task id="LOCAL-00110" summary="fix broken test">
-      <created>1548139794032</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1548139794032</updated>
+      <workItem from="1586085458394" duration="76618000" />
     </task>
     <task id="LOCAL-00111" summary="- Fixed bug with cjs build: PlanarSet cannot be instantiated&#10;See https://github.com/alexbol99/flatten-js/pull/20">
       <created>1549026412336</created>
@@ -676,7 +669,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586602456538</updated>
     </task>
-    <option name="localTasksCounter" value="159" />
+    <task id="LOCAL-00159" summary="- Fix bug in relateShapeToPolygon">
+      <created>1586676978595</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1586676978595</updated>
+    </task>
+    <option name="localTasksCounter" value="160" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -696,7 +696,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- update README.md" />
     <MESSAGE value="- Integrate pull requests and build new version&#10;16eb559 by OldrichDlouhy Fix TypeScript definitions #34&#10;74e333a by dependabot/npm_and_yarn/marked-0.3.19" />
     <MESSAGE value="- Add intersections to box methods (for Arc, Circle, Line, Segment)" />
     <MESSAGE value="- Add new methods Face::shapes (getter function) and Face::toPolygon(), Polygon::toArray()&#10;- Simplify code for polygon transform methods, add tests, docs updated" />
@@ -721,7 +720,8 @@
     <MESSAGE value="- Added relatePolygon2Polygon method (not completes, not tested)" />
     <MESSAGE value="- Added relatePolygon2Polygon method, added tests&#10;- Added relations INSIDE and COVERED&#10;- Boolean_op moved back to core&#10;- Interval_tree upgraded to v1.0.11&#10;- Published minor version 1.2.0" />
     <MESSAGE value="- Improved documentation and TypeScript type definition, fixed some bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Improved documentation and TypeScript type definition, fixed some bugs" />
+    <MESSAGE value="- Fix bug in relateShapeToPolygon" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fix bug in relateShapeToPolygon" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -743,10 +743,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1416" y="107" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1586351972879" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1586676837171">
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1586676977629">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586676837171" />
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586676977629" />
     <state width="774" height="466" key="DebuggerActiveHint" timestamp="1586351802131">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -755,22 +755,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="860" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586342032335" />
-    <state width="1554" height="274" key="GridCell.Tab.0.bottom" timestamp="1586676842864">
+    <state width="1554" height="274" key="GridCell.Tab.0.bottom" timestamp="1586678279278">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1554" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586676842864" />
-    <state width="1554" height="274" key="GridCell.Tab.0.center" timestamp="1586676842864">
+    <state width="1554" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586678279278" />
+    <state width="1554" height="274" key="GridCell.Tab.0.center" timestamp="1586678279278">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1554" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586676842864" />
-    <state width="1554" height="274" key="GridCell.Tab.0.left" timestamp="1586676842863">
+    <state width="1554" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586678279278" />
+    <state width="1554" height="274" key="GridCell.Tab.0.left" timestamp="1586678279278">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1554" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586676842863" />
-    <state width="1554" height="274" key="GridCell.Tab.0.right" timestamp="1586676842864">
+    <state width="1554" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586678279278" />
+    <state width="1554" height="274" key="GridCell.Tab.0.right" timestamp="1586678279278">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1554" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586676842864" />
+    <state width="1554" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586678279278" />
     <state width="1730" height="304" key="GridCell.Tab.1.bottom" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -821,10 +821,10 @@
     <state width="1730" height="304" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
     <state x="907" y="233" key="RollbackChangesDialog" timestamp="1584078987811" />
     <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1586602461642">
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1586676980219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586602461642" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586676980219" />
     <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586342040067">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
