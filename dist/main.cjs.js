@@ -1771,6 +1771,16 @@ class LinkedList {
         this.last = last || this.first;
     }
 
+    [Symbol.iterator]() {
+        let value = undefined;
+        return {
+            next: () => {
+                value = value ? value.next : this.first;
+                return {value: value, done: value === undefined};
+            }
+        };
+    };
+
     /**
      * Return number of elements in the list
      * @returns {number}
@@ -1782,16 +1792,6 @@ class LinkedList {
         }
         return counter;
     }
-
-    [Symbol.iterator]() {
-        let value = undefined;
-        return {
-            next: () => {
-                value = value ? value.next : this.first;
-                return {value: value, done: value === undefined};
-            }
-        };
-    };
 
     /**
      * Return array of elements from start to end,
@@ -2374,7 +2374,8 @@ function relateLine2Line(line1, line2) {
     if (ip.length === 0) {       // parallel or equal ?
         if (line1.contains(line2.pt) && line2.contains(line1.pt)) {
             denim.I2I = [line1];   // equal  'T.F...F..'  - no boundary
-            denim.I2E = denim.E2I = [];
+            denim.I2E = [];
+            denim.E2I = [];
         }
         else {                     // parallel - disjoint 'FFTFF*T**'
             denim.I2I = [];
@@ -2394,7 +2395,8 @@ function relateLine2Circle(line,circle) {
     let denim = new DE9IM();
     let ip = intersectLine2Circle(line, circle);
     if (ip.length === 0) {
-        denim.I2I = denim.I2B = [];
+        denim.I2I = [];
+        denim.I2B = [];
         denim.I2E = [line];
         denim.E2I = [circle];
     }
@@ -2425,8 +2427,10 @@ function relateLine2Box(line, box) {
     let denim = new DE9IM();
     let ip = intersectLine2Box(line, box);
     if (ip.length === 0) {
-        denim.I2I = denim.I2B = [];
+        denim.I2I = [];
+        denim.I2B = [];
         denim.I2E = [line];
+
         denim.E2I = [box];
     }
     else if (ip.length === 1) {
@@ -2495,7 +2499,9 @@ function relateShape2Polygon(shape, polygon) {
     denim.I2E = [...multiline].filter(edge => edge.bv === Flatten.OUTSIDE).map(edge => edge.shape);
 
 
-    denim.B2I = denim.B2B = denim.B2E = [];
+    denim.B2I = [];
+    denim.B2B = [];
+    denim.B2E = [];
     for (let pt of [shape.start, shape.end]) {
         switch (ray_shoot(polygon, pt)) {
             case Flatten.INSIDE:
@@ -2512,7 +2518,7 @@ function relateShape2Polygon(shape, polygon) {
         }
     }
 
-    // denim.E2I =  polygon.cut(multiline);  // TODO: calculate, not clear what is expected result
+    // denim.E2I  TODO: calculate, not clear what is expected result
 
     return denim;
 }

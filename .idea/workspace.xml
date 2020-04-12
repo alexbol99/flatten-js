@@ -2,84 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Improved documentation and TypeScript type definition, fixed some bugs">
-      <change afterPath="$PROJECT_DIR$/docs/algorithms_ray_shooting.js.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/module-BooleanOp.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/module-RayShoot.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/module-Relation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.jsdoc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.jsdoc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ROADMAP.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Arc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Box.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Circle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/CircularLinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/CircularLinkedList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/DE9IM.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/DE9IM.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Edge.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Errors.ILLEGAL_PARAMETERS.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.ILLEGAL_PARAMETERS.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Errors.ZERO_DIVISION.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.ZERO_DIVISION.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Face.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Line.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/LinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/LinkedList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Matrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Matrix.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Multiline.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Multiline.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/PlanarSet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Point.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Polygon.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Ray.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Segment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Vector.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_boolean_op.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_boolean_op.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_relation.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_relation.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_matrix.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_multiline.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_multiline.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_constants.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_constants.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/boolean_op.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/ray_shooting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/ray_shooting.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/relation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/arc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/circle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/edge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/matrix.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/matrix.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/multiline.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/ray.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/segment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_structures/circular_linked_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/circular_linked_list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_structures/de9im.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/de9im.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_structures/linked_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/linked_list.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -260,9 +184,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.generate-docs" />
         <item itemvalue="npm.test" />
-        <item itemvalue="npm.publish-npm" />
         <item itemvalue="Mocha.#Algorithms.Relation" />
       </list>
     </recent_temporary>
@@ -407,14 +331,7 @@
       <workItem from="1578589389142" duration="42800000" />
       <workItem from="1578751038342" duration="12646000" />
       <workItem from="1579250841112" duration="12753000" />
-      <workItem from="1586085458394" duration="71289000" />
-    </task>
-    <task id="LOCAL-00109" summary="fix vulnerabilities">
-      <created>1548103729611</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1548103729611</updated>
+      <workItem from="1586085458394" duration="75627000" />
     </task>
     <task id="LOCAL-00110" summary="fix broken test">
       <created>1548139794032</created>
@@ -752,7 +669,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586353127878</updated>
     </task>
-    <option name="localTasksCounter" value="158" />
+    <task id="LOCAL-00158" summary="- Improved documentation and TypeScript type definition, fixed some bugs">
+      <created>1586602456538</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1586602456538</updated>
+    </task>
+    <option name="localTasksCounter" value="159" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -772,7 +696,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- implement LinkedList, CircularLinkedList&#10;- implement Face as an extension of CircularLinkedList" />
     <MESSAGE value="- update README.md" />
     <MESSAGE value="- Integrate pull requests and build new version&#10;16eb559 by OldrichDlouhy Fix TypeScript definitions #34&#10;74e333a by dependabot/npm_and_yarn/marked-0.3.19" />
     <MESSAGE value="- Add intersections to box methods (for Arc, Circle, Line, Segment)" />
@@ -797,7 +720,8 @@
     <MESSAGE value="- Fixed bugs in relationLine2Polygon and Polygon::cut() method" />
     <MESSAGE value="- Added relatePolygon2Polygon method (not completes, not tested)" />
     <MESSAGE value="- Added relatePolygon2Polygon method, added tests&#10;- Added relations INSIDE and COVERED&#10;- Boolean_op moved back to core&#10;- Interval_tree upgraded to v1.0.11&#10;- Published minor version 1.2.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added relatePolygon2Polygon method, added tests&#10;- Added relations INSIDE and COVERED&#10;- Boolean_op moved back to core&#10;- Interval_tree upgraded to v1.0.11&#10;- Published minor version 1.2.0" />
+    <MESSAGE value="- Improved documentation and TypeScript type definition, fixed some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Improved documentation and TypeScript type definition, fixed some bugs" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -819,10 +743,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1416" y="107" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1586351972879" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1586602375879">
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1586676837171">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586602375879" />
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586676837171" />
     <state width="774" height="466" key="DebuggerActiveHint" timestamp="1586351802131">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -831,22 +755,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="860" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586342032335" />
-    <state width="1554" height="274" key="GridCell.Tab.0.bottom" timestamp="1586602260823">
+    <state width="1554" height="274" key="GridCell.Tab.0.bottom" timestamp="1586676842864">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1554" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586602260823" />
-    <state width="1554" height="274" key="GridCell.Tab.0.center" timestamp="1586602260823">
+    <state width="1554" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586676842864" />
+    <state width="1554" height="274" key="GridCell.Tab.0.center" timestamp="1586676842864">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1554" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586602260823" />
-    <state width="1554" height="274" key="GridCell.Tab.0.left" timestamp="1586602260823">
+    <state width="1554" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586676842864" />
+    <state width="1554" height="274" key="GridCell.Tab.0.left" timestamp="1586676842863">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1554" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586602260823" />
-    <state width="1554" height="274" key="GridCell.Tab.0.right" timestamp="1586602260823">
+    <state width="1554" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586676842863" />
+    <state width="1554" height="274" key="GridCell.Tab.0.right" timestamp="1586676842864">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1554" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586602260823" />
+    <state width="1554" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586676842864" />
     <state width="1730" height="304" key="GridCell.Tab.1.bottom" timestamp="1586352155080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -897,10 +821,10 @@
     <state width="1730" height="304" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586352155080" />
     <state x="907" y="233" key="RollbackChangesDialog" timestamp="1584078987811" />
     <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1586353131720">
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1586602461642">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586353131720" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586602461642" />
     <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586342040067">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
