@@ -300,7 +300,7 @@ function relatePolygon2Polygon(polygon1, polygon2) {
     let [ip_sorted1, ip_sorted2] = BooleanOp.calculateIntersections(polygon1, polygon2);
     let boolean_intersection = BooleanOp.intersect(polygon1, polygon2);
     let boolean_difference1 = BooleanOp.subtract(polygon1, polygon2);
-    let boolean_difference2 = BooleanOp.subtract(polygon1, polygon2);
+    let boolean_difference2 = BooleanOp.subtract(polygon2, polygon1);
     let [inner_clip_shapes1, inner_clip_shapes2] = BooleanOp.innerClip(polygon1, polygon2);
     let outer_clip_shapes1 = BooleanOp.outerClip(polygon1, polygon2);
     let outer_clip_shapes2 = BooleanOp.outerClip(polygon2, polygon1);

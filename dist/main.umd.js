@@ -2518,7 +2518,7 @@
         let [ip_sorted1, ip_sorted2] = calculateIntersections(polygon1, polygon2);
         let boolean_intersection = intersect(polygon1, polygon2);
         let boolean_difference1 = subtract(polygon1, polygon2);
-        let boolean_difference2 = subtract(polygon1, polygon2);
+        let boolean_difference2 = subtract(polygon2, polygon1);
         let [inner_clip_shapes1, inner_clip_shapes2] = innerClip(polygon1, polygon2);
         let outer_clip_shapes1 = outerClip(polygon1, polygon2);
         let outer_clip_shapes2 = outerClip(polygon2, polygon1);
