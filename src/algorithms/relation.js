@@ -26,13 +26,6 @@ import * as BooleanOp from "./boolean_op";
 
 let {vector,ray,segment,arc,polygon,multiline} = Flatten;
 
-// const DISJOINT = RegExp('FF.FF....');
-export const EQUAL = RegExp('T.F..FFF.|T.F...F..');
-export const INTERSECT = RegExp('T........|.T.......|...T.....|....T....');
-export const TOUCH = RegExp('FT.......|F..T.....|F...T....');
-export const INSIDE = RegExp('T.F..F...');
-export const COVERED = RegExp('T.F..F...|.TF..F...|..FT.F...|..F.TF...');
-
 /**
  * Returns true if shapes are topologically equal:  their interiors intersect and
  * no part of the interior or boundary of one geometry intersects the exterior of the other
@@ -320,7 +313,7 @@ function relatePolygon2Polygon(polygon1, polygon2) {
     denim.B2B = ip_sorted1;
     denim.B2E = outer_clip_shapes1;
 
-    denim.E2I = boolean_difference2.isEmpty() ? [] : boolean_difference2;
+    denim.E2I = boolean_difference2.isEmpty() ? [] : [boolean_difference2];
     denim.E2B = outer_clip_shapes2;
     // denim.E2E    not relevant meanwhile
 

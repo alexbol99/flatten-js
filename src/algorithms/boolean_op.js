@@ -69,15 +69,11 @@ export function innerClip(polygon1, polygon2) {
 
     let clip_shapes1 = [];
     for (let face of res_poly.faces) {
-        for (let edge of face) {
-            clip_shapes1.push(edge)
-        }
+        clip_shapes1 = [...clip_shapes1, ...[...face.edges].map(edge => edge.shape)]
     }
     let clip_shapes2 = [];
     for (let face of wrk_poly.faces) {
-        for (let edge of face) {
-            clip_shapes2.push(edge)
-        }
+        clip_shapes2 = [...clip_shapes2, ...[...face.edges].map(edge => edge.shape)]
     }
     return [clip_shapes1, clip_shapes2];
 }
@@ -93,9 +89,7 @@ export function outerClip(polygon1, polygon2) {
 
     let clip_shapes1 = [];
     for (let face of res_poly.faces) {
-        for (let edge of face) {
-            clip_shapes1.push(edge.shape)
-        }
+        clip_shapes1 = [...clip_shapes1, ...[...face.edges].map(edge => edge.shape)]
     }
 
     return clip_shapes1;

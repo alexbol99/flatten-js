@@ -248,15 +248,11 @@
 
         let clip_shapes1 = [];
         for (let face of res_poly.faces) {
-            for (let edge of face) {
-                clip_shapes1.push(edge);
-            }
+            clip_shapes1 = [...clip_shapes1, ...[...face.edges].map(edge => edge.shape)];
         }
         let clip_shapes2 = [];
         for (let face of wrk_poly.faces) {
-            for (let edge of face) {
-                clip_shapes2.push(edge);
-            }
+            clip_shapes2 = [...clip_shapes2, ...[...face.edges].map(edge => edge.shape)];
         }
         return [clip_shapes1, clip_shapes2];
     }
@@ -272,9 +268,7 @@
 
         let clip_shapes1 = [];
         for (let face of res_poly.faces) {
-            for (let edge of face) {
-                clip_shapes1.push(edge.shape);
-            }
+            clip_shapes1 = [...clip_shapes1, ...[...face.edges].map(edge => edge.shape)];
         }
 
         return clip_shapes1;
@@ -2250,13 +2244,6 @@
         Dimensionally Extended nine-Intersection Matrix (https://en.wikipedia.org/wiki/DE-9IM)
      */
 
-    // const DISJOINT = RegExp('FF.FF....');
-    const EQUAL$1 = RegExp('T.F..FFF.|T.F...F..');
-    const INTERSECT$1 = RegExp('T........|.T.......|...T.....|....T....');
-    const TOUCH$1 = RegExp('FT.......|F..T.....|F...T....');
-    const INSIDE$3 = RegExp('T.F..F...');
-    const COVERED$1 = RegExp('T.F..F...|.TF..F...|..FT.F...|..F.TF...');
-
     /**
      * Returns true if shapes are topologically equal:  their interiors intersect and
      * no part of the interior or boundary of one geometry intersects the exterior of the other
@@ -2544,7 +2531,7 @@
         denim.B2B = ip_sorted1;
         denim.B2E = outer_clip_shapes1;
 
-        denim.E2I = boolean_difference2.isEmpty() ? [] : boolean_difference2;
+        denim.E2I = boolean_difference2.isEmpty() ? [] : [boolean_difference2];
         denim.E2B = outer_clip_shapes2;
         // denim.E2E    not relevant meanwhile
 
@@ -2552,11 +2539,6 @@
     }
 
     var relation = /*#__PURE__*/Object.freeze({
-        EQUAL: EQUAL$1,
-        INTERSECT: INTERSECT$1,
-        TOUCH: TOUCH$1,
-        INSIDE: INSIDE$3,
-        COVERED: COVERED$1,
         equal: equal,
         intersect: intersect$1,
         touch: touch,
