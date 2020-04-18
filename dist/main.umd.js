@@ -418,12 +418,10 @@
     function addToIntPoints(edge, pt, int_points)
     {
         let id = int_points.length;
-        let split = edge.shape.split(pt);
-
         let shapes = edge.shape.split(pt);
 
         // if (shapes.length < 2) return;
-        if (split.length === 0) return;     // Point does not belong to edge ?
+        if (shapes.length === 0) return;     // Point does not belong to edge ?
 
         let len = 0;
         if (shapes[0] === null) {   // point incident to edge start vertex
@@ -432,17 +430,8 @@
         else if (shapes[1] === null) {   // point incident to edge end vertex
             len = edge.shape.length;
         }
-    /*
-        if (split.length === 1) {           // Edge was not split
-            if (edge.shape.start.equalTo(pt)) {
-                len = 0;
-            } else if (edge.shape.end.equalTo(pt)) {
-                len = edge.shape.length;
-            }
-        } */
-
         else {                             // Edge was split into to edges
-            len = split[0].length;
+            len = shapes[0].length;
         }
 
         let is_vertex = NOT_VERTEX;
@@ -5217,10 +5206,10 @@
          */
         split(pt) {
             if (this.start.equalTo(pt))
-                return [undefined, this.clone()];
+                return [null, this.clone()];
 
             if (this.end.equalTo(pt))
-                return [this.clone(), undefined];
+                return [this.clone(), null];
 
             let angle = new Flatten.Vector(this.pc, pt).slope;
 
