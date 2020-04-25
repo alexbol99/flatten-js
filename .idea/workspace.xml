@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Release patch 1.2.2">
-      <change afterPath="$PROJECT_DIR$/.grenrc.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Add boolean operations test&#10;- Fix bug in Arc::split() method">
+      <change afterPath="$PROJECT_DIR$/README_OLD.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/nodejs/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/boolean_op.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/arc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/nodejs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/examples/nodejs/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +60,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flatten-interval-tree" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.prettier" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -86,6 +82,13 @@
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js" />
+      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\examples\typescript" />
+      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\packages\utils" />
+      <recent name="C:\Users\alexbol\WebstormProjects\flatten-js\packages\core" />
+      <recent name="C:\Users\alexbol\WebstormProjects\flatten-js" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test/algorithms" />
       <recent name="$PROJECT_DIR$/test/data_structures" />
@@ -93,15 +96,8 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\examples\typescript" />
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\examples\typescript" />
-      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\packages\utils" />
-      <recent name="C:\Users\alexbol\WebstormProjects\flatten-js\packages\core" />
-      <recent name="C:\Users\alexbol\WebstormProjects\flatten-js" />
-      <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\test" />
-    </key>
   </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="npm.publish-npm">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -189,9 +185,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
-        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.generate-docs" />
         <item itemvalue="Mocha.#Algorithms.Relation" />
       </list>
@@ -328,14 +324,7 @@
       <workItem from="1586085458394" duration="76618000" />
       <workItem from="1587191241471" duration="2805000" />
       <workItem from="1587194087727" duration="1542000" />
-      <workItem from="1587195647294" duration="1773000" />
-    </task>
-    <task id="LOCAL-00112" summary="- Brunch 1.0.0-beta - initial commit">
-      <created>1549133103321</created>
-      <option name="number" value="00112" />
-      <option name="presentableId" value="LOCAL-00112" />
-      <option name="project" value="LOCAL" />
-      <updated>1549133103321</updated>
+      <workItem from="1587195647294" duration="12286000" />
     </task>
     <task id="LOCAL-00113" summary="Finished to move all files to es modules, test pass">
       <created>1549361108968</created>
@@ -673,7 +662,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587133771117</updated>
     </task>
-    <option name="localTasksCounter" value="161" />
+    <task id="LOCAL-00161" summary="- Add boolean operations test&#10;- Fix bug in Arc::split() method">
+      <created>1587199454093</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1587199454093</updated>
+    </task>
+    <option name="localTasksCounter" value="162" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -692,7 +688,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Add new methods Face::shapes (getter function) and Face::toPolygon(), Polygon::toArray()&#10;- Simplify code for polygon transform methods, add tests, docs updated" />
     <MESSAGE value="- Fix inheritance conflict by removing &quot;edges&quot; parameter from Face methods append, insert, delete; update docs, tests and typescript definition (wikywin note in the issue #3)&#10;- Upgrade dependency to @flatten-js/interval-tree@1.0.10 with fixed default export definition - fix typescript error on importing this package" />
     <MESSAGE value="- Allow creation of polygon using constructor without need for addFace() method, updated typescript definition, tests and documentation &#10;- Allow creation of polygon from array of numeric pairs, or from a nested array of numeric pairs (issue #23)" />
     <MESSAGE value="- Added method Polygon::splitToIslands() to split polygon into array of islands, where each island polygon includes holes that it contains (issue #9 from boolean-op package)" />
@@ -717,7 +712,8 @@
     <MESSAGE value="- Fix bug in relateShapeToPolygon" />
     <MESSAGE value="- Fix bug in relatePolygonToPolygon&#10;- Remove redundant export regexp from relations module" />
     <MESSAGE value="- Release patch 1.2.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Release patch 1.2.2" />
+    <MESSAGE value="- Add boolean operations test&#10;- Fix bug in Arc::split() method" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Add boolean operations test&#10;- Fix bug in Arc::split() method" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -739,10 +735,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1416" y="107" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1586351972879" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1587195770857">
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1587199453064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587195770857" />
+    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587199453064" />
     <state width="774" height="466" key="DebuggerActiveHint" timestamp="1587199094250">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -751,76 +747,76 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="860" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586342032335" />
-    <state width="1636" height="395" key="GridCell.Tab.0.bottom" timestamp="1587196674763">
+    <state width="944" height="273" key="GridCell.Tab.0.bottom" timestamp="1587582538796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674763" />
-    <state width="1636" height="395" key="GridCell.Tab.0.center" timestamp="1587196674763">
+    <state width="944" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587582538796" />
+    <state width="944" height="273" key="GridCell.Tab.0.center" timestamp="1587582538796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674763" />
-    <state width="1636" height="395" key="GridCell.Tab.0.left" timestamp="1587196674763">
+    <state width="944" height="273" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587582538796" />
+    <state width="944" height="273" key="GridCell.Tab.0.left" timestamp="1587582538796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674763" />
-    <state width="1636" height="395" key="GridCell.Tab.0.right" timestamp="1587196674763">
+    <state width="944" height="273" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587582538796" />
+    <state width="944" height="273" key="GridCell.Tab.0.right" timestamp="1587582538796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674763" />
-    <state width="1636" height="395" key="GridCell.Tab.1.bottom" timestamp="1587196686990">
+    <state width="944" height="273" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587582538796" />
+    <state width="1636" height="395" key="GridCell.Tab.1.bottom" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587196686990" />
-    <state width="1636" height="395" key="GridCell.Tab.1.center" timestamp="1587196686990">
+    <state width="1636" height="395" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.1.center" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587196686990" />
-    <state width="1636" height="395" key="GridCell.Tab.1.left" timestamp="1587196686990">
+    <state width="1636" height="395" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.1.left" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587196686990" />
-    <state width="1636" height="395" key="GridCell.Tab.1.right" timestamp="1587196686990">
+    <state width="1636" height="395" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.1.right" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587196686990" />
-    <state width="1636" height="395" key="GridCell.Tab.2.bottom" timestamp="1587196674667">
+    <state width="1636" height="395" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.2.bottom" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674667" />
-    <state width="1636" height="395" key="GridCell.Tab.2.center" timestamp="1587196674666">
+    <state width="1636" height="395" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.2.center" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674666" />
-    <state width="1636" height="395" key="GridCell.Tab.2.left" timestamp="1587196674666">
+    <state width="1636" height="395" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.2.left" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674666" />
-    <state width="1636" height="395" key="GridCell.Tab.2.right" timestamp="1587196674667">
+    <state width="1636" height="395" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.2.right" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674667" />
-    <state width="1636" height="395" key="GridCell.Tab.3.bottom" timestamp="1587196674667">
+    <state width="1636" height="395" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.3.bottom" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674667" />
-    <state width="1636" height="395" key="GridCell.Tab.3.center" timestamp="1587196674667">
+    <state width="1636" height="395" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.3.center" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674667" />
-    <state width="1636" height="395" key="GridCell.Tab.3.left" timestamp="1587196674667">
+    <state width="1636" height="395" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.3.left" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674667" />
-    <state width="1636" height="395" key="GridCell.Tab.3.right" timestamp="1587196674667">
+    <state width="1636" height="395" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
+    <state width="1636" height="395" key="GridCell.Tab.3.right" timestamp="1587199140721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587196674667" />
+    <state width="1636" height="395" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
     <state x="907" y="233" key="RollbackChangesDialog" timestamp="1584078987811" />
     <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1586676980219">
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1587199492684">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586676980219" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1587199492684" />
     <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586342040067">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -844,11 +840,6 @@
           <url>file://$PROJECT_DIR$/test/data_structures/linked_list.js</url>
           <line>176</line>
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
-          <line>660</line>
-          <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>

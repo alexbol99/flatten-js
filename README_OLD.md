@@ -22,17 +22,17 @@ Library consists of several packages, published under scope **@flatten-js/**:
 
 NOTE: Package [flatten-js](https://www.npmjs.com/package/flatten-js) is not supported and will be deprecated soon.
 
-Packages are distributed in 3 formats: commonjs, umd and es6 modules. Package.json file
+Packages are distributed in 3 formats: commonjs (cjs), umd and es6 modules (esm). Package.json file
 provides various entry points suitable for different targets.
 
 TypeScript users may take advantage of static type checking with typescript definition file index.d.ts included into the package.
 
 **flatten-js** does not concern too much about visualization.
-Anyway, all classes implement svg() method, that returns a string which may be inserted into SVG container. 
-It works pretty well together with  [d3js](https://d3js.org/) library, but it is definitely possible to create bridges to other graphic libraries.
+Anyway, all classes have svg() methods, that returns a string which may be inserted into SVG container. 
+This works pretty well together with  [d3js](https://d3js.org/) library. But it is definitely possible to create bridges to other graphic libraries.
 
 The best way to start working with FlattenJS is to use awesome [Observable](https://beta.observablehq.com/) javascript interactive notebooks.
-Check out collection of [Tutorials](https://observablehq.com/collection/@alexbol99/flatten-js-tutorials) published in Observable Notebooks.
+There are several tutorials published in Observable Notebooks, see below.
 
 Full documentation may be found here: [https://alexbol99.github.io/flatten-js/index.html](https://alexbol99.github.io/flatten-js/index.html)
 
@@ -76,63 +76,6 @@ After module imported, it is possible to create some construction:
 ```
 
 You may test the code above also in [NPM RunKit](https://npm.runkit.com/@flatten-js/core)
-
-You may also check out examples section in the code which illustrate different use cases:
-* in nodejs
-* in a browser using ```<script>``` tag with **unpkg.com** loader
-* in a React application 
-
-## Content of the library
-
-### Basic shapes
-**flatten-js** library implements following basic shapes:
-* [Point](https://alexbol99.github.io/flatten-js/Point.html)
-* [Vector](https://alexbol99.github.io/flatten-js/Vector.html)
-* [Line](https://alexbol99.github.io/flatten-js/Line.html)
-* [Ray](https://alexbol99.github.io/flatten-js/Ray.html)
-* [Segment](https://alexbol99.github.io/flatten-js/Segment.html)
-* [Arc (circular)](https://alexbol99.github.io/flatten-js/Arc.html)
-* [Circle](https://alexbol99.github.io/flatten-js/Circle.html)
-* [Box (may be used as rectangle)](https://alexbol99.github.io/flatten-js/Point.html)
-
-### Polygon
-
-[Polygon](https://alexbol99.github.io/flatten-js/Polygon.html) in **flatten-js** library is actually a multi-polygon.
-Polygon is a collection of faces - 
-closed oriented chains of edges, which may be of type Segment or Arc. The most external face
-called island, a face included into it is called hole. Holes in turn may have inner islands,
-number of inclusion levels is unlimited.
- 
-Orientation of islands and holes is matter for calculation
-of relationships and boolean operations, holes should have orientation opposite to islands.
-It means that for proper results faces in a polygon should be **orientable**: they should not have self-intersections.
-Faces also should not overlap each other. Method ```isValid()``` checks if polygon fit these rules.
-
-Constructor of the polygon object accept various inputs:
-* Array of shapes (segments or arcs) that represent closed chains
-* Json object that represent closed chains 
-* Array of points (Flatten.Point) that represent vertices of the polygon
-* Array of numeric pairs [x,y] that represent vertices of the polygon
-* Instances of Circle or Box
-
-
-### Multiline
-
-### Planar Set
-
-### Affine transformations
-
-### Distance between shapes
-
-### Intersection model (DE-9IM)
-
-### Relationship predicates
-
-### Boolean operations
-
-### Serialization
-
-### Visualization
 
 ## Tutorials
 
