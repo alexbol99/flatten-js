@@ -268,10 +268,12 @@ console.log(p)             // true / false
 
 ### Boolean operations
 
-Package implements the modification of Weiler-Atherton clipping algorithm,
-described in the article **Hidden Surface Removal Using Polygon Area Sorting** see <https://www.cs.drexel.edu/~david/Classes/CS430/HWs/p214-weiler.pdf>
+Boolean operations on polygons available via namespace **BooleanOperations**.
+Polygons in boolean operation should be valid: both operands should have same meaning of face orientation,
+faces should not overlap each other and should not have self-intersections.
 
-Methods available via namespace BooleanOperations.
+User is responsible to provide valid polygons, boolean operation methods do not check validity.
+
 ```javascript
 let {unify, subtract, intersect, innerClip, outerClip} = BooleanOp;
 ```
@@ -282,11 +284,51 @@ let {unify, subtract, intersect, innerClip, outerClip} = BooleanOp;
  The first aray contains edges of the first polygon, the second - the edges of the second
 * `outerClip` - clip boundary of the first polygon with the interior of the second polygon
 
+Implementation based on Weiler-Atherton clipping algorithm,
+described in the article [Hidden Surface Removal Using Polygon Area Sorting](https://www.cs.drexel.edu/~david/Classes/CS430/HWs/p214-weiler.pdf)
+
 ### Serialization
 
-...to be completed
+All **flatten-js** shape objects may be serialized using `JSON.stringify()` method.
+`JSON.stringify` transforms object to string using `.toJSON()` formatter implemented in the class. 
+`JSON.parse` restore object from a string, and then constructor can use this object to create Flatten object.
+ 
+```javascript
+let {lint, point} = Flatten;
+let l = line(point(4, 0), point(0, 4));
+// Serialize
+let str = JSON.stringify(l);  
+// Parse and reconstruct
+let l_json = JSON.parse(str);
+let l_parsed = line(l_json);
+```
 
 ### Visualization
 
-... to be completed
+All classes provide `svg()` method, that create svg string that may be inserted into svg container element
+in a very straightforward way:
+
+```html
+<body>
+    <svg id="stage" width="500" height="500"></svg>
+<script>
+    const Flatten = window["@flatten-js/core"];
+    const {point, circle, segment} = Flatten;
+
+    // make some construction
+    let s1 = segment(10,10,200,200);
+    let s2 = segment(10,160,200,30);
+    let c = circle(point(200, 110), 50);
+    let ip = s1.intersect(s2);
+
+    document.getElementById("stage").innerHTML = s1.svg() + s2.svg() + c.svg() + ip[0].svg();
+</script>
+</body>
+```
+
+Method `svg()` may accept as a parameter an object that enables to define
+several basic attributes of svg element:
+ `stroke`, `strokeWidth`, `fill`, `fillRule`, `fillOpacity`, `id` and `className`.
+ If attributes not provided, method `svg()` use default values.
+ 
 
