@@ -70,15 +70,15 @@ describe('#Flatten.Polygon', function() {
         expect(polygon.faces.size).to.equal(2);
     });
     it('Can construct polygon from Circle in CCW orientation', function() {
-        let polygon = new Polygon();
-        polygon.addFace(circle(point(3,3),50));
+        let polygon = new Polygon(circle(point(3,3),50));
+        // polygon.addFace(circle(point(3,3),50));
         expect(polygon.faces.size).to.equal(1);
         expect(polygon.edges.size).to.equal(1);
         expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
     });
     it('Can construct polygon from a box in CCW orientation', function() {
-        let polygon = new Polygon();
-        polygon.addFace(box(30,40,100,200));
+        let polygon = new Polygon(box(30,40,100,200));
+        // polygon.addFace(box(30,40,100,200));
         expect(polygon.faces.size).to.equal(1);
         expect(polygon.edges.size).to.equal(4);
         expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
