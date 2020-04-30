@@ -438,6 +438,14 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly.edges.size).to.equal(4);
             expect([...poly.faces][0].size).to.equal(4);
         });
+        it("issue #42 Intersect does not seem to work when a second is inside first", function() {
+            const item1 = new Polygon([[0, 30], [30, 30], [30, 0], [0, 0]]);
+            const item2 = new Polygon([[10, 20], [20, 20], [20, 10], [10, 10]]);
+            const intersection = intersect(item1, item2);
+
+            expect(intersection.faces.size).to.equal(1);
+            expect(intersection.edges.size).to.equal(4);
+        })
         it("Issue #2 with intersection of circle and box", function() {
             "use strict"
 

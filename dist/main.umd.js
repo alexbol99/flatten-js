@@ -820,8 +820,8 @@
                 res_polygon.edges.add(edge);
             }
             // If union - add face from wrk_polygon that is not intersected with res_polygon
-            if ( (op === BOOLEAN_UNION || op == BOOLEAN_SUBTRACT) &&
-                int_points && int_points.find((ip) => (ip.face === face)) === undefined) {
+            if ( /*(op === BOOLEAN_UNION || op == BOOLEAN_SUBTRACT) &&*/
+                int_points.find((ip) => (ip.face === face)) === undefined) {
                 res_polygon.addFace(face.first, face.last);
             }
         }
@@ -2341,8 +2341,22 @@
         else if ( (shape1 instanceof Flatten.Segment || shape1 instanceof Flatten.Arc)  && shape2 instanceof Flatten.Polygon) {
             return relateShape2Polygon(shape1, shape2);
         }
+        else if ( (shape1 instanceof Flatten.Segment || shape1 instanceof Flatten.Arc)  &&
+            (shape2 instanceof Flatten.Circle || shape2 instanceof Flatten.Box) ) {
+            return relateShape2Polygon(shape1, new Flatten.Polygon(shape2));
+        }
         else if (shape1 instanceof Flatten.Polygon && shape2 instanceof Flatten.Polygon) {
             return relatePolygon2Polygon(shape1, shape2);
+        }
+        else if ((shape1 instanceof Flatten.Circle || shape1 instanceof Flatten.Box) &&
+            (shape2 instanceof  Flatten.Circle || shape2 instanceof Flatten.Box)) {
+            return relatePolygon2Polygon(new Flatten.Polygon(shape1), new Flatten.Polygon(shape2));
+        }
+        else if ((shape1 instanceof Flatten.Circle || shape1 instanceof Flatten.Box) && shape2 instanceof Flatten.Polygon) {
+            return relatePolygon2Polygon(new Flatten.Polygon(shape1), shape2);
+        }
+        else if (shape1 instanceof Flatten.Polygon && (shape2 instanceof Flatten.Circle || shape2 instanceof Flatten.Box)) {
+            return relatePolygon2Polygon(shape1, new Flatten.Polygon(shape2));
         }
     }
 
@@ -6146,7 +6160,7 @@
                         polygon.edges.add(edge);
                     }
                 }
-                /* Instantiate face from circle circle in CCW orientation */
+                /* Instantiate face from a circle in CCW orientation */
                 else if (args[0] instanceof Flatten.Circle) {
                     this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
                 }
@@ -6737,12 +6751,13 @@
              */
             this.edges = new Flatten.PlanarSet();
 
-            /* It may be array of something that represent one loop (face) or
+            /* It may be array of something that may represent one loop (face) or
              array of arrays that represent multiple loops
              */
-            if (args.length === 1 && args[0] instanceof Array) {
+            if (args.length === 1 &&
+                (args[0] instanceof Array || args[0] instanceof Flatten.Circle || args[0] instanceof Flatten.Box)){
                 let argsArray = args[0];
-                if (argsArray.every((loop) => {return loop instanceof Array})) {
+                if (args[0] instanceof Array && argsArray.every((loop) => {return loop instanceof Array})) {
                     if  (argsArray.every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
                         this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
                     }

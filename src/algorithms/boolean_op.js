@@ -642,8 +642,8 @@ function copyWrkToRes(res_polygon, wrk_polygon, op, int_points)
             res_polygon.edges.add(edge);
         }
         // If union - add face from wrk_polygon that is not intersected with res_polygon
-        if ( (op === BOOLEAN_UNION || op == BOOLEAN_SUBTRACT) &&
-            int_points && int_points.find((ip) => (ip.face === face)) === undefined) {
+        if ( /*(op === BOOLEAN_UNION || op == BOOLEAN_SUBTRACT) &&*/
+            int_points.find((ip) => (ip.face === face)) === undefined) {
             res_polygon.addFace(face.first, face.last);
         }
     }
