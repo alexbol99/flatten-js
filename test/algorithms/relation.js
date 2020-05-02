@@ -130,6 +130,40 @@ describe('#Algorithms.Relation', function() {
             expect(touch(l, p)).to.be.false;
         });
     });
+    describe('#Algorithms.Relation.Circle2Circle', function() {
+        it ('Intersection case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(350, 150), 50);
+            expect(intersect(c1, c2)).to.be.true;
+        });
+        it ('Disjoint case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(450, 150), 50);
+            expect(disjoint(c1, c2)).to.be.true;
+            expect(intersect(c1, c2)).to.be.false;
+        });
+        it ('Touching case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(400, 150), 50);
+            expect(disjoint(c1, c2)).to.be.false;
+            expect(intersect(c1, c2)).to.be.true;
+            expect(touch(c1, c2)).to.be.true;
+        });
+        it ('Contain case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(275, 150), 50);
+            expect(disjoint(c1, c2)).to.be.false;
+            expect(intersect(c1, c2)).to.be.true;
+            expect(contain(c1, c2)).to.be.true;
+        });
+        it ('Inside case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(275, 150), 50);
+            expect(disjoint(c1, c2)).to.be.false;
+            expect(intersect(c1, c2)).to.be.true;
+            expect(inside(c2, c1)).to.be.true;
+        });
+    });
     describe('#Algorithms.Relation.Polygoon2Polygon', function() {
         it('May calculate relations. Disjoint case', () => {
             let p1 = new Polygon(box(0,0,50,100).toSegments());
