@@ -8,6 +8,7 @@
 import Flatten from '../flatten';
 import {ray_shoot} from "../algorithms/ray_shooting";
 import * as Intersection from "../algorithms/intersection";
+import * as Relations from "../algorithms/relation";
 
 /**
  * Class representing a polygon.<br/>
@@ -367,14 +368,9 @@ export class Polygon {
             let rel = ray_shoot(this, shape);
             return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
         }
-
-        if (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc) {
-            let edge = new Flatten.Edge(shape);
-            let rel = edge.setInclusion(this);
-            return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
+        else {
+            return Relations.cover(this, shape);
         }
-
-        // TODO: support Box and Circle
     }
 
     /**

@@ -7077,14 +7077,9 @@ class Polygon {
             let rel = ray_shoot(this, shape);
             return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
         }
-
-        if (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc) {
-            let edge = new Flatten.Edge(shape);
-            let rel = edge.setInclusion(this);
-            return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
+        else {
+            return cover(this, shape);
         }
-
-        // TODO: support Box and Circle
     }
 
     /**

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fix issue #42 Intersect does not seem to work when a shape is inside another">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Release patch 1.2.5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/browser/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/examples/browser/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/nodejs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/examples/nodejs/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/relation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +99,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.test">
+  <component name="RunManager" selected="npm.build">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -112,16 +114,6 @@
       <command value="run" />
       <scripts>
         <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="generate-docs" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -162,6 +154,21 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require @babel/register</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
+      <test-names>
+        <name value="#Flatten.Polygon" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="#test esm" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -178,18 +185,18 @@
     <list>
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Algorithms.Relation" />
+      <item itemvalue="Mocha.#Flatten.Polygon" />
       <item itemvalue="npm.build" />
-      <item itemvalue="npm.generate-docs" />
       <item itemvalue="npm.publish-npm" />
       <item itemvalue="npm.test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.test" />
-        <item itemvalue="Mocha.#Algorithms.Relation" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.test" />
+        <item itemvalue="Mocha.#Flatten.Polygon" />
         <item itemvalue="npm.publish-npm" />
-        <item itemvalue="npm.generate-docs" />
+        <item itemvalue="Mocha.#Algorithms.Relation" />
       </list>
     </recent_temporary>
   </component>
@@ -327,14 +334,8 @@
       <workItem from="1587195647294" duration="25936000" />
       <workItem from="1588147726472" duration="4437000" />
       <workItem from="1588174524232" duration="11511000" />
-      <workItem from="1588430562177" duration="1437000" />
-    </task>
-    <task id="LOCAL-00118" summary="Upgrade flateen-js version and @flatten-js/core version">
-      <created>1550141231022</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1550141231022</updated>
+      <workItem from="1588430562177" duration="4870000" />
+      <workItem from="1588841294893" duration="5347000" />
     </task>
     <task id="LOCAL-00119" summary="Export everything what is necessary from @flatten-js/core">
       <created>1550179999874</created>
@@ -672,7 +673,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588275796110</updated>
     </task>
-    <option name="localTasksCounter" value="167" />
+    <task id="LOCAL-00167" summary="- Release patch 1.2.5">
+      <created>1588432105729</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1588432105729</updated>
+    </task>
+    <option name="localTasksCounter" value="168" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -691,7 +699,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Extend Ray to be any angle (not completed)" />
     <MESSAGE value="- Extend Ray to be any angle - methods box, slope, contains, intersect. Added typescript definition, tests, documentation" />
     <MESSAGE value="- Create module algorithms/relations to calculate relationship between two shapes as a Dimensionally-Extended Nine Intersections Matrix (DE9IM) - not completed" />
     <MESSAGE value="- Add first methods to DE9IM intersection matrix calculation - line2line, line2circle and line2box (not tested)" />
@@ -716,7 +723,8 @@
     <MESSAGE value="- Complete Serialization and Visualization sections of README.md&#10;- Release patch" />
     <MESSAGE value="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)" />
     <MESSAGE value="- Fix issue #42 Intersect does not seem to work when a shape is inside another" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Fix issue #42 Intersect does not seem to work when a shape is inside another" />
+    <MESSAGE value="- Release patch 1.2.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Release patch 1.2.5" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -724,10 +732,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="840" y="222" key="##Flatten.Multiline/0.0.1920.1040@0.0.1920.1040" timestamp="1584080621048" />
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588430837858">
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588938109443">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588430837858" />
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588938109443" />
     <state x="443" y="126" width="1329" height="785" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1586099407191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -738,10 +746,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1103" y="107" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1588274640945" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1588275795166">
+    <state x="763" y="125" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1588937635757">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588275795166" />
+    <state x="763" y="125" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588937635757" />
     <state width="774" height="466" key="DebuggerActiveHint" timestamp="1588274558582">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -750,22 +758,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="860" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586342032335" />
-    <state width="1636" height="272" key="GridCell.Tab.0.bottom" timestamp="1588431936085">
+    <state width="1636" height="272" key="GridCell.Tab.0.bottom" timestamp="1588940279479">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="272" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588431936085" />
-    <state width="1636" height="272" key="GridCell.Tab.0.center" timestamp="1588431936085">
+    <state width="1636" height="272" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588940279479" />
+    <state width="1636" height="272" key="GridCell.Tab.0.center" timestamp="1588940279479">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="272" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588431936085" />
-    <state width="1636" height="272" key="GridCell.Tab.0.left" timestamp="1588431936085">
+    <state width="1636" height="272" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588940279479" />
+    <state width="1636" height="272" key="GridCell.Tab.0.left" timestamp="1588940279479">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="272" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588431936085" />
-    <state width="1636" height="272" key="GridCell.Tab.0.right" timestamp="1588431936085">
+    <state width="1636" height="272" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588940279479" />
+    <state width="1636" height="272" key="GridCell.Tab.0.right" timestamp="1588940279479">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="272" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588431936085" />
+    <state width="1636" height="272" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588940279479" />
     <state width="1636" height="395" key="GridCell.Tab.1.bottom" timestamp="1588275074880">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -820,10 +828,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="488" y="170" width="1137" height="722" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1587825689898" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1588275798307">
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1588432140693">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1588275798307" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1588432140693" />
     <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586342040067">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -852,11 +860,6 @@
           <url>file://$PROJECT_DIR$/algorithms/ray_shooting.js</url>
           <line>71</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
-          <line>72</line>
-          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>

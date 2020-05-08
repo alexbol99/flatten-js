@@ -225,6 +225,38 @@ describe('#Flatten.Polygon', function() {
         let pt = point(125, 200);
         expect(polygon.contains(pt)).to.be.true;
     });
+    it('Can check if contour contains segment (issue #31)', function() {
+        const points = [
+            point(306, 306),
+            point(647, 211),
+            point(647, 109),
+            point(147, 109),
+            point(147, 491),
+            point(600, 491),
+            point(600, 401),
+            point(379, 401),
+        ];
+        const poly = new Polygon(points);
+        const lineA = line(point(550, 491), point(500, 401));
+        const lineB = line(point(520, 491), point(500, 401));
+        const intersectPointsA = poly.intersect(lineA);
+        const intersectPointsB = poly.intersect(lineB);
+        // const constSegmentOutA = new Segment(intersectPointsA[1], intersectPointsA[3]);
+        expect(poly.contains(segment(intersectPointsA[0], intersectPointsA[1]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsA[1], intersectPointsA[2]))).to.be.false;
+        expect(poly.contains(segment(intersectPointsA[2], intersectPointsA[3]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsA[0], intersectPointsA[2]))).to.be.false;
+        expect(poly.contains(segment(intersectPointsA[1], intersectPointsA[3]))).to.be.false;
+
+        expect(poly.contains(segment(intersectPointsB[0], intersectPointsB[1]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsB[1], intersectPointsB[2]))).to.be.false;
+        expect(poly.contains(segment(intersectPointsB[2], intersectPointsB[3]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsB[0], intersectPointsB[2]))).to.be.false;
+        expect(poly.contains(segment(intersectPointsB[1], intersectPointsB[3]))).to.be.false;
+
+        expect(poly.contains(segment(intersectPointsA[2], intersectPointsB[3]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsA[2], intersectPointsB[2]))).to.be.true;
+    });
     it('Can measure distance between circle and polygon', function () {
         let points = [
             point(100, 20),
