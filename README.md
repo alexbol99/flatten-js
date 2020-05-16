@@ -10,18 +10,6 @@ circle, arc and polygon. Shapes may be organized into Planar Set - searchable co
 **flatten-js** provides a lot of useful methods and algorithms like finding intersections, checking inclusion, calculating distance, applying
 affine transformations, performing boolean operations and more.
 
-Library consists of several packages, published under scope **@flatten-js/**:
-
-| Name        | Description  |
-| ------------- |:-------------:|
-| [@flatten-js/core](https://www.npmjs.com/package/@flatten-js/core)                   | Basic classes and operations
-| [@flatten-js/interval-tree](https://www.npmjs.com/package/@flatten-js/interval-tree) | Interval binary search tree 
-| [@flatten-js/boolean-op](https://www.npmjs.com/package/@flatten-js/boolean-op)    | Boolean operations
-| [@flatten-js/polygon-offset](https://www.npmjs.com/package/@flatten-js/polygon-offset)    | Polygon offset
-
-
-NOTE: Package [flatten-js](https://www.npmjs.com/package/flatten-js) is not supported and will be deprecated soon.
-
 Packages are distributed in 3 formats: commonjs, umd and es6 modules. Package.json file
 provides various entry points suitable for different targets.
 
@@ -331,4 +319,15 @@ several basic attributes of svg element:
  `stroke`, `strokeWidth`, `fill`, `fillRule`, `fillOpacity`, `id` and `className`.
  If attributes not provided, method `svg()` use default values.
  
+
+### Other packages
+
+Other packages, published under scope **@flatten-js/**:
+
+| Name        | Description  |
+| ------------- |:-------------:|
+| [@flatten-js/interval-tree](https://www.npmjs.com/package/@flatten-js/interval-tree) | Interval binary search tree 
+| [@flatten-js/boolean-op](https://www.npmjs.com/package/@flatten-js/boolean-op)    | Boolean operations (deprecated, use this functionality from the core package)
+| [@flatten-js/polygon-offset](https://www.npmjs.com/package/@flatten-js/polygon-offset)    | Polygon offset
+
 

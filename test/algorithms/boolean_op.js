@@ -556,5 +556,15 @@ describe('#Algorithms.Boolean Operations', function () {
             // const p = unify(p1, p2)
 
         });
+        it("Subtract bug from flatten-js/core 1.2 onwards #15", function() {
+            const poly = new Polygon();
+            poly.addFace([point(200,0), point(200,200), point(0,200), point(0,0)])
+            const cutter = new Polygon();
+            cutter.addFace([point(100,0),point(100,200),point(200,200),point(200,0)])
+            const reducedAreas = subtract(poly, cutter);
+
+            expect(reducedAreas.faces.size).to.equal(1);
+            expect(reducedAreas.edges.size).to.equal(7);
+        });
     });
 });

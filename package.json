@@ -17,6 +17,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html mocha --recursive",
     "generate-docs": "jsdoc -c ./.jsdoc.json --verbose",
+    "create-patch": "npm version patch && git push —-tags origin master",
     "publish-npm": "npm publish --access public",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rollup -c"
