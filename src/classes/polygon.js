@@ -25,6 +25,7 @@ export class Polygon {
      * - array of shapes of type Segment or Arc <br/>
      * - array of points (Flatten.Point) <br/>
      * - array of numeric pairs which represent points <br/>
+     * - box or circle object <br/>
      * Alternatively, it is possible to use polygon.addFace method
      * @param {args} - array of shapes or array of arrays
      */

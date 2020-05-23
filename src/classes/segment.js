@@ -330,7 +330,7 @@ export class Segment {
 
     /**
      * Sort given array of points from segment start to end, assuming all points lay on the segment
-     * @param {Point[]} array of points
+     * @param {Point[]} - array of points
      * @returns {Point[]} new array sorted
      */
     sortPoints(pts) {

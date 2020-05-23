@@ -1,6 +1,6 @@
 {
   "name": "@flatten-js/core",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Javascript library for 2d geometry",
   "main": "dist/main.cjs.js",
   "umd:main": "dist/main.umd.js",
@@ -31,7 +31,6 @@
     "2d",
     "algorithms",
     "shape",
-    "contour",
     "polygon",
     "distance",
     "intersection",
@@ -39,8 +38,9 @@
     "point in polygon",
     "spatial search",
     "affine transformations",
-    "DE-9IM",
-    "Dimensionally Extended 9-Intersection Model"
+    "boolean operations",
+    "polygon clipping",
+    "dimensionally extended 9-intersections model"
   ],
   "author": "Alex Bol <alexbol99@gmail.com> (https://github.com/alexbol99)",
   "license": "MIT",

@@ -963,7 +963,7 @@ function removeNotRelevantNotIntersectedFaces(polygon, notIntersectedFaces, op, 
     }
 }
 
-var boolean_op = /*#__PURE__*/Object.freeze({
+var BooleanOperations = /*#__PURE__*/Object.freeze({
     BOOLEAN_UNION: BOOLEAN_UNION,
     BOOLEAN_INTERSECT: BOOLEAN_INTERSECT,
     BOOLEAN_SUBTRACT: BOOLEAN_SUBTRACT,
@@ -2539,7 +2539,7 @@ function relatePolygon2Polygon(polygon1, polygon2) {
     return denim;
 }
 
-var relation = /*#__PURE__*/Object.freeze({
+var Relations = /*#__PURE__*/Object.freeze({
     equal: equal,
     intersect: intersect$1,
     touch: touch,
@@ -4427,7 +4427,7 @@ class Segment {
 
     /**
      * Sort given array of points from segment start to end, assuming all points lay on the segment
-     * @param {Point[]} array of points
+     * @param {Point[]} - array of points
      * @returns {Point[]} new array sorted
      */
     sortPoints(pts) {
@@ -6734,6 +6734,7 @@ class Polygon {
      * - array of shapes of type Segment or Arc <br/>
      * - array of points (Flatten.Point) <br/>
      * - array of numeric pairs which represent points <br/>
+     * - box or circle object <br/>
      * Alternatively, it is possible to use polygon.addFace method
      * @param {args} - array of shapes or array of arrays
      */
@@ -7901,9 +7902,12 @@ function inverse(shape, inversion_circle) {
  * Created by Alex Bol on 2/18/2017.
  */
 
+Flatten.BooleanOperations = BooleanOperations;
+Flatten.Relations = Relations;
+
 exports.Arc = Arc;
 exports.BOUNDARY = BOUNDARY;
-exports.BooleanOperations = boolean_op;
+exports.BooleanOperations = BooleanOperations;
 exports.Box = Box;
 exports.CCW = CCW;
 exports.CW = CW;
@@ -7922,7 +7926,7 @@ exports.PlanarSet = PlanarSet;
 exports.Point = Point;
 exports.Polygon = Polygon;
 exports.Ray = Ray;
-exports.Relations = relation;
+exports.Relations = Relations;
 exports.Segment = Segment;
 exports.Utils = Utils;
 exports.Vector = Vector;

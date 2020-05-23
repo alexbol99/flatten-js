@@ -959,7 +959,7 @@ function removeNotRelevantNotIntersectedFaces(polygon, notIntersectedFaces, op, 
     }
 }
 
-var boolean_op = /*#__PURE__*/Object.freeze({
+var BooleanOperations = /*#__PURE__*/Object.freeze({
     BOOLEAN_UNION: BOOLEAN_UNION,
     BOOLEAN_INTERSECT: BOOLEAN_INTERSECT,
     BOOLEAN_SUBTRACT: BOOLEAN_SUBTRACT,
@@ -2535,7 +2535,7 @@ function relatePolygon2Polygon(polygon1, polygon2) {
     return denim;
 }
 
-var relation = /*#__PURE__*/Object.freeze({
+var Relations = /*#__PURE__*/Object.freeze({
     equal: equal,
     intersect: intersect$1,
     touch: touch,
@@ -4423,7 +4423,7 @@ class Segment {
 
     /**
      * Sort given array of points from segment start to end, assuming all points lay on the segment
-     * @param {Point[]} array of points
+     * @param {Point[]} - array of points
      * @returns {Point[]} new array sorted
      */
     sortPoints(pts) {
@@ -6730,6 +6730,7 @@ class Polygon {
      * - array of shapes of type Segment or Arc <br/>
      * - array of points (Flatten.Point) <br/>
      * - array of numeric pairs which represent points <br/>
+     * - box or circle object <br/>
      * Alternatively, it is possible to use polygon.addFace method
      * @param {args} - array of shapes or array of arrays
      */
@@ -7897,5 +7898,8 @@ function inverse(shape, inversion_circle) {
  * Created by Alex Bol on 2/18/2017.
  */
 
+Flatten.BooleanOperations = BooleanOperations;
+Flatten.Relations = Relations;
+
 export default Flatten;
-export { Arc, BOUNDARY, boolean_op as BooleanOperations, Box, CCW, CW, Circle, Distance, Edge, errors as Errors, Face, INSIDE, Line, Matrix, Multiline, ORIENTATION, OUTSIDE, PlanarSet, Point, Polygon, Ray, relation as Relations, Segment, Utils, Vector, arc, box, circle, inverse, line, matrix, multiline, point, polygon, ray, ray_shoot, segment, vector };
+export { Arc, BOUNDARY, BooleanOperations, Box, CCW, CW, Circle, Distance, Edge, errors as Errors, Face, INSIDE, Line, Matrix, Multiline, ORIENTATION, OUTSIDE, PlanarSet, Point, Polygon, Ray, Relations, Segment, Utils, Vector, arc, box, circle, inverse, line, matrix, multiline, point, polygon, ray, ray_shoot, segment, vector };

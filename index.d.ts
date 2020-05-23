@@ -73,59 +73,55 @@ declare namespace Flatten {
         m: DE9IM_matrix;
 
         get I2I();
-
         set I2I(geom: Array<Shape>);
 
         get I2B();
-
         set I2B(geom: Array<Shape>);
 
         get I2E();
-
         set I2E(geom: Array<Shape>);
 
         get B2I();
-
         set B2I(geom: Array<Shape>);
 
         get B2B();
-
         set B2B(geom: Array<Shape>);
 
         get B2E();
-
         set B2E(geom: Array<Shape>);
 
         get E2I();
-
         set E2I(geom: Array<Shape>);
 
         get E2B();
-
         set E2B(geom: Array<Shape>);
 
         get E2E();
-
         set E2E(geom: Array<Shape>);
 
         toString() : string;
     }
 
+    const CCW = true;
+    const CW = false;
+    enum ArcOrientationType {CW, CCW}
+
     class Arc {
-        constructor(
-            pc?: Point,
-            r?: number,
-            startAngle?: number,
-            endAngle?: number,
-            counterClockwise?: boolean
-        );
+        counterClockwise: ArcOrientationType;
 
         // members
         ps: Point;
         r: Number;
         startAngle: number;
         endAngle: number;
-        counterClockwise: boolean;
+
+        constructor(
+            pc?: Point,
+            r?: number,
+            startAngle?: number,
+            endAngle?: number,
+            counterClockwise?: ArcOrientationType
+        );
 
         // getters
         readonly start: Point;
@@ -168,8 +164,8 @@ declare namespace Flatten {
 
         // getters
         readonly center: Point;
-        readonly high: any;
-        readonly low: any;
+        readonly high: Point;
+        readonly low: Point;
         readonly max: Box;
 
         // public methods
@@ -180,7 +176,9 @@ declare namespace Flatten {
         less_than(box: Box): boolean;
         equal_to(box: Box): boolean;
         set(xmin: number, ymin: number, xmax: number, ymax: number): void;
-        output() : Box;
+        toPoints() : Array<Point>;
+        toSegments() : Array<Segment>;
+        output(): Box;         // required by base type Interval
         svg(attrs?: SVGAttributes): string;
 
         comparable_max(arg1: Comparable, arg2: Comparable) : Comparable;
@@ -201,7 +199,7 @@ declare namespace Flatten {
         // public methods
         clone(): Circle;
         contains(shape: Shape): boolean;
-        toArc(counterclockwise?: boolean): Arc;
+        toArc(counterclockwise?: ArcOrientationType): Arc;
         intersect(shape: Shape): Array<Point>;
         distanceTo(geom: Shape | PlanarSet): [number, Segment];
         toJSON() : Object;
@@ -318,6 +316,7 @@ declare namespace Flatten {
         translate(vec: Vector): Segment;
         translate(x: number, y: number): Segment;
         isZeroLength(): boolean;
+        sortPoint(points: Array<Point>) : Array<Point>;
         toJSON() : Object;
         svg(attrs?: SVGAttributes): string;
     }
@@ -400,18 +399,17 @@ declare namespace Flatten {
     const INSIDE = 1;
     const OUTSIDE = 0;
     const BOUNDARY = 2;
-    const CONTAINS = 3;
-    const INTERLACE = 4;
     enum EdgeRelationType {INSIDE, OUTSIDE, BOUNDARY}
     const OVERLAP_SAME = 1;
     const OVERLAP_OPPOSITE = 2;
     enum EdgeOverlappingType {OVERLAP_SAME, OVERLAP_OPPOSITE}
 
+    // Base class Edge for Polygon and Multiline
     class Edge {
         // members
-        shape: Segment | Arc | Line | Ray;
+        shape: any
 
-        constructor(shape: Segment | Arc | Line | Ray);
+        constructor(shape: any);
         face: Face;
         next: Edge;
         prev: Edge;
@@ -436,39 +434,42 @@ declare namespace Flatten {
         setOverlap(edge: Edge) : EdgeOverlappingType;
     }
 
+    class PolygonEdge extends Edge {
+        shape: Segment | Arc;
+        constructor(shape: Segment | Arc);
+    }
+
     class Face extends CircularLinkedList {
         // constructor is not documented and should not be called implicitly
 
         // members
-        first: Edge;
-        last: Edge;
+        first: PolygonEdge;
+        last: PolygonEdge;
 
         // getters
         readonly box: Box;
         readonly size: number;
-        readonly edges: Edge[];
+        readonly edges: PolygonEdge[];
 
         // public methods
-        append(edge: Edge): Face;
-        insert(element: Edge): Face;
-        remove(element: Edge): Face;
+        append(edge: PolygonEdge): Face;
+        insert(element: PolygonEdge): Face;
+        remove(element: PolygonEdge): Face;
         reverse(): void;
         setArcLength(): void;
         area(): number;
         signedArea(): number;
         orientation(): Flatten.ORIENTATION.PolygonOrientationType;
-        isSimple(edges: Edge[]): boolean;
-        findEdgeByPoint(pt: Point): Edge | undefined;
+        isSimple(edges: PolygonEdge[]): boolean;
+        findEdgeByPoint(pt: Point): PolygonEdge | undefined;
         toPolygon(): Polygon;
         svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
     }
 
     type NumericPair = [number,number];
-    type EdgeShape = Point | Segment | Arc ;
-    type LoopOfShapes = Array<EdgeShape | NumericPair>;
+    type ConstructorEdgeShape = Point | Segment | Arc ;
+    type LoopOfShapes = Array<ConstructorEdgeShape | NumericPair>;
     type MultiLoopOfShapes = Array<LoopOfShapes | Circle | Box>;
-    type MultilineEdgeShape = Segment | Arc | Ray;
-    type MultilineShapes = Array<MultilineEdgeShape> | [Line]
 
     class Polygon {
         constructor(args?: LoopOfShapes | Circle | Box | MultiLoopOfShapes);
@@ -488,11 +489,11 @@ declare namespace Flatten {
         area(): number;
         addFace(args: Array<Point> | Array<Segment | Arc> | Circle | Box): Face;
         deleteFace(face: Face): boolean;
-        removeChain(face: Face, edgeFrom: Edge, edgeTo: Edge): void;
-        addVertex(edge: Edge, pt: Point): Edge;
+        removeChain(face: Face, edgeFrom: PolygonEdge, edgeTo: PolygonEdge): void;
+        addVertex(edge: PolygonEdge, pt: Point): PolygonEdge;
         cut(multiline: Multiline): Polygon[];
         cutFace(pt1: Point, pt2: Point): [Polygon, Polygon];
-        findEdgeByPoint(pt: Point): Edge;
+        findEdgeByPoint(pt: Point): PolygonEdge;
         splitToIslands() : Polygon[];
         reverse(): Polygon;
         contains(shape: Shape): boolean;
@@ -506,18 +507,26 @@ declare namespace Flatten {
         svg(attrs?: SVGAttributes): string;
     }
 
+    type MultilineEdgeShape = Segment | Arc | Ray | Line;
+    type MultilineShapes = Array<MultilineEdgeShape> | [Line]
+
+    class MultilineEdge extends Edge {
+        shape: MultilineEdgeShape;          // there may be only one line edge and only terminal ray edges
+        constructor(MultilineEdgeShape);
+    }
+
     class Multiline extends LinkedList {
         constructor(args?: MultilineShapes);
 
         // getters
-        get edges() : Edge[];
+        get edges() : MultilineEdge[];
         get vertices(): Point[];
         get box(): Box;
 
         clone(): Multiline;
-        addVertex(pt: Point, edge: Edge): Edge;
+        addVertex(pt: Point, edge: MultilineEdge): MultilineEdge;
         split(ip: Point[]) : Multiline;
-        findEdgeByPoint(pt: Point): Edge | undefined;
+        findEdgeByPoint(pt: Point): MultilineEdge | undefined;
         rotate(angle?: number, center?: Point): Multiline;
         transform(matrix?: Matrix): Multiline;
         translate(vec: Vector): Multiline;
@@ -537,7 +546,7 @@ declare namespace Flatten {
     function segment(ps?: Point, pe?: Point) : Segment;
     function segment(arr: [number, number, number, number]) : Segment;
     function segment(psx: number, psy: number, pex: number, pey: number) : Segment;
-    function arc(pc?: Point, r?: number, startAngle?: number, endAngle?: number, counterClockwise?: boolean) : Arc;
+    function arc(pc?: Point, r?: number, startAngle?: number, endAngle?: number, counterClockwise?: ArcOrientationType) : Arc;
     function vector(x?: number, y?: number) : Vector;
     function vector(arr: [number, number]) : Vector;
     function vector(p1: Point, p2: Point) : Vector;

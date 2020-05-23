@@ -2,19 +2,32 @@
 
 import { expect } from 'chai';
 import Flatten, {multiline} from '../../index';
-import {relate, disjoint, equal, intersect, touch, inside, contain, covered, cover} from '../../src/algorithms/relation';
+// import {relate, disjoint, equal, intersect, touch, inside, contain, covered, cover} from '../../src/algorithms/relation';
 import {intersectLine2Polygon} from "../../src/algorithms/intersection";
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
 
 let {point, vector, circle, line, segment, arc, ray, box} = Flatten;
-
+let {relate, disjoint, equal, intersect, touch, inside, contain, covered, cover} = Flatten.Relations;
 
 describe('#Algorithms.Relation', function() {
     it('Function relate defined', () => {
         expect(relate).to.exist;
         expect(relate).to.be.a('function');
     });
+    it('Namespace Relations exist on Flatten', () => {
+        expect(Flatten.Relations).to.exist;
+    });
+    it('Relations may be consumed from Flatten.Relations namespace', () => {
+        expect(Flatten.Relations.disjoint).to.exist;
+        expect(Flatten.Relations.intersect).to.exist;
+        expect(Flatten.Relations.equal).to.exist;
+        expect(Flatten.Relations.touch).to.exist;
+        expect(Flatten.Relations.inside).to.exist;
+        expect(Flatten.Relations.contain).to.exist;
+        expect(Flatten.Relations.covered).to.exist;
+        expect(Flatten.Relations.cover).to.exist;
+    })
     it('Functions disjoint,equals,intersects,touches exist', () => {
         expect(disjoint).to.be.a('function');
         expect(equal).to.be.a('function');
