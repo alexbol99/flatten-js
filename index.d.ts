@@ -512,7 +512,7 @@ declare namespace Flatten {
 
     class MultilineEdge extends Edge {
         shape: MultilineEdgeShape;          // there may be only one line edge and only terminal ray edges
-        constructor(MultilineEdgeShape);
+        constructor(shape: MultilineEdgeShape);
     }
 
     class Multiline extends LinkedList {
@@ -538,7 +538,7 @@ declare namespace Flatten {
     type Shape = Point | Line | Ray | Circle | Box | Segment | Arc | Polygon;
 
     function point(x?: number, y?: number): Point;
-    function point(arr?: [number, number]);
+    function point(arr?: [number, number]): Point;
     function circle(pc: Point, r: number) : Circle;
     function line(pt?: Point, norm?: Vector) : Line;
     function line(norm?: Vector, pt?: Point) : Line;
