@@ -18,6 +18,8 @@ import {point, circle, segment, arc} from '../../index';
 import * as BooleanOp from "../../src/algorithms/boolean_op";
 let {unify, subtract, intersect} = BooleanOp;
 
+let {equal} = Flatten.Relations;
+
 describe('#Algorithms.Boolean Operations', function () {
     describe('#Algorithms.Boolean Union', function () {
         it('Function unify defined', function () {
@@ -567,4 +569,59 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(reducedAreas.edges.size).to.equal(7);
         });
     });
+    describe("Boolean operations with empty polygon", function() {
+        it ('Can operate with empty polygon', function() {
+            const p1 = new Polygon([[[0, 0], [0, 100], [100, 100], [100, 0]]]);
+
+            const p2 = new Polygon([[[0, 0], [0, 50], [50, 50], [50, 0]]]);
+
+            const emptyP = new Polygon([]);
+
+// Works
+            const res1 = subtract(p1, p2);
+            expect(res1.faces.size).to.equal(1);
+            expect(res1.edges.size).to.equal(6);
+
+            const res2 = subtract(p2, p1);
+            expect(res2.faces.size).to.equal(0);
+            expect(res2.edges.size).to.equal(0);
+            expect(res2.isEmpty()).to.be.true;
+
+// Do not work (see console)
+            let res3;
+            try {
+                res3 = subtract(p1, emptyP);
+            } catch (err) {
+                console.log(err);
+            }
+            expect(res3.faces.size).to.equal(1);
+            expect(res3.edges.size).to.equal(4);
+            expect(equal(res3, p1)).to.be.true;
+
+            let res4;
+            try {
+                res4 = subtract(emptyP, p1);
+            } catch (err) {
+                console.log(err);
+            }
+            expect(res4.isEmpty()).to.be.true;
+
+            let res5;
+            try {
+                res5 = intersect(p1, emptyP);
+            } catch (err) {
+                console.log(err);
+            }
+            expect(res5.isEmpty()).to.be.true;
+
+            let res6;
+            try {
+                res6 = intersect(emptyP, p1);
+            } catch (err) {
+                console.log(err);
+            }
+            expect(res6.isEmpty()).to.be.true;
+
+        })
+    })
 });

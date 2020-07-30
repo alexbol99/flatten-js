@@ -29,7 +29,7 @@ export class Polygon {
      * Alternatively, it is possible to use polygon.addFace method
      * @param {args} - array of shapes or array of arrays
      */
-    constructor(...args) {
+    constructor() {
         /**
          * Container of faces (closed loops), may be empty
          * @type {PlanarSet}
@@ -44,10 +44,12 @@ export class Polygon {
         /* It may be array of something that may represent one loop (face) or
          array of arrays that represent multiple loops
          */
+        let args = [...arguments];
         if (args.length === 1 &&
-            (args[0] instanceof Array || args[0] instanceof Flatten.Circle || args[0] instanceof Flatten.Box)){
+            ((args[0] instanceof Array && args[0].length > 0) ||
+                args[0] instanceof Flatten.Circle || args[0] instanceof Flatten.Box)) {
             let argsArray = args[0];
-            if (args[0] instanceof Array && argsArray.every((loop) => {return loop instanceof Array})) {
+            if (args[0] instanceof Array && args[0].every((loop) => {return loop instanceof Array})) {
                 if  (argsArray.every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
                     this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
                 }
