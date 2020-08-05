@@ -40,6 +40,7 @@ class LinkedList {
         let from = start || this.first;
         let to = end || this.last;
         let element = from;
+        if (element === undefined) return elements;
         do {
             elements.push(element);
             element = element.next;

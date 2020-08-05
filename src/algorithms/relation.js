@@ -18,7 +18,8 @@ import {
     intersectLine2Polygon,
     intersectSegment2Line,
     intersectPolygon2Polygon,
-    intersectShape2Polygon
+    intersectShape2Polygon,
+    intersectCircle2Circle
 } from "./intersection";
 import {Multiline} from "../classes/multiline";
 import {ray_shoot} from "./ray_shooting";
@@ -134,8 +135,22 @@ export function relate(shape1, shape2) {
     else if ( (shape1 instanceof Flatten.Segment || shape1 instanceof Flatten.Arc)  && shape2 instanceof Flatten.Polygon) {
         return relateShape2Polygon(shape1, shape2);
     }
+    else if ( (shape1 instanceof Flatten.Segment || shape1 instanceof Flatten.Arc)  &&
+        (shape2 instanceof Flatten.Circle || shape2 instanceof Flatten.Box) ) {
+        return relateShape2Polygon(shape1, new Flatten.Polygon(shape2));
+    }
     else if (shape1 instanceof Flatten.Polygon && shape2 instanceof Flatten.Polygon) {
         return relatePolygon2Polygon(shape1, shape2);
+    }
+    else if ((shape1 instanceof Flatten.Circle || shape1 instanceof Flatten.Box) &&
+        (shape2 instanceof  Flatten.Circle || shape2 instanceof Flatten.Box)) {
+        return relatePolygon2Polygon(new Flatten.Polygon(shape1), new Flatten.Polygon(shape2));
+    }
+    else if ((shape1 instanceof Flatten.Circle || shape1 instanceof Flatten.Box) && shape2 instanceof Flatten.Polygon) {
+        return relatePolygon2Polygon(new Flatten.Polygon(shape1), shape2);
+    }
+    else if (shape1 instanceof Flatten.Polygon && (shape2 instanceof Flatten.Circle || shape2 instanceof Flatten.Box)) {
+        return relatePolygon2Polygon(shape1, new Flatten.Polygon(shape2));
     }
 }
 

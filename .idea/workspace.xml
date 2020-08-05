@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Add boolean operations test&#10;- Fix bug in Arc::split() method">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- fix issue #52 Intersect and subtract boolean operations fail when passed empty polygons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_structures/linked_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/linked_list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/examples/nodejs/node_modules/" />
-    <ignored path="$PROJECT_DIR$/.tmp/" />
-    <ignored path="$PROJECT_DIR$/temp/" />
-    <ignored path="$PROJECT_DIR$/tmp/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,87 +23,6 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="205">
-                <caret line="152" column="34" selection-start-line="152" selection-start-column="34" selection-end-line="152" selection-end-column="34" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="arc.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/classes/arc.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="box.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/box.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2895">
-              <caret line="193" column="8" selection-start-line="193" selection-start-column="4" selection-end-line="193" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="box.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/classes/box.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="circle.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/classes/circle.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="67" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vector.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/classes/vector.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="flatten.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/flatten.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="face.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/classes/face.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" selection-end-line="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="line.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/classes/line.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" selection-start-line="5" selection-end-line="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="segment.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/segment.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="310" column="33" selection-start-line="310" selection-start-column="33" selection-end-line="310" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -112,13 +32,6 @@
         <option value="JavaScript File" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>contains</find>
-      <find>transl</find>
-      <find>center</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
@@ -132,78 +45,13 @@
       <GitPushTagMode />
     </option>
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/classes/polygon.js" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/classes/segment.js" />
-      </list>
-    </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsFlowSettings">
     <service-enabled>false</service-enabled>
     <exe-path />
     <other-services-enabled>false</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/examples/nodejs/node_modules" />
-    <handled-path value="$PROJECT_DIR$/node_modules" />
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="21" />
-    <option name="y" value="27" />
-    <option name="width" value="1199" />
-    <option name="height" value="677" />
-  </component>
   <component name="ProjectId" id="1WAPN3ASzDmjaf35ofvOBEHB9tk" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="flatten-js" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flatten-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flatten-js" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -212,6 +60,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
@@ -232,7 +81,7 @@
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/dist/flatten.umd.js" />
     <property name="typescript-compiler-editor-notification" value="false" />
@@ -253,28 +102,17 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="npm.publish-npm">
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+  <component name="RunManager" selected="npm.build">
+    <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
       <arguments />
       <envs />
+      <method v="2" />
     </configuration>
-    <configuration name="build" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
@@ -282,8 +120,9 @@
       </scripts>
       <node-interpreter value="project" />
       <envs />
+      <method v="2" />
     </configuration>
-    <configuration name="generate-docs" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
+    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
@@ -291,17 +130,9 @@
       </scripts>
       <node-interpreter value="project" />
       <envs />
+      <method v="2" />
     </configuration>
-    <configuration name="publish-npm" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="publish-npm" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-    </configuration>
-    <configuration name="test" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
@@ -309,10 +140,27 @@
       </scripts>
       <node-interpreter value="project" />
       <envs />
+      <method v="2" />
     </configuration>
-    <configuration name="#Algorithms.Relation" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="#Algorithms.Boolean Operations" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require @babel/register</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Boolean Operations" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="#Algorithms.Relation" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
@@ -322,10 +170,12 @@
       <test-names>
         <name value="#Algorithms.Relation" />
       </test-names>
+      <method v="2" />
     </configuration>
-    <configuration name="#test esm" type="mocha-javascript-test-runner" factoryName="Mocha">
+    <configuration name="#test esm" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
@@ -333,25 +183,27 @@
       <test-kind>DIRECTORY</test-kind>
       <test-directory>$PROJECT_DIR$/test</test-directory>
       <recursive>false</recursive>
+      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Algorithms.Relation" />
-      <item itemvalue="npm.build" />
-      <item itemvalue="npm.generate-docs" />
-      <item itemvalue="npm.publish-npm" />
+      <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
       <item itemvalue="npm.test" />
+      <item itemvalue="npm.generate-docs" />
+      <item itemvalue="npm.build" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
+        <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="npm.generate-docs" />
         <item itemvalue="Mocha.#Algorithms.Relation" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -483,65 +335,14 @@
       <workItem from="1586085458394" duration="76618000" />
       <workItem from="1587191241471" duration="2805000" />
       <workItem from="1587194087727" duration="1542000" />
-      <workItem from="1587195647294" duration="12286000" />
-      <workItem from="1587808683579" duration="260000" />
-      <workItem from="1587808963318" duration="7915000" />
-    </task>
-    <task id="LOCAL-00113" summary="Finished to move all files to es modules, test pass">
-      <created>1549361108968</created>
-      <option name="number" value="00113" />
-      <option name="presentableId" value="LOCAL-00113" />
-      <option name="project" value="LOCAL" />
-      <updated>1549361108968</updated>
-    </task>
-    <task id="LOCAL-00114" summary="Update mocha command for travis">
-      <created>1549362132448</created>
-      <option name="number" value="00114" />
-      <option name="presentableId" value="LOCAL-00114" />
-      <option name="project" value="LOCAL" />
-      <updated>1549362132448</updated>
-    </task>
-    <task id="LOCAL-00115" summary="Rollup build esm, umd and cjs, removed webpack, added entry points">
-      <created>1549463576337</created>
-      <option name="number" value="00115" />
-      <option name="presentableId" value="LOCAL-00115" />
-      <option name="project" value="LOCAL" />
-      <updated>1549463576338</updated>
-    </task>
-    <task id="LOCAL-00116" summary="Create packages/core for scoped package @flatten-js/core">
-      <created>1550070256807</created>
-      <option name="number" value="00116" />
-      <option name="presentableId" value="LOCAL-00116" />
-      <option name="project" value="LOCAL" />
-      <updated>1550070256807</updated>
-    </task>
-    <task id="LOCAL-00117" summary="Remove destructing of Flatten namespace for better build">
-      <created>1550132381038</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1550132381038</updated>
-    </task>
-    <task id="LOCAL-00118" summary="Upgrade flateen-js version and @flatten-js/core version">
-      <created>1550141231022</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1550141231022</updated>
-    </task>
-    <task id="LOCAL-00119" summary="Export everything what is necessary from @flatten-js/core">
-      <created>1550179999874</created>
-      <option name="number" value="00119" />
-      <option name="presentableId" value="LOCAL-00119" />
-      <option name="project" value="LOCAL" />
-      <updated>1550179999874</updated>
-    </task>
-    <task id="LOCAL-00120" summary="Export everything what is necessary from @flatten-js/core">
-      <created>1550180029000</created>
-      <option name="number" value="00120" />
-      <option name="presentableId" value="LOCAL-00120" />
-      <option name="project" value="LOCAL" />
-      <updated>1550180029000</updated>
+      <workItem from="1587195647294" duration="25936000" />
+      <workItem from="1588147726472" duration="4437000" />
+      <workItem from="1588174524232" duration="11511000" />
+      <workItem from="1588430562177" duration="4870000" />
+      <workItem from="1588841294893" duration="5697000" />
+      <workItem from="1589629907867" duration="6635000" />
+      <workItem from="1590226315145" duration="8781000" />
+      <workItem from="1596094158231" duration="2901000" />
     </task>
     <task id="LOCAL-00121" summary="Missing default export">
       <created>1550180500757</created>
@@ -830,83 +631,81 @@
       <option name="project" value="LOCAL" />
       <updated>1587199454093</updated>
     </task>
-    <option name="localTasksCounter" value="162" />
+    <task id="LOCAL-00162" summary="- New README.md (not completed)">
+      <created>1587807979540</created>
+      <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
+      <option name="project" value="LOCAL" />
+      <updated>1587807979540</updated>
+    </task>
+    <task id="LOCAL-00163" summary="- New README.md (not completed)">
+      <created>1587848738129</created>
+      <option name="number" value="00163" />
+      <option name="presentableId" value="LOCAL-00163" />
+      <option name="project" value="LOCAL" />
+      <updated>1587848738129</updated>
+    </task>
+    <task id="LOCAL-00164" summary="- Complete Serialization and Visualization sections of README.md&#10;- Release patch">
+      <created>1588151602306</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1588151602306</updated>
+    </task>
+    <task id="LOCAL-00165" summary="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)">
+      <created>1588226163073</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
+      <option name="project" value="LOCAL" />
+      <updated>1588226163073</updated>
+    </task>
+    <task id="LOCAL-00166" summary="- Fix issue #42 Intersect does not seem to work when a shape is inside another">
+      <created>1588275796109</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1588275796110</updated>
+    </task>
+    <task id="LOCAL-00167" summary="- Release patch 1.2.5">
+      <created>1588432105729</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1588432105729</updated>
+    </task>
+    <task id="LOCAL-00168" summary="- Fix polygon.contain method">
+      <created>1588940700178</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1588940700179</updated>
+    </task>
+    <task id="LOCAL-00169" summary="- Fix polygon.contain method">
+      <created>1589643069466</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1589643069466</updated>
+    </task>
+    <option name="localTasksCounter" value="170" />
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8394000" />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="21" y="27" width="1199" height="677" extended-state="0" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17402376" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993865" weight="0.14672364" />
-      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5055215" side_tool="true" weight="0.35" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49968693" weight="0.51473135" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49754602" weight="0.41247833" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4993865" weight="0.7917415" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49447852" weight="0.36445242" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.48700175" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="TypeScript" order="14" weight="0.3275563" />
-      <window_info anchor="bottom" id="SFDX" order="8" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info id="npm" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Debug Logs" order="10" />
-      <window_info anchor="bottom" id="Log Manager" order="15" />
-      <window_info anchor="bottom" id="Execute Anonymous" order="13" />
-      <window_info anchor="bottom" id="Messages" order="17" weight="0.44753477" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Salesforce" order="16" />
-      <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.32933754" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Fix inheritance conflict by removing &quot;edges&quot; parameter from Face methods append, insert, delete; update docs, tests and typescript definition (wikywin note in the issue #3)&#10;- Upgrade dependency to @flatten-js/interval-tree@1.0.10 with fixed default export definition - fix typescript error on importing this package" />
-    <MESSAGE value="- Allow creation of polygon using constructor without need for addFace() method, updated typescript definition, tests and documentation &#10;- Allow creation of polygon from array of numeric pairs, or from a nested array of numeric pairs (issue #23)" />
-    <MESSAGE value="- Added method Polygon::splitToIslands() to split polygon into array of islands, where each island polygon includes holes that it contains (issue #9 from boolean-op package)" />
-    <MESSAGE value="- Upgrade minor version to 1.1.0" />
-    <MESSAGE value="- Extend Ray to be any angle (not completed)" />
-    <MESSAGE value="- Extend Ray to be any angle - methods box, slope, contains, intersect. Added typescript definition, tests, documentation" />
     <MESSAGE value="- Create module algorithms/relations to calculate relationship between two shapes as a Dimensionally-Extended Nine Intersections Matrix (DE9IM) - not completed" />
     <MESSAGE value="- Add first methods to DE9IM intersection matrix calculation - line2line, line2circle and line2box (not tested)" />
     <MESSAGE value="- Add de9im relations line2circle, line2box, line2polyline (not tested)&#10;- Split line using new class multiline&#10;- new method Polygon::cutFace to cut face with segment between two intersection points" />
@@ -926,120 +725,120 @@
     <MESSAGE value="- Fix bug in relatePolygonToPolygon&#10;- Remove redundant export regexp from relations module" />
     <MESSAGE value="- Release patch 1.2.2" />
     <MESSAGE value="- Add boolean operations test&#10;- Fix bug in Arc::split() method" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Add boolean operations test&#10;- Fix bug in Arc::split() method" />
+    <MESSAGE value="- New README.md (not completed)" />
+    <MESSAGE value="- Complete Serialization and Visualization sections of README.md&#10;- Release patch" />
+    <MESSAGE value="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)" />
+    <MESSAGE value="- Fix issue #42 Intersect does not seem to work when a shape is inside another" />
+    <MESSAGE value="- Release patch 1.2.5" />
+    <MESSAGE value="- Fix polygon.contain method" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fix polygon.contain method" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="840" y="222" key="##Flatten.Multiline" timestamp="1584080621048">
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596092921782">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="840" y="222" key="##Flatten.Multiline/0.0.1920.1040@0.0.1920.1040" timestamp="1584080621048" />
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586352094879">
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596092921782" />
+    <state x="1368" y="273" key="#xdebugger.evaluate" timestamp="1596095490791">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586352094879" />
-    <state x="443" y="126" width="1329" height="785" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1586099407191">
+    <state x="1368" y="273" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1596095490791" />
+    <state x="763" y="125" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1596097054462">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="443" y="126" width="1329" height="785" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586099407191" />
-    <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584078987811" />
-    <state x="1011" y="326" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="1416" y="107" key="#xdebugger.evaluate" timestamp="1586351972879">
+    <state x="763" y="125" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1596097054462" />
+    <state width="774" height="466" key="DebuggerActiveHint" timestamp="1596094829005">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1416" y="107" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1586351972879" />
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1587199453064">
+    <state width="774" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1596094829005" />
+    <state width="1717" height="259" key="GridCell.Tab.0.bottom" timestamp="1596096922540">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="653" y="111" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587199453064" />
-    <state width="774" height="466" key="DebuggerActiveHint" timestamp="1587199094250">
+    <state width="1717" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596096922540" />
+    <state width="1717" height="259" key="GridCell.Tab.0.center" timestamp="1596096922540">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="774" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1587199094250" />
-    <state x="860" y="273" key="FileChooserDialogImpl" timestamp="1586342032335">
+    <state width="1717" height="259" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596096922540" />
+    <state width="1717" height="259" key="GridCell.Tab.0.left" timestamp="1596096922540">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="860" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586342032335" />
-    <state width="944" height="273" key="GridCell.Tab.0.bottom" timestamp="1587582538796">
+    <state width="1717" height="259" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596096922540" />
+    <state width="1717" height="259" key="GridCell.Tab.0.right" timestamp="1596096922540">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="944" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587582538796" />
-    <state width="944" height="273" key="GridCell.Tab.0.center" timestamp="1587582538796">
+    <state width="1717" height="259" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596096922540" />
+    <state width="1717" height="382" key="GridCell.Tab.1.bottom" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="944" height="273" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587582538796" />
-    <state width="944" height="273" key="GridCell.Tab.0.left" timestamp="1587582538796">
+    <state width="1717" height="382" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.1.center" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="944" height="273" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587582538796" />
-    <state width="944" height="273" key="GridCell.Tab.0.right" timestamp="1587582538796">
+    <state width="1717" height="382" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.1.left" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="944" height="273" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587582538796" />
-    <state width="1636" height="395" key="GridCell.Tab.1.bottom" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.1.right" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.1.center" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.2.bottom" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.1.left" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.2.center" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.1.right" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.2.left" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.2.bottom" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.2.right" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.2.center" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.3.bottom" timestamp="1596096783622">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.2.left" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783622" />
+    <state width="1717" height="382" key="GridCell.Tab.3.center" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.2.right" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.3.left" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.3.bottom" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state width="1717" height="382" key="GridCell.Tab.3.right" timestamp="1596096783621">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.3.center" timestamp="1587199140721">
+    <state width="1717" height="382" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596096783621" />
+    <state x="907" y="233" key="RollbackChangesDialog" timestamp="1590229849796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.3.left" timestamp="1587199140721">
+    <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590229849796" />
+    <state x="556" y="213" width="1137" height="722" key="SettingsEditor" timestamp="1596092462568">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state width="1636" height="395" key="GridCell.Tab.3.right" timestamp="1587199140721">
+    <state x="556" y="213" width="1137" height="722" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1596092462568" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1589643071181">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1636" height="395" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587199140721" />
-    <state x="907" y="233" key="RollbackChangesDialog" timestamp="1584078987811" />
-    <state x="907" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1587199492684">
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1589643071181" />
+    <state x="693" y="260" width="587" height="530" key="find.popup" timestamp="1588149253543">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1587199492684" />
-    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586342040067">
+    <state x="693" y="260" width="587" height="530" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588149253543" />
+    <state x="852" y="361" key="git4idea.ui.GitTagDialog" timestamp="1588431594478">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="964" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586342040067" />
-    <state x="763" y="242" width="672" height="677" key="run.anything.popup" timestamp="1584078987811" />
-    <state x="763" y="242" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584078987811" />
-    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1586161221034">
+    <state x="852" y="361" key="git4idea.ui.GitTagDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588431594478" />
+    <state x="763" y="242" width="672" height="677" key="run.anything.popup" timestamp="1587843072203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="757" y="237" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586161221034" />
+    <state x="763" y="242" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587843072203" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1048,21 +847,6 @@
           <url>file://$PROJECT_DIR$/algorithms/ray_shooting.js</url>
           <line>71</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/data_structures/linked_list.js</url>
-          <line>176</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
-          <line>520</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
-          <line>254</line>
-          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1073,330 +857,6 @@
         <watch expression="_index" />
       </configuration>
     </watches-manager>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1905">
-          <caret line="131" selection-start-line="131" selection-end-line="131" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/intersection.js" />
-    <entry file="file://$PROJECT_DIR$/src/algorithms/distance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="231" column="21" selection-start-line="231" selection-start-column="14" selection-end-line="231" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.babelrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/data_structures/planar_set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="166" column="9" selection-start-line="166" selection-start-column="9" selection-end-line="166" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/de-9im.js" />
-    <entry file="file://$PROJECT_DIR$/src/data_structures/de-9im.js" />
-    <entry file="file://$PROJECT_DIR$/src/algorithms/inversion.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" column="60" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/circular_linked_list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/point.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2505">
-          <caret line="167" selection-start-line="167" selection-end-line="167" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/intersectionPoints.js" />
-    <entry file="file://$PROJECT_DIR$/test/arrangement.js" />
-    <entry file="file://$PROJECT_DIR$/src/flatten.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/arrangement.js" />
-    <entry file="file://$PROJECT_DIR$/dist/main.umd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/intersection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="93" column="29" selection-start-line="93" selection-start-column="29" selection-end-line="93" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/algorithms/ray_shooting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/linked_list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/errors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="184" column="15" selection-start-line="184" selection-start-column="15" selection-end-line="184" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/line.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="279" column="92" selection-start-line="279" selection-start-column="92" selection-end-line="279" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="575" column="50" selection-start-line="575" selection-start-column="50" selection-end-line="575" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2341">
-          <caret line="432" lean-forward="true" selection-start-line="432" selection-end-line="432" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7560">
-          <caret line="506" column="5" selection-start-line="506" selection-start-column="5" selection-end-line="506" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/edge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="129" column="27" selection-start-line="129" selection-start-column="27" selection-end-line="129" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/ray.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/multiline.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="157" selection-start-line="157" selection-end-line="157" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/algorithms/relation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="83" column="3" selection-start-line="83" selection-start-column="3" selection-end-line="83" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/ray.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="52" column="43" selection-start-line="52" selection-start-column="43" selection-end-line="52" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/multiline.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="171" column="7" selection-start-line="171" selection-start-column="7" selection-end-line="171" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/data_structures/de9im.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
-          <folding>
-            <element signature="e#15#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/de9im.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="38" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/boolean_op.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="91" column="84" selection-start-line="91" selection-start-column="84" selection-end-line="91" selection-end-column="84" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/algorithms/relation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="318" selection-start-line="318" selection-end-line="318" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/polygon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1462">
-          <caret line="358" column="39" selection-start-line="358" selection-start-column="31" selection-end-line="358" selection-end-column="39" />
-          <folding>
-            <element signature="e#62#95#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/arc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2687">
-          <caret line="185" selection-start-line="185" selection-end-line="185" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/matrix.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2135">
-          <caret line="10" column="8" selection-start-line="6" selection-start-column="3" selection-end-line="10" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="193" selection-start-line="193" selection-end-line="193" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/segment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="310" column="33" selection-start-line="310" selection-start-column="33" selection-end-line="310" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="205">
-            <caret line="152" column="34" selection-start-line="152" selection-start-column="34" selection-end-line="152" selection-end-column="34" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="66" lean-forward="true" selection-start-line="9" selection-start-column="66" selection-end-line="9" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/box.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2895">
-          <caret line="193" column="8" selection-start-line="193" selection-start-column="4" selection-end-line="193" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/box.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="67" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/face.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/line.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" selection-start-line="5" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/arc.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/classes/vector.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/flatten.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
   </component>
   <component name="masterDetails">
     <states>

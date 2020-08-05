@@ -70,15 +70,15 @@ describe('#Flatten.Polygon', function() {
         expect(polygon.faces.size).to.equal(2);
     });
     it('Can construct polygon from Circle in CCW orientation', function() {
-        let polygon = new Polygon();
-        polygon.addFace(circle(point(3,3),50));
+        let polygon = new Polygon(circle(point(3,3),50));
+        // polygon.addFace(circle(point(3,3),50));
         expect(polygon.faces.size).to.equal(1);
         expect(polygon.edges.size).to.equal(1);
         expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
     });
     it('Can construct polygon from a box in CCW orientation', function() {
-        let polygon = new Polygon();
-        polygon.addFace(box(30,40,100,200));
+        let polygon = new Polygon(box(30,40,100,200));
+        // polygon.addFace(box(30,40,100,200));
         expect(polygon.faces.size).to.equal(1);
         expect(polygon.edges.size).to.equal(4);
         expect([...polygon.faces][0].orientation()).to.equal(Flatten.ORIENTATION.CCW);
@@ -224,6 +224,38 @@ describe('#Flatten.Polygon', function() {
         polygon.addFace([b]);
         let pt = point(125, 200);
         expect(polygon.contains(pt)).to.be.true;
+    });
+    it('Can check if contour contains segment (issue #31)', function() {
+        const points = [
+            point(306, 306),
+            point(647, 211),
+            point(647, 109),
+            point(147, 109),
+            point(147, 491),
+            point(600, 491),
+            point(600, 401),
+            point(379, 401),
+        ];
+        const poly = new Polygon(points);
+        const lineA = line(point(550, 491), point(500, 401));
+        const lineB = line(point(520, 491), point(500, 401));
+        const intersectPointsA = poly.intersect(lineA);
+        const intersectPointsB = poly.intersect(lineB);
+        // const constSegmentOutA = new Segment(intersectPointsA[1], intersectPointsA[3]);
+        expect(poly.contains(segment(intersectPointsA[0], intersectPointsA[1]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsA[1], intersectPointsA[2]))).to.be.false;
+        expect(poly.contains(segment(intersectPointsA[2], intersectPointsA[3]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsA[0], intersectPointsA[2]))).to.be.false;
+        expect(poly.contains(segment(intersectPointsA[1], intersectPointsA[3]))).to.be.false;
+
+        expect(poly.contains(segment(intersectPointsB[0], intersectPointsB[1]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsB[1], intersectPointsB[2]))).to.be.false;
+        expect(poly.contains(segment(intersectPointsB[2], intersectPointsB[3]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsB[0], intersectPointsB[2]))).to.be.false;
+        expect(poly.contains(segment(intersectPointsB[1], intersectPointsB[3]))).to.be.false;
+
+        expect(poly.contains(segment(intersectPointsA[2], intersectPointsB[3]))).to.be.true;
+        expect(poly.contains(segment(intersectPointsA[2], intersectPointsB[2]))).to.be.true;
     });
     it('Can measure distance between circle and polygon', function () {
         let points = [

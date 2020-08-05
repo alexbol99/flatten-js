@@ -820,8 +820,8 @@
                 res_polygon.edges.add(edge);
             }
             // If union - add face from wrk_polygon that is not intersected with res_polygon
-            if ( (op === BOOLEAN_UNION || op == BOOLEAN_SUBTRACT) &&
-                int_points && int_points.find((ip) => (ip.face === face)) === undefined) {
+            if ( /*(op === BOOLEAN_UNION || op == BOOLEAN_SUBTRACT) &&*/
+                int_points.find((ip) => (ip.face === face)) === undefined) {
                 res_polygon.addFace(face.first, face.last);
             }
         }
@@ -965,7 +965,7 @@
         }
     }
 
-    var boolean_op = /*#__PURE__*/Object.freeze({
+    var BooleanOperations = /*#__PURE__*/Object.freeze({
         BOOLEAN_UNION: BOOLEAN_UNION,
         BOOLEAN_INTERSECT: BOOLEAN_INTERSECT,
         BOOLEAN_SUBTRACT: BOOLEAN_SUBTRACT,
@@ -1788,6 +1788,7 @@
             let from = start || this.first;
             let to = end || this.last;
             let element = from;
+            if (element === undefined) return elements;
             do {
                 elements.push(element);
                 element = element.next;
@@ -2341,8 +2342,22 @@
         else if ( (shape1 instanceof Flatten.Segment || shape1 instanceof Flatten.Arc)  && shape2 instanceof Flatten.Polygon) {
             return relateShape2Polygon(shape1, shape2);
         }
+        else if ( (shape1 instanceof Flatten.Segment || shape1 instanceof Flatten.Arc)  &&
+            (shape2 instanceof Flatten.Circle || shape2 instanceof Flatten.Box) ) {
+            return relateShape2Polygon(shape1, new Flatten.Polygon(shape2));
+        }
         else if (shape1 instanceof Flatten.Polygon && shape2 instanceof Flatten.Polygon) {
             return relatePolygon2Polygon(shape1, shape2);
+        }
+        else if ((shape1 instanceof Flatten.Circle || shape1 instanceof Flatten.Box) &&
+            (shape2 instanceof  Flatten.Circle || shape2 instanceof Flatten.Box)) {
+            return relatePolygon2Polygon(new Flatten.Polygon(shape1), new Flatten.Polygon(shape2));
+        }
+        else if ((shape1 instanceof Flatten.Circle || shape1 instanceof Flatten.Box) && shape2 instanceof Flatten.Polygon) {
+            return relatePolygon2Polygon(new Flatten.Polygon(shape1), shape2);
+        }
+        else if (shape1 instanceof Flatten.Polygon && (shape2 instanceof Flatten.Circle || shape2 instanceof Flatten.Box)) {
+            return relatePolygon2Polygon(shape1, new Flatten.Polygon(shape2));
         }
     }
 
@@ -2527,7 +2542,7 @@
         return denim;
     }
 
-    var relation = /*#__PURE__*/Object.freeze({
+    var Relations = /*#__PURE__*/Object.freeze({
         equal: equal,
         intersect: intersect$1,
         touch: touch,
@@ -4415,7 +4430,7 @@
 
         /**
          * Sort given array of points from segment start to end, assuming all points lay on the segment
-         * @param {Point[]} array of points
+         * @param {Point[]} - array of points
          * @returns {Point[]} new array sorted
          */
         sortPoints(pts) {
@@ -6146,7 +6161,7 @@
                         polygon.edges.add(edge);
                     }
                 }
-                /* Instantiate face from circle circle in CCW orientation */
+                /* Instantiate face from a circle in CCW orientation */
                 else if (args[0] instanceof Flatten.Circle) {
                     this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
                 }
@@ -6722,10 +6737,11 @@
          * - array of shapes of type Segment or Arc <br/>
          * - array of points (Flatten.Point) <br/>
          * - array of numeric pairs which represent points <br/>
+         * - box or circle object <br/>
          * Alternatively, it is possible to use polygon.addFace method
          * @param {args} - array of shapes or array of arrays
          */
-        constructor(...args) {
+        constructor() {
             /**
              * Container of faces (closed loops), may be empty
              * @type {PlanarSet}
@@ -6737,12 +6753,15 @@
              */
             this.edges = new Flatten.PlanarSet();
 
-            /* It may be array of something that represent one loop (face) or
+            /* It may be array of something that may represent one loop (face) or
              array of arrays that represent multiple loops
              */
-            if (args.length === 1 && args[0] instanceof Array) {
+            let args = [...arguments];
+            if (args.length === 1 &&
+                ((args[0] instanceof Array && args[0].length > 0) ||
+                    args[0] instanceof Flatten.Circle || args[0] instanceof Flatten.Box)) {
                 let argsArray = args[0];
-                if (argsArray.every((loop) => {return loop instanceof Array})) {
+                if (args[0] instanceof Array && args[0].every((loop) => {return loop instanceof Array})) {
                     if  (argsArray.every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
                         this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
                     }
@@ -7064,14 +7083,9 @@
                 let rel = ray_shoot(this, shape);
                 return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
             }
-
-            if (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc) {
-                let edge = new Flatten.Edge(shape);
-                let rel = edge.setInclusion(this);
-                return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
+            else {
+                return cover(this, shape);
             }
-
-            // TODO: support Box and Circle
         }
 
         /**
@@ -7893,9 +7907,12 @@
      * Created by Alex Bol on 2/18/2017.
      */
 
+    Flatten.BooleanOperations = BooleanOperations;
+    Flatten.Relations = Relations;
+
     exports.Arc = Arc;
     exports.BOUNDARY = BOUNDARY;
-    exports.BooleanOperations = boolean_op;
+    exports.BooleanOperations = BooleanOperations;
     exports.Box = Box;
     exports.CCW = CCW;
     exports.CW = CW;
@@ -7914,7 +7931,7 @@
     exports.Point = Point;
     exports.Polygon = Polygon;
     exports.Ray = Ray;
-    exports.Relations = relation;
+    exports.Relations = Relations;
     exports.Segment = Segment;
     exports.Utils = Utils;
     exports.Vector = Vector;

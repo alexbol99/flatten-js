@@ -8,6 +8,7 @@
 import Flatten from '../flatten';
 import {ray_shoot} from "../algorithms/ray_shooting";
 import * as Intersection from "../algorithms/intersection";
+import * as Relations from "../algorithms/relation";
 
 /**
  * Class representing a polygon.<br/>
@@ -24,10 +25,11 @@ export class Polygon {
      * - array of shapes of type Segment or Arc <br/>
      * - array of points (Flatten.Point) <br/>
      * - array of numeric pairs which represent points <br/>
+     * - box or circle object <br/>
      * Alternatively, it is possible to use polygon.addFace method
      * @param {args} - array of shapes or array of arrays
      */
-    constructor(...args) {
+    constructor() {
         /**
          * Container of faces (closed loops), may be empty
          * @type {PlanarSet}
@@ -39,12 +41,15 @@ export class Polygon {
          */
         this.edges = new Flatten.PlanarSet();
 
-        /* It may be array of something that represent one loop (face) or
+        /* It may be array of something that may represent one loop (face) or
          array of arrays that represent multiple loops
          */
-        if (args.length === 1 && args[0] instanceof Array) {
+        let args = [...arguments];
+        if (args.length === 1 &&
+            ((args[0] instanceof Array && args[0].length > 0) ||
+                args[0] instanceof Flatten.Circle || args[0] instanceof Flatten.Box)) {
             let argsArray = args[0];
-            if (argsArray.every((loop) => {return loop instanceof Array})) {
+            if (args[0] instanceof Array && args[0].every((loop) => {return loop instanceof Array})) {
                 if  (argsArray.every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
                     this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
                 }
@@ -366,14 +371,9 @@ export class Polygon {
             let rel = ray_shoot(this, shape);
             return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
         }
-
-        if (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc) {
-            let edge = new Flatten.Edge(shape);
-            let rel = edge.setInclusion(this);
-            return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
+        else {
+            return Relations.cover(this, shape);
         }
-
-        // TODO: support Box and Circle
     }
 
     /**

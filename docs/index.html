@@ -56,42 +56,14 @@
 circle, arc and polygon. Shapes may be organized into Planar Set - searchable container which support spatial queries.</p>
 <p><strong>flatten-js</strong> provides a lot of useful methods and algorithms like finding intersections, checking inclusion, calculating distance, applying
 affine transformations, performing boolean operations and more.</p>
-<p>Library consists of several packages, published under scope <strong>@flatten-js/</strong>:</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th style="text-align:center">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://www.npmjs.com/package/@flatten-js/core">@flatten-js/core</a></td>
-<td style="text-align:center">Basic classes and operations</td>
-</tr>
-<tr>
-<td><a href="https://www.npmjs.com/package/@flatten-js/interval-tree">@flatten-js/interval-tree</a></td>
-<td style="text-align:center">Interval binary search tree</td>
-</tr>
-<tr>
-<td><a href="https://www.npmjs.com/package/@flatten-js/boolean-op">@flatten-js/boolean-op</a></td>
-<td style="text-align:center">Boolean operations</td>
-</tr>
-<tr>
-<td><a href="https://www.npmjs.com/package/@flatten-js/polygon-offset">@flatten-js/polygon-offset</a></td>
-<td style="text-align:center">Polygon offset</td>
-</tr>
-</tbody>
-</table>
-<p>NOTE: Package <a href="https://www.npmjs.com/package/flatten-js">flatten-js</a> is not supported and will be deprecated soon.</p>
 <p>Packages are distributed in 3 formats: commonjs, umd and es6 modules. Package.json file
 provides various entry points suitable for different targets.</p>
 <p>TypeScript users may take advantage of static type checking with typescript definition file index.d.ts included into the package.</p>
 <p><strong>flatten-js</strong> does not concern too much about visualization.
-Anyway, all classes have svg() methods, that returns a string which may be inserted into SVG container.
-This works pretty well together with  <a href="https://d3js.org/">d3js</a> library. But it is definitely possible to create bridges to other graphic libraries.</p>
+Anyway, all classes implement svg() method, that returns a string which may be inserted into SVG container.
+It works pretty well together with  <a href="https://d3js.org/">d3js</a> library, but it is definitely possible to create bridges to other graphic libraries.</p>
 <p>The best way to start working with FlattenJS is to use awesome <a href="https://beta.observablehq.com/">Observable</a> javascript interactive notebooks.
-There are several tutorials published in Observable Notebooks, see below.</p>
+Check out collection of <a href="https://observablehq.com/collection/@alexbol99/flatten-js-tutorials">Tutorials</a> published in Observable Notebooks.</p>
 <p>Full documentation may be found here: <a href="https://alexbol99.github.io/flatten-js/index.html">https://alexbol99.github.io/flatten-js/index.html</a></p>
 <h2>Contacts</h2>
 <p>Follow me on Twitter <a href="https://twitter.com/alex_bol_">@alex_bol_</a></p>
@@ -120,22 +92,245 @@ const {Point, Vector, Circle, Line, Ray, Segment, Arc, Box, Polygon, Matrix, Pla
     let ip = s1.intersect(s2);
 </code></pre>
 <p>You may test the code above also in <a href="https://npm.runkit.com/@flatten-js/core">NPM RunKit</a></p>
-<h2>Tutorials</h2>
+<p>You may also check out examples section in the code which illustrate different use cases:</p>
+<ul>
+<li>in nodejs</li>
+<li>in a browser using <code>&lt;script&gt;</code> tag with <strong>unpkg.com</strong> loader</li>
+<li>in a React application</li>
+</ul>
+<h2>Content of the library</h2>
+<h3>Basic shapes</h3>
+<p><strong>flatten-js</strong> library implements following basic shapes:</p>
+<ul>
+<li><a href="https://alexbol99.github.io/flatten-js/Point.html">Point</a></li>
+<li><a href="https://alexbol99.github.io/flatten-js/Vector.html">Vector</a></li>
+<li><a href="https://alexbol99.github.io/flatten-js/Line.html">Line</a></li>
+<li><a href="https://alexbol99.github.io/flatten-js/Ray.html">Ray</a></li>
+<li><a href="https://alexbol99.github.io/flatten-js/Segment.html">Segment</a></li>
+<li><a href="https://alexbol99.github.io/flatten-js/Arc.html">Arc (circular)</a></li>
+<li><a href="https://alexbol99.github.io/flatten-js/Circle.html">Circle</a></li>
+<li><a href="https://alexbol99.github.io/flatten-js/Point.html">Box (may be used as rectangle)</a></li>
+</ul>
+<h3>Polygon</h3>
+<p><a href="https://alexbol99.github.io/flatten-js/Polygon.html">Polygon</a> in <strong>flatten-js</strong> library is actually a multi-polygon.
+Polygon is a collection of faces -
+closed oriented chains of edges, which may be of type Segment or Arc. The most external face
+called island, a face included into it is called hole. Holes in turn may have inner islands,
+number of inclusion levels is unlimited.</p>
+<p>Orientation of islands and holes is matter for calculation
+of relationships and boolean operations, holes should have orientation opposite to islands.
+It means that for proper results faces in a polygon should be <strong>orientable</strong>: they should not have self-intersections.
+Faces also should not overlap each other. Method <code>isValid()</code> checks if polygon fit these rules.</p>
+<p>Constructor of the polygon object accept various inputs:</p>
+<ul>
+<li>Array of shapes (instances of Flatten.Segment or Flatten.Arc) that represent closed chains</li>
+<li>Array of shapes as json objects that represent closed chains</li>
+<li>Array of points (Flatten.Point) that represent vertices of the polygon</li>
+<li>Array of numeric pairs [x,y] that represent vertices of the polygon</li>
+<li>Instances of Circle or Box</li>
+</ul>
+<p>Polygon provides various useful methods:</p>
+<ul>
+<li><code>area</code> - calculate area of a polygon</li>
+<li><code>addFace</code> - add a new face to polygon</li>
+<li><code>deleteFace</code> - removes face from polygon</li>
+<li><code>addVertex</code> - split an edge of polygon adn create new vertex</li>
+<li><code>cut</code> - cut polygon with multiline into sub-polygons</li>
+<li><code>findEdgeByPoint</code> - find edge in polygon</li>
+<li><code>contains</code> - test if polygon contains shape (point, segment or arc)</li>
+<li><code>transform</code> - transform polygon usging affine transformation matrix</li>
+<li><code>reverse</code> - revert orientation of faces</li>
+<li><code>splitToIslands</code> - split to array of islands with holes</li>
+</ul>
+<h3>Multiline</h3>
+<p>Multiline represent an unclosed chain of edges of type Segment or Arc</p>
+<h3>Planar Set</h3>
+<p>Planar Set is a container of shapes that enables spatial seach by rectangular query.</p>
+<h3>Affine transformations</h3>
+<p>Affine transformation matrix is a 3x3 matrix of the form</p>
+<pre class="prettyprint source"><code>      [ a  c  tx
+ A =    b  d  ty
+        0  0  1  ]
+</code></pre>
+<p>Where a, b, c, d, represent rotation and scaling, tx, ty represent translation.
+Matrix constructor without parameters creates an identity matrix, and then
+resulted matrix may be composed by chaining basic operations,
+like <code>translate</code>, <code>rotate</code> and <code>scale</code>, like this:</p>
+<pre class="prettyprint source lang-javascript"><code>// Rotate segment by 45 deg around its center
+let {point,segment,matrix} = Flatten;
+let s = segment(point(20,30), point(60,70));
+let center = s.box.center;
+let angle = 45.*Math.PI/180.;
+let m = matrix()
+        .translate(center.x, center.y)
+        .rotate(angle)
+        .translate(-center.x, -center.y);
+let t_s = s.transform(m);
+</code></pre>
+<h3>Intersection points</h3>
+<p>All classes have method <code>intersect(otherShape)</code> that return array of intersection points,
+if two shapes intersect each other, or empty array otherwise. The is no predefined order
+of intersection points in the array.</p>
+<p>Please don't be confused, there are another two methods <code>BooleanOperations.intersect()</code>
+that performs boolean intersection of polygons and logical predicate <code>Relations.intersect()</code>
+that check if two shapes intersected or not.</p>
+<h3>Distance between shapes</h3>
+<p>All basic classes and polygon have method <code>distanceTo(othershape)</code>
+that calculate distance to other shape. Together with the distance function returns the shortest segment
+between two shapes - segment between two closest point, where the first point lays
+on <code>this</code> shape, and the second - on the other shape, see example:</p>
+<pre class="prettyprint source lang-javascript"><code>let s = segment(point(10,30), point(150, 40));
+let c = circle(point(75,75),10);
+let [dist,shortest_segment] = s.distanceTo(c);
+</code></pre>
+<h3>Intersection model (DE-9IM)</h3>
+<p>The Dimensionally Extended nine-Intersection Model
+(<a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>) is a topological model and a standard
+used to describe the spatial relations of two geometries in 2-dimensional plane.</p>
+<p>First, for every shape we define:</p>
+<ul>
+<li>An interior</li>
+<li>A boundary</li>
+<li>An exterior</li>
+</ul>
+<p>For polygons, the interior, boundary and exterior are obvious, other types have some exclusions:</p>
+<ul>
+<li>Point has no interior</li>
+<li>Line has no boundary</li>
+</ul>
+<p>The DE-9IM model based on a 3×3 intersection matrix with the form:</p>
+<pre class="prettyprint source"><code>         [ I(a) ^ I(b)   B(a) ^ I(b)   E(a) ^ I(b)
+de9im =    I(a) ^ B(b)   B(a) ^ B(b)   E(a) ^ B(b)
+           I(a) ^ E(b)   B(a) ^ E(b)   E(a) ^ E(b)  ]
+</code></pre>
+<p>where <code>a</code>and  <code>b</code> are two shapes (geometries),</p>
+<p><code>I(), B(), E()</code> denotes interior, boundary and exterior operator and</p>
+<p><code>^</code> denotes operation of intersection.
+Dimension of intersection result depends on the dimension of shapes, for example,</p>
+<ul>
+<li>intersection between an interior of the line and an interior of the polygon is an
+array of segments</li>
+<li>intersection between an interior of the line and boundary polygon is
+an array of points (may include segments in case of touching)</li>
+<li>intersection between interiors of two polygons (if exists) will be
+a polygon.</li>
+</ul>
+<p>DE-9IM matrix describes any possible relationships between two shapes on the plane.</p>
+<p>DE-9IM matrix is available via method <code>relate</code> under namespace <code>Relations</code>.</p>
+<p>Each element of DE-9IM matrix is an array of the objects representing corresponding intersection.
+Empty array represents case of no intersection.
+If intersection is not applicable (i.e. intersection with a boundary for a line which has no boundary),
+correspondent cell left undefined.</p>
+<p>Intersection between two exteriors not calculated because usually it is meaningless.</p>
+<pre class="prettyprint source lang-javascript"><code>let {relate} = Flatten.Relations;
+// 
+// define two shapes: polygon1, polygon2
+//
+let de9im = relate(polygon1, polygon2);
+//
+// explore 8 of 9 fields of the de9im matrix:
+// de9im.I2I  de9im.B2I  de9im.E2I
+// de9im.I2B  de9im.B2B  de9im.E2B
+// de9im.I2E  de9im.B2E     N/A
+</code></pre>
+<p>Another common way to represent DE-9IM matrix is a string where</p>
+<ul>
+<li><code>T</code> represent intersection where array is not impty</li>
+<li><code>F</code> represent intersection where array is empty</li>
+<li><code>.</code> means not relevant or not applicable</li>
+</ul>
+<p>String may be obtained with <code>de9im.toString()</code> method.</p>
+<h3>Relationship predicates</h3>
+<p>The spatial relationships between two shapes exposed via namespace <code>Relations</code>.
+The spatial predicates return <code>true</code> if relationship match and <code>false</code> otherwise.</p>
+<pre class="prettyprint source lang-javascript"><code>let {intersect, disjoint, equal, touch, inside, contain, covered, cover} = Flatten.Relations;
+// define shape a and shape b
+let p = intersect(a, b);
+console.log(p)             // true / false
+</code></pre>
+<ul>
+<li><code>intersect</code> - shapes a and b have at least one common point</li>
+<li><code>disjoint</code> -  opposite to <code>intersect</code></li>
+<li><code>equal</code> - shapes a and b are topologically equal</li>
+<li><code>touch</code> - shapes a and b have at least one point in common but their interiors not intersect</li>
+<li><code>inside</code> - shape a lies in the interior of shape b</li>
+<li><code>contain</code> - shape b lies in the interior of shape b</li>
+<li><code>covered</code> - every point of a lies or in the interior or on the boundary of shape b</li>
+<li><code>covered</code> - every point of b lies or in the interior or on the boundary of shape a</li>
+</ul>
+<h3>Boolean operations</h3>
+<p>Boolean operations on polygons available via namespace <strong>BooleanOperations</strong>.
+Polygons in boolean operation should be valid: both operands should have same meaning of face orientation,
+faces should not overlap each other and should not have self-intersections.</p>
+<p>User is responsible to provide valid polygons, boolean operation methods do not check validity.</p>
+<pre class="prettyprint source lang-javascript"><code>let {unify, subtract, intersect, innerClip, outerClip} = BooleanOp;
+</code></pre>
+<ul>
+<li><code>unify</code> - unify two polygons and return resulted polygon</li>
+<li><code>subtract</code> - subtract second polygon from the first and return resulted polygon</li>
+<li><code>intersect</code> - intersect two polygons and return resulted polygon</li>
+<li><code>innerClip</code> - intersect two polygons and return boundary of intersection as 2 arrays.
+The first aray contains edges of the first polygon, the second - the edges of the second</li>
+<li><code>outerClip</code> - clip boundary of the first polygon with the interior of the second polygon</li>
+</ul>
+<p>Implementation based on Weiler-Atherton clipping algorithm,
+described in the article <a href="https://www.cs.drexel.edu/~david/Classes/CS430/HWs/p214-weiler.pdf">Hidden Surface Removal Using Polygon Area Sorting</a></p>
+<h3>Serialization</h3>
+<p>All <strong>flatten-js</strong> shape objects may be serialized using <code>JSON.stringify()</code> method.
+<code>JSON.stringify</code> transforms object to string using <code>.toJSON()</code> formatter implemented in the class.
+<code>JSON.parse</code> restore object from a string, and then constructor can use this object to create Flatten object.</p>
+<pre class="prettyprint source lang-javascript"><code>let {lint, point} = Flatten;
+let l = line(point(4, 0), point(0, 4));
+// Serialize
+let str = JSON.stringify(l);  
+// Parse and reconstruct
+let l_json = JSON.parse(str);
+let l_parsed = line(l_json);
+</code></pre>
+<h3>Visualization</h3>
+<p>All classes provide <code>svg()</code> method, that create svg string that may be inserted into svg container element
+in a very straightforward way:</p>
+<pre class="prettyprint source lang-html"><code>&lt;body>
+    &lt;svg id=&quot;stage&quot; width=&quot;500&quot; height=&quot;500&quot;>&lt;/svg>
+&lt;script>
+    const Flatten = window[&quot;@flatten-js/core&quot;];
+    const {point, circle, segment} = Flatten;
+
+    // make some construction
+    let s1 = segment(10,10,200,200);
+    let s2 = segment(10,160,200,30);
+    let c = circle(point(200, 110), 50);
+    let ip = s1.intersect(s2);
+
+    document.getElementById(&quot;stage&quot;).innerHTML = s1.svg() + s2.svg() + c.svg() + ip[0].svg();
+&lt;/script>
+&lt;/body>
+</code></pre>
+<p>Method <code>svg()</code> may accept as a parameter an object that enables to define
+several basic attributes of svg element:
+<code>stroke</code>, <code>strokeWidth</code>, <code>fill</code>, <code>fillRule</code>, <code>fillOpacity</code>, <code>id</code> and <code>className</code>.
+If attributes not provided, method <code>svg()</code> use default values.</p>
+<h3>Other packages</h3>
+<p>Other packages, published under scope <strong>@flatten-js/</strong>:</p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th style="text-align:right"></th>
+<th>Name</th>
+<th style="text-align:center">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-getting-started"><img src="https://user-images.githubusercontent.com/6965440/41164953-0e3700b6-6b45-11e8-982f-de3c5bc2012d.PNG" alt="Getting Started"></a></td>
-<td style="text-align:right"><a href="https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-messing-around"><img src="https://user-images.githubusercontent.com/6965440/41164955-0e6019ec-6b45-11e8-9501-1565ccd75e0d.PNG" alt="Messing Around"></a></td>
+<td><a href="https://www.npmjs.com/package/@flatten-js/interval-tree">@flatten-js/interval-tree</a></td>
+<td style="text-align:center">Interval binary search tree</td>
 </tr>
 <tr>
-<td><a href="https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-planar-set"><img src="https://user-images.githubusercontent.com/6965440/41164948-0dde3b66-6b45-11e8-8a1a-b70f4ad228c1.PNG" alt="Planar Set"></a></td>
-<td style="text-align:right"><a href="https://beta.observablehq.com/@alexbol99/flattenjs-tutorials-polygons"><img src="https://user-images.githubusercontent.com/6965440/41164949-0e0ccd1e-6b45-11e8-9400-009c8ba6e7e3.PNG" alt="polygons"></a></td>
+<td><a href="https://www.npmjs.com/package/@flatten-js/boolean-op">@flatten-js/boolean-op</a></td>
+<td style="text-align:center">Boolean operations (deprecated, use this functionality from the core package)</td>
+</tr>
+<tr>
+<td><a href="https://www.npmjs.com/package/@flatten-js/polygon-offset">@flatten-js/polygon-offset</a></td>
+<td style="text-align:center">Polygon offset</td>
 </tr>
 </tbody>
 </table></article>
@@ -151,7 +346,7 @@ const {Point, Vector, Circle, Line, Ray, Segment, Arc, Box, Polygon, Matrix, Pla
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sat Apr 11 2020 13:49:15 GMT+0300 (Israel Daylight Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sat May 23 2020 15:16:15 GMT+0300 (Israel Daylight Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

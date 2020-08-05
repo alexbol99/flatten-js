@@ -102,7 +102,7 @@ export class Face extends CircularLinkedList {
                     polygon.edges.add(edge);
                 }
             }
-            /* Instantiate face from circle circle in CCW orientation */
+            /* Instantiate face from a circle in CCW orientation */
             else if (args[0] instanceof Flatten.Circle) {
                 this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
             }

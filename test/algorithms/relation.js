@@ -2,19 +2,32 @@
 
 import { expect } from 'chai';
 import Flatten, {multiline} from '../../index';
-import {relate, disjoint, equal, intersect, touch, inside, contain, covered, cover} from '../../src/algorithms/relation';
+// import {relate, disjoint, equal, intersect, touch, inside, contain, covered, cover} from '../../src/algorithms/relation';
 import {intersectLine2Polygon} from "../../src/algorithms/intersection";
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
 
 let {point, vector, circle, line, segment, arc, ray, box} = Flatten;
-
+let {relate, disjoint, equal, intersect, touch, inside, contain, covered, cover} = Flatten.Relations;
 
 describe('#Algorithms.Relation', function() {
     it('Function relate defined', () => {
         expect(relate).to.exist;
         expect(relate).to.be.a('function');
     });
+    it('Namespace Relations exist on Flatten', () => {
+        expect(Flatten.Relations).to.exist;
+    });
+    it('Relations may be consumed from Flatten.Relations namespace', () => {
+        expect(Flatten.Relations.disjoint).to.exist;
+        expect(Flatten.Relations.intersect).to.exist;
+        expect(Flatten.Relations.equal).to.exist;
+        expect(Flatten.Relations.touch).to.exist;
+        expect(Flatten.Relations.inside).to.exist;
+        expect(Flatten.Relations.contain).to.exist;
+        expect(Flatten.Relations.covered).to.exist;
+        expect(Flatten.Relations.cover).to.exist;
+    })
     it('Functions disjoint,equals,intersects,touches exist', () => {
         expect(disjoint).to.be.a('function');
         expect(equal).to.be.a('function');
@@ -128,6 +141,40 @@ describe('#Algorithms.Relation', function() {
             expect(intersect(l, p)).to.be.true;
             expect(disjoint(l, p)).to.be.false;
             expect(touch(l, p)).to.be.false;
+        });
+    });
+    describe('#Algorithms.Relation.Circle2Circle', function() {
+        it ('Intersection case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(350, 150), 50);
+            expect(intersect(c1, c2)).to.be.true;
+        });
+        it ('Disjoint case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(450, 150), 50);
+            expect(disjoint(c1, c2)).to.be.true;
+            expect(intersect(c1, c2)).to.be.false;
+        });
+        it ('Touching case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(400, 150), 50);
+            expect(disjoint(c1, c2)).to.be.false;
+            expect(intersect(c1, c2)).to.be.true;
+            expect(touch(c1, c2)).to.be.true;
+        });
+        it ('Contain case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(275, 150), 50);
+            expect(disjoint(c1, c2)).to.be.false;
+            expect(intersect(c1, c2)).to.be.true;
+            expect(contain(c1, c2)).to.be.true;
+        });
+        it ('Inside case', () => {
+            const c1 = circle(point(250, 150), 100);
+            const c2 = circle(point(275, 150), 50);
+            expect(disjoint(c1, c2)).to.be.false;
+            expect(intersect(c1, c2)).to.be.true;
+            expect(inside(c2, c1)).to.be.true;
         });
     });
     describe('#Algorithms.Relation.Polygoon2Polygon', function() {
