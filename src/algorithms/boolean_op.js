@@ -365,14 +365,15 @@ export function filterDuplicatedIntersections(intersections)
 
     let do_squeeze = false;
 
-    let int_point_ref1; // = intersections.int_points1_sorted[0];
-    let int_point_ref2; // = intersections.int_points2[int_point_ref1.id];
+    let int_point_ref1;
+    let int_point_ref2;
     let int_point_cur1;
     let int_point_cur2;
     for (let i = 0; i < intersections.int_points1_sorted.length; i++) {
-        // let int_point_cur1 = intersections.int_points1_sorted[i];
+
         if (intersections.int_points1_sorted[i].id === -1)
             continue;
+
         int_point_ref1 = intersections.int_points1_sorted[i];
         int_point_ref2 = intersections.int_points2[int_point_ref1.id];
 
@@ -397,26 +398,6 @@ export function filterDuplicatedIntersections(intersections)
                 do_squeeze = true;
             }
         }
-
-        // if (!Utils.EQ(int_point_cur1.arc_length, int_point_ref1.arc_length)) {
-        //     int_point_ref1 = int_point_cur1;
-        //     int_point_ref2 = intersections.int_points2[int_point_ref1.id];
-        //     continue;
-        // }
-
-        /* Same length: int_point_cur1->arc_len == int_point_ref1->arc_len */
-        /* Ensure this is intersection between same edges from the same face */
-        // let int_point_cur2 = intersections.int_points2[int_point_cur1.id];
-        // if (int_point_cur1.edge_before === int_point_ref1.edge_before &&
-        //     int_point_cur1.edge_after === int_point_ref1.edge_after &&
-        //     int_point_cur2.edge_before === int_point_ref2.edge_before &&
-        //     int_point_cur2.edge_after === int_point_ref2.edge_after) {
-        //     int_point_cur1.id = -1;
-        //     /* to be deleted */
-        //     int_point_cur2.id = -1;
-        //     /* to be deleted */
-        //     do_squeeze = true;
-        // }
     }
 
     int_point_ref2 = intersections.int_points2_sorted[0];
@@ -535,14 +516,6 @@ function setOverlappingFlags(intersections)
         } else {                                         // get first point from the same face
             next_int_point_id = first_int_point_in_face_id;
         }
-
-        //if (i + 1 === num_int_points) {                                         // last int point in array
-        //    next_int_point1 = first_int_point_in_face;
-        //} else if (intersections.int_points1_sorted[i + 1].face !== cur_face) {   // last int point in chain
-        //    next_int_point1 = first_int_point_in_face;
-        //} else {                                                                // not a last point in chain
-        //    next_int_point1 = intersections.int_points1_sorted[i + 1];
-        //}
 
         // From all points with same ,x,y. in 'next_int_point1' pool choose one that
         // has same face both in res_poly and in wrk_poly
