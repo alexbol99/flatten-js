@@ -18,11 +18,16 @@ class CircularLinkedList extends LinkedList {
 
     [Symbol.iterator]() {
         let element = undefined;
+        let count = 0;
         return {
             next: () => {
                 let value = element ? element : this.first;
                 let done = this.first ? (element ? element === this.first : false) : true;
                 element = value ? value.next : undefined;
+                count++;
+                if (count > 1000000) {
+                  throw Error("CircularLinkedList iteration exceeded limit.")
+                }
                 return {value: value, done: done};
             }
         };

@@ -33,6 +33,7 @@ const OVERLAP_SAME = 1;
 const OVERLAP_OPPOSITE = 2;
 
 var Constants = /*#__PURE__*/Object.freeze({
+    __proto__: null,
     CCW: CCW,
     CW: CW,
     ORIENTATION: ORIENTATION,
@@ -111,6 +112,7 @@ function LE(x, y) {
 }
 
 var Utils = /*#__PURE__*/Object.freeze({
+    __proto__: null,
     setTolerance: setTolerance,
     getTolerance: getTolerance,
     DECIMALS: DECIMALS,
@@ -150,7 +152,8 @@ class Errors {
 }
 
 var errors = /*#__PURE__*/Object.freeze({
-    default: Errors
+    __proto__: null,
+    'default': Errors
 });
 
 let Flatten = {
@@ -990,6 +993,7 @@ function removeNotRelevantNotIntersectedFaces(polygon, notIntersectedFaces, op, 
 }
 
 var BooleanOperations = /*#__PURE__*/Object.freeze({
+    __proto__: null,
     BOOLEAN_UNION: BOOLEAN_UNION,
     BOOLEAN_INTERSECT: BOOLEAN_INTERSECT,
     BOOLEAN_SUBTRACT: BOOLEAN_SUBTRACT,
@@ -2530,8 +2534,6 @@ function relateShape2Polygon(shape, polygon) {
             case Flatten.OUTSIDE:
                 denim.B2E.push(pt);
                 break;
-            default:
-                break;
         }
     }
 
@@ -2567,6 +2569,7 @@ function relatePolygon2Polygon(polygon1, polygon2) {
 }
 
 var Relations = /*#__PURE__*/Object.freeze({
+    __proto__: null,
     equal: equal,
     intersect: intersect$1,
     touch: touch,
@@ -4877,8 +4880,6 @@ class Circle {
             if (r !== undefined) this.r = r;
             return;
         }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -5127,8 +5128,6 @@ class Arc {
             if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
             return;
         }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -6041,11 +6040,16 @@ class CircularLinkedList extends LinkedList {
 
     [Symbol.iterator]() {
         let element = undefined;
+        let count = 0;
         return {
             next: () => {
                 let value = element ? element : this.first;
                 let done = this.first ? (element ? element === this.first : false) : true;
                 element = value ? value.next : undefined;
+                count++;
+                if (count > 1000000) {
+                  throw Error("CircularLinkedList iteration exceeded limit.")
+                }
                 return {value: value, done: done};
             }
         };

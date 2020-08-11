@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
     (global = global || self, factory(global['@flatten-js/core'] = {}));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
     /**
      * Global constant CCW defines counter clockwise direction of arc
@@ -35,6 +35,7 @@
     const OVERLAP_OPPOSITE = 2;
 
     var Constants = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         CCW: CCW,
         CW: CW,
         ORIENTATION: ORIENTATION,
@@ -113,6 +114,7 @@
     }
 
     var Utils = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         setTolerance: setTolerance,
         getTolerance: getTolerance,
         DECIMALS: DECIMALS,
@@ -152,7 +154,8 @@
     }
 
     var errors = /*#__PURE__*/Object.freeze({
-        default: Errors
+        __proto__: null,
+        'default': Errors
     });
 
     let Flatten = {
@@ -992,6 +995,7 @@
     }
 
     var BooleanOperations = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         BOOLEAN_UNION: BOOLEAN_UNION,
         BOOLEAN_INTERSECT: BOOLEAN_INTERSECT,
         BOOLEAN_SUBTRACT: BOOLEAN_SUBTRACT,
@@ -2532,8 +2536,6 @@
                 case Flatten.OUTSIDE:
                     denim.B2E.push(pt);
                     break;
-                default:
-                    break;
             }
         }
 
@@ -2569,6 +2571,7 @@
     }
 
     var Relations = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         equal: equal,
         intersect: intersect$1,
         touch: touch,
@@ -4879,8 +4882,6 @@
                 if (r !== undefined) this.r = r;
                 return;
             }
-
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -5129,8 +5130,6 @@
                 if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
                 return;
             }
-
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -6043,11 +6042,16 @@
 
         [Symbol.iterator]() {
             let element = undefined;
+            let count = 0;
             return {
                 next: () => {
                     let value = element ? element : this.first;
                     let done = this.first ? (element ? element === this.first : false) : true;
                     element = value ? value.next : undefined;
+                    count++;
+                    if (count > 1000000) {
+                      throw Error("CircularLinkedList iteration exceeded limit.")
+                    }
                     return {value: value, done: done};
                 }
             };
@@ -7978,4 +7982,4 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
