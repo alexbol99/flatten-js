@@ -6024,6 +6024,10 @@
     }
     Flatten.Edge = Edge;
 
+    // Limits on iteration to prevent infinite loops.
+    const FLATTEN_JS_MAX_ITERATION = process.env.FLATTEN_JS_MAX_ITERATION || 1000000;
+
+
     /**
      * Class implements circular bidirectional linked list <br/>
      * LinkedListElement - object of any type that has properties next and prev.
@@ -6049,8 +6053,8 @@
                     let done = this.first ? (element ? element === this.first : false) : true;
                     element = value ? value.next : undefined;
                     count++;
-                    if (count > 1000000) {
-                      throw Error("CircularLinkedList iteration exceeded limit.")
+                    if (count > FLATTEN_JS_MAX_ITERATION) {
+                      throw Error(`CircularLinkedList iteration exceeded limit of ${FLATTEN_JS_MAX_ITERATION}. This is likely a result of an infinite loop.`)
                     }
                     return {value: value, done: done};
                 }
