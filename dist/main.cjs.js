@@ -542,29 +542,38 @@ function filterDuplicatedIntersections(intersections)
 
     let do_squeeze = false;
 
-    let int_point_ref1 = intersections.int_points1_sorted[0];
-    let int_point_ref2 = intersections.int_points2[int_point_ref1.id];
-    for (let i = 1; i < intersections.int_points1_sorted.length; i++) {
-        let int_point_cur1 = intersections.int_points1_sorted[i];
+    let int_point_ref1;
+    let int_point_ref2;
+    let int_point_cur1;
+    let int_point_cur2;
+    for (let i = 0; i < intersections.int_points1_sorted.length; i++) {
 
-        if (!EQ(int_point_cur1.arc_length, int_point_ref1.arc_length)) {
-            int_point_ref1 = int_point_cur1;
-            int_point_ref2 = intersections.int_points2[int_point_ref1.id];
+        if (intersections.int_points1_sorted[i].id === -1)
             continue;
-        }
 
-        /* Same length: int_point_cur1->arc_len == int_point_ref1->arc_len */
-        /* Ensure this is intersection between same edges from the same face */
-        let int_point_cur2 = intersections.int_points2[int_point_cur1.id];
-        if (int_point_cur1.edge_before === int_point_ref1.edge_before &&
-            int_point_cur1.edge_after === int_point_ref1.edge_after &&
-            int_point_cur2.edge_before === int_point_ref2.edge_before &&
-            int_point_cur2.edge_after === int_point_ref2.edge_after) {
-            int_point_cur1.id = -1;
-            /* to be deleted */
-            int_point_cur2.id = -1;
-            /* to be deleted */
-            do_squeeze = true;
+        int_point_ref1 = intersections.int_points1_sorted[i];
+        int_point_ref2 = intersections.int_points2[int_point_ref1.id];
+
+        for (let j=i+1; j < intersections.int_points1_sorted.length; j++) {
+            int_point_cur1 = intersections.int_points1_sorted[j];
+            if (!EQ(int_point_cur1.arc_length, int_point_ref1.arc_length)) {
+                break;
+            }
+            if (int_point_cur1.id === -1)
+                continue;
+            int_point_cur2 = intersections.int_points2[int_point_cur1.id];
+            if (int_point_cur2.id === -1)
+                continue;
+            if (int_point_cur1.edge_before === int_point_ref1.edge_before &&
+                int_point_cur1.edge_after === int_point_ref1.edge_after &&
+                int_point_cur2.edge_before === int_point_ref2.edge_before &&
+                int_point_cur2.edge_after === int_point_ref2.edge_after) {
+                int_point_cur1.id = -1;
+                /* to be deleted */
+                int_point_cur2.id = -1;
+                /* to be deleted */
+                do_squeeze = true;
+            }
         }
     }
 
@@ -661,7 +670,7 @@ function calculateInclusionFlags(int_points, polygon)
 function setOverlappingFlags(intersections)
 {
     let cur_face = undefined;
-    let first_int_point_in_face = undefined;
+    let first_int_point_in_face_id = undefined;
     let next_int_point1 = undefined;
     let num_int_points = intersections.int_points1.length;
 
@@ -670,17 +679,35 @@ function setOverlappingFlags(intersections)
 
         // Find boundary chain in the polygon1
         if (cur_int_point1.face !== cur_face) {                               // next chain started
-            first_int_point_in_face = cur_int_point1;
+            first_int_point_in_face_id = i; // cur_int_point1;
             cur_face = cur_int_point1.face;
         }
 
-        if (i + 1 === num_int_points) {                                         // last int point in array
-            next_int_point1 = first_int_point_in_face;
-        } else if (intersections.int_points1_sorted[i + 1].face !== cur_face) {   // last int point in chain
-            next_int_point1 = first_int_point_in_face;
-        } else {                                                                // not a last point in chain
-            next_int_point1 = intersections.int_points1_sorted[i + 1];
+        // Skip duplicated points with same <x,y> in "cur_int_point1" pool
+        let int_points_cur_pool_start = i;
+        let int_points_cur_pool_num = intPointsPoolCount(intersections.int_points1_sorted, i, cur_face);
+        let next_int_point_id;
+        if (int_points_cur_pool_start + int_points_cur_pool_num < num_int_points &&
+            intersections.int_points1_sorted[int_points_cur_pool_start + int_points_cur_pool_num].face === cur_face) {
+            next_int_point_id = int_points_cur_pool_start + int_points_cur_pool_num;
+        } else {                                         // get first point from the same face
+            next_int_point_id = first_int_point_in_face_id;
         }
+
+        // From all points with same ,x,y. in 'next_int_point1' pool choose one that
+        // has same face both in res_poly and in wrk_poly
+        let int_points_next_pool_num = intPointsPoolCount(intersections.int_points1_sorted, next_int_point_id, cur_face);
+        next_int_point1 = null;
+        for (let j=next_int_point_id; j < next_int_point_id + int_points_next_pool_num; j++) {
+            let next_int_point1_tmp = intersections.int_points1_sorted[j];
+            if (next_int_point1_tmp.face === cur_face &&
+                intersections.int_points2[next_int_point1_tmp.id].face === intersections.int_points2[cur_int_point1.id].face) {
+                next_int_point1 = next_int_point1_tmp;
+                break;
+            }
+        }
+        if (next_int_point1 === null)
+            continue;
 
         let edge_from1 = cur_int_point1.edge_after;
         let edge_to1 = next_int_point1.edge_before;
@@ -690,7 +717,6 @@ function setOverlappingFlags(intersections)
 
         if (edge_from1 !== edge_to1)                    //  one edge chain    TODO: support complex case
             continue;
-
 
         /* Find boundary chain in polygon2 between same intersection points */
         let cur_int_point2 = intersections.int_points2[cur_int_point1.id];
@@ -738,9 +764,9 @@ function removeNotRelevantChains(polygon, op, int_points, is_res_polygon)
 
         // Get next int point from the same face that current
 
-        // Count how many duplicated points with same <x,y> in "points from" pull ?
+        // Count how many duplicated points with same <x,y> in "points from" pool ?
         let int_points_from_pull_start = i;
-        let int_points_from_pull_num = intPointsPullCount(int_points, i, cur_face);
+        let int_points_from_pull_num = intPointsPoolCount(int_points, i, cur_face);
         let next_int_point_num;
         if (int_points_from_pull_start + int_points_from_pull_num < int_points.length &&
             int_points[int_points_from_pull_start + int_points_from_pull_num].face === int_point_current.face) {
@@ -752,7 +778,7 @@ function removeNotRelevantChains(polygon, op, int_points, is_res_polygon)
 
         /* Count how many duplicated points with same <x,y> in "points to" pull ? */
         let int_points_to_pull_start = next_int_point_num;
-        let int_points_to_pull_num = intPointsPullCount(int_points, int_points_to_pull_start, cur_face);
+        let int_points_to_pull_num = intPointsPoolCount(int_points, int_points_to_pull_start, cur_face);
 
 
         let edge_from = int_point_current.edge_after;
@@ -782,12 +808,12 @@ function removeNotRelevantChains(polygon, op, int_points, is_res_polygon)
         i += int_points_from_pull_num - 1;
     }
 }
-function intPointsPullCount(int_points, cur_int_point_num, cur_face)
+function intPointsPoolCount(int_points, cur_int_point_num, cur_face)
 {
     let int_point_current;
     let int_point_next;
 
-    let int_points_pull_num = 1;
+    let int_points_pool_num = 1;
 
     if (int_points.length == 1) return 1;
 
@@ -806,9 +832,9 @@ function intPointsPullCount(int_points, cur_int_point_num, cur_face)
             break;         /* next point is different - break and exit */
         }
 
-        int_points_pull_num++;     /* duplicated intersection point - increase counter */
+        int_points_pool_num++;     /* duplicated intersection point - increase counter */
     }
-    return int_points_pull_num;
+    return int_points_pool_num;
 }
 
 function copyWrkToRes(res_polygon, wrk_polygon, op, int_points)
