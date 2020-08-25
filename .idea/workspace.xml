@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Issue #45 The Typescript definitions aren't up to date&#10;- Attach namespaces BooleanOperations and Relations to Flatten namesapce&#10;- Fix several mismatches in typescript definition file&#10;- Release patch 1.2.8">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Issue #56 Prevent infinite loop in CircularLinkedList&#10;- Throw error &quot;Infinite loop&quot; from Face::setArcLength(). Infinite loop happens sometimes when boolean operation fails to find proper merge between two operands.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/distance.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/distance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +96,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations">
+  <component name="RunManager" selected="Mocha.#Flatten.Polygon">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -115,16 +111,6 @@
       <command value="run" />
       <scripts>
         <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="generate-docs" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -165,6 +151,21 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require @babel/register</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
+      <test-names>
+        <name value="#Flatten.Polygon" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="#test esm" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -181,8 +182,8 @@
     <list>
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
+      <item itemvalue="Mocha.#Flatten.Polygon" />
       <item itemvalue="npm.test" />
-      <item itemvalue="npm.generate-docs" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.publish-npm" />
     </list>
@@ -190,9 +191,9 @@
       <list>
         <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
-        <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
+        <item itemvalue="Mocha.#Flatten.Polygon" />
         <item itemvalue="npm.publish-npm" />
-        <item itemvalue="npm.generate-docs" />
+        <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
       </list>
     </recent_temporary>
   </component>
@@ -339,14 +340,7 @@
       <workItem from="1597567937732" duration="605000" />
       <workItem from="1597652466319" duration="5537000" />
       <workItem from="1597933060850" duration="113000" />
-      <workItem from="1598273671444" duration="4270000" />
-    </task>
-    <task id="LOCAL-00123" summary="- Rename branch v1.0.0 to be @flatten-js/core&#10;- Build @flatten-js/core from the /src, not from ./packages/core">
-      <created>1550477425085</created>
-      <option name="number" value="00123" />
-      <option name="presentableId" value="LOCAL-00123" />
-      <option name="project" value="LOCAL" />
-      <updated>1550477425088</updated>
+      <workItem from="1598273671444" duration="9564000" />
     </task>
     <task id="LOCAL-00124" summary="- Upgrade interval tree dependency">
       <created>1550478614607</created>
@@ -684,7 +678,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597932600658</updated>
     </task>
-    <option name="localTasksCounter" value="172" />
+    <task id="LOCAL-00172" summary="Issue #56 Prevent infinite loop in CircularLinkedList&#10;- Throw error &quot;Infinite loop&quot; from Face::setArcLength(). Infinite loop happens sometimes when boolean operation fails to find proper merge between two operands.">
+      <created>1598345035798</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1598345035799</updated>
+    </task>
+    <option name="localTasksCounter" value="173" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -703,7 +704,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Add de9im relations line2circle, line2box, line2polyline (not tested)&#10;- Split line using new class multiline&#10;- new method Polygon::cutFace to cut face with segment between two intersection points" />
     <MESSAGE value="- Add Ray::svg() method" />
     <MESSAGE value="- Add Ray::svg() method - compiled" />
     <MESSAGE value="- Fix bug in Ray::svg() method" />
@@ -728,106 +728,107 @@
     <MESSAGE value="- Fix polygon.contain method" />
     <MESSAGE value="Issue #45 The Typescript definitions aren't up to date&#10;- Attach namespaces BooleanOperations and Relations to Flatten namesapce&#10;- Fix several mismatches in typescript definition file&#10;- Release patch 1.2.8" />
     <MESSAGE value="- Data cases from issue #55 added to test data set (1..3)&#10;- unify is working after scaling of coordinates, subtract is not working yet" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Data cases from issue #55 added to test data set (1..3)&#10;- unify is working after scaling of coordinates, subtract is not working yet" />
+    <MESSAGE value="Issue #56 Prevent infinite loop in CircularLinkedList&#10;- Throw error &quot;Infinite loop&quot; from Face::setArcLength(). Infinite loop happens sometimes when boolean operation fails to find proper merge between two operands." />
+    <option name="LAST_COMMIT_MESSAGE" value="Issue #56 Prevent infinite loop in CircularLinkedList&#10;- Throw error &quot;Infinite loop&quot; from Face::setArcLength(). Infinite loop happens sometimes when boolean operation fails to find proper merge between two operands." />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596092921782">
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598349035423">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596092921782" />
+    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598349035423" />
     <state x="1271" y="273" key="#xdebugger.evaluate" timestamp="1596952207208">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1271" y="273" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1596952207208" />
-    <state x="2683" y="0" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1597932675603">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="763" y="125" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1598345035048">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="763" y="125" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1596952679155" />
+    <state x="763" y="125" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1598345035048" />
     <state x="2683" y="0" key="CommitChangelistDialog2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932675603" />
-    <state width="796" height="466" key="DebuggerActiveHint" timestamp="1596901831235">
+    <state width="796" height="466" key="DebuggerActiveHint" timestamp="1598350058891">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="796" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1596901831235" />
-    <state width="1717" height="250" key="GridCell.Tab.0.bottom" timestamp="1598344610946">
+    <state width="796" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1598350058891" />
+    <state width="1717" height="229" key="GridCell.Tab.0.bottom" timestamp="1598349725245">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="250" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598344610946" />
+    <state width="1717" height="229" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725245" />
     <state width="1717" height="229" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="250" key="GridCell.Tab.0.center" timestamp="1598344610946">
+    <state width="1717" height="229" key="GridCell.Tab.0.center" timestamp="1598349725245">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="250" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598344610946" />
+    <state width="1717" height="229" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725245" />
     <state width="1717" height="229" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="250" key="GridCell.Tab.0.left" timestamp="1598344610946">
+    <state width="1717" height="229" key="GridCell.Tab.0.left" timestamp="1598349725245">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="250" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598344610946" />
+    <state width="1717" height="229" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725245" />
     <state width="1717" height="229" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="250" key="GridCell.Tab.0.right" timestamp="1598344610946">
+    <state width="1717" height="229" key="GridCell.Tab.0.right" timestamp="1598349725245">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="250" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598344610946" />
+    <state width="1717" height="229" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725245" />
     <state width="1717" height="229" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="229" key="GridCell.Tab.1.bottom" timestamp="1597932722704">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.1.bottom" timestamp="1598349726369">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454319" />
+    <state width="1717" height="229" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598349726369" />
     <state width="1717" height="229" key="GridCell.Tab.1.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="229" key="GridCell.Tab.1.center" timestamp="1597932722704">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.1.center" timestamp="1598349726369">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454318" />
+    <state width="1717" height="229" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598349726369" />
     <state width="1717" height="229" key="GridCell.Tab.1.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="229" key="GridCell.Tab.1.left" timestamp="1597932722704">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.1.left" timestamp="1598349726369">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454318" />
+    <state width="1717" height="229" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598349726369" />
     <state width="1717" height="229" key="GridCell.Tab.1.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="229" key="GridCell.Tab.1.right" timestamp="1597932722704">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.1.right" timestamp="1598349726369">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454319" />
+    <state width="1717" height="229" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598349726369" />
     <state width="1717" height="229" key="GridCell.Tab.1.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="229" key="GridCell.Tab.2.bottom" timestamp="1597932722705">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.2.bottom" timestamp="1598349725132">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454319" />
+    <state width="1717" height="229" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725132" />
     <state width="1717" height="229" key="GridCell.Tab.2.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="229" key="GridCell.Tab.2.center" timestamp="1597932722705">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.2.center" timestamp="1598349725131">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454319" />
+    <state width="1717" height="229" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725131" />
     <state width="1717" height="229" key="GridCell.Tab.2.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="229" key="GridCell.Tab.2.left" timestamp="1597932722705">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.2.left" timestamp="1598349725131">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454319" />
+    <state width="1717" height="229" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725131" />
     <state width="1717" height="229" key="GridCell.Tab.2.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="229" key="GridCell.Tab.2.right" timestamp="1597932722705">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.2.right" timestamp="1598349725131">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454319" />
+    <state width="1717" height="229" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725131" />
     <state width="1717" height="229" key="GridCell.Tab.2.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="229" key="GridCell.Tab.3.bottom" timestamp="1597932722706">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.3.bottom" timestamp="1598349725132">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454321" />
+    <state width="1717" height="229" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725132" />
     <state width="1717" height="229" key="GridCell.Tab.3.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722706" />
-    <state width="1717" height="229" key="GridCell.Tab.3.center" timestamp="1597932722705">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.3.center" timestamp="1598349725132">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454320" />
+    <state width="1717" height="229" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725132" />
     <state width="1717" height="229" key="GridCell.Tab.3.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="229" key="GridCell.Tab.3.left" timestamp="1597932722705">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.3.left" timestamp="1598349725132">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454320" />
+    <state width="1717" height="229" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725132" />
     <state width="1717" height="229" key="GridCell.Tab.3.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="229" key="GridCell.Tab.3.right" timestamp="1597932722705">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1717" height="229" key="GridCell.Tab.3.right" timestamp="1598349725132">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1717" height="382" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597231454320" />
+    <state width="1717" height="229" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598349725132" />
     <state width="1717" height="229" key="GridCell.Tab.3.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
     <state x="907" y="233" key="RollbackChangesDialog" timestamp="1590229849796">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -837,10 +838,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="556" y="213" width="1137" height="722" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1596092462568" />
-    <state x="2733" y="268" key="Vcs.Push.Dialog.v2" timestamp="1597932602020">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1598345037984">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1596952811191" />
+    <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1598345037984" />
     <state x="2733" y="268" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932602020" />
     <state width="837" height="500" key="XDebugger.FullValuePopup" timestamp="1596952187755">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -864,6 +865,30 @@
           <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
           <line>334</line>
           <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
+          <line>321</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
+          <line>320</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
+          <line>318</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/algorithms/distance.js</url>
+          <line>551</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

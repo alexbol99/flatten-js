@@ -307,6 +307,20 @@ describe('#Flatten.Polygon', function() {
         expect(shortest_segment.ps).to.deep.equal({"x": 250, "y": 200});
 
     });
+    it('distanceTo between Polygons: First point of segment is not always on the this polygon #57', function () {
+        "use strict";
+
+        let rec1 = new Box(0, 0, 200, 50);
+        let rec2 = new Box(0, 500, 200, 550);
+        const p1 = new Polygon(rec1);
+        const p2 = new Polygon(rec2);
+
+        let [dist, shortest_segment] = p1.distanceTo(p2);
+
+        expect(dist).to.equal(450);
+        expect(shortest_segment.ps).to.deep.equal({"x": 200, "y": 50});
+        expect(shortest_segment.pe).to.deep.equal({"x": 200, "y": 500});
+    });
     it('Can add new vertex to face and split edge of polygon (segment)', function () {
         "use strict";
         let points = [
