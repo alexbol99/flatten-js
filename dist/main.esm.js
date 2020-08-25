@@ -6357,9 +6357,14 @@ class Face extends CircularLinkedList {
      * Arc_length of the edge it the arc length from the first edge of the face
      */
     setArcLength() {
+        let controlEdge = this.first;
         for (let edge of this) {
             this.setOneEdgeArcLength(edge);
             edge.face = this;
+            if (edge != this.first && edge === controlEdge) {
+                throw new Error("Infinite loop")
+            }
+            controlEdge = controlEdge.next.next;
         }
     }
 
