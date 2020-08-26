@@ -282,9 +282,10 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            let res = unify(poly1, poly2);
+            let res = unify(poly2, poly1);
 
             expect(res.faces.size).to.equal(1);
+            expect(res.edges.size).to.equal(34);
         });
         it('Can perform unify. Infinite loop for boolean union over (valid) polygons. Issue #55 case 1', function () {
             "use strict";
