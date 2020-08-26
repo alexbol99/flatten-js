@@ -321,7 +321,9 @@
         calculateInclusionFlags(intersections.int_points1, wrk_poly);
         calculateInclusionFlags(intersections.int_points2, res_poly);
 
-        // TODO: fix bondary conflicts
+        // fix boundary conflicts
+        fixBoundaryConflicts(res_poly, wrk_poly, intersections.int_points1_sorted, intersections.int_points2);
+        fixBoundaryConflicts(wrk_poly, res_poly, intersections.int_points2_sorted, intersections.int_points1);
 
         // Set overlapping flags for boundary chains: SAME or OPPOSITE
         setOverlappingFlags(intersections);
@@ -666,6 +668,82 @@
         for (let int_point of int_points) {
             int_point.edge_before.setInclusion(polygon);
             int_point.edge_after.setInclusion(polygon);
+        }
+    }
+
+    function fixBoundaryConflicts(poly1, poly2, int_points1_sorted, int_points2)
+    {
+        let cur_face;
+        let first_int_point_in_face_id;
+        let next_int_point1;
+        let num_int_points = int_points1_sorted.length;
+
+        for (let i = 0; i < num_int_points; i++) {
+            let cur_int_point1 = int_points1_sorted[i];
+
+            // Find boundary chain in the polygon1
+            if (cur_int_point1.face !== cur_face) {                               // next chain started
+                first_int_point_in_face_id = i; // cur_int_point1;
+                cur_face = cur_int_point1.face;
+            }
+
+            // Skip duplicated points with same <x,y> in "cur_int_point1" pool
+            let int_points_cur_pool_start = i;
+            let int_points_cur_pool_num = intPointsPoolCount(int_points1_sorted, i, cur_face);
+            let next_int_point_id;
+            if (int_points_cur_pool_start + int_points_cur_pool_num < num_int_points &&
+                int_points1_sorted[int_points_cur_pool_start + int_points_cur_pool_num].face === cur_face) {
+                next_int_point_id = int_points_cur_pool_start + int_points_cur_pool_num;
+            } else {                                         // get first point from the same face
+                next_int_point_id = first_int_point_in_face_id;
+            }
+
+            // From all points with same ,x,y. in 'next_int_point1' pool choose one that
+            // has same face both in res_poly and in wrk_poly
+            let int_points_next_pool_num = intPointsPoolCount(int_points1_sorted, next_int_point_id, cur_face);
+            next_int_point1 = null;
+            for (let j=next_int_point_id; j < next_int_point_id + int_points_next_pool_num; j++) {
+                let next_int_point1_tmp = int_points1_sorted[j];
+                if (next_int_point1_tmp.face === cur_face &&
+                    int_points2[next_int_point1_tmp.id].face === int_points2[cur_int_point1.id].face) {
+                    next_int_point1 = next_int_point1_tmp;
+                    break;
+                }
+            }
+            if (next_int_point1 === null)
+                continue;
+
+            let edge_from1 = cur_int_point1.edge_after;
+            let edge_to1 = next_int_point1.edge_before;
+
+            // One of the ends is not boundary - probably tiny edge wrongly marked as boundary
+            if (edge_from1.bv === BOUNDARY$1 && edge_to1.bv != BOUNDARY$1) {
+                edge_from1.bv = edge_to1.bv;
+            }
+
+            if (edge_from1.bv != BOUNDARY$1 && edge_to1.bv === BOUNDARY$1) {
+                edge_to1.bv = edge_from1.bv;
+            }
+
+            if (edge_from1.bv === BOUNDARY$1 && edge_to1.bv === BOUNDARY$1 && edge_from1 != edge_to1) {
+                let edge_tmp = edge_from1;
+                while (edge_tmp != edge_to1) {
+                    edge_tmp = edge_tmp.next;
+                    edge_tmp.bvStart = undefined;
+                    edge_tmp.bvEnd = undefined;
+                    edge_tmp.bv = undefined;
+                    let bv = edge_tmp.setInclusion(poly2);
+                    if (bv != BOUNDARY$1) {
+                        edge_from1.bv = bv;
+                        edge_to1.bv = bv;
+                    }
+                }
+            }
+
+            // TODO: one end of chain is inner, other is outer
+            if (edge_from1.bv === INSIDE$1 && edge_to1.bv === OUTSIDE$1  || edge_from1.bv === OUTSIDE$1 && edge_to1.bv === INSIDE$1 ) {
+                throw new Error("Boundary conflict in boolean operation")
+            }
         }
     }
 
@@ -1401,6 +1479,23 @@
             if (new_ip.length > 0 && new_ip[0].on(seg1) && new_ip[0].on(seg2)) {
                 ip.push(new_ip[0]);
             }
+
+            // Fix missing intersection
+            // const tol = 10*Flatten.DP_TOL;
+            // if (ip.length === 0 && new_ip.length > 0 && (new_ip[0].distanceTo(seg1)[0] < tol || new_ip[0].distanceTo(seg2)[0] < tol) ) {
+            //     if (seg1.start.distanceTo(seg2)[0] < tol) {
+            //         ip.push(new_ip[0]);
+            //     }
+            //     else if (seg1.end.distanceTo(seg2)[0] < tol) {
+            //         ip.push(new_ip[0]);
+            //     }
+            //     else if (seg2.start.distanceTo(seg1)[0] < tol) {
+            //         ip.push(new_ip[0]);
+            //     }
+            //     else if (seg2.end.distanceTo(seg1)[0] < tol) {
+            //         ip.push(new_ip[0]);
+            //     }
+            // }
         }
 
         return ip;
