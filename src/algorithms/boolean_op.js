@@ -143,8 +143,8 @@ function filterNotRelevantEdges(res_poly, wrk_poly, intersections, op) {
     calculateInclusionFlags(intersections.int_points2, res_poly);
 
     // fix boundary conflicts
-    fixBoundaryConflicts(intersections.int_points1_sorted, intersections.int_points2);
-    fixBoundaryConflicts(intersections.int_points2_sorted, intersections.int_points1);
+    fixBoundaryConflicts(res_poly, wrk_poly, intersections.int_points1_sorted, intersections.int_points2);
+    fixBoundaryConflicts(wrk_poly, res_poly, intersections.int_points2_sorted, intersections.int_points1);
 
     // Set overlapping flags for boundary chains: SAME or OPPOSITE
     setOverlappingFlags(intersections);
@@ -492,7 +492,7 @@ function calculateInclusionFlags(int_points, polygon)
     }
 }
 
-function fixBoundaryConflicts(int_points1_sorted, int_points2)
+function fixBoundaryConflicts(poly1, poly2, int_points1_sorted, int_points2)
 {
     let cur_face;
     let first_int_point_in_face_id;
@@ -546,7 +546,25 @@ function fixBoundaryConflicts(int_points1_sorted, int_points2)
             edge_to1.bv = edge_from1.bv;
         }
 
-        // TODO: fix pseudo boundary chain with not boundary edges in the middle
+        if (edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY && edge_from1 != edge_to1) {
+            let edge_tmp = edge_from1;
+            while (edge_tmp != edge_to1) {
+                edge_tmp = edge_tmp.next;
+                edge_tmp.bvStart = undefined;
+                edge_tmp.bvEnd = undefined;
+                edge_tmp.bv = undefined;
+                let bv = edge_tmp.setInclusion(poly2);
+                if (bv != BOUNDARY) {
+                    edge_from1.bv = bv;
+                    edge_to1.bv = bv;
+                }
+            }
+        }
+
+        // TODO: one end of chain is inner, other is outer
+        if (edge_from1.bv === INSIDE && edge_to1.bv === OUTSIDE  || edge_from1.bv === OUTSIDE && edge_to1.bv === INSIDE ) {
+            throw new Error("Boundary conflict in boolean operation")
+        }
     }
 }
 

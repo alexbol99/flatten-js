@@ -184,6 +184,23 @@ export function intersectSegment2Segment(seg1, seg2) {
         if (new_ip.length > 0 && new_ip[0].on(seg1) && new_ip[0].on(seg2)) {
             ip.push(new_ip[0]);
         }
+
+        // Fix missing intersection
+        // const tol = 10*Flatten.DP_TOL;
+        // if (ip.length === 0 && new_ip.length > 0 && (new_ip[0].distanceTo(seg1)[0] < tol || new_ip[0].distanceTo(seg2)[0] < tol) ) {
+        //     if (seg1.start.distanceTo(seg2)[0] < tol) {
+        //         ip.push(new_ip[0]);
+        //     }
+        //     else if (seg1.end.distanceTo(seg2)[0] < tol) {
+        //         ip.push(new_ip[0]);
+        //     }
+        //     else if (seg2.start.distanceTo(seg1)[0] < tol) {
+        //         ip.push(new_ip[0]);
+        //     }
+        //     else if (seg2.end.distanceTo(seg1)[0] < tol) {
+        //         ip.push(new_ip[0]);
+        //     }
+        // }
     }
 
     return ip;
