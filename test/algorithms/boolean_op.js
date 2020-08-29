@@ -302,9 +302,9 @@ describe('#Algorithms.Boolean Operations', function () {
             // expect( () => unify(poly1, poly2)).to.throw("Boundary conflict in boolean operation")
             let res = unify(poly1, poly2);
             expect(res.faces.size).to.equal(1);
-            expect(res.edges.size).to.equal(44);
+            expect(res.edges.size).to.equal(45);
         });
-        it('Can perform unify - throw error. Infinite loop for boolean union over (valid) polygons. Issue #55 case 2', function () {
+        it('Can perform unify. Infinite loop for boolean union over (valid) polygons. Issue #55 case 2', function () {
             "use strict";
 
             const json1 = `[[{"ps":{"x":1171923150.7737844,"y":255990437.5658898,"name":"point"},"pe":{"x":1171782510.010546,"y":256209390.93089134,"name":"point"},"name":"segment"},{"ps":{"x":1171782510.010546,"y":256209390.93089134,"name":"point"},"pe":{"x":1160700000,"y":270980000,"name":"point"},"name":"segment"},{"ps":{"x":1160700000,"y":270980000,"name":"point"},"pe":{"x":1155954306.7336805,"y":270305454.91937846,"name":"point"},"name":"segment"},{"ps":{"x":1155954306.7336805,"y":270305454.91937846,"name":"point"},"pe":{"x":1154272706.1855671,"y":267950000,"name":"point"},"name":"segment"},{"ps":{"x":1154272706.1855671,"y":267950000,"name":"point"},"pe":{"x":1154240000,"y":267950000,"name":"point"},"name":"segment"},{"ps":{"x":1154240000,"y":267950000,"name":"point"},"pe":{"x":1154115681.989453,"y":267730052.75057024,"name":"point"},"name":"segment"},{"ps":{"x":1154115681.989453,"y":267730052.75057024,"name":"point"},"pe":{"x":1154089926.5606358,"y":267693976.55424812,"name":"point"},"name":"segment"},{"ps":{"x":1154089926.5606358,"y":267693976.55424812,"name":"point"},"pe":{"x":1154092735.9985795,"y":267689455.9974853,"name":"point"},"name":"segment"},{"ps":{"x":1154092735.9985795,"y":267689455.9974853,"name":"point"},"pe":{"x":1153993265.3061225,"y":267513469.38775504,"name":"point"},"name":"segment"},{"ps":{"x":1153993265.3061225,"y":267513469.38775504,"name":"point"},"pe":{"x":1154107703.533026,"y":267284592.9339485,"name":"point"},"name":"segment"},{"ps":{"x":1154107703.533026,"y":267284592.9339485,"name":"point"},"pe":{"x":1286198103.4762266,"y":54821391.148841284,"name":"point"},"name":"segment"},{"ps":{"x":1286198103.4762266,"y":54821391.148841284,"name":"point"},"pe":{"x":1286232330.342853,"y":54685500.32193941,"name":"point"},"name":"segment"},{"ps":{"x":1286232330.342853,"y":54685500.32193941,"name":"point"},"pe":{"x":1319996203.9438455,"y":457619.7648851394,"name":"point"},"name":"segment"},{"ps":{"x":1319996203.9438455,"y":457619.7648851394,"name":"point"},"pe":{"x":1320005737.7285142,"y":442888.0849567612,"name":"point"},"name":"segment"},{"ps":{"x":1320005737.7285142,"y":442888.0849567612,"name":"point"},"pe":{"x":1320250000,"y":50000,"name":"point"},"name":"segment"},{"ps":{"x":1320250000,"y":50000,"name":"point"},"pe":{"x":1320260000,"y":50000,"name":"point"},"name":"segment"},{"ps":{"x":1320260000,"y":50000,"name":"point"},"pe":{"x":1335760000,"y":50000,"name":"point"},"name":"segment"},{"ps":{"x":1335760000,"y":50000,"name":"point"},"pe":{"x":1335929722.2222219,"y":350277.77777527034,"name":"point"},"name":"segment"},{"ps":{"x":1335929722.2222219,"y":350277.77777527034,"name":"point"},"pe":{"x":1336020000,"y":510000,"name":"point"},"name":"segment"},{"ps":{"x":1336020000,"y":510000,"name":"point"},"pe":{"x":1336017144.7222269,"y":514632.0777871349,"name":"point"},"name":"segment"},{"ps":{"x":1336017144.7222269,"y":514632.0777871349,"name":"point"},"pe":{"x":1336017149.883367,"y":514641.78073088516,"name":"point"},"name":"segment"},{"ps":{"x":1336017149.883367,"y":514641.78073088516,"name":"point"},"pe":{"x":1335880726.4613864,"y":736824.8325242014,"name":"point"},"name":"segment"},{"ps":{"x":1335880726.4613864,"y":736824.8325242014,"name":"point"},"pe":{"x":1335867232.677719,"y":757832.3218925294,"name":"point"},"name":"segment"},{"ps":{"x":1335867232.677719,"y":757832.3218925294,"name":"point"},"pe":{"x":1298200972.0620072,"y":61863287.90206727,"name":"point"},"name":"segment"},{"ps":{"x":1298200972.0620072,"y":61863287.90206727,"name":"point"},"pe":{"x":1172870000,"y":254760000,"name":"point"},"name":"segment"},{"ps":{"x":1172870000,"y":254760000,"name":"point"},"pe":{"x":1171923150.7737844,"y":255990437.5658898,"name":"point"},"name":"segment"}]]`;
@@ -316,9 +316,10 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            expect( () => unify(poly1, poly2)).to.throw("Unresolved boundary conflict in boolean operation")
-            // let res = unify(poly1, poly2);
-            // expect(res.faces.size).to.equal(1);
+            // expect( () => unify(poly1, poly2)).to.throw("Unresolved boundary conflict in boolean operation")
+            let res = unify(poly1, poly2);
+            expect(res.faces.size).to.equal(1);
+            expect(res.edges.size).to.equal(31);
         });
         it('Can perform unify. Infinite loop for boolean union over (valid) polygons. Issue #55 case 3', function () {
             "use strict";
@@ -666,7 +667,11 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            expect( () => intersect(poly1, poly2)).to.throw("Infinite loop")
+            let res = intersect(poly1, poly2);
+            expect(res.faces.size).to.equal(1);
+            expect(res.edges.size).to.equal(42);
+
+            // expect( () => intersect(poly1, poly2)).to.throw("Infinite loop")
             // expect( () => intersect(poly1, poly2)).to.throw("Boundary conflict in boolean operation")
         });
     });

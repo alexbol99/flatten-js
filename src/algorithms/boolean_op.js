@@ -143,7 +143,7 @@ function filterNotRelevantEdges(res_poly, wrk_poly, intersections, op) {
     calculateInclusionFlags(intersections.int_points2, res_poly);
 
     // fix boundary conflicts
-    fixBoundaryConflicts(res_poly, wrk_poly, intersections);
+    while (fixBoundaryConflicts(res_poly, wrk_poly, intersections));
     // fixBoundaryConflicts(wrk_poly, res_poly, intersections);
 
     // Set overlapping flags for boundary chains: SAME or OPPOSITE
@@ -595,30 +595,48 @@ function fixBoundaryConflicts(poly1, poly2, intersections)
             let edge_tmp = edge_from1;
             // Find missing intersection point
             while (edge_tmp != edge_to1) {
-                if (edge_tmp.bvStart === edge_from1.bv && edge_tmp.next.bvEnd === edge_to1.bv) {
-                    // Assume that missing intersection point is the end of the edge. Most common case
-                    let [dist, segment] = edge_tmp.end.distanceTo(poly2);
+                if (edge_tmp.bvStart === edge_from1.bv && edge_tmp.bvEnd === edge_to1.bv) {
+                    let [dist, segment] = edge_tmp.shape.distanceTo(poly2);
                     if (dist < 10*Flatten.DP_TOL) {  // it should be very close
-                        let pt = edge_tmp.end;
-
+                        // let pt = edge_tmp.end;
                         // add to the list of intersections of poly1
-                        intersections.int_points1.push({
-                            id: intersections.int_points1.length,
-                            pt: pt,
-                            arc_length: edge_tmp.next.arc_length,
-                            edge_before: edge_tmp,
-                            edge_after: edge_tmp.next,
-                            face: edge_tmp.face,
-                            is_vertex: END_VERTEX
-                        });
+                        addToIntPoints(edge_tmp, segment.ps, intersections.int_points1);
 
-                        edge_tmp.bvEnd = BOUNDARY;
-                        edge_tmp.bv = undefined;
-                        edge_tmp.setInclusion(poly2);
+                        // split edge_tmp in poly1 if need
+                        let int_point1 = intersections.int_points1[intersections.int_points1.length-1];
+                        if (int_point1.is_vertex & START_VERTEX) {        // nothing to split
+                            int_point1.edge_after = edge_tmp;
+                            int_point1.edge_before = edge_tmp.prev
+                            edge_tmp.bvStart = BOUNDARY;
+                            edge_tmp.bv = undefined;
+                            edge_tmp.setInclusion(poly2);
+                        }
+                        else if (int_point1.is_vertex & END_VERTEX) {    // nothing to split
+                            int_point1.edge_after = edge_tmp.next;
+                            edge_tmp.bvEnd = BOUNDARY;
+                            edge_tmp.bv = undefined;
+                            edge_tmp.setInclusion(poly2);
+                        }
+                        else {        // split edge here
+                            let newEdge1 = poly2.addVertex(int_point1.pt, edge_tmp);
+                            int_point1.edge_before = newEdge1;
+                            int_point1.edge_after = newEdge1.next;
 
-                        edge_tmp.next.bvStart = BOUNDARY;
-                        edge_tmp.next.bv = undefined;
-                        edge_tmp.next.setInclusion(poly2);
+                            newEdge1.setInclusion(poly2)
+
+                            newEdge1.next.bvStart = BOUNDARY;
+                            newEdge1.next.bvEnd = undefined;
+                            newEdge1.next.bv = undefined;
+                            newEdge1.next.setInclusion(poly2);
+                        }
+
+                        // edge_tmp.bvEnd = BOUNDARY;
+                        // edge_tmp.bv = undefined;
+                        // edge_tmp.setInclusion(poly2);
+                        //
+                        // edge_tmp.next.bvStart = BOUNDARY;
+                        // edge_tmp.next.bv = undefined;
+                        // edge_tmp.next.setInclusion(poly2);
 
                         // add to the list of intersections of poly2
                         let edge2 = poly2.findEdgeByPoint(segment.pe);
@@ -633,9 +651,6 @@ function fixBoundaryConflicts(poly1, poly2, intersections)
                             int_point2.edge_after = edge2.next;
                         }
                         else {        // split edge here
-                            // TO BE CHECKED: is these references still valid after edge2 removed ?
-                            // let before_edge2 = edge2.prev;
-                            // let after_edge2 = edge2.next;
                             let newEdge2 = poly2.addVertex(int_point2.pt, edge2);
                             int_point2.edge_before = newEdge2;
                             int_point2.edge_after = newEdge2.next;
@@ -646,17 +661,6 @@ function fixBoundaryConflicts(poly1, poly2, intersections)
                             newEdge2.next.bvEnd = undefined;
                             newEdge2.next.bv = undefined;
                             newEdge2.next.setInclusion(poly1);
-
-                            // if one of int_points2 has a reference to edge2, update them
-                            // int_points2 = intersections.int_points2;
-                            // for (let j=0; j < int_points2.length; j++) {
-                            //     if (int_points2[j].edge_after === edge2) {
-                            //         int_points2[j].edge_after = newEdge2;
-                            //     }
-                            //     if (int_points2[j].edge_before === edge2) {
-                            //         int_points2[j].edge_before = newEdge2.next;
-                            //     }
-                            // }
                         }
 
                         sortIntersections(intersections);
