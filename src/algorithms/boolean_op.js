@@ -143,8 +143,8 @@ function filterNotRelevantEdges(res_poly, wrk_poly, intersections, op) {
     calculateInclusionFlags(intersections.int_points2, res_poly);
 
     // fix boundary conflicts
-    fixBoundaryConflicts(res_poly, wrk_poly, intersections.int_points1_sorted, intersections.int_points2);
-    fixBoundaryConflicts(wrk_poly, res_poly, intersections.int_points2_sorted, intersections.int_points1);
+    fixBoundaryConflicts(res_poly, wrk_poly, intersections);
+    // fixBoundaryConflicts(wrk_poly, res_poly, intersections);
 
     // Set overlapping flags for boundary chains: SAME or OPPOSITE
     setOverlappingFlags(intersections);
@@ -492,12 +492,15 @@ function calculateInclusionFlags(int_points, polygon)
     }
 }
 
-function fixBoundaryConflicts(poly1, poly2, int_points1_sorted, int_points2)
+function fixBoundaryConflicts(poly1, poly2, intersections)
 {
     let cur_face;
     let first_int_point_in_face_id;
     let next_int_point1;
+    let int_points1_sorted = intersections.int_points1_sorted;
+    let int_points2 = intersections.int_points2;
     let num_int_points = int_points1_sorted.length;
+    let iterate_more = false;
 
     for (let i = 0; i < num_int_points; i++) {
         let cur_int_point1 = int_points1_sorted[i];
@@ -537,35 +540,143 @@ function fixBoundaryConflicts(poly1, poly2, int_points1_sorted, int_points2)
         let edge_from1 = cur_int_point1.edge_after;
         let edge_to1 = next_int_point1.edge_before;
 
-        // One of the ends is not boundary - probably tiny edge wrongly marked as boundary
+        // Case #1. One of the ends is not boundary - probably tiny edge wrongly marked as boundary
         if (edge_from1.bv === BOUNDARY && edge_to1.bv != BOUNDARY) {
             edge_from1.bv = edge_to1.bv;
+            continue;
         }
 
         if (edge_from1.bv != BOUNDARY && edge_to1.bv === BOUNDARY) {
             edge_to1.bv = edge_from1.bv;
+            continue;
         }
 
-        if (edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY && edge_from1 != edge_to1) {
-            let edge_tmp = edge_from1;
+        // Set up all boundary values for middle edges. Need for cases 2 and 3
+        if ( (edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY && edge_from1 != edge_to1) ||
+        (edge_from1.bv === INSIDE && edge_to1.bv === OUTSIDE  || edge_from1.bv === OUTSIDE && edge_to1.bv === INSIDE ) ) {
+            let edge_tmp = edge_from1.next;
             while (edge_tmp != edge_to1) {
-                edge_tmp = edge_tmp.next;
                 edge_tmp.bvStart = undefined;
                 edge_tmp.bvEnd = undefined;
                 edge_tmp.bv = undefined;
-                let bv = edge_tmp.setInclusion(poly2);
-                if (bv != BOUNDARY) {
-                    edge_from1.bv = bv;
-                    edge_to1.bv = bv;
-                }
+                edge_tmp.setInclusion(poly2);
+                edge_tmp = edge_tmp.next;
             }
         }
 
-        // TODO: one end of chain is inner, other is outer
+        // Case #2. Both of the ends boundary. Check all the edges in the middle
+        // If some edges in the middle are not boundary then update bv of 'from' and 'to' edges
+        if (edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY && edge_from1 != edge_to1) {
+            let edge_tmp = edge_from1.next;
+            let new_bv;
+            while (edge_tmp != edge_to1) {
+                if (edge_tmp.bv != BOUNDARY) {
+                    if (new_bv === undefined) {        // first not boundary edge between from and to
+                        new_bv = edge_tmp.bv;
+                    }
+                    else {                            // another not boundary edge between from and to
+                        if (edge_tmp.bv != new_bv) {  // and it has different bv - can't resolve conflict
+                            throw new Error("Unresolved boundary conflict in boolean operation")
+                        }
+                    }
+                }
+                edge_tmp = edge_tmp.next;
+            }
+
+            if (new_bv != undefined) {
+                edge_from1.bv = new_bv;
+                edge_to1.bv = new_bv;
+            }
+            continue;         // all middle edges are boundary, proceed with this
+        }
+
+        // Case 3. One of the ends is inner, another is outer
         if (edge_from1.bv === INSIDE && edge_to1.bv === OUTSIDE  || edge_from1.bv === OUTSIDE && edge_to1.bv === INSIDE ) {
-            throw new Error("Boundary conflict in boolean operation")
+            let edge_tmp = edge_from1;
+            // Find missing intersection point
+            while (edge_tmp != edge_to1) {
+                if (edge_tmp.bvStart === edge_from1.bv && edge_tmp.next.bvEnd === edge_to1.bv) {
+                    // Assume that missing intersection point is the end of the edge. Most common case
+                    let [dist, segment] = edge_tmp.end.distanceTo(poly2);
+                    if (dist < 10*Flatten.DP_TOL) {  // it should be very close
+                        let pt = edge_tmp.end;
+
+                        // add to the list of intersections of poly1
+                        intersections.int_points1.push({
+                            id: intersections.int_points1.length,
+                            pt: pt,
+                            arc_length: edge_tmp.next.arc_length,
+                            edge_before: edge_tmp,
+                            edge_after: edge_tmp.next,
+                            face: edge_tmp.face,
+                            is_vertex: END_VERTEX
+                        });
+
+                        edge_tmp.bvEnd = BOUNDARY;
+                        edge_tmp.bv = undefined;
+                        edge_tmp.setInclusion(poly2);
+
+                        edge_tmp.next.bvStart = BOUNDARY;
+                        edge_tmp.next.bv = undefined;
+                        edge_tmp.next.setInclusion(poly2);
+
+                        // add to the list of intersections of poly2
+                        let edge2 = poly2.findEdgeByPoint(segment.pe);
+                        addToIntPoints(edge2, segment.pe, intersections.int_points2);
+                        // split edge2 in poly2 if need
+                        let int_point2 = intersections.int_points2[intersections.int_points2.length-1];
+                        if (int_point2.is_vertex & START_VERTEX) {        // nothing to split
+                            int_point2.edge_after = edge2;
+                            int_point2.edge_before = edge2.prev
+                        }
+                        else if (int_point2.is_vertex & END_VERTEX) {    // nothing to split
+                            int_point2.edge_after = edge2.next;
+                        }
+                        else {        // split edge here
+                            // TO BE CHECKED: is these references still valid after edge2 removed ?
+                            // let before_edge2 = edge2.prev;
+                            // let after_edge2 = edge2.next;
+                            let newEdge2 = poly2.addVertex(int_point2.pt, edge2);
+                            int_point2.edge_before = newEdge2;
+                            int_point2.edge_after = newEdge2.next;
+
+                            newEdge2.setInclusion(poly1)
+
+                            newEdge2.next.bvStart = BOUNDARY;
+                            newEdge2.next.bvEnd = undefined;
+                            newEdge2.next.bv = undefined;
+                            newEdge2.next.setInclusion(poly1);
+
+                            // if one of int_points2 has a reference to edge2, update them
+                            // int_points2 = intersections.int_points2;
+                            // for (let j=0; j < int_points2.length; j++) {
+                            //     if (int_points2[j].edge_after === edge2) {
+                            //         int_points2[j].edge_after = newEdge2;
+                            //     }
+                            //     if (int_points2[j].edge_before === edge2) {
+                            //         int_points2[j].edge_before = newEdge2.next;
+                            //     }
+                            // }
+                        }
+
+                        sortIntersections(intersections);
+
+                        iterate_more = true;
+                        break;
+                    }
+                }
+                edge_tmp = edge_tmp.next;
+            }
+
+            // we changed intersections inside loop, have to exit and repair again
+            if (iterate_more)
+                break;
+
+            throw new Error("Unresolved boundary conflict in boolean operation")
         }
     }
+
+    return iterate_more;
 }
 
 function setOverlappingFlags(intersections)
