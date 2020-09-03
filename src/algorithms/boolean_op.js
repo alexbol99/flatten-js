@@ -143,8 +143,8 @@ function filterNotRelevantEdges(res_poly, wrk_poly, intersections, op) {
     calculateInclusionFlags(intersections.int_points2, res_poly);
 
     // fix boundary conflicts
-    while (fixBoundaryConflicts(res_poly, wrk_poly, intersections));
-    // fixBoundaryConflicts(wrk_poly, res_poly, intersections);
+    while (fixBoundaryConflicts(res_poly, wrk_poly, intersections.int_points1, intersections.int_points1_sorted, intersections.int_points2, intersections));
+    // while (fixBoundaryConflicts(wrk_poly, res_poly, intersections.int_points2, intersections.int_points2_sorted, intersections.int_points1, intersections));
 
     // Set overlapping flags for boundary chains: SAME or OPPOSITE
     setOverlappingFlags(intersections);
@@ -319,10 +319,10 @@ function compareFn(ip1, ip2)
         return 1;
     }
     // same face - compare arc_length
-    if (Utils.LT(ip1.arc_length, ip2.arc_length)) {
+    if (ip1.arc_length < ip2.arc_length) {
         return -1;
     }
-    if (Utils.GT(ip1.arc_length, ip2.arc_length)) {
+    if (ip1.arc_length > ip2.arc_length) {
         return 1;
     }
     return 0;
@@ -492,13 +492,11 @@ function calculateInclusionFlags(int_points, polygon)
     }
 }
 
-function fixBoundaryConflicts(poly1, poly2, intersections)
+function fixBoundaryConflicts(poly1, poly2, int_points1, int_points1_sorted, int_points2, intersections )
 {
     let cur_face;
     let first_int_point_in_face_id;
     let next_int_point1;
-    let int_points1_sorted = intersections.int_points1_sorted;
-    let int_points2 = intersections.int_points2;
     let num_int_points = int_points1_sorted.length;
     let iterate_more = false;
 
@@ -600,10 +598,10 @@ function fixBoundaryConflicts(poly1, poly2, intersections)
                     if (dist < 10*Flatten.DP_TOL) {  // it should be very close
                         // let pt = edge_tmp.end;
                         // add to the list of intersections of poly1
-                        addToIntPoints(edge_tmp, segment.ps, intersections.int_points1);
+                        addToIntPoints(edge_tmp, segment.ps, int_points1);
 
                         // split edge_tmp in poly1 if need
-                        let int_point1 = intersections.int_points1[intersections.int_points1.length-1];
+                        let int_point1 = int_points1[int_points1.length-1];
                         if (int_point1.is_vertex & START_VERTEX) {        // nothing to split
                             int_point1.edge_after = edge_tmp;
                             int_point1.edge_before = edge_tmp.prev
@@ -630,19 +628,11 @@ function fixBoundaryConflicts(poly1, poly2, intersections)
                             newEdge1.next.setInclusion(poly2);
                         }
 
-                        // edge_tmp.bvEnd = BOUNDARY;
-                        // edge_tmp.bv = undefined;
-                        // edge_tmp.setInclusion(poly2);
-                        //
-                        // edge_tmp.next.bvStart = BOUNDARY;
-                        // edge_tmp.next.bv = undefined;
-                        // edge_tmp.next.setInclusion(poly2);
-
                         // add to the list of intersections of poly2
                         let edge2 = poly2.findEdgeByPoint(segment.pe);
-                        addToIntPoints(edge2, segment.pe, intersections.int_points2);
+                        addToIntPoints(edge2, segment.pe, int_points2);
                         // split edge2 in poly2 if need
-                        let int_point2 = intersections.int_points2[intersections.int_points2.length-1];
+                        let int_point2 = int_points2[int_points2.length-1];
                         if (int_point2.is_vertex & START_VERTEX) {        // nothing to split
                             int_point2.edge_after = edge2;
                             int_point2.edge_before = edge2.prev
@@ -651,10 +641,20 @@ function fixBoundaryConflicts(poly1, poly2, intersections)
                             int_point2.edge_after = edge2.next;
                         }
                         else {        // split edge here
+                            // first locate int_points that may refer to edge2 as edge.after
+                            // let int_point2_edge_before = int_points2.find( int_point => int_point.edge_before === edge2)
+                            let int_point2_edge_after = int_points2.find( int_point => int_point.edge_after === edge2 )
+
                             let newEdge2 = poly2.addVertex(int_point2.pt, edge2);
                             int_point2.edge_before = newEdge2;
                             int_point2.edge_after = newEdge2.next;
 
+                            if (int_point2_edge_after)
+                                int_point2_edge_after.edge_after = newEdge2;
+
+                            newEdge2.bvStart = undefined;
+                            newEdge2.bvEnd = BOUNDARY;
+                            newEdge2.bv = undefined;
                             newEdge2.setInclusion(poly1)
 
                             newEdge2.next.bvStart = BOUNDARY;

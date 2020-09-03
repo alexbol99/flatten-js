@@ -147,6 +147,8 @@ export class Edge {
         /* Both are boundary - check the middle point */
         else {
             let bvMiddle = ray_shoot(polygon, this.middle());
+            // let boundary = this.middle().distanceTo(polygon)[0] < 10*Flatten.DP_TOL;
+            // let bvMiddle = boundary ? Flatten.BOUNDARY : ray_shoot(polygon, this.middle());
             this.bv = bvMiddle;
         }
         return this.bv;
