@@ -1,6 +1,7 @@
 'use strict';
 
 import {expect} from 'chai';
+import Flatten from '../../index';
 import LinkedList from '../../src/data_structures/linked_list';
 
 describe('#LinkedList', function () {
@@ -179,5 +180,22 @@ describe('#LinkedList', function () {
         expect(list.last).to.be.equal(element5);
         let arr = list.toArray().map( elm => elm.val);
         expect(arr).to.be.deep.equal(["one","two","three","four","five"])
+    });
+    it('May throw error when infinite loop detected', function () {
+        let element1 = {val: "one", next: undefined, prev: undefined};
+        let element2 = {val: "two", next: undefined, prev: undefined};
+        let element3 = {val: "three", next: undefined, prev: undefined};
+        let element4 = {val: "four", next: undefined, prev: undefined};
+        let element5 = {val: "five", next: undefined, prev: undefined};
+
+        element1.next = element2;
+        element2.next = element3; element2.prev = element1;
+        element3.next = element4; element3.prev = element2;
+        element4.next = element5; element4.prev = element3;
+        element5.prev = element4;
+        element5.next = element3;       // create circular link
+
+        let list = new LinkedList(element1, element5);
+        expect( () => LinkedList.testInfiniteLoop(element1)).to.throw(Flatten.Errors.INFINITE_LOOP.message)
     });
 });

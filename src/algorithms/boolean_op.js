@@ -7,6 +7,7 @@
 "use strict";
 import Flatten from '../flatten';
 import * as Utils from '../utils/utils';
+import LinkedList from "../data_structures/linked_list";
 
 let {INSIDE, OUTSIDE, BOUNDARY, OVERLAP_SAME, OVERLAP_OPPOSITE} = Flatten;
 
@@ -574,7 +575,7 @@ function fixBoundaryConflicts(poly1, poly2, int_points1, int_points1_sorted, int
                     }
                     else {                            // another not boundary edge between from and to
                         if (edge_tmp.bv != new_bv) {  // and it has different bv - can't resolve conflict
-                            throw new Error("Unresolved boundary conflict in boolean operation")
+                            throw Flatten.Errors.UNRESOLVED_BOUNDARY_CONFLICT;
                         }
                     }
                 }
@@ -676,7 +677,7 @@ function fixBoundaryConflicts(poly1, poly2, int_points1, int_points1_sorted, int
             if (iterate_more)
                 break;
 
-            throw new Error("Unresolved boundary conflict in boolean operation")
+            throw Flatten.Errors.UNRESOLVED_BOUNDARY_CONFLICT;
         }
     }
 
@@ -970,6 +971,8 @@ export function restoreFaces(polygon, int_points, other_int_points)
 
         let first = int_point.edge_after;      // face start
         let last = int_point.edge_before;      // face end;
+
+        LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
 
         let face = polygon.addFace(first, last);
 

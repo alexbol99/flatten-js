@@ -502,7 +502,7 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            expect( () => subtract(poly1, poly2)).to.throw("Infinite loop")
+            expect( () => subtract(poly1, poly2)).to.throw(Flatten.Errors.INFINITE_LOOP.message)
             // let res = subtract(poly1, poly2);
             // expect(res.faces.size).to.equal(1);
             // expect(res.edges.size).to.equal(42);
@@ -519,7 +519,7 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            expect( () => subtract(poly1, poly2)).to.throw("Infinite loop")
+            expect( () => subtract(poly1, poly2)).to.throw(Flatten.Errors.INFINITE_LOOP.message)
             // let res = subtract(poly1, poly2);
             // expect(res.faces.size).to.equal(1);
             // expect(res.edges.size).to.equal(11);
@@ -770,7 +770,8 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            expect( () => intersect(poly1, poly2)).to.throw("Infinite loop")
+            expect( () => intersect(poly1, poly2)).to.throw(Flatten.Errors.INFINITE_LOOP.message)
+            // expect( () => intersect(poly1, poly2)).to.throw("Infinite loop")
             // let res = intersect(poly1, poly2);
             // expect(res.faces.size).to.equal(1);
             // expect(res.edges.size).to.equal(11);

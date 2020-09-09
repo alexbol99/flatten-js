@@ -56,6 +56,7 @@ declare namespace Flatten {
         remove(element: LinkedListElement): LinkedList;
         toArray(start?: LinkedListElement, end?: LinkedListElement): LinkedListElement[];
         isEmpty(): boolean;
+        static testInfiniteLoop(first: LinkedListElement): undefined;
     }
 
     class CircularLinkedList extends LinkedList {}

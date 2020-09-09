@@ -133,7 +133,6 @@ class Errors {
     /**
      * Throw error ILLEGAL_PARAMETERS when cannot instantiate from given parameter
      * @returns {ReferenceError}
-     * @constructor
      */
     static get ILLEGAL_PARAMETERS() {
         return new ReferenceError('Illegal Parameters');
@@ -142,10 +141,26 @@ class Errors {
     /**
      * Throw error ZERO_DIVISION to catch situation of zero division
      * @returns {Error}
-     * @constructor
      */
     static get ZERO_DIVISION() {
         return new Error('Zero division');
+    }
+
+    /**
+     * Error to throw from BooleanOperations module in case when fixBoundaryConflicts not capable to fix it
+     * @returns {Error}
+     */
+    static get UNRESOLVED_BOUNDARY_CONFLICT() {
+        return new Error('Unresolved boundary conflict in boolean operation');
+    }
+
+    /**
+     * Error to throw from LinkedList:testInfiniteLoop static method
+     * in case when circular loop detected in linked list
+     * @returns {Error}
+     */
+    static get INFINITE_LOOP() {
+        return new Error('Infinite loop');
     }
 }
 
@@ -180,6 +195,166 @@ Object.defineProperty(Flatten, 'DP_TOL', {
     get:function(){return getTolerance()}, 
     set:function(value){setTolerance(value);}
 });
+
+/**
+ * Class implements bidirectional non-circular linked list. <br/>
+ * LinkedListElement - object of any type that has properties next and prev.
+ */
+class LinkedList {
+    constructor(first, last) {
+        this.first = first;
+        this.last = last || this.first;
+    }
+
+    /**
+     * Return number of elements in the list
+     * @returns {number}
+     */
+    get size() {
+        let counter = 0;
+        for (let edge of this) {
+            counter++;
+        }
+        return counter;
+    }
+
+    /**
+     * Throw an error if circular loop detected in the linked list
+     * @param {LinkedListElement} first element to start iteration
+     * @throws {Flatten.Errors.INFINITE_LOOP}
+     */
+    static testInfiniteLoop(first) {
+        let edge = first;
+        let controlEdge = first;
+        do {
+            if (edge != first && edge === controlEdge) {
+                throw Flatten.Errors.INFINITE_LOOP;  // new Error("Infinite loop")
+            }
+            edge = edge.next;
+            controlEdge = controlEdge.next.next;
+        } while (edge != first)
+    }
+
+    [Symbol.iterator]() {
+        let value = undefined;
+        return {
+            next: () => {
+                value = value ? value.next : this.first;
+                return {value: value, done: value === undefined};
+            }
+        };
+    };
+
+    /**
+     * Return array of elements from start to end,
+     * If start or end not defined, take first as start, last as end
+     * @returns {Array}
+     */
+    toArray(start=undefined, end=undefined) {
+        let elements = [];
+        let from = start || this.first;
+        let to = end || this.last;
+        let element = from;
+        if (element === undefined) return elements;
+        do {
+            elements.push(element);
+            element = element.next;
+        } while (element !== to.next);
+        return elements;
+    }
+
+    /**
+     * Append new element to the end of the list
+     * @param {LinkedListElement} element
+     * @returns {LinkedList}
+     */
+    append(element) {
+        if (this.isEmpty()) {
+            this.first = element;
+        } else {
+            element.prev = this.last;
+            this.last.next = element;
+        }
+
+        // update edge to be last
+        this.last = element;
+
+        // nullify non-circular links
+        this.last.next = undefined;
+        this.first.prev = undefined;
+        return this;
+    }
+
+    /**
+     * Insert new element to the list after elementBefore
+     * @param {LinkedListElement} newElement
+     * @param {LinkedListElement} elementBefore
+     * @returns {LinkedList}
+     */
+    insert(newElement, elementBefore) {
+        if (this.isEmpty()) {
+            this.first = newElement;
+            this.last = newElement;
+        }
+        else if (elementBefore === null || elementBefore === undefined) {
+            newElement.next = this.first;
+            this.first.prev = newElement;
+            this.first = newElement;
+        }
+        else {
+            /* set links to new element */
+            let elementAfter = elementBefore.next;
+            elementBefore.next = newElement;
+            if (elementAfter) elementAfter.prev = newElement;
+
+            /* set links from new element */
+            newElement.prev = elementBefore;
+            newElement.next = elementAfter;
+
+            /* extend list if new element added after the last element */
+            if (this.last === elementBefore)
+                this.last = newElement;
+        }
+        // nullify non-circular links
+        this.last.next = undefined;
+        this.first.prev = undefined;
+        return this;
+    }
+
+    /**
+     * Remove element from the list
+     * @param {LinkedListElement} element
+     * @returns {LinkedList}
+     */
+    remove(element) {
+        // special case if last edge removed
+        if (element === this.first && element === this.last) {
+            this.first = undefined;
+            this.last = undefined;
+        } else {
+            // update linked list
+            if (element.prev) element.prev.next = element.next;
+            if (element.next) element.next.prev = element.prev;
+            // update first if need
+            if (element === this.first) {
+                this.first = element.next;
+            }
+            // update last if need
+            if (element === this.last) {
+                this.last = element.prev;
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Return true if list is empty
+     * @returns {boolean}
+     */
+    isEmpty() {
+        return this.first === undefined;
+    }
+}
 
 /**
  * Created by Alex Bol on 12/02/2018.
@@ -751,7 +926,7 @@ function fixBoundaryConflicts(poly1, poly2, int_points1, int_points1_sorted, int
                     }
                     else {                            // another not boundary edge between from and to
                         if (edge_tmp.bv != new_bv) {  // and it has different bv - can't resolve conflict
-                            throw new Error("Unresolved boundary conflict in boolean operation")
+                            throw Flatten.Errors.UNRESOLVED_BOUNDARY_CONFLICT;
                         }
                     }
                 }
@@ -853,7 +1028,7 @@ function fixBoundaryConflicts(poly1, poly2, int_points1, int_points1_sorted, int
             if (iterate_more)
                 break;
 
-            throw new Error("Unresolved boundary conflict in boolean operation")
+            throw Flatten.Errors.UNRESOLVED_BOUNDARY_CONFLICT;
         }
     }
 
@@ -1146,6 +1321,8 @@ function restoreFaces(polygon, int_points, other_int_points)
 
         let first = int_point.edge_after;      // face start
         let last = int_point.edge_before;      // face end;
+
+        LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
 
         let face = polygon.addFace(first, last);
 
@@ -1978,151 +2155,6 @@ function intersectShape2Polygon(shape, polygon) {
 
 function ptInIntPoints(new_pt, ip) {
     return ip.some( pt => pt.equalTo(new_pt) )
-}
-
-/**
- * Class implements bidirectional non-circular linked list. <br/>
- * LinkedListElement - object of any type that has properties next and prev.
- */
-class LinkedList {
-    constructor(first, last) {
-        this.first = first;
-        this.last = last || this.first;
-    }
-
-    [Symbol.iterator]() {
-        let value = undefined;
-        return {
-            next: () => {
-                value = value ? value.next : this.first;
-                return {value: value, done: value === undefined};
-            }
-        };
-    };
-
-    /**
-     * Return number of elements in the list
-     * @returns {number}
-     */
-    get size() {
-        let counter = 0;
-        for (let edge of this) {
-            counter++;
-        }
-        return counter;
-    }
-
-    /**
-     * Return array of elements from start to end,
-     * If start or end not defined, take first as start, last as end
-     * @returns {Array}
-     */
-    toArray(start=undefined, end=undefined) {
-        let elements = [];
-        let from = start || this.first;
-        let to = end || this.last;
-        let element = from;
-        if (element === undefined) return elements;
-        do {
-            elements.push(element);
-            element = element.next;
-        } while (element !== to.next);
-        return elements;
-    }
-
-
-    /**
-     * Append new element to the end of the list
-     * @param {LinkedListElement} element
-     * @returns {LinkedList}
-     */
-    append(element) {
-        if (this.isEmpty()) {
-            this.first = element;
-        } else {
-            element.prev = this.last;
-            this.last.next = element;
-        }
-
-        // update edge to be last
-        this.last = element;
-
-        // nullify non-circular links
-        this.last.next = undefined;
-        this.first.prev = undefined;
-        return this;
-    }
-
-    /**
-     * Insert new element to the list after elementBefore
-     * @param {LinkedListElement} newElement
-     * @param {LinkedListElement} elementBefore
-     * @returns {LinkedList}
-     */
-    insert(newElement, elementBefore) {
-        if (this.isEmpty()) {
-            this.first = newElement;
-            this.last = newElement;
-        }
-        else if (elementBefore === null || elementBefore === undefined) {
-            newElement.next = this.first;
-            this.first.prev = newElement;
-            this.first = newElement;
-        }
-        else {
-            /* set links to new element */
-            let elementAfter = elementBefore.next;
-            elementBefore.next = newElement;
-            if (elementAfter) elementAfter.prev = newElement;
-
-            /* set links from new element */
-            newElement.prev = elementBefore;
-            newElement.next = elementAfter;
-
-            /* extend list if new element added after the last element */
-            if (this.last === elementBefore)
-                this.last = newElement;
-        }
-        // nullify non-circular links
-        this.last.next = undefined;
-        this.first.prev = undefined;
-        return this;
-    }
-
-    /**
-     * Remove element from the list
-     * @param {LinkedListElement} element
-     * @returns {LinkedList}
-     */
-    remove(element) {
-        // special case if last edge removed
-        if (element === this.first && element === this.last) {
-            this.first = undefined;
-            this.last = undefined;
-        } else {
-            // update linked list
-            if (element.prev) element.prev.next = element.next;
-            if (element.next) element.next.prev = element.prev;
-            // update first if need
-            if (element === this.first) {
-                this.first = element.next;
-            }
-            // update last if need
-            if (element === this.last) {
-                this.last = element.prev;
-            }
-        }
-        return this;
-    }
-
-    /**
-     * Return true if list is empty
-     * @returns {boolean}
-     */
-    isEmpty() {
-        return this.first === undefined;
-    }
-
 }
 
 /**
@@ -6573,14 +6605,9 @@ class Face extends CircularLinkedList {
      * Arc_length of the edge it the arc length from the first edge of the face
      */
     setArcLength() {
-        let controlEdge = this.first;
         for (let edge of this) {
             this.setOneEdgeArcLength(edge);
             edge.face = this;
-            if (edge != this.first && edge === controlEdge) {
-                throw new Error("Infinite loop")
-            }
-            controlEdge = controlEdge.next.next;
         }
     }
 

@@ -1,3 +1,5 @@
+import Flatten from "../flatten";
+
 /**
  * Class implements bidirectional non-circular linked list. <br/>
  * LinkedListElement - object of any type that has properties next and prev.
@@ -141,6 +143,22 @@ class LinkedList {
         return this.first === undefined;
     }
 
+    /**
+     * Throw an error if circular loop detected in the linked list
+     * @param {LinkedListElement} first element to start iteration
+     * @throws {Flatten.Errors.INFINITE_LOOP}
+     */
+    static testInfiniteLoop(first) {
+        let edge = first;
+        let controlEdge = first;
+        do {
+            if (edge != first && edge === controlEdge) {
+                throw Flatten.Errors.INFINITE_LOOP;  // new Error("Infinite loop")
+            }
+            edge = edge.next;
+            controlEdge = controlEdge.next.next;
+        } while (edge != first)
+    }
 }
 
 export default LinkedList;
