@@ -203,18 +203,6 @@ class LinkedList {
     }
 
     /**
-     * Return number of elements in the list
-     * @returns {number}
-     */
-    get size() {
-        let counter = 0;
-        for (let edge of this) {
-            counter++;
-        }
-        return counter;
-    }
-
-    /**
      * Throw an error if circular loop detected in the linked list
      * @param {LinkedListElement} first element to start iteration
      * @throws {Flatten.Errors.INFINITE_LOOP}
@@ -231,15 +219,17 @@ class LinkedList {
         } while (edge != first)
     }
 
-    [Symbol.iterator]() {
-        let value = undefined;
-        return {
-            next: () => {
-                value = value ? value.next : this.first;
-                return {value: value, done: value === undefined};
-            }
-        };
-    };
+    /**
+     * Return number of elements in the list
+     * @returns {number}
+     */
+    get size() {
+        let counter = 0;
+        for (let edge of this) {
+            counter++;
+        }
+        return counter;
+    }
 
     /**
      * Return array of elements from start to end,
@@ -258,6 +248,7 @@ class LinkedList {
         } while (element !== to.next);
         return elements;
     }
+
 
     /**
      * Append new element to the end of the list
@@ -350,6 +341,16 @@ class LinkedList {
     isEmpty() {
         return this.first === undefined;
     }
+
+    [Symbol.iterator]() {
+        let value = undefined;
+        return {
+            next: () => {
+                value = value ? value.next : this.first;
+                return {value: value, done: value === undefined};
+            }
+        };
+    };
 }
 
 /**
@@ -3111,6 +3112,7 @@ class Node {
                 this.item.key = new Interval(Math.min(key[0], key[1]), Math.max(key[0], key[1]));
             }
         }
+
         this.max = this.item.key ? this.item.key.max : undefined;
     }
 
@@ -3120,24 +3122,45 @@ class Node {
     }
 
     less_than(other_node) {
-        if (this.item.value && other_node.item.value) {
-            let item_less_than = this.item.value.less_than ? this.item.value.less_than(other_node.item.value) :
-                this.item.value < other_node.item.value;
-            return this.item.key.less_than(other_node.item.key) ||
-                this.item.key.equal_to((other_node.item.key)) && item_less_than;
-        }
-        else {
+        // if tree stores only keys
+        if (this.item.value === this.item.key && other_node.item.value === other_node.item.key) {
             return this.item.key.less_than(other_node.item.key);
         }
+        else {    // if tree stores keys and values
+            let value_less_than = this.item.value && other_node.item.value && this.item.value.less_than ? this.item.value.less_than(other_node.item.value) :
+                this.item.value < other_node.item.value;
+            return this.item.key.less_than(other_node.item.key) ||
+                this.item.key.equal_to((other_node.item.key)) && value_less_than;
+        }
+
+        // if (this.item.value && other_node.item.value) {
+        //     let item_less_than = this.item.value.less_than ? this.item.value.less_than(other_node.item.value) :
+        //         this.item.value < other_node.item.value;
+        //     return this.item.key.less_than(other_node.item.key) ||
+        //         this.item.key.equal_to((other_node.item.key)) && item_less_than;
+        // }
+        // else {
+        //     return this.item.key.less_than(other_node.item.key);
+        // }
     }
 
     equal_to(other_node) {
-        let value_equal = true;
-        if (this.item.value && other_node.item.value) {
-            value_equal = this.item.value.equal_to ? this.item.value.equal_to(other_node.item.value) :
-                this.item.value == other_node.item.value;
+        // if tree stores only keys
+        if (this.item.value === this.item.key && other_node.item.value === other_node.item.key) {
+            return this.item.key.equal_to(other_node.item.key);
         }
-        return this.item.key.equal_to(other_node.item.key) && value_equal;
+        else {    // if tree stores keys and values
+            let value_equal = this.item.value && other_node.item.value && this.item.value.equal_to ? this.item.value.equal_to(other_node.item.value) :
+                this.item.value == other_node.item.value;
+            return this.item.key.equal_to(other_node.item.key) && value_equal;
+        }
+
+        // let value_equal = true;
+        // if (this.item.value && other_node.item.value) {
+        //     value_equal = this.item.value.equal_to ? this.item.value.equal_to(other_node.item.value) :
+        //         this.item.value == other_node.item.value;
+        // }
+        // return this.item.key.equal_to(other_node.item.key) && value_equal;
     }
 
     intersect(other_node) {
@@ -3146,7 +3169,7 @@ class Node {
 
     copy_data(other_node) {
         this.item.key = other_node.item.key.clone();
-        this.item.value = other_node.item.value;
+        this.item.value = other_node.item.value && other_node.item.value.clone ? other_node.item.value.clone() : other_node.item.value;
     }
 
     update_max() {
@@ -3253,9 +3276,9 @@ class IntervalTree {
 
     /**
      * Insert new item into interval tree
-     * @param key - interval object or array of two numbers [low, high]
-     * @param value - value representing any object (optional)
-     * @returns {Node} - returns reference to inserted node as an object {key:interval, value: value}
+     * @param {Interval} key - interval object or array of two numbers [low, high]
+     * @param {any} value - value representing any object (optional)
+     * @returns {Node} returns reference to inserted node as an object {key:interval, value: value}
      */
     insert(key, value = key) {
         if (key === undefined) return;
@@ -3267,22 +3290,22 @@ class IntervalTree {
 
     /**
      * Returns true if item {key,value} exist in the tree
-     * @param key - interval correspondent to keys stored in the tree
-     * @param value - value object to be checked
-     * @returns {boolean} - true if item {key, value} exist in the tree, false otherwise
+     * @param {Interval} key - interval correspondent to keys stored in the tree
+     * @param {any} value - value object to be checked
+     * @returns {boolean} true if item {key, value} exist in the tree, false otherwise
      */
-    exist(key, value) {
+    exist(key, value = key) {
         let search_node = new Node(key, value);
         return this.tree_search(this.root, search_node) ? true : false;
     }
 
     /**
      * Remove entry {key, value} from the tree
-     * @param key - interval correspondent to keys stored in the tree
-     * @param value - - value object
-     * @returns {boolean} - true if item {key, value} deleted, false if not found
+     * @param {Interval} key - interval correspondent to keys stored in the tree
+     * @param {any} value - value object
+     * @returns {boolean} true if item {key, value} deleted, false if not found
      */
-    remove(key, value) {
+    remove(key, value = key) {
         let search_node = new Node(key, value);
         let delete_node = this.tree_search(this.root, search_node);
         if (delete_node) {
@@ -3294,11 +3317,11 @@ class IntervalTree {
     /**
      * Returns array of entry values which keys intersect with given interval <br/>
      * If no values stored in the tree, returns array of keys which intersect given interval
-     * @param interval - search interval, or array [low, high]
+     * @param {Interval} interval - search interval, or array [low, high]
      * @param outputMapperFn(value,key) - optional function that maps (value, key) to custom output
      * @returns {Array}
      */
-    search(interval, outputMapperFn = (value, key) => value ? value : key.output()) {
+    search(interval, outputMapperFn = (value, key) => value === key ? key.output() : value) {
         let search_node = new Node(interval);
         let resp_nodes = [];
         this.tree_search_interval(this.root, search_node, resp_nodes);
@@ -3315,7 +3338,7 @@ class IntervalTree {
     }
 
     /** Value Mapper. Walk through every node and map node value to another value
-    * @param callback(value, key) - function to be called for each tree item
+    * @param callback(value,key) - function to be called for each tree item
     */
     map(callback) {
         const tree = new IntervalTree();
@@ -3955,7 +3978,8 @@ class Point {
      * @returns {Point}
      */
     translate(...args) {
-        if (args.length == 1 && (args[0] instanceof Flatten.Vector)) {
+        if (args.length == 1 &&
+            (args[0] instanceof Flatten.Vector || !isNaN(args[0].x) && !isNaN(args[0].y))) {
             return new Flatten.Point(this.x + args[0].x, this.y + args[0].y);
         }
 
