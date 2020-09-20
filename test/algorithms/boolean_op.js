@@ -279,9 +279,6 @@ describe('#Algorithms.Boolean Operations', function () {
             let poly1 = new Polygon(JSON.parse(json1));
             let poly2 = new Polygon(JSON.parse(json2));
 
-            expect(poly1.faces.size).to.equal(1);
-            expect(poly2.faces.size).to.equal(1);
-
             let res = unify(poly2, poly1);
 
             expect(res.faces.size).to.equal(1);
