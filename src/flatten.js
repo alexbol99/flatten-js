@@ -5,6 +5,7 @@ export {Distance} from './algorithms/distance';
 export {inverse} from './algorithms/inversion';
 export * as Relations from './algorithms/relation';
 export {ray_shoot} from './algorithms/ray_shooting';
+export * as BooleanOperations from './algorithms/boolean_op'
 
 export {PlanarSet} from './data_structures/planar_set';
 
