@@ -1,7 +1,15 @@
 "use strict";
 
-import Flatten from '../flatten';
 import LinkedList from '../data_structures/linked_list';
+
+import {Arc} from './arc'
+import {Box} from './box'
+import {Edge} from './edge'
+import {Line} from './line'
+import {Matrix} from './matrix'
+import {Point} from './point'
+import {Ray} from './ray'
+import {Segment} from './segment'
 
 /**
  * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
@@ -25,14 +33,14 @@ export class Multiline extends LinkedList {
                 // there may be only one line
                 // only first and last may be rays
                 let validShapes = shapes.every((shape) => {
-                    return shape instanceof Flatten.Segment ||
-                        shape instanceof Flatten.Arc ||
-                        shape instanceof Flatten.Ray ||
-                        shape instanceof Flatten.Line
+                    return shape instanceof Segment ||
+                        shape instanceof Arc ||
+                        shape instanceof Ray ||
+                        shape instanceof Line
                 });
 
                 for (let shape of shapes) {
-                    let edge = new Flatten.Edge(shape);
+                    let edge = new Edge(shape);
                     this.append(edge);
                 }
             }
@@ -52,7 +60,7 @@ export class Multiline extends LinkedList {
      * @returns {Box}
      */
     get box() {
-        return this.edges.reduce( (acc,edge) => acc = acc.merge(edge.box), new Flatten.Box() );
+        return this.edges.reduce( (acc,edge) => acc = acc.merge(edge.box), new Box() );
     }
 
     /**
@@ -89,7 +97,7 @@ export class Multiline extends LinkedList {
         if (shapes[1] === null)   // point incident to edge end vertex, return edge itself
            return edge;
 
-        let newEdge = new Flatten.Edge(shapes[0]);
+        let newEdge = new Edge(shapes[0]);
         let edgeBefore = edge.prev;
 
         /* Insert first split edge into linked list after edgeBefore */
@@ -147,7 +155,7 @@ export class Multiline extends LinkedList {
      * @param {Point} center - rotation center, default is (0,0)
      * @returns {Multiline} - new rotated polygon
      */
-    rotate(angle = 0, center = new Flatten.Point()) {
+    rotate(angle = 0, center = new Point()) {
         return new Multiline(this.edges.map( edge => edge.shape.rotate(angle, center) ));
     }
 
@@ -157,7 +165,7 @@ export class Multiline extends LinkedList {
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Multiline} - new multiline
      */
-    transform(matrix = new Flatten.Matrix()) {
+    transform(matrix = new Matrix()) {
         return new Multiline(this.edges.map( edge => edge.shape.transform(matrix)));
     }
 
@@ -203,11 +211,9 @@ export class Multiline extends LinkedList {
     }
 }
 
-Flatten.Multiline = Multiline;
 
 /**
  * Shortcut function to create multiline
  * @param args
  */
-export const multiline = (...args) => new Flatten.Multiline(...args);
-Flatten.multiline = multiline;
+export const multiline = (...args) => new Multiline(...args);

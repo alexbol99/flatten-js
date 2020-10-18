@@ -3,10 +3,19 @@
  */
 "use strict";
 
-import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
-
-let {vector} = Flatten;
+import {Distance} from '../algorithms/distance';
+import Errors from '../utils/errors'
+import {EQ_0} from '../utils/utils'
+import {Arc} from './arc'
+import {Box} from './box'
+import {Circle} from './circle'
+import {Point} from './point'
+import {Multiline} from './multiline'
+import {Polygon} from './polygon'
+import {Ray} from './ray'
+import {Segment} from './segment'
+import {Vector, vector} from './vector'
 
 /**
  * Class representing a line
@@ -23,14 +32,14 @@ export class Line {
          * Point a line passes through
          * @type {Point}
          */
-        this.pt = new Flatten.Point();
+        this.pt = new Point();
         /**
          * Normal vector to a line <br/>
          * Vector is normalized (length == 1)<br/>
          * Direction of the vector is chosen to satisfy inequality norm * p >= 0
          * @type {Vector}
          */
-        this.norm = new Flatten.Vector(0, 1);
+        this.norm = new Vector(0, 1);
 
         if (args.length == 0) {
             return;
@@ -38,8 +47,8 @@ export class Line {
 
         if (args.length == 1 && args[0] instanceof Object && args[0].name === "line") {
             let {pt, norm} = args[0];
-            this.pt = new Flatten.Point(pt);
-            this.norm = new Flatten.Vector(norm);
+            this.pt = new Point(pt);
+            this.norm = new Vector(norm);
             return;
         }
 
@@ -47,7 +56,7 @@ export class Line {
             let a1 = args[0];
             let a2 = args[1];
 
-            if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Point) {
+            if (a1 instanceof Point && a2 instanceof Point) {
                 this.pt = a1;
                 this.norm = Line.points2norm(a1, a2);
                 if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
@@ -56,9 +65,9 @@ export class Line {
                 return;
             }
 
-            if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Vector) {
-                if (Flatten.Utils.EQ_0(a2.x) && Flatten.Utils.EQ_0(a2.y)) {
-                    throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            if (a1 instanceof Point && a2 instanceof Vector) {
+                if (EQ_0(a2.x) && EQ_0(a2.y)) {
+                    throw Errors.ILLEGAL_PARAMETERS;
                 }
                 this.pt = a1.clone();
                 this.norm = a2.clone();
@@ -69,9 +78,9 @@ export class Line {
                 return;
             }
 
-            if (a1 instanceof Flatten.Vector && a2 instanceof Flatten.Point) {
-                if (Flatten.Utils.EQ_0(a1.x) && Flatten.Utils.EQ_0(a1.y)) {
-                    throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            if (a1 instanceof Vector && a2 instanceof Point) {
+                if (EQ_0(a1.x) && EQ_0(a1.y)) {
+                    throw Errors.ILLEGAL_PARAMETERS;
                 }
                 this.pt = a2.clone();
                 this.norm = a1.clone();
@@ -83,7 +92,7 @@ export class Line {
             }
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -91,7 +100,7 @@ export class Line {
      * @returns {Line}
      */
     clone() {
-        return new Flatten.Line(this.pt, this.norm);
+        return new Line(this.pt, this.norm);
     }
 
     /* The following methods need for implementation of Edge interface
@@ -117,7 +126,7 @@ export class Line {
      * @returns {Box}
      */
     get box() {
-        return new Flatten.Box(
+        return new Box(
             Number.NEGATIVE_INFINITY,
             Number.NEGATIVE_INFINITY,
             Number.POSITIVE_INFINITY,
@@ -136,7 +145,7 @@ export class Line {
      * @returns {number} - slope of the line
      */
     get slope() {
-        let vec = new Flatten.Vector(this.norm.y, -this.norm.x);
+        let vec = new Vector(this.norm.y, -this.norm.x);
         return vec.slope;
     }
 
@@ -159,7 +168,7 @@ export class Line {
      * @returns {boolean}
      */
     parallelTo(other_line) {
-        return Flatten.Utils.EQ_0(this.norm.cross(other_line.norm));
+        return EQ_0(this.norm.cross(other_line.norm));
     }
 
     /**
@@ -181,8 +190,8 @@ export class Line {
             return true;
         }
         /* Line contains point if vector to point is orthogonal to the line normal vector */
-        let vec = new Flatten.Vector(this.pt, pt);
-        return Flatten.Utils.EQ_0(this.norm.dot(vec));
+        let vec = new Vector(this.pt, pt);
+        return EQ_0(this.norm.dot(vec));
     }
 
     /**
@@ -198,36 +207,50 @@ export class Line {
     }
 
     /**
+     * Split line with point and return array of two rays
+     * @param pt
+     * @returns {Ray[]}
+     */
+    split(pt) {
+        if (!this.contains(pt))
+            return [];
+
+        return [
+            new Ray(pt, this.norm.invert()),
+            new Ray(pt, this.norm)];
+    }
+
+    /**
      * Returns array of intersection points
      * @param {Shape} shape - shape to intersect with
      * @returns {Point[]}
      */
     intersect(shape) {
-        if (shape instanceof Flatten.Point) {
+        if (shape instanceof Point) {
             return this.contains(shape) ? [shape] : [];
         }
 
-        if (shape instanceof Flatten.Line) {
+        if (shape instanceof Line) {
             return Intersection.intersectLine2Line(this, shape);
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Circle) {
             return Intersection.intersectLine2Circle(this, shape);
         }
 
-        if (shape instanceof Flatten.Box) {
+        if (shape instanceof Box) {
             return Intersection.intersectLine2Box(this, shape);
         }
 
-        if (shape instanceof Flatten.Segment) {
+        if (shape instanceof Segment) {
             return Intersection.intersectSegment2Line(shape, this);
         }
 
-        if (shape instanceof Flatten.Arc) {
+        if (shape instanceof Arc) {
             return Intersection.intersectLine2Arc(this, shape);
         }
 
-        if (shape instanceof Flatten.Polygon) {
+        if (shape instanceof Polygon) {
             return  Intersection.intersectLine2Polygon(this, shape);
         }
 
@@ -240,30 +263,30 @@ export class Line {
      * @returns {Segment}
      */
     distanceTo(shape) {
-        if (shape instanceof Flatten.Point) {
-            let [distance, shortest_segment] = Flatten.Distance.point2line(shape, this);
+        if (shape instanceof Point) {
+            let [distance, shortest_segment] = Distance.point2line(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Circle) {
-            let [distance, shortest_segment] = Flatten.Distance.circle2line(shape, this);
+        if (shape instanceof Circle) {
+            let [distance, shortest_segment] = Distance.circle2line(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Segment) {
-            let [distance, shortest_segment] = Flatten.Distance.segment2line(shape, this);
+        if (shape instanceof Segment) {
+            let [distance, shortest_segment] = Distance.segment2line(shape, this);
             return [distance, shortest_segment.reverse()];
         }
 
-        if (shape instanceof Flatten.Arc) {
-            let [distance, shortest_segment] = Flatten.Distance.arc2line(shape, this);
+        if (shape instanceof Arc) {
+            let [distance, shortest_segment] = Distance.arc2line(shape, this);
             return [distance, shortest_segment.reverse()];
         }
 
-        if (shape instanceof Flatten.Polygon) {
-            let [distance, shortest_segment] = Flatten.Distance.shape2polygon(this, shape);
+        if (shape instanceof Polygon) {
+            let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
             return [distance, shortest_segment];
         }
     }
@@ -275,11 +298,11 @@ export class Line {
      * @returns {Shape[]}
      */
     split(pt) {
-        if (pt instanceof Flatten.Point) {
-            return [new Flatten.Ray(pt, this.norm.invert()), new Flatten.Ray(pt, this.norm)]
+        if (pt instanceof Point) {
+            return [new Ray(pt, this.norm.invert()), new Ray(pt, this.norm)]
         }
         else {
-            let multiline = new Flatten.Multiline([this]);
+            let multiline = new Multiline([this]);
             let sorted_points = this.sortPoints(pt);
             multiline.split(sorted_points);
             return multiline.toShapes();
@@ -325,24 +348,22 @@ export class Line {
         let ps = ip[0];
         let pe = ip.length == 2 ? ip[1] : ip.find(pt => !pt.equalTo(ps));
         if (pe === undefined) pe = ps;
-        let segment = new Flatten.Segment(ps, pe);
+        let segment = new Segment(ps, pe);
         return segment.svg(attrs);
     }
 
     static points2norm(pt1, pt2) {
         if (pt1.equalTo(pt2)) {
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
-        let vec = new Flatten.Vector(pt1, pt2);
+        let vec = new Vector(pt1, pt2);
         let unit = vec.normalize();
         return unit.rotate90CCW();
     }
 };
 
-Flatten.Line = Line;
 /**
  * Function to create line equivalent to "new" constructor
  * @param args
  */
-export const line = (...args) => new Flatten.Line(...args);
-Flatten.line = line;
+export const line = (...args) => new Line(...args);

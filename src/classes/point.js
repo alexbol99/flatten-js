@@ -2,7 +2,20 @@
  * Created by Alex Bol on 2/18/2017.
  */
 
-import Flatten from '../flatten';
+import Errors from '../utils/errors'
+import {EQ, EQ_0, GT, LT} from '../utils/utils'
+
+import {Distance} from '../algorithms/distance'
+
+import {Arc} from './arc'
+import {Box} from './box'
+import {Circle} from './circle'
+import {Line} from './line'
+import {Polygon} from './polygon'
+import {Segment} from './segment'
+import {Vector} from './vector'
+
+import {PlanarSet} from '../data_structures/planar_set'
 
 /**
  *
@@ -55,7 +68,7 @@ export class Point {
             }
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
 
     }
 
@@ -64,7 +77,7 @@ export class Point {
      * @returns {Box}
      */
     get box() {
-        return new Flatten.Box(this.x, this.y, this.x, this.y);
+        return new Box(this.x, this.y, this.x, this.y);
     }
 
     /**
@@ -72,7 +85,7 @@ export class Point {
      * @returns {Point}
      */
     clone() {
-        return new Flatten.Point(this.x, this.y);
+        return new Point(this.x, this.y);
     }
 
     get vertices() {
@@ -85,7 +98,7 @@ export class Point {
      * @returns {boolean}
      */
     equalTo(pt) {
-        return Flatten.Utils.EQ(this.x, pt.x) && Flatten.Utils.EQ(this.y, pt.y);
+        return EQ(this.x, pt.x) && EQ(this.y, pt.y);
     }
 
     /**
@@ -96,9 +109,9 @@ export class Point {
      * @returns {boolean}
      */
     lessThan(pt) {
-        if (Flatten.Utils.LT(this.y, pt.y))
+        if (LT(this.y, pt.y))
             return true;
-        if (Flatten.Utils.EQ(this.y, pt.y) && Flatten.Utils.LT(this.x, pt.x))
+        if (EQ(this.y, pt.y) && LT(this.x, pt.x))
             return true;
         return false;
     }
@@ -116,7 +129,7 @@ export class Point {
         var x_rot = center.x + (this.x - center.x) * Math.cos(angle) - (this.y - center.y) * Math.sin(angle);
         var y_rot = center.y + (this.x - center.x) * Math.sin(angle) + (this.y - center.y) * Math.cos(angle);
 
-        return new Flatten.Point(x_rot, y_rot);
+        return new Point(x_rot, y_rot);
     }
 
     /**
@@ -128,15 +141,15 @@ export class Point {
      */
     translate(...args) {
         if (args.length == 1 &&
-            (args[0] instanceof Flatten.Vector || !isNaN(args[0].x) && !isNaN(args[0].y))) {
-            return new Flatten.Point(this.x + args[0].x, this.y + args[0].y);
+            (args[0] instanceof Vector || !isNaN(args[0].x) && !isNaN(args[0].y))) {
+            return new Point(this.x + args[0].x, this.y + args[0].y);
         }
 
         if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-            return new Flatten.Point(this.x + args[0], this.y + args[1]);
+            return new Point(this.x + args[0], this.y + args[1]);
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -146,7 +159,7 @@ export class Point {
      */
     transform(m) {
         // let [x,y] = m.transform([this.x,this.y]);
-        return new Flatten.Point(m.transform([this.x, this.y]))
+        return new Point(m.transform([this.x, this.y]))
     }
 
     /**
@@ -158,8 +171,8 @@ export class Point {
         if (this.equalTo(line.pt))                   // this point equal to line anchor point
             return this.clone();
 
-        let vec = new Flatten.Vector(this, line.pt);
-        if (Flatten.Utils.EQ_0(vec.cross(line.norm)))    // vector to point from anchor point collinear to normal vector
+        let vec = new Vector(this, line.pt);
+        if (EQ_0(vec.cross(line.norm)))    // vector to point from anchor point collinear to normal vector
             return line.pt.clone();
 
         let dist = vec.dot(line.norm);             // signed distance
@@ -174,8 +187,8 @@ export class Point {
      * @returns {boolean}
      */
     leftTo(line) {
-        let vec = new Flatten.Vector(line.pt, this);
-        let onLeftSemiPlane = Flatten.Utils.GT(vec.dot(line.norm), 0);
+        let vec = new Vector(line.pt, this);
+        let onLeftSemiPlane = GT(vec.dot(line.norm), 0);
         return onLeftSemiPlane;
     }
 
@@ -189,35 +202,35 @@ export class Point {
         if (shape instanceof Point) {
             let dx = shape.x - this.x;
             let dy = shape.y - this.y;
-            return [Math.sqrt(dx * dx + dy * dy), new Flatten.Segment(this, shape)];
+            return [Math.sqrt(dx * dx + dy * dy), new Segment(this, shape)];
         }
 
-        if (shape instanceof Flatten.Line) {
-            return Flatten.Distance.point2line(this, shape);
+        if (shape instanceof Line) {
+            return Distance.point2line(this, shape);
         }
 
-        if (shape instanceof Flatten.Circle) {
-            return Flatten.Distance.point2circle(this, shape);
+        if (shape instanceof Circle) {
+            return Distance.point2circle(this, shape);
         }
 
-        if (shape instanceof Flatten.Segment) {
-            return Flatten.Distance.point2segment(this, shape);
+        if (shape instanceof Segment) {
+            return Distance.point2segment(this, shape);
         }
 
-        if (shape instanceof Flatten.Arc) {
+        if (shape instanceof Arc) {
             // let [dist, ...rest] = Distance.point2arc(this, shape);
             // return dist;
-            return Flatten.Distance.point2arc(this, shape);
+            return Distance.point2arc(this, shape);
         }
 
-        if (shape instanceof Flatten.Polygon) {
+        if (shape instanceof Polygon) {
             // let [dist, ...rest] = Distance.point2polygon(this, shape);
             // return dist;
-            return Flatten.Distance.point2polygon(this, shape);
+            return Distance.point2polygon(this, shape);
         }
 
-        if (shape instanceof Flatten.PlanarSet) {
-            return Flatten.Distance.shape2planarSet(this, shape);
+        if (shape instanceof PlanarSet) {
+            return Distance.shape2planarSet(this, shape);
         }
     }
 
@@ -227,27 +240,27 @@ export class Point {
      * @returns {boolean}
      */
     on(shape) {
-        if (shape instanceof Flatten.Point) {
+        if (shape instanceof Point) {
             return this.equalTo(shape);
         }
 
-        if (shape instanceof Flatten.Line) {
+        if (shape instanceof Line) {
             return shape.contains(this);
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Circle) {
             return shape.contains(this);
         }
 
-        if (shape instanceof Flatten.Segment) {
+        if (shape instanceof Segment) {
             return shape.contains(this);
         }
 
-        if (shape instanceof Flatten.Arc) {
+        if (shape instanceof Arc) {
             return shape.contains(this);
         }
 
-        if (shape instanceof Flatten.Polygon) {
+        if (shape instanceof Polygon) {
             return shape.contains(this);
         }
     }
@@ -284,12 +297,10 @@ export class Point {
 
 };
 
-Flatten.Point = Point;
 /**
  * Function to create point equivalent to "new" constructor
  * @param args
  */
-export const point = (...args) => new Flatten.Point(...args);
-Flatten.point = point;
+export const point = (...args) => new Point(...args);
 
 // export {Point};

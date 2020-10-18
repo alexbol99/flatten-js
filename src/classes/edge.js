@@ -2,8 +2,22 @@
  * Created by Alex Bol on 3/17/2017.
  */
 
-import Flatten from '../flatten';
 import {ray_shoot} from "../algorithms/ray_shooting";
+
+import {EQ} from '../utils/utils'
+
+import {
+  BOUNDARY,
+  INSIDE,
+  OUTSIDE,
+  OVERLAP_OPPOSITE,
+  OVERLAP_SAME,
+} from '../utils/constants';
+
+import {Arc} from './arc';
+import {Segment} from './segment';
+import {Line} from './line';
+import {Ray} from './ray';
 
 /**
  * Class representing an edge of polygon. Edge shape may be Segment or Arc.
@@ -94,11 +108,11 @@ export class Edge {
     }
 
     isSegment() {
-        return this.shape instanceof Flatten.Segment;
+        return this.shape instanceof Segment;
     }
 
     isArc() {
-        return this.shape instanceof Flatten.Arc;
+        return this.shape instanceof Arc;
     }
 
     /**
@@ -125,8 +139,8 @@ export class Edge {
     setInclusion(polygon) {
         if (this.bv !== undefined) return this.bv;
 
-        if (this.shape instanceof Flatten.Line || this.shape instanceof Flatten.Ray) {
-            this.bv = Flatten.OUTSIDE;
+        if (this.shape instanceof Line || this.shape instanceof Ray) {
+            this.bv = OUTSIDE;
             return this.bv;
         }
 
@@ -137,18 +151,18 @@ export class Edge {
             this.bvEnd = ray_shoot(polygon, this.end);
         }
         /* At least one end outside - the whole edge outside */
-        if (this.bvStart === Flatten.OUTSIDE || this.bvEnd == Flatten.OUTSIDE) {
-            this.bv = Flatten.OUTSIDE;
+        if (this.bvStart === OUTSIDE || this.bvEnd == OUTSIDE) {
+            this.bv = OUTSIDE;
         }
         /* At least one end inside - the whole edge inside */
-        else if (this.bvStart === Flatten.INSIDE || this.bvEnd == Flatten.INSIDE) {
-            this.bv = Flatten.INSIDE;
+        else if (this.bvStart === INSIDE || this.bvEnd == INSIDE) {
+            this.bv = INSIDE;
         }
         /* Both are boundary - check the middle point */
         else {
             let bvMiddle = ray_shoot(polygon, this.middle());
             // let boundary = this.middle().distanceTo(polygon)[0] < 10*Flatten.DP_TOL;
-            // let bvMiddle = boundary ? Flatten.BOUNDARY : ray_shoot(polygon, this.middle());
+            // let bvMiddle = boundary ? BOUNDARY : ray_shoot(polygon, this.middle());
             this.bv = bvMiddle;
         }
         return this.bv;
@@ -164,26 +178,26 @@ export class Edge {
         let shape1 = this.shape;
         let shape2 = edge.shape;
 
-        if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
+        if (shape1 instanceof Segment && shape2 instanceof Segment) {
             if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end)) {
-                flag = Flatten.OVERLAP_SAME;
+                flag = OVERLAP_SAME;
             } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start)) {
-                flag = Flatten.OVERLAP_OPPOSITE;
+                flag = OVERLAP_OPPOSITE;
             }
-        } else if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
+        } else if (shape1 instanceof Arc && shape2 instanceof Arc) {
             if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && /*shape1.counterClockwise === shape2.counterClockwise &&*/
                 shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_SAME;
+                flag = OVERLAP_SAME;
             } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && /*shape1.counterClockwise !== shape2.counterClockwise &&*/
                 shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_OPPOSITE;
+                flag = OVERLAP_OPPOSITE;
             }
-        } else if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Arc ||
-            shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Segment) {
+        } else if (shape1 instanceof Segment && shape2 instanceof Arc ||
+            shape1 instanceof Arc && shape2 instanceof Segment) {
             if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_SAME;
+                flag = OVERLAP_SAME;
             } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_OPPOSITE;
+                flag = OVERLAP_OPPOSITE;
             }
         }
 
@@ -193,18 +207,18 @@ export class Edge {
     }
 
     svg() {
-        if (this.shape instanceof Flatten.Segment) {
+        if (this.shape instanceof Segment) {
             return ` L${this.shape.end.x},${this.shape.end.y}`;
-        } else if (this.shape instanceof Flatten.Arc) {
+        } else if (this.shape instanceof Arc) {
             let arc = this.shape;
             let largeArcFlag;
             let sweepFlag = arc.counterClockwise ? "1" : "0";
 
             // Draw full circe arc as special case: split it into two half-circles
-            if (Flatten.Utils.EQ(arc.sweep, 2 * Math.PI)) {
+            if (EQ(arc.sweep, 2 * Math.PI)) {
                 let sign = arc.counterClockwise ? 1 : -1;
-                let halfArc1 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle, arc.startAngle + sign * Math.PI, arc.counterClockwise);
-                let halfArc2 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle + sign * Math.PI, arc.endAngle, arc.counterClockwise);
+                let halfArc1 = new Arc(arc.pc, arc.r, arc.startAngle, arc.startAngle + sign * Math.PI, arc.counterClockwise);
+                let halfArc2 = new Arc(arc.pc, arc.r, arc.startAngle + sign * Math.PI, arc.endAngle, arc.counterClockwise);
 
                 largeArcFlag = "0";
 
@@ -222,5 +236,3 @@ export class Edge {
         return this.shape.toJSON();
     }
 };
-
-Flatten.Edge = Edge;

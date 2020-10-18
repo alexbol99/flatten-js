@@ -3,8 +3,29 @@
  */
 
 "use strict";
-import Flatten from '../flatten';
-import * as Intersection from '../algorithms/intersection';
+import {
+    intersectLine2Arc,
+    intersectArc2Circle,
+    intersectSegment2Arc,
+    intersectArc2Box,
+    intersectArc2Arc,
+    intersectArc2Polygon
+} from '../algorithms/intersection';
+
+import Errors from '../utils/errors'
+import {EQ, EQ_0, GT, LE, LT} from '../utils/utils'
+import {CCW, PIx2} from '../utils/constants'
+import {Distance} from '../algorithms/distance'
+import {PlanarSet} from '../data_structures/planar_set'
+
+import {Box} from './box'
+import {Circle} from './circle'
+import {Line} from './line'
+import {Matrix} from './matrix'
+import {Point} from './point'
+import {Polygon} from './polygon'
+import {Segment} from './segment'
+import {Vector} from './vector'
 
 /**
  * Class representing a circular arc
@@ -24,7 +45,7 @@ export class Arc {
          * Arc center
          * @type {Point}
          */
-        this.pc = new Flatten.Point();
+        this.pc = new Point();
         /**
          * Arc radius
          * @type {number}
@@ -44,14 +65,14 @@ export class Arc {
          * Arc orientation
          * @type {boolean}
          */
-        this.counterClockwise = Flatten.CCW;
+        this.counterClockwise = CCW;
 
         if (args.length == 0)
             return;
 
         if (args.length == 1 && args[0] instanceof Object && args[0].name === "arc") {
             let {pc, r, startAngle, endAngle, counterClockwise} = args[0];
-            this.pc = new Flatten.Point(pc.x, pc.y);
+            this.pc = new Point(pc.x, pc.y);
             this.r = r;
             this.startAngle = startAngle;
             this.endAngle = endAngle;
@@ -59,7 +80,7 @@ export class Arc {
             return;
         } else {
             let [pc, r, startAngle, endAngle, counterClockwise] = [...args];
-            if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
+            if (pc && pc instanceof Point) this.pc = pc.clone();
             if (r !== undefined) this.r = r;
             if (startAngle !== undefined) this.startAngle = startAngle;
             if (endAngle !== undefined) this.endAngle = endAngle;
@@ -67,7 +88,7 @@ export class Arc {
             return;
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -75,7 +96,7 @@ export class Arc {
      * @returns {Arc}
      */
     clone() {
-        return new Flatten.Arc(this.pc.clone(), this.r, this.startAngle, this.endAngle, this.counterClockwise);
+        return new Arc(this.pc.clone(), this.r, this.startAngle, this.endAngle, this.counterClockwise);
     }
 
     /**
@@ -83,25 +104,25 @@ export class Arc {
      * @returns {number}
      */
     get sweep() {
-        if (Flatten.Utils.EQ(this.startAngle, this.endAngle))
+        if (EQ(this.startAngle, this.endAngle))
             return 0.0;
-        if (Flatten.Utils.EQ(Math.abs(this.startAngle - this.endAngle), Flatten.PIx2)) {
-            return Flatten.PIx2;
+        if (EQ(Math.abs(this.startAngle - this.endAngle), PIx2)) {
+            return PIx2;
         }
         let sweep;
         if (this.counterClockwise) {
-            sweep = Flatten.Utils.GT(this.endAngle, this.startAngle) ?
-                this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2;
+            sweep = GT(this.endAngle, this.startAngle) ?
+                this.endAngle - this.startAngle : this.endAngle - this.startAngle + PIx2;
         } else {
-            sweep = Flatten.Utils.GT(this.startAngle, this.endAngle) ?
-                this.startAngle - this.endAngle : this.startAngle - this.endAngle + Flatten.PIx2;
+            sweep = GT(this.startAngle, this.endAngle) ?
+                this.startAngle - this.endAngle : this.startAngle - this.endAngle + PIx2;
         }
 
-        if (Flatten.Utils.GT(sweep, Flatten.PIx2)) {
-            sweep -= Flatten.PIx2;
+        if (GT(sweep, PIx2)) {
+            sweep -= PIx2;
         }
-        if (Flatten.Utils.LT(sweep, 0)) {
-            sweep += Flatten.PIx2;
+        if (LT(sweep, 0)) {
+            sweep += PIx2;
         }
         return sweep;
     }
@@ -111,7 +132,7 @@ export class Arc {
      * @returns {Point}
      */
     get start() {
-        let p0 = new Flatten.Point(this.pc.x + this.r, this.pc.y);
+        let p0 = new Point(this.pc.x + this.r, this.pc.y);
         return p0.rotate(this.startAngle, this.pc);
     }
 
@@ -120,7 +141,7 @@ export class Arc {
      * @returns {Point}
      */
     get end() {
-        let p0 = new Flatten.Point(this.pc.x + this.r, this.pc.y);
+        let p0 = new Point(this.pc.x + this.r, this.pc.y);
         return p0.rotate(this.endAngle, this.pc);
     }
 
@@ -150,7 +171,7 @@ export class Arc {
      */
     get box() {
         let func_arcs = this.breakToFunctional();
-        let box = func_arcs.reduce((acc, arc) => acc.merge(arc.start.box), new Flatten.Box());
+        let box = func_arcs.reduce((acc, arc) => acc.merge(arc.start.box), new Box());
         box = box.merge(this.end.box);
         return box;
     }
@@ -162,7 +183,7 @@ export class Arc {
      */
     contains(pt) {
         // first check if  point on circle (pc,r)
-        if (!Flatten.Utils.EQ(this.pc.distanceTo(pt)[0], this.r))
+        if (!EQ(this.pc.distanceTo(pt)[0], this.r))
             return false;
 
         // point on circle
@@ -170,9 +191,9 @@ export class Arc {
         if (pt.equalTo(this.start))
             return true;
 
-        let angle = new Flatten.Vector(this.pc, pt).slope;
-        let test_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise);
-        return Flatten.Utils.LE(test_arc.length, this.length);
+        let angle = new Vector(this.pc, pt).slope;
+        let test_arc = new Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise);
+        return LE(test_arc.length, this.length);
     }
 
     /**
@@ -189,11 +210,11 @@ export class Arc {
         if (this.end.equalTo(pt))
             return [this.clone(), null];
 
-        let angle = new Flatten.Vector(this.pc, pt).slope;
+        let angle = new Vector(this.pc, pt).slope;
 
         return [
-            new Flatten.Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise),
-            new Flatten.Arc(this.pc, this.r, angle, this.endAngle, this.counterClockwise)
+            new Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise),
+            new Arc(this.pc, this.r, angle, this.endAngle, this.counterClockwise)
         ]
     }
 
@@ -203,7 +224,7 @@ export class Arc {
      */
     middle() {
         let endAngle = this.counterClockwise ? this.startAngle + this.sweep / 2 : this.startAngle - this.sweep / 2;
-        let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
+        let arc = new Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
         return arc.end;
     }
 
@@ -221,26 +242,26 @@ export class Arc {
      * @returns {Points[]}
      */
     intersect(shape) {
-        if (shape instanceof Flatten.Point) {
+        if (shape instanceof Point) {
             return this.contains(shape) ? [shape] : [];
         }
-        if (shape instanceof Flatten.Line) {
-            return Intersection.intersectLine2Arc(shape, this);
+        if (shape instanceof Line) {
+            return intersectLine2Arc(shape, this);
         }
-        if (shape instanceof Flatten.Circle) {
-            return Intersection.intersectArc2Circle(this, shape);
+        if (shape instanceof Circle) {
+            return intersectArc2Circle(this, shape);
         }
-        if (shape instanceof Flatten.Segment) {
-            return Intersection.intersectSegment2Arc(shape, this);
+        if (shape instanceof Segment) {
+            return intersectSegment2Arc(shape, this);
         }
-        if (shape instanceof Flatten.Box) {
-            return Intersection.intersectArc2Box(this, shape);
+        if (shape instanceof Box) {
+            return intersectArc2Box(this, shape);
         }
-        if (shape instanceof Flatten.Arc) {
-            return Intersection.intersectArc2Arc(this, shape);
+        if (shape instanceof Arc) {
+            return intersectArc2Arc(this, shape);
         }
-        if (shape instanceof Flatten.Polygon) {
-            return Intersection.intersectArc2Polygon(this, shape);
+        if (shape instanceof Polygon) {
+            return intersectArc2Polygon(this, shape);
         }
     }
 
@@ -252,40 +273,40 @@ export class Arc {
 
      */
     distanceTo(shape) {
-        if (shape instanceof Flatten.Point) {
-            let [dist, shortest_segment] = Flatten.Distance.point2arc(shape, this);
+        if (shape instanceof Point) {
+            let [dist, shortest_segment] = Distance.point2arc(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Circle) {
-            let [dist, shortest_segment] = Flatten.Distance.arc2circle(this, shape);
+        if (shape instanceof Circle) {
+            let [dist, shortest_segment] = Distance.arc2circle(this, shape);
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Line) {
-            let [dist, shortest_segment] = Flatten.Distance.arc2line(this, shape);
+        if (shape instanceof Line) {
+            let [dist, shortest_segment] = Distance.arc2line(this, shape);
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Segment) {
-            let [dist, shortest_segment] = Flatten.Distance.segment2arc(shape, this);
+        if (shape instanceof Segment) {
+            let [dist, shortest_segment] = Distance.segment2arc(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Arc) {
-            let [dist, shortest_segment] = Flatten.Distance.arc2arc(this, shape);
+        if (shape instanceof Arc) {
+            let [dist, shortest_segment] = Distance.arc2arc(this, shape);
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Polygon) {
-            let [dist, shortest_segment] = Flatten.Distance.shape2polygon(this, shape);
+        if (shape instanceof Polygon) {
+            let [dist, shortest_segment] = Distance.shape2polygon(this, shape);
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.PlanarSet) {
-            let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
+        if (shape instanceof PlanarSet) {
+            let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
             return [dist, shortest_segment];
         }
     }
@@ -309,7 +330,7 @@ export class Arc {
         let test_arcs = [];
         for (let i = 0; i < 4; i++) {
             if (pts[i].on(this)) {
-                test_arcs.push(new Flatten.Arc(this.pc, this.r, this.startAngle, angles[i], this.counterClockwise));
+                test_arcs.push(new Arc(this.pc, this.r, this.startAngle, angles[i], this.counterClockwise));
             }
         }
 
@@ -323,11 +344,11 @@ export class Arc {
                 let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
                 let new_arc;
                 if (prev_arc) {
-                    new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, test_arcs[i].endAngle, this.counterClockwise);
+                    new_arc = new Arc(this.pc, this.r, prev_arc.endAngle, test_arcs[i].endAngle, this.counterClockwise);
                 } else {
-                    new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, test_arcs[i].endAngle, this.counterClockwise);
+                    new_arc = new Arc(this.pc, this.r, this.startAngle, test_arcs[i].endAngle, this.counterClockwise);
                 }
-                if (!Flatten.Utils.EQ_0(new_arc.length)) {
+                if (!EQ_0(new_arc.length)) {
                     func_arcs_array.push(new_arc.clone());
                 }
             }
@@ -336,12 +357,12 @@ export class Arc {
             let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
             let new_arc;
             if (prev_arc) {
-                new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, this.endAngle, this.counterClockwise);
+                new_arc = new Arc(this.pc, this.r, prev_arc.endAngle, this.endAngle, this.counterClockwise);
             } else {
-                new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, this.endAngle, this.counterClockwise);
+                new_arc = new Arc(this.pc, this.r, this.startAngle, this.endAngle, this.counterClockwise);
             }
             // It could be 2*PI when occasionally start = 0 and end = 2*PI but this is not valid for breakToFunctional
-            if (!Flatten.Utils.EQ_0(new_arc.length) && !Flatten.Utils.EQ(new_arc.sweep, 2*Math.PI)) {
+            if (!EQ_0(new_arc.length) && !EQ(new_arc.sweep, 2*Math.PI)) {
                 func_arcs_array.push(new_arc.clone());
             }
         }
@@ -353,7 +374,7 @@ export class Arc {
      * @returns {Vector}
      */
     tangentInStart() {
-        let vec = new Flatten.Vector(this.pc, this.start);
+        let vec = new Vector(this.pc, this.start);
         let angle = this.counterClockwise ? Math.PI / 2. : -Math.PI / 2.;
         let tangent = vec.rotate(angle).normalize();
         return tangent;
@@ -364,7 +385,7 @@ export class Arc {
      * @returns {Vector}
      */
     tangentInEnd() {
-        let vec = new Flatten.Vector(this.pc, this.end);
+        let vec = new Vector(this.pc, this.end);
         let angle = this.counterClockwise ? -Math.PI / 2. : Math.PI / 2.;
         let tangent = vec.rotate(angle).normalize();
         return tangent;
@@ -375,7 +396,7 @@ export class Arc {
      * @returns {Arc}
      */
     reverse() {
-        return new Flatten.Arc(this.pc, this.r, this.endAngle, this.startAngle, !this.counterClockwise);
+        return new Arc(this.pc, this.r, this.endAngle, this.startAngle, !this.counterClockwise);
     }
 
     /**
@@ -397,8 +418,8 @@ export class Arc {
      * @param {Point} center - center point, default is (0,0)
      * @returns {Arc}
      */
-    rotate(angle = 0, center = new Flatten.Point()) {
-        let m = new Flatten.Matrix();
+    rotate(angle = 0, center = new Point()) {
+        let m = new Matrix();
         m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
         return this.transform(m);
     }
@@ -410,25 +431,24 @@ export class Arc {
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Arc}
      */
-    transform(matrix = new Flatten.Matrix()) {
+    transform(matrix = new Matrix()) {
         let newStart = this.start.transform(matrix);
         let newEnd = this.end.transform(matrix);
         let newCenter = this.pc.transform(matrix);
-        let arc = Flatten.Arc.arcSE(newCenter, newStart, newEnd, this.counterClockwise);
+        let arc = Arc.arcSE(newCenter, newStart, newEnd, this.counterClockwise);
         return arc;
     }
 
     static arcSE(center, start, end, counterClockwise) {
-        let {vector} = Flatten;
-        let startAngle = vector(center, start).slope;
-        let endAngle = vector(center, end).slope;
-        if (Flatten.Utils.EQ(startAngle, endAngle)) {
+        let startAngle = new Vector(center, start).slope;
+        let endAngle = new Vector(center, end).slope;
+        if (EQ(startAngle, endAngle)) {
             endAngle += 2 * Math.PI;
             counterClockwise = true;
         }
         let r = vector(center, start).length;
 
-        return new Flatten.Arc(center, r, startAngle, endAngle, counterClockwise);
+        return new Arc(center, r, startAngle, endAngle, counterClockwise);
     }
 
     definiteIntegral(ymin = 0) {
@@ -438,9 +458,9 @@ export class Arc {
     }
 
     circularSegmentDefiniteIntegral(ymin) {
-        let line = new Flatten.Line(this.start, this.end);
+        let line = new Line(this.start, this.end);
         let onLeftSide = this.pc.leftTo(line);
-        let segment = new Flatten.Segment(this.start, this.end);
+        let segment = new Segment(this.start, this.end);
         let areaTrapez = segment.definiteIntegral(ymin);
         let areaCircularSegment = this.circularSegmentArea();
         let area = onLeftSide ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
@@ -495,8 +515,8 @@ export class Arc {
         let id_str = (id && id.length > 0) ? `id="${id}"` : "";
         let class_str = (className && className.length > 0) ? `class="${className}"` : "";
 
-        if (Flatten.Utils.EQ(this.sweep, 2 * Math.PI)) {
-            let circle = new Flatten.Circle(this.pc, this.r);
+        if (EQ(this.sweep, 2 * Math.PI)) {
+            let circle = new Circle(this.pc, this.r);
             return circle.svg(attrs);
         } else {
             return `\n<path d="M${this.start.x},${this.start.y}
@@ -507,10 +527,8 @@ export class Arc {
 
 };
 
-Flatten.Arc = Arc;
 /**
  * Function to create arc equivalent to "new" constructor
  * @param args
  */
-export const arc = (...args) => new Flatten.Arc(...args);
-Flatten.arc = arc;
+export const arc = (...args) => new Arc(...args);

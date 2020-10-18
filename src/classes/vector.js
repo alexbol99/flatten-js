@@ -4,7 +4,10 @@
 
 "use strict";
 
-import Flatten from '../flatten';
+import Errors from '../utils/errors'
+import {EQ, EQ_0} from '../utils/utils'
+
+import {Point} from './point'
 
 /**
  * Class representing a vector
@@ -60,7 +63,7 @@ export class Vector {
                 return;
             }
 
-            if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Point) {
+            if (a1 instanceof Point && a2 instanceof Point) {
                 this.x = a2.x - a1.x;
                 this.y = a2.y - a1.y;
                 return;
@@ -68,7 +71,7 @@ export class Vector {
 
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -76,7 +79,7 @@ export class Vector {
      * @returns {Vector}
      */
     clone() {
-        return new Flatten.Vector(this.x, this.y);
+        return new Vector(this.x, this.y);
     }
 
     /**
@@ -104,7 +107,7 @@ export class Vector {
      * @returns {boolean}
      */
     equalTo(v) {
-        return Flatten.Utils.EQ(this.x, v.x) && Flatten.Utils.EQ(this.y, v.y);
+        return EQ(this.x, v.x) && EQ(this.y, v.y);
     }
 
     /**
@@ -113,7 +116,7 @@ export class Vector {
      * @returns {Vector}
      */
     multiply(scalar) {
-        return (new Flatten.Vector(scalar * this.x, scalar * this.y));
+        return (new Vector(scalar * this.x, scalar * this.y));
     }
 
     /**
@@ -142,10 +145,10 @@ export class Vector {
      * @returns {Vector}
      */
     normalize() {
-        if (!Flatten.Utils.EQ_0(this.length)) {
-            return (new Flatten.Vector(this.x / this.length, this.y / this.length));
+        if (!EQ_0(this.length)) {
+            return (new Vector(this.x / this.length, this.y / this.length));
         }
-        throw Flatten.Errors.ZERO_DIVISION;
+        throw Errors.ZERO_DIVISION;
     }
 
     /**
@@ -156,9 +159,9 @@ export class Vector {
      * @returns {Vector}
      */
     rotate(angle) {
-        let point = new Flatten.Point(this.x, this.y);
+        let point = new Point(this.x, this.y);
         let rpoint = point.rotate(angle);
-        return new Flatten.Vector(rpoint.x, rpoint.y);
+        return new Vector(rpoint.x, rpoint.y);
     }
 
     /**
@@ -166,7 +169,7 @@ export class Vector {
      * @returns {Vector}
      */
     rotate90CCW() {
-        return new Flatten.Vector(-this.y, this.x);
+        return new Vector(-this.y, this.x);
     };
 
     /**
@@ -174,7 +177,7 @@ export class Vector {
      * @returns {Vector}
      */
     rotate90CW() {
-        return new Flatten.Vector(this.y, -this.x);
+        return new Vector(this.y, -this.x);
     };
 
     /**
@@ -182,7 +185,7 @@ export class Vector {
      * @returns {Vector}
      */
     invert() {
-        return new Flatten.Vector(-this.x, -this.y);
+        return new Vector(-this.x, -this.y);
     }
 
     /**
@@ -191,7 +194,7 @@ export class Vector {
      * @returns {Vector}
      */
     add(v) {
-        return new Flatten.Vector(this.x + v.x, this.y + v.y);
+        return new Vector(this.x + v.x, this.y + v.y);
     }
 
     /**
@@ -200,7 +203,7 @@ export class Vector {
      * @returns {Vector}
      */
     subtract(v) {
-        return new Flatten.Vector(this.x - v.x, this.y - v.y);
+        return new Vector(this.x - v.x, this.y - v.y);
     }
 
     /**
@@ -239,12 +242,9 @@ export class Vector {
     }
 };
 
-Flatten.Vector = Vector;
-
 /**
  * Function to create vector equivalent to "new" constructor
  * @param args
  */
-export const vector = (...args) => new Flatten.Vector(...args);
-Flatten.vector = vector;
+export const vector = (...args) => new Vector(...args);
 

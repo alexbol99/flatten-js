@@ -1,7 +1,16 @@
 "use strict";
 
-import Flatten from '../flatten';
-import * as Intersection from "../algorithms/intersection";
+import {intersectLine2Box} from "../algorithms/intersection";
+
+import Errors from '../utils/errors'
+import {EQ_0, GE} from '../utils/utils'
+
+import {Arc} from './arc'
+import {Box} from './box'
+import {Line} from './line'
+import {Point} from './point'
+import {Segment} from './segment'
+import {Vector} from './vector'
 
 /**
  * Class representing a ray.
@@ -17,14 +26,14 @@ export class Ray {
      * @param {Vector} norm - normal vector
      */
     constructor(...args) {
-        this.pt = new Flatten.Point();
-        this.norm = new Flatten.Vector(0,1);
+        this.pt = new Point();
+        this.norm = new Vector(0,1);
 
         if (args.length == 0) {
             return;
         }
 
-        if (args.length >= 1 && args[0] instanceof Flatten.Point) {
+        if (args.length >= 1 && args[0] instanceof Point) {
             this.pt = args[0].clone();
         }
 
@@ -32,17 +41,17 @@ export class Ray {
             return;
         }
 
-        if (args.length === 2 && args[1] instanceof Flatten.Vector) {
+        if (args.length === 2 && args[1] instanceof Vector) {
             this.norm = args[1].clone();
             return;
         }
 
         // if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-        //     this.pt = new Flatten.Point(args[0], args[1]);
+        //     this.pt = new Point(args[0], args[1]);
         //     return;
         // }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -58,7 +67,7 @@ export class Ray {
      * @returns {number} - slope of the line
      */
     get slope() {
-        let vec = new Flatten.Vector(this.norm.y, -this.norm.x);
+        let vec = new Vector(this.norm.y, -this.norm.x);
         return vec.slope;
     }
 
@@ -68,7 +77,7 @@ export class Ray {
      */
     get box() {
         let slope = this.slope;
-        return new Flatten.Box(
+        return new Box(
             slope > Math.PI/2 && slope < 3*Math.PI/2 ? Number.NEGATIVE_INFINITY : this.pt.x,
             slope >= 0 && slope <= Math.PI ? this.pt.y : Number.NEGATIVE_INFINITY,
             slope >= Math.PI/2 && slope <= 3*Math.PI/2 ? this.pt.x : Number.POSITIVE_INFINITY,
@@ -107,8 +116,8 @@ export class Ray {
         }
         /* Ray contains point if vector to point is orthogonal to the ray normal vector
             and cross product from vector to point is positive */
-        let vec = new Flatten.Vector(this.pt, pt);
-        return Flatten.Utils.EQ_0(this.norm.dot(vec)) && Flatten.Utils.GE(vec.cross(this.norm),0);
+        let vec = new Vector(this.pt, pt);
+        return EQ_0(this.norm.dot(vec)) && GE(vec.cross(this.norm),0);
     }
 
     /**
@@ -125,8 +134,8 @@ export class Ray {
         }
 
         return [
-            new Flatten.Segment(this.pt, pt),
-            new Flatten.Ray(pt, this.norm)
+            new Segment(this.pt, pt),
+            new Ray(pt, this.norm)
         ]
     }
 
@@ -136,11 +145,11 @@ export class Ray {
      * @returns {Array} array of intersection points
      */
     intersect(shape) {
-        if (shape instanceof Flatten.Segment) {
+        if (shape instanceof Segment) {
             return this.intersectRay2Segment(this, shape);
         }
 
-        if (shape instanceof Flatten.Arc) {
+        if (shape instanceof Arc) {
             return this.intersectRay2Arc(this, shape);
         }
     }
@@ -152,11 +161,11 @@ export class Ray {
             return ip;
         }
 
-        let line = new Flatten.Line(ray.start, ray.norm);
+        let line = new Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(segment);
 
         for (let pt of ip_tmp) {
-            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
+            // if (GE(pt.x, ray.start.x)) {
             if (ray.contains(pt)) {
                 ip.push(pt);
             }
@@ -179,11 +188,11 @@ export class Ray {
             return ip;
         }
 
-        let line = new Flatten.Line(ray.start, ray.norm);
+        let line = new Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(arc);
 
         for (let pt of ip_tmp) {
-            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
+            // if (GE(pt.x, ray.start.x)) {
             if (ray.contains(pt)) {
                 ip.push(pt);
             }
@@ -197,18 +206,15 @@ export class Ray {
      * @param {Object} attrs - an object with attributes of svg segment element
      */
     svg(box, attrs = {}) {
-        let line = new Flatten.Line(this.pt, this.norm);
-        let ip = Intersection.intersectLine2Box(line, box);
+        let line = new Line(this.pt, this.norm);
+        let ip = intersectLine2Box(line, box);
         ip = ip.filter( pt => this.contains(pt) );
         if (ip.length === 0 || ip.length === 2)
             return "";
-        let segment = new Flatten.Segment(this.pt, ip[0]);
+        let segment = new Segment(this.pt, ip[0]);
         return segment.svg(attrs);
     }
 
 };
 
-Flatten.Ray = Ray;
-
-export const ray = (...args) => new Flatten.Ray(...args);
-Flatten.ray = ray;
+export const ray = (...args) => new Ray(...args);

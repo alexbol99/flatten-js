@@ -4,8 +4,19 @@
 
 "use strict";
 
-import Flatten from '../flatten';
+import Errors from '../utils/errors'
+
 import * as Intersection from '../algorithms/intersection';
+import {Distance} from '../algorithms/distance'
+import {LE} from '../utils/utils'
+import {PlanarSet} from '../data_structures/planar_set'
+
+import {Arc} from './arc'
+import {Box} from './box'
+import {Line} from './line'
+import {Point} from './point'
+import {Polygon} from './polygon'
+import {Segment} from './segment'
 
 /**
  * Class representing a circle
@@ -22,7 +33,7 @@ export class Circle {
          * Circle center
          * @type {Point}
          */
-        this.pc = new Flatten.Point();
+        this.pc = new Point();
         /**
          * Circle radius
          * @type {number}
@@ -31,17 +42,17 @@ export class Circle {
 
         if (args.length == 1 && args[0] instanceof Object && args[0].name === "circle") {
             let {pc, r} = args[0];
-            this.pc = new Flatten.Point(pc);
+            this.pc = new Point(pc);
             this.r = r;
             return;
         } else {
             let [pc, r] = [...args];
-            if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
+            if (pc && pc instanceof Point) this.pc = pc.clone();
             if (r !== undefined) this.r = r;
             return;
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -49,7 +60,7 @@ export class Circle {
      * @returns {Circle}
      */
     clone() {
-        return new Flatten.Circle(this.pc.clone(), this.r);
+        return new Circle(this.pc.clone(), this.r);
     }
 
     /**
@@ -65,7 +76,7 @@ export class Circle {
      * @returns {Box}
      */
     get box() {
-        return new Flatten.Box(
+        return new Box(
             this.pc.x - this.r,
             this.pc.y - this.r,
             this.pc.x + this.r,
@@ -79,25 +90,25 @@ export class Circle {
      * @returns {boolean}
      */
     contains(shape) {
-        if (shape instanceof Flatten.Point) {
-            return Flatten.Utils.LE(shape.distanceTo(this.center)[0], this.r);
+        if (shape instanceof Point) {
+            return LE(shape.distanceTo(this.center)[0], this.r);
         }
 
-        if (shape instanceof Flatten.Segment) {
-            return Flatten.Utils.LE(shape.start.distanceTo(this.center)[0], this.r) &&
-                Flatten.Utils.LE(shape.end.distanceTo(this.center)[0], this.r);
+        if (shape instanceof Segment) {
+            return LE(shape.start.distanceTo(this.center)[0], this.r) &&
+                LE(shape.end.distanceTo(this.center)[0], this.r);
         }
 
-        if (shape instanceof Flatten.Arc) {
+        if (shape instanceof Arc) {
             return this.intersect(shape).length === 0 &&
-                Flatten.Utils.LE(shape.start.distanceTo(this.center)[0], this.r) &&
-                Flatten.Utils.LE(shape.end.distanceTo(this.center)[0], this.r);
+                LE(shape.start.distanceTo(this.center)[0], this.r) &&
+                LE(shape.end.distanceTo(this.center)[0], this.r);
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Circle) {
             return this.intersect(shape).length === 0 &&
-                Flatten.Utils.LE(shape.r, this.r) &&
-                Flatten.Utils.LE(shape.center.distanceTo(this.center)[0], this.r);
+                LE(shape.r, this.r) &&
+                LE(shape.center.distanceTo(this.center)[0], this.r);
         }
 
         /* TODO: box, polygon */
@@ -109,7 +120,7 @@ export class Circle {
      * @returns {Arc}
      */
     toArc(counterclockwise = true) {
-        return new Flatten.Arc(this.center, this.r, Math.PI, -Math.PI, counterclockwise);
+        return new Arc(this.center, this.r, Math.PI, -Math.PI, counterclockwise);
     }
 
     /**
@@ -118,29 +129,29 @@ export class Circle {
      * @returns {Point[]}
      */
     intersect(shape) {
-        if (shape instanceof Flatten.Point) {
+        if (shape instanceof Point) {
             return this.contains(shape) ? [shape] : [];
         }
-        if (shape instanceof Flatten.Line) {
+        if (shape instanceof Line) {
             return Intersection.intersectLine2Circle(shape, this);
         }
 
-        if (shape instanceof Flatten.Segment) {
+        if (shape instanceof Segment) {
             return Intersection.intersectSegment2Circle(shape, this);
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Circle) {
             return Intersection.intersectCircle2Circle(shape, this);
         }
 
-        if (shape instanceof Flatten.Box) {
+        if (shape instanceof Box) {
             return Intersection.intersectCircle2Box(this, shape);
         }
 
-        if (shape instanceof Flatten.Arc) {
+        if (shape instanceof Arc) {
             return Intersection.intersectArc2Circle(shape, this);
         }
-        if (shape instanceof Flatten.Polygon) {
+        if (shape instanceof Polygon) {
             return Intersection.intersectCircle2Polygon(this, shape);
         }
     }
@@ -153,41 +164,41 @@ export class Circle {
 
      */
     distanceTo(shape) {
-        if (shape instanceof Flatten.Point) {
-            let [distance, shortest_segment] = Flatten.Distance.point2circle(shape, this);
+        if (shape instanceof Point) {
+            let [distance, shortest_segment] = Distance.point2circle(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Circle) {
-            let [distance, shortest_segment] = Flatten.Distance.circle2circle(this, shape);
+        if (shape instanceof Circle) {
+            let [distance, shortest_segment] = Distance.circle2circle(this, shape);
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Line) {
-            let [distance, shortest_segment] = Flatten.Distance.circle2line(this, shape);
+        if (shape instanceof Line) {
+            let [distance, shortest_segment] = Distance.circle2line(this, shape);
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Segment) {
-            let [distance, shortest_segment] = Flatten.Distance.segment2circle(shape, this);
+        if (shape instanceof Segment) {
+            let [distance, shortest_segment] = Distance.segment2circle(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Arc) {
-            let [distance, shortest_segment] = Flatten.Distance.arc2circle(shape, this);
+        if (shape instanceof Arc) {
+            let [distance, shortest_segment] = Distance.arc2circle(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Polygon) {
-            let [distance, shortest_segment] = Flatten.Distance.shape2polygon(this, shape);
+        if (shape instanceof Polygon) {
+            let [distance, shortest_segment] = Distance.shape2polygon(this, shape);
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.PlanarSet) {
-            let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
+        if (shape instanceof PlanarSet) {
+            let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
             return [dist, shortest_segment];
         }
     }
@@ -219,11 +230,9 @@ export class Circle {
 
 };
 
-Flatten.Circle = Circle;
 /**
  * Shortcut to create new circle
  * @param args
  */
-export const circle = (...args) => new Flatten.Circle(...args);
-Flatten.circle = circle;
+export const circle = (...args) => new Circle(...args);
 

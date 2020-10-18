@@ -6,7 +6,13 @@
 
 "use strict";
 
-import Flatten from "../flatten";
+import {EQ_0, EQ, LT, GT} from '../utils/utils';
+import {Arc} from '../classes/arc'
+import {Segment} from '../classes/segment'
+import {Point} from '../classes/point'
+import {Circle} from '../classes/circle';
+import {Line} from '../classes/line';
+import {Vector} from '../classes/vector';
 
 export function intersectLine2Line(line1, line2) {
     let ip = [];
@@ -19,7 +25,7 @@ export function intersectLine2Line(line1, line2) {
     let detX = C1 * B2 - B1 * C2;
     let detY = A1 * C2 - C1 * A2;
 
-    if (!Flatten.Utils.EQ_0(det)) {
+    if (!EQ_0(det)) {
         let x, y;
 
         if (B1 === 0) {        // vertical line x  = C1/A1, where A1 == +1 or -1
@@ -43,7 +49,7 @@ export function intersectLine2Line(line1, line2) {
             y = detY / det;
         }
 
-        ip.push(new Flatten.Point(x, y));
+        ip.push(new Point(x, y));
     }
 
     return ip;
@@ -54,9 +60,9 @@ export function intersectLine2Circle(line, circle) {
     let prj = circle.pc.projectionOn(line);            // projection of circle center on line
     let dist = circle.pc.distanceTo(prj)[0];           // distance from circle center to projection
 
-    if (Flatten.Utils.EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
+    if (EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
         ip.push(prj);
-    } else if (Flatten.Utils.LT(dist, circle.r)) {       // return two intersection points
+    } else if (LT(dist, circle.r)) {       // return two intersection points
         let delta = Math.sqrt(circle.r * circle.r - dist * dist);
         let v_trans, pt;
 
@@ -91,7 +97,7 @@ export function intersectLine2Arc(line, arc) {
         return ip;
     }
 
-    let circle = new Flatten.Circle(arc.pc, arc.r);
+    let circle = new Circle(arc.pc, arc.r);
     let ip_tmp = intersectLine2Circle(line, circle);
     for (let pt of ip_tmp) {
         if (pt.on(arc)) {
@@ -131,7 +137,7 @@ export function intersectSegment2Line(seg, line) {
     }
 
     // Calculate intersection between lines
-    let line1 = new Flatten.Line(seg.ps, seg.pe);
+    let line1 = new Line(seg.ps, seg.pe);
     return intersectLine2Line(line1, line);
 }
 
@@ -160,8 +166,8 @@ export function intersectSegment2Segment(seg1, seg2) {
     }
 
     // Neither seg1 nor seg2 is zero length
-    let line1 = new Flatten.Line(seg1.ps, seg1.pe);
-    let line2 = new Flatten.Line(seg2.ps, seg2.pe);
+    let line1 = new Line(seg1.ps, seg1.pe);
+    let line2 = new Line(seg2.ps, seg2.pe);
 
     // Check overlapping between segments in case of incidence
     // If segments touching, add one point. If overlapping, add two points
@@ -216,14 +222,14 @@ export function intersectSegment2Circle(segment, circle) {
     // Special case of zero length segment
     if (segment.isZeroLength()) {
         let [dist, shortest_segment] = segment.ps.distanceTo(circle.pc);
-        if (Flatten.Utils.EQ(dist, circle.r)) {
+        if (EQ(dist, circle.r)) {
             ips.push(segment.ps);
         }
         return ips;
     }
 
     // Non zero-length segment
-    let line = new Flatten.Line(segment.ps, segment.pe);
+    let line = new Line(segment.ps, segment.pe);
 
     let ips_tmp = intersectLine2Circle(line, circle);
 
@@ -252,8 +258,8 @@ export function intersectSegment2Arc(segment, arc) {
     }
 
     // Non-zero length segment
-    let line = new Flatten.Line(segment.ps, segment.pe);
-    let circle = new Flatten.Circle(arc.pc, arc.r);
+    let line = new Line(segment.ps, segment.pe);
+    let circle = new Circle(arc.pc, arc.r);
 
     let ip_tmp = intersectLine2Circle(line, circle);
 
@@ -284,27 +290,27 @@ export function intersectCircle2Circle(circle1, circle2) {
         return ip;
     }
 
-    let vec = new Flatten.Vector(circle1.pc, circle2.pc);
+    let vec = new Vector(circle1.pc, circle2.pc);
 
     let r1 = circle1.r;
     let r2 = circle2.r;
 
     // Degenerated circle
-    if (Flatten.Utils.EQ_0(r1) || Flatten.Utils.EQ_0(r2))
+    if (EQ_0(r1) || EQ_0(r2))
         return ip;
 
     // In case of equal circles return one leftmost point
-    if (Flatten.Utils.EQ_0(vec.x) && Flatten.Utils.EQ_0(vec.y) && Flatten.Utils.EQ(r1, r2)) {
+    if (EQ_0(vec.x) && EQ_0(vec.y) && EQ(r1, r2)) {
         ip.push(circle1.pc.translate(-r1, 0));
         return ip;
     }
 
     let dist = circle1.pc.distanceTo(circle2.pc)[0];
 
-    if (Flatten.Utils.GT(dist, r1 + r2))               // circles too far, no intersections
+    if (GT(dist, r1 + r2))               // circles too far, no intersections
         return ip;
 
-    if (Flatten.Utils.LT(dist, Math.abs(r1 - r2)))     // one circle is contained within another, no intersections
+    if (LT(dist, Math.abs(r1 - r2)))     // one circle is contained within another, no intersections
         return ip;
 
     // Normalize vector.
@@ -315,7 +321,7 @@ export function intersectCircle2Circle(circle1, circle2) {
 
     // Case of touching from outside or from inside - single intersection point
     // TODO: check this specifically not sure if correct
-    if (Flatten.Utils.EQ(dist, r1 + r2) || Flatten.Utils.EQ(dist, Math.abs(r1 - r2))) {
+    if (EQ(dist, r1 + r2) || EQ(dist, Math.abs(r1 - r2))) {
         pt = circle1.pc.translate(r1 * vec.x, r1 * vec.y);
         ip.push(pt);
         return ip;
@@ -363,7 +369,7 @@ export function intersectArc2Arc(arc1, arc2) {
 
     // Special case: overlapping arcs
     // May return up to 4 intersection points
-    if (arc1.pc.equalTo(arc2.pc) && Flatten.Utils.EQ(arc1.r, arc2.r)) {
+    if (arc1.pc.equalTo(arc2.pc) && EQ(arc1.r, arc2.r)) {
         let pt;
 
         pt = arc1.start;
@@ -384,8 +390,8 @@ export function intersectArc2Arc(arc1, arc2) {
     }
 
     // Common case
-    let circle1 = new Flatten.Circle(arc1.pc, arc1.r);
-    let circle2 = new Flatten.Circle(arc2.pc, arc2.r);
+    let circle1 = new Circle(arc1.pc, arc1.r);
+    let circle2 = new Circle(arc2.pc, arc2.r);
     let ip_tmp = circle1.intersect(circle2);
     for (let pt of ip_tmp) {
         if (pt.on(arc1) && pt.on(arc2)) {
@@ -404,7 +410,7 @@ export function intersectArc2Circle(arc, circle) {
 
     // Case when arc center incident to circle center
     // Return arc's end points as 2 intersection points
-    if (circle.pc.equalTo(arc.pc) && Flatten.Utils.EQ(circle.r, arc.r)) {
+    if (circle.pc.equalTo(arc.pc) && EQ(circle.r, arc.r)) {
         ip.push(arc.start);
         ip.push(arc.end);
         return ip;
@@ -412,7 +418,7 @@ export function intersectArc2Circle(arc, circle) {
 
     // Common case
     let circle1 = circle;
-    let circle2 = new Flatten.Circle(arc.pc, arc.r);
+    let circle2 = new Circle(arc.pc, arc.r);
     let ip_tmp = intersectCircle2Circle(circle1, circle2);
     for (let pt of ip_tmp) {
         if (pt.on(arc)) {
@@ -582,13 +588,13 @@ export function intersectBox2Box(box1, box2) {
 }
 
 export function intersectShape2Polygon(shape, polygon) {
-    if (shape instanceof Flatten.Line) {
+    if (shape instanceof Line) {
         return intersectLine2Polygon(shape, polygon);
     }
-    else if (shape instanceof Flatten.Segment) {
+    else if (shape instanceof Segment) {
         return intersectSegment2Polygon(shape, polygon);
     }
-    else if (shape instanceof Flatten.Arc) {
+    else if (shape instanceof Arc) {
         return intersectArc2Polygon(shape, polygon);
     }
     else {

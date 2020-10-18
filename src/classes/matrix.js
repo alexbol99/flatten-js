@@ -1,6 +1,10 @@
 "use strict";
 
-import Flatten from '../flatten';
+import Errors from '../utils/errors'
+
+import {EQ} from '../utils/utils'
+
+import {Vector} from './vector'
 
 /**
  * Class representing an affine transformation 3x3 matrix:
@@ -83,14 +87,14 @@ export class Matrix {
      */
     translate(...args) {
         let tx, ty;
-        if (args.length == 1 && (args[0] instanceof Flatten.Vector)) {
+        if (args.length == 1 && (args[0] instanceof Vector)) {
             tx = args[0].x;
             ty = args[0].y;
         } else if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
             tx = args[0];
             ty = args[1];
         } else {
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
         return this.multiply(new Matrix(1, 0, 0, 1, tx, ty))
     };
@@ -125,20 +129,18 @@ export class Matrix {
      * @returns {boolean} true if equal, false otherwise
      */
     equalTo(matrix) {
-        if (!Flatten.Utils.EQ(this.tx, matrix.tx)) return false;
-        if (!Flatten.Utils.EQ(this.ty, matrix.ty)) return false;
-        if (!Flatten.Utils.EQ(this.a, matrix.a)) return false;
-        if (!Flatten.Utils.EQ(this.b, matrix.b)) return false;
-        if (!Flatten.Utils.EQ(this.c, matrix.c)) return false;
-        if (!Flatten.Utils.EQ(this.d, matrix.d)) return false;
+        if (!EQ(this.tx, matrix.tx)) return false;
+        if (!EQ(this.ty, matrix.ty)) return false;
+        if (!EQ(this.a, matrix.a)) return false;
+        if (!EQ(this.b, matrix.b)) return false;
+        if (!EQ(this.c, matrix.c)) return false;
+        if (!EQ(this.d, matrix.d)) return false;
         return true;
     };
 };
 
-Flatten.Matrix = Matrix;
 /**
  * Function to create matrix equivalent to "new" constructor
  * @param args
  */
-export const matrix = (...args) => new Flatten.Matrix(...args);
-Flatten.matrix = matrix;
+export const matrix = (...args) => new Matrix(...args);
