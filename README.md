@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/alexbol99/flatten-js.svg?branch=master)](https://travis-ci.org/alexbol99/flatten-js)
 [![Coverage Status](https://coveralls.io/repos/github/alexbol99/flatten-js/badge.svg?branch=master)](https://coveralls.io/github/alexbol99/flatten-js?branch=master)
 
+
 # Javascript library for 2d geometry
 
 **flatten-js** is a javascript library for manipulating abstract geometrical shapes like point, vector, line, ray, segment,
@@ -330,4 +331,6 @@ Other packages, published under scope **@flatten-js/**:
 | [@flatten-js/boolean-op](https://www.npmjs.com/package/@flatten-js/boolean-op)    | Boolean operations (deprecated, use this functionality from the core package)
 | [@flatten-js/polygon-offset](https://www.npmjs.com/package/@flatten-js/polygon-offset)    | Polygon offset
 
+## Support
 
+<a href="https://www.buymeacoffee.com/alexbol99" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
