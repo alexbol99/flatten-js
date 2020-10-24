@@ -4,8 +4,30 @@
 
 
 "use strict";
-import Flatten from '../flatten';
-import * as Intersection from '../algorithms/intersection';
+import
+{
+    intersectSegment2Arc,
+    intersectSegment2Box,
+    intersectSegment2Circle,
+    intersectSegment2Line,
+    intersectSegment2Polygon,
+    intersectSegment2Segment
+} from '../algorithms/intersection';
+import {Distance} from '../algorithms/distance'
+
+import Errors from '../utils/errors'
+import {EQ_0} from '../utils/utils'
+
+import {Arc} from './arc'
+import {Box} from './box'
+import {Circle} from './circle'
+import {Line} from './line'
+import {Matrix} from './matrix'
+import {Point} from './point'
+import {Polygon} from './polygon'
+import {Vector} from './vector'
+
+import {PlanarSet} from '../data_structures/planar_set'
 
 /**
  * Class representing a segment
@@ -22,12 +44,12 @@ export class Segment {
          * Start point
          * @type {Point}
          */
-        this.ps = new Flatten.Point();
+        this.ps = new Point();
         /**
          * End Point
          * @type {Point}
          */
-        this.pe = new Flatten.Point();
+        this.pe = new Point();
 
         if (args.length === 0) {
             return;
@@ -35,31 +57,31 @@ export class Segment {
 
         if (args.length === 1 && args[0] instanceof Array && args[0].length === 4) {
             let coords = args[0];
-            this.ps = new Flatten.Point(coords[0], coords[1]);
-            this.pe = new Flatten.Point(coords[2], coords[3]);
+            this.ps = new Point(coords[0], coords[1]);
+            this.pe = new Point(coords[2], coords[3]);
             return;
         }
 
         if (args.length === 1 && args[0] instanceof Object && args[0].name === "segment") {
             let {ps, pe} = args[0];
-            this.ps = new Flatten.Point(ps.x, ps.y);
-            this.pe = new Flatten.Point(pe.x, pe.y);
+            this.ps = new Point(ps.x, ps.y);
+            this.pe = new Point(pe.x, pe.y);
             return;
         }
 
-        if (args.length === 2 && args[0] instanceof Flatten.Point && args[1] instanceof Flatten.Point) {
+        if (args.length === 2 && args[0] instanceof Point && args[1] instanceof Point) {
             this.ps = args[0].clone();
             this.pe = args[1].clone();
             return;
         }
 
         if (args.length === 4) {
-            this.ps = new Flatten.Point(args[0], args[1]);
-            this.pe = new Flatten.Point(args[2], args[3]);
+            this.ps = new Point(args[0], args[1]);
+            this.pe = new Point(args[2], args[3]);
             return;
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -67,7 +89,7 @@ export class Segment {
      * @returns {Segment}
      */
     clone() {
-        return new Flatten.Segment(this.start, this.end);
+        return new Segment(this.start, this.end);
     }
 
     /**
@@ -108,7 +130,7 @@ export class Segment {
      * @returns {number}
      */
     get slope() {
-        let vec = new Flatten.Vector(this.start, this.end);
+        let vec = new Vector(this.start, this.end);
         return vec.slope;
     }
 
@@ -117,7 +139,7 @@ export class Segment {
      * @returns {Box}
      */
     get box() {
-        return new Flatten.Box(
+        return new Box(
             Math.min(this.start.x, this.end.x),
             Math.min(this.start.y, this.end.y),
             Math.max(this.start.x, this.end.x),
@@ -140,7 +162,7 @@ export class Segment {
      * @returns {boolean}
      */
     contains(pt) {
-        return Flatten.Utils.EQ_0(this.distanceToPoint(pt));
+        return EQ_0(this.distanceToPoint(pt));
     }
 
     /**
@@ -149,32 +171,32 @@ export class Segment {
      * @returns {Point[]}
      */
     intersect(shape) {
-        if (shape instanceof Flatten.Point) {
+        if (shape instanceof Point) {
             return this.contains(shape) ? [shape] : [];
         }
 
-        if (shape instanceof Flatten.Line) {
-            return Intersection.intersectSegment2Line(this, shape);
+        if (shape instanceof Line) {
+            return intersectSegment2Line(this, shape);
         }
 
-        if (shape instanceof Flatten.Segment) {
-            return  Intersection.intersectSegment2Segment(this, shape);
+        if (shape instanceof Segment) {
+            return  intersectSegment2Segment(this, shape);
         }
 
-        if (shape instanceof Flatten.Circle) {
-            return Intersection.intersectSegment2Circle(this, shape);
+        if (shape instanceof Circle) {
+            return intersectSegment2Circle(this, shape);
         }
 
-        if (shape instanceof Flatten.Box) {
-            return Intersection.intersectSegment2Box(this, shape);
+        if (shape instanceof Box) {
+            return intersectSegment2Box(this, shape);
         }
 
-        if (shape instanceof Flatten.Arc) {
-            return Intersection.intersectSegment2Arc(this, shape);
+        if (shape instanceof Arc) {
+            return intersectSegment2Arc(this, shape);
         }
 
-        if (shape instanceof Flatten.Polygon) {
-            return  Intersection.intersectSegment2Polygon(this, shape);
+        if (shape instanceof Polygon) {
+            return  intersectSegment2Polygon(this, shape);
         }
     }
 
@@ -185,39 +207,39 @@ export class Segment {
      * @returns {Segment} shortest segment between segment and shape (started at segment, ended at shape)
      */
     distanceTo(shape) {
-        if (shape instanceof Flatten.Point) {
-            let [dist, shortest_segment] = Flatten.Distance.point2segment(shape, this);
+        if (shape instanceof Point) {
+            let [dist, shortest_segment] = Distance.point2segment(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Circle) {
-            let [dist, shortest_segment] = Flatten.Distance.segment2circle(this, shape);
+        if (shape instanceof Circle) {
+            let [dist, shortest_segment] = Distance.segment2circle(this, shape);
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Line) {
-            let [dist, shortest_segment] = Flatten.Distance.segment2line(this, shape);
+        if (shape instanceof Line) {
+            let [dist, shortest_segment] = Distance.segment2line(this, shape);
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Segment) {
-            let [dist, shortest_segment] = Flatten.Distance.segment2segment(this, shape);
+        if (shape instanceof Segment) {
+            let [dist, shortest_segment] = Distance.segment2segment(this, shape);
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Arc) {
-            let [dist, shortest_segment] = Flatten.Distance.segment2arc(this, shape);
+        if (shape instanceof Arc) {
+            let [dist, shortest_segment] = Distance.segment2arc(this, shape);
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Polygon) {
-            let [dist, shortest_segment] = Flatten.Distance.shape2polygon(this, shape);
+        if (shape instanceof Polygon) {
+            let [dist, shortest_segment] = Distance.shape2polygon(this, shape);
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.PlanarSet) {
-            let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
+        if (shape instanceof PlanarSet) {
+            let [dist, shortest_segment] = Distance.shape2planarSet(this, shape);
             return [dist, shortest_segment];
         }
     }
@@ -227,7 +249,7 @@ export class Segment {
      * @returns {Vector}
      */
     tangentInStart() {
-        let vec = new Flatten.Vector(this.start, this.end);
+        let vec = new Vector(this.start, this.end);
         return vec.normalize();
     }
 
@@ -236,7 +258,7 @@ export class Segment {
      * @returns {Vector}
      */
     tangentInEnd() {
-        let vec = new Flatten.Vector(this.end, this.start);
+        let vec = new Vector(this.end, this.start);
         return vec.normalize();
     }
 
@@ -263,8 +285,8 @@ export class Segment {
             return [this.clone(), null];
 
         return [
-            new Flatten.Segment(this.start, pt),
-            new Flatten.Segment(pt, this.end)
+            new Segment(this.start, pt),
+            new Segment(pt, this.end)
         ]
     }
 
@@ -273,11 +295,11 @@ export class Segment {
      * @returns {Point}
      */
     middle() {
-        return new Flatten.Point((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2);
+        return new Point((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2);
     }
 
     distanceToPoint(pt) {
-        let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
+        let [dist, ...rest] = Distance.point2segment(pt, this);
         return dist;
     };
 
@@ -305,8 +327,8 @@ export class Segment {
      * @param {Point} center - center point, default is (0,0)
      * @returns {Segment}
      */
-    rotate(angle = 0, center = new Flatten.Point()) {
-        let m = new Flatten.Matrix();
+    rotate(angle = 0, center = new Point()) {
+        let m = new Matrix();
         m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
         return this.transform(m);
     }
@@ -316,7 +338,7 @@ export class Segment {
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Segment} - transformed segment
      */
-    transform(matrix = new Flatten.Matrix()) {
+    transform(matrix = new Matrix()) {
         return new Segment(this.ps.transform(matrix), this.pe.transform(matrix))
     }
 
@@ -334,7 +356,7 @@ export class Segment {
      * @returns {Point[]} new array sorted
      */
     sortPoints(pts) {
-        let line = new Flatten.Line(this.start, this.end);
+        let line = new Line(this.start, this.end);
         return line.sortPoints(pts);
     }
 
@@ -366,9 +388,7 @@ export class Segment {
 
 };
 
-Flatten.Segment = Segment;
 /**
  * Shortcut method to create new segment
  */
-export const segment = (...args) => new Flatten.Segment(...args);
-Flatten.segment = segment
+export const segment = (...args) => new Segment(...args);

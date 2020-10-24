@@ -4,8 +4,18 @@
 
 "use strict";
 
-import Flatten from '../flatten';
 import CircularLinkedList from '../data_structures/circular_linked_list';
+
+import {EQ_0, LT} from '../utils/utils'
+import {CCW, ORIENTATION} from '../utils/constants'
+
+import {Arc} from './arc'
+import {Box} from './box'
+import {Circle} from './circle'
+import {Edge} from './edge'
+import {Point} from './point'
+import {Polygon} from './polygon'
+import {Segment} from './segment'
 
 /**
  * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
@@ -60,19 +70,19 @@ export class Face extends CircularLinkedList {
                     return;
 
                 /* array of Flatten.Points */
-                if (shapes.every((shape) => {return shape instanceof Flatten.Point})) {
+                if (shapes.every((shape) => {return shape instanceof Point})) {
                     let segments = Face.points2segments(shapes);
                     this.shapes2face(polygon.edges, segments);
                 }
                 /* array of points as pairs of numbers */
                 else if (shapes.every((shape) => {return shape instanceof Array && shape.length === 2})) {
-                    let points = shapes.map((shape) => new Flatten.Point(shape[0],shape[1]));
+                    let points = shapes.map((shape) => new Point(shape[0],shape[1]));
                     let segments = Face.points2segments(points);
                     this.shapes2face(polygon.edges, segments);
                 }
                 /* array of segments ot arcs */
                 else if (shapes.every((shape) => {
-                    return (shape instanceof Flatten.Segment || shape instanceof Flatten.Arc)
+                    return (shape instanceof Segment || shape instanceof Arc)
                 })) {
                     this.shapes2face(polygon.edges, shapes);
                 }
@@ -84,9 +94,9 @@ export class Face extends CircularLinkedList {
                     for (let shape of shapes) {
                         let flattenShape;
                         if (shape.name === "segment") {
-                            flattenShape = new Flatten.Segment(shape);
+                            flattenShape = new Segment(shape);
                         } else {
-                            flattenShape = new Flatten.Arc(shape);
+                            flattenShape = new Arc(shape);
                         }
                         flattenShapes.push(flattenShape);
                     }
@@ -103,24 +113,24 @@ export class Face extends CircularLinkedList {
                 }
             }
             /* Instantiate face from a circle in CCW orientation */
-            else if (args[0] instanceof Flatten.Circle) {
-                this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
+            else if (args[0] instanceof Circle) {
+                this.shapes2face(polygon.edges, [args[0].toArc(CCW)]);
             }
             /* Instantiate face from a box in CCW orientation */
-            else if (args[0] instanceof Flatten.Box) {
+            else if (args[0] instanceof Box) {
                 let box = args[0];
                 this.shapes2face(polygon.edges, [
-                    new Flatten.Segment(new Flatten.Point(box.xmin, box.ymin), new Flatten.Point(box.xmax, box.ymin)),
-                    new Flatten.Segment(new Flatten.Point(box.xmax, box.ymin), new Flatten.Point(box.xmax, box.ymax)),
-                    new Flatten.Segment(new Flatten.Point(box.xmax, box.ymax), new Flatten.Point(box.xmin, box.ymax)),
-                    new Flatten.Segment(new Flatten.Point(box.xmin, box.ymax), new Flatten.Point(box.xmin, box.ymin))
+                    new Segment(new Point(box.xmin, box.ymin), new Point(box.xmax, box.ymin)),
+                    new Segment(new Point(box.xmax, box.ymin), new Point(box.xmax, box.ymax)),
+                    new Segment(new Point(box.xmax, box.ymax), new Point(box.xmin, box.ymax)),
+                    new Segment(new Point(box.xmin, box.ymax), new Point(box.xmin, box.ymin))
                 ]);
             }
         }
         /* If passed two edges, consider them as start and end of the face loop */
         /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
         /* Assume that edges already copied to polygon.edges set in the clip algorithm !!! */
-        if (args.length == 2 && args[0] instanceof Flatten.Edge && args[1] instanceof Flatten.Edge) {
+        if (args.length == 2 && args[0] instanceof Edge && args[1] instanceof Edge) {
             this.first = args[0];                          // first edge in face or undefined
             this.last = args[1];                           // last edge in face or undefined
             this.last.next = this.first;
@@ -156,7 +166,7 @@ export class Face extends CircularLinkedList {
      */
     get box() {
         if (this._box === undefined) {
-            let box = new Flatten.Box();
+            let box = new Box();
             for (let edge of this) {
                 box = box.merge(edge.box);
             }
@@ -168,14 +178,14 @@ export class Face extends CircularLinkedList {
     static points2segments(points) {
         let segments = [];
         for (let i = 0; i < points.length; i++) {
-            segments.push(new Flatten.Segment(points[i], points[(i + 1) % points.length]));
+            segments.push(new Segment(points[i], points[(i + 1) % points.length]));
         }
         return segments;
     }
 
     shapes2face(edges, shapes) {
         for (let shape of shapes) {
-            let edge = new Flatten.Edge(shape);
+            let edge = new Edge(shape);
             this.append(edge);
             // this.box = this.box.merge(shape.box);
             edges.add(edge);
@@ -329,12 +339,12 @@ export class Face extends CircularLinkedList {
     orientation() {
         if (this._orientation === undefined) {
             let area = this.signedArea();
-            if (Flatten.Utils.EQ_0(area)) {
-                this._orientation = Flatten.ORIENTATION.NOT_ORIENTABLE;
-            } else if (Flatten.Utils.LT(area, 0)) {
-                this._orientation = Flatten.ORIENTATION.CCW;
+            if (EQ_0(area)) {
+                this._orientation = ORIENTATION.NOT_ORIENTABLE;
+            } else if (LT(area, 0)) {
+                this._orientation = ORIENTATION.CCW;
             } else {
-                this._orientation = Flatten.ORIENTATION.CW;
+                this._orientation = ORIENTATION.CW;
             }
         }
         return this._orientation;
@@ -373,7 +383,7 @@ export class Face extends CircularLinkedList {
                     continue;
 
                 // Skip next and previous edge if both are segment (if one of them arc - calc intersection)
-                if (edge1.shape instanceof Flatten.Segment && edge2.shape instanceof Flatten.Segment &&
+                if (edge1.shape instanceof Segment && edge2.shape instanceof Segment &&
                     (edge1.next === edge2 || edge1.prev === edge2))
                     continue;
 
@@ -427,7 +437,7 @@ export class Face extends CircularLinkedList {
      * @returns {Polygon}
      */
     toPolygon() {
-        return new Flatten.Polygon(this.shapes);
+        return new Polygon(this.shapes);
     }
 
     toJSON() {
@@ -448,5 +458,3 @@ export class Face extends CircularLinkedList {
     }
 
 };
-
-Flatten.Face = Face;

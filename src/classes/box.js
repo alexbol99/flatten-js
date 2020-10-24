@@ -3,7 +3,8 @@
  */
 "use strict";
 
-import Flatten from '../flatten';
+import {Point} from './point'
+import {Segment} from './segment'
 
 /**
  * Class Box represent bounding box of the shape
@@ -53,7 +54,7 @@ export class Box {
      * @returns {Point}
      */
     get low() {
-        return new Flatten.Point(this.xmin, this.ymin);
+        return new Point(this.xmin, this.ymin);
     }
 
     /**
@@ -61,7 +62,7 @@ export class Box {
      * @returns {Point}
      */
     get high() {
-        return new Flatten.Point(this.xmax, this.ymax);
+        return new Point(this.xmax, this.ymax);
     }
 
     /**
@@ -77,7 +78,7 @@ export class Box {
      * @returns {Point}
      */
     get center() {
-        return new Flatten.Point((this.xmin + this.xmax) / 2, (this.ymin + this.ymax) / 2);
+        return new Point((this.xmin + this.xmax) / 2, (this.ymin + this.ymax) / 2);
     }
 
     /**
@@ -180,10 +181,10 @@ export class Box {
      */
     toPoints() {
         return [
-            new Flatten.Point(this.xmin, this.ymin),
-            new Flatten.Point(this.xmax, this.ymin),
-            new Flatten.Point(this.xmax, this.ymax),
-            new Flatten.Point(this.xmin, this.ymax)
+            new Point(this.xmin, this.ymin),
+            new Point(this.xmax, this.ymin),
+            new Point(this.xmax, this.ymax),
+            new Point(this.xmin, this.ymax)
         ];
     }
 
@@ -194,10 +195,10 @@ export class Box {
     toSegments() {
         let pts = this.toPoints();
         return [
-            new Flatten.Segment(pts[0], pts[1]),
-            new Flatten.Segment(pts[1], pts[2]),
-            new Flatten.Segment(pts[2], pts[3]),
-            new Flatten.Segment(pts[3], pts[0])
+            new Segment(pts[0], pts[1]),
+            new Segment(pts[1], pts[2]),
+            new Segment(pts[2], pts[3]),
+            new Segment(pts[3], pts[0])
         ];
     }
 
@@ -220,11 +221,9 @@ export class Box {
     };
 };
 
-Flatten.Box = Box;
 /**
  * Shortcut to create new circle
  * @param args
  * @returns {Box}
  */
-export const box = (...args) => new Flatten.Box(...args);
-Flatten.box = box;
+export const box = (...args) => new Box(...args);

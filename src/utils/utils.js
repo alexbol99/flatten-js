@@ -8,9 +8,10 @@
  * It is set to 0.000001.
  * @type {number}
  */
-var DP_TOL = 0.000001;
+let DP_TOL = 0.000001;
 export function setTolerance(tolerance) {DP_TOL = tolerance;}
 export function getTolerance() {return DP_TOL;}
+
 
 export const DECIMALS = 3;
 

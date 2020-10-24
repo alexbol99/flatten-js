@@ -4,8 +4,9 @@
 
 "use strict";
 
-import Flatten from '../flatten';
 import IntervalTree from '@flatten-js/interval-tree';
+
+import {Box} from '../classes/box'
 
 /**
  * Class representing a planar set - a generic container with ability to keep and retrieve shapes and
@@ -78,7 +79,7 @@ export class PlanarSet extends Set {
      * @returns {Array}
      */
     hit(point) {
-        let box = new Flatten.Box(point.x - 1, point.y - 1, point.x + 1, point.y + 1);
+        let box = new Box(point.x - 1, point.y - 1, point.x + 1, point.y + 1);
         let resp = this.index.search(box);
         return resp.filter((shape) => point.on(shape));
     }
@@ -92,5 +93,3 @@ export class PlanarSet extends Set {
         return svgcontent;
     }
 }
-
-Flatten.PlanarSet = PlanarSet;

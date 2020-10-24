@@ -5,11 +5,10 @@
  * @module BooleanOp
  */
 "use strict";
-import Flatten from '../flatten';
-import * as Utils from '../utils/utils';
+import {EQ, LT} from '../utils/utils';
+import Errors from '../utils/errors';
+import {INSIDE, OUTSIDE, BOUNDARY, OVERLAP_SAME, OVERLAP_OPPOSITE} from '../utils/constants';
 import LinkedList from "../data_structures/linked_list";
-
-let {INSIDE, OUTSIDE, BOUNDARY, OVERLAP_SAME, OVERLAP_OPPOSITE} = Flatten;
 
 const NOT_VERTEX = 0;
 const START_VERTEX = 1;
@@ -259,10 +258,10 @@ export function addToIntPoints(edge, pt, int_points)
     }
 
     let is_vertex = NOT_VERTEX;
-    if (Utils.EQ(len, 0)) {
+    if (EQ(len, 0)) {
         is_vertex |= START_VERTEX;
     }
-    if (Utils.EQ(len, edge.shape.length)) {
+    if (EQ(len, edge.shape.length)) {
         is_vertex |= END_VERTEX;
     }
     // Fix intersection point which is end point of the last edge
@@ -382,7 +381,7 @@ export function filterDuplicatedIntersections(intersections)
 
         for (let j=i+1; j < intersections.int_points1_sorted.length; j++) {
             int_point_cur1 = intersections.int_points1_sorted[j];
-            if (!Utils.EQ(int_point_cur1.arc_length, int_point_ref1.arc_length)) {
+            if (!EQ(int_point_cur1.arc_length, int_point_ref1.arc_length)) {
                 break;
             }
             if (int_point_cur1.id === -1)
@@ -412,7 +411,7 @@ export function filterDuplicatedIntersections(intersections)
         /* already deleted */
 
         if (int_point_ref2.id == -1 || /* can't be reference if already deleted */
-            !(Utils.EQ(int_point_cur2.arc_length, int_point_ref2.arc_length))) {
+            !(EQ(int_point_cur2.arc_length, int_point_ref2.arc_length))) {
             int_point_ref2 = int_point_cur2;
             int_point_ref1 = intersections.int_points1[int_point_ref2.id];
             continue;
@@ -575,7 +574,7 @@ function fixBoundaryConflicts(poly1, poly2, int_points1, int_points1_sorted, int
                     }
                     else {                            // another not boundary edge between from and to
                         if (edge_tmp.bv != new_bv) {  // and it has different bv - can't resolve conflict
-                            throw Flatten.Errors.UNRESOLVED_BOUNDARY_CONFLICT;
+                            throw Errors.UNRESOLVED_BOUNDARY_CONFLICT;
                         }
                     }
                 }
@@ -596,7 +595,7 @@ function fixBoundaryConflicts(poly1, poly2, int_points1, int_points1_sorted, int
             while (edge_tmp != edge_to1) {
                 if (edge_tmp.bvStart === edge_from1.bv && edge_tmp.bvEnd === edge_to1.bv) {
                     let [dist, segment] = edge_tmp.shape.distanceTo(poly2);
-                    if (dist < 10*Flatten.DP_TOL) {  // it should be very close
+                    if (LT(dist, 10)) {  // it should be very close
                         // let pt = edge_tmp.end;
                         // add to the list of intersections of poly1
                         addToIntPoints(edge_tmp, segment.ps, int_points1);
@@ -677,7 +676,7 @@ function fixBoundaryConflicts(poly1, poly2, int_points1, int_points1_sorted, int
             if (iterate_more)
                 break;
 
-            throw Flatten.Errors.UNRESOLVED_BOUNDARY_CONFLICT;
+            throw Errors.UNRESOLVED_BOUNDARY_CONFLICT;
         }
     }
 

@@ -5,10 +5,31 @@
 
 "use strict";
 
-import Flatten from '../flatten';
-import {ray_shoot} from "../algorithms/ray_shooting";
-import * as Intersection from "../algorithms/intersection";
-import * as Relations from "../algorithms/relation";
+import {ray_shoot} from '../algorithms/ray_shooting';
+import {Distance} from '../algorithms/distance'
+import {cover} from '../algorithms/relation'
+import {
+    intersectArc2Polygon,
+    intersectCircle2Polygon,
+    intersectLine2Polygon,
+    intersectPolygon2Polygon,
+    intersectSegment2Polygon
+} from "../algorithms/intersection";
+
+import {LT} from '../utils/utils'
+import {BOUNDARY, INSIDE} from '../utils/constants'
+
+import {Arc} from './arc'
+import {Box} from './box'
+import {Circle} from './circle'
+import {Edge} from './edge'
+import {Face} from './face'
+import {Line} from './line'
+import {Matrix} from './matrix'
+import {Point} from './point'
+import {Segment} from './segment'
+
+import {PlanarSet} from '../data_structures/planar_set'
 
 /**
  * Class representing a polygon.<br/>
@@ -34,12 +55,12 @@ export class Polygon {
          * Container of faces (closed loops), may be empty
          * @type {PlanarSet}
          */
-        this.faces = new Flatten.PlanarSet();
+        this.faces = new PlanarSet();
         /**
          * Container of edges
          * @type {PlanarSet}
          */
-        this.edges = new Flatten.PlanarSet();
+        this.edges = new PlanarSet();
 
         /* It may be array of something that may represent one loop (face) or
          array of arrays that represent multiple loops
@@ -47,20 +68,20 @@ export class Polygon {
         let args = [...arguments];
         if (args.length === 1 &&
             ((args[0] instanceof Array && args[0].length > 0) ||
-                args[0] instanceof Flatten.Circle || args[0] instanceof Flatten.Box)) {
+                args[0] instanceof Circle || args[0] instanceof Box)) {
             let argsArray = args[0];
             if (args[0] instanceof Array && args[0].every((loop) => {return loop instanceof Array})) {
                 if  (argsArray.every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
-                    this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
+                    this.faces.add(new Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
                 }
                 else {
                     for (let loop of argsArray) {   // multi-loop polygon
-                        this.faces.add(new Flatten.Face(this, loop));
+                        this.faces.add(new Face(this, loop));
                     }
                 }
             }
             else {
-                this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon
+                this.faces.add(new Face(this, argsArray));    // one-loop polygon
             }
         }
     }
@@ -70,7 +91,7 @@ export class Polygon {
      * @returns {Box}
      */
     get box() {
-        return [...this.faces].reduce((acc, face) => acc.merge(face.box), new Flatten.Box());
+        return [...this.faces].reduce((acc, face) => acc.merge(face.box), new Box());
     }
 
     /**
@@ -143,7 +164,7 @@ export class Polygon {
      * @returns {Face}
      */
     addFace(...args) {
-        let face = new Flatten.Face(this, ...args);
+        let face = new Face(this, ...args);
         this.faces.add(face);
         return face;
     }
@@ -203,7 +224,7 @@ export class Polygon {
         if (shapes[1] === null)   // point incident to edge end vertex, return edge itself
             return edge;
 
-        let newEdge = new Flatten.Edge(shapes[0]);
+        let newEdge = new Edge(shapes[0]);
         let edgeBefore = edge.prev;
 
         /* Insert first split edge into linked list after edgeBefore */
@@ -232,7 +253,7 @@ export class Polygon {
     cut(multiline) {
         let cutPolygons = [this.clone()];
         for (let edge of multiline) {
-            if (edge.setInclusion(this) !== Flatten.INSIDE)
+            if (edge.setInclusion(this) !== INSIDE)
                 continue;
 
             let cut_edge_start = edge.shape.start;
@@ -271,11 +292,11 @@ export class Polygon {
         let edgeBefore2 = this.addVertex(pt2, edge2);
 
         let face = edgeBefore1.face;
-        let newEdge1 = new Flatten.Edge(
-            new Flatten.Segment(edgeBefore1.end, edgeBefore2.end)
+        let newEdge1 = new Edge(
+            new Segment(edgeBefore1.end, edgeBefore2.end)
         );
-        let newEdge2 = new Flatten.Edge(
-            new Flatten.Segment(edgeBefore2.end, edgeBefore1.end)
+        let newEdge2 = new Edge(
+            new Segment(edgeBefore2.end, edgeBefore1.end)
         );
 
         // Swap links
@@ -367,12 +388,12 @@ export class Polygon {
      * @returns {boolean}
      */
     contains(shape) {
-        if (shape instanceof Flatten.Point) {
+        if (shape instanceof Point) {
             let rel = ray_shoot(this, shape);
-            return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
+            return rel === INSIDE || rel === BOUNDARY;
         }
         else {
-            return Relations.cover(this, shape);
+            return cover(this, shape);
         }
     }
 
@@ -384,31 +405,31 @@ export class Polygon {
     distanceTo(shape) {
         // let {Distance} = Flatten;
 
-        if (shape instanceof Flatten.Point) {
-            let [dist, shortest_segment] = Flatten.Distance.point2polygon(shape, this);
+        if (shape instanceof Point) {
+            let [dist, shortest_segment] = Distance.point2polygon(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Circle ||
-            shape instanceof Flatten.Line ||
-            shape instanceof Flatten.Segment ||
-            shape instanceof Flatten.Arc) {
-            let [dist, shortest_segment] = Flatten.Distance.shape2polygon(shape, this);
+        if (shape instanceof Circle ||
+            shape instanceof Line ||
+            shape instanceof Segment ||
+            shape instanceof Arc) {
+            let [dist, shortest_segment] = Distance.shape2polygon(shape, this);
             shortest_segment = shortest_segment.reverse();
             return [dist, shortest_segment];
         }
 
         /* this method is bit faster */
-        if (shape instanceof Flatten.Polygon) {
-            let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
+        if (shape instanceof Polygon) {
+            let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Segment()];
             let dist, shortest_segment;
 
             for (let edge of this.edges) {
                 // let [dist, shortest_segment] = Distance.shape2polygon(edge.shape, shape);
                 let min_stop = min_dist_and_segment[0];
-                [dist, shortest_segment] = Flatten.Distance.shape2planarSet(edge.shape, shape.edges, min_stop);
-                if (Flatten.Utils.LT(dist, min_stop)) {
+                [dist, shortest_segment] = Distance.shape2planarSet(edge.shape, shape.edges, min_stop);
+                if (LT(dist, min_stop)) {
                     min_dist_and_segment = [dist, shortest_segment];
                 }
             }
@@ -422,28 +443,28 @@ export class Polygon {
      * @returns {Point[]}
      */
     intersect(shape) {
-        if (shape instanceof Flatten.Point) {
+        if (shape instanceof Point) {
             return this.contains(shape) ? [shape] : [];
         }
 
-        if (shape instanceof Flatten.Line) {
-            return Intersection.intersectLine2Polygon(shape, this);
+        if (shape instanceof Line) {
+            return intersectLine2Polygon(shape, this);
         }
 
-        if (shape instanceof Flatten.Circle) {
-            return Intersection.intersectCircle2Polygon(shape, this);
+        if (shape instanceof Circle) {
+            return intersectCircle2Polygon(shape, this);
         }
 
-        if (shape instanceof Flatten.Segment) {
-            return Intersection.intersectSegment2Polygon(shape, this);
+        if (shape instanceof Segment) {
+            return intersectSegment2Polygon(shape, this);
         }
 
-        if (shape instanceof Flatten.Arc) {
-            return Intersection.intersectArc2Polygon(shape, this);
+        if (shape instanceof Arc) {
+            return intersectArc2Polygon(shape, this);
         }
 
-        if (shape instanceof Flatten.Polygon) {
-            return Intersection.intersectPolygon2Polygon(shape, this);
+        if (shape instanceof Polygon) {
+            return intersectPolygon2Polygon(shape, this);
         }
     }
 
@@ -468,7 +489,7 @@ export class Polygon {
      * @param {Point} center - rotation center, default is (0,0)
      * @returns {Polygon} - new rotated polygon
      */
-    rotate(angle = 0, center = new Flatten.Point()) {
+    rotate(angle = 0, center = new Point()) {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
             newPolygon.addFace(face.shapes.map( shape => shape.rotate(angle, center)));
@@ -481,7 +502,7 @@ export class Polygon {
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Polygon} - new polygon
      */
-    transform(matrix = new Flatten.Matrix()) {
+    transform(matrix = new Matrix()) {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
             newPolygon.addFace(face.shapes.map( shape => shape.transform(matrix)));
@@ -528,11 +549,8 @@ export class Polygon {
     }
 }
 
-Flatten.Polygon = Polygon;
-
 /**
  * Shortcut method to create new polygon
  */
-export const polygon = (...args) => new Flatten.Polygon(...args);
-Flatten.polygon = polygon;
+export const polygon = (...args) => new Polygon(...args);
 
