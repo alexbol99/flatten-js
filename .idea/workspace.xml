@@ -1,78 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- release patch v1.2.14 with fixBoundaryConflict in boolean operation package">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Arc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Box.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Circle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/CircularLinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/CircularLinkedList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/DE9IM.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/DE9IM.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Edge.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Face.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Line.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/LinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/LinkedList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Matrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Matrix.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Multiline.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Multiline.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/PlanarSet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Point.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Polygon.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Ray.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Segment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Vector.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_boolean_op.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_boolean_op.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_inversion.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_ray_shooting.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_ray_shooting.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/algorithms_relation.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_relation.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_matrix.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_multiline.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_multiline.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/fonts/OpenSans-Bold-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-Bold-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/fonts/OpenSans-BoldItalic-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-BoldItalic-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/fonts/OpenSans-Italic-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-Italic-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/fonts/OpenSans-Light-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-Light-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/fonts/OpenSans-LightItalic-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-LightItalic-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/fonts/OpenSans-Regular-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-Regular-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/fonts/OpenSans-Semibold-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-Semibold-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/fonts/OpenSans-SemiboldItalic-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/fonts/OpenSans-SemiboldItalic-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/module-BooleanOp.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-BooleanOp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/module-RayShoot.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-RayShoot.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/module-Relation.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-Relation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/scripts/linenumber.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/scripts/linenumber.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/scripts/prettify/Apache-License-2.0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/scripts/prettify/Apache-License-2.0.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/scripts/prettify/lang-css.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/scripts/prettify/lang-css.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/scripts/prettify/prettify.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/scripts/prettify/prettify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/styles/jsdoc-default.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/styles/jsdoc-default.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/styles/prettify-jsdoc.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/styles/prettify-jsdoc.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/styles/prettify-tomorrow.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/styles/prettify-tomorrow.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_constants.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_constants.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/boolean_op.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_structures/linked_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/linked_list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/errors.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/errors.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/data_structures/linked_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/data_structures/linked_list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/relation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +100,10 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#LinkedList">
+  <component name="RunManager" selected="Mocha.#Algorithms.Relation">
+    <configuration name="relation.js" type="NodeJSConfigurationType" temporary="true" application-parameters="--require @babel/register" nameIsGenerated="true" path-to-js-file="relation.js" working-dir="$PROJECT_DIR$/test/algorithms">
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -194,16 +133,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="test" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <configuration name="#Algorithms.Boolean Operations" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -219,7 +148,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#LinkedList" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Algorithms.Relation" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
@@ -228,9 +157,9 @@
       <ui>bdd</ui>
       <extra-mocha-options>--require @babel/register</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/data_structures/linked_list.js</test-file>
+      <test-file>$PROJECT_DIR$/test/algorithms/relation.js</test-file>
       <test-names>
-        <name value="#LinkedList" />
+        <name value="#Algorithms.Relation" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -250,22 +179,22 @@
     <list>
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
-      <item itemvalue="Mocha.#LinkedList" />
-      <item itemvalue="npm.test" />
+      <item itemvalue="Mocha.#Algorithms.Relation" />
+      <item itemvalue="Node.js.relation.js" />
       <item itemvalue="npm.generate-docs" />
       <item itemvalue="npm.build" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.generate-docs" />
         <item itemvalue="npm.build" />
-        <item itemvalue="npm.test" />
-        <item itemvalue="Mocha.#LinkedList" />
+        <item itemvalue="Mocha.#Algorithms.Relation" />
+        <item itemvalue="Node.js.relation.js" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
+        <item itemvalue="npm.generate-docs" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -412,20 +341,7 @@
       <workItem from="1598957803429" duration="979000" />
       <workItem from="1599034994413" duration="22115000" />
       <workItem from="1599640676609" duration="7883000" />
-    </task>
-    <task id="LOCAL-00130" summary="- create patch">
-      <created>1553253087861</created>
-      <option name="number" value="00130" />
-      <option name="presentableId" value="LOCAL-00130" />
-      <option name="project" value="LOCAL" />
-      <updated>1553253087861</updated>
-    </task>
-    <task id="LOCAL-00131" summary="- update coverage tool istanbul to nyc&#10;- update script for coverall integration tool&#10;- added some tests for PlanarSet&#10;- build, generate docs">
-      <created>1553523977422</created>
-      <option name="number" value="00131" />
-      <option name="presentableId" value="LOCAL-00131" />
-      <option name="project" value="LOCAL" />
-      <updated>1553523977423</updated>
+      <workItem from="1603533295939" duration="6508000" />
     </task>
     <task id="LOCAL-00132" summary="- implement LinkedList, CircularLinkedList&#10;- implement Face as an extension of CircularLinkedList">
       <created>1553934631424</created>
@@ -756,11 +672,25 @@
       <option name="project" value="LOCAL" />
       <updated>1599146025958</updated>
     </task>
-    <option name="localTasksCounter" value="179" />
+    <task id="LOCAL-00179" summary="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype">
+      <created>1600599021535</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1600599021538</updated>
+    </task>
+    <task id="LOCAL-00180" summary="- submit dist">
+      <created>1600599229679</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1600599229679</updated>
+    </task>
+    <option name="localTasksCounter" value="181" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -775,8 +705,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Fixed bug in Ray::clone() method" />
-    <MESSAGE value="- Fixed bug in relationLine2Circle" />
     <MESSAGE value="- Fixed bugs in relationLine2Polygon and Polygon::cut() method" />
     <MESSAGE value="- Added relatePolygon2Polygon method (not completes, not tested)" />
     <MESSAGE value="- Added relatePolygon2Polygon method, added tests&#10;- Added relations INSIDE and COVERED&#10;- Boolean_op moved back to core&#10;- Interval_tree upgraded to v1.0.11&#10;- Published minor version 1.2.0" />
@@ -800,152 +728,238 @@
     <MESSAGE value="- boolean operations: resolve case of pseudo-boundary conflict and add throw error in case of boundary conflict due to missed intersection" />
     <MESSAGE value="- submit patch v1.2.13" />
     <MESSAGE value="- release patch v1.2.14 with fixBoundaryConflict in boolean operation package" />
-    <option name="LAST_COMMIT_MESSAGE" value="- release patch v1.2.14 with fixBoundaryConflict in boolean operation package" />
+    <MESSAGE value="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype" />
+    <MESSAGE value="- submit dist" />
+    <option name="LAST_COMMIT_MESSAGE" value="- submit dist" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599645279017">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="209" y="75" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603017049639">
+      <screen x="0" y="23" width="1280" height="732" />
     </state>
     <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598349035423" />
+    <state x="209" y="75" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.728@0.23.1280.728" timestamp="1601025314540" />
+    <state x="209" y="75" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.732@0.23.1280.732" timestamp="1603017049639" />
     <state x="671" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645279017" />
     <state x="244" y="107" width="1555" height="826" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1599641433462">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="244" y="107" width="1555" height="826" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599641433462" />
-    <state x="1270" y="385" width="490" height="609" key="#xdebugger.evaluate" timestamp="1599143866007">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="698" y="273" width="563" height="433" key="#xdebugger.evaluate" timestamp="1603541389878">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state x="1270" y="385" width="490" height="609" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1599143866007" />
-    <state x="461" y="56" width="1047" height="801" key="CommitChangelistDialog2" timestamp="1599653068583">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="698" y="273" width="563" height="433" key="#xdebugger.evaluate/0.23.1280.728@0.23.1280.728" timestamp="1603541389878" />
+    <state x="806" y="293" width="474" height="427" key="#xdebugger.evaluate/0.23.1280.729@0.23.1280.729" timestamp="1601221396617" />
+    <state x="806" y="174" key="#xdebugger.evaluate/0.23.1280.730@0.23.1280.730" timestamp="1603017813772" />
+    <state x="806" y="176" key="#xdebugger.evaluate/0.23.1280.732@0.23.1280.732" timestamp="1603469719356" />
+    <state x="307" y="62" width="846" height="561" key="CommitChangelistDialog2" timestamp="1600599229381">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state x="461" y="56" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1599146025240" />
+    <state x="307" y="62" width="846" height="561" key="CommitChangelistDialog2/0.23.1280.728@0.23.1280.728" timestamp="1600599229381" />
     <state x="461" y="56" key="CommitChangelistDialog2/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599653068583" />
     <state x="2683" y="0" key="CommitChangelistDialog2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932675603" />
-    <state width="1034" height="772" key="DebuggerActiveHint" timestamp="1599645341436">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="745" height="543" key="DebuggerActiveHint" timestamp="1603541144285">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1034" height="772" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1599144696887" />
+    <state width="745" height="543" key="DebuggerActiveHint/0.23.1280.728@0.23.1280.728" timestamp="1603541144285" />
+    <state width="690" height="542" key="DebuggerActiveHint/0.23.1280.729@0.23.1280.729" timestamp="1601221893368" />
+    <state width="690" height="544" key="DebuggerActiveHint/0.23.1280.730@0.23.1280.730" timestamp="1603017926174" />
+    <state width="690" height="545" key="DebuggerActiveHint/0.23.1280.732@0.23.1280.732" timestamp="1603469558250" />
     <state width="1034" height="772" key="DebuggerActiveHint/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645341436" />
     <state x="791" y="281" key="FileChooserDialogImpl" timestamp="1599119013993">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="791" y="281" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1599119013993" />
-    <state width="1717" height="297" key="GridCell.Tab.0.bottom" timestamp="1599653691856">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="210" key="GridCell.Tab.0.bottom" timestamp="1603542309652">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="405" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059556" />
+    <state width="1235" height="210" key="GridCell.Tab.0.bottom/0.23.1280.728@0.23.1280.728" timestamp="1603542309652" />
+    <state width="1235" height="200" key="GridCell.Tab.0.bottom/0.23.1280.729@0.23.1280.729" timestamp="1601222073177" />
+    <state width="1235" height="247" key="GridCell.Tab.0.bottom/0.23.1280.730@0.23.1280.730" timestamp="1603018406840" />
+    <state width="1235" height="247" key="GridCell.Tab.0.bottom/0.23.1280.732@0.23.1280.732" timestamp="1603474111276" />
     <state width="1717" height="297" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599653691856" />
     <state width="1717" height="229" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="297" key="GridCell.Tab.0.center" timestamp="1599653691856">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="210" key="GridCell.Tab.0.center" timestamp="1603542309651">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="405" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059555" />
+    <state width="1235" height="210" key="GridCell.Tab.0.center/0.23.1280.728@0.23.1280.728" timestamp="1603542309651" />
+    <state width="1235" height="200" key="GridCell.Tab.0.center/0.23.1280.729@0.23.1280.729" timestamp="1601222073176" />
+    <state width="1235" height="247" key="GridCell.Tab.0.center/0.23.1280.730@0.23.1280.730" timestamp="1603018406837" />
+    <state width="1235" height="247" key="GridCell.Tab.0.center/0.23.1280.732@0.23.1280.732" timestamp="1603474111275" />
     <state width="1717" height="297" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599653691856" />
     <state width="1717" height="229" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="297" key="GridCell.Tab.0.left" timestamp="1599653691856">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="210" key="GridCell.Tab.0.left" timestamp="1603542309651">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="405" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059555" />
+    <state width="1235" height="210" key="GridCell.Tab.0.left/0.23.1280.728@0.23.1280.728" timestamp="1603542309651" />
+    <state width="1235" height="200" key="GridCell.Tab.0.left/0.23.1280.729@0.23.1280.729" timestamp="1601222073175" />
+    <state width="1235" height="247" key="GridCell.Tab.0.left/0.23.1280.730@0.23.1280.730" timestamp="1603018406832" />
+    <state width="1235" height="247" key="GridCell.Tab.0.left/0.23.1280.732@0.23.1280.732" timestamp="1603474111275" />
     <state width="1717" height="297" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599653691856" />
     <state width="1717" height="229" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="297" key="GridCell.Tab.0.right" timestamp="1599653691856">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="210" key="GridCell.Tab.0.right" timestamp="1603542309652">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="405" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059556" />
+    <state width="1235" height="210" key="GridCell.Tab.0.right/0.23.1280.728@0.23.1280.728" timestamp="1603542309652" />
+    <state width="1235" height="200" key="GridCell.Tab.0.right/0.23.1280.729@0.23.1280.729" timestamp="1601222073176" />
+    <state width="1235" height="247" key="GridCell.Tab.0.right/0.23.1280.730@0.23.1280.730" timestamp="1603018406838" />
+    <state width="1235" height="247" key="GridCell.Tab.0.right/0.23.1280.732@0.23.1280.732" timestamp="1603474111276" />
     <state width="1717" height="297" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599653691856" />
     <state width="1717" height="229" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="362" key="GridCell.Tab.1.bottom" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.1.bottom" timestamp="1603541480711">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.1.bottom/0.23.1280.728@0.23.1280.728" timestamp="1603541480711" />
+    <state width="1235" height="200" key="GridCell.Tab.1.bottom/0.23.1280.729@0.23.1280.729" timestamp="1601222072980" />
+    <state width="1235" height="247" key="GridCell.Tab.1.bottom/0.23.1280.730@0.23.1280.730" timestamp="1603018409048" />
+    <state width="1235" height="247" key="GridCell.Tab.1.bottom/0.23.1280.732@0.23.1280.732" timestamp="1603474111278" />
     <state width="1717" height="362" key="GridCell.Tab.1.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.1.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="362" key="GridCell.Tab.1.center" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.1.center" timestamp="1603541480710">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.1.center/0.23.1280.728@0.23.1280.728" timestamp="1603541480710" />
+    <state width="1235" height="200" key="GridCell.Tab.1.center/0.23.1280.729@0.23.1280.729" timestamp="1601222072979" />
+    <state width="1235" height="247" key="GridCell.Tab.1.center/0.23.1280.730@0.23.1280.730" timestamp="1603018409047" />
+    <state width="1235" height="247" key="GridCell.Tab.1.center/0.23.1280.732@0.23.1280.732" timestamp="1603474111277" />
     <state width="1717" height="362" key="GridCell.Tab.1.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.1.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="362" key="GridCell.Tab.1.left" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.1.left" timestamp="1603541480709">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.1.left/0.23.1280.728@0.23.1280.728" timestamp="1603541480709" />
+    <state width="1235" height="200" key="GridCell.Tab.1.left/0.23.1280.729@0.23.1280.729" timestamp="1601222072979" />
+    <state width="1235" height="247" key="GridCell.Tab.1.left/0.23.1280.730@0.23.1280.730" timestamp="1603018409045" />
+    <state width="1235" height="247" key="GridCell.Tab.1.left/0.23.1280.732@0.23.1280.732" timestamp="1603474111277" />
     <state width="1717" height="362" key="GridCell.Tab.1.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.1.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="362" key="GridCell.Tab.1.right" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.1.right" timestamp="1603541480711">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.1.right/0.23.1280.728@0.23.1280.728" timestamp="1603541480711" />
+    <state width="1235" height="200" key="GridCell.Tab.1.right/0.23.1280.729@0.23.1280.729" timestamp="1601222072980" />
+    <state width="1235" height="247" key="GridCell.Tab.1.right/0.23.1280.730@0.23.1280.730" timestamp="1603018409047" />
+    <state width="1235" height="247" key="GridCell.Tab.1.right/0.23.1280.732@0.23.1280.732" timestamp="1603474111278" />
     <state width="1717" height="362" key="GridCell.Tab.1.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.1.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1717" height="362" key="GridCell.Tab.2.bottom" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.2.bottom" timestamp="1603541480716">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.2.bottom/0.23.1280.728@0.23.1280.728" timestamp="1603541480716" />
+    <state width="1235" height="200" key="GridCell.Tab.2.bottom/0.23.1280.729@0.23.1280.729" timestamp="1601222072982" />
+    <state width="1235" height="247" key="GridCell.Tab.2.bottom/0.23.1280.730@0.23.1280.730" timestamp="1603018406453" />
+    <state width="1235" height="247" key="GridCell.Tab.2.bottom/0.23.1280.732@0.23.1280.732" timestamp="1603474111279" />
     <state width="1717" height="362" key="GridCell.Tab.2.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.2.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="362" key="GridCell.Tab.2.center" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.2.center" timestamp="1603541480712">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.2.center/0.23.1280.728@0.23.1280.728" timestamp="1603541480712" />
+    <state width="1235" height="200" key="GridCell.Tab.2.center/0.23.1280.729@0.23.1280.729" timestamp="1601222072981" />
+    <state width="1235" height="247" key="GridCell.Tab.2.center/0.23.1280.730@0.23.1280.730" timestamp="1603018406452" />
+    <state width="1235" height="247" key="GridCell.Tab.2.center/0.23.1280.732@0.23.1280.732" timestamp="1603474111279" />
     <state width="1717" height="362" key="GridCell.Tab.2.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.2.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="362" key="GridCell.Tab.2.left" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.2.left" timestamp="1603541480711">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.2.left/0.23.1280.728@0.23.1280.728" timestamp="1603541480711" />
+    <state width="1235" height="200" key="GridCell.Tab.2.left/0.23.1280.729@0.23.1280.729" timestamp="1601222072981" />
+    <state width="1235" height="247" key="GridCell.Tab.2.left/0.23.1280.730@0.23.1280.730" timestamp="1603018406452" />
+    <state width="1235" height="247" key="GridCell.Tab.2.left/0.23.1280.732@0.23.1280.732" timestamp="1603474111278" />
     <state width="1717" height="362" key="GridCell.Tab.2.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.2.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="362" key="GridCell.Tab.2.right" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.2.right" timestamp="1603541480713">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.2.right/0.23.1280.728@0.23.1280.728" timestamp="1603541480713" />
+    <state width="1235" height="200" key="GridCell.Tab.2.right/0.23.1280.729@0.23.1280.729" timestamp="1601222072982" />
+    <state width="1235" height="247" key="GridCell.Tab.2.right/0.23.1280.730@0.23.1280.730" timestamp="1603018406453" />
+    <state width="1235" height="247" key="GridCell.Tab.2.right/0.23.1280.732@0.23.1280.732" timestamp="1603474111279" />
     <state width="1717" height="362" key="GridCell.Tab.2.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.2.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="362" key="GridCell.Tab.3.bottom" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.3.bottom" timestamp="1603541480718">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.3.bottom/0.23.1280.728@0.23.1280.728" timestamp="1603541480718" />
+    <state width="1235" height="200" key="GridCell.Tab.3.bottom/0.23.1280.729@0.23.1280.729" timestamp="1601222072985" />
+    <state width="1235" height="247" key="GridCell.Tab.3.bottom/0.23.1280.730@0.23.1280.730" timestamp="1603018406457" />
+    <state width="1235" height="247" key="GridCell.Tab.3.bottom/0.23.1280.732@0.23.1280.732" timestamp="1603474111281" />
     <state width="1717" height="362" key="GridCell.Tab.3.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.3.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722706" />
-    <state width="1717" height="362" key="GridCell.Tab.3.center" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.3.center" timestamp="1603541480717">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.3.center/0.23.1280.728@0.23.1280.728" timestamp="1603541480717" />
+    <state width="1235" height="200" key="GridCell.Tab.3.center/0.23.1280.729@0.23.1280.729" timestamp="1601222072983" />
+    <state width="1235" height="247" key="GridCell.Tab.3.center/0.23.1280.730@0.23.1280.730" timestamp="1603018406454" />
+    <state width="1235" height="247" key="GridCell.Tab.3.center/0.23.1280.732@0.23.1280.732" timestamp="1603474111280" />
     <state width="1717" height="362" key="GridCell.Tab.3.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.3.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="362" key="GridCell.Tab.3.left" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.3.left" timestamp="1603541480717">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.3.left/0.23.1280.728@0.23.1280.728" timestamp="1603541480717" />
+    <state width="1235" height="200" key="GridCell.Tab.3.left/0.23.1280.729@0.23.1280.729" timestamp="1601222072983" />
+    <state width="1235" height="247" key="GridCell.Tab.3.left/0.23.1280.730@0.23.1280.730" timestamp="1603018406454" />
+    <state width="1235" height="247" key="GridCell.Tab.3.left/0.23.1280.732@0.23.1280.732" timestamp="1603474111280" />
     <state width="1717" height="362" key="GridCell.Tab.3.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.3.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
-    <state width="1717" height="362" key="GridCell.Tab.3.right" timestamp="1599645490361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1235" height="247" key="GridCell.Tab.3.right" timestamp="1603541480718">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="233" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059551" />
+    <state width="1235" height="247" key="GridCell.Tab.3.right/0.23.1280.728@0.23.1280.728" timestamp="1603541480718" />
+    <state width="1235" height="200" key="GridCell.Tab.3.right/0.23.1280.729@0.23.1280.729" timestamp="1601222072984" />
+    <state width="1235" height="247" key="GridCell.Tab.3.right/0.23.1280.730@0.23.1280.730" timestamp="1603018406454" />
+    <state width="1235" height="247" key="GridCell.Tab.3.right/0.23.1280.732@0.23.1280.732" timestamp="1603474111280" />
     <state width="1717" height="362" key="GridCell.Tab.3.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599645490361" />
     <state width="1717" height="229" key="GridCell.Tab.3.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722705" />
     <state x="556" y="213" width="1137" height="722" key="SettingsEditor" timestamp="1596092462568">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="556" y="213" width="1137" height="722" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1596092462568" />
-    <state x="813" y="268" key="Vcs.Push.Dialog.v2" timestamp="1599146027724">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="480" y="211" key="Vcs.Push.Dialog.v2" timestamp="1600599232454">
+      <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1599146027724" />
+    <state x="480" y="211" key="Vcs.Push.Dialog.v2/0.23.1280.728@0.23.1280.728" timestamp="1600599232454" />
     <state x="2733" y="268" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932602020" />
-    <state width="837" height="500" key="XDebugger.FullValuePopup" timestamp="1599142965514">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="558" height="353" key="XDebugger.FullValuePopup" timestamp="1603017101676">
+      <screen x="0" y="23" width="1280" height="732" />
     </state>
     <state width="837" height="500" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1599142965514" />
-    <state x="708" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599120954346">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="558" height="351" key="XDebugger.FullValuePopup/0.23.1280.729@0.23.1280.729" timestamp="1601221396476" />
+    <state width="558" height="353" key="XDebugger.FullValuePopup/0.23.1280.732@0.23.1280.732" timestamp="1603017101676" />
+    <state x="472" y="339" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602333630095">
+      <screen x="0" y="23" width="1280" height="729" />
     </state>
     <state x="708" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1599120954346" />
+    <state x="472" y="339" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.728@0.23.1280.728" timestamp="1600598877578" />
+    <state x="472" y="339" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.729@0.23.1280.729" timestamp="1602333630095" />
     <state x="2628" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932689370" />
+    <state x="169" y="121" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1603539808883">
+      <screen x="0" y="23" width="1280" height="728" />
+    </state>
+    <state x="169" y="121" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.23.1280.728@0.23.1280.728" timestamp="1603539808883" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -954,6 +968,13 @@
           <url>file://$PROJECT_DIR$/algorithms/ray_shooting.js</url>
           <line>71</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <condition expression="int_point.id === 0" language="JavaScript" />
+          <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
+          <line>356</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

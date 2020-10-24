@@ -253,5 +253,13 @@ describe('#Algorithms.Relation', function() {
             expect(covered(p1,p2)).to.be.false;
             expect(cover(p1,p2)).to.be.false;
         });
+        it('Infinite loop error in Relations.relate()  issue #63', () => {
+            let polygonA = new Polygon(JSON.parse('[[{"pc":{"x":361.86046511627904,"y":358.1395348837209,"name":"point"},"r":3.7013112186046513,"startAngle":0.8060492302297078,"endAngle":4.549840858948246,"counterClockwise":false,"name":"arc"},{"ps":{"x":361.26146984929693,"y":354.4870139177165,"name":"point"},"pe":{"x":355.3805768669687,"y":355.45145110913296,"name":"point"},"name":"segment"},{"pc":{"x":356.27906976744185,"y":360.93023255813955,"name":"point"},"r":5.551966827906977,"startAngle":4.549840858948247,"endAngle":0.8060492302297152,"counterClockwise":false,"name":"arc"},{"ps":{"x":360.12299918636324,"y":364.936295747922,"name":"point"},"pe":{"x":364.42308472889334,"y":360.8102436769092,"name":"point"},"name":"segment"}]]'));
+            let polygonB = new Polygon(JSON.parse('[[{"pc":{"x":356.27906976744185,"y":360.93023255813955,"name":"point"},"r":5.551966827906977,"startAngle":4.569083935001064,"endAngle":1.9978954813868353,"counterClockwise":false,"name":"arc"},{"ps":{"x":353.979265872936,"y":365.9834728754998,"name":"point"},"pe":{"x":359.7242924817441,"y":368.59811887275936,"name":"point"},"name":"segment"},{"pc":{"x":362.7906976744186,"y":361.86046511627904,"name":"point"},"r":7.402622437209303,"startAngle":1.9978954813868424,"endAngle":4.56908393500106,"counterClockwise":false,"name":"arc"},{"ps":{"x":361.7334917412655,"y":354.5337240561091,"name":"point"},"pe":{"x":355.48616531757705,"y":355.4351767630121,"name":"point"},"name":"segment"}]]'));
+
+            let de9im = relate(polygonA, polygonB);
+
+            expect(de9im.intersect()).to.be.true;
+        })
     });
 });

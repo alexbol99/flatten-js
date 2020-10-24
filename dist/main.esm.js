@@ -7209,11 +7209,11 @@ class Polygon {
         /* Insert first split edge into linked list after edgeBefore */
         edge.face.insert(newEdge, edgeBefore);
 
-        // Insert new edge to the edges container and 2d index
-        this.edges.add(newEdge);
-
         // Remove old edge from edges container and 2d index
         this.edges.delete(edge);
+
+        // Insert new edge to the edges container and 2d index
+        this.edges.add(newEdge);
 
         // Update edge shape with second split edge keeping links
         edge.shape = shapes[1];
