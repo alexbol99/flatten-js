@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- fix issue #63 Infinite loop error in Relations.relate()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/relation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,11 +118,11 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="publish-npm" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="generate-docs" />
+        <script value="publish-npm" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -181,16 +176,16 @@
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
       <item itemvalue="Mocha.#Algorithms.Relation" />
       <item itemvalue="Node.js.relation.js" />
-      <item itemvalue="npm.generate-docs" />
       <item itemvalue="npm.build" />
+      <item itemvalue="npm.publish-npm" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.build" />
         <item itemvalue="Mocha.#Algorithms.Relation" />
         <item itemvalue="Node.js.relation.js" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
-        <item itemvalue="npm.generate-docs" />
       </list>
     </recent_temporary>
   </component>
@@ -341,14 +336,7 @@
       <workItem from="1598957803429" duration="979000" />
       <workItem from="1599034994413" duration="22115000" />
       <workItem from="1599640676609" duration="7883000" />
-      <workItem from="1603533295939" duration="6508000" />
-    </task>
-    <task id="LOCAL-00132" summary="- implement LinkedList, CircularLinkedList&#10;- implement Face as an extension of CircularLinkedList">
-      <created>1553934631424</created>
-      <option name="number" value="00132" />
-      <option name="presentableId" value="LOCAL-00132" />
-      <option name="project" value="LOCAL" />
-      <updated>1553934631425</updated>
+      <workItem from="1603533295939" duration="7502000" />
     </task>
     <task id="LOCAL-00133" summary="- update README.md">
       <created>1556280247695</created>
@@ -686,7 +674,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600599229679</updated>
     </task>
-    <option name="localTasksCounter" value="181" />
+    <task id="LOCAL-00181" summary="- fix issue #63 Infinite loop error in Relations.relate()">
+      <created>1603542690427</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1603542690427</updated>
+    </task>
+    <option name="localTasksCounter" value="182" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -705,7 +700,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Fixed bugs in relationLine2Polygon and Polygon::cut() method" />
     <MESSAGE value="- Added relatePolygon2Polygon method (not completes, not tested)" />
     <MESSAGE value="- Added relatePolygon2Polygon method, added tests&#10;- Added relations INSIDE and COVERED&#10;- Boolean_op moved back to core&#10;- Interval_tree upgraded to v1.0.11&#10;- Published minor version 1.2.0" />
     <MESSAGE value="- Improved documentation and TypeScript type definition, fixed some bugs" />
@@ -730,7 +724,8 @@
     <MESSAGE value="- release patch v1.2.14 with fixBoundaryConflict in boolean operation package" />
     <MESSAGE value="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype" />
     <MESSAGE value="- submit dist" />
-    <option name="LAST_COMMIT_MESSAGE" value="- submit dist" />
+    <MESSAGE value="- fix issue #63 Infinite loop error in Relations.relate()" />
+    <option name="LAST_COMMIT_MESSAGE" value="- fix issue #63 Infinite loop error in Relations.relate()" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -753,11 +748,11 @@
     <state x="806" y="293" width="474" height="427" key="#xdebugger.evaluate/0.23.1280.729@0.23.1280.729" timestamp="1601221396617" />
     <state x="806" y="174" key="#xdebugger.evaluate/0.23.1280.730@0.23.1280.730" timestamp="1603017813772" />
     <state x="806" y="176" key="#xdebugger.evaluate/0.23.1280.732@0.23.1280.732" timestamp="1603469719356" />
-    <state x="307" y="62" width="846" height="561" key="CommitChangelistDialog2" timestamp="1600599229381">
+    <state x="307" y="62" width="846" height="561" key="CommitChangelistDialog2" timestamp="1603542689699">
       <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state x="461" y="56" width="1047" height="801" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1599146025240" />
-    <state x="307" y="62" width="846" height="561" key="CommitChangelistDialog2/0.23.1280.728@0.23.1280.728" timestamp="1600599229381" />
+    <state x="307" y="62" width="846" height="561" key="CommitChangelistDialog2/0.23.1280.728@0.23.1280.728" timestamp="1603542689699" />
     <state x="461" y="56" key="CommitChangelistDialog2/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599653068583" />
     <state x="2683" y="0" key="CommitChangelistDialog2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932675603" />
     <state width="745" height="543" key="DebuggerActiveHint" timestamp="1603541144285">
@@ -773,41 +768,41 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="791" y="281" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1599119013993" />
-    <state width="1235" height="210" key="GridCell.Tab.0.bottom" timestamp="1603542309652">
+    <state width="1235" height="210" key="GridCell.Tab.0.bottom" timestamp="1603542710260">
       <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="405" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059556" />
-    <state width="1235" height="210" key="GridCell.Tab.0.bottom/0.23.1280.728@0.23.1280.728" timestamp="1603542309652" />
+    <state width="1235" height="210" key="GridCell.Tab.0.bottom/0.23.1280.728@0.23.1280.728" timestamp="1603542710260" />
     <state width="1235" height="200" key="GridCell.Tab.0.bottom/0.23.1280.729@0.23.1280.729" timestamp="1601222073177" />
     <state width="1235" height="247" key="GridCell.Tab.0.bottom/0.23.1280.730@0.23.1280.730" timestamp="1603018406840" />
     <state width="1235" height="247" key="GridCell.Tab.0.bottom/0.23.1280.732@0.23.1280.732" timestamp="1603474111276" />
     <state width="1717" height="297" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599653691856" />
     <state width="1717" height="229" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1235" height="210" key="GridCell.Tab.0.center" timestamp="1603542309651">
+    <state width="1235" height="210" key="GridCell.Tab.0.center" timestamp="1603542710259">
       <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="405" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059555" />
-    <state width="1235" height="210" key="GridCell.Tab.0.center/0.23.1280.728@0.23.1280.728" timestamp="1603542309651" />
+    <state width="1235" height="210" key="GridCell.Tab.0.center/0.23.1280.728@0.23.1280.728" timestamp="1603542710259" />
     <state width="1235" height="200" key="GridCell.Tab.0.center/0.23.1280.729@0.23.1280.729" timestamp="1601222073176" />
     <state width="1235" height="247" key="GridCell.Tab.0.center/0.23.1280.730@0.23.1280.730" timestamp="1603018406837" />
     <state width="1235" height="247" key="GridCell.Tab.0.center/0.23.1280.732@0.23.1280.732" timestamp="1603474111275" />
     <state width="1717" height="297" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599653691856" />
     <state width="1717" height="229" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1235" height="210" key="GridCell.Tab.0.left" timestamp="1603542309651">
+    <state width="1235" height="210" key="GridCell.Tab.0.left" timestamp="1603542710258">
       <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="405" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059555" />
-    <state width="1235" height="210" key="GridCell.Tab.0.left/0.23.1280.728@0.23.1280.728" timestamp="1603542309651" />
+    <state width="1235" height="210" key="GridCell.Tab.0.left/0.23.1280.728@0.23.1280.728" timestamp="1603542710258" />
     <state width="1235" height="200" key="GridCell.Tab.0.left/0.23.1280.729@0.23.1280.729" timestamp="1601222073175" />
     <state width="1235" height="247" key="GridCell.Tab.0.left/0.23.1280.730@0.23.1280.730" timestamp="1603018406832" />
     <state width="1235" height="247" key="GridCell.Tab.0.left/0.23.1280.732@0.23.1280.732" timestamp="1603474111275" />
     <state width="1717" height="297" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1599653691856" />
     <state width="1717" height="229" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932722704" />
-    <state width="1235" height="210" key="GridCell.Tab.0.right" timestamp="1603542309652">
+    <state width="1235" height="210" key="GridCell.Tab.0.right" timestamp="1603542710259">
       <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state width="1717" height="405" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599146059556" />
-    <state width="1235" height="210" key="GridCell.Tab.0.right/0.23.1280.728@0.23.1280.728" timestamp="1603542309652" />
+    <state width="1235" height="210" key="GridCell.Tab.0.right/0.23.1280.728@0.23.1280.728" timestamp="1603542710259" />
     <state width="1235" height="200" key="GridCell.Tab.0.right/0.23.1280.729@0.23.1280.729" timestamp="1601222073176" />
     <state width="1235" height="247" key="GridCell.Tab.0.right/0.23.1280.730@0.23.1280.730" timestamp="1603018406838" />
     <state width="1235" height="247" key="GridCell.Tab.0.right/0.23.1280.732@0.23.1280.732" timestamp="1603474111276" />
@@ -937,11 +932,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="556" y="213" width="1137" height="722" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1596092462568" />
-    <state x="480" y="211" key="Vcs.Push.Dialog.v2" timestamp="1600599232454">
+    <state x="480" y="211" key="Vcs.Push.Dialog.v2" timestamp="1603542693985">
       <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state x="813" y="268" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1599146027724" />
-    <state x="480" y="211" key="Vcs.Push.Dialog.v2/0.23.1280.728@0.23.1280.728" timestamp="1600599232454" />
+    <state x="480" y="211" key="Vcs.Push.Dialog.v2/0.23.1280.728@0.23.1280.728" timestamp="1603542693985" />
     <state x="2733" y="268" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1597932602020" />
     <state width="558" height="353" key="XDebugger.FullValuePopup" timestamp="1603017101676">
       <screen x="0" y="23" width="1280" height="732" />
@@ -960,6 +955,10 @@
       <screen x="0" y="23" width="1280" height="728" />
     </state>
     <state x="169" y="121" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.23.1280.728@0.23.1280.728" timestamp="1603539808883" />
+    <state x="326" y="140" width="604" height="490" key="find.popup" timestamp="1603542497545">
+      <screen x="0" y="23" width="1280" height="728" />
+    </state>
+    <state x="326" y="140" width="604" height="490" key="find.popup/0.23.1280.728@0.23.1280.728" timestamp="1603542497545" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

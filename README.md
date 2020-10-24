@@ -330,4 +330,6 @@ Other packages, published under scope **@flatten-js/**:
 | [@flatten-js/boolean-op](https://www.npmjs.com/package/@flatten-js/boolean-op)    | Boolean operations (deprecated, use this functionality from the core package)
 | [@flatten-js/polygon-offset](https://www.npmjs.com/package/@flatten-js/polygon-offset)    | Polygon offset
 
+## Support
 
+<a href="https://www.buymeacoffee.com/alexbol99" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
