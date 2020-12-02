@@ -6804,15 +6804,17 @@
     Flatten.Face = Face;
 
     /**
-     * Class representing a ray.
+     * Class representing a ray (a half-infinite line).
      * @type {Ray}
      */
     class Ray {
         /**
-         * Ray may be constructed by setting start point and a normal vector
-         * Ray goes to the right direction with respect to the normal vector
-         * If normal vector is omitted ray is considered horizontal (normal vector is (0,1))
-         * If started point is omitted, ray is started at zero point
+         * Ray may be constructed by setting an <b>origin</b> point and a <b>normal</b> vector, so that any point <b>x</b>
+         * on a ray fit an equation: <br />
+         *  (<b>x</b> - <b>origin</b>) * <b>vector</b> = 0 <br />
+         * Ray defined by constructor is a right semi-infinite line with respect to the normal vector <br/>
+         * If normal vector is omitted ray is considered horizontal (normal vector is (0,1)). <br/>
+         * Don't be confused: direction of the normal vector is orthogonal to the ray <br/>
          * @param {Point} pt - start point
          * @param {Vector} norm - normal vector
          */
