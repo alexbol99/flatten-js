@@ -112,7 +112,7 @@ Polygon provides various useful methods:
 * ```cut``` - cut polygon with multiline into sub-polygons
 * ```findEdgeByPoint``` - find edge in polygon
 * ```contains``` - test if polygon contains shape (point, segment or arc)
-* ```transform``` - transform polygon usging affine transformation matrix
+* ```transform``` - transform polygon using affine transformation matrix
 * ```reverse``` - revert orientation of faces
 * ````splitToIslands```` - split to array of islands with holes
 
