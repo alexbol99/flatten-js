@@ -82,7 +82,7 @@ You may also check out examples section in the code which illustrate different u
 * [Segment](https://alexbol99.github.io/flatten-js/Segment.html)
 * [Arc (circular)](https://alexbol99.github.io/flatten-js/Arc.html)
 * [Circle](https://alexbol99.github.io/flatten-js/Circle.html)
-* [Box (may be used as rectangle)](https://alexbol99.github.io/flatten-js/Point.html)
+* [Box (may be used as rectangle)](https://alexbol99.github.io/flatten-js/Box.html)
 
 ### Polygon
 
