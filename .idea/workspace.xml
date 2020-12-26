@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Issue #45 The Typescript definitions aren't up to date&#10;- Attach namespaces BooleanOperations and Relations to Flatten namesapce&#10;- Fix several mismatches in typescript definition file&#10;- Release patch 1.2.8">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Updated documentation for Ray constructor&#10;- Upgraded dependencies to interval-tree and some dev packages&#10;- released patch 1.2.17">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Arc.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Box.html" afterDir="false" />
@@ -51,9 +51,8 @@
       <change beforePath="$PROJECT_DIR$/docs/utils_constants.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_constants.js.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/ray.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,6 +127,7 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/dist/flatten.umd.js" />
     <property name="typescript-compiler-editor-notification" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -233,15 +233,15 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
         <item itemvalue="npm.generate-docs" />
+        <item itemvalue="npm.publish-npm" />
+        <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
         <item itemvalue="Mocha.#Algorithms.Relation" />
-        <item itemvalue="npm.publish-npm" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -389,13 +389,8 @@
       <workItem from="1599034994413" duration="22115000" />
       <workItem from="1599640676609" duration="7883000" />
       <workItem from="1603533295939" duration="7502000" />
-    </task>
-    <task id="LOCAL-00133" summary="- update README.md">
-      <created>1556280247695</created>
-      <option name="number" value="00133" />
-      <option name="presentableId" value="LOCAL-00133" />
-      <option name="project" value="LOCAL" />
-      <updated>1556280247696</updated>
+      <workItem from="1607843573945" duration="1194000" />
+      <workItem from="1608998909314" duration="1424000" />
     </task>
     <task id="LOCAL-00134" summary="- Integrate pull requests and build new version&#10;16eb559 by OldrichDlouhy Fix TypeScript definitions #34&#10;74e333a by dependabot/npm_and_yarn/marked-0.3.19">
       <created>1578121702846</created>
@@ -733,11 +728,18 @@
       <option name="project" value="LOCAL" />
       <updated>1603542690427</updated>
     </task>
-    <option name="localTasksCounter" value="182" />
+    <task id="LOCAL-00182" summary="- Updated documentation for Ray constructor&#10;- Upgraded dependencies to interval-tree and some dev packages&#10;- released patch 1.2.17">
+      <created>1606909692773</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1606909692774</updated>
+    </task>
+    <option name="localTasksCounter" value="183" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -752,7 +754,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Added relatePolygon2Polygon method (not completes, not tested)" />
     <MESSAGE value="- Added relatePolygon2Polygon method, added tests&#10;- Added relations INSIDE and COVERED&#10;- Boolean_op moved back to core&#10;- Interval_tree upgraded to v1.0.11&#10;- Published minor version 1.2.0" />
     <MESSAGE value="- Improved documentation and TypeScript type definition, fixed some bugs" />
     <MESSAGE value="- Fix bug in relateShapeToPolygon" />
@@ -777,7 +778,8 @@
     <MESSAGE value="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype" />
     <MESSAGE value="- submit dist" />
     <MESSAGE value="- fix issue #63 Infinite loop error in Relations.relate()" />
-    <option name="LAST_COMMIT_MESSAGE" value="- fix issue #63 Infinite loop error in Relations.relate()" />
+    <MESSAGE value="- Updated documentation for Ray constructor&#10;- Upgraded dependencies to interval-tree and some dev packages&#10;- released patch 1.2.17" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Updated documentation for Ray constructor&#10;- Upgraded dependencies to interval-tree and some dev packages&#10;- released patch 1.2.17" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

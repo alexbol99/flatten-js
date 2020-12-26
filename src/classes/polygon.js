@@ -189,8 +189,8 @@ export class Polygon {
      * and inserted before current edge.
      * Current edge is trimmed and updated.
      * Method returns new edge added. If no edge added, it returns edge before vertex
-     * @param {Edge} edge Edge to be split with new vertex and then trimmed from start
      * @param {Point} pt Point to be added as a new vertex
+     * @param {Edge} edge Edge to be split with new vertex and then trimmed from start
      * @returns {Edge}
      */
     addVertex(pt, edge) {
