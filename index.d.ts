@@ -491,7 +491,7 @@ declare namespace Flatten {
         addFace(args: Array<Point> | Array<Segment | Arc> | Circle | Box): Face;
         deleteFace(face: Face): boolean;
         removeChain(face: Face, edgeFrom: PolygonEdge, edgeTo: PolygonEdge): void;
-        addVertex(edge: PolygonEdge, pt: Point): PolygonEdge;
+        addVertex(pt: Point, edge: PolygonEdge): PolygonEdge;
         cut(multiline: Multiline): Polygon[];
         cutFace(pt1: Point, pt2: Point): [Polygon, Polygon];
         findEdgeByPoint(pt: Point): PolygonEdge;
