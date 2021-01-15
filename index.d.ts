@@ -105,10 +105,9 @@ declare namespace Flatten {
 
     const CCW = true;
     const CW = false;
-    enum ArcOrientationType {CW, CCW}
 
     class Arc {
-        counterClockwise: ArcOrientationType;
+        counterClockwise: boolean;
 
         // members
         ps: Point;
@@ -121,7 +120,7 @@ declare namespace Flatten {
             r?: number,
             startAngle?: number,
             endAngle?: number,
-            counterClockwise?: ArcOrientationType
+            counterClockwise?: boolean
         );
 
         // getters
@@ -200,7 +199,7 @@ declare namespace Flatten {
         // public methods
         clone(): Circle;
         contains(shape: Shape): boolean;
-        toArc(counterclockwise?: ArcOrientationType): Arc;
+        toArc(counterclockwise?: boolean): Arc;
         intersect(shape: Shape): Array<Point>;
         distanceTo(geom: Shape | PlanarSet): [number, Segment];
         toJSON() : Object;
@@ -547,7 +546,7 @@ declare namespace Flatten {
     function segment(ps?: Point, pe?: Point) : Segment;
     function segment(arr: [number, number, number, number]) : Segment;
     function segment(psx: number, psy: number, pex: number, pey: number) : Segment;
-    function arc(pc?: Point, r?: number, startAngle?: number, endAngle?: number, counterClockwise?: ArcOrientationType) : Arc;
+    function arc(pc?: Point, r?: number, startAngle?: number, endAngle?: number, counterClockwise?: boolean) : Arc;
     function vector(x?: number, y?: number) : Vector;
     function vector(arr: [number, number]) : Vector;
     function vector(p1: Point, p2: Point) : Vector;
