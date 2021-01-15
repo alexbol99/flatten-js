@@ -52,64 +52,85 @@
      * Created by Alex Bol on 2/18/2017.
      */
 
-
     /**
-     * DP_TOL is used for comparison of floating point numbers.
-     * It is set to 0.000001.
+     * Floating point comparison tolerance.
+     * Default value is 0.000001 (10e-6)
      * @type {number}
      */
-    var DP_TOL = 0.000001;
+    let DP_TOL = 0.000001;
+
+    /**
+     * Set new floating point comparison tolerance
+     * @param {number} tolerance
+     */
     function setTolerance(tolerance) {DP_TOL = tolerance;}
+
+    /**
+     * Get floating point comparison tolerance
+     * @returns {number}
+     */
     function getTolerance() {return DP_TOL;}
 
     const DECIMALS = 3;
 
     /**
      * Returns *true* if value comparable to zero
+     * @param {number} x
+     * @param {number} y
      * @return {boolean}
      */
     function EQ_0(x) {
-        return ((x) < DP_TOL && (x) > -DP_TOL);
+        return (x < DP_TOL && x > -DP_TOL);
     }
 
     /**
      * Returns *true* if two values are equal up to DP_TOL
+     * @param {number} x
+     * @param {number} y
      * @return {boolean}
      */
     function EQ(x, y) {
-        return ((x) - (y) < DP_TOL && (x) - (y) > -DP_TOL);
+        return (x - y < DP_TOL && x - y > -DP_TOL);
     }
 
     /**
      * Returns *true* if first argument greater than second argument up to DP_TOL
+     * @param {number} x
+     * @param {number} y
      * @return {boolean}
      */
     function GT(x, y) {
-        return ((x) - (y) > DP_TOL);
+        return (x - y > DP_TOL);
     }
 
     /**
      * Returns *true* if first argument greater than or equal to second argument up to DP_TOL
-     * @return {boolean}
+     * @param {number} x
+     * @param {number} y
+     * @returns {boolean}
      */
     function GE(x, y) {
-        return ((x) - (y) > -DP_TOL);
+        return (x - y > -DP_TOL);
     }
 
     /**
      * Returns *true* if first argument less than second argument up to DP_TOL
+     * @param {number} x
+     * @param {number} y
      * @return {boolean}
      */
     function LT(x, y) {
-        return ((x) - (y) < -DP_TOL)
+        return (x - y < -DP_TOL)
     }
 
     /**
      * Returns *true* if first argument less than or equal to second argument up to DP_TOL
+     * @param {number} x
+     * @param {number} y
      * @return {boolean}
      */
     function LE(x, y) {
-        return ((x) - (y) < DP_TOL);
+        return (x - y < DP_TOL);
     }
 
     var Utils = /*#__PURE__*/Object.freeze({
@@ -7197,8 +7218,8 @@
          * and inserted before current edge.
          * Current edge is trimmed and updated.
          * Method returns new edge added. If no edge added, it returns edge before vertex
-         * @param {Edge} edge Edge to be split with new vertex and then trimmed from start
          * @param {Point} pt Point to be added as a new vertex
+         * @param {Edge} edge Edge to be split with new vertex and then trimmed from start
          * @returns {Edge}
          */
         addVertex(pt, edge) {

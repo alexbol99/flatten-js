@@ -264,7 +264,7 @@ faces should not overlap each other and should not have self-intersections.
 User is responsible to provide valid polygons, boolean operation methods do not check validity.
 
 ```javascript
-let {unify, subtract, intersect, innerClip, outerClip} = BooleanOp;
+let {unify, subtract, intersect, innerClip, outerClip} = BooleanOperations;
 ```
 * `unify` - unify two polygons and return resulted polygon
 * `subtract` - subtract second polygon from the first and return resulted polygon

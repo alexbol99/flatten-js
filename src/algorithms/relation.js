@@ -23,7 +23,7 @@ import {
 } from "./intersection";
 import {Multiline} from "../classes/multiline";
 import {ray_shoot} from "./ray_shooting";
-import * as BooleanOp from "./boolean_op";
+import * as BooleanOperations from "./boolean_op";
 
 let {vector,ray,segment,arc,polygon,multiline} = Flatten;
 
@@ -312,13 +312,13 @@ function relateShape2Polygon(shape, polygon) {
 function relatePolygon2Polygon(polygon1, polygon2) {
     let denim = new DE9IM();
 
-    let [ip_sorted1, ip_sorted2] = BooleanOp.calculateIntersections(polygon1, polygon2);
-    let boolean_intersection = BooleanOp.intersect(polygon1, polygon2);
-    let boolean_difference1 = BooleanOp.subtract(polygon1, polygon2);
-    let boolean_difference2 = BooleanOp.subtract(polygon2, polygon1);
-    let [inner_clip_shapes1, inner_clip_shapes2] = BooleanOp.innerClip(polygon1, polygon2);
-    let outer_clip_shapes1 = BooleanOp.outerClip(polygon1, polygon2);
-    let outer_clip_shapes2 = BooleanOp.outerClip(polygon2, polygon1);
+    let [ip_sorted1, ip_sorted2] = BooleanOperations.calculateIntersections(polygon1, polygon2);
+    let boolean_intersection = BooleanOperations.intersect(polygon1, polygon2);
+    let boolean_difference1 = BooleanOperations.subtract(polygon1, polygon2);
+    let boolean_difference2 = BooleanOperations.subtract(polygon2, polygon1);
+    let [inner_clip_shapes1, inner_clip_shapes2] = BooleanOperations.innerClip(polygon1, polygon2);
+    let outer_clip_shapes1 = BooleanOperations.outerClip(polygon1, polygon2);
+    let outer_clip_shapes2 = BooleanOperations.outerClip(polygon2, polygon1);
 
     denim.I2I = boolean_intersection.isEmpty() ? [] : [boolean_intersection];
     denim.I2B = inner_clip_shapes2;

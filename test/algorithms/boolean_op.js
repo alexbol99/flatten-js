@@ -15,8 +15,8 @@ import {Polygon} from '../../index';
 import {point, circle, segment, arc} from '../../index';
 
 
-import * as BooleanOp from "../../src/algorithms/boolean_op";
-let {unify, subtract, intersect} = BooleanOp;
+import * as BooleanOperations from "../../src/algorithms/boolean_op";
+let {unify, subtract, intersect} = BooleanOperations;
 
 let {equal} = Flatten.Relations;
 

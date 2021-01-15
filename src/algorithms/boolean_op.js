@@ -2,7 +2,7 @@
  * Created by Alex Bol on 12/02/2018.
  */
 /**
- * @module BooleanOp
+ * @module BooleanOperations
  */
 "use strict";
 import Flatten from '../flatten';
