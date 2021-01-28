@@ -117,6 +117,137 @@ describe('#Flatten.Polygon', function() {
         expect(poly.faces.size).to.equal(2);
         expect(poly.edges.size).to.equal(8);
     });
+    it( 'Uncaught ReferenceError: Illegal Parameters for Nested Multipolygon #79', () => {
+        const smallPoly = [
+            [
+                [
+                    [
+                        1,
+                        1
+                    ],
+                    [
+                        1,
+                        2
+                    ],
+                    [
+                        2,
+                        2
+                    ],
+                    [
+                        2,
+                        1
+                    ]
+                ]
+            ],
+            [
+                [
+                    [
+                        4,
+                        4
+                    ],
+                    [
+                        4,
+                        5
+                    ],
+                    [
+                        5,
+                        5
+                    ],
+                    [
+                        5,
+                        4
+                    ]
+                ]
+            ]
+        ]
+
+        const poly = new Polygon(smallPoly);
+        expect(poly.faces.size).to.equal(2);
+        expect(poly.edges.size).to.equal(8);
+    });
+    it('Can parse GeoJSON one-loop polygon', () => {
+        let geoJSON = {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [100.0, 0.0],
+                    [101.0, 0.0],
+                    [101.0, 1.0],
+                    [100.0, 1.0],
+                    [100.0, 0.0]
+                ]
+            ]
+        }
+        const poly = new Polygon(geoJSON.coordinates);
+        expect(poly.faces.size).to.equal(1);
+        expect(poly.edges.size).to.equal(4);  // zero-length segment should be skipped
+    });
+    it('Can parse GeoJSON polygon with hole', () => {
+        let geoJSON =    {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [100.0, 0.0],
+                    [101.0, 0.0],
+                    [101.0, 1.0],
+                    [100.0, 1.0],
+                    [100.0, 0.0]
+                ],
+                [
+                    [100.8, 0.8],
+                    [100.8, 0.2],
+                    [100.2, 0.2],
+                    [100.2, 0.8],
+                    [100.8, 0.8]
+                ]
+            ]
+        }
+        const poly = new Polygon(geoJSON.coordinates);
+        expect(poly.faces.size).to.equal(2);
+        expect(poly.edges.size).to.equal(8);  // zero-length segment should be skipped
+
+        const [o1, o2] = [...poly.faces].map( face => face.orientation());
+        expect(o1).to.not.equal(o2);
+    });
+    it('Can parse GeoJSON multi-polygon', () => {
+        let geoJSON =    {
+            "type": "MultiPolygon",
+            "coordinates": [
+                [
+                    [
+                        [102.0, 2.0],
+                        [103.0, 2.0],
+                        [103.0, 3.0],
+                        [102.0, 3.0],
+                        [102.0, 2.0]
+                    ]
+                ],
+                [
+                    [
+                        [100.0, 0.0],
+                        [101.0, 0.0],
+                        [101.0, 1.0],
+                        [100.0, 1.0],
+                        [100.0, 0.0]
+                    ],
+                    [
+                        [100.2, 0.2],
+                        [100.2, 0.8],
+                        [100.8, 0.8],
+                        [100.8, 0.2],
+                        [100.2, 0.2]
+                    ]
+                ]
+            ]
+        }
+        const poly = new Polygon(geoJSON.coordinates);
+        expect(poly.faces.size).to.equal(3);
+        expect(poly.edges.size).to.equal(12);
+
+        const [o1, o2, o3] = [...poly.faces].map( face => face.orientation());
+        expect(o1).to.equal(o2);
+        expect(o2).to.not.equal(o3);
+    });
     it('Can remove faces from polygon', function () {
         let polygon = new Polygon();
         let points = [

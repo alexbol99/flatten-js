@@ -168,6 +168,9 @@ export class Face extends CircularLinkedList {
     static points2segments(points) {
         let segments = [];
         for (let i = 0; i < points.length; i++) {
+            // skip zero length segment
+            if (points[i].equalTo(points[(i + 1) % points.length]))
+                continue;
             segments.push(new Flatten.Segment(points[i], points[(i + 1) % points.length]));
         }
         return segments;

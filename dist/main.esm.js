@@ -6536,6 +6536,9 @@ class Face extends CircularLinkedList {
     static points2segments(points) {
         let segments = [];
         for (let i = 0; i < points.length; i++) {
+            // skip zero length segment
+            if (points[i].equalTo(points[(i + 1) % points.length]))
+                continue;
             segments.push(new Flatten.Segment(points[i], points[(i + 1) % points.length]));
         }
         return segments;
@@ -7078,7 +7081,16 @@ class Polygon {
                 }
                 else {
                     for (let loop of argsArray) {   // multi-loop polygon
-                        this.faces.add(new Flatten.Face(this, loop));
+                        /* Check extra level of nesting for GeoJSON-style multi polygons */
+                        if (loop instanceof Array && loop[0] instanceof Array &&
+                            loop[0].every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
+                            for (let loop1 of loop) {
+                                this.faces.add(new Flatten.Face(this, loop1));
+                            }
+                        }
+                        else {
+                            this.faces.add(new Flatten.Face(this, loop));
+                        }
                     }
                 }
             }
