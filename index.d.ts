@@ -381,7 +381,7 @@ declare namespace Flatten {
 
     // @ts-ignore (Set)
     class PlanarSet extends Set {
-        constructor();
+        constructor(shapes?: IndexableElement[] | Set<IndexableElement>);
 
         // members
         index: IntervalTree;

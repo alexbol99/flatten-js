@@ -3797,11 +3797,14 @@
      */
     class PlanarSet extends Set {
         /**
-         * Create new empty instance of PlanarSet
+         * Create new instance of PlanarSet
+         * @param shapes - array or set of geometric objects to store in planar set
+         * Each object should have a <b>box</b> property
          */
-        constructor() {
-            super();
+        constructor(shapes) {
+            super(shapes);
             this.index = new IntervalTree();
+            this.forEach(shape => this.index.insert(shape));
         }
 
         /**
