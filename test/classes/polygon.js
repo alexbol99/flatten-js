@@ -825,8 +825,8 @@ describe('#Flatten.Polygon', function() {
             let cut_polygons = p.cut(mline);
 
             expect(cut_polygons.length).to.equal(2);
-            expect(cut_polygons[0].edges.size).to.equal(6);
-            expect(cut_polygons[1].edges.size).to.equal(5);
+            expect(cut_polygons[0].edges.size).to.equal(5);
+            expect(cut_polygons[1].edges.size).to.equal(6);
         });
         it('Can cut polygon with line into 3 polygons', function() {
             let l = line( point(100,250), vector(0,1) );
@@ -838,9 +838,9 @@ describe('#Flatten.Polygon', function() {
             let cut_polygons = p.cut(mline);
 
             expect(cut_polygons.length).to.equal(3);
-            expect(cut_polygons[0].edges.size).to.equal(9);
+            expect(cut_polygons[0].edges.size).to.equal(3);
             expect(cut_polygons[1].edges.size).to.equal(3);
-            expect(cut_polygons[2].edges.size).to.equal(3);
+            expect(cut_polygons[2].edges.size).to.equal(9);
         });
 
     });

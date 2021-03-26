@@ -32,10 +32,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Support GeoJSON polygon and multi-polygon parsing (added tests from GeoJSON spec)&#10;- Release patch v1.2.20">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Ability tp construct PlanarSet with array or set of shapes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_structures/planar_set.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/planar_set.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/boolean_op.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/intersection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/intersection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +130,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Polygon">
+  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Infinite loop when subtracting polygons (v1.2.20) Issue #81">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -168,6 +170,23 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Infinite loop when subtracting polygons (v1.2.20) Issue #81" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require @babel/register</extra-mocha-options>
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Boolean Operations" />
+        <name value="#Algorithms.Boolean Subtraction" />
+        <name value="Infinite loop when subtracting polygons (v1.2.20) Issue #81" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -180,22 +199,6 @@
       <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
       <test-names>
         <name value="#Flatten.Polygon" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="#Flatten.Polygon.Can parse GeoJSON one-loop polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
-      <test-names>
-        <name value="#Flatten.Polygon" />
-        <name value="Can parse GeoJSON one-loop polygon" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -215,18 +218,18 @@
     <list>
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Flatten.Polygon" />
-      <item itemvalue="Mocha.#Flatten.Polygon.Can parse GeoJSON one-loop polygon" />
+      <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Infinite loop when subtracting polygons (v1.2.20) Issue #81" />
       <item itemvalue="npm.test" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.publish-npm" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Infinite loop when subtracting polygons (v1.2.20) Issue #81" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.publish-npm" />
         <item itemvalue="Mocha.#Flatten.Polygon" />
-        <item itemvalue="Mocha.#Flatten.Polygon.Can parse GeoJSON one-loop polygon" />
       </list>
     </recent_temporary>
   </component>
@@ -383,14 +386,11 @@
       <workItem from="1604731436227" duration="751000" />
       <workItem from="1610708618258" duration="4757000" />
       <workItem from="1611775761179" duration="494000" />
-      <workItem from="1611776304703" duration="7156000" />
-    </task>
-    <task id="LOCAL-00136" summary="- Add new methods Face::shapes (getter function) and Face::toPolygon(), Polygon::toArray()&#10;- Simplify code for polygon transform methods, add tests, docs updated">
-      <created>1578644089358</created>
-      <option name="number" value="00136" />
-      <option name="presentableId" value="LOCAL-00136" />
-      <option name="project" value="LOCAL" />
-      <updated>1578644089358</updated>
+      <workItem from="1611776304703" duration="9095000" />
+      <workItem from="1614350714340" duration="186000" />
+      <workItem from="1614350963373" duration="78000" />
+      <workItem from="1614351109068" duration="249000" />
+      <workItem from="1616758130407" duration="6475000" />
     </task>
     <task id="LOCAL-00137" summary="- Fix inheritance conflict by removing &quot;edges&quot; parameter from Face methods append, insert, delete; update docs, tests and typescript definition (wikywin note in the issue #3)&#10;- Upgrade dependency to @flatten-js/interval-tree@1.0.10 with fixed default export definition - fix typescript error on importing this package">
       <created>1578663619628</created>
@@ -728,7 +728,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611863342220</updated>
     </task>
-    <option name="localTasksCounter" value="185" />
+    <task id="LOCAL-00185" summary="- Ability tp construct PlanarSet with array or set of shapes">
+      <created>1611923216426</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1611923216426</updated>
+    </task>
+    <option name="localTasksCounter" value="186" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -747,7 +754,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Fix bug in relateShapeToPolygon" />
     <MESSAGE value="- Fix bug in relatePolygonToPolygon&#10;- Remove redundant export regexp from relations module" />
     <MESSAGE value="- Release patch 1.2.2" />
     <MESSAGE value="- Add boolean operations test&#10;- Fix bug in Arc::split() method" />
@@ -772,156 +778,9 @@
     <MESSAGE value="- added Buy Me A Coffee button to README.md" />
     <MESSAGE value="- Fix order of arguments in addVertex method. Pull request #73 &#10;- Type declaration for Arc is incorrect. Pull request #74&#10;- Fix tolerance typings. Pull request #75&#10;- Documentation mistake: BooleanOp. Issue #77&#10;- Release patch v1.2.19" />
     <MESSAGE value="- Support GeoJSON polygon and multi-polygon parsing (added tests from GeoJSON spec)&#10;- Release patch v1.2.20" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Support GeoJSON polygon and multi-polygon parsing (added tests from GeoJSON spec)&#10;- Release patch v1.2.20" />
+    <MESSAGE value="- Ability tp construct PlanarSet with array or set of shapes" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Ability tp construct PlanarSet with array or set of shapes" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="104" y="27" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1611776388567">
-      <screen x="0" y="23" width="1280" height="730" />
-    </state>
-    <state x="104" y="27" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.728@0.23.1280.728" timestamp="1611776230797" />
-    <state x="104" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.730@0.23.1280.730" timestamp="1611776388567" />
-    <state x="606" y="317" width="563" height="433" key="#xdebugger.evaluate" timestamp="1611860940766">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state x="606" y="317" width="563" height="433" key="#xdebugger.evaluate/0.23.1280.728@0.23.1280.728" timestamp="1611860940766" />
-    <state x="698" y="274" key="#xdebugger.evaluate/0.23.1280.730@0.23.1280.730" timestamp="1611776641468" />
-    <state x="806" y="176" key="#xdebugger.evaluate/0.23.1280.732@0.23.1280.732" timestamp="1603469719356" />
-    <state x="307" y="62" width="872" height="707" key="CommitChangelistDialog2" timestamp="1611863341525">
-      <screen x="0" y="23" width="1280" height="729" />
-    </state>
-    <state x="315" y="23" width="872" height="707" key="CommitChangelistDialog2/0.0.1280.800@0.0.1280.800" timestamp="1610715033396" />
-    <state x="307" y="62" width="846" height="561" key="CommitChangelistDialog2/0.23.1280.728@0.23.1280.728" timestamp="1603542689699" />
-    <state x="307" y="62" key="CommitChangelistDialog2/0.23.1280.729@0.23.1280.729" timestamp="1611863341525" />
-    <state x="307" y="62" key="CommitChangelistDialog2/0.23.1280.730@0.23.1280.730" timestamp="1603544343678" />
-    <state width="745" height="543" key="DebuggerActiveHint" timestamp="1611861026035">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="745" height="543" key="DebuggerActiveHint/0.23.1280.728@0.23.1280.728" timestamp="1611861026035" />
-    <state width="745" height="545" key="DebuggerActiveHint/0.23.1280.730@0.23.1280.730" timestamp="1611776592760" />
-    <state width="690" height="545" key="DebuggerActiveHint/0.23.1280.732@0.23.1280.732" timestamp="1603469558250" />
-    <state width="1187" height="97" key="GridCell.Tab.0.bottom" timestamp="1611922842284">
-      <screen x="0" y="23" width="1280" height="732" />
-    </state>
-    <state width="1259" height="158" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1610715088848" />
-    <state width="1259" height="137" key="GridCell.Tab.0.bottom/0.23.1280.728@0.23.1280.728" timestamp="1611863107276" />
-    <state width="1259" height="137" key="GridCell.Tab.0.bottom/0.23.1280.729@0.23.1280.729" timestamp="1611863366216" />
-    <state width="1259" height="263" key="GridCell.Tab.0.bottom/0.23.1280.730@0.23.1280.730" timestamp="1611776393428" />
-    <state width="1187" height="97" key="GridCell.Tab.0.bottom/0.23.1280.732@0.23.1280.732" timestamp="1611922842284" />
-    <state width="1187" height="97" key="GridCell.Tab.0.center" timestamp="1611922842283">
-      <screen x="0" y="23" width="1280" height="732" />
-    </state>
-    <state width="1259" height="158" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1610715088844" />
-    <state width="1259" height="137" key="GridCell.Tab.0.center/0.23.1280.728@0.23.1280.728" timestamp="1611863107275" />
-    <state width="1259" height="137" key="GridCell.Tab.0.center/0.23.1280.729@0.23.1280.729" timestamp="1611863366216" />
-    <state width="1259" height="263" key="GridCell.Tab.0.center/0.23.1280.730@0.23.1280.730" timestamp="1611776393424" />
-    <state width="1187" height="97" key="GridCell.Tab.0.center/0.23.1280.732@0.23.1280.732" timestamp="1611922842283" />
-    <state width="1187" height="97" key="GridCell.Tab.0.left" timestamp="1611922842282">
-      <screen x="0" y="23" width="1280" height="732" />
-    </state>
-    <state width="1259" height="158" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1610715088843" />
-    <state width="1259" height="137" key="GridCell.Tab.0.left/0.23.1280.728@0.23.1280.728" timestamp="1611863107275" />
-    <state width="1259" height="137" key="GridCell.Tab.0.left/0.23.1280.729@0.23.1280.729" timestamp="1611863366215" />
-    <state width="1259" height="263" key="GridCell.Tab.0.left/0.23.1280.730@0.23.1280.730" timestamp="1611776393422" />
-    <state width="1187" height="97" key="GridCell.Tab.0.left/0.23.1280.732@0.23.1280.732" timestamp="1611922842282" />
-    <state width="1187" height="97" key="GridCell.Tab.0.right" timestamp="1611922842284">
-      <screen x="0" y="23" width="1280" height="732" />
-    </state>
-    <state width="1259" height="158" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1610715088845" />
-    <state width="1259" height="137" key="GridCell.Tab.0.right/0.23.1280.728@0.23.1280.728" timestamp="1611863107276" />
-    <state width="1259" height="137" key="GridCell.Tab.0.right/0.23.1280.729@0.23.1280.729" timestamp="1611863366216" />
-    <state width="1259" height="263" key="GridCell.Tab.0.right/0.23.1280.730@0.23.1280.730" timestamp="1611776393426" />
-    <state width="1187" height="97" key="GridCell.Tab.0.right/0.23.1280.732@0.23.1280.732" timestamp="1611922842283" />
-    <state width="1259" height="216" key="GridCell.Tab.1.bottom" timestamp="1611862703166">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.1.bottom/0.23.1280.728@0.23.1280.728" timestamp="1611862703166" />
-    <state width="1259" height="263" key="GridCell.Tab.1.bottom/0.23.1280.730@0.23.1280.730" timestamp="1611776398062" />
-    <state width="1235" height="247" key="GridCell.Tab.1.bottom/0.23.1280.732@0.23.1280.732" timestamp="1604589839800" />
-    <state width="1259" height="216" key="GridCell.Tab.1.center" timestamp="1611862703165">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.1.center/0.23.1280.728@0.23.1280.728" timestamp="1611862703165" />
-    <state width="1259" height="263" key="GridCell.Tab.1.center/0.23.1280.730@0.23.1280.730" timestamp="1611776398060" />
-    <state width="1235" height="247" key="GridCell.Tab.1.center/0.23.1280.732@0.23.1280.732" timestamp="1604589839799" />
-    <state width="1259" height="216" key="GridCell.Tab.1.left" timestamp="1611862703165">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.1.left/0.23.1280.728@0.23.1280.728" timestamp="1611862703165" />
-    <state width="1259" height="263" key="GridCell.Tab.1.left/0.23.1280.730@0.23.1280.730" timestamp="1611776398060" />
-    <state width="1235" height="247" key="GridCell.Tab.1.left/0.23.1280.732@0.23.1280.732" timestamp="1604589839799" />
-    <state width="1259" height="216" key="GridCell.Tab.1.right" timestamp="1611862703165">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.1.right/0.23.1280.728@0.23.1280.728" timestamp="1611862703165" />
-    <state width="1259" height="263" key="GridCell.Tab.1.right/0.23.1280.730@0.23.1280.730" timestamp="1611776398061" />
-    <state width="1235" height="247" key="GridCell.Tab.1.right/0.23.1280.732@0.23.1280.732" timestamp="1604589839800" />
-    <state width="1259" height="216" key="GridCell.Tab.2.bottom" timestamp="1611862703171">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.2.bottom/0.23.1280.728@0.23.1280.728" timestamp="1611862703171" />
-    <state width="1235" height="247" key="GridCell.Tab.2.bottom/0.23.1280.732@0.23.1280.732" timestamp="1604589839801" />
-    <state width="1259" height="216" key="GridCell.Tab.2.center" timestamp="1611862703168">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.2.center/0.23.1280.728@0.23.1280.728" timestamp="1611862703168" />
-    <state width="1235" height="247" key="GridCell.Tab.2.center/0.23.1280.732@0.23.1280.732" timestamp="1604589839801" />
-    <state width="1259" height="216" key="GridCell.Tab.2.left" timestamp="1611862703167">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.2.left/0.23.1280.728@0.23.1280.728" timestamp="1611862703167" />
-    <state width="1235" height="247" key="GridCell.Tab.2.left/0.23.1280.732@0.23.1280.732" timestamp="1604589839800" />
-    <state width="1259" height="216" key="GridCell.Tab.2.right" timestamp="1611862703169">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.2.right/0.23.1280.728@0.23.1280.728" timestamp="1611862703169" />
-    <state width="1235" height="247" key="GridCell.Tab.2.right/0.23.1280.732@0.23.1280.732" timestamp="1604589839801" />
-    <state width="1259" height="216" key="GridCell.Tab.3.bottom" timestamp="1611862703173">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.3.bottom/0.23.1280.728@0.23.1280.728" timestamp="1611862703173" />
-    <state width="1235" height="247" key="GridCell.Tab.3.bottom/0.23.1280.732@0.23.1280.732" timestamp="1604589839802" />
-    <state width="1259" height="216" key="GridCell.Tab.3.center" timestamp="1611862703172">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.3.center/0.23.1280.728@0.23.1280.728" timestamp="1611862703172" />
-    <state width="1235" height="247" key="GridCell.Tab.3.center/0.23.1280.732@0.23.1280.732" timestamp="1604589839802" />
-    <state width="1259" height="216" key="GridCell.Tab.3.left" timestamp="1611862703171">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.3.left/0.23.1280.728@0.23.1280.728" timestamp="1611862703171" />
-    <state width="1235" height="247" key="GridCell.Tab.3.left/0.23.1280.732@0.23.1280.732" timestamp="1604589839802" />
-    <state width="1259" height="216" key="GridCell.Tab.3.right" timestamp="1611862703173">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state width="1259" height="216" key="GridCell.Tab.3.right/0.23.1280.728@0.23.1280.728" timestamp="1611862703173" />
-    <state width="1235" height="247" key="GridCell.Tab.3.right/0.23.1280.732@0.23.1280.732" timestamp="1604589839802" />
-    <state x="169" y="98" key="MergeDialog" timestamp="1610708668790">
-      <screen x="0" y="23" width="1280" height="729" />
-    </state>
-    <state x="169" y="98" key="MergeDialog/0.23.1280.729@0.23.1280.729" timestamp="1610708668790" />
-    <state x="480" y="212" key="Vcs.Push.Dialog.v2" timestamp="1611863344906">
-      <screen x="0" y="23" width="1280" height="729" />
-    </state>
-    <state x="480" y="207" key="Vcs.Push.Dialog.v2/0.0.1280.800@0.0.1280.800" timestamp="1610715037117" />
-    <state x="480" y="211" key="Vcs.Push.Dialog.v2/0.23.1280.728@0.23.1280.728" timestamp="1603542693985" />
-    <state x="480" y="212" key="Vcs.Push.Dialog.v2/0.23.1280.729@0.23.1280.729" timestamp="1611863344906" />
-    <state x="480" y="212" key="Vcs.Push.Dialog.v2/0.23.1280.730@0.23.1280.730" timestamp="1603544346321" />
-    <state x="472" y="339" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1611859713504">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state x="472" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.800@0.0.1280.800" timestamp="1610711421039" />
-    <state x="472" y="339" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.728@0.23.1280.728" timestamp="1611859713504" />
-    <state x="472" y="339" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.729@0.23.1280.729" timestamp="1610708624982" />
-    <state x="169" y="121" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1603539808883">
-      <screen x="0" y="23" width="1280" height="728" />
-    </state>
-    <state x="169" y="121" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.23.1280.728@0.23.1280.728" timestamp="1603539808883" />
-    <state x="326" y="129" width="604" height="539" key="find.popup" timestamp="1610713366112">
-      <screen x="0" y="0" width="1280" height="800" />
-    </state>
-    <state x="326" y="129" width="604" height="539" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1610713366112" />
-    <state x="326" y="140" width="604" height="490" key="find.popup/0.23.1280.728@0.23.1280.728" timestamp="1603542497545" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

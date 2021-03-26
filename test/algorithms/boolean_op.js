@@ -540,6 +540,42 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(res.faces.size).to.equal(3);
             expect(res.edges.size).to.equal(10);
         });
+        it('Infinite loop when subtracting polygons (v1.2.20) Issue #81', function() {
+            const pA = new Flatten.Polygon([
+                [50, 100],
+                [100, 100],
+                [100, 50],
+                [100, 0],
+                [50, 0],
+                [0, 0],
+                [0, 50],
+                [50, 50],
+                [50, 100]
+            ]);
+            const pB = new Flatten.Polygon([
+                [50, 50],
+                [100, 50],
+                [100, 0],
+                [50, 0],
+                [50, 50]
+            ]);
+            const pC = new Flatten.Polygon([
+                [50, 50],
+                [50, 100],
+                [100, 100],
+                [100, 50],
+                [50, 50]
+            ]);
+
+            const p0 = Flatten.BooleanOperations.subtract(pA, pB);
+            expect(p0.faces.size).to.equal(1);
+            expect(p0.edges.size).to.equal(8);
+
+            const p1 = Flatten.BooleanOperations.subtract(p0, pC);
+            expect(p1.faces.size).to.equal(1);
+            expect(p1.edges.size).to.equal(4);
+
+        });
     });
     describe('#Algorithms.Boolean Intersection', function () {
         it('Can perform (boolean) intersection. 2 intersecting polygons', function () {

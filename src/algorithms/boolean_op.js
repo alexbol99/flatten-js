@@ -812,12 +812,12 @@ export function removeNotRelevantChains(polygon, op, int_points, is_res_polygon)
 
             /* update all points in "points from" pull */
             for (let k = int_points_from_pull_start; k < int_points_from_pull_start + int_points_from_pull_num; k++) {
-                int_point_current.edge_after = undefined;
+                int_points[k].edge_after = undefined;
             }
 
             /* update all points in "points to" pull */
             for (let k = int_points_to_pull_start; k < int_points_to_pull_start + int_points_to_pull_num; k++) {
-                int_point_next.edge_before = undefined;
+                int_points[k].edge_before = undefined;
             }
         }
 

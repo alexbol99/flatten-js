@@ -488,7 +488,7 @@ export function intersectLine2Polygon(line, polygon) {
         }
     }
 
-    return ip;
+    return line.sortPoints(ip);
 }
 
 export function intersectCircle2Polygon(circle, polygon) {
