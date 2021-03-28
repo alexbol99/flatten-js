@@ -32,12 +32,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Update documentation, create patch 1.2.21">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Issue #65vPolygon.contains with Segment returns wrong result&#10;- Release patch 1.2.22">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/ray_shooting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/ray_shooting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/relation.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/relation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +127,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Relation">
+  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. issue #76">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -170,6 +167,23 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. issue #76" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require @babel/register</extra-mocha-options>
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Boolean Operations" />
+        <name value="#Algorithms.Boolean Subtraction" />
+        <name value="Can perform subtract. issue #76" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="#Algorithms.Relation" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -182,23 +196,6 @@
       <test-file>$PROJECT_DIR$/test/algorithms/relation.js</test-file>
       <test-names>
         <name value="#Algorithms.Relation" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="#Algorithms.Relation.#Algorithms.Relation.Line2Polygon.Flattenjs Problem with Polygon.contains / Relations.covered Issue #65" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options>--require @babel/register</extra-mocha-options>
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/algorithms/relation.js</test-file>
-      <test-names>
-        <name value="#Algorithms.Relation" />
-        <name value="#Algorithms.Relation.Line2Polygon" />
-        <name value="Flattenjs Problem with Polygon.contains / Relations.covered Issue #65" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -217,19 +214,19 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Algorithms.Relation.#Algorithms.Relation.Line2Polygon.Flattenjs Problem with Polygon.contains / Relations.covered Issue #65" />
       <item itemvalue="Mocha.#Algorithms.Relation" />
+      <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. issue #76" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.publish-npm" />
       <item itemvalue="npm.test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
+        <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. issue #76" />
         <item itemvalue="Mocha.#Algorithms.Relation" />
-        <item itemvalue="Mocha.#Algorithms.Relation.#Algorithms.Relation.Line2Polygon.Flattenjs Problem with Polygon.contains / Relations.covered Issue #65" />
         <item itemvalue="npm.publish-npm" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -390,14 +387,7 @@
       <workItem from="1614350714340" duration="186000" />
       <workItem from="1614350963373" duration="78000" />
       <workItem from="1614351109068" duration="249000" />
-      <workItem from="1616758130407" duration="20613000" />
-    </task>
-    <task id="LOCAL-00140" summary="- Upgrade minor version to 1.1.0">
-      <created>1578748480863</created>
-      <option name="number" value="00140" />
-      <option name="presentableId" value="LOCAL-00140" />
-      <option name="project" value="LOCAL" />
-      <updated>1578748480863</updated>
+      <workItem from="1616758130407" duration="22748000" />
     </task>
     <task id="LOCAL-00141" summary="- Extend Ray to be any angle (not completed)">
       <created>1579030776012</created>
@@ -735,7 +725,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616911302054</updated>
     </task>
-    <option name="localTasksCounter" value="189" />
+    <task id="LOCAL-00189" summary="- Issue #65vPolygon.contains with Segment returns wrong result&#10;- Release patch 1.2.22">
+      <created>1616924147009</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1616924147009</updated>
+    </task>
+    <option name="localTasksCounter" value="190" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -754,7 +751,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- New README.md (not completed)" />
     <MESSAGE value="- Complete Serialization and Visualization sections of README.md&#10;- Release patch" />
     <MESSAGE value="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)" />
     <MESSAGE value="- Fix issue #42 Intersect does not seem to work when a shape is inside another" />
@@ -779,7 +775,8 @@
     <MESSAGE value="- Fix issue #81 Infinite loop when subtracting polygons, added test case&#10;- When line, intersect polygon, sort intersection points along line" />
     <MESSAGE value="- Fix issue #81 Infinite loop when subtracting polygons, added test case&#10;- intersectLine2Polygon : sort intersection points along line" />
     <MESSAGE value="- Update documentation, create patch 1.2.21" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Update documentation, create patch 1.2.21" />
+    <MESSAGE value="- Issue #65vPolygon.contains with Segment returns wrong result&#10;- Release patch 1.2.22" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Issue #65vPolygon.contains with Segment returns wrong result&#10;- Release patch 1.2.22" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -797,10 +794,10 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/algorithms/relation.js</url>
-          <line>207</line>
+          <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
+          <line>620</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="35" />
+          <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

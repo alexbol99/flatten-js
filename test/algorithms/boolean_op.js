@@ -595,9 +595,34 @@ describe('#Algorithms.Boolean Operations', function () {
             const p1 = Flatten.BooleanOperations.subtract(p0, pC);
             expect(p1.faces.size).to.equal(1);
             expect(p1.edges.size).to.equal(4);
-
-            expect(p0.contains(pC)).to.be.true;
         });
+        it('Can perform subtract. issue #76', () => {
+            const points1 = [
+                [
+                    [0,0],
+                    [0,40],
+                    [23,40],
+                    [23,0],
+                    [0,0],
+                ],
+            ];
+            const points2 = [
+                [
+                    [0,0],
+                    [0,40.00000000000001],
+                    [1.8,40.00000000000001],
+                    [1.8,0],
+                    [0,0],
+                ],
+            ];
+            const p1 = new Flatten.Polygon(points1)
+            const p2 = new Flatten.Polygon(points2)
+
+            const p = subtract(p1, p2);
+
+            expect(p.faces.size).to.equal(1);
+            // expect(p.edges.size).to.equal(4);
+        })
     });
     describe('#Algorithms.Boolean Intersection', function () {
         it('Can perform (boolean) intersection. 2 intersecting polygons', function () {
