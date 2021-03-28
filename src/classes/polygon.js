@@ -234,7 +234,9 @@ export class Polygon {
     }
 
     /**
-     * Cut polygon with line and return array of new polygons
+     * Cut polygon with multiline and return array of new polygons
+     * Multiline should be constructed from a line with intersection point, see notebook:
+     * https://next.observablehq.com/@alexbol99/cut-polygon-with-line
      * @param {Multiline} multiline
      * @returns {Polygon[]}
      */

@@ -1185,12 +1185,12 @@ function removeNotRelevantChains(polygon, op, int_points, is_res_polygon)
 
             /* update all points in "points from" pull */
             for (let k = int_points_from_pull_start; k < int_points_from_pull_start + int_points_from_pull_num; k++) {
-                int_point_current.edge_after = undefined;
+                int_points[k].edge_after = undefined;
             }
 
             /* update all points in "points to" pull */
             for (let k = int_points_to_pull_start; k < int_points_to_pull_start + int_points_to_pull_num; k++) {
-                int_point_next.edge_before = undefined;
+                int_points[k].edge_before = undefined;
             }
         }
 
@@ -2095,7 +2095,7 @@ function intersectLine2Polygon(line, polygon) {
         }
     }
 
-    return ip;
+    return line.sortPoints(ip);
 }
 
 function intersectCircle2Polygon(circle, polygon) {
@@ -7267,7 +7267,9 @@ class Polygon {
     }
 
     /**
-     * Cut polygon with line and return array of new polygons
+     * Cut polygon with multiline and return array of new polygons
+     * Multiline should be constructed from a line with intersection point, see notebook:
+     * https://next.observablehq.com/@alexbol99/cut-polygon-with-line
      * @param {Multiline} multiline
      * @returns {Polygon[]}
      */

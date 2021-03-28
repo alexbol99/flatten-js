@@ -260,6 +260,40 @@ describe('#Algorithms.Relation', function() {
             let de9im = relate(polygonA, polygonB);
 
             expect(de9im.intersect()).to.be.true;
-        })
+        });
+        it('Infinite loop when subtracting polygons (v1.2.20) Issue #81', function() {
+            const pA = new Flatten.Polygon([
+                [50, 100],
+                [100, 100],
+                [100, 50],
+                [100, 0],
+                [50, 0],
+                [0, 0],
+                [0, 50],
+                [50, 50],
+                [50, 100]
+            ]);
+            const pB = new Flatten.Polygon([
+                [50, 50],
+                [100, 50],
+                [100, 0],
+                [50, 0],
+                [50, 50]
+            ]);
+            const pC = new Flatten.Polygon([
+                [50, 50],
+                [50, 100],
+                [100, 100],
+                [100, 50],
+                [50, 50]
+            ]);
+
+            const p0 = Flatten.BooleanOperations.subtract(pA, pB);
+            expect(p0.faces.size).to.equal(1);
+            expect(p0.edges.size).to.equal(8);
+
+            expect(p0.contains(pB)).to.be.false;
+            expect(p0.contains(pC)).to.be.true;
+        });
     });
 });

@@ -337,7 +337,28 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(res.faces.size).to.equal(1);
             expect(res.edges.size).to.equal(33);
         });
+        it('Infinity Loop When unifying polygon Issue #82', function () {
+            const { Box, BooleanOperations, Polygon } = Flatten;
+            const rectSet = [
+                {"x":85,"y":146.66666666666666,"width":35,"height":73.33333333333333},
+                {"x":120,"y":0,"width":120,"height":73.33333333333333},
+                {"x":120,"y":73.33333333333333,"width":120,"height":73.33333333333333},
+                {"x":120,"y":146.66666666666666,"width":120,"height":73.33333333333333},
+                {"x":240,"y":0,"width":120,"height":73.33333333333333},
+                {"x":240,"y":73.33333333333333,"width":84,"height":73.33333333333333},
+            ];
+            const boxSet = rectSet.map(ele => new Box(ele.x, ele.y, ele.x + ele.width, ele.y + ele.height));
+            const polys = boxSet.map( box => new Polygon(box));
 
+            const p = polys.reduce(
+                (acc, poly) => BooleanOperations.unify(acc, poly),
+                new Polygon(),
+            );
+
+            expect(p.faces.size).to.equal(1);
+            expect(p.edges.size).to.equal(13);
+
+        })
     });
     describe('#Algorithms.Boolean Subtraction', function () {
         it('Can perform subtract. 2 intersecting polygons', function () {
@@ -575,6 +596,7 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(p1.faces.size).to.equal(1);
             expect(p1.edges.size).to.equal(4);
 
+            expect(p0.contains(pC)).to.be.true;
         });
     });
     describe('#Algorithms.Boolean Intersection', function () {
