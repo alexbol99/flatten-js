@@ -142,6 +142,73 @@ describe('#Algorithms.Relation', function() {
             expect(disjoint(l, p)).to.be.false;
             expect(touch(l, p)).to.be.false;
         });
+        it('Can properly detect contains / covered relation. Issue #65', () => {
+            function rectangle(xmin, ymin, xmax, ymax) {
+                const box = new Flatten.Box(xmin, ymin, xmax, ymax);
+                return new Flatten.Polygon(box);
+            }
+
+            const width = 200;
+            const buffer = 60;
+            const height = 20;
+            let poly1 = rectangle(
+                -width / 2 - buffer,
+                -buffer,
+                width / 2 + buffer,
+                height + buffer
+            )
+                .rotate(Math.PI)
+                .translate(Flatten.vector(180, 150));
+
+            let poly2 = rectangle(
+                -width / 2 - buffer,
+                -buffer,
+                width / 2 + buffer,
+                height + buffer
+            )
+                .rotate(Math.PI)
+                .translate(Flatten.vector(420, 145));
+
+            let poly3 = rectangle(0, 0, 800, 500);
+
+            const combo = Flatten.BooleanOperations.subtract(
+                poly3,
+                Flatten.BooleanOperations.unify(poly1, poly2)
+            );
+
+            const seg = Flatten.segment(Flatten.point(255, 65), Flatten.point(390, 215));
+
+            //
+            // The created combo polygon is a rectangle with a hole. The segment passes over this hole.
+            // However the checks still show that the segment is contained in the polygon, even though most of it is over the
+            // hole.
+            //
+
+            const bContains = combo.contains(seg) // Should be false, but is true
+            const bCovered = Flatten.Relations.covered(seg, combo) // Should be false, but is true
+
+            expect(bContains).to.be.false;
+            expect(bCovered).to.be.false;
+        });
+        it('Can properly detect touch relation. Issue #65', () => {
+            const poly = new Flatten.Polygon([
+                Flatten.point(710, 750),
+                Flatten.point(688.9918693812442, 814.656377752172),
+                Flatten.point(633.9918693812442, 854.6162167924668),
+                Flatten.point(566.0081306187558, 854.616216792467),
+                Flatten.point(511.0081306187558, 814.656377752172),
+                Flatten.point(490, 750),
+                Flatten.point(511.0081306187558, 685.343622247828),
+                Flatten.point(566.0081306187558, 645.3837832075332),
+                Flatten.point(633.9918693812442, 645.383783207533),
+                Flatten.point(688.9918693812442, 685.343622247828)
+            ]);
+            const seg = Flatten.segment(Flatten.point(600, 900), Flatten.point(620, 570));
+
+            const bTouch = Flatten.Relations.touch(seg, poly); // Should be false, but is true
+
+            expect(bTouch).to.be.false;
+        })
     });
     describe('#Algorithms.Relation.Circle2Circle', function() {
         it ('Intersection case', () => {
@@ -177,7 +244,7 @@ describe('#Algorithms.Relation', function() {
             expect(inside(c2, c1)).to.be.true;
         });
     });
-    describe('#Algorithms.Relation.Polygoon2Polygon', function() {
+    describe('#Algorithms.Relation.Polygon2Polygon', function() {
         it('May calculate relations. Disjoint case', () => {
             let p1 = new Polygon(box(0,0,50,100).toSegments());
             let p2 = new Polygon(box(100,50,150,150).toSegments());
@@ -261,7 +328,7 @@ describe('#Algorithms.Relation', function() {
 
             expect(de9im.intersect()).to.be.true;
         });
-        it('Infinite loop when subtracting polygons (v1.2.20) Issue #81', function() {
+        it('Calculate contains relation for multipolygon. Issue #81', function() {
             const pA = new Flatten.Polygon([
                 [50, 100],
                 [100, 100],

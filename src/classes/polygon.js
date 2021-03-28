@@ -372,7 +372,7 @@ export class Polygon {
     }
 
     /**
-     * Returns true if polygon contains shape: no point of shape lies outside of the polygon,
+     * Returns true if polygon contains shape: no point of shape lay outside of the polygon,
      * false otherwise
      * @param {Shape} shape - test shape
      * @returns {boolean}

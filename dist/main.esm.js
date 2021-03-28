@@ -2397,23 +2397,35 @@ Flatten.multiline = multiline;
 function ray_shoot(polygon, point) {
     let contains = undefined;
 
-    // if (!(polygon instanceof Polygon && point instanceof Point)) {
-    //     throw Flatten.Errors.ILLEGAL_PARAMETERS;
-    // }
-
     // 1. Quick reject
-    if (polygon.box.not_intersect(point.box)) {
-        return Flatten.OUTSIDE;
-    }
+    // if (polygon.box.not_intersect(point.box)) {
+    //     return Flatten.OUTSIDE;
+    // }
 
     let ray = new Flatten.Ray(point);
     let line = new Flatten.Line(ray.pt, ray.norm);
 
     // 2. Locate relevant edges of the polygon
-    let resp_edges = polygon.edges.search(ray.box);
+    const searchBox = new Flatten.Box(
+        ray.box.xmin-Flatten.DP_TOL, ray.box.ymin-Flatten.DP_TOL,
+        ray.box.xmax, ray.box.ymax+Flatten.DP_TOL
+    );
+
+    if (polygon.box.not_intersect(searchBox)) {
+        return Flatten.OUTSIDE;
+    }
+
+    let resp_edges = polygon.edges.search(searchBox);
 
     if (resp_edges.length == 0) {
         return Flatten.OUTSIDE;
+    }
+
+    // 2.5 Check if boundary
+    for (let edge of resp_edges) {
+        if (edge.shape.contains(point)) {
+            return Flatten.BOUNDARY;
+        }
     }
 
     // 3. Calculate intersections
@@ -7401,7 +7413,7 @@ class Polygon {
     }
 
     /**
-     * Returns true if polygon contains shape: no point of shape lies outside of the polygon,
+     * Returns true if polygon contains shape: no point of shape lay outside of the polygon,
      * false otherwise
      * @param {Shape} shape - test shape
      * @returns {boolean}
