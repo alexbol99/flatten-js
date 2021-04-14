@@ -414,7 +414,11 @@ export class Arc {
         let newStart = this.start.transform(matrix);
         let newEnd = this.end.transform(matrix);
         let newCenter = this.pc.transform(matrix);
-        let arc = Flatten.Arc.arcSE(newCenter, newStart, newEnd, this.counterClockwise);
+        let newDirection = this.counterClockwise;
+        if (matrix.a * matrix.d < 0) {
+          newDirection = !newDirection;
+        }
+        let arc = Flatten.Arc.arcSE(newCenter, newStart, newEnd, newDirection);
         return arc;
     }
 
