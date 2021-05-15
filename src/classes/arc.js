@@ -405,7 +405,9 @@ export class Arc {
 
     /**
      * Return new arc transformed using affine transformation matrix <br/>
-     * Note, that non-equal scaling by x and y (matrix[0] != matrix[3]) produce illegal result
+     * Note 1. Non-equal scaling by x and y (matrix[0] != matrix[3]) produce illegal result because
+     * it should create elliptic arc but library does not support ellipses
+     * Note 2. Mirror transformation (matrix[0] * matrix[3] < 0) change direction of the arc to the opposite
      * TODO: support non-equal scaling arc to ellipse or throw exception ?
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Arc}

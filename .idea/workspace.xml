@@ -32,9 +32,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Issue #65vPolygon.contains with Segment returns wrong result&#10;- Release patch 1.2.22">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fixed typo in documentation and README">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/arc.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +132,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. issue #76">
+  <component name="RunManager" selected="Mocha.#Flatten.Polygon">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -167,24 +172,7 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. issue #76" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options>--require @babel/register</extra-mocha-options>
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
-      <test-names>
-        <name value="#Algorithms.Boolean Operations" />
-        <name value="#Algorithms.Boolean Subtraction" />
-        <name value="Can perform subtract. issue #76" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="#Algorithms.Relation" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
@@ -193,9 +181,25 @@
       <ui>bdd</ui>
       <extra-mocha-options>--require @babel/register</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/algorithms/relation.js</test-file>
+      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
       <test-names>
-        <name value="#Algorithms.Relation" />
+        <name value="#Flatten.Polygon" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="#Flatten.Polygon.Can parse GeoJSON one-loop polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
+      <test-names>
+        <name value="#Flatten.Polygon" />
+        <name value="Can parse GeoJSON one-loop polygon" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -214,19 +218,19 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Algorithms.Relation" />
-      <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. issue #76" />
+      <item itemvalue="Mocha.#Flatten.Polygon" />
+      <item itemvalue="Mocha.#Flatten.Polygon.Can parse GeoJSON one-loop polygon" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.publish-npm" />
       <item itemvalue="npm.test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.test" />
-        <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. issue #76" />
-        <item itemvalue="Mocha.#Algorithms.Relation" />
-        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.publish-npm" />
+        <item itemvalue="Mocha.#Flatten.Polygon" />
+        <item itemvalue="Mocha.#Flatten.Polygon.Can parse GeoJSON one-loop polygon" />
       </list>
     </recent_temporary>
   </component>
@@ -383,11 +387,45 @@
       <workItem from="1604731436227" duration="751000" />
       <workItem from="1610708618258" duration="4757000" />
       <workItem from="1611775761179" duration="494000" />
-      <workItem from="1611776304703" duration="9095000" />
-      <workItem from="1614350714340" duration="186000" />
-      <workItem from="1614350963373" duration="78000" />
-      <workItem from="1614351109068" duration="249000" />
-      <workItem from="1616758130407" duration="22748000" />
+      <workItem from="1611776304703" duration="7156000" />
+      <workItem from="1621071991303" duration="405000" />
+      <workItem from="1621072484251" duration="451000" />
+      <workItem from="1621085867217" duration="977000" />
+    </task>
+    <task id="LOCAL-00136" summary="- Add new methods Face::shapes (getter function) and Face::toPolygon(), Polygon::toArray()&#10;- Simplify code for polygon transform methods, add tests, docs updated">
+      <created>1578644089358</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1578644089358</updated>
+    </task>
+    <task id="LOCAL-00137" summary="- Fix inheritance conflict by removing &quot;edges&quot; parameter from Face methods append, insert, delete; update docs, tests and typescript definition (wikywin note in the issue #3)&#10;- Upgrade dependency to @flatten-js/interval-tree@1.0.10 with fixed default export definition - fix typescript error on importing this package">
+      <created>1578663619628</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1578663619628</updated>
+    </task>
+    <task id="LOCAL-00138" summary="- Allow creation of polygon using constructor without need for addFace() method, updated typescript definition, tests and documentation &#10;- Allow creation of polygon from array of numeric pairs, or from a nested array of numeric pairs (issue #23)">
+      <created>1578742345011</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1578742345011</updated>
+    </task>
+    <task id="LOCAL-00139" summary="- Added method Polygon::splitToIslands() to split polygon into array of islands, where each island polygon includes holes that it contains (issue #9 from boolean-op package)">
+      <created>1578747826786</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1578747826786</updated>
+    </task>
+    <task id="LOCAL-00140" summary="- Upgrade minor version to 1.1.0">
+      <created>1578748480863</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1578748480863</updated>
     </task>
     <task id="LOCAL-00141" summary="- Extend Ray to be any angle (not completed)">
       <created>1579030776012</created>
@@ -697,42 +735,7 @@
       <option name="project" value="LOCAL" />
       <updated>1611863342220</updated>
     </task>
-    <task id="LOCAL-00185" summary="- Ability tp construct PlanarSet with array or set of shapes">
-      <created>1611923216426</created>
-      <option name="number" value="00185" />
-      <option name="presentableId" value="LOCAL-00185" />
-      <option name="project" value="LOCAL" />
-      <updated>1611923216426</updated>
-    </task>
-    <task id="LOCAL-00186" summary="- Fix issue #81 Infinite loop when subtracting polygons, added test case&#10;- When line, intersect polygon, sort intersection points along line">
-      <created>1616766843746</created>
-      <option name="number" value="00186" />
-      <option name="presentableId" value="LOCAL-00186" />
-      <option name="project" value="LOCAL" />
-      <updated>1616766843746</updated>
-    </task>
-    <task id="LOCAL-00187" summary="- Fix issue #81 Infinite loop when subtracting polygons, added test case&#10;- intersectLine2Polygon : sort intersection points along line">
-      <created>1616766981145</created>
-      <option name="number" value="00187" />
-      <option name="presentableId" value="LOCAL-00187" />
-      <option name="project" value="LOCAL" />
-      <updated>1616766981145</updated>
-    </task>
-    <task id="LOCAL-00188" summary="- Update documentation, create patch 1.2.21">
-      <created>1616911302053</created>
-      <option name="number" value="00188" />
-      <option name="presentableId" value="LOCAL-00188" />
-      <option name="project" value="LOCAL" />
-      <updated>1616911302054</updated>
-    </task>
-    <task id="LOCAL-00189" summary="- Issue #65vPolygon.contains with Segment returns wrong result&#10;- Release patch 1.2.22">
-      <created>1616924147009</created>
-      <option name="number" value="00189" />
-      <option name="presentableId" value="LOCAL-00189" />
-      <option name="project" value="LOCAL" />
-      <updated>1616924147009</updated>
-    </task>
-    <option name="localTasksCounter" value="190" />
+    <option name="localTasksCounter" value="185" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -751,6 +754,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="- Fix bug in relateShapeToPolygon" />
+    <MESSAGE value="- Fix bug in relatePolygonToPolygon&#10;- Remove redundant export regexp from relations module" />
+    <MESSAGE value="- Release patch 1.2.2" />
+    <MESSAGE value="- Add boolean operations test&#10;- Fix bug in Arc::split() method" />
+    <MESSAGE value="- New README.md (not completed)" />
     <MESSAGE value="- Complete Serialization and Visualization sections of README.md&#10;- Release patch" />
     <MESSAGE value="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)" />
     <MESSAGE value="- Fix issue #42 Intersect does not seem to work when a shape is inside another" />
@@ -771,12 +779,7 @@
     <MESSAGE value="- added Buy Me A Coffee button to README.md" />
     <MESSAGE value="- Fix order of arguments in addVertex method. Pull request #73 &#10;- Type declaration for Arc is incorrect. Pull request #74&#10;- Fix tolerance typings. Pull request #75&#10;- Documentation mistake: BooleanOp. Issue #77&#10;- Release patch v1.2.19" />
     <MESSAGE value="- Support GeoJSON polygon and multi-polygon parsing (added tests from GeoJSON spec)&#10;- Release patch v1.2.20" />
-    <MESSAGE value="- Ability tp construct PlanarSet with array or set of shapes" />
-    <MESSAGE value="- Fix issue #81 Infinite loop when subtracting polygons, added test case&#10;- When line, intersect polygon, sort intersection points along line" />
-    <MESSAGE value="- Fix issue #81 Infinite loop when subtracting polygons, added test case&#10;- intersectLine2Polygon : sort intersection points along line" />
-    <MESSAGE value="- Update documentation, create patch 1.2.21" />
-    <MESSAGE value="- Issue #65vPolygon.contains with Segment returns wrong result&#10;- Release patch 1.2.22" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Issue #65vPolygon.contains with Segment returns wrong result&#10;- Release patch 1.2.22" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Support GeoJSON polygon and multi-polygon parsing (added tests from GeoJSON spec)&#10;- Release patch v1.2.20" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -792,12 +795,6 @@
           <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
           <line>356</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
-          <line>620</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
