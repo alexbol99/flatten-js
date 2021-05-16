@@ -21,6 +21,12 @@ describe('#Flatten.Segment', function() {
         expect(segment.start).to.deep.equal({x:1, y:1});
         expect(segment.end).to.deep.equal({x:2, y:3});
     });
+    it('May construct segment when second point is omitted', function () {
+        let ps = new Point(10,10);
+        let segment = new Segment(ps);
+        expect(segment.start).to.deep.equal({x:10, y:10});
+        expect(segment.end).to.deep.equal({x:0, y:0});
+    });
     it('May constructor by array [4] ', function () {
         let ps = new Point(1,1);
         let pe = new Point(2,3);

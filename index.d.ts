@@ -147,6 +147,7 @@ declare namespace Flatten {
         translate(vec: Vector): Arc;
         translate(x:number, y:number): Arc;
         rotate(angle: number, center: Point): Arc;
+        scale(scaleX: number, scaleY: number) : Arc;
         transform(matrix?: Matrix): Arc;
         sortPoints(pts: Array<Point>): Array<Point>;
         toJSON() : Object;

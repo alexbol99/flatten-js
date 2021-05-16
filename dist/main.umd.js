@@ -4505,6 +4505,12 @@
                 return;
             }
 
+            // second point omitted issue #84
+            if (args.length === 1 && args[0] instanceof Flatten.Point) {
+                this.ps = args[0].clone();
+                return;
+            }
+
             if (args.length === 2 && args[0] instanceof Flatten.Point && args[1] instanceof Flatten.Point) {
                 this.ps = args[0].clone();
                 this.pe = args[1].clone();
@@ -5799,9 +5805,21 @@
         }
 
         /**
+         * Return new arc scaled by scaleX, scaleY.
+         * @param {number} scaleX - scale value by X
+         * @param {number} scaleY - scale value by Y
+         * @returns {Arc}
+         */
+        scale(scaleX = 1, scaleY = 1) {
+            let m = new Flatten.Matrix();
+            m = m.scale(scaleX, scaleY);
+            return this.transform(m);
+        }
+
+        /**
          * Return new arc transformed using affine transformation matrix <br/>
-         * Note 1. Non-equal scaling by x and y (matrix[0] != matrix[3]) produce illegal result because
-         * it should create elliptic arc but library does not support ellipses
+         * Note 1. Non-equal scaling by x and y (abs(matrix[0]) != abs(matrix[3])) produce illegal result because
+         * it should create elliptic arc but this package does not support ellipses
          * Note 2. Mirror transformation (matrix[0] * matrix[3] < 0) change direction of the arc to the opposite
          * TODO: support non-equal scaling arc to ellipse or throw exception ?
          * @param {Matrix} matrix - affine transformation matrix

@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import Flatten from '../../index';
 
 import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../../index';
-import {point, vector, circle, line, segment, arc, ray} from '../../index';
+import {point, vector, circle, line, segment, arc, matrix, ray} from '../../index';
 
 describe('#Flatten.Arc', function() {
     it('May create new instance of Arc', function () {
@@ -319,6 +319,18 @@ describe('#Flatten.Arc', function() {
         expect(reversed_arc.counterClockwise).to.equal(Flatten.CW);
         expect(Flatten.Utils.EQ(arc.sweep,reversed_arc.sweep)).to.be.true;
     })
+    it('Can mirror arc by Y axis using transformation matrix', () => {
+        let a1 = arc(point(0, 10), 20, -Math.PI / 4, Math.PI / 4, true);
+        let m = matrix().scale(-1, 1);
+        let a2 = a1.transform(m);
+        expect(a2.start.x).to.be.closeTo(-a1.start.x, Flatten.DP_TOL);
+        expect(a2.start.y).to.be.closeTo(a1.start.y, Flatten.DP_TOL);
+        expect(a2.end.x).to.be.closeTo(-a1.end.x, Flatten.DP_TOL);
+        expect(a2.end.y).to.be.closeTo(a1.end.y, Flatten.DP_TOL);
+        expect(a2.center.x).to.be.closeTo(-a1.center.x, Flatten.DP_TOL);
+        expect(a2.center.y).to.be.closeTo(a1.center.y, Flatten.DP_TOL);
+        expect(a2.counterClockwise).to.be.equal(!a1.counterClockwise);
+    });
     it('Method svg() without parameters creates svg string with default attributes', function() {
         let arc = new Arc(point(), 5, Math.PI/4, 3*Math.PI/4, Flatten.CCW);
         let svg = arc.svg();

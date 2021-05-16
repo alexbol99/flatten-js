@@ -47,6 +47,12 @@ export class Segment {
             return;
         }
 
+        // second point omitted issue #84
+        if (args.length === 1 && args[0] instanceof Flatten.Point) {
+            this.ps = args[0].clone();
+            return;
+        }
+
         if (args.length === 2 && args[0] instanceof Flatten.Point && args[1] instanceof Flatten.Point) {
             this.ps = args[0].clone();
             this.pe = args[1].clone();
