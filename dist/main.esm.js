@@ -7037,9 +7037,9 @@ class Ray {
     intersectRay2Segment(ray, segment) {
         let ip = [];
 
-        if (ray.box.not_intersect(segment.box)) {
-            return ip;
-        }
+        // if (ray.box.not_intersect(segment.box)) {
+        //     return ip;
+        // }
 
         let line = new Flatten.Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(segment);
@@ -7064,9 +7064,9 @@ class Ray {
     intersectRay2Arc(ray, arc) {
         let ip = [];
 
-        if (ray.box.not_intersect(arc.box)) {
-            return ip;
-        }
+        // if (ray.box.not_intersect(arc.box)) {
+        //     return ip;
+        // }
 
         let line = new Flatten.Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(arc);
