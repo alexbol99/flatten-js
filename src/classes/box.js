@@ -222,7 +222,7 @@ export class Box {
 
 Flatten.Box = Box;
 /**
- * Shortcut to create new circle
+ * Shortcut to create new box
  * @param args
  * @returns {Box}
  */
