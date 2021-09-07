@@ -137,6 +137,7 @@ declare namespace Flatten {
         contains(pt: Point): boolean;
         split(pt: Point): [Arc | undefined, Arc | undefined];
         middle(): Point;
+        pointAtLength(length: number): Point|null;
         chordHeight(): number;
         intersect(shape: Shape): Array<Point>;
         distanceTo(geom: Shape | PlanarSet): [number, Segment];
@@ -312,6 +313,7 @@ declare namespace Flatten {
         reverse(): Segment;
         split(pt: Point): [Segment|null,Segment|null];
         middle(): Point;
+        pointAtLength(length: number): Point|null;
         rotate(angle: number, center?: Point): Segment;
         transform(matrix: Matrix): Segment;
         translate(vec: Vector): Segment;
@@ -431,6 +433,7 @@ declare namespace Flatten {
         isArc() : boolean;
         contains(pt: Point): boolean;
         middle(): Point;
+        pointAtLength(length: number): Point|null;
         setInclusion(polygon: Polygon): EdgeRelationType;
         setOverlap(edge: Edge) : EdgeOverlappingType;
     }
@@ -450,9 +453,11 @@ declare namespace Flatten {
         // getters
         readonly box: Box;
         readonly size: number;
+        readonly length: number;
         readonly edges: PolygonEdge[];
 
         // public methods
+        pointAtLength(length: number): Point|null;
         append(edge: PolygonEdge): Face;
         insert(element: PolygonEdge): Face;
         remove(element: PolygonEdge): Face;
