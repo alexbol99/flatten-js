@@ -208,6 +208,21 @@ export class Arc {
     }
 
     /**
+     * Get point at given length
+     * @param {number} length - The length along the arc
+     * @returns {Point}
+     */
+    pointAtLength(length) {
+        if (length > this.length || length < 0) return null;
+        if (length == 0) return this.start;
+        if (length == this.length) return this.end;
+        let factor = length / this.length;
+        let endAngle = this.counterClockwise ? this.startAngle + this.sweep * factor : this.startAngle - this.sweep * factor;
+        let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
+        return arc.end;
+    }
+
+    /**
      * Returns chord height ("sagitta") of the arc
      * @returns {number}
      */

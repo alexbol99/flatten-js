@@ -260,4 +260,23 @@ describe('#Flatten.Segment', function() {
             expect(segment.distanceTo(circle)[0]).to.equal(2 - Math.sqrt(2));
         });
     });
+
+    describe('#Flatten.Segment.pointAtLength', function () {
+        it('gets the point at specific length', function () {
+            let segment = new Segment(point(-1,1), point(1,1))
+            expect(segment.length).to.equal(2)
+            expect(segment.pointAtLength(1).x).to.equal(0)
+            expect(segment.pointAtLength(0).x).to.equal(-1)
+            expect(segment.pointAtLength(2).x).to.equal(1)
+            expect(segment.pointAtLength(0.5).x).to.equal(-0.5)
+        });
+        it('points at specific length is on segment', function () {
+            let segment = new Segment(point(-12,4), point(30, -2))
+            let length = segment.length
+            for (let i = 0; i < 33; i++) {
+                let point = segment.pointAtLength(i / 33 * length)
+                expect(segment.contains(point)).to.be.true
+            }
+        });
+    });
 });
