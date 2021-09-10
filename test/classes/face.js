@@ -3,6 +3,7 @@
  */
 import { expect } from 'chai';
 import Flatten from '../../index';
+import {ray_shoot} from "../../src/algorithms/ray_shooting";
 
 import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../../index';
 import {point, vector, circle, line, segment, arc} from '../../index';
@@ -165,5 +166,24 @@ describe('#Flatten.Face', function() {
         svg += faces[2].svg({fill:"lightblue"})
 
         expect(svg.length).not.to.equal(0);
+    });
+    it('can find points at specific lengths', function () {
+        let points = [
+            point(100, 20),
+            point(200, 20),
+            point(200, 40),
+            point(100, 40)
+        ];
+
+        let poly = new Polygon();
+        let face = poly.addFace(points);
+        let length = face.length;
+        expect(length).to.equal(240)
+        for (let i = 0; i < 33; i++) {
+            let point = face.pointAtLength(i / 33 * length);
+            let rel = ray_shoot(poly, point);
+            expect(rel).to.equal(Flatten.BOUNDARY);
+        }
+
     });
 });

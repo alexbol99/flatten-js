@@ -282,6 +282,22 @@ export class Segment {
         return new Flatten.Point((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2);
     }
 
+    /**
+     * Get point at given length
+     * @param {number} length - The length along the segment
+     * @returns {Point}
+     */
+    pointAtLength(length) {
+        if (length > this.length || length < 0) return null;
+        if (length == 0) return this.start;
+        if (length == this.length) return this.end;
+        let factor = length / this.length;
+        return new Flatten.Point(
+            (this.end.x - this.start.x) * factor + this.start.x,
+            (this.end.y - this.start.y) * factor + this.start.y
+        );
+    }
+
     distanceToPoint(pt) {
         let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
         return dist;

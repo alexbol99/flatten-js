@@ -347,4 +347,25 @@ describe('#Flatten.Arc', function() {
         expect(svg.search("id")).to.not.equal(-1);
         expect(svg.search("class")).to.not.equal(-1);
     })
+
+    describe('#Flatten.Arc.pointAtLength', function () {
+        it('gets the point at specific length', function () {
+            let arc = new Arc(new Point(), 1, Math.PI/4, 3*Math.PI/4);
+            expect(arc.length).to.equal(Math.abs(Math.PI / -2))
+            let start = arc.pointAtLength(0)
+            expect(start.x).to.equal(arc.start.x)
+            expect(start.y).to.equal(arc.start.y)
+            let end = arc.pointAtLength(arc.length)
+            expect(end.x).to.equal(arc.end.x)
+            expect(end.y).to.equal(arc.end.y)
+        });
+        it('points at specific length is on arc', function () {
+            let arc = new Arc(new Point(), 1, Math.PI/4, 3*Math.PI/4);
+            let length = arc.length
+            for (let i = 0; i < 33; i++) {
+              let point = arc.pointAtLength(i / 33 * length)
+              expect(arc.contains(point)).to.be.true
+            }
+        });
+    });
 });

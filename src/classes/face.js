@@ -165,6 +165,31 @@ export class Face extends CircularLinkedList {
         return this._box;
     }
 
+    /**
+     * Get all edges length
+     */
+    get length() {
+        return this.edges.reduce((acc, edge) => edge.length + acc, 0)
+    }
+
+    /**
+     * Get point at given length
+     * @param {number} length - The length along the face
+     * @returns {Point}
+     */
+    pointAtLength(length) {
+        if (length > this.length || length < 0) return 0
+        let point, len = this.length
+        this.edges.some(edge => {
+            len -= edge.length
+            if (length >= len) {
+                point = edge.pointAtLength(length - len)
+                return true
+            }
+        })
+        return point
+    }
+
     static points2segments(points) {
         let segments = [];
         for (let i = 0; i < points.length; i++) {

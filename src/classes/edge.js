@@ -110,6 +110,15 @@ export class Edge {
     }
 
     /**
+     * Get point at given length
+     * @param {number} length - The length along the edge
+     * @returns {Point}
+     */
+    pointAtLength(length) {
+        return this.shape.pointAtLength(length);
+    }
+
+    /**
      * Returns true if point belongs to the edge, false otherwise
      * @param {Point} pt - test point
      */
