@@ -168,7 +168,7 @@ export class Face extends CircularLinkedList {
     /**
      * Get all edges length
      */
-    get length() {
+    get perimeter() {
         return this.edges.reduce((acc, edge) => edge.length + acc, 0)
     }
 
@@ -178,8 +178,8 @@ export class Face extends CircularLinkedList {
      * @returns {Point}
      */
     pointAtLength(length) {
-        if (length > this.length || length < 0) return 0
-        let point, len = this.length
+        if (length > this.perimeter || length < 0) return 0
+        let point, len = this.perimeter
         this.edges.some(edge => {
             len -= edge.length
             if (length >= len) {

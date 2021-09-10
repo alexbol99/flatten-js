@@ -4740,6 +4740,22 @@
             return new Flatten.Point((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2);
         }
 
+        /**
+         * Get point at given length
+         * @param {number} length - The length along the segment
+         * @returns {Point}
+         */
+        pointAtLength(length) {
+            if (length > this.length || length < 0) return null;
+            if (length == 0) return this.start;
+            if (length == this.length) return this.end;
+            let factor = length / this.length;
+            return new Flatten.Point(
+                (this.end.x - this.start.x) * factor + this.start.x,
+                (this.end.y - this.start.y) * factor + this.start.y
+            );
+        }
+
         distanceToPoint(pt) {
             let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
             return dist;
@@ -5609,6 +5625,21 @@
         }
 
         /**
+         * Get point at given length
+         * @param {number} length - The length along the arc
+         * @returns {Point}
+         */
+        pointAtLength(length) {
+            if (length > this.length || length < 0) return null;
+            if (length == 0) return this.start;
+            if (length == this.length) return this.end;
+            let factor = length / this.length;
+            let endAngle = this.counterClockwise ? this.startAngle + this.sweep * factor : this.startAngle - this.sweep * factor;
+            let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
+            return arc.end;
+        }
+
+        /**
          * Returns chord height ("sagitta") of the arc
          * @returns {number}
          */
@@ -6153,7 +6184,7 @@
     }
     Flatten.Box = Box;
     /**
-     * Shortcut to create new circle
+     * Shortcut to create new box
      * @param args
      * @returns {Box}
      */
@@ -6266,6 +6297,15 @@
          */
         middle() {
             return this.shape.middle();
+        }
+
+        /**
+         * Get point at given length
+         * @param {number} length - The length along the edge
+         * @returns {Point}
+         */
+        pointAtLength(length) {
+            return this.shape.pointAtLength(length);
         }
 
         /**
@@ -6606,6 +6646,31 @@
                 this._box = box;
             }
             return this._box;
+        }
+
+        /**
+         * Get all edges length
+         */
+        get perimeter() {
+            return this.edges.reduce((acc, edge) => edge.length + acc, 0)
+        }
+
+        /**
+         * Get point at given length
+         * @param {number} length - The length along the face
+         * @returns {Point}
+         */
+        pointAtLength(length) {
+            if (length > this.perimeter || length < 0) return 0
+            let point, len = this.perimeter;
+            this.edges.some(edge => {
+                len -= edge.length;
+                if (length >= len) {
+                    point = edge.pointAtLength(length - len);
+                    return true
+                }
+            });
+            return point
         }
 
         static points2segments(points) {

@@ -177,7 +177,7 @@ describe('#Flatten.Face', function() {
 
         let poly = new Polygon();
         let face = poly.addFace(points);
-        let length = face.length;
+        let length = face.perimeter;
         expect(length).to.equal(240)
         for (let i = 0; i < 33; i++) {
             let point = face.pointAtLength(i / 33 * length);
