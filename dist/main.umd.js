@@ -6656,21 +6656,21 @@
         }
 
         /**
-         * Get point at given length
-         * @param {number} length - The length along the face
+         * Get point on face boundary at given length
+         * @param {number} length - The length along the face boundary
          * @returns {Point}
          */
         pointAtLength(length) {
-            if (length > this.perimeter || length < 0) return 0
-            let point, len = this.perimeter;
-            this.edges.some(edge => {
-                len -= edge.length;
-                if (length >= len) {
-                    point = edge.pointAtLength(length - len);
-                    return true
+            if (length > this.perimeter || length < 0) return null;
+            let point = null;
+            for (let edge of this) {
+                if (length >= edge.arc_length &&
+                    (edge === this.last || length < edge.next.arc_length)) {
+                    point = edge.pointAtLength(length - edge.arc_length);
+                    break;
                 }
-            });
-            return point
+            }
+            return point;
         }
 
         static points2segments(points) {

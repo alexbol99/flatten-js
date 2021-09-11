@@ -167,7 +167,7 @@ describe('#Flatten.Face', function() {
 
         expect(svg.length).not.to.equal(0);
     });
-    it('can find points at specific lengths', function () {
+    it('Can find points at specific lengths', function () {
         let points = [
             point(100, 20),
             point(200, 20),
@@ -181,6 +181,7 @@ describe('#Flatten.Face', function() {
         expect(length).to.equal(240)
         for (let i = 0; i < 33; i++) {
             let point = face.pointAtLength(i / 33 * length);
+            expect(point).is.not.null;
             let rel = ray_shoot(poly, point);
             expect(rel).to.equal(Flatten.BOUNDARY);
         }
