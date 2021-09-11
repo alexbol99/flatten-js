@@ -32,10 +32,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Merge pull request &quot;Add pointAtLength methods for Arc, Segment, Edge and Face&quot; - #95&#10;- Release patch v1.2.25">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/face.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -393,14 +392,7 @@
       <workItem from="1625837402689" duration="49000" />
       <workItem from="1625837707889" duration="193000" />
       <workItem from="1625838456406" duration="595000" />
-      <workItem from="1631278008117" duration="6673000" />
-    </task>
-    <task id="LOCAL-00140" summary="- Upgrade minor version to 1.1.0">
-      <created>1578748480863</created>
-      <option name="number" value="00140" />
-      <option name="presentableId" value="LOCAL-00140" />
-      <option name="project" value="LOCAL" />
-      <updated>1578748480863</updated>
+      <workItem from="1631278008117" duration="7877000" />
     </task>
     <task id="LOCAL-00141" summary="- Extend Ray to be any angle (not completed)">
       <created>1579030776012</created>
@@ -738,7 +730,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631282571240</updated>
     </task>
-    <option name="localTasksCounter" value="189" />
+    <task id="LOCAL-00189" summary="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic">
+      <created>1631348165767</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1631348165767</updated>
+    </task>
+    <option name="localTasksCounter" value="190" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -757,7 +756,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- New README.md (not completed)" />
     <MESSAGE value="- Complete Serialization and Visualization sections of README.md&#10;- Release patch" />
     <MESSAGE value="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)" />
     <MESSAGE value="- Fix issue #42 Intersect does not seem to work when a shape is inside another" />
@@ -782,7 +780,8 @@
     <MESSAGE value="- Create segment with optional second point omitted (issue #84)&#10;- Release patch v1.2.23" />
     <MESSAGE value="- Remove quick reject from ray2segment and ray2arc" />
     <MESSAGE value="- Merge pull request &quot;Add pointAtLength methods for Arc, Segment, Edge and Face&quot; - #95&#10;- Release patch v1.2.25" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Merge pull request &quot;Add pointAtLength methods for Arc, Segment, Edge and Face&quot; - #95&#10;- Release patch v1.2.25" />
+    <MESSAGE value="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
