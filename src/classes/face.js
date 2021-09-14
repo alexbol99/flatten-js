@@ -43,6 +43,7 @@ export class Face extends CircularLinkedList {
 
         this._box = undefined;  // new Box();
         this._orientation = undefined;
+        this._perimeter = undefined;
 
         if (args.length == 0) {
             return;
@@ -169,7 +170,10 @@ export class Face extends CircularLinkedList {
      * Get all edges length
      */
     get perimeter() {
-        return this.edges.reduce((acc, edge) => edge.length + acc, 0)
+        if (this._perimeter === undefined) {
+            this._perimeter = this.edges.reduce((acc, edge) => edge.length + acc, 0)
+        }
+        return this._perimeter
     }
 
     /**
@@ -313,6 +317,7 @@ export class Face extends CircularLinkedList {
     }
 
     setOneEdgeArcLength(edge) {
+        this._perimeter = undefined;
         if (edge === this.first) {
             edge.arc_length = 0.0;
         } else {
