@@ -34,7 +34,12 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/intersection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/intersection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/multiline.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,15 +219,15 @@
     <list>
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Flatten.Face" />
+      <item itemvalue="Mocha.#Flatten.Face.can find points at specific lengths" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.test" />
       <item itemvalue="npm.generate-docs" />
-      <item itemvalue="Mocha.#Flatten.Face.can find points at specific lengths" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
         <item itemvalue="npm.generate-docs" />
+        <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
         <item itemvalue="Mocha.#Flatten.Face" />
         <item itemvalue="Mocha.#Flatten.Face.can find points at specific lengths" />
@@ -802,7 +807,6 @@
           <condition expression="i == 13" language="JavaScript" />
           <url>file://$PROJECT_DIR$/test/classes/face.js</url>
           <line>182</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>

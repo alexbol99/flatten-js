@@ -541,9 +541,9 @@ export function intersectMultiline2Polygon(multiline, polygon) {
     }
 
     for (let edge of multiline) {
-        for (let pt of intersectEdge2Polygon(edge, polygon)) {
-            ip.push(pt);
-        }
+        let ip_edge = intersectEdge2Polygon(edge, polygon);
+        let ip_sorted = edge.shape.sortPoints(ip_edge);  // TODO: support arc edge
+        ip = [...ip, ...ip_sorted];
     }
 
     return ip;

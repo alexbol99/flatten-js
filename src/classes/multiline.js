@@ -183,7 +183,7 @@ export class Multiline extends LinkedList {
      * @param attrs  - an object with attributes for svg path element,
      * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
      * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
-     * TODO: support infinite Ray and Line
+     * TODO: support semi-infinite Ray and infinite Line
      * @returns {string}
      */
     svg(attrs = {}) {
@@ -191,12 +191,11 @@ export class Multiline extends LinkedList {
         let id_str = (id && id.length > 0) ? `id="${id}"` : "";
         let class_str = (className && className.length > 0) ? `class="${className}"` : "";
 
-        let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+        let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
         svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
         for (let edge of this) {
             svgStr += edge.svg();
         }
-        svgStr += ` z`;
         svgStr += `" >\n</path>`;
 
         return svgStr;

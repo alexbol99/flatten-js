@@ -454,10 +454,10 @@ declare namespace Flatten {
         readonly box: Box;
         readonly size: number;
         readonly length: number;
+        readonly perimeter: number;
         readonly edges: PolygonEdge[];
 
         // public methods
-        pointAtLength(length: number): Point|null;
         append(edge: PolygonEdge): Face;
         insert(element: PolygonEdge): Face;
         remove(element: PolygonEdge): Face;
@@ -468,6 +468,7 @@ declare namespace Flatten {
         orientation(): Flatten.ORIENTATION.PolygonOrientationType;
         isSimple(edges: PolygonEdge[]): boolean;
         findEdgeByPoint(pt: Point): PolygonEdge | undefined;
+        pointAtLength(length: number): Point|null;
         toPolygon(): Polygon;
         svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
     }

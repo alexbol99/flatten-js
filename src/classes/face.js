@@ -167,9 +167,10 @@ export class Face extends CircularLinkedList {
 
     /**
      * Get all edges length
+     * @returns {number}
      */
     get perimeter() {
-        return this.edges.reduce((acc, edge) => edge.length + acc, 0)
+        return this.last.arc_length + this.last.length
     }
 
     /**
