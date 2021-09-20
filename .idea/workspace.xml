@@ -32,14 +32,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- improve performance of face perimeter calculation&#10;- fix Multiline::svg() method&#10;- in intersectMultiline2Polygon() sort intersection points along multiline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/intersection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/intersection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/multiline.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +127,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Face">
+  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -162,6 +157,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="publish-npm" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="publish-npm" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -172,7 +177,7 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Face" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Algorithms.Boolean Operations" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
@@ -181,25 +186,9 @@
       <ui>bdd</ui>
       <extra-mocha-options>--require @babel/register</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/classes/face.js</test-file>
+      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
       <test-names>
-        <name value="#Flatten.Face" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="#Flatten.Face.can find points at specific lengths" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/classes/face.js</test-file>
-      <test-names>
-        <name value="#Flatten.Face" />
-        <name value="can find points at specific lengths" />
+        <name value="#Algorithms.Boolean Operations" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -218,19 +207,19 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Flatten.Face" />
-      <item itemvalue="Mocha.#Flatten.Face.can find points at specific lengths" />
+      <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.test" />
       <item itemvalue="npm.generate-docs" />
+      <item itemvalue="npm.publish-npm" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
+        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.generate-docs" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
-        <item itemvalue="Mocha.#Flatten.Face" />
-        <item itemvalue="Mocha.#Flatten.Face.can find points at specific lengths" />
       </list>
     </recent_temporary>
   </component>
@@ -398,13 +387,6 @@
       <workItem from="1625837707889" duration="193000" />
       <workItem from="1625838456406" duration="595000" />
       <workItem from="1631278008117" duration="7877000" />
-    </task>
-    <task id="LOCAL-00141" summary="- Extend Ray to be any angle (not completed)">
-      <created>1579030776012</created>
-      <option name="number" value="00141" />
-      <option name="presentableId" value="LOCAL-00141" />
-      <option name="project" value="LOCAL" />
-      <updated>1579030776012</updated>
     </task>
     <task id="LOCAL-00142" summary="- Extend Ray to be any angle - methods box, slope, contains, intersect. Added typescript definition, tests, documentation">
       <created>1579203414828</created>
@@ -742,7 +724,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631348165767</updated>
     </task>
-    <option name="localTasksCounter" value="190" />
+    <task id="LOCAL-00190" summary="- improve performance of face perimeter calculation&#10;- fix Multiline::svg() method&#10;- in intersectMultiline2Polygon() sort intersection points along multiline">
+      <created>1631799715032</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1631799715033</updated>
+    </task>
+    <option name="localTasksCounter" value="191" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -761,7 +750,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Complete Serialization and Visualization sections of README.md&#10;- Release patch" />
     <MESSAGE value="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)" />
     <MESSAGE value="- Fix issue #42 Intersect does not seem to work when a shape is inside another" />
     <MESSAGE value="- Release patch 1.2.5" />
@@ -786,7 +774,8 @@
     <MESSAGE value="- Remove quick reject from ray2segment and ray2arc" />
     <MESSAGE value="- Merge pull request &quot;Add pointAtLength methods for Arc, Segment, Edge and Face&quot; - #95&#10;- Release patch v1.2.25" />
     <MESSAGE value="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic" />
+    <MESSAGE value="- improve performance of face perimeter calculation&#10;- fix Multiline::svg() method&#10;- in intersectMultiline2Polygon() sort intersection points along multiline" />
+    <option name="LAST_COMMIT_MESSAGE" value="- improve performance of face perimeter calculation&#10;- fix Multiline::svg() method&#10;- in intersectMultiline2Polygon() sort intersection points along multiline" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -808,6 +797,18 @@
           <url>file://$PROJECT_DIR$/test/classes/face.js</url>
           <line>182</line>
           <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
+          <line>387</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
+          <line>380</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

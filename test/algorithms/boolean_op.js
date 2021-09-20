@@ -359,6 +359,37 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(p.edges.size).to.equal(13);
 
         })
+        it('Infinite Loop when calling unify on polygons #94', () => {
+            let p0 = new Polygon([
+                [-81.658177, 28.354585],
+                [-81.658176, 28.354642],
+                [-81.657906, 28.354638],
+                [-81.657907, 28.354582],
+                [-81.657908, 28.354526],
+                [-81.658178, 28.354529]
+            ])
+
+            let p1 = new Polygon([
+                [-81.6579063, 28.3546095],
+                [-81.657906, 28.354638],
+                [-81.658176, 28.3546417],
+                [-81.6581764, 28.354613],
+            ])
+
+            const m = new Flatten.Matrix().scale(1e6, 1e6);
+
+            p0 = p0.transform(m);
+            p1 = p1.transform(m);
+
+            if ([...p0.faces][0].orientation() != [...p1.faces][0].orientation()) {
+                p1 = p1.reverse();
+            }
+
+            const p3 = unify(p0,p1);
+
+            expect(p3.faces.size).to.equal(1);
+            expect(p3.edges.size).to.equal(9);
+        })
     });
     describe('#Algorithms.Boolean Subtraction', function () {
         it('Can perform subtract. 2 intersecting polygons', function () {
