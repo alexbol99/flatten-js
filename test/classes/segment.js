@@ -211,6 +211,15 @@ describe('#Flatten.Segment', function() {
             expect(ip[0].equalTo(point(150,20))).to.be.true;
             expect(ip[1].equalTo(point(150,40))).to.be.true;
         });
+        it("Intersection between two very close lines returns zero intersections (#99)", () => {
+            const s1 = segment([34.35, 36.557426400375626, 25.4, 36.557426400375626]);
+            const s2 = segment([25.4, 36.55742640037563, 31.25, 36.55742640037563]);
+
+            const ip = s1.intersect(s2);
+            expect(ip.length).to.equal(0);
+
+            const [dist, shortest_segment] = s1.distanceTo(s2);
+        })
     });
     describe('#Flatten.Segment.DistanceTo', function() {
         it('Distance to Segment Case 1 Intersected Segments', function () {

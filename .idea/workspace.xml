@@ -35,8 +35,70 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- improve performance of face perimeter calculation&#10;- fix Multiline::svg() method&#10;- in intersectMultiline2Polygon() sort intersection points along multiline">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- dummy submit">
+      <change afterPath="$PROJECT_DIR$/docs/Inversion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/classes_inversion.js.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classes/inversion.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/classes/inversion.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Arc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Box.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Circle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/CircularLinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/CircularLinkedList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/DE9IM.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/DE9IM.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Edge.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Face.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Line.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/LinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/LinkedList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Matrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Matrix.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Multiline.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Multiline.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/PlanarSet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Point.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Polygon.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Ray.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Segment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Vector.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_boolean_op.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_boolean_op.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_ray_shooting.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_ray_shooting.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_relation.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_relation.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_matrix.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_multiline.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_multiline.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/module-BooleanOperations.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-BooleanOperations.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/module-RayShoot.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-RayShoot.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/module-Relation.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-Relation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_constants.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_constants.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/inversion.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/flatten.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/flatten.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/inversion.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/segment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/flatten.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/flatten.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +133,14 @@
       <GitPushTagMode />
     </option>
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="JsFlowSettings">
     <service-enabled>false</service-enabled>
     <exe-path />
@@ -78,11 +148,15 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1WAPN3ASzDmjaf35ofvOBEHB9tk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
@@ -107,7 +181,7 @@
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.smartKeys" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/dist/flatten.umd.js" />
     <property name="typescript-compiler-editor-notification" value="false" />
@@ -129,7 +203,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations">
+  <component name="RunManager" selected="Mocha.#Flatten.Inversion">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -159,16 +233,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="publish-npm" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="publish-npm" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -179,7 +243,7 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="#Algorithms.Boolean Operations" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Inversion" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
@@ -188,9 +252,25 @@
       <ui>bdd</ui>
       <extra-mocha-options>--require @babel/register</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
+      <test-file>$PROJECT_DIR$/test/classes/inversion.js</test-file>
       <test-names>
-        <name value="#Algorithms.Boolean Operations" />
+        <name value="#Flatten.Inversion" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="#Flatten.Segment.#Flatten.Segment.Intersect" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require @babel/register</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/classes/segment.js</test-file>
+      <test-names>
+        <name value="#Flatten.Segment" />
+        <name value="#Flatten.Segment.Intersect" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -209,19 +289,19 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
-      <item itemvalue="npm.build" />
+      <item itemvalue="Mocha.#Flatten.Segment.#Flatten.Segment.Intersect" />
+      <item itemvalue="Mocha.#Flatten.Inversion" />
       <item itemvalue="npm.test" />
+      <item itemvalue="npm.build" />
       <item itemvalue="npm.generate-docs" />
-      <item itemvalue="npm.publish-npm" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
-        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.generate-docs" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
+        <item itemvalue="Mocha.#Flatten.Inversion" />
+        <item itemvalue="Mocha.#Flatten.Segment.#Flatten.Segment.Intersect" />
       </list>
     </recent_temporary>
   </component>
@@ -390,14 +470,12 @@
       <workItem from="1625838456406" duration="595000" />
       <workItem from="1631278008117" duration="7877000" />
       <workItem from="1632233168718" duration="1470000" />
-      <workItem from="1632234669215" duration="396000" />
-    </task>
-    <task id="LOCAL-00142" summary="- Extend Ray to be any angle - methods box, slope, contains, intersect. Added typescript definition, tests, documentation">
-      <created>1579203414828</created>
-      <option name="number" value="00142" />
-      <option name="presentableId" value="LOCAL-00142" />
-      <option name="project" value="LOCAL" />
-      <updated>1579203414828</updated>
+      <workItem from="1632234669215" duration="1362000" />
+      <workItem from="1632238460312" duration="594000" />
+      <workItem from="1632674304190" duration="4032000" />
+      <workItem from="1634299546829" duration="6002000" />
+      <workItem from="1637395689404" duration="8480000" />
+      <workItem from="1637521651414" duration="664000" />
     </task>
     <task id="LOCAL-00143" summary="- Create module algorithms/relations to calculate relationship between two shapes as a Dimensionally-Extended Nine Intersections Matrix (DE9IM) - not completed">
       <created>1579265390139</created>
@@ -735,7 +813,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631799715033</updated>
     </task>
-    <option name="localTasksCounter" value="191" />
+    <task id="LOCAL-00191" summary="- dummy submit">
+      <created>1632235099081</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1632235099081</updated>
+    </task>
+    <option name="localTasksCounter" value="192" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -754,7 +839,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="- Fix issue #42 Intersect does not seem to work when a shape is inside another" />
     <MESSAGE value="- Release patch 1.2.5" />
     <MESSAGE value="- Fix polygon.contain method" />
@@ -779,7 +864,8 @@
     <MESSAGE value="- Merge pull request &quot;Add pointAtLength methods for Arc, Segment, Edge and Face&quot; - #95&#10;- Release patch v1.2.25" />
     <MESSAGE value="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic" />
     <MESSAGE value="- improve performance of face perimeter calculation&#10;- fix Multiline::svg() method&#10;- in intersectMultiline2Polygon() sort intersection points along multiline" />
-    <option name="LAST_COMMIT_MESSAGE" value="- improve performance of face perimeter calculation&#10;- fix Multiline::svg() method&#10;- in intersectMultiline2Polygon() sort intersection points along multiline" />
+    <MESSAGE value="- dummy submit" />
+    <option name="LAST_COMMIT_MESSAGE" value="- dummy submit" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -807,6 +893,11 @@
           <line>380</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/classes/segment.js</url>
+          <line>217</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -816,6 +907,7 @@
         <watch expression="JSON.stringify(wrk_poly)" language="JavaScript" />
         <watch expression="JSON.stringify([edge_from, edge_to])" language="JavaScript" />
         <watch expression="JSON.stringify([edge_from1, edge_to1])" language="JavaScript" />
+        <watch expression="shortest_segment" />
       </configuration>
     </watches-manager>
   </component>

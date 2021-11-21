@@ -21,6 +21,7 @@ let Flatten = {
     Multiline: undefined,
     Polygon: undefined,
     Distance: undefined,
+    Inversion: undefined
 };
 
 for (let c in Constants) {Flatten[c] = Constants[c]}

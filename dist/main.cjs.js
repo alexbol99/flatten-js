@@ -208,6 +208,7 @@ let Flatten = {
     Multiline: undefined,
     Polygon: undefined,
     Distance: undefined,
+    Inversion: undefined
 };
 
 for (let c in Constants) {Flatten[c] = Constants[c];}
@@ -7711,6 +7712,93 @@ Flatten.Polygon = Polygon;
 const polygon = (...args) => new Flatten.Polygon(...args);
 Flatten.polygon = polygon;
 
+const {Circle: Circle$1, Line: Line$1, Point: Point$1, Vector: Vector$1, Utils: Utils$1} = Flatten;
+/**
+ * Class Inversion represent operator of inversion in circle
+ * Inversion is a transformation of the Euclidean plane that maps generalized circles
+ * (where line is considered as a circle with infinite radius) into generalized circles
+ * See also https://en.wikipedia.org/wiki/Inversive_geometry and
+ * http://mathworld.wolfram.com/Inversion.html <br/>
+ * @type {Inversion}
+ */
+class Inversion {
+    /**
+     * Inversion constructor
+     * @param {Circle} inversion_circle inversion circle
+     */
+    constructor(inversion_circle) {
+        this.circle = inversion_circle;
+    }
+
+
+    get inversion_circle() {
+        return this.circle;
+    }
+
+    static inversePoint(inversion_circle, point) {
+        const v = new Vector$1(inversion_circle.pc, point);
+        const k2 = inversion_circle.r * inversion_circle.r;
+        const len2 = v.dot(v);
+        const reflected_point = Utils$1.EQ_0(len2) ?
+            new Point$1(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY) :
+            inversion_circle.pc.translate(v.multiply(k2 / len2));
+        return reflected_point;
+    }
+
+    static inverseCircle(inversion_circle, circle) {
+        const dist = inversion_circle.pc.distanceTo(circle.pc)[0];
+        if (Utils$1.EQ(dist, circle.r)) {     // Circle passing through inversion center mapped into line
+            let d = (inversion_circle.r * inversion_circle.r) / (2 * circle.r);
+            let v = new Vector$1(inversion_circle.pc, circle.pc);
+            v = v.normalize();
+            let pt = inversion_circle.pc.translate(v.multiply(d));
+
+            return new Line$1(pt, v);
+        } else {                           // Circle not passing through inversion center - map into another circle */
+            /* Taken from http://mathworld.wolfram.com */
+            let v = new Vector$1(inversion_circle.pc, circle.pc);
+            let s = inversion_circle.r * inversion_circle.r / (v.dot(v) - circle.r * circle.r);
+            let pc = inversion_circle.pc.translate(v.multiply(s));
+            let r = Math.abs(s) * circle.r;
+
+            return new Circle$1(pc, r);
+        }
+    }
+
+    static inverseLine(inversion_circle, line) {
+        const [dist, shortest_segment] = inversion_circle.pc.distanceTo(line);
+        if (Utils$1.EQ_0(dist)) {            // Line passing through inversion center, is mapping to itself
+            return line.clone();
+        } else {                           // Line not passing through inversion center is mapping into circle
+            let r = inversion_circle.r * inversion_circle.r / (2 * dist);
+            let v = new Vector$1(inversion_circle.pc, shortest_segment.end);
+            v = v.multiply(r / dist);
+            return new Circle$1(inversion_circle.pc.translate(v), r);
+        }
+    }
+
+    inverse(shape) {
+        if (shape instanceof Point$1) {
+            return Inversion.inversePoint(this.circle, shape);
+        }
+        else if (shape instanceof Circle$1) {
+            return Inversion.inverseCircle(this.circle, shape);
+        }
+        else if (shape instanceof Line$1) {
+            return Inversion.inverseLine(this.circle, shape);
+        }
+    }
+}
+Flatten.Inversion = Inversion;
+
+/**
+ * Shortcut to create inversion operator
+ * @param circle
+ * @returns {Inversion}
+ */
+const inversion = (circle) => new Flatten.Inversion(circle);
+Flatten.inversion = inversion;
+
 class Distance {
     /**
      * Calculate distance and shortest segment between points
@@ -8306,69 +8394,6 @@ class Distance {
 Flatten.Distance = Distance;
 
 /**
- * Created by Alex Bol on 3/7/2017.
- */
-
-/**
- * Inversion is a transformation of the Euclidean plane that maps generalized circles
- * (where line is considered as a circle with infinite radius) into generalized circles
- * See also https://en.wikipedia.org/wiki/Inversive_geometry and
- * http://mathworld.wolfram.com/Inversion.html <br/>
- * Inversion also may be considered as a reflection of the point in the plane with respect
- * to inversion circle so that R^2 = OP * OP',
- * where <br/>
- * O - center of inversion circle <br/>
- * R - radius of inversion circle <br/>
- * P - point of plane <br/>
- * P' - inversion of the point P
- *
- * @param {Line | Circle} shape - shape to be transformed
- * @param {Circle} inversion_circle - inversion circle
- * @returns {Line | Circle} - result of transformation
- */
-function inverse(shape, inversion_circle) {
-    let dist, shortest_segment;
-    let dx, dy;
-    let s;
-    let v;
-    let r;
-    let d;
-    let pt;
-
-    if (shape instanceof Flatten.Line) {
-        [dist, shortest_segment] = inversion_circle.pc.distanceTo(shape);
-        if (EQ_0(dist)) {            // Line passing through inversion center, is mapping to itself
-            return shape.clone();
-        } else {                           // Line not passing through inversion center is mapping into circle
-            r = inversion_circle.r * inversion_circle.r / (2 * dist);
-            v = new Flatten.Vector(inversion_circle.pc, shortest_segment.end);
-            v = v.multiply(r / dist);
-            return new Flatten.Circle(inversion_circle.pc.translate(v), r);
-        }
-    } else if (shape instanceof Flatten.Circle) {
-        [dist, shortest_segment] = inversion_circle.pc.distanceTo(shape.pc);
-        if (EQ(dist, shape.r)) {     // Circle passing through inversion center mapped into line
-            d = inversion_circle.r * inversion_circle.r / (2 * shape.r);
-            v = new Flatten.Vector(shape.pc, inversion_circle.pc);
-            v = v.normalize();
-            pt = inversion_circle.pc.translate(v.multiply(d));
-            return new Flatten.Line(pt, v);
-        } else {                           // Circle not passing through inversion center - map into another circle */
-            /* Taken from http://mathworld.wolfram.com */
-
-            dx = shape.pc.x - inversion_circle.pc.x;
-            dy = shape.pc.y - inversion_circle.pc.y;
-
-            s = inversion_circle.r * inversion_circle.r / (dx * dx + dy * dy - shape.r * shape.r);
-
-            let pc = new Flatten.Point(inversion_circle.pc.x + s * dx, inversion_circle.pc.y + s * dy);
-
-            return new Flatten.Circle(pc, Math.abs(s) * shape.r);
-        }
-    }
-}
-
-/**
  * Created by Alex Bol on 2/18/2017.
  */
 
@@ -8387,6 +8412,7 @@ exports.Edge = Edge;
 exports.Errors = errors;
 exports.Face = Face;
 exports.INSIDE = INSIDE;
+exports.Inversion = Inversion;
 exports.Line = Line;
 exports.Matrix = Matrix;
 exports.Multiline = Multiline;
@@ -8404,7 +8430,7 @@ exports.arc = arc;
 exports.box = box;
 exports.circle = circle;
 exports.default = Flatten;
-exports.inverse = inverse;
+exports.inversion = inversion;
 exports.line = line;
 exports.matrix = matrix;
 exports.multiline = multiline;

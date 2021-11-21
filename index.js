@@ -24,8 +24,8 @@ export {Ray, ray} from './src/classes/ray';
 export {ray_shoot} from './src/algorithms/ray_shooting';
 export {Multiline, multiline} from './src/classes/multiline';
 export {Polygon, polygon} from './src/classes/polygon';
+export {Inversion, inversion} from './src/classes/inversion';
 export {Distance} from './src/algorithms/distance';
-export {inverse} from './src/algorithms/inversion';
 export {BooleanOperations};
 export {Relations};
 
