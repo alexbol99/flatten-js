@@ -546,9 +546,9 @@ declare namespace Flatten {
         circle: Circle;              // inversion circle
         constructor(circle: Circle);
         get inversion_circle() : Circle;
-        inverse(Point) : Point;
-        inverse(Line) : Line | Circle;
-        inverse(Circle) : Line | Circle;
+        inverse(Point: Point) : Point;
+        inverse(Line: Line) : Line | Circle;
+        inverse(Circle: Circle) : Line | Circle;
     }
 
     type Shape = Point | Line | Ray | Circle | Box | Segment | Arc | Polygon;
