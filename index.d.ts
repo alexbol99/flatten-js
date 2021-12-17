@@ -496,10 +496,12 @@ declare namespace Flatten {
         area(): number;
         addFace(args: Array<Point> | Array<Segment | Arc> | Circle | Box): Face;
         deleteFace(face: Face): boolean;
+        recreateFaces(): void;
         removeChain(face: Face, edgeFrom: PolygonEdge, edgeTo: PolygonEdge): void;
         addVertex(pt: Point, edge: PolygonEdge): PolygonEdge;
         cut(multiline: Multiline): Polygon[];
         cutFace(pt1: Point, pt2: Point): [Polygon, Polygon];
+        cutWithLine(line: Line): Polygon;
         findEdgeByPoint(pt: Point): PolygonEdge;
         splitToIslands() : Polygon[];
         reverse(): Polygon;

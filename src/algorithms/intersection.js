@@ -599,4 +599,3 @@ export function intersectShape2Polygon(shape, polygon) {
 function ptInIntPoints(new_pt, ip) {
     return ip.some( pt => pt.equalTo(new_pt) )
 }
-

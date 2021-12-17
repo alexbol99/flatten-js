@@ -27,3 +27,8 @@ export const INTERLACE = 4;
 
 export const OVERLAP_SAME = 1;
 export const OVERLAP_OPPOSITE = 2;
+
+export const NOT_VERTEX = 0;
+export const START_VERTEX = 1;
+export const END_VERTEX = 2;
+

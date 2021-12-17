@@ -842,6 +842,28 @@ describe('#Flatten.Polygon', function() {
             expect(cut_polygons[1].edges.size).to.equal(3);
             expect(cut_polygons[2].edges.size).to.equal(9);
         });
+    });
 
+    it('Can cut polygon with holes by line', () => {
+        const poly = new Polygon([
+            [
+                [0, 0],
+                [100, 0],
+                [100, 100],
+                [0, 100]
+            ],
+            [
+                [30, 30],
+                [30, 70],
+                [70, 70],
+                [70, 30]
+            ]
+        ]);
+        const l = line(point(50, 50), vector(0, 1));
+
+        const res_poly = poly.cutWithLine(l);
+
+        expect(res_poly.faces.size).to.equal(2);
+        expect(res_poly.edges.size).to.equal(12);
     });
 });

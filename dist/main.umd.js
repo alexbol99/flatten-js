@@ -34,6 +34,10 @@
     const OVERLAP_SAME = 1;
     const OVERLAP_OPPOSITE = 2;
 
+    const NOT_VERTEX = 0;
+    const START_VERTEX = 1;
+    const END_VERTEX = 2;
+
     var Constants = /*#__PURE__*/Object.freeze({
         CCW: CCW,
         CW: CW,
@@ -45,7 +49,10 @@
         CONTAINS: CONTAINS,
         INTERLACE: INTERLACE,
         OVERLAP_SAME: OVERLAP_SAME,
-        OVERLAP_OPPOSITE: OVERLAP_OPPOSITE
+        OVERLAP_OPPOSITE: OVERLAP_OPPOSITE,
+        NOT_VERTEX: NOT_VERTEX,
+        START_VERTEX: START_VERTEX,
+        END_VERTEX: END_VERTEX
     });
 
     /**
@@ -381,15 +388,372 @@
         };
     }
 
+    /*
+        Smart intersections describe intersection points that refers to the edges they intersect
+        This function are supposed for internal usage by morphing and relation methods between
+     */
+
+    function addToIntPoints(edge, pt, int_points)
+    {
+        let id = int_points.length;
+        let shapes = edge.shape.split(pt);
+
+        // if (shapes.length < 2) return;
+        if (shapes.length === 0) return;     // Point does not belong to edge ?
+
+        let len = 0;
+        if (shapes[0] === null) {   // point incident to edge start vertex
+            len = 0;
+        }
+        else if (shapes[1] === null) {   // point incident to edge end vertex
+            len = edge.shape.length;
+        }
+        else {                             // Edge was split into to edges
+            len = shapes[0].length;
+        }
+
+        let is_vertex = NOT_VERTEX;
+        if (EQ(len, 0)) {
+            is_vertex |= START_VERTEX;
+        }
+        if (EQ(len, edge.shape.length)) {
+            is_vertex |= END_VERTEX;
+        }
+        // Fix intersection point which is end point of the last edge
+        let arc_length = (is_vertex & END_VERTEX) && edge.next.arc_length === 0 ? 0 : edge.arc_length + len;
+
+        int_points.push({
+            id: id,
+            pt: pt,
+            arc_length: arc_length,
+            edge_before: edge,
+            edge_after: undefined,
+            face: edge.face,
+            is_vertex: is_vertex
+        });
+    }
+
+    function sortIntersections(intersections)
+    {
+        // if (intersections.int_points1.length === 0) return;
+
+        // augment intersections with new sorted arrays
+        // intersections.int_points1_sorted = intersections.int_points1.slice().sort(compareFn);
+        // intersections.int_points2_sorted = intersections.int_points2.slice().sort(compareFn);
+        intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
+        intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
+    }
+
+    function getSortedArray(int_points)
+    {
+        let faceMap = new Map;
+        let id = 0;
+        // Create integer id's for faces
+        for (let ip of int_points) {
+            if (!faceMap.has(ip.face)) {
+                faceMap.set(ip.face, id);
+                id++;
+            }
+        }
+        // Augment intersection points with face id's
+        for (let ip of int_points) {
+            ip.faceId = faceMap.get(ip.face);
+        }
+        // Clone and sort
+        let int_points_sorted = int_points.slice().sort(compareFn);
+        return int_points_sorted;
+    }
+
+    function compareFn(ip1, ip2)
+    {
+        // compare face id's
+        if (ip1.faceId < ip2.faceId) {
+            return -1;
+        }
+        if (ip1.faceId > ip2.faceId) {
+            return 1;
+        }
+        // same face - compare arc_length
+        if (ip1.arc_length < ip2.arc_length) {
+            return -1;
+        }
+        if (ip1.arc_length > ip2.arc_length) {
+            return 1;
+        }
+        return 0;
+    }
+
+    function getSortedArrayOnLine(line, int_points) {
+        return int_points.slice().sort( (int_point1, int_point2) => {
+            if (line.coord(int_point1.pt) < line.coord(int_point2.pt)) {
+                return -1;
+            }
+            if (line.coord(int_point1.pt) > line.coord(int_point2.pt)) {
+                return 1;
+            }
+            return 0;
+        })
+    }
+
+    function filterDuplicatedIntersections(intersections)
+    {
+        if (intersections.int_points1.length < 2) return;
+
+        let do_squeeze = false;
+
+        let int_point_ref1;
+        let int_point_ref2;
+        let int_point_cur1;
+        let int_point_cur2;
+        for (let i = 0; i < intersections.int_points1_sorted.length; i++) {
+
+            if (intersections.int_points1_sorted[i].id === -1)
+                continue;
+
+            int_point_ref1 = intersections.int_points1_sorted[i];
+            int_point_ref2 = intersections.int_points2[int_point_ref1.id];
+
+            for (let j=i+1; j < intersections.int_points1_sorted.length; j++) {
+                int_point_cur1 = intersections.int_points1_sorted[j];
+                if (!EQ(int_point_cur1.arc_length, int_point_ref1.arc_length)) {
+                    break;
+                }
+                if (int_point_cur1.id === -1)
+                    continue;
+                int_point_cur2 = intersections.int_points2[int_point_cur1.id];
+                if (int_point_cur2.id === -1)
+                    continue;
+                if (int_point_cur1.edge_before === int_point_ref1.edge_before &&
+                    int_point_cur1.edge_after === int_point_ref1.edge_after &&
+                    int_point_cur2.edge_before === int_point_ref2.edge_before &&
+                    int_point_cur2.edge_after === int_point_ref2.edge_after) {
+                    int_point_cur1.id = -1;
+                    /* to be deleted */
+                    int_point_cur2.id = -1;
+                    /* to be deleted */
+                    do_squeeze = true;
+                }
+            }
+        }
+
+        int_point_ref2 = intersections.int_points2_sorted[0];
+        int_point_ref1 = intersections.int_points1[int_point_ref2.id];
+        for (let i = 1; i < intersections.int_points2_sorted.length; i++) {
+            let int_point_cur2 = intersections.int_points2_sorted[i];
+
+            if (int_point_cur2.id == -1) continue;
+            /* already deleted */
+
+            if (int_point_ref2.id == -1 || /* can't be reference if already deleted */
+                !(EQ(int_point_cur2.arc_length, int_point_ref2.arc_length))) {
+                int_point_ref2 = int_point_cur2;
+                int_point_ref1 = intersections.int_points1[int_point_ref2.id];
+                continue;
+            }
+
+            let int_point_cur1 = intersections.int_points1[int_point_cur2.id];
+            if (int_point_cur1.edge_before === int_point_ref1.edge_before &&
+                int_point_cur1.edge_after === int_point_ref1.edge_after &&
+                int_point_cur2.edge_before === int_point_ref2.edge_before &&
+                int_point_cur2.edge_after === int_point_ref2.edge_after) {
+                int_point_cur1.id = -1;
+                /* to be deleted */
+                int_point_cur2.id = -1;
+                /* to be deleted */
+                do_squeeze = true;
+            }
+        }
+
+        if (do_squeeze) {
+            intersections.int_points1 = intersections.int_points1.filter((int_point) => int_point.id >= 0);
+            intersections.int_points2 = intersections.int_points2.filter((int_point) => int_point.id >= 0);
+
+            // update id's
+            intersections.int_points1.forEach((int_point, index) => int_point.id = index);
+            intersections.int_points2.forEach((int_point, index) => int_point.id = index);
+
+            // re-create sorted
+            intersections.int_points1_sorted = [];
+            intersections.int_points2_sorted = [];
+            sortIntersections(intersections);
+        }
+    }
+
+    function initializeInclusionFlags(int_points)
+    {
+        for (let int_point of int_points) {
+            int_point.edge_before.bvStart = undefined;
+            int_point.edge_before.bvEnd = undefined;
+            int_point.edge_before.bv = undefined;
+            int_point.edge_before.overlap = undefined;
+
+            int_point.edge_after.bvStart = undefined;
+            int_point.edge_after.bvEnd = undefined;
+            int_point.edge_after.bv = undefined;
+            int_point.edge_after.overlap = undefined;
+        }
+
+        for (let int_point of int_points) {
+            int_point.edge_before.bvEnd = BOUNDARY;
+            int_point.edge_after.bvStart = BOUNDARY;
+        }
+    }
+
+    function setOverlappingFlags(intersections)
+    {
+        let cur_face = undefined;
+        let first_int_point_in_face_id = undefined;
+        let next_int_point1 = undefined;
+        let num_int_points = intersections.int_points1.length;
+
+        for (let i = 0; i < num_int_points; i++) {
+            let cur_int_point1 = intersections.int_points1_sorted[i];
+
+            // Find boundary chain in the polygon1
+            if (cur_int_point1.face !== cur_face) {                               // next chain started
+                first_int_point_in_face_id = i; // cur_int_point1;
+                cur_face = cur_int_point1.face;
+            }
+
+            // Skip duplicated points with same <x,y> in "cur_int_point1" pool
+            let int_points_cur_pool_start = i;
+            let int_points_cur_pool_num = intPointsPoolCount(intersections.int_points1_sorted, i, cur_face);
+            let next_int_point_id;
+            if (int_points_cur_pool_start + int_points_cur_pool_num < num_int_points &&
+                intersections.int_points1_sorted[int_points_cur_pool_start + int_points_cur_pool_num].face === cur_face) {
+                next_int_point_id = int_points_cur_pool_start + int_points_cur_pool_num;
+            } else {                                         // get first point from the same face
+                next_int_point_id = first_int_point_in_face_id;
+            }
+
+            // From all points with same ,x,y. in 'next_int_point1' pool choose one that
+            // has same face both in res_poly and in wrk_poly
+            let int_points_next_pool_num = intPointsPoolCount(intersections.int_points1_sorted, next_int_point_id, cur_face);
+            next_int_point1 = null;
+            for (let j=next_int_point_id; j < next_int_point_id + int_points_next_pool_num; j++) {
+                let next_int_point1_tmp = intersections.int_points1_sorted[j];
+                if (next_int_point1_tmp.face === cur_face &&
+                    intersections.int_points2[next_int_point1_tmp.id].face === intersections.int_points2[cur_int_point1.id].face) {
+                    next_int_point1 = next_int_point1_tmp;
+                    break;
+                }
+            }
+            if (next_int_point1 === null)
+                continue;
+
+            let edge_from1 = cur_int_point1.edge_after;
+            let edge_to1 = next_int_point1.edge_before;
+
+            if (!(edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY))      // not a boundary chain - skip
+                continue;
+
+            if (edge_from1 !== edge_to1)                    //  one edge chain    TODO: support complex case
+                continue;
+
+            /* Find boundary chain in polygon2 between same intersection points */
+            let cur_int_point2 = intersections.int_points2[cur_int_point1.id];
+            let next_int_point2 = intersections.int_points2[next_int_point1.id];
+
+            let edge_from2 = cur_int_point2.edge_after;
+            let edge_to2 = next_int_point2.edge_before;
+
+            /* if [edge_from2..edge_to2] is not a boundary chain, invert it */
+            /* check also that chain consist of one or two edges */
+            if (!(edge_from2.bv === BOUNDARY && edge_to2.bv === BOUNDARY && edge_from2 === edge_to2)) {
+                cur_int_point2 = intersections.int_points2[next_int_point1.id];
+                next_int_point2 = intersections.int_points2[cur_int_point1.id];
+
+                edge_from2 = cur_int_point2.edge_after;
+                edge_to2 = next_int_point2.edge_before;
+            }
+
+            if (!(edge_from2.bv === BOUNDARY && edge_to2.bv === BOUNDARY && edge_from2 === edge_to2))
+                continue;                           // not an overlapping chain - skip   TODO: fix boundary conflict
+
+            // Set overlapping flag - one-to-one case
+            edge_from1.setOverlap(edge_from2);
+        }
+    }
+
+    function intPointsPoolCount(int_points, cur_int_point_num, cur_face)
+    {
+        let int_point_current;
+        let int_point_next;
+
+        let int_points_pool_num = 1;
+
+        if (int_points.length == 1) return 1;
+
+        int_point_current = int_points[cur_int_point_num];
+
+        for (let i = cur_int_point_num + 1; i < int_points.length; i++) {
+            if (int_point_current.face != cur_face) {      /* next face started */
+                break;
+            }
+
+            int_point_next = int_points[i];
+
+            if (!(int_point_next.pt.equalTo(int_point_current.pt) &&
+                int_point_next.edge_before === int_point_current.edge_before &&
+                int_point_next.edge_after === int_point_current.edge_after)) {
+                break;         /* next point is different - break and exit */
+            }
+
+            int_points_pool_num++;     /* duplicated intersection point - increase counter */
+        }
+        return int_points_pool_num;
+    }
+
+    function splitByIntersections(polygon, int_points)
+    {
+        if (!int_points) return;
+        for (let int_point of int_points) {
+            let edge = int_point.edge_before;
+
+            // recalculate vertex flag: it may be changed after previous split
+            int_point.is_vertex = NOT_VERTEX;
+            if (edge.shape.start && edge.shape.start.equalTo(int_point.pt)) {
+                int_point.is_vertex |= START_VERTEX;
+            }
+            if (edge.shape.end && edge.shape.end.equalTo(int_point.pt)) {
+                int_point.is_vertex |= END_VERTEX;
+            }
+
+            if (int_point.is_vertex & START_VERTEX) {  // nothing to split
+                int_point.edge_before = edge.prev;
+                int_point.is_vertex = END_VERTEX;
+                continue;
+            }
+            if (int_point.is_vertex & END_VERTEX) {    // nothing to split
+                continue;
+            }
+
+            let newEdge = polygon.addVertex(int_point.pt, edge);
+            int_point.edge_before = newEdge;
+        }
+
+        for (let int_point of int_points) {
+            int_point.edge_after = int_point.edge_before.next;
+        }
+    }
+
+    function insertBetweenIntPoints(int_point1, int_point2, new_edge) {
+        let edge_before = int_point1.edge_before;
+        let edge_after = int_point2.edge_after;
+
+        edge_before.next = new_edge;
+        new_edge.prev = edge_before;
+
+        new_edge.next = edge_after;
+        edge_after.prev = new_edge;
+    }
+
     /**
      * Created by Alex Bol on 12/02/2018.
      */
 
-    let {INSIDE: INSIDE$1, OUTSIDE: OUTSIDE$1, BOUNDARY: BOUNDARY$1, OVERLAP_SAME: OVERLAP_SAME$1, OVERLAP_OPPOSITE: OVERLAP_OPPOSITE$1} = Flatten;
-
-    const NOT_VERTEX = 0;
-    const START_VERTEX = 1;
-    const END_VERTEX = 2;
+    const {INSIDE: INSIDE$1, OUTSIDE: OUTSIDE$1, BOUNDARY: BOUNDARY$1, OVERLAP_SAME: OVERLAP_SAME$1, OVERLAP_OPPOSITE: OVERLAP_OPPOSITE$1} = Constants;
+    const {NOT_VERTEX: NOT_VERTEX$1, START_VERTEX: START_VERTEX$1, END_VERTEX: END_VERTEX$1} = Constants;
 
     const BOOLEAN_UNION = 1;
     const BOOLEAN_INTERSECT = 2;
@@ -424,7 +788,7 @@
 
     /**
      * Intersect two polygons and returns new polygon
-     * Point belongs to the resultes polygon is it belongs to the first AND to the second polygon
+     * Point belongs to the resulted polygon is it belongs to the first AND to the second polygon
      * @param {Polygon} polygon1 - first operand
      * @param {Polygon} polygon2 - second operand
      * @returns {Polygon}
@@ -615,213 +979,6 @@
         return intersections;
     }
 
-    function addToIntPoints(edge, pt, int_points)
-    {
-        let id = int_points.length;
-        let shapes = edge.shape.split(pt);
-
-        // if (shapes.length < 2) return;
-        if (shapes.length === 0) return;     // Point does not belong to edge ?
-
-        let len = 0;
-        if (shapes[0] === null) {   // point incident to edge start vertex
-            len = 0;
-        }
-        else if (shapes[1] === null) {   // point incident to edge end vertex
-            len = edge.shape.length;
-        }
-        else {                             // Edge was split into to edges
-            len = shapes[0].length;
-        }
-
-        let is_vertex = NOT_VERTEX;
-        if (EQ(len, 0)) {
-            is_vertex |= START_VERTEX;
-        }
-        if (EQ(len, edge.shape.length)) {
-            is_vertex |= END_VERTEX;
-        }
-        // Fix intersection point which is end point of the last edge
-        let arc_length = (is_vertex & END_VERTEX) && edge.next.arc_length === 0 ? 0 : edge.arc_length + len;
-
-        int_points.push({
-            id: id,
-            pt: pt,
-            arc_length: arc_length,
-            edge_before: edge,
-            edge_after: undefined,
-            face: edge.face,
-            is_vertex: is_vertex
-        });
-    }
-
-    function sortIntersections(intersections)
-    {
-        // if (intersections.int_points1.length === 0) return;
-
-        // augment intersections with new sorted arrays
-        // intersections.int_points1_sorted = intersections.int_points1.slice().sort(compareFn);
-        // intersections.int_points2_sorted = intersections.int_points2.slice().sort(compareFn);
-        intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
-        intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
-    }
-
-    function getSortedArray(int_points)
-    {
-        let faceMap = new Map;
-        let id = 0;
-        // Create integer id's for faces
-        for (let ip of int_points) {
-            if (!faceMap.has(ip.face)) {
-                faceMap.set(ip.face, id);
-                id++;
-            }
-        }
-        // Augment intersection points with face id's
-        for (let ip of int_points) {
-            ip.faceId = faceMap.get(ip.face);
-        }
-        // Clone and sort
-        let int_points_sorted = int_points.slice().sort(compareFn);
-        return int_points_sorted;
-    }
-
-    function compareFn(ip1, ip2)
-    {
-        // compare face id's
-        if (ip1.faceId < ip2.faceId) {
-            return -1;
-        }
-        if (ip1.faceId > ip2.faceId) {
-            return 1;
-        }
-        // same face - compare arc_length
-        if (ip1.arc_length < ip2.arc_length) {
-            return -1;
-        }
-        if (ip1.arc_length > ip2.arc_length) {
-            return 1;
-        }
-        return 0;
-    }
-
-    function splitByIntersections(polygon, int_points)
-    {
-        if (!int_points) return;
-        for (let int_point of int_points) {
-            let edge = int_point.edge_before;
-
-            // recalculate vertex flag: it may be changed after previous split
-            int_point.is_vertex = NOT_VERTEX;
-            if (edge.shape.start.equalTo(int_point.pt)) {
-                int_point.is_vertex |= START_VERTEX;
-            }
-            if (edge.shape.end.equalTo(int_point.pt)) {
-                int_point.is_vertex |= END_VERTEX;
-            }
-
-            if (int_point.is_vertex & START_VERTEX) {  // nothing to split
-                int_point.edge_before = edge.prev;
-                int_point.is_vertex = END_VERTEX;
-                continue;
-            }
-            if (int_point.is_vertex & END_VERTEX) {    // nothing to split
-                continue;
-            }
-
-            let newEdge = polygon.addVertex(int_point.pt, edge);
-            int_point.edge_before = newEdge;
-        }
-
-        for (let int_point of int_points) {
-            int_point.edge_after = int_point.edge_before.next;
-        }
-    }
-
-    function filterDuplicatedIntersections(intersections)
-    {
-        if (intersections.int_points1.length < 2) return;
-
-        let do_squeeze = false;
-
-        let int_point_ref1;
-        let int_point_ref2;
-        let int_point_cur1;
-        let int_point_cur2;
-        for (let i = 0; i < intersections.int_points1_sorted.length; i++) {
-
-            if (intersections.int_points1_sorted[i].id === -1)
-                continue;
-
-            int_point_ref1 = intersections.int_points1_sorted[i];
-            int_point_ref2 = intersections.int_points2[int_point_ref1.id];
-
-            for (let j=i+1; j < intersections.int_points1_sorted.length; j++) {
-                int_point_cur1 = intersections.int_points1_sorted[j];
-                if (!EQ(int_point_cur1.arc_length, int_point_ref1.arc_length)) {
-                    break;
-                }
-                if (int_point_cur1.id === -1)
-                    continue;
-                int_point_cur2 = intersections.int_points2[int_point_cur1.id];
-                if (int_point_cur2.id === -1)
-                    continue;
-                if (int_point_cur1.edge_before === int_point_ref1.edge_before &&
-                    int_point_cur1.edge_after === int_point_ref1.edge_after &&
-                    int_point_cur2.edge_before === int_point_ref2.edge_before &&
-                    int_point_cur2.edge_after === int_point_ref2.edge_after) {
-                    int_point_cur1.id = -1;
-                    /* to be deleted */
-                    int_point_cur2.id = -1;
-                    /* to be deleted */
-                    do_squeeze = true;
-                }
-            }
-        }
-
-        int_point_ref2 = intersections.int_points2_sorted[0];
-        int_point_ref1 = intersections.int_points1[int_point_ref2.id];
-        for (let i = 1; i < intersections.int_points2_sorted.length; i++) {
-            let int_point_cur2 = intersections.int_points2_sorted[i];
-
-            if (int_point_cur2.id == -1) continue;
-            /* already deleted */
-
-            if (int_point_ref2.id == -1 || /* can't be reference if already deleted */
-                !(EQ(int_point_cur2.arc_length, int_point_ref2.arc_length))) {
-                int_point_ref2 = int_point_cur2;
-                int_point_ref1 = intersections.int_points1[int_point_ref2.id];
-                continue;
-            }
-
-            let int_point_cur1 = intersections.int_points1[int_point_cur2.id];
-            if (int_point_cur1.edge_before === int_point_ref1.edge_before &&
-                int_point_cur1.edge_after === int_point_ref1.edge_after &&
-                int_point_cur2.edge_before === int_point_ref2.edge_before &&
-                int_point_cur2.edge_after === int_point_ref2.edge_after) {
-                int_point_cur1.id = -1;
-                /* to be deleted */
-                int_point_cur2.id = -1;
-                /* to be deleted */
-                do_squeeze = true;
-            }
-        }
-
-        if (do_squeeze) {
-            intersections.int_points1 = intersections.int_points1.filter((int_point) => int_point.id >= 0);
-            intersections.int_points2 = intersections.int_points2.filter((int_point) => int_point.id >= 0);
-
-            // update id's
-            intersections.int_points1.forEach((int_point, index) => int_point.id = index);
-            intersections.int_points2.forEach((int_point, index) => int_point.id = index);
-
-            // re-create sorted
-            intersections.int_points1_sorted = [];
-            intersections.int_points2_sorted = [];
-            sortIntersections(intersections);
-        }
-    }
-
     function getNotIntersectedFaces(poly, int_points)
     {
         let notIntersected = [];
@@ -838,26 +995,6 @@
         for (let face of notIntersectedFaces) {
             face.first.bv = face.first.bvStart = face.first.bvEnd = undefined;
             face.first.setInclusion(poly2);
-        }
-    }
-
-    function initializeInclusionFlags(int_points)
-    {
-        for (let int_point of int_points) {
-            int_point.edge_before.bvStart = undefined;
-            int_point.edge_before.bvEnd = undefined;
-            int_point.edge_before.bv = undefined;
-            int_point.edge_before.overlap = undefined;
-
-            int_point.edge_after.bvStart = undefined;
-            int_point.edge_after.bvEnd = undefined;
-            int_point.edge_after.bv = undefined;
-            int_point.edge_after.overlap = undefined;
-        }
-
-        for (let int_point of int_points) {
-            int_point.edge_before.bvEnd = BOUNDARY$1;
-            int_point.edge_after.bvStart = BOUNDARY$1;
         }
     }
 
@@ -951,7 +1088,7 @@
                         }
                         else {                            // another not boundary edge between from and to
                             if (edge_tmp.bv != new_bv) {  // and it has different bv - can't resolve conflict
-                                throw Flatten.Errors.UNRESOLVED_BOUNDARY_CONFLICT;
+                                throw Errors.UNRESOLVED_BOUNDARY_CONFLICT;
                             }
                         }
                     }
@@ -979,14 +1116,14 @@
 
                             // split edge_tmp in poly1 if need
                             let int_point1 = int_points1[int_points1.length-1];
-                            if (int_point1.is_vertex & START_VERTEX) {        // nothing to split
+                            if (int_point1.is_vertex & START_VERTEX$1) {        // nothing to split
                                 int_point1.edge_after = edge_tmp;
                                 int_point1.edge_before = edge_tmp.prev;
                                 edge_tmp.bvStart = BOUNDARY$1;
                                 edge_tmp.bv = undefined;
                                 edge_tmp.setInclusion(poly2);
                             }
-                            else if (int_point1.is_vertex & END_VERTEX) {    // nothing to split
+                            else if (int_point1.is_vertex & END_VERTEX$1) {    // nothing to split
                                 int_point1.edge_after = edge_tmp.next;
                                 edge_tmp.bvEnd = BOUNDARY$1;
                                 edge_tmp.bv = undefined;
@@ -1010,11 +1147,11 @@
                             addToIntPoints(edge2, segment.pe, int_points2);
                             // split edge2 in poly2 if need
                             let int_point2 = int_points2[int_points2.length-1];
-                            if (int_point2.is_vertex & START_VERTEX) {        // nothing to split
+                            if (int_point2.is_vertex & START_VERTEX$1) {        // nothing to split
                                 int_point2.edge_after = edge2;
                                 int_point2.edge_before = edge2.prev;
                             }
-                            else if (int_point2.is_vertex & END_VERTEX) {    // nothing to split
+                            else if (int_point2.is_vertex & END_VERTEX$1) {    // nothing to split
                                 int_point2.edge_after = edge2.next;
                             }
                             else {        // split edge here
@@ -1053,87 +1190,11 @@
                 if (iterate_more)
                     break;
 
-                throw Flatten.Errors.UNRESOLVED_BOUNDARY_CONFLICT;
+                throw Errors.UNRESOLVED_BOUNDARY_CONFLICT;
             }
         }
 
         return iterate_more;
-    }
-
-    function setOverlappingFlags(intersections)
-    {
-        let cur_face = undefined;
-        let first_int_point_in_face_id = undefined;
-        let next_int_point1 = undefined;
-        let num_int_points = intersections.int_points1.length;
-
-        for (let i = 0; i < num_int_points; i++) {
-            let cur_int_point1 = intersections.int_points1_sorted[i];
-
-            // Find boundary chain in the polygon1
-            if (cur_int_point1.face !== cur_face) {                               // next chain started
-                first_int_point_in_face_id = i; // cur_int_point1;
-                cur_face = cur_int_point1.face;
-            }
-
-            // Skip duplicated points with same <x,y> in "cur_int_point1" pool
-            let int_points_cur_pool_start = i;
-            let int_points_cur_pool_num = intPointsPoolCount(intersections.int_points1_sorted, i, cur_face);
-            let next_int_point_id;
-            if (int_points_cur_pool_start + int_points_cur_pool_num < num_int_points &&
-                intersections.int_points1_sorted[int_points_cur_pool_start + int_points_cur_pool_num].face === cur_face) {
-                next_int_point_id = int_points_cur_pool_start + int_points_cur_pool_num;
-            } else {                                         // get first point from the same face
-                next_int_point_id = first_int_point_in_face_id;
-            }
-
-            // From all points with same ,x,y. in 'next_int_point1' pool choose one that
-            // has same face both in res_poly and in wrk_poly
-            let int_points_next_pool_num = intPointsPoolCount(intersections.int_points1_sorted, next_int_point_id, cur_face);
-            next_int_point1 = null;
-            for (let j=next_int_point_id; j < next_int_point_id + int_points_next_pool_num; j++) {
-                let next_int_point1_tmp = intersections.int_points1_sorted[j];
-                if (next_int_point1_tmp.face === cur_face &&
-                    intersections.int_points2[next_int_point1_tmp.id].face === intersections.int_points2[cur_int_point1.id].face) {
-                    next_int_point1 = next_int_point1_tmp;
-                    break;
-                }
-            }
-            if (next_int_point1 === null)
-                continue;
-
-            let edge_from1 = cur_int_point1.edge_after;
-            let edge_to1 = next_int_point1.edge_before;
-
-            if (!(edge_from1.bv === BOUNDARY$1 && edge_to1.bv === BOUNDARY$1))      // not a boundary chain - skip
-                continue;
-
-            if (edge_from1 !== edge_to1)                    //  one edge chain    TODO: support complex case
-                continue;
-
-            /* Find boundary chain in polygon2 between same intersection points */
-            let cur_int_point2 = intersections.int_points2[cur_int_point1.id];
-            let next_int_point2 = intersections.int_points2[next_int_point1.id];
-
-            let edge_from2 = cur_int_point2.edge_after;
-            let edge_to2 = next_int_point2.edge_before;
-
-            /* if [edge_from2..edge_to2] is not a boundary chain, invert it */
-            /* check also that chain consist of one or two edges */
-            if (!(edge_from2.bv === BOUNDARY$1 && edge_to2.bv === BOUNDARY$1 && edge_from2 === edge_to2)) {
-                cur_int_point2 = intersections.int_points2[next_int_point1.id];
-                next_int_point2 = intersections.int_points2[cur_int_point1.id];
-
-                edge_from2 = cur_int_point2.edge_after;
-                edge_to2 = next_int_point2.edge_before;
-            }
-
-            if (!(edge_from2.bv === BOUNDARY$1 && edge_to2.bv === BOUNDARY$1 && edge_from2 === edge_to2))
-                continue;                           // not an overlapping chain - skip   TODO: fix boundary conflict
-
-            // Set overlapping flag - one-to-one case
-            edge_from1.setOverlap(edge_from2);
-        }
     }
 
     function removeNotRelevantChains(polygon, op, int_points, is_res_polygon)
@@ -1201,35 +1262,6 @@
             i += int_points_from_pull_num - 1;
         }
     }
-    function intPointsPoolCount(int_points, cur_int_point_num, cur_face)
-    {
-        let int_point_current;
-        let int_point_next;
-
-        let int_points_pool_num = 1;
-
-        if (int_points.length == 1) return 1;
-
-        int_point_current = int_points[cur_int_point_num];
-
-        for (let i = cur_int_point_num + 1; i < int_points.length; i++) {
-            if (int_point_current.face != cur_face) {      /* next face started */
-                break;
-            }
-
-            int_point_next = int_points[i];
-
-            if (!(int_point_next.pt.equalTo(int_point_current.pt) &&
-                int_point_next.edge_before === int_point_current.edge_before &&
-                int_point_next.edge_after === int_point_current.edge_after)) {
-                break;         /* next point is different - break and exit */
-            }
-
-            int_points_pool_num++;     /* duplicated intersection point - increase counter */
-        }
-        return int_points_pool_num;
-    }
-
     function copyWrkToRes(res_polygon, wrk_polygon, op, int_points)
     {
         for (let face of wrk_polygon.faces) {
@@ -1394,10 +1426,6 @@
         innerClip: innerClip,
         outerClip: outerClip,
         calculateIntersections: calculateIntersections,
-        addToIntPoints: addToIntPoints,
-        getSortedArray: getSortedArray,
-        splitByIntersections: splitByIntersections,
-        filterDuplicatedIntersections: filterDuplicatedIntersections,
         removeNotRelevantChains: removeNotRelevantChains,
         removeOldFaces: removeOldFaces,
         restoreFaces: restoreFaces
@@ -7216,26 +7244,29 @@
                 ((args[0] instanceof Array && args[0].length > 0) ||
                     args[0] instanceof Flatten.Circle || args[0] instanceof Flatten.Box)) {
                 let argsArray = args[0];
-                if (args[0] instanceof Array && args[0].every((loop) => {return loop instanceof Array})) {
-                    if  (argsArray.every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
+                if (args[0] instanceof Array && args[0].every((loop) => {
+                    return loop instanceof Array
+                })) {
+                    if (argsArray.every(el => {
+                        return el instanceof Array && el.length === 2 && typeof (el[0]) === "number" && typeof (el[1]) === "number"
+                    })) {
                         this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
-                    }
-                    else {
+                    } else {
                         for (let loop of argsArray) {   // multi-loop polygon
                             /* Check extra level of nesting for GeoJSON-style multi polygons */
                             if (loop instanceof Array && loop[0] instanceof Array &&
-                                loop[0].every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
+                                loop[0].every(el => {
+                                    return el instanceof Array && el.length === 2 && typeof (el[0]) === "number" && typeof (el[1]) === "number"
+                                })) {
                                 for (let loop1 of loop) {
                                     this.faces.add(new Flatten.Face(this, loop1));
                                 }
-                            }
-                            else {
+                            } else {
                                 this.faces.add(new Flatten.Face(this, loop));
                             }
                         }
                     }
-                }
-                else {
+                } else {
                     this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon
                 }
             }
@@ -7338,6 +7369,40 @@
         }
 
         /**
+         * Clear all faces and create new faces from edges
+         */
+        recreateFaces() {
+            // Remove all faces
+            this.faces.clear();
+            for (let edge of this.edges) {
+                edge.face = null;
+            }
+
+            // Restore faces
+            let first;
+            let unassignedEdgeFound = true;
+            while (unassignedEdgeFound) {
+                unassignedEdgeFound = false;
+                for (let edge of this.edges) {
+                    if (edge.face === null) {
+                        first = edge;
+                        unassignedEdgeFound = true;
+                        break;
+                    }
+                }
+
+                if (unassignedEdgeFound) {
+                    let last = first;
+                    do {
+                        last = last.next;
+                    } while (last.next !== first)
+
+                    let face = this.addFace(first, last);
+                }
+            }
+        }
+
+        /**
          * Delete chain of edges from the face.
          * @param {Face} face Face to remove chain
          * @param {Edge} edgeFrom Start of the chain of edges to be removed
@@ -7410,7 +7475,7 @@
         cut(multiline) {
             let cutPolygons = [this.clone()];
             for (let edge of multiline) {
-                if (edge.setInclusion(this) !== Flatten.INSIDE)
+                if (edge.setInclusion(this) !== INSIDE)
                     continue;
 
                 let cut_edge_start = edge.shape.start;
@@ -7420,8 +7485,7 @@
                 for (let polygon of cutPolygons) {
                     if (polygon.findEdgeByPoint(cut_edge_start) === undefined) {
                         newCutPolygons.push(polygon);
-                    }
-                    else {
+                    } else {
                         let [cutPoly1, cutPoly2] = polygon.cutFace(cut_edge_start, cut_edge_end);
                         newCutPolygons.push(cutPoly1, cutPoly2);
                     }
@@ -7484,6 +7548,69 @@
         }
 
         /**
+         * Return a result of cutting polygon with line
+         * @param {Line} line - cutting line
+         * @returns {Polygon newPoly} - resulted polygon
+         */
+        cutWithLine(line) {
+            let newPoly = this.clone();
+
+            let multiline = new Multiline([line]);
+
+            // smart intersections
+            let intersections = {
+                int_points1: [],
+                int_points2: [],
+                int_points1_sorted: [],
+                int_points2_sorted: []
+            };
+
+            // intersect line with each edge of the polygon
+            // and create smart intersections
+            for (let edge of newPoly.edges) {
+                let ip = intersectEdge2Line(edge, line);
+                // for each intersection point
+                for (let pt of ip) {
+                    addToIntPoints(multiline.first, pt, intersections.int_points1);
+                    addToIntPoints(edge, pt, intersections.int_points2);
+                }
+            }
+
+            // sort smart intersections
+            intersections.int_points1_sorted = getSortedArrayOnLine(multiline.first.shape, intersections.int_points1);
+            intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
+
+            // split by intersection points
+            splitByIntersections(multiline, intersections.int_points1_sorted);
+            splitByIntersections(newPoly, intersections.int_points2_sorted);
+
+            // filter duplicated intersection points
+            filterDuplicatedIntersections(intersections);
+
+            // initialize inclusion flags for edges incident to intersections
+            initializeInclusionFlags(intersections.int_points1);
+            initializeInclusionFlags(intersections.int_points2);
+
+            // Add 2 new inner edges between intersection points
+            let int_point1_prev = intersections.int_points1[0];
+            let new_edge;
+            for (let int_point1_curr of intersections.int_points1_sorted) {
+                if (int_point1_curr.edge_before.setInclusion(newPoly) === INSIDE) {
+                    new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape);
+                    insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], new_edge);
+
+                    new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape.reverse());
+                    insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], new_edge);
+                }
+                int_point1_prev = int_point1_curr;
+            }
+
+            // Recreate faces
+            newPoly.recreateFaces();
+            return newPoly;
+        }
+
+        /**
          * Returns the first founded edge of polygon that contains given point
          * @param {Point} pt
          * @returns {Edge}
@@ -7506,11 +7633,11 @@
         splitToIslands() {
             let polygons = this.toArray();      // split into array of one-loop polygons
             /* Sort polygons by area in descending order */
-            polygons.sort( (polygon1, polygon2) => polygon2.area() - polygon1.area() );
+            polygons.sort((polygon1, polygon2) => polygon2.area() - polygon1.area());
             /* define orientation of the island by orientation of the first polygon in array */
             let orientation = [...polygons[0].faces][0].orientation();
             /* Create output array from polygons with same orientation as a first polygon (array of islands) */
-            let newPolygons = polygons.filter( polygon => [...polygon.faces][0].orientation() === orientation);
+            let newPolygons = polygons.filter(polygon => [...polygon.faces][0].orientation() === orientation);
             for (let polygon of polygons) {
                 let face = [...polygon.faces][0];
                 if (face.orientation() === orientation) continue;  // skip same orientation
@@ -7548,8 +7675,7 @@
             if (shape instanceof Flatten.Point) {
                 let rel = ray_shoot(this, shape);
                 return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
-            }
-            else {
+            } else {
                 return cover(this, shape);
             }
         }
@@ -7633,7 +7759,7 @@
         translate(vec) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                newPolygon.addFace(face.shapes.map( shape => shape.translate(vec)));
+                newPolygon.addFace(face.shapes.map(shape => shape.translate(vec)));
             }
             return newPolygon;
         }
@@ -7649,7 +7775,7 @@
         rotate(angle = 0, center = new Flatten.Point()) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                newPolygon.addFace(face.shapes.map( shape => shape.rotate(angle, center)));
+                newPolygon.addFace(face.shapes.map(shape => shape.rotate(angle, center)));
             }
             return newPolygon;
         }
@@ -7662,7 +7788,7 @@
         transform(matrix = new Flatten.Matrix()) {
             let newPolygon = new Polygon();
             for (let face of this.faces) {
-                newPolygon.addFace(face.shapes.map( shape => shape.transform(matrix)));
+                newPolygon.addFace(face.shapes.map(shape => shape.transform(matrix)));
             }
             return newPolygon;
         }

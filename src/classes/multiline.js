@@ -2,6 +2,7 @@
 
 import Flatten from '../flatten';
 import LinkedList from '../data_structures/linked_list';
+import {END_VERTEX, NOT_VERTEX, START_VERTEX} from "../utils/constants";
 
 /**
  * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be

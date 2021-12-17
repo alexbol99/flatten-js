@@ -9,6 +9,14 @@ import Flatten from '../flatten';
 import {ray_shoot} from "../algorithms/ray_shooting";
 import * as Intersection from "../algorithms/intersection";
 import * as Relations from "../algorithms/relation";
+import {
+    addToIntPoints, filterDuplicatedIntersections,
+    getSortedArray, getSortedArrayOnLine, initializeInclusionFlags, insertBetweenIntPoints,
+    splitByIntersections
+} from "../data_structures/smart_intersections";
+import {Multiline} from "./multiline";
+import {intersectEdge2Line} from "../algorithms/intersection";
+import {INSIDE} from "../utils/constants";
 
 /**
  * Class representing a polygon.<br/>
@@ -49,26 +57,29 @@ export class Polygon {
             ((args[0] instanceof Array && args[0].length > 0) ||
                 args[0] instanceof Flatten.Circle || args[0] instanceof Flatten.Box)) {
             let argsArray = args[0];
-            if (args[0] instanceof Array && args[0].every((loop) => {return loop instanceof Array})) {
-                if  (argsArray.every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
+            if (args[0] instanceof Array && args[0].every((loop) => {
+                return loop instanceof Array
+            })) {
+                if (argsArray.every(el => {
+                    return el instanceof Array && el.length === 2 && typeof (el[0]) === "number" && typeof (el[1]) === "number"
+                })) {
                     this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
-                }
-                else {
+                } else {
                     for (let loop of argsArray) {   // multi-loop polygon
                         /* Check extra level of nesting for GeoJSON-style multi polygons */
                         if (loop instanceof Array && loop[0] instanceof Array &&
-                            loop[0].every( el => {return el instanceof Array && el.length === 2 && typeof(el[0]) === "number" && typeof(el[1]) === "number"} )) {
+                            loop[0].every(el => {
+                                return el instanceof Array && el.length === 2 && typeof (el[0]) === "number" && typeof (el[1]) === "number"
+                            })) {
                             for (let loop1 of loop) {
                                 this.faces.add(new Flatten.Face(this, loop1));
                             }
-                        }
-                        else {
+                        } else {
                             this.faces.add(new Flatten.Face(this, loop));
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon
             }
         }
@@ -171,6 +182,40 @@ export class Polygon {
     }
 
     /**
+     * Clear all faces and create new faces from edges
+     */
+    recreateFaces() {
+        // Remove all faces
+        this.faces.clear();
+        for (let edge of this.edges) {
+            edge.face = null;
+        }
+
+        // Restore faces
+        let first, last;
+        let unassignedEdgeFound = true;
+        while (unassignedEdgeFound) {
+            unassignedEdgeFound = false;
+            for (let edge of this.edges) {
+                if (edge.face === null) {
+                    first = edge;
+                    unassignedEdgeFound = true;
+                    break;
+                }
+            }
+
+            if (unassignedEdgeFound) {
+                let last = first;
+                do {
+                    last = last.next;
+                } while (last.next !== first)
+
+                let face = this.addFace(first, last);
+            }
+        }
+    }
+
+    /**
      * Delete chain of edges from the face.
      * @param {Face} face Face to remove chain
      * @param {Edge} edgeFrom Start of the chain of edges to be removed
@@ -243,7 +288,7 @@ export class Polygon {
     cut(multiline) {
         let cutPolygons = [this.clone()];
         for (let edge of multiline) {
-            if (edge.setInclusion(this) !== Flatten.INSIDE)
+            if (edge.setInclusion(this) !== INSIDE)
                 continue;
 
             let cut_edge_start = edge.shape.start;
@@ -253,8 +298,7 @@ export class Polygon {
             for (let polygon of cutPolygons) {
                 if (polygon.findEdgeByPoint(cut_edge_start) === undefined) {
                     newCutPolygons.push(polygon);
-                }
-                else {
+                } else {
                     let [cutPoly1, cutPoly2] = polygon.cutFace(cut_edge_start, cut_edge_end);
                     newCutPolygons.push(cutPoly1, cutPoly2);
                 }
@@ -317,6 +361,69 @@ export class Polygon {
     }
 
     /**
+     * Return a result of cutting polygon with line
+     * @param {Line} line - cutting line
+     * @returns {Polygon newPoly} - resulted polygon
+     */
+    cutWithLine(line) {
+        let newPoly = this.clone();
+
+        let multiline = new Multiline([line]);
+
+        // smart intersections
+        let intersections = {
+            int_points1: [],
+            int_points2: [],
+            int_points1_sorted: [],
+            int_points2_sorted: []
+        };
+
+        // intersect line with each edge of the polygon
+        // and create smart intersections
+        for (let edge of newPoly.edges) {
+            let ip = intersectEdge2Line(edge, line);
+            // for each intersection point
+            for (let pt of ip) {
+                addToIntPoints(multiline.first, pt, intersections.int_points1);
+                addToIntPoints(edge, pt, intersections.int_points2);
+            }
+        }
+
+        // sort smart intersections
+        intersections.int_points1_sorted = getSortedArrayOnLine(multiline.first.shape, intersections.int_points1);
+        intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
+
+        // split by intersection points
+        splitByIntersections(multiline, intersections.int_points1_sorted);
+        splitByIntersections(newPoly, intersections.int_points2_sorted);
+
+        // filter duplicated intersection points
+        filterDuplicatedIntersections(intersections);
+
+        // initialize inclusion flags for edges incident to intersections
+        initializeInclusionFlags(intersections.int_points1);
+        initializeInclusionFlags(intersections.int_points2);
+
+        // Add 2 new inner edges between intersection points
+        let int_point1_prev = intersections.int_points1[0];
+        let new_edge;
+        for (let int_point1_curr of intersections.int_points1_sorted) {
+            if (int_point1_curr.edge_before.setInclusion(newPoly) === INSIDE) {
+                new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape);
+                insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], new_edge);
+
+                new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape.reverse());
+                insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], new_edge);
+            }
+            int_point1_prev = int_point1_curr;
+        }
+
+        // Recreate faces
+        newPoly.recreateFaces();
+        return newPoly;
+    }
+
+    /**
      * Returns the first founded edge of polygon that contains given point
      * @param {Point} pt
      * @returns {Edge}
@@ -339,11 +446,11 @@ export class Polygon {
     splitToIslands() {
         let polygons = this.toArray();      // split into array of one-loop polygons
         /* Sort polygons by area in descending order */
-        polygons.sort( (polygon1, polygon2) => polygon2.area() - polygon1.area() );
+        polygons.sort((polygon1, polygon2) => polygon2.area() - polygon1.area());
         /* define orientation of the island by orientation of the first polygon in array */
         let orientation = [...polygons[0].faces][0].orientation();
         /* Create output array from polygons with same orientation as a first polygon (array of islands) */
-        let newPolygons = polygons.filter( polygon => [...polygon.faces][0].orientation() === orientation);
+        let newPolygons = polygons.filter(polygon => [...polygon.faces][0].orientation() === orientation);
         for (let polygon of polygons) {
             let face = [...polygon.faces][0];
             if (face.orientation() === orientation) continue;  // skip same orientation
@@ -381,8 +488,7 @@ export class Polygon {
         if (shape instanceof Flatten.Point) {
             let rel = ray_shoot(this, shape);
             return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
-        }
-        else {
+        } else {
             return Relations.cover(this, shape);
         }
     }
@@ -466,7 +572,7 @@ export class Polygon {
     translate(vec) {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
-            newPolygon.addFace(face.shapes.map( shape => shape.translate(vec)));
+            newPolygon.addFace(face.shapes.map(shape => shape.translate(vec)));
         }
         return newPolygon;
     }
@@ -482,7 +588,7 @@ export class Polygon {
     rotate(angle = 0, center = new Flatten.Point()) {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
-            newPolygon.addFace(face.shapes.map( shape => shape.rotate(angle, center)));
+            newPolygon.addFace(face.shapes.map(shape => shape.rotate(angle, center)));
         }
         return newPolygon;
     }
@@ -495,7 +601,7 @@ export class Polygon {
     transform(matrix = new Flatten.Matrix()) {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
-            newPolygon.addFace(face.shapes.map( shape => shape.transform(matrix)));
+            newPolygon.addFace(face.shapes.map(shape => shape.transform(matrix)));
         }
         return newPolygon;
     }
