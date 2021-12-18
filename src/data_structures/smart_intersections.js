@@ -183,11 +183,6 @@ export function filterDuplicatedIntersections(intersections)
         // update id's
         intersections.int_points1.forEach((int_point, index) => int_point.id = index);
         intersections.int_points2.forEach((int_point, index) => int_point.id = index);
-
-        // re-create sorted
-        intersections.int_points1_sorted = [];
-        intersections.int_points2_sorted = [];
-        sortIntersections(intersections);
     }
 }
 

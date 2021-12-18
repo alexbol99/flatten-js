@@ -122,6 +122,9 @@ export function calculateIntersections(polygon1, polygon2) {
     // filter duplicated intersection points
     filterDuplicatedIntersections(intersections);
 
+    // sort intersection points again after filtering
+    sortIntersections(intersections);
+
     let ip_sorted1 = intersections.int_points1_sorted.map( int_point => int_point.pt);
     let ip_sorted2 = intersections.int_points2_sorted.map( int_point => int_point.pt);
     return [ip_sorted1, ip_sorted2];
@@ -200,6 +203,9 @@ function booleanOpBinary(polygon1, polygon2, op, restore)
 
     // filter duplicated intersection points
     filterDuplicatedIntersections(intersections);
+
+    // sort intersection points again after filtering
+    sortIntersections(intersections);
 
     // calculate inclusion and remove not relevant edges
     filterNotRelevantEdges(res_poly, wrk_poly, intersections, op);

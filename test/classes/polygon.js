@@ -859,7 +859,7 @@ describe('#Flatten.Polygon', function() {
                 [70, 30]
             ]
         ]);
-        const l = line(point(50, 50), vector(0, 1));
+        const l = line(point(50, 50), vector(1, 1));
 
         const res_poly = poly.cutWithLine(l);
 

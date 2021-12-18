@@ -390,7 +390,7 @@ export class Polygon {
         }
 
         // sort smart intersections
-        intersections.int_points1_sorted = getSortedArrayOnLine(multiline.first.shape, intersections.int_points1);
+        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // split by intersection points
@@ -399,6 +399,10 @@ export class Polygon {
 
         // filter duplicated intersection points
         filterDuplicatedIntersections(intersections);
+
+        // sort intersection points again after filtering
+        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+        intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // initialize inclusion flags for edges incident to intersections
         initializeInclusionFlags(intersections.int_points1);
@@ -411,9 +415,11 @@ export class Polygon {
             if (int_point1_curr.edge_before.setInclusion(newPoly) === INSIDE) {
                 new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape);
                 insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], new_edge);
+                newPoly.edges.add(new_edge);
 
                 new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape.reverse());
                 insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], new_edge);
+                newPoly.edges.add(new_edge);
             }
             int_point1_prev = int_point1_curr;
         }
