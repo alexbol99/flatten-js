@@ -569,11 +569,6 @@ function filterDuplicatedIntersections(intersections)
         // update id's
         intersections.int_points1.forEach((int_point, index) => int_point.id = index);
         intersections.int_points2.forEach((int_point, index) => int_point.id = index);
-
-        // re-create sorted
-        intersections.int_points1_sorted = [];
-        intersections.int_points2_sorted = [];
-        sortIntersections(intersections);
     }
 }
 
@@ -859,6 +854,9 @@ function calculateIntersections(polygon1, polygon2) {
     // filter duplicated intersection points
     filterDuplicatedIntersections(intersections);
 
+    // sort intersection points again after filtering
+    sortIntersections(intersections);
+
     let ip_sorted1 = intersections.int_points1_sorted.map( int_point => int_point.pt);
     let ip_sorted2 = intersections.int_points2_sorted.map( int_point => int_point.pt);
     return [ip_sorted1, ip_sorted2];
@@ -937,6 +935,9 @@ function booleanOpBinary(polygon1, polygon2, op, restore)
 
     // filter duplicated intersection points
     filterDuplicatedIntersections(intersections);
+
+    // sort intersection points again after filtering
+    sortIntersections(intersections);
 
     // calculate inclusion and remove not relevant edges
     filterNotRelevantEdges(res_poly, wrk_poly, intersections, op);
@@ -7575,7 +7576,7 @@ class Polygon {
         }
 
         // sort smart intersections
-        intersections.int_points1_sorted = getSortedArrayOnLine(multiline.first.shape, intersections.int_points1);
+        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // split by intersection points
@@ -7584,6 +7585,10 @@ class Polygon {
 
         // filter duplicated intersection points
         filterDuplicatedIntersections(intersections);
+
+        // sort intersection points again after filtering
+        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+        intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // initialize inclusion flags for edges incident to intersections
         initializeInclusionFlags(intersections.int_points1);
@@ -7596,9 +7601,11 @@ class Polygon {
             if (int_point1_curr.edge_before.setInclusion(newPoly) === INSIDE) {
                 new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape);
                 insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], new_edge);
+                newPoly.edges.add(new_edge);
 
                 new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape.reverse());
                 insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], new_edge);
+                newPoly.edges.add(new_edge);
             }
             int_point1_prev = int_point1_curr;
         }
