@@ -495,6 +495,7 @@ declare namespace Flatten {
         isValid(): boolean;
         area(): number;
         addFace(args: Array<Point> | Array<Segment | Arc> | Circle | Box): Face;
+        addFace(edge_from: Edge, edge_to: Edge): Face;
         deleteFace(face: Face): boolean;
         recreateFaces(): void;
         removeChain(face: Face, edgeFrom: PolygonEdge, edgeTo: PolygonEdge): void;

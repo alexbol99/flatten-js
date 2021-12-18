@@ -4,12 +4,12 @@
 "use strict";
 import Flatten from '../flatten';
 import * as Utils from '../utils/utils';
-
+import * as Constants from '../utils/constants';
 /**
  * Implements ray shooting algorithm. Returns relation between point and polygon: inside, outside or boundary
- * @param {Polgon} polygon - polygon to test
+ * @param {Polygon} polygon - polygon to test
  * @param {Point} point - point to test
- * @returns {Flatten.Inside|Flatten.OUTSIDE|Flatten.Boundary}
+ * @returns {INSIDE|OUTSIDE|BOUNDARY}
  */
 export function ray_shoot(polygon, point) {
     let contains = undefined;
@@ -137,7 +137,7 @@ export function ray_shoot(polygon, point) {
     }
 
     // 6. Odd or even?
-    contains = counter % 2 == 1 ? Flatten.INSIDE : Flatten.OUTSIDE;
+    contains = counter % 2 == 1 ? Constants.INSIDE : Constants.OUTSIDE;
 
     return contains;
 };

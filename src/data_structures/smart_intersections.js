@@ -206,6 +206,14 @@ export function initializeInclusionFlags(int_points)
     }
 }
 
+export function calculateInclusionFlags(int_points, polygon)
+{
+    for (let int_point of int_points) {
+        int_point.edge_before.setInclusion(polygon);
+        int_point.edge_after.setInclusion(polygon);
+    }
+}
+
 export function setOverlappingFlags(intersections)
 {
     let cur_face = undefined;

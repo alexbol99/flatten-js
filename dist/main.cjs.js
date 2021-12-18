@@ -592,6 +592,14 @@ function initializeInclusionFlags(int_points)
     }
 }
 
+function calculateInclusionFlags(int_points, polygon)
+{
+    for (let int_point of int_points) {
+        int_point.edge_before.setInclusion(polygon);
+        int_point.edge_after.setInclusion(polygon);
+    }
+}
+
 function setOverlappingFlags(intersections)
 {
     let cur_face = undefined;
@@ -994,14 +1002,6 @@ function calcInclusionForNotIntersectedFaces(notIntersectedFaces, poly2)
     for (let face of notIntersectedFaces) {
         face.first.bv = face.first.bvStart = face.first.bvEnd = undefined;
         face.first.setInclusion(poly2);
-    }
-}
-
-function calculateInclusionFlags(int_points, polygon)
-{
-    for (let int_point of int_points) {
-        int_point.edge_before.setInclusion(polygon);
-        int_point.edge_after.setInclusion(polygon);
     }
 }
 
@@ -2420,12 +2420,11 @@ Flatten.multiline = multiline;
 /**
  * @module RayShoot
  */
-
 /**
  * Implements ray shooting algorithm. Returns relation between point and polygon: inside, outside or boundary
- * @param {Polgon} polygon - polygon to test
+ * @param {Polygon} polygon - polygon to test
  * @param {Point} point - point to test
- * @returns {Flatten.Inside|Flatten.OUTSIDE|Flatten.Boundary}
+ * @returns {INSIDE|OUTSIDE|BOUNDARY}
  */
 function ray_shoot(polygon, point) {
     let contains = undefined;
@@ -2553,7 +2552,7 @@ function ray_shoot(polygon, point) {
     }
 
     // 6. Odd or even?
-    contains = counter % 2 == 1 ? Flatten.INSIDE : Flatten.OUTSIDE;
+    contains = counter % 2 == 1 ? INSIDE : OUTSIDE;
 
     return contains;
 }
@@ -7361,10 +7360,9 @@ class Polygon {
      */
     deleteFace(face) {
         for (let edge of face) {
-            let deleted = this.edges.delete(edge);
+            this.edges.delete(edge);
         }
-        let deleted = this.faces.delete(face);
-        return deleted;
+        return this.faces.delete(face);
     }
 
     /**
@@ -7396,7 +7394,7 @@ class Polygon {
                     last = last.next;
                 } while (last.next !== first)
 
-                let face = this.addFace(first, last);
+                this.addFace(first, last);
             }
         }
     }
@@ -7504,7 +7502,8 @@ class Polygon {
     cutFace(pt1, pt2) {
         let edge1 = this.findEdgeByPoint(pt1);
         let edge2 = this.findEdgeByPoint(pt2);
-        if (edge1.face != edge2.face) return;
+        if (edge1.face !== edge2.face)
+            return [];
 
         // Cut face into two and create new polygon with two faces
         let edgeBefore1 = this.addVertex(pt1, edge1);
@@ -7549,7 +7548,7 @@ class Polygon {
     /**
      * Return a result of cutting polygon with line
      * @param {Line} line - cutting line
-     * @returns {Polygon newPoly} - resulted polygon
+     * @returns {Polygon} newPoly - resulted polygon
      */
     cutWithLine(line) {
         let newPoly = this.clone();
@@ -7575,6 +7574,10 @@ class Polygon {
             }
         }
 
+        // No intersections - return a copy of the original polygon
+        if (intersections.int_points1.length === 0)
+            return newPoly;
+
         // sort smart intersections
         intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
@@ -7590,20 +7593,40 @@ class Polygon {
         intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
-        // initialize inclusion flags for edges incident to intersections
+        // initialize inclusion flags for edges of multiline incident to intersections
         initializeInclusionFlags(intersections.int_points1);
-        initializeInclusionFlags(intersections.int_points2);
+
+        // calculate inclusion flag for edges of multiline incident to intersections
+        calculateInclusionFlags(intersections.int_points1, newPoly);
+
+        // filter intersections between two edges that got same inclusion flag
+        for (let int_point1 of intersections.int_points1_sorted) {
+            if (int_point1.edge_before.bv === int_point1.edge_after.bv) {
+                intersections.int_points2[int_point1.id] = -1;   // to be filtered out
+                int_point1.id = -1;                              // to be filtered out
+            }
+        }
+        intersections.int_points1 = intersections.int_points1.filter( int_point => int_point.id >= 0);
+        intersections.int_points2 = intersections.int_points2.filter( int_point => int_point.id >= 0);
+
+        // No intersections left after filtering - return a copy of the original polygon
+        if (intersections.int_points1.length === 0)
+            return newPoly;
+
+        // sort intersection points 3d time after filtering
+        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+        intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // Add 2 new inner edges between intersection points
         let int_point1_prev = intersections.int_points1[0];
         let new_edge;
         for (let int_point1_curr of intersections.int_points1_sorted) {
-            if (int_point1_curr.edge_before.setInclusion(newPoly) === INSIDE) {
-                new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape);
+            if (int_point1_curr.edge_before.bv === INSIDE) {
+                new_edge = new Flatten.Edge(new Flatten.Segment(int_point1_prev.pt, int_point1_curr.pt));    // (int_point1_curr.edge_before.shape);
                 insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], new_edge);
                 newPoly.edges.add(new_edge);
 
-                new_edge = new Flatten.Edge(int_point1_curr.edge_before.shape.reverse());
+                new_edge = new Flatten.Edge(new Flatten.Segment(int_point1_curr.pt, int_point1_prev.pt));    // (int_point1_curr.edge_before.shape.reverse());
                 insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], new_edge);
                 newPoly.edges.add(new_edge);
             }
@@ -7624,7 +7647,7 @@ class Polygon {
         let edge;
         for (let face of this.faces) {
             edge = face.findEdgeByPoint(pt);
-            if (edge != undefined)
+            if (edge !== undefined)
                 break;
         }
         return edge;
@@ -7679,7 +7702,7 @@ class Polygon {
     contains(shape) {
         if (shape instanceof Flatten.Point) {
             let rel = ray_shoot(this, shape);
-            return rel === Flatten.INSIDE || rel === Flatten.BOUNDARY;
+            return rel === INSIDE || rel === BOUNDARY;
         } else {
             return cover(this, shape);
         }

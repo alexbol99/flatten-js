@@ -5,10 +5,9 @@
 import { expect } from 'chai';
 import Flatten, {matrix} from '../../index';
 
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../../index';
-import {point, vector, circle, line, segment, arc, box, multiline} from '../../index';
+import {Point, Circle, Line, Segment, Arc, Box, Polygon, Edge, PlanarSet} from '../../index';
+import {point, vector, circle, line, segment, box, multiline} from '../../index';
 import {intersectLine2Polygon} from "../../src/algorithms/intersection";
-import {Multiline} from "../../src/classes/multiline";
 
 describe('#Flatten.Polygon', function() {
     it('May create new instance of Polygon', function () {
@@ -315,7 +314,7 @@ describe('#Flatten.Polygon', function() {
     });
     it('Can calculate area of the one-face polygon', function() {
         let polygon = new Polygon();
-        let face = polygon.addFace([
+        polygon.addFace([
             point(1,1), point(3,1), point(3,2), point(1,2)
         ]);
         expect(polygon.area()).to.equal(2);
@@ -691,13 +690,12 @@ describe('#Flatten.Polygon', function() {
             ];
 
             let poly = new Polygon();
-            let face = poly.addFace(points);
+            poly.addFace(points);
 
-            let ip_expected = new Point(0, 2);
             let ip = poly.intersect(segment);
             expect(ip.length).to.equal(2);
-            expect(ip[0].equalTo(point(150,20))).to.be.true;
-            expect(ip[1].equalTo(point(150,40))).to.be.true;
+            expect(ip[0]).to.deep.equal(point(150,20));
+            expect(ip[1]).to.deep.equal(point(150,40));
         });
     });
     it('Can translate polygon', function() {
@@ -844,7 +842,7 @@ describe('#Flatten.Polygon', function() {
         });
     });
 
-    it('Can cut polygon with holes by line', () => {
+    it('Can cut polygon with holes by line. Case 1. Line cuts edge not in vertex', () => {
         const poly = new Polygon([
             [
                 [0, 0],
@@ -859,11 +857,34 @@ describe('#Flatten.Polygon', function() {
                 [70, 30]
             ]
         ]);
-        const l = line(point(50, 50), vector(1, 1));
+        const l = line(point(50, 50), vector(1, 0));
 
         const res_poly = poly.cutWithLine(l);
 
         expect(res_poly.faces.size).to.equal(2);
+        expect(res_poly.edges.size).to.equal(16);
+    });
+
+    it('Can cut polygon with holes by line. Case 2. Line is touching hole in vertex', () => {
+        const poly = new Polygon([
+            [
+                [0, 0],
+                [100, 0],
+                [100, 100],
+                [0, 100]
+            ],
+            [
+                [30, 50],
+                [50, 70],
+                [70, 50],
+                [50, 30]
+            ]
+        ]);
+        const l = line(point(30, 0), vector(1, 0));
+
+        const res_poly = poly.cutWithLine(l);
+
+        expect(res_poly.faces.size).to.equal(3);
         expect(res_poly.edges.size).to.equal(12);
     });
 });

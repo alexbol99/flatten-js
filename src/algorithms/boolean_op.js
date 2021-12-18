@@ -10,7 +10,7 @@ import Errors from "../utils/errors";
 import * as Constants from '../utils/constants';
 import LinkedList from "../data_structures/linked_list";
 import {addToIntPoints, sortIntersections,
-    filterDuplicatedIntersections, initializeInclusionFlags,
+    filterDuplicatedIntersections, initializeInclusionFlags, calculateInclusionFlags,
     setOverlappingFlags, intPointsPoolCount, splitByIntersections} from "../data_structures/smart_intersections";
 
 const {INSIDE, OUTSIDE, BOUNDARY, OVERLAP_SAME, OVERLAP_OPPOSITE} = Constants;
@@ -262,14 +262,6 @@ function calcInclusionForNotIntersectedFaces(notIntersectedFaces, poly2)
     for (let face of notIntersectedFaces) {
         face.first.bv = face.first.bvStart = face.first.bvEnd = undefined;
         face.first.setInclusion(poly2);
-    }
-}
-
-function calculateInclusionFlags(int_points, polygon)
-{
-    for (let int_point of int_points) {
-        int_point.edge_before.setInclusion(polygon);
-        int_point.edge_after.setInclusion(polygon);
     }
 }
 
