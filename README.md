@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/alexbol99/flatten-js.svg?branch=master)](https://travis-ci.org/alexbol99/flatten-js)
 [![Coverage Status](https://coveralls.io/repos/github/alexbol99/flatten-js/badge.svg?branch=master)](https://coveralls.io/github/alexbol99/flatten-js?branch=master)
 [![](https://data.jsdelivr.com/v1/package/npm/@flatten-js/core/badge)](https://www.jsdelivr.com/package/npm/@flatten-js/core)
+[![@flatten-js/core](https://snyk.io/advisor/npm-package/@flatten-js/core/badge.svg)](https://snyk.io/advisor/npm-package/@flatten-js/core)
 
 [![Rate on Openbase](https://badges.openbase.com/js/rating/@flatten-js/core.svg)](https://openbase.com/js/@flatten-js/core?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
