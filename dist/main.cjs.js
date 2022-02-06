@@ -6060,7 +6060,7 @@ class Box {
     get max() {
         return this.clone();
     }
-
+    
     /**
      * Return center of the box
      * @returns {Point}
@@ -6069,6 +6069,22 @@ class Box {
         return new Flatten.Point((this.xmin + this.xmax) / 2, (this.ymin + this.ymax) / 2);
     }
 
+    /**
+     * Return the width of the box
+     * @returns {number}
+     */
+    get width() {
+        return Math.abs(this.xmax - this.xmin);
+    }
+
+    /**
+     * Return the height of the box
+     * @returns {number}
+     */
+    get height() {
+        return Math.abs(this.ymax - this.ymin);
+    }
+    
     /**
      * Return property box like all other shapes
      * @returns {Box}

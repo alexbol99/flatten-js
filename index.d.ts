@@ -169,6 +169,8 @@ declare namespace Flatten {
         readonly high: Point;
         readonly low: Point;
         readonly max: Box;
+        readonly width: number;
+        readonly height: number;
 
         // public methods
         clone(): Box;

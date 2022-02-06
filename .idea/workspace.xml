@@ -35,18 +35,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="- Fix bug in method polygon.cutWithLine() - now with bundles">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/boolean_op.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/ray_shooting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/ray_shooting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_structures/smart_intersections.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/smart_intersections.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +146,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Polygon">
+  <component name="RunManager" selected="npm.test">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -166,16 +161,6 @@
       <command value="run" />
       <scripts>
         <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="generate-docs" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -216,6 +201,22 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require @babel/register</extra-mocha-options>
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
+      <test-names>
+        <name value="#Flatten.Polygon" />
+        <name value="Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="#test esm" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -232,18 +233,18 @@
     <list>
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Flatten.Polygon" />
+      <item itemvalue="Mocha.#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
       <item itemvalue="npm.test" />
       <item itemvalue="npm.build" />
-      <item itemvalue="npm.generate-docs" />
       <item itemvalue="npm.publish-npm" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
-        <item itemvalue="Mocha.#Flatten.Polygon" />
+        <item itemvalue="Mocha.#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
         <item itemvalue="npm.publish-npm" />
-        <item itemvalue="npm.generate-docs" />
+        <item itemvalue="Mocha.#Flatten.Polygon" />
       </list>
     </recent_temporary>
   </component>
@@ -420,14 +421,13 @@
       <workItem from="1637521651414" duration="664000" />
       <workItem from="1637822480138" duration="649000" />
       <workItem from="1637856277768" duration="594000" />
-      <workItem from="1639678866612" duration="31513000" />
-    </task>
-    <task id="LOCAL-00146" summary="- Add Ray::svg() method">
-      <created>1582395374810</created>
-      <option name="number" value="00146" />
-      <option name="presentableId" value="LOCAL-00146" />
-      <option name="project" value="LOCAL" />
-      <updated>1582395374811</updated>
+      <workItem from="1639678866612" duration="33231000" />
+      <workItem from="1640016861231" duration="834000" />
+      <workItem from="1641796208564" duration="298000" />
+      <workItem from="1642235901910" duration="1259000" />
+      <workItem from="1643656885867" duration="592000" />
+      <workItem from="1643975573653" duration="1286000" />
+      <workItem from="1644165134112" duration="750000" />
     </task>
     <task id="LOCAL-00147" summary="- Add Ray::svg() method - compiled">
       <created>1582395975953</created>
@@ -765,7 +765,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639825841914</updated>
     </task>
-    <option name="localTasksCounter" value="195" />
+    <task id="LOCAL-00195" summary="- Another bug fixed in method polygon.cutWithLine() - consider case when line touch vertex in hole&#10;- Some code clean-up">
+      <created>1639835180383</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
+      <option name="project" value="LOCAL" />
+      <updated>1639835180383</updated>
+    </task>
+    <option name="localTasksCounter" value="196" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -785,7 +792,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Issue #45 The Typescript definitions aren't up to date&#10;- Attach namespaces BooleanOperations and Relations to Flatten namesapce&#10;- Fix several mismatches in typescript definition file&#10;- Release patch 1.2.8" />
     <MESSAGE value="- Data cases from issue #55 added to test data set (1..3)&#10;- unify is working after scaling of coordinates, subtract is not working yet" />
     <MESSAGE value="Issue #56 Prevent infinite loop in CircularLinkedList&#10;- Throw error &quot;Infinite loop&quot; from Face::setArcLength(). Infinite loop happens sometimes when boolean operation fails to find proper merge between two operands." />
     <MESSAGE value="Issue #57 distanceTo between Polygons: First point of segment is not always on the 'this' polygon&#10;- fix shortest segment in Distance::segment2segment function" />
@@ -810,7 +816,8 @@
     <MESSAGE value="- New method polygon.cutWithLine() which support polygon with holes Issue #102" />
     <MESSAGE value="- Fix bug in method polygon.cutWithLine()" />
     <MESSAGE value="- Fix bug in method polygon.cutWithLine() - now with bundles" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Fix bug in method polygon.cutWithLine() - now with bundles" />
+    <MESSAGE value="- Another bug fixed in method polygon.cutWithLine() - consider case when line touch vertex in hole&#10;- Some code clean-up" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Another bug fixed in method polygon.cutWithLine() - consider case when line touch vertex in hole&#10;- Some code clean-up" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -839,9 +846,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
-          <line>884</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="38" />
+          <line>779</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
