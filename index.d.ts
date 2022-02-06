@@ -584,6 +584,7 @@ declare namespace Flatten.ORIENTATION {
 declare namespace Flatten.Utils {
     function getTolerance() : number;
     function setTolerance(tolerance: number): void;
+    function EQ(x: number, y: number) : boolean;
     function EQ_0(x: number) : boolean;
     function GT(x: number, y: number) : boolean;
     function GE(x: number, y: number) : boolean;
