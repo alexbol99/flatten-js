@@ -139,17 +139,21 @@ export class Box {
     }
 
     /**
-     * Returns new box merged with other box
-     * @param {Box} other_box - Other box to merge with
+     * Returns new box merged with other box or point
+     * @param {Box|Point} other_box_pt - Other box or point to merge with
      * @returns {Box}
      */
-    merge(other_box) {
-        return new Box(
-            this.xmin === undefined ? other_box.xmin : Math.min(this.xmin, other_box.xmin),
-            this.ymin === undefined ? other_box.ymin : Math.min(this.ymin, other_box.ymin),
-            this.xmax === undefined ? other_box.xmax : Math.max(this.xmax, other_box.xmax),
-            this.ymax === undefined ? other_box.ymax : Math.max(this.ymax, other_box.ymax)
-        );
+    merge(other_box_pt) {
+        if (other_box_pt instanceof Flatten.Box) {
+            return new Box(
+                this.xmin === undefined ? other_box_pt.xmin : Math.min(this.xmin, other_box_pt.xmin),
+                this.ymin === undefined ? other_box_pt.ymin : Math.min(this.ymin, other_box_pt.ymin),
+                this.xmax === undefined ? other_box_pt.xmax : Math.max(this.xmax, other_box_pt.xmax),
+                this.ymax === undefined ? other_box_pt.ymax : Math.max(this.ymax, other_box_pt.ymax)
+                );
+        } else {
+            return this.merge(other_box_pt.box());
+        }
     }
 
     /**
