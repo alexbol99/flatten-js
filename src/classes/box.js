@@ -157,6 +157,32 @@ export class Box {
     }
 
     /**
+     * Returns new box inflated by dx, dy. If dx is the same as dy, the method could be called with a single parameter.
+     * @param {number} dx - inflated by delta x
+     * @param {number} dy - inflated by delta y
+     * @returns {Box}
+     */
+    inflate(...args) {
+        let dx, dy;
+        if (args.length == 1 && typeof (args[0]) == "number") {
+            dx = dy = args[0];
+        } else
+        if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
+            dx = args[0];
+            dy = args[1];
+        } else {
+            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        }
+
+        return new Box(
+            this.xmin === undefined ? undefined : (this.xmin - dx),
+            this.ymin === undefined ? undefined : (this.ymin - dy),
+            this.xmax === undefined ? undefined : (this.xmax + dx),
+            this.ymax === undefined ? undefined : (this.ymax + dy)
+        );        
+    }
+
+    /**
      * Defines predicate "less than" between two boxes. Need for interval index
      * @param {Box} other_box - other box
      * @returns {boolean} - true if this box less than other box, false otherwise
