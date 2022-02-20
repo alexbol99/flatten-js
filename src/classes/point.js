@@ -231,6 +231,10 @@ export class Point {
             return this.equalTo(shape);
         }
 
+        if (shape instanceof Flatten.Box) {
+            return shape.contains(this);
+        }
+
         if (shape instanceof Flatten.Line) {
             return shape.contains(this);
         }
