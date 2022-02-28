@@ -475,6 +475,10 @@ export class Polygon {
      */
     splitToIslands() {
         let polygons = this.toArray();      // split into array of one-loop polygons
+		  /* Make sure we have at least one polygon */
+		  if (polygons.length === 0) {
+			  return polygons;
+		  }
         /* Sort polygons by area in descending order */
         polygons.sort((polygon1, polygon2) => polygon2.area() - polygon1.area());
         /* define orientation of the island by orientation of the first polygon in array */

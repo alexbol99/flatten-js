@@ -786,6 +786,12 @@ describe('#Flatten.Polygon', function() {
         expect(islandsArray[1].faces.size).to.equal(1);
         expect(islandsArray[1].edges.size).to.equal(4);
     });
+	 it('splitToIslands should not fail if the polygon is empty', function() {
+		 const polygon = new Polygon();
+		 const islandsArray = polygon.splitToIslands();
+
+		 expect(islandsArray.length).to.equal(0);
+	 });
     describe('#Flatten.Polygon.cut(multiline) methods', function() {
         it('Can cut polygon with line. Case of non-intersection', function() {
             let l = line( point(100,400), vector(0,1) );
