@@ -73,7 +73,7 @@ export class Segment {
      * @returns {Segment}
      */
     clone() {
-        return new Flatten.Segment(this.start, this.end);
+        return new this.constructor(this.start, this.end);
     }
 
     /**
@@ -163,7 +163,7 @@ export class Segment {
             return Intersection.intersectSegment2Line(this, shape);
         }
 
-        if (shape instanceof Flatten.Segment) {
+        if (shape instanceof Segment) {
             return  Intersection.intersectSegment2Segment(this, shape);
         }
 
@@ -207,7 +207,7 @@ export class Segment {
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Segment) {
+        if (shape instanceof Segment) {
             let [dist, shortest_segment] = Flatten.Distance.segment2segment(this, shape);
             return [dist, shortest_segment];
         }
@@ -251,7 +251,7 @@ export class Segment {
      * @returns {Segment}
      */
     reverse() {
-        return new Segment(this.end, this.start);
+        return new this.constructor(this.end, this.start);
     }
 
     /**
@@ -269,8 +269,8 @@ export class Segment {
             return [this.clone(), null];
 
         return [
-            new Flatten.Segment(this.start, pt),
-            new Flatten.Segment(pt, this.end)
+            new this.constructor(this.start, pt),
+            new this.constructor(pt, this.end)
         ]
     }
 
@@ -316,7 +316,7 @@ export class Segment {
      * @returns {Segment}
      */
     translate(...args) {
-        return new Segment(this.ps.translate(...args), this.pe.translate(...args));
+        return new this.constructor(this.ps.translate(...args), this.pe.translate(...args));
     }
 
     /**
@@ -339,7 +339,7 @@ export class Segment {
      * @returns {Segment} - transformed segment
      */
     transform(matrix = new Flatten.Matrix()) {
-        return new Segment(this.ps.transform(matrix), this.pe.transform(matrix))
+        return new this.constructor(this.ps.transform(matrix), this.pe.transform(matrix))
     }
 
     /**

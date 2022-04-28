@@ -45,7 +45,7 @@ export class Box {
      * @returns {Box}
      */
     clone() {
-        return new Box(this.xmin, this.ymin, this.xmax, this.ymax);
+        return new this.constructor(this.xmin, this.ymin, this.xmax, this.ymax);
     }
 
     /**
@@ -133,7 +133,7 @@ export class Box {
      * @returns {Box}
      */
     merge(other_box) {
-        return new Box(
+        return new this.constructor(
             this.xmin === undefined ? other_box.xmin : Math.min(this.xmin, other_box.xmin),
             this.ymin === undefined ? other_box.ymin : Math.min(this.ymin, other_box.ymin),
             this.xmax === undefined ? other_box.xmax : Math.max(this.xmax, other_box.xmax),

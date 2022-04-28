@@ -76,7 +76,7 @@ export class Vector {
      * @returns {Vector}
      */
     clone() {
-        return new Flatten.Vector(this.x, this.y);
+        return new this.constructor(this.x, this.y);
     }
 
     /**
@@ -113,7 +113,7 @@ export class Vector {
      * @returns {Vector}
      */
     multiply(scalar) {
-        return (new Flatten.Vector(scalar * this.x, scalar * this.y));
+        return (new this.constructor(scalar * this.x, scalar * this.y));
     }
 
     /**
@@ -143,7 +143,7 @@ export class Vector {
      */
     normalize() {
         if (!Flatten.Utils.EQ_0(this.length)) {
-            return (new Flatten.Vector(this.x / this.length, this.y / this.length));
+            return (new this.constructor(this.x / this.length, this.y / this.length));
         }
         throw Flatten.Errors.ZERO_DIVISION;
     }
@@ -158,7 +158,7 @@ export class Vector {
     rotate(angle) {
         let point = new Flatten.Point(this.x, this.y);
         let rpoint = point.rotate(angle);
-        return new Flatten.Vector(rpoint.x, rpoint.y);
+        return new this.constructor(rpoint.x, rpoint.y);
     }
 
     /**
@@ -166,7 +166,7 @@ export class Vector {
      * @returns {Vector}
      */
     rotate90CCW() {
-        return new Flatten.Vector(-this.y, this.x);
+        return new this.constructor(-this.y, this.x);
     };
 
     /**
@@ -174,7 +174,7 @@ export class Vector {
      * @returns {Vector}
      */
     rotate90CW() {
-        return new Flatten.Vector(this.y, -this.x);
+        return new this.constructor(this.y, -this.x);
     };
 
     /**
@@ -182,7 +182,7 @@ export class Vector {
      * @returns {Vector}
      */
     invert() {
-        return new Flatten.Vector(-this.x, -this.y);
+        return new this.constructor(-this.x, -this.y);
     }
 
     /**
@@ -191,7 +191,7 @@ export class Vector {
      * @returns {Vector}
      */
     add(v) {
-        return new Flatten.Vector(this.x + v.x, this.y + v.y);
+        return new this.constructor(this.x + v.x, this.y + v.y);
     }
 
     /**
@@ -200,7 +200,7 @@ export class Vector {
      * @returns {Vector}
      */
     subtract(v) {
-        return new Flatten.Vector(this.x - v.x, this.y - v.y);
+        return new this.constructor(this.x - v.x, this.y - v.y);
     }
 
     /**

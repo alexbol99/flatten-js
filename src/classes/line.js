@@ -91,7 +91,7 @@ export class Line {
      * @returns {Line}
      */
     clone() {
-        return new Flatten.Line(this.pt, this.norm);
+        return new this.constructor(this.pt, this.norm);
     }
 
     /* The following methods need for implementation of Edge interface
@@ -207,7 +207,7 @@ export class Line {
             return this.contains(shape) ? [shape] : [];
         }
 
-        if (shape instanceof Flatten.Line) {
+        if (shape instanceof Line) {
             return Intersection.intersectLine2Line(this, shape);
         }
 

@@ -71,7 +71,7 @@ export class Multiline extends LinkedList {
      * @returns {Multiline}
      */
     clone() {
-        return new Multiline(this.toShapes());
+        return new this.constructor(this.toShapes());
     }
 
     /**
@@ -137,7 +137,7 @@ export class Multiline extends LinkedList {
      * @returns {Multiline}
      */
     translate(vec) {
-        return new Multiline(this.edges.map( edge => edge.shape.translate(vec)));
+        return new this.constructor(this.edges.map( edge => edge.shape.translate(vec)));
     }
 
     /**
@@ -149,7 +149,7 @@ export class Multiline extends LinkedList {
      * @returns {Multiline} - new rotated polygon
      */
     rotate(angle = 0, center = new Flatten.Point()) {
-        return new Multiline(this.edges.map( edge => edge.shape.rotate(angle, center) ));
+        return new this.constructor(this.edges.map( edge => edge.shape.rotate(angle, center) ));
     }
 
     /**
@@ -159,7 +159,7 @@ export class Multiline extends LinkedList {
      * @returns {Multiline} - new multiline
      */
     transform(matrix = new Flatten.Matrix()) {
-        return new Multiline(this.edges.map( edge => edge.shape.transform(matrix)));
+        return new this.constructor(this.edges.map( edge => edge.shape.transform(matrix)));
     }
 
     /**

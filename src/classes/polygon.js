@@ -106,7 +106,7 @@ export class Polygon {
      * @returns {Polygon}
      */
     clone() {
-        let polygon = new Polygon();
+        let polygon = new this.constructor();
         for (let face of this.faces) {
             polygon.addFace(face.shapes);
         }
@@ -547,7 +547,7 @@ export class Polygon {
         }
 
         /* this method is bit faster */
-        if (shape instanceof Flatten.Polygon) {
+        if (shape instanceof Polygon) {
             let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
             let dist, shortest_segment;
 
@@ -589,7 +589,7 @@ export class Polygon {
             return Intersection.intersectArc2Polygon(shape, this);
         }
 
-        if (shape instanceof Flatten.Polygon) {
+        if (shape instanceof Polygon) {
             return Intersection.intersectPolygon2Polygon(shape, this);
         }
     }
@@ -600,7 +600,7 @@ export class Polygon {
      * @returns {Polygon}
      */
     translate(vec) {
-        let newPolygon = new Polygon();
+        let newPolygon = new this.constructor();
         for (let face of this.faces) {
             newPolygon.addFace(face.shapes.map(shape => shape.translate(vec)));
         }
@@ -616,7 +616,7 @@ export class Polygon {
      * @returns {Polygon} - new rotated polygon
      */
     rotate(angle = 0, center = new Flatten.Point()) {
-        let newPolygon = new Polygon();
+        let newPolygon = new this.constructor();
         for (let face of this.faces) {
             newPolygon.addFace(face.shapes.map(shape => shape.rotate(angle, center)));
         }
@@ -629,7 +629,7 @@ export class Polygon {
      * @returns {Polygon} - new polygon
      */
     transform(matrix = new Flatten.Matrix()) {
-        let newPolygon = new Polygon();
+        let newPolygon = new this.constructor();
         for (let face of this.faces) {
             newPolygon.addFace(face.shapes.map(shape => shape.transform(matrix)));
         }

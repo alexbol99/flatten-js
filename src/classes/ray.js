@@ -52,7 +52,7 @@ export class Ray {
      * @returns {Ray}
      */
     clone() {
-        return new Ray(this.pt, this.norm);
+        return new this.constructor(this.pt, this.norm);
     }
 
     /**
@@ -128,7 +128,7 @@ export class Ray {
 
         return [
             new Flatten.Segment(this.pt, pt),
-            new Flatten.Ray(pt, this.norm)
+            new this.constructor(pt, this.norm)
         ]
     }
 
