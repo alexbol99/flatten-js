@@ -37,11 +37,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +89,9 @@
     <service-enabled>false</service-enabled>
     <other-services-enabled>false</other-services-enabled>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1WAPN3ASzDmjaf35ofvOBEHB9tk" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -98,38 +100,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../01-starting-setup" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.prettier" value="true" />
-    <property name="node.js.detected.package.standard" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.prettier" value="project" />
-    <property name="node.js.path.for.package.standard" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.prettier" value="C:\Users\Alex Bol\WebstormProjects\flatten-js\node_modules\prettier" />
-    <property name="node.js.selected.package.standard" value="" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
-    <property name="nodejs_interpreter_path" value="node" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
-    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
-    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/dist/flatten.umd.js" />
-    <property name="typescript-compiler-editor-notification" value="false" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js" />
@@ -146,7 +127,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.test">
+  <component name="RunManager" selected="Mocha.#Flatten.Polygon">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -240,11 +221,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Mocha.#Flatten.Polygon" />
+        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
         <item itemvalue="Mocha.#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
-        <item itemvalue="npm.publish-npm" />
-        <item itemvalue="Mocha.#Flatten.Polygon" />
       </list>
     </recent_temporary>
   </component>
@@ -427,14 +408,17 @@
       <workItem from="1642235901910" duration="1259000" />
       <workItem from="1643656885867" duration="592000" />
       <workItem from="1643975573653" duration="1286000" />
-      <workItem from="1644165134112" duration="750000" />
-    </task>
-    <task id="LOCAL-00147" summary="- Add Ray::svg() method - compiled">
-      <created>1582395975953</created>
-      <option name="number" value="00147" />
-      <option name="presentableId" value="LOCAL-00147" />
-      <option name="project" value="LOCAL" />
-      <updated>1582395975953</updated>
+      <workItem from="1644165134112" duration="2462000" />
+      <workItem from="1644514055611" duration="597000" />
+      <workItem from="1646204431434" duration="1573000" />
+      <workItem from="1646929469274" duration="493000" />
+      <workItem from="1646930554819" duration="595000" />
+      <workItem from="1647961687572" duration="620000" />
+      <workItem from="1648114319673" duration="600000" />
+      <workItem from="1648710984691" duration="2243000" />
+      <workItem from="1650997083825" duration="2006000" />
+      <workItem from="1653111883851" duration="612000" />
+      <workItem from="1659172177737" duration="1346000" />
     </task>
     <task id="LOCAL-00148" summary="- Fix bug in Ray::svg() method">
       <created>1582524893579</created>
@@ -772,7 +756,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639835180383</updated>
     </task>
-    <option name="localTasksCounter" value="196" />
+    <task id="LOCAL-00196" summary="Merge pull requests:&#10;- Add missing typescript declaration #104&#10;- Add read-only properties &quot;width&quot; and &quot;height&quot; to Box #105">
+      <created>1644169789790</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1644169789790</updated>
+    </task>
+    <option name="localTasksCounter" value="197" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -788,11 +779,9 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- Data cases from issue #55 added to test data set (1..3)&#10;- unify is working after scaling of coordinates, subtract is not working yet" />
     <MESSAGE value="Issue #56 Prevent infinite loop in CircularLinkedList&#10;- Throw error &quot;Infinite loop&quot; from Face::setArcLength(). Infinite loop happens sometimes when boolean operation fails to find proper merge between two operands." />
     <MESSAGE value="Issue #57 distanceTo between Polygons: First point of segment is not always on the 'this' polygon&#10;- fix shortest segment in Distance::segment2segment function" />
     <MESSAGE value="- create patch v1.2.12" />
@@ -817,7 +806,8 @@
     <MESSAGE value="- Fix bug in method polygon.cutWithLine()" />
     <MESSAGE value="- Fix bug in method polygon.cutWithLine() - now with bundles" />
     <MESSAGE value="- Another bug fixed in method polygon.cutWithLine() - consider case when line touch vertex in hole&#10;- Some code clean-up" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Another bug fixed in method polygon.cutWithLine() - consider case when line touch vertex in hole&#10;- Some code clean-up" />
+    <MESSAGE value="Merge pull requests:&#10;- Add missing typescript declaration #104&#10;- Add read-only properties &quot;width&quot; and &quot;height&quot; to Box #105" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge pull requests:&#10;- Add missing typescript declaration #104&#10;- Add read-only properties &quot;width&quot; and &quot;height&quot; to Box #105" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -843,11 +833,6 @@
           <url>file://$PROJECT_DIR$/test/classes/segment.js</url>
           <line>217</line>
           <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
-          <line>779</line>
-          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

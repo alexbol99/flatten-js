@@ -474,6 +474,7 @@ export class Polygon {
      * @returns {Flatten.Polygon[]}
      */
     splitToIslands() {
+        if (this.isEmpty()) return [];      // return empty array if polygon is empty
         let polygons = this.toArray();      // split into array of one-loop polygons
         /* Sort polygons by area in descending order */
         polygons.sort((polygon1, polygon2) => polygon2.area() - polygon1.area());
