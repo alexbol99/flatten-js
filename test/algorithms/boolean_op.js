@@ -279,10 +279,10 @@ describe('#Algorithms.Boolean Operations', function () {
             let poly1 = new Polygon(JSON.parse(json1));
             let poly2 = new Polygon(JSON.parse(json2));
 
-            let res = unify(poly2, poly1);
+            let res = unify(poly1, poly2);
 
             expect(res.faces.size).to.equal(1);
-            expect(res.edges.size).to.equal(36);
+            expect(res.edges.size).to.equal(34);
         });
         it('Can perform unify. Infinite loop for boolean union over (valid) polygons. Issue #55 case 1', function () {
             "use strict";

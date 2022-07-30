@@ -37,10 +37,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +108,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs.mocha.mocha_node_package_dir": "C:/Users/Alex Bol/WebstormProjects/flatten-js/node_modules/mocha",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -127,7 +129,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Polygon">
+  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -147,27 +149,39 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="publish-npm" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="publish-npm" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
+    <configuration name="#Algorithms.Boolean Operations" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require @babel/register</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Boolean Operations" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="test" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
+    <configuration name="#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Boolean Operations" />
+        <name value="#Algorithms.Boolean Subtraction" />
+        <name value="Can perform subtract. Issue #55 case 0" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.BooleanOperations" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
@@ -178,7 +192,7 @@
       <test-kind>SUITE</test-kind>
       <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
       <test-names>
-        <name value="#Flatten.Polygon" />
+        <name value="#Flatten.BooleanOperations" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -213,19 +227,19 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Flatten.Polygon" />
+      <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
+      <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
+      <item itemvalue="Mocha.#Flatten.BooleanOperations" />
       <item itemvalue="Mocha.#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
-      <item itemvalue="npm.test" />
       <item itemvalue="npm.build" />
-      <item itemvalue="npm.publish-npm" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Mocha.#Flatten.Polygon" />
-        <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.build" />
-        <item itemvalue="npm.test" />
+        <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
+        <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
         <item itemvalue="Mocha.#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
+        <item itemvalue="Mocha.#Flatten.BooleanOperations" />
       </list>
     </recent_temporary>
   </component>
@@ -418,14 +432,7 @@
       <workItem from="1648710984691" duration="2243000" />
       <workItem from="1650997083825" duration="2006000" />
       <workItem from="1653111883851" duration="612000" />
-      <workItem from="1659172177737" duration="1346000" />
-    </task>
-    <task id="LOCAL-00148" summary="- Fix bug in Ray::svg() method">
-      <created>1582524893579</created>
-      <option name="number" value="00148" />
-      <option name="presentableId" value="LOCAL-00148" />
-      <option name="project" value="LOCAL" />
-      <updated>1582524893579</updated>
+      <workItem from="1659172177737" duration="4594000" />
     </task>
     <task id="LOCAL-00149" summary="- Fix bug in line split">
       <created>1582719154238</created>
@@ -763,7 +770,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644169789790</updated>
     </task>
-    <option name="localTasksCounter" value="197" />
+    <task id="LOCAL-00197" summary=" splitToIslands return empty array in case of empty polygon&#10; (Fix bug with splitToIslands PR #114)">
+      <created>1659174226721</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1659174226722</updated>
+    </task>
+    <option name="localTasksCounter" value="198" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -782,7 +796,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Issue #56 Prevent infinite loop in CircularLinkedList&#10;- Throw error &quot;Infinite loop&quot; from Face::setArcLength(). Infinite loop happens sometimes when boolean operation fails to find proper merge between two operands." />
     <MESSAGE value="Issue #57 distanceTo between Polygons: First point of segment is not always on the 'this' polygon&#10;- fix shortest segment in Distance::segment2segment function" />
     <MESSAGE value="- create patch v1.2.12" />
     <MESSAGE value="- added fixBoundaryConflict case of tiny edge wrongly detected as boundary (issue #55 case 0)" />
@@ -807,7 +820,8 @@
     <MESSAGE value="- Fix bug in method polygon.cutWithLine() - now with bundles" />
     <MESSAGE value="- Another bug fixed in method polygon.cutWithLine() - consider case when line touch vertex in hole&#10;- Some code clean-up" />
     <MESSAGE value="Merge pull requests:&#10;- Add missing typescript declaration #104&#10;- Add read-only properties &quot;width&quot; and &quot;height&quot; to Box #105" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge pull requests:&#10;- Add missing typescript declaration #104&#10;- Add read-only properties &quot;width&quot; and &quot;height&quot; to Box #105" />
+    <MESSAGE value=" splitToIslands return empty array in case of empty polygon&#10; (Fix bug with splitToIslands PR #114)" />
+    <option name="LAST_COMMIT_MESSAGE" value=" splitToIslands return empty array in case of empty polygon&#10; (Fix bug with splitToIslands PR #114)" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -825,14 +839,15 @@
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
-          <line>380</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/classes/segment.js</url>
           <line>217</line>
           <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
+          <line>538</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

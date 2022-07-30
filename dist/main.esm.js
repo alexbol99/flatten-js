@@ -3229,8 +3229,8 @@ class Node {
     }
 
     copy_data(other_node) {
-        this.item.key = other_node.item.key.clone();
-        this.item.value = other_node.item.value && other_node.item.value.clone ? other_node.item.value.clone() : other_node.item.value;
+        this.item.key = other_node.item.key;
+        this.item.value = other_node.item.value;
     }
 
     update_max() {
@@ -3333,6 +3333,13 @@ class IntervalTree {
      */
     isEmpty() {
         return (this.root == null || this.root == this.nil_node);
+    }
+
+    /**
+     * Clear tree
+     */
+    clear() {
+        this.root = null;
     }
 
     /**
@@ -7671,6 +7678,7 @@ class Polygon {
      * @returns {Flatten.Polygon[]}
      */
     splitToIslands() {
+        if (this.isEmpty()) return [];      // return empty array if polygon is empty
         let polygons = this.toArray();      // split into array of one-loop polygons
         /* Sort polygons by area in descending order */
         polygons.sort((polygon1, polygon2) => polygon2.area() - polygon1.area());
