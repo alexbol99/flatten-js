@@ -210,14 +210,13 @@ export class Circle {
      */
     svg(attrs = {}) {
         let {stroke, strokeWidth, fill, fillOpacity, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
         let id_str = (id && id.length > 0) ? `id="${id}"` : "";
         let class_str = (className && className.length > 0) ? `class="${className}"` : "";
 
         return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} />`;
     }
 
-};
+}
 
 Flatten.Circle = Circle;
 /**

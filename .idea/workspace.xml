@@ -37,11 +37,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/box.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/circle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/box.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,12 +103,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs.mocha.mocha_node_package_dir": "C:/Users/Alex Bol/WebstormProjects/flatten-js/node_modules/mocha",
+    "nodejs.mocha.mocha_node_package_dir": "/Users/alexanderbol/WebstormProjects/flatten-js/node_modules/mocha",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -129,7 +132,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations">
+  <component name="RunManager" selected="npm.build">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -181,18 +184,18 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.BooleanOperations" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Box" type="mocha-javascript-test-runner" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
-      <extra-mocha-options>--require @babel/register</extra-mocha-options>
+      <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
+      <test-file>$PROJECT_DIR$/test/classes/box.js</test-file>
       <test-names>
-        <name value="#Flatten.BooleanOperations" />
+        <name value="#Flatten.Box" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -226,10 +229,10 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Mocha.#Flatten.Box" />
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
-      <item itemvalue="Mocha.#Flatten.BooleanOperations" />
       <item itemvalue="Mocha.#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
       <item itemvalue="npm.build" />
     </list>
@@ -239,7 +242,6 @@
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
         <item itemvalue="Mocha.#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
-        <item itemvalue="Mocha.#Flatten.BooleanOperations" />
       </list>
     </recent_temporary>
   </component>
@@ -433,6 +435,7 @@
       <workItem from="1650997083825" duration="2006000" />
       <workItem from="1653111883851" duration="612000" />
       <workItem from="1659172177737" duration="4594000" />
+      <workItem from="1686054373419" duration="2604000" />
     </task>
     <task id="LOCAL-00149" summary="- Fix bug in line split">
       <created>1582719154238</created>
@@ -846,7 +849,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
           <line>538</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>

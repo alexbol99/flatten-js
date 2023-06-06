@@ -225,16 +225,15 @@ export class Box {
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
+        let {stroke, strokeWidth, fill, fillOpacity, id, className} = attrs;
         let id_str = (id && id.length > 0) ? `id="${id}"` : "";
         let class_str = (className && className.length > 0) ? `class="${className}"` : "";
         let width = this.xmax - this.xmin;
         let height = this.ymax - this.ymin;
 
-        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`;
+        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} />`;
     };
-};
+}
 
 Flatten.Box = Box;
 /**
