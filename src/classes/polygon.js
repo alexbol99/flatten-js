@@ -661,8 +661,8 @@ export class Polygon {
      * @returns {string}
      */
     svg(attrs = {}) {
-        attrs.fillRule = attrs.fillRule ?? "evenodd"
-        attrs.fill = attrs.fill ?? "lightcyan"
+        attrs.fillRule = attrs.fillRule || "evenodd"
+        attrs.fill = attrs.fill || "lightcyan"
         let svgStr = `\n<path ${convertToString(attrs)} d="`;
         for (let face of this.faces) {
             svgStr += face.svg();

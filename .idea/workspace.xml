@@ -35,20 +35,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" Pull master">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" Support arbitrary SVG attributes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/arc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/circle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/multiline.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/point.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/segment.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/attributes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/attributes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/utils/attributes.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/utils/attributes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -460,14 +454,7 @@
       <workItem from="1653111883851" duration="612000" />
       <workItem from="1659172177737" duration="4594000" />
       <workItem from="1686054373419" duration="2604000" />
-      <workItem from="1686118815206" duration="12133000" />
-    </task>
-    <task id="LOCAL-00150" summary="- Add method Multiline::Box">
-      <created>1584080987391</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1584080987392</updated>
+      <workItem from="1686118815206" duration="13543000" />
     </task>
     <task id="LOCAL-00151" summary="- Add methods Polygon::cut(), Line::split(), Line.sortPoints()&#10;- Simplify code, fix bugs and add tests for relation algorithms (not completed)">
       <created>1584806805655</created>
@@ -805,7 +792,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686118951608</updated>
     </task>
-    <option name="localTasksCounter" value="199" />
+    <task id="LOCAL-00199" summary=" Support arbitrary SVG attributes">
+      <created>1686140026461</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1686140026461</updated>
+    </task>
+    <option name="localTasksCounter" value="200" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -824,7 +818,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- create patch v1.2.12" />
     <MESSAGE value="- added fixBoundaryConflict case of tiny edge wrongly detected as boundary (issue #55 case 0)" />
     <MESSAGE value="- boolean operations: resolve case of pseudo-boundary conflict and add throw error in case of boundary conflict due to missed intersection" />
     <MESSAGE value="- submit patch v1.2.13" />
@@ -849,7 +842,8 @@
     <MESSAGE value="Merge pull requests:&#10;- Add missing typescript declaration #104&#10;- Add read-only properties &quot;width&quot; and &quot;height&quot; to Box #105" />
     <MESSAGE value=" splitToIslands return empty array in case of empty polygon&#10; (Fix bug with splitToIslands PR #114)" />
     <MESSAGE value=" Pull master" />
-    <option name="LAST_COMMIT_MESSAGE" value=" Pull master" />
+    <MESSAGE value=" Support arbitrary SVG attributes" />
+    <option name="LAST_COMMIT_MESSAGE" value=" Support arbitrary SVG attributes" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

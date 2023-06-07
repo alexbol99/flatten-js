@@ -277,9 +277,9 @@ export class Point {
      */
     svg(attrs = {}) {
         let rest_attr = new SVGAttributes(attrs)
-        rest_attr.r = attrs.r ?? 3            // default radius - 3
-        rest_attr.fill = attrs.fill ?? "red"  // default fill - "red"
-        return `\n<circle cx="${this.x}" cy="${this.y}" r="${rest_attr.r || 3}" ${rest_attr.toAttributesString()} />`;
+        rest_attr.r = attrs.r || 3            // default radius - 3
+        rest_attr.fill = attrs.fill || "red"  // default fill - "red"
+        return `\n<circle cx="${this.x}" cy="${this.y}" r="${rest_attr.r}" ${rest_attr.toAttributesString()} />`;
     }
 }
 

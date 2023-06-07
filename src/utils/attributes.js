@@ -10,10 +10,10 @@ class SVGAttributes {
         for(const property in args) {
             this[property] = args[property]
         }
-        this.stroke = args.stroke ?? defaultAttributes.stroke
-        this.strokeWidth = args.strokeWidth ?? defaultAttributes.strokeWidth
-        this.fill = args.fill ?? defaultAttributes.fill
-        this.fillOpacity = args.fillOpacity ?? defaultAttributes.fillOpacity
+        this.stroke = args.stroke || defaultAttributes.stroke
+        this.strokeWidth = args.strokeWidth || defaultAttributes.strokeWidth
+        this.fill = args.fill || defaultAttributes.fill
+        this.fillOpacity = args.fillOpacity || defaultAttributes.fillOpacity
     }
 
     toAttributesString() {
