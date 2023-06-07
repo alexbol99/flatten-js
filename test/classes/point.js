@@ -223,7 +223,7 @@ describe('#Flatten.Point', function() {
     });
     it('Method svg() with extra parameters may add additional attributes', function() {
         let pt = new Point(-2,2);
-        let svg = pt.svg({id:"123",className:"name"});
+        let svg = pt.svg({id:"123",className:"name", r: 5, fill: "green"});
         expect(svg.search("stroke")).to.not.equal(-1);
         expect(svg.search("stroke-width")).to.not.equal(-1);
         expect(svg.search("fill")).to.not.equal(-1);

@@ -17,6 +17,7 @@ import {
 import {Multiline} from "./multiline";
 import {intersectEdge2Line} from "../algorithms/intersection";
 import {INSIDE, BOUNDARY} from "../utils/constants";
+import {convertToString} from "../utils/attributes";
 
 /**
  * Class representing a polygon.<br/>
@@ -656,18 +657,13 @@ export class Polygon {
 
     /**
      * Return string to draw polygon in svg
-     * @param attrs  - an object with attributes for svg path element,
-     * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+     * @param attrs  - an object with attributes for svg path element
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
-        // let restStr = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+        attrs.fillRule = attrs.fillRule ?? "evenodd"
+        attrs.fill = attrs.fill ?? "lightcyan"
+        let svgStr = `\n<path ${convertToString(attrs)} d="`;
         for (let face of this.faces) {
             svgStr += face.svg();
         }

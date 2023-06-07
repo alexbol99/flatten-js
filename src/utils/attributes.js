@@ -1,20 +1,8 @@
-
-const CSSStyleMap = {
-    stroke: "stroke",
-    strokeWidth: "stroke-width",
-    strokeDasharray: "stroke-dasharray",
-    fill: "fill",
-    fillOpacity: "fill-opacity",
-    id: "id",
-    className: "class"
-}
-
 const defaultAttributes = {
     stroke: "black",
     strokeWidth: 1,
-    strokeDasharray: "",
     fill: "none",
-    fillOpacity: 0.8
+    fillOpacity: 1.0
 }
 
 class SVGAttributes {
@@ -24,26 +12,32 @@ class SVGAttributes {
         }
         this.stroke = args.stroke ?? defaultAttributes.stroke
         this.strokeWidth = args.strokeWidth ?? defaultAttributes.strokeWidth
-        this.strokeDasharray = args.strokeDasharray ?? defaultAttributes.strokeDasharray
         this.fill = args.fill ?? defaultAttributes.fill
         this.fillOpacity = args.fillOpacity ?? defaultAttributes.fillOpacity
     }
 
-    toJSON() {
-        let attrCSSStyle = Object.keys(this)
+    toAttributesString() {
+        return Object.keys(this)
             .reduce( (acc, key) =>
-                    acc + (this[key] ? `${CSSStyleMap[key]}="${this[key]}" ` : "")
-            , "")
-        return attrCSSStyle
+                    acc + (this[key] !== undefined ? this.toAttrString(key, this[key]) : "")
+            , ``)
+    }
+
+    toAttrString(key, value) {
+        const SVGKey = key === "className" ? "class" : this.convertCamelToKebabCase(key);
+        return value === null ? `${SVGKey} ` : `${SVGKey}="${value.toString()}" `
+    }
+
+    convertCamelToKebabCase(str) {
+        return str
+            .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+            .join('-')
+            .toLowerCase();
     }
 }
 
-// let attr = new SVGAttributes()
-// console.log(typeof attr, attr)
-//
-// console.log(JSON.stringify(attr))
-// attr2 = {...attr, strokeWidth: 3}
-// console.log(typeof attr2, attr2)
-// console.log(JSON.stringify(attr2))
+export function convertToString(attrs) {
+    return new SVGAttributes(attrs).toAttributesString()
+}
 
 export default SVGAttributes
