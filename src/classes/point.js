@@ -72,7 +72,7 @@ export class Point {
      * @returns {Point}
      */
     clone() {
-        return new Flatten.Point(this.x, this.y);
+        return new this.constructor(this.x, this.y);
     }
 
     get vertices() {
@@ -116,7 +116,7 @@ export class Point {
         var x_rot = center.x + (this.x - center.x) * Math.cos(angle) - (this.y - center.y) * Math.sin(angle);
         var y_rot = center.y + (this.x - center.x) * Math.sin(angle) + (this.y - center.y) * Math.cos(angle);
 
-        return new Flatten.Point(x_rot, y_rot);
+        return new this.constructor(x_rot, y_rot);
     }
 
     /**
@@ -129,11 +129,11 @@ export class Point {
     translate(...args) {
         if (args.length == 1 &&
             (args[0] instanceof Flatten.Vector || !isNaN(args[0].x) && !isNaN(args[0].y))) {
-            return new Flatten.Point(this.x + args[0].x, this.y + args[0].y);
+            return new this.constructor(this.x + args[0].x, this.y + args[0].y);
         }
 
         if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-            return new Flatten.Point(this.x + args[0], this.y + args[1]);
+            return new this.constructor(this.x + args[0], this.y + args[1]);
         }
 
         throw Flatten.Errors.ILLEGAL_PARAMETERS;
@@ -146,7 +146,7 @@ export class Point {
      */
     transform(m) {
         // let [x,y] = m.transform([this.x,this.y]);
-        return new Flatten.Point(m.transform([this.x, this.y]))
+        return new this.constructor(m.transform([this.x, this.y]))
     }
 
     /**
@@ -227,7 +227,7 @@ export class Point {
      * @returns {boolean}
      */
     on(shape) {
-        if (shape instanceof Flatten.Point) {
+        if (shape instanceof Point) {
             return this.equalTo(shape);
         }
 

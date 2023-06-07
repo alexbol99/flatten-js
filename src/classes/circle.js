@@ -49,7 +49,7 @@ export class Circle {
      * @returns {Circle}
      */
     clone() {
-        return new Flatten.Circle(this.pc.clone(), this.r);
+        return new this.constructor(this.pc.clone(), this.r);
     }
 
     /**
@@ -94,7 +94,7 @@ export class Circle {
                 Flatten.Utils.LE(shape.end.distanceTo(this.center)[0], this.r);
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Constructor) {
             return this.intersect(shape).length === 0 &&
                 Flatten.Utils.LE(shape.r, this.r) &&
                 Flatten.Utils.LE(shape.center.distanceTo(this.center)[0], this.r);
@@ -129,7 +129,7 @@ export class Circle {
             return Intersection.intersectSegment2Circle(shape, this);
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Circle) {
             return Intersection.intersectCircle2Circle(shape, this);
         }
 
@@ -159,7 +159,7 @@ export class Circle {
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Circle) {
             let [distance, shortest_segment] = Flatten.Distance.circle2circle(this, shape);
             return [distance, shortest_segment];
         }
