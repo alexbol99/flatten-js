@@ -3,7 +3,7 @@
  */
 
 import Flatten from '../flatten';
-import SVGAttributes from "../utils/attributes";
+import SVGAttributes, {convertToString} from "../utils/attributes";
 
 /**
  *
@@ -276,10 +276,9 @@ export class Point {
      * @returns {String}
      */
     svg(attrs = {}) {
-        let rest_attr = new SVGAttributes(attrs)
-        rest_attr.r = attrs.r || 3            // default radius - 3
-        rest_attr.fill = attrs.fill || "red"  // default fill - "red"
-        return `\n<circle cx="${this.x}" cy="${this.y}" r="${rest_attr.r}" ${rest_attr.toAttributesString()} />`;
+        const r = attrs.r || 3            // default radius - 3
+        return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
+            ${convertToString({fill: "red", ...attrs})} />`;
     }
 }
 

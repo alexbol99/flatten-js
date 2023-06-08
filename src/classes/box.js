@@ -224,9 +224,10 @@ export class Box {
      * @returns {string}
      */
     svg(attrs = {}) {
-        let width = this.xmax - this.xmin;
-        let height = this.ymax - this.ymin;
-        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} ${convertToString(attrs)} />`;
+        const width = this.xmax - this.xmin;
+        const height = this.ymax - this.ymin;
+        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height}
+                ${convertToString({fill: "none", ...attrs})} />`;
     };
 }
 

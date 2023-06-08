@@ -27,16 +27,11 @@ describe('#Flatten.Box', function() {
         let box = new Box(-30, -30, 20, 20);
         let svg = box.svg();
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
-        expect(svg.search("fill")).to.not.equal(-1);
-        expect(svg.search("fill-opacity")).to.not.equal(-1);
     });
     it('Method svg() with extra parameters may add additional attributes', function() {
         let box = new Box(-30, -30, 20, 20);
         let svg = box.svg({fill: "red", fillOpacity: 0.4, id:"123",className:"name"});
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
-        expect(svg.search("fill")).to.not.equal(-1);
         expect(svg.search("id")).to.not.equal(-1);
         expect(svg.search("class")).to.not.equal(-1);
     })

@@ -4,10 +4,7 @@ import { expect } from 'chai';
 import SVGAttributes from "../../src/utils/attributes";
 
 const defaultAttributes = {
-    stroke: "black",
-    strokeWidth: 1,
-    fill: "none",
-    fillOpacity: 1.0
+    stroke: "black"
 }
 
 describe('#SVGAttributes', function() {
@@ -38,13 +35,13 @@ describe('#SVGAttributes', function() {
     it('May transform attributes into svg string', function () {
         const test_attrs = new SVGAttributes({id:"test", className: "test", strokeWidth: 5});
         const svg_string = test_attrs.toAttributesString();
-        const ref_string = `id="test" class="test" stroke-width="5" stroke="black" fill="none" fill-opacity="1" `
+        const ref_string = `id="test" class="test" stroke-width="5" stroke="black" `
         expect(svg_string).to.equal(ref_string)
     });
     it('May support valueless attributes in svg string', function () {
         const test_attrs = new SVGAttributes({id:"test", strokeWidth: 5, disabled: null});
         const svg_string = test_attrs.toAttributesString();
-        const ref_string = `id="test" stroke-width="5" disabled stroke="black" fill="none" fill-opacity="1" `
+        const ref_string = `id="test" stroke-width="5" disabled stroke="black" `
         expect(svg_string).to.equal(ref_string)
     });
 

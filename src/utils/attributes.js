@@ -1,8 +1,5 @@
 const defaultAttributes = {
-    stroke: "black",
-    strokeWidth: 1,
-    fill: "none",
-    fillOpacity: 1.0
+    stroke: "black"
 }
 
 class SVGAttributes {
@@ -11,9 +8,6 @@ class SVGAttributes {
             this[property] = args[property]
         }
         this.stroke = args.stroke || defaultAttributes.stroke
-        this.strokeWidth = args.strokeWidth || defaultAttributes.strokeWidth
-        this.fill = args.fill || defaultAttributes.fill
-        this.fillOpacity = args.fillOpacity || defaultAttributes.fillOpacity
     }
 
     toAttributesString() {

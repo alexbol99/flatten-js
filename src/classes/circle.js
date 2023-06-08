@@ -208,7 +208,8 @@ export class Circle {
      * @returns {string}
      */
     svg(attrs = {}) {
-        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" ${convertToString(attrs)} />`;
+        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}"
+                ${convertToString({fill: "none", ...attrs})} />`;
     }
 
 }

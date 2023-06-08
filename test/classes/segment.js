@@ -110,13 +110,11 @@ describe('#Flatten.Segment', function() {
         let seg = new Segment(point(-2,2), point(2,2));
         let svg = seg.svg();
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
     })
     it('Method svg() with extra parameters may add additional attributes', function() {
         let seg = new Segment(point(-2,2), point(2,2));
         let svg = seg.svg({id:"123",className:"name"});
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
         expect(svg.search("id")).to.not.equal(-1);
         expect(svg.search("class")).to.not.equal(-1);
     })

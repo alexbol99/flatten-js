@@ -2206,10 +2206,7 @@ function ptInIntPoints(new_pt, ip) {
 }
 
 const defaultAttributes = {
-    stroke: "black",
-    strokeWidth: 1,
-    fill: "none",
-    fillOpacity: 1.0
+    stroke: "black"
 };
 
 class SVGAttributes {
@@ -2218,9 +2215,6 @@ class SVGAttributes {
             this[property] = args[property];
         }
         this.stroke = args.stroke || defaultAttributes.stroke;
-        this.strokeWidth = args.strokeWidth || defaultAttributes.strokeWidth;
-        this.fill = args.fill || defaultAttributes.fill;
-        this.fillOpacity = args.fillOpacity || defaultAttributes.fillOpacity;
     }
 
     toAttributesString() {
@@ -4262,10 +4256,9 @@ class Point {
      * @returns {String}
      */
     svg(attrs = {}) {
-        let rest_attr = new SVGAttributes(attrs);
-        rest_attr.r = attrs.r || 3;            // default radius - 3
-        rest_attr.fill = attrs.fill || "red";  // default fill - "red"
-        return `\n<circle cx="${this.x}" cy="${this.y}" r="${rest_attr.r}" ${rest_attr.toAttributesString()} />`;
+        const r = attrs.r || 3;            // default radius - 3
+        return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
+            ${convertToString({fill: "red", ...attrs})} />`;
     }
 }
 
@@ -5457,7 +5450,8 @@ class Circle {
      * @returns {string}
      */
     svg(attrs = {}) {
-        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" ${convertToString(attrs)} />`;
+        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}"
+                ${convertToString({fill: "none", ...attrs})} />`;
     }
 
 }
@@ -6231,9 +6225,10 @@ class Box {
      * @returns {string}
      */
     svg(attrs = {}) {
-        let width = this.xmax - this.xmin;
-        let height = this.ymax - this.ymin;
-        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} ${convertToString(attrs)} />`;
+        const width = this.xmax - this.xmin;
+        const height = this.ymax - this.ymin;
+        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height}
+                ${convertToString({fill: "none", ...attrs})} />`;
     };
 }
 
@@ -7874,9 +7869,7 @@ class Polygon {
      * @returns {string}
      */
     svg(attrs = {}) {
-        attrs.fillRule = attrs.fillRule || "evenodd";
-        attrs.fill = attrs.fill || "lightcyan";
-        let svgStr = `\n<path ${convertToString(attrs)} d="`;
+        let svgStr = `\n<path ${convertToString({fillRule: "evenodd", fill: "lightcyan", ...attrs})} d="`;
         for (let face of this.faces) {
             svgStr += face.svg();
         }
