@@ -187,7 +187,7 @@ export class Multiline extends LinkedList {
      * @returns {string}
      */
     svg(attrs = {}) {
-        let svgStr = `\n<path ${convertToString(attrs)} d="`;
+        let svgStr = `\n<path ${convertToString({fill: "none", ...attrs})} d="`;
         svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
         for (let edge of this) {
             svgStr += edge.svg();

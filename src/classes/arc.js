@@ -529,11 +529,11 @@ export class Arc {
         } else {
             return `\n<path d="M${this.start.x},${this.start.y}
                              A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
-                    ${convertToString(attrs)} />`
+                    ${convertToString({fill: "none", ...attrs})} />`
         }
     }
 
-};
+}
 
 Flatten.Arc = Arc;
 /**

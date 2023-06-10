@@ -35,20 +35,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" Submit distribution builds">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/circle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/attributes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/attributes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/arc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/circle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/segment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/utils/attributes.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/utils/attributes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +128,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Point">
+  <component name="RunManager" selected="npm.build">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -261,9 +249,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.build" />
         <item itemvalue="Mocha.#Flatten.Point" />
         <item itemvalue="Mocha.#SVGAttributes" />
-        <item itemvalue="npm.build" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
       </list>
@@ -460,14 +448,7 @@
       <workItem from="1653111883851" duration="612000" />
       <workItem from="1659172177737" duration="4594000" />
       <workItem from="1686054373419" duration="2604000" />
-      <workItem from="1686118815206" duration="20062000" />
-    </task>
-    <task id="LOCAL-00152" summary="- Fixed bug in Ray::clone() method">
-      <created>1584815700698</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1584815700698</updated>
+      <workItem from="1686118815206" duration="20884000" />
     </task>
     <task id="LOCAL-00153" summary="- Fixed bug in Ray::clone() method">
       <created>1584815754710</created>
@@ -805,7 +786,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686142242155</updated>
     </task>
-    <option name="localTasksCounter" value="201" />
+    <task id="LOCAL-00201" summary=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator">
+      <created>1686250400061</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1686250400061</updated>
+    </task>
+    <option name="localTasksCounter" value="202" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -824,7 +812,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- boolean operations: resolve case of pseudo-boundary conflict and add throw error in case of boundary conflict due to missed intersection" />
     <MESSAGE value="- submit patch v1.2.13" />
     <MESSAGE value="- release patch v1.2.14 with fixBoundaryConflict in boolean operation package" />
     <MESSAGE value="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype" />
@@ -849,7 +836,8 @@
     <MESSAGE value=" Pull master" />
     <MESSAGE value=" Support arbitrary SVG attributes" />
     <MESSAGE value=" Submit distribution builds" />
-    <option name="LAST_COMMIT_MESSAGE" value=" Submit distribution builds" />
+    <MESSAGE value=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator" />
+    <option name="LAST_COMMIT_MESSAGE" value=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
