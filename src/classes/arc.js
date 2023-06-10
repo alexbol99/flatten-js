@@ -5,6 +5,7 @@
 "use strict";
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
+import {convertToString} from "../utils/attributes";
 
 /**
  * Class representing a circular arc
@@ -515,18 +516,12 @@ export class Arc {
 
     /**
      * Return string to draw arc in svg
-     * @param {Object} attrs - an object with attributes of svg path element,
-     * like "stroke", "strokeWidth", "fill" <br/>
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+     * @param {Object} attrs - an object with attributes of svg path element
      * @returns {string}
      */
     svg(attrs = {}) {
         let largeArcFlag = this.sweep <= Math.PI ? "0" : "1";
         let sweepFlag = this.counterClockwise ? "1" : "0";
-        let {stroke, strokeWidth, fill, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
 
         if (Flatten.Utils.EQ(this.sweep, 2 * Math.PI)) {
             let circle = new Flatten.Circle(this.pc, this.r);
@@ -534,11 +529,11 @@ export class Arc {
         } else {
             return `\n<path d="M${this.start.x},${this.start.y}
                              A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
-                    stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`
+                    ${convertToString({fill: "none", ...attrs})} />`
         }
     }
 
-};
+}
 
 Flatten.Arc = Arc;
 /**

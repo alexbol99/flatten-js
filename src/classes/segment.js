@@ -6,6 +6,7 @@
 "use strict";
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
+import {convertToString} from "../utils/attributes";
 
 /**
  * Class representing a segment
@@ -377,16 +378,9 @@ export class Segment {
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" ${id_str} ${class_str} />`;
-
+        return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" ${convertToString(attrs)} />`;
     }
-
-};
+}
 
 Flatten.Segment = Segment;
 /**

@@ -6,6 +6,7 @@
 
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
+import {convertToString} from "../utils/attributes";
 
 /**
  * Class representing a circle
@@ -203,17 +204,12 @@ export class Circle {
 
     /**
      * Return string to draw circle in svg
-     * @param {Object} attrs - an object with attributes of svg circle element,
-     * like "stroke", "strokeWidth", "fill" <br/>
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+     * @param {Object} attrs - an object with attributes of svg circle element
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillOpacity, id, className} = attrs;
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} />`;
+        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}"
+                ${convertToString({fill: "none", ...attrs})} />`;
     }
 
 }

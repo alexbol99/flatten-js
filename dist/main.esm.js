@@ -2205,6 +2205,42 @@ function ptInIntPoints(new_pt, ip) {
     return ip.some( pt => pt.equalTo(new_pt) )
 }
 
+const defaultAttributes = {
+    stroke: "black"
+};
+
+class SVGAttributes {
+    constructor(args = defaultAttributes) {
+        for(const property in args) {
+            this[property] = args[property];
+        }
+        this.stroke = args.stroke || defaultAttributes.stroke;
+    }
+
+    toAttributesString() {
+        return Object.keys(this)
+            .reduce( (acc, key) =>
+                    acc + (this[key] !== undefined ? this.toAttrString(key, this[key]) : "")
+            , ``)
+    }
+
+    toAttrString(key, value) {
+        const SVGKey = key === "className" ? "class" : this.convertCamelToKebabCase(key);
+        return value === null ? `${SVGKey} ` : `${SVGKey}="${value.toString()}" `
+    }
+
+    convertCamelToKebabCase(str) {
+        return str
+            .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+            .join('-')
+            .toLowerCase();
+    }
+}
+
+function convertToString(attrs) {
+    return new SVGAttributes(attrs).toAttributesString()
+}
+
 /**
  * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
  * [segment]{@link Flatten.Segment}, [arc]{@link Flatten.Arc}, [line]{@link Flatten.Line} or [ray]{@link Flatten.Ray}
@@ -2382,24 +2418,17 @@ class Multiline extends LinkedList {
 
     /**
      * Return string to draw multiline in svg
-     * @param attrs  - an object with attributes for svg path element,
-     * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+     * @param attrs  - an object with attributes for svg path element
      * TODO: support semi-infinite Ray and infinite Line
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+        let svgStr = `\n<path ${convertToString({fill: "none", ...attrs})} d="`;
         svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
         for (let edge of this) {
             svgStr += edge.svg();
         }
         svgStr += `" >\n</path>`;
-
         return svgStr;
     }
 }
@@ -4227,14 +4256,12 @@ class Point {
      * @returns {String}
      */
     svg(attrs = {}) {
-        let {r, stroke, strokeWidth, fill, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-        return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 3}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${id_str} ${class_str} />`;
+        const r = attrs.r || 3;            // default radius - 3
+        return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
+            ${convertToString({fill: "red", ...attrs})} />`;
     }
-
 }
+
 Flatten.Point = Point;
 /**
  * Function to create point equivalent to "new" constructor
@@ -4864,16 +4891,10 @@ class Segment {
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" ${id_str} ${class_str} />`;
-
+        return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" ${convertToString(attrs)} />`;
     }
-
 }
+
 Flatten.Segment = Segment;
 /**
  * Shortcut method to create new segment
@@ -5425,17 +5446,12 @@ class Circle {
 
     /**
      * Return string to draw circle in svg
-     * @param {Object} attrs - an object with attributes of svg circle element,
-     * like "stroke", "strokeWidth", "fill" <br/>
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+     * @param {Object} attrs - an object with attributes of svg circle element
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillOpacity, id, className} = attrs;
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} />`;
+        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}"
+                ${convertToString({fill: "none", ...attrs})} />`;
     }
 
 }
@@ -5961,18 +5977,12 @@ class Arc {
 
     /**
      * Return string to draw arc in svg
-     * @param {Object} attrs - an object with attributes of svg path element,
-     * like "stroke", "strokeWidth", "fill" <br/>
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+     * @param {Object} attrs - an object with attributes of svg path element
      * @returns {string}
      */
     svg(attrs = {}) {
         let largeArcFlag = this.sweep <= Math.PI ? "0" : "1";
         let sweepFlag = this.counterClockwise ? "1" : "0";
-        let {stroke, strokeWidth, fill, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
 
         if (Flatten.Utils.EQ(this.sweep, 2 * Math.PI)) {
             let circle = new Flatten.Circle(this.pc, this.r);
@@ -5980,11 +5990,12 @@ class Arc {
         } else {
             return `\n<path d="M${this.start.x},${this.start.y}
                              A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
-                    stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`
+                    ${convertToString({fill: "none", ...attrs})} />`
         }
     }
 
 }
+
 Flatten.Arc = Arc;
 /**
  * Function to create arc equivalent to "new" constructor
@@ -6210,20 +6221,15 @@ class Box {
     }
 
     /**
-     * Return string to draw circle in svg
-     * @param {Object} attrs - an object with attributes of svg rectangle element,
-     * like "stroke", "strokeWidth", "fill" <br/>
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+     * Return string to draw box in svg
+     * @param {Object} attrs - an object with attributes of svg rectangle element
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillOpacity, id, className} = attrs;
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-        let width = this.xmax - this.xmin;
-        let height = this.ymax - this.ymin;
-
-        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} />`;
+        const width = this.xmax - this.xmin;
+        const height = this.ymax - this.ymin;
+        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height}
+                ${convertToString({fill: "none", ...attrs})} />`;
     };
 }
 
@@ -7860,18 +7866,11 @@ class Polygon {
 
     /**
      * Return string to draw polygon in svg
-     * @param attrs  - an object with attributes for svg path element,
-     * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+     * @param attrs  - an object with attributes for svg path element
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
-        // let restStr = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+        let svgStr = `\n<path ${convertToString({fillRule: "evenodd", fill: "lightcyan", ...attrs})} d="`;
         for (let face of this.faces) {
             svgStr += face.svg();
         }

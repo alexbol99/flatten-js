@@ -35,13 +35,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/circle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/box.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,21 +97,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs.mocha.mocha_node_package_dir": "/Users/alexanderbol/WebstormProjects/flatten-js/node_modules/mocha",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;svg__attributes&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.mocha.mocha_node_package_dir&quot;: &quot;/Users/alexanderbol/WebstormProjects/flatten-js/node_modules/mocha&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js" />
@@ -199,19 +196,33 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Point" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
-      <extra-mocha-options>--require @babel/register</extra-mocha-options>
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
+      <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/classes/point.js</test-file>
       <test-names>
-        <name value="#Flatten.Polygon" />
-        <name value="Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
+        <name value="#Flatten.Point" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="#SVGAttributes" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/utils/attributes.js</test-file>
+      <test-names>
+        <name value="#SVGAttributes" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -231,17 +242,19 @@
     <list>
       <item itemvalue="Mocha.#Flatten.Box" />
       <item itemvalue="Mocha.#test esm" />
+      <item itemvalue="Mocha.#Flatten.Point" />
+      <item itemvalue="Mocha.#SVGAttributes" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
-      <item itemvalue="Mocha.#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
       <item itemvalue="npm.build" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="npm.build" />
+        <item itemvalue="Mocha.#Flatten.Point" />
+        <item itemvalue="Mocha.#SVGAttributes" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
-        <item itemvalue="Mocha.#Flatten.Polygon.Can split polygon into islands (issue #9 in @flatten-js/boolean-op)" />
       </list>
     </recent_temporary>
   </component>
@@ -436,41 +449,8 @@
       <workItem from="1653111883851" duration="612000" />
       <workItem from="1659172177737" duration="4594000" />
       <workItem from="1686054373419" duration="2604000" />
-    </task>
-    <task id="LOCAL-00149" summary="- Fix bug in line split">
-      <created>1582719154238</created>
-      <option name="number" value="00149" />
-      <option name="presentableId" value="LOCAL-00149" />
-      <option name="project" value="LOCAL" />
-      <updated>1582719154238</updated>
-    </task>
-    <task id="LOCAL-00150" summary="- Add method Multiline::Box">
-      <created>1584080987391</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1584080987392</updated>
-    </task>
-    <task id="LOCAL-00151" summary="- Add methods Polygon::cut(), Line::split(), Line.sortPoints()&#10;- Simplify code, fix bugs and add tests for relation algorithms (not completed)">
-      <created>1584806805655</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1584806805656</updated>
-    </task>
-    <task id="LOCAL-00152" summary="- Fixed bug in Ray::clone() method">
-      <created>1584815700698</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1584815700698</updated>
-    </task>
-    <task id="LOCAL-00153" summary="- Fixed bug in Ray::clone() method">
-      <created>1584815754710</created>
-      <option name="number" value="00153" />
-      <option name="presentableId" value="LOCAL-00153" />
-      <option name="project" value="LOCAL" />
-      <updated>1584815754710</updated>
+      <workItem from="1686118815206" duration="20884000" />
+      <workItem from="1686404714564" duration="802000" />
     </task>
     <task id="LOCAL-00154" summary="- Fixed bug in relationLine2Circle">
       <created>1584816458136</created>
@@ -780,7 +760,42 @@
       <option name="project" value="LOCAL" />
       <updated>1659174226722</updated>
     </task>
-    <option name="localTasksCounter" value="198" />
+    <task id="LOCAL-00198" summary=" Pull master">
+      <created>1686118951608</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1686118951608</updated>
+    </task>
+    <task id="LOCAL-00199" summary=" Support arbitrary SVG attributes">
+      <created>1686140026461</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1686140026461</updated>
+    </task>
+    <task id="LOCAL-00200" summary=" Submit distribution builds">
+      <created>1686142242155</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1686142242155</updated>
+    </task>
+    <task id="LOCAL-00201" summary=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator">
+      <created>1686250400061</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1686250400061</updated>
+    </task>
+    <task id="LOCAL-00202" summary=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline">
+      <created>1686405441169</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
+      <option name="project" value="LOCAL" />
+      <updated>1686405441169</updated>
+    </task>
+    <option name="localTasksCounter" value="203" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -799,11 +814,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Issue #57 distanceTo between Polygons: First point of segment is not always on the 'this' polygon&#10;- fix shortest segment in Distance::segment2segment function" />
-    <MESSAGE value="- create patch v1.2.12" />
-    <MESSAGE value="- added fixBoundaryConflict case of tiny edge wrongly detected as boundary (issue #55 case 0)" />
-    <MESSAGE value="- boolean operations: resolve case of pseudo-boundary conflict and add throw error in case of boundary conflict due to missed intersection" />
-    <MESSAGE value="- submit patch v1.2.13" />
     <MESSAGE value="- release patch v1.2.14 with fixBoundaryConflict in boolean operation package" />
     <MESSAGE value="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype" />
     <MESSAGE value="- submit dist" />
@@ -824,7 +834,12 @@
     <MESSAGE value="- Another bug fixed in method polygon.cutWithLine() - consider case when line touch vertex in hole&#10;- Some code clean-up" />
     <MESSAGE value="Merge pull requests:&#10;- Add missing typescript declaration #104&#10;- Add read-only properties &quot;width&quot; and &quot;height&quot; to Box #105" />
     <MESSAGE value=" splitToIslands return empty array in case of empty polygon&#10; (Fix bug with splitToIslands PR #114)" />
-    <option name="LAST_COMMIT_MESSAGE" value=" splitToIslands return empty array in case of empty polygon&#10; (Fix bug with splitToIslands PR #114)" />
+    <MESSAGE value=" Pull master" />
+    <MESSAGE value=" Support arbitrary SVG attributes" />
+    <MESSAGE value=" Submit distribution builds" />
+    <MESSAGE value=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator" />
+    <MESSAGE value=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline" />
+    <option name="LAST_COMMIT_MESSAGE" value=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -843,7 +858,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/classes/segment.js</url>
-          <line>217</line>
+          <line>215</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

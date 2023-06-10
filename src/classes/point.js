@@ -3,6 +3,7 @@
  */
 
 import Flatten from '../flatten';
+import SVGAttributes, {convertToString} from "../utils/attributes";
 
 /**
  *
@@ -275,14 +276,11 @@ export class Point {
      * @returns {String}
      */
     svg(attrs = {}) {
-        let {r, stroke, strokeWidth, fill, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-        return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 3}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${id_str} ${class_str} />`;
+        const r = attrs.r || 3            // default radius - 3
+        return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
+            ${convertToString({fill: "red", ...attrs})} />`;
     }
-
-};
+}
 
 Flatten.Point = Point;
 /**

@@ -3,6 +3,7 @@
 import Flatten from '../flatten';
 import LinkedList from '../data_structures/linked_list';
 import {END_VERTEX, NOT_VERTEX, START_VERTEX} from "../utils/constants";
+import {convertToString} from "../utils/attributes";
 
 /**
  * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
@@ -181,24 +182,17 @@ export class Multiline extends LinkedList {
 
     /**
      * Return string to draw multiline in svg
-     * @param attrs  - an object with attributes for svg path element,
-     * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+     * @param attrs  - an object with attributes for svg path element
      * TODO: support semi-infinite Ray and infinite Line
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+        let svgStr = `\n<path ${convertToString({fill: "none", ...attrs})} d="`;
         svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
         for (let edge of this) {
             svgStr += edge.svg();
         }
         svgStr += `" >\n</path>`;
-
         return svgStr;
     }
 }
