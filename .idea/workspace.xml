@@ -35,8 +35,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,22 +97,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "svg__attributes",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs.mocha.mocha_node_package_dir": "/Users/alexanderbol/WebstormProjects/flatten-js/node_modules/mocha",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;svg__attributes&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.mocha.mocha_node_package_dir&quot;: &quot;/Users/alexanderbol/WebstormProjects/flatten-js/node_modules/mocha&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js" />
@@ -449,13 +450,7 @@
       <workItem from="1659172177737" duration="4594000" />
       <workItem from="1686054373419" duration="2604000" />
       <workItem from="1686118815206" duration="20884000" />
-    </task>
-    <task id="LOCAL-00153" summary="- Fixed bug in Ray::clone() method">
-      <created>1584815754710</created>
-      <option name="number" value="00153" />
-      <option name="presentableId" value="LOCAL-00153" />
-      <option name="project" value="LOCAL" />
-      <updated>1584815754710</updated>
+      <workItem from="1686404714564" duration="802000" />
     </task>
     <task id="LOCAL-00154" summary="- Fixed bug in relationLine2Circle">
       <created>1584816458136</created>
@@ -793,7 +788,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686250400061</updated>
     </task>
-    <option name="localTasksCounter" value="202" />
+    <task id="LOCAL-00202" summary=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline">
+      <created>1686405441169</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
+      <option name="project" value="LOCAL" />
+      <updated>1686405441169</updated>
+    </task>
+    <option name="localTasksCounter" value="203" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -812,7 +814,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- submit patch v1.2.13" />
     <MESSAGE value="- release patch v1.2.14 with fixBoundaryConflict in boolean operation package" />
     <MESSAGE value="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype" />
     <MESSAGE value="- submit dist" />
@@ -837,7 +838,8 @@
     <MESSAGE value=" Support arbitrary SVG attributes" />
     <MESSAGE value=" Submit distribution builds" />
     <MESSAGE value=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator" />
-    <option name="LAST_COMMIT_MESSAGE" value=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator" />
+    <MESSAGE value=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline" />
+    <option name="LAST_COMMIT_MESSAGE" value=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

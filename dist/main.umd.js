@@ -2429,7 +2429,7 @@
          * @returns {string}
          */
         svg(attrs = {}) {
-            let svgStr = `\n<path ${convertToString(attrs)} d="`;
+            let svgStr = `\n<path ${convertToString({fill: "none", ...attrs})} d="`;
             svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
             for (let edge of this) {
                 svgStr += edge.svg();
@@ -5996,11 +5996,12 @@
             } else {
                 return `\n<path d="M${this.start.x},${this.start.y}
                              A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
-                    ${convertToString(attrs)} />`
+                    ${convertToString({fill: "none", ...attrs})} />`
             }
         }
 
     }
+
     Flatten.Arc = Arc;
     /**
      * Function to create arc equivalent to "new" constructor
