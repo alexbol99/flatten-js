@@ -7,7 +7,7 @@ class SVGAttributes {
         for(const property in args) {
             this[property] = args[property]
         }
-        this.stroke = args.stroke || defaultAttributes.stroke
+        this.stroke = args.stroke ?? defaultAttributes.stroke
     }
 
     toAttributesString() {

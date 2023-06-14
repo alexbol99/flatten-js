@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = global || self, factory(global['@flatten-js/core'] = {}));
-}(this, function (exports) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["@flatten-js/core"] = {}));
+})(this, (function (exports) { 'use strict';
 
     /**
      * Global constant CCW defines counter clockwise direction of arc
@@ -25,34 +25,35 @@
 
     const PIx2 = 2 * Math.PI;
 
-    const INSIDE = 1;
-    const OUTSIDE = 0;
-    const BOUNDARY = 2;
+    const INSIDE$2 = 1;
+    const OUTSIDE$1 = 0;
+    const BOUNDARY$1 = 2;
     const CONTAINS = 3;
     const INTERLACE = 4;
 
-    const OVERLAP_SAME = 1;
-    const OVERLAP_OPPOSITE = 2;
+    const OVERLAP_SAME$1 = 1;
+    const OVERLAP_OPPOSITE$1 = 2;
 
-    const NOT_VERTEX = 0;
-    const START_VERTEX = 1;
-    const END_VERTEX = 2;
+    const NOT_VERTEX$1 = 0;
+    const START_VERTEX$1 = 1;
+    const END_VERTEX$1 = 2;
 
     var Constants = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        BOUNDARY: BOUNDARY$1,
         CCW: CCW,
-        CW: CW,
-        ORIENTATION: ORIENTATION,
-        PIx2: PIx2,
-        INSIDE: INSIDE,
-        OUTSIDE: OUTSIDE,
-        BOUNDARY: BOUNDARY,
         CONTAINS: CONTAINS,
+        CW: CW,
+        END_VERTEX: END_VERTEX$1,
+        INSIDE: INSIDE$2,
         INTERLACE: INTERLACE,
-        OVERLAP_SAME: OVERLAP_SAME,
-        OVERLAP_OPPOSITE: OVERLAP_OPPOSITE,
-        NOT_VERTEX: NOT_VERTEX,
-        START_VERTEX: START_VERTEX,
-        END_VERTEX: END_VERTEX
+        NOT_VERTEX: NOT_VERTEX$1,
+        ORIENTATION: ORIENTATION,
+        OUTSIDE: OUTSIDE$1,
+        OVERLAP_OPPOSITE: OVERLAP_OPPOSITE$1,
+        OVERLAP_SAME: OVERLAP_SAME$1,
+        PIx2: PIx2,
+        START_VERTEX: START_VERTEX$1
     });
 
     /**
@@ -140,16 +141,17 @@
         return (x - y < DP_TOL);
     }
 
-    var Utils = /*#__PURE__*/Object.freeze({
-        setTolerance: setTolerance,
-        getTolerance: getTolerance,
+    var Utils$1 = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         DECIMALS: DECIMALS,
-        EQ_0: EQ_0,
         EQ: EQ,
-        GT: GT,
+        EQ_0: EQ_0,
         GE: GE,
+        GT: GT,
+        LE: LE,
         LT: LT,
-        LE: LE
+        getTolerance: getTolerance,
+        setTolerance: setTolerance
     });
 
     /**
@@ -195,11 +197,12 @@
     }
 
     var errors = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         default: Errors
     });
 
     let Flatten = {
-        Utils: Utils,
+        Utils: Utils$1,
         Errors: Errors,
         Matrix: undefined,
         Planar_set: undefined,
@@ -412,15 +415,15 @@
             len = shapes[0].length;
         }
 
-        let is_vertex = NOT_VERTEX;
+        let is_vertex = NOT_VERTEX$1;
         if (EQ(len, 0)) {
-            is_vertex |= START_VERTEX;
+            is_vertex |= START_VERTEX$1;
         }
         if (EQ(len, edge.shape.length)) {
-            is_vertex |= END_VERTEX;
+            is_vertex |= END_VERTEX$1;
         }
         // Fix intersection point which is end point of the last edge
-        let arc_length = (is_vertex & END_VERTEX) && edge.next.arc_length === 0 ? 0 : edge.arc_length + len;
+        let arc_length = (is_vertex & END_VERTEX$1) && edge.next.arc_length === 0 ? 0 : edge.arc_length + len;
 
         int_points.push({
             id: id,
@@ -589,8 +592,8 @@
         }
 
         for (let int_point of int_points) {
-            int_point.edge_before.bvEnd = BOUNDARY;
-            int_point.edge_after.bvStart = BOUNDARY;
+            int_point.edge_before.bvEnd = BOUNDARY$1;
+            int_point.edge_after.bvStart = BOUNDARY$1;
         }
     }
 
@@ -647,7 +650,7 @@
             let edge_from1 = cur_int_point1.edge_after;
             let edge_to1 = next_int_point1.edge_before;
 
-            if (!(edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY))      // not a boundary chain - skip
+            if (!(edge_from1.bv === BOUNDARY$1 && edge_to1.bv === BOUNDARY$1))      // not a boundary chain - skip
                 continue;
 
             if (edge_from1 !== edge_to1)                    //  one edge chain    TODO: support complex case
@@ -662,7 +665,7 @@
 
             /* if [edge_from2..edge_to2] is not a boundary chain, invert it */
             /* check also that chain consist of one or two edges */
-            if (!(edge_from2.bv === BOUNDARY && edge_to2.bv === BOUNDARY && edge_from2 === edge_to2)) {
+            if (!(edge_from2.bv === BOUNDARY$1 && edge_to2.bv === BOUNDARY$1 && edge_from2 === edge_to2)) {
                 cur_int_point2 = intersections.int_points2[next_int_point1.id];
                 next_int_point2 = intersections.int_points2[cur_int_point1.id];
 
@@ -670,7 +673,7 @@
                 edge_to2 = next_int_point2.edge_before;
             }
 
-            if (!(edge_from2.bv === BOUNDARY && edge_to2.bv === BOUNDARY && edge_from2 === edge_to2))
+            if (!(edge_from2.bv === BOUNDARY$1 && edge_to2.bv === BOUNDARY$1 && edge_from2 === edge_to2))
                 continue;                           // not an overlapping chain - skip   TODO: fix boundary conflict
 
             // Set overlapping flag - one-to-one case
@@ -714,20 +717,20 @@
             let edge = int_point.edge_before;
 
             // recalculate vertex flag: it may be changed after previous split
-            int_point.is_vertex = NOT_VERTEX;
+            int_point.is_vertex = NOT_VERTEX$1;
             if (edge.shape.start && edge.shape.start.equalTo(int_point.pt)) {
-                int_point.is_vertex |= START_VERTEX;
+                int_point.is_vertex |= START_VERTEX$1;
             }
             if (edge.shape.end && edge.shape.end.equalTo(int_point.pt)) {
-                int_point.is_vertex |= END_VERTEX;
+                int_point.is_vertex |= END_VERTEX$1;
             }
 
-            if (int_point.is_vertex & START_VERTEX) {  // nothing to split
+            if (int_point.is_vertex & START_VERTEX$1) {  // nothing to split
                 int_point.edge_before = edge.prev;
-                int_point.is_vertex = END_VERTEX;
+                int_point.is_vertex = END_VERTEX$1;
                 continue;
             }
-            if (int_point.is_vertex & END_VERTEX) {    // nothing to split
+            if (int_point.is_vertex & END_VERTEX$1) {    // nothing to split
                 continue;
             }
 
@@ -754,9 +757,12 @@
     /**
      * Created by Alex Bol on 12/02/2018.
      */
+    /**
+     * @module BooleanOperations
+     */
 
-    const {INSIDE: INSIDE$1, OUTSIDE: OUTSIDE$1, BOUNDARY: BOUNDARY$1, OVERLAP_SAME: OVERLAP_SAME$1, OVERLAP_OPPOSITE: OVERLAP_OPPOSITE$1} = Constants;
-    const {NOT_VERTEX: NOT_VERTEX$1, START_VERTEX: START_VERTEX$1, END_VERTEX: END_VERTEX$1} = Constants;
+    const {INSIDE: INSIDE$1, OUTSIDE, BOUNDARY, OVERLAP_SAME, OVERLAP_OPPOSITE} = Constants;
+    const {NOT_VERTEX, START_VERTEX, END_VERTEX} = Constants;
 
     const BOOLEAN_UNION = 1;
     const BOOLEAN_INTERSECT = 2;
@@ -796,7 +802,7 @@
      * @param {Polygon} polygon2 - second operand
      * @returns {Polygon}
      */
-    function intersect(polygon1, polygon2) {
+    function intersect$1(polygon1, polygon2) {
         let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_INTERSECT, true);
         return res_poly;
     }
@@ -1054,19 +1060,19 @@
             let edge_to1 = next_int_point1.edge_before;
 
             // Case #1. One of the ends is not boundary - probably tiny edge wrongly marked as boundary
-            if (edge_from1.bv === BOUNDARY$1 && edge_to1.bv != BOUNDARY$1) {
+            if (edge_from1.bv === BOUNDARY && edge_to1.bv != BOUNDARY) {
                 edge_from1.bv = edge_to1.bv;
                 continue;
             }
 
-            if (edge_from1.bv != BOUNDARY$1 && edge_to1.bv === BOUNDARY$1) {
+            if (edge_from1.bv != BOUNDARY && edge_to1.bv === BOUNDARY) {
                 edge_to1.bv = edge_from1.bv;
                 continue;
             }
 
             // Set up all boundary values for middle edges. Need for cases 2 and 3
-            if ( (edge_from1.bv === BOUNDARY$1 && edge_to1.bv === BOUNDARY$1 && edge_from1 != edge_to1) ||
-            (edge_from1.bv === INSIDE$1 && edge_to1.bv === OUTSIDE$1  || edge_from1.bv === OUTSIDE$1 && edge_to1.bv === INSIDE$1 ) ) {
+            if ( (edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY && edge_from1 != edge_to1) ||
+            (edge_from1.bv === INSIDE$1 && edge_to1.bv === OUTSIDE  || edge_from1.bv === OUTSIDE && edge_to1.bv === INSIDE$1 ) ) {
                 let edge_tmp = edge_from1.next;
                 while (edge_tmp != edge_to1) {
                     edge_tmp.bvStart = undefined;
@@ -1079,11 +1085,11 @@
 
             // Case #2. Both of the ends boundary. Check all the edges in the middle
             // If some edges in the middle are not boundary then update bv of 'from' and 'to' edges
-            if (edge_from1.bv === BOUNDARY$1 && edge_to1.bv === BOUNDARY$1 && edge_from1 != edge_to1) {
+            if (edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY && edge_from1 != edge_to1) {
                 let edge_tmp = edge_from1.next;
                 let new_bv;
                 while (edge_tmp != edge_to1) {
-                    if (edge_tmp.bv != BOUNDARY$1) {
+                    if (edge_tmp.bv != BOUNDARY) {
                         if (new_bv === undefined) {        // first not boundary edge between from and to
                             new_bv = edge_tmp.bv;
                         }
@@ -1104,7 +1110,7 @@
             }
 
             // Case 3. One of the ends is inner, another is outer
-            if (edge_from1.bv === INSIDE$1 && edge_to1.bv === OUTSIDE$1  || edge_from1.bv === OUTSIDE$1 && edge_to1.bv === INSIDE$1 ) {
+            if (edge_from1.bv === INSIDE$1 && edge_to1.bv === OUTSIDE  || edge_from1.bv === OUTSIDE && edge_to1.bv === INSIDE$1 ) {
                 let edge_tmp = edge_from1;
                 // Find missing intersection point
                 while (edge_tmp != edge_to1) {
@@ -1117,16 +1123,16 @@
 
                             // split edge_tmp in poly1 if need
                             let int_point1 = int_points1[int_points1.length-1];
-                            if (int_point1.is_vertex & START_VERTEX$1) {        // nothing to split
+                            if (int_point1.is_vertex & START_VERTEX) {        // nothing to split
                                 int_point1.edge_after = edge_tmp;
                                 int_point1.edge_before = edge_tmp.prev;
-                                edge_tmp.bvStart = BOUNDARY$1;
+                                edge_tmp.bvStart = BOUNDARY;
                                 edge_tmp.bv = undefined;
                                 edge_tmp.setInclusion(poly2);
                             }
-                            else if (int_point1.is_vertex & END_VERTEX$1) {    // nothing to split
+                            else if (int_point1.is_vertex & END_VERTEX) {    // nothing to split
                                 int_point1.edge_after = edge_tmp.next;
-                                edge_tmp.bvEnd = BOUNDARY$1;
+                                edge_tmp.bvEnd = BOUNDARY;
                                 edge_tmp.bv = undefined;
                                 edge_tmp.setInclusion(poly2);
                             }
@@ -1137,7 +1143,7 @@
 
                                 newEdge1.setInclusion(poly2);
 
-                                newEdge1.next.bvStart = BOUNDARY$1;
+                                newEdge1.next.bvStart = BOUNDARY;
                                 newEdge1.next.bvEnd = undefined;
                                 newEdge1.next.bv = undefined;
                                 newEdge1.next.setInclusion(poly2);
@@ -1148,11 +1154,11 @@
                             addToIntPoints(edge2, segment.pe, int_points2);
                             // split edge2 in poly2 if need
                             let int_point2 = int_points2[int_points2.length-1];
-                            if (int_point2.is_vertex & START_VERTEX$1) {        // nothing to split
+                            if (int_point2.is_vertex & START_VERTEX) {        // nothing to split
                                 int_point2.edge_after = edge2;
                                 int_point2.edge_before = edge2.prev;
                             }
-                            else if (int_point2.is_vertex & END_VERTEX$1) {    // nothing to split
+                            else if (int_point2.is_vertex & END_VERTEX) {    // nothing to split
                                 int_point2.edge_after = edge2.next;
                             }
                             else {        // split edge here
@@ -1168,11 +1174,11 @@
                                     int_point2_edge_after.edge_after = newEdge2;
 
                                 newEdge2.bvStart = undefined;
-                                newEdge2.bvEnd = BOUNDARY$1;
+                                newEdge2.bvEnd = BOUNDARY;
                                 newEdge2.bv = undefined;
                                 newEdge2.setInclusion(poly1);
 
-                                newEdge2.next.bvStart = BOUNDARY$1;
+                                newEdge2.next.bvStart = BOUNDARY;
                                 newEdge2.next.bvEnd = undefined;
                                 newEdge2.next.bv = undefined;
                                 newEdge2.next.setInclusion(poly1);
@@ -1240,11 +1246,11 @@
             let edge_to = int_point_next.edge_before;
 
             if ((edge_from.bv === INSIDE$1 && edge_to.bv === INSIDE$1 && op === BOOLEAN_UNION) ||
-                (edge_from.bv === OUTSIDE$1 && edge_to.bv === OUTSIDE$1 && op === BOOLEAN_INTERSECT) ||
-                ((edge_from.bv === OUTSIDE$1 || edge_to.bv === OUTSIDE$1) && op === BOOLEAN_SUBTRACT && !is_res_polygon) ||
+                (edge_from.bv === OUTSIDE && edge_to.bv === OUTSIDE && op === BOOLEAN_INTERSECT) ||
+                ((edge_from.bv === OUTSIDE || edge_to.bv === OUTSIDE) && op === BOOLEAN_SUBTRACT && !is_res_polygon) ||
                 ((edge_from.bv === INSIDE$1 || edge_to.bv === INSIDE$1) && op === BOOLEAN_SUBTRACT && is_res_polygon) ||
-                (edge_from.bv === BOUNDARY$1 && edge_to.bv === BOUNDARY$1 && (edge_from.overlap & OVERLAP_SAME$1) && is_res_polygon) ||
-                (edge_from.bv === BOUNDARY$1 && edge_to.bv === BOUNDARY$1 && (edge_from.overlap & OVERLAP_OPPOSITE$1))) {
+                (edge_from.bv === BOUNDARY && edge_to.bv === BOUNDARY && (edge_from.overlap & OVERLAP_SAME) && is_res_polygon) ||
+                (edge_from.bv === BOUNDARY && edge_to.bv === BOUNDARY && (edge_from.overlap & OVERLAP_OPPOSITE))) {
 
                 polygon.removeChain(cur_face, edge_from, edge_to);
 
@@ -1409,8 +1415,8 @@
             let rel = face.first.bv;
             if (op === BOOLEAN_UNION && rel === INSIDE$1 ||
                 op === BOOLEAN_SUBTRACT && rel === INSIDE$1 && is_res_polygon ||
-                op === BOOLEAN_SUBTRACT && rel === OUTSIDE$1 && !is_res_polygon ||
-                op === BOOLEAN_INTERSECT && rel === OUTSIDE$1) {
+                op === BOOLEAN_SUBTRACT && rel === OUTSIDE && !is_res_polygon ||
+                op === BOOLEAN_INTERSECT && rel === OUTSIDE) {
 
                 polygon.deleteFace(face);
             }
@@ -1418,18 +1424,19 @@
     }
 
     var BooleanOperations = /*#__PURE__*/Object.freeze({
-        BOOLEAN_UNION: BOOLEAN_UNION,
+        __proto__: null,
         BOOLEAN_INTERSECT: BOOLEAN_INTERSECT,
         BOOLEAN_SUBTRACT: BOOLEAN_SUBTRACT,
-        unify: unify,
-        subtract: subtract,
-        intersect: intersect,
-        innerClip: innerClip,
-        outerClip: outerClip,
+        BOOLEAN_UNION: BOOLEAN_UNION,
         calculateIntersections: calculateIntersections,
+        innerClip: innerClip,
+        intersect: intersect$1,
+        outerClip: outerClip,
         removeNotRelevantChains: removeNotRelevantChains,
         removeOldFaces: removeOldFaces,
-        restoreFaces: restoreFaces
+        restoreFaces: restoreFaces,
+        subtract: subtract,
+        unify: unify
     });
 
     /*
@@ -1440,7 +1447,7 @@
     const EQUAL = RegExp('T.F..FFF.|T.F...F..');
     const INTERSECT = RegExp('T........|.T.......|...T.....|....T....');
     const TOUCH = RegExp('FT.......|F..T.....|F...T....');
-    const INSIDE$2 = RegExp('T.F..F...');
+    const INSIDE = RegExp('T.F..F...');
     const COVERED = RegExp('T.F..F...|.TF..F...|..FT.F...|..F.TF...');
 
     class DE9IM {
@@ -1634,7 +1641,7 @@
         }
 
         inside() {
-            return INSIDE$2.test(this.toString());
+            return INSIDE.test(this.toString());
         }
 
         covered() {
@@ -1646,6 +1653,7 @@
      * Intersection
      *
      * */
+
 
     function intersectLine2Line(line1, line2) {
         let ip = [];
@@ -2220,7 +2228,7 @@
             for(const property in args) {
                 this[property] = args[property];
             }
-            this.stroke = args.stroke || defaultAttributes.stroke;
+            this.stroke = args.stroke ?? defaultAttributes.stroke;
         }
 
         toAttributesString() {
@@ -2268,7 +2276,7 @@
                     // TODO: more strict validation:
                     // there may be only one line
                     // only first and last may be rays
-                    let validShapes = shapes.every((shape) => {
+                    shapes.every((shape) => {
                         return shape instanceof Flatten.Segment ||
                             shape instanceof Flatten.Arc ||
                             shape instanceof Flatten.Ray ||
@@ -2583,7 +2591,7 @@
         }
 
         // 6. Odd or even?
-        contains = counter % 2 == 1 ? INSIDE : OUTSIDE;
+        contains = counter % 2 == 1 ? INSIDE$2 : OUTSIDE$1;
 
         return contains;
     }
@@ -2592,6 +2600,7 @@
         Calculate relationship between two shapes and return result in the form of
         Dimensionally Extended nine-Intersection Matrix (https://en.wikipedia.org/wiki/DE-9IM)
      */
+
 
     /**
      * Returns true if shapes are topologically equal:  their interiors intersect and
@@ -2610,7 +2619,7 @@
      * @param shape2
      * @returns {boolean}
      */
-    function intersect$1(shape1, shape2) {
+    function intersect(shape1, shape2) {
         return relate(shape1, shape2).intersect();
     }
 
@@ -2631,7 +2640,7 @@
      * @returns {boolean}
      */
     function disjoint(shape1, shape2) {
-        return !intersect$1(shape1, shape2);
+        return !intersect(shape1, shape2);
     }
 
     /**
@@ -2865,8 +2874,6 @@
                 case Flatten.OUTSIDE:
                     denim.B2E.push(pt);
                     break;
-                default:
-                    break;
             }
         }
 
@@ -2879,7 +2886,7 @@
         let denim = new DE9IM();
 
         let [ip_sorted1, ip_sorted2] = calculateIntersections(polygon1, polygon2);
-        let boolean_intersection = intersect(polygon1, polygon2);
+        let boolean_intersection = intersect$1(polygon1, polygon2);
         let boolean_difference1 = subtract(polygon1, polygon2);
         let boolean_difference2 = subtract(polygon2, polygon1);
         let [inner_clip_shapes1, inner_clip_shapes2] = innerClip(polygon1, polygon2);
@@ -2902,15 +2909,16 @@
     }
 
     var Relations = /*#__PURE__*/Object.freeze({
-        equal: equal,
-        intersect: intersect$1,
-        touch: touch,
-        disjoint: disjoint,
-        inside: inside,
-        covered: covered,
+        __proto__: null,
         contain: contain,
         cover: cover,
-        relate: relate
+        covered: covered,
+        disjoint: disjoint,
+        equal: equal,
+        inside: inside,
+        intersect: intersect,
+        relate: relate,
+        touch: touch
     });
 
     /**
@@ -3896,6 +3904,7 @@
      * Created by Alex Bol on 3/12/2017.
      */
 
+
     /**
      * Class representing a planar set - a generic container with ability to keep and retrieve shapes and
      * perform spatial queries. Planar set is an extension of Set container, so it supports
@@ -3927,7 +3936,7 @@
             super.add(shape);
             // size not changed - item not added, probably trying to add same item twice
             if (this.size > size) {
-                let node = this.index.insert(shape.box, shape);
+                this.index.insert(shape.box, shape);
             }
             return this;         // in accordance to Set.add interface
         }
@@ -3991,12 +4000,13 @@
      * Created by Alex Bol on 2/18/2017.
      */
 
+
     /**
      *
      * Class representing a point
      * @type {Point}
      */
-    class Point {
+    let Point$1 = class Point {
         /**
          * Point may be constructed by two numbers, or by array of two numbers
          * @param {number} x - x-coordinate (float number)
@@ -4262,13 +4272,13 @@
          * @returns {String}
          */
         svg(attrs = {}) {
-            const r = attrs.r || 3;            // default radius - 3
+            const r = attrs.r ?? 3;            // default radius - 3
             return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
             ${convertToString({fill: "red", ...attrs})} />`;
         }
-    }
+    };
 
-    Flatten.Point = Point;
+    Flatten.Point = Point$1;
     /**
      * Function to create point equivalent to "new" constructor
      * @param args
@@ -4282,11 +4292,12 @@
      * Created by Alex Bol on 2/19/2017.
      */
 
+
     /**
      * Class representing a vector
      * @type {Vector}
      */
-    class Vector {
+    let Vector$1 = class Vector {
         /**
          * Vector may be constructed by two points, or by two float numbers,
          * or by array of two numbers
@@ -4513,19 +4524,20 @@
         toJSON() {
             return Object.assign({}, this, {name: "vector"});
         }
-    }
-    Flatten.Vector = Vector;
+    };
+    Flatten.Vector = Vector$1;
 
     /**
      * Function to create vector equivalent to "new" constructor
      * @param args
      */
-    const vector = (...args) => new Flatten.Vector(...args);
-    Flatten.vector = vector;
+    const vector$1 = (...args) => new Flatten.Vector(...args);
+    Flatten.vector = vector$1;
 
     /**
      * Created by Alex Bol on 3/10/2017.
      */
+
 
     /**
      * Class representing a segment
@@ -4912,13 +4924,13 @@
      * Created by Alex Bol on 2/20/2017.
      */
 
-    let {vector: vector$1} = Flatten;
+    let {vector} = Flatten;
 
     /**
      * Class representing a line
      * @type {Line}
      */
-    class Line {
+    let Line$1 = class Line {
         /**
          * Line may be constructed by point and normal vector or by two points that a line passes through
          * @param {Point} pt - point that a line passes through
@@ -4956,7 +4968,7 @@
                 if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Point) {
                     this.pt = a1;
                     this.norm = Line.points2norm(a1, a2);
-                    if (this.norm.dot(vector$1(this.pt.x,this.pt.y)) >= 0) {
+                    if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
                         this.norm.invert();
                     }
                     return;
@@ -4969,7 +4981,7 @@
                     this.pt = a1.clone();
                     this.norm = a2.clone();
                     this.norm = this.norm.normalize();
-                    if (this.norm.dot(vector$1(this.pt.x,this.pt.y)) >= 0) {
+                    if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
                         this.norm.invert();
                     }
                     return;
@@ -4982,7 +4994,7 @@
                     this.pt = a2.clone();
                     this.norm = a1.clone();
                     this.norm = this.norm.normalize();
-                    if (this.norm.dot(vector$1(this.pt.x,this.pt.y)) >= 0) {
+                    if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
                         this.norm.invert();
                     }
                     return;
@@ -5100,7 +5112,7 @@
          * @returns {number}
          */
         coord(pt) {
-            return vector$1(pt.x, pt.y).cross(this.norm);
+            return vector(pt.x, pt.y).cross(this.norm);
         }
 
         /**
@@ -5243,8 +5255,8 @@
             let unit = vec.normalize();
             return unit.rotate90CCW();
         }
-    }
-    Flatten.Line = Line;
+    };
+    Flatten.Line = Line$1;
     /**
      * Function to create line equivalent to "new" constructor
      * @param args
@@ -5256,11 +5268,12 @@
      * Created by Alex Bol on 3/6/2017.
      */
 
+
     /**
      * Class representing a circle
      * @type {Circle}
      */
-    class Circle {
+    let Circle$1 = class Circle {
         /**
          *
          * @param {Point} pc - circle center point
@@ -5289,8 +5302,6 @@
                 if (r !== undefined) this.r = r;
                 return;
             }
-
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -5460,9 +5471,9 @@
                 ${convertToString({fill: "none", ...attrs})} />`;
         }
 
-    }
+    };
 
-    Flatten.Circle = Circle;
+    Flatten.Circle = Circle$1;
     /**
      * Shortcut to create new circle
      * @param args
@@ -5473,6 +5484,7 @@
     /**
      * Created by Alex Bol on 3/10/2017.
      */
+
 
     /**
      * Class representing a circular arc
@@ -5534,8 +5546,6 @@
                 if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
                 return;
             }
-
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -6252,6 +6262,7 @@
      * Created by Alex Bol on 3/17/2017.
      */
 
+
     /**
      * Class representing an edge of polygon. Edge shape may be Segment or Arc.
      * Each edge contains references to the next and previous edges in the face of the polygon.
@@ -6546,6 +6557,7 @@
     /**
      * Created by Alex Bol on 3/17/2017.
      */
+
 
     /**
      * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
@@ -7234,6 +7246,7 @@
      * Created by Alex Bol on 3/15/2017.
      */
 
+
     /**
      * Class representing a polygon.<br/>
      * Polygon in FlattenJS is a multipolygon comprised from a set of [faces]{@link Flatten.Face}. <br/>
@@ -7503,7 +7516,7 @@
         cut(multiline) {
             let cutPolygons = [this.clone()];
             for (let edge of multiline) {
-                if (edge.setInclusion(this) !== INSIDE)
+                if (edge.setInclusion(this) !== INSIDE$2)
                     continue;
 
                 let cut_edge_start = edge.shape.start;
@@ -7652,7 +7665,7 @@
             let int_point1_prev = intersections.int_points1[0];
             let new_edge;
             for (let int_point1_curr of intersections.int_points1_sorted) {
-                if (int_point1_curr.edge_before.bv === INSIDE) {
+                if (int_point1_curr.edge_before.bv === INSIDE$2) {
                     new_edge = new Flatten.Edge(new Flatten.Segment(int_point1_prev.pt, int_point1_curr.pt));    // (int_point1_curr.edge_before.shape);
                     insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], new_edge);
                     newPoly.edges.add(new_edge);
@@ -7734,7 +7747,7 @@
         contains(shape) {
             if (shape instanceof Flatten.Point) {
                 let rel = ray_shoot(this, shape);
-                return rel === INSIDE || rel === BOUNDARY;
+                return rel === INSIDE$2 || rel === BOUNDARY$1;
             } else {
                 return cover(this, shape);
             }
@@ -7893,7 +7906,7 @@
     const polygon = (...args) => new Flatten.Polygon(...args);
     Flatten.polygon = polygon;
 
-    const {Circle: Circle$1, Line: Line$1, Point: Point$1, Vector: Vector$1, Utils: Utils$1} = Flatten;
+    const {Circle, Line, Point, Vector, Utils} = Flatten;
     /**
      * Class Inversion represent operator of inversion in circle
      * Inversion is a transformation of the Euclidean plane that maps generalized circles
@@ -7917,55 +7930,55 @@
         }
 
         static inversePoint(inversion_circle, point) {
-            const v = new Vector$1(inversion_circle.pc, point);
+            const v = new Vector(inversion_circle.pc, point);
             const k2 = inversion_circle.r * inversion_circle.r;
             const len2 = v.dot(v);
-            const reflected_point = Utils$1.EQ_0(len2) ?
-                new Point$1(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY) :
+            const reflected_point = Utils.EQ_0(len2) ?
+                new Point(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY) :
                 inversion_circle.pc.translate(v.multiply(k2 / len2));
             return reflected_point;
         }
 
         static inverseCircle(inversion_circle, circle) {
             const dist = inversion_circle.pc.distanceTo(circle.pc)[0];
-            if (Utils$1.EQ(dist, circle.r)) {     // Circle passing through inversion center mapped into line
+            if (Utils.EQ(dist, circle.r)) {     // Circle passing through inversion center mapped into line
                 let d = (inversion_circle.r * inversion_circle.r) / (2 * circle.r);
-                let v = new Vector$1(inversion_circle.pc, circle.pc);
+                let v = new Vector(inversion_circle.pc, circle.pc);
                 v = v.normalize();
                 let pt = inversion_circle.pc.translate(v.multiply(d));
 
-                return new Line$1(pt, v);
+                return new Line(pt, v);
             } else {                           // Circle not passing through inversion center - map into another circle */
                 /* Taken from http://mathworld.wolfram.com */
-                let v = new Vector$1(inversion_circle.pc, circle.pc);
+                let v = new Vector(inversion_circle.pc, circle.pc);
                 let s = inversion_circle.r * inversion_circle.r / (v.dot(v) - circle.r * circle.r);
                 let pc = inversion_circle.pc.translate(v.multiply(s));
                 let r = Math.abs(s) * circle.r;
 
-                return new Circle$1(pc, r);
+                return new Circle(pc, r);
             }
         }
 
         static inverseLine(inversion_circle, line) {
             const [dist, shortest_segment] = inversion_circle.pc.distanceTo(line);
-            if (Utils$1.EQ_0(dist)) {            // Line passing through inversion center, is mapping to itself
+            if (Utils.EQ_0(dist)) {            // Line passing through inversion center, is mapping to itself
                 return line.clone();
             } else {                           // Line not passing through inversion center is mapping into circle
                 let r = inversion_circle.r * inversion_circle.r / (2 * dist);
-                let v = new Vector$1(inversion_circle.pc, shortest_segment.end);
+                let v = new Vector(inversion_circle.pc, shortest_segment.end);
                 v = v.multiply(r / dist);
-                return new Circle$1(inversion_circle.pc.translate(v), r);
+                return new Circle(inversion_circle.pc.translate(v), r);
             }
         }
 
         inverse(shape) {
-            if (shape instanceof Point$1) {
+            if (shape instanceof Point) {
                 return Inversion.inversePoint(this.circle, shape);
             }
-            else if (shape instanceof Circle$1) {
+            else if (shape instanceof Circle) {
                 return Inversion.inverseCircle(this.circle, shape);
             }
-            else if (shape instanceof Line$1) {
+            else if (shape instanceof Line) {
                 return Inversion.inverseLine(this.circle, shape);
             }
         }
@@ -8578,35 +8591,36 @@
      * Created by Alex Bol on 2/18/2017.
      */
 
+
     Flatten.BooleanOperations = BooleanOperations;
     Flatten.Relations = Relations;
 
     exports.Arc = Arc;
-    exports.BOUNDARY = BOUNDARY;
+    exports.BOUNDARY = BOUNDARY$1;
     exports.BooleanOperations = BooleanOperations;
     exports.Box = Box;
     exports.CCW = CCW;
     exports.CW = CW;
-    exports.Circle = Circle;
+    exports.Circle = Circle$1;
     exports.Distance = Distance;
     exports.Edge = Edge;
     exports.Errors = errors;
     exports.Face = Face;
-    exports.INSIDE = INSIDE;
+    exports.INSIDE = INSIDE$2;
     exports.Inversion = Inversion;
-    exports.Line = Line;
+    exports.Line = Line$1;
     exports.Matrix = Matrix;
     exports.Multiline = Multiline;
     exports.ORIENTATION = ORIENTATION;
-    exports.OUTSIDE = OUTSIDE;
+    exports.OUTSIDE = OUTSIDE$1;
     exports.PlanarSet = PlanarSet;
-    exports.Point = Point;
+    exports.Point = Point$1;
     exports.Polygon = Polygon;
     exports.Ray = Ray;
     exports.Relations = Relations;
     exports.Segment = Segment;
-    exports.Utils = Utils;
-    exports.Vector = Vector;
+    exports.Utils = Utils$1;
+    exports.Vector = Vector$1;
     exports.arc = arc;
     exports.box = box;
     exports.circle = circle;
@@ -8620,7 +8634,7 @@
     exports.ray = ray;
     exports.ray_shoot = ray_shoot;
     exports.segment = segment;
-    exports.vector = vector;
+    exports.vector = vector$1;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
