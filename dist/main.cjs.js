@@ -2226,7 +2226,7 @@ class SVGAttributes {
         for(const property in args) {
             this[property] = args[property];
         }
-        this.stroke = args.stroke || defaultAttributes.stroke;
+        this.stroke = args.stroke ?? defaultAttributes.stroke;
     }
 
     toAttributesString() {
@@ -4270,7 +4270,7 @@ let Point$1 = class Point {
      * @returns {String}
      */
     svg(attrs = {}) {
-        const r = attrs.r || 3;            // default radius - 3
+        const r = attrs.r ?? 3;            // default radius - 3
         return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
             ${convertToString({fill: "red", ...attrs})} />`;
     }

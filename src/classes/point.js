@@ -276,7 +276,7 @@ export class Point {
      * @returns {String}
      */
     svg(attrs = {}) {
-        const r = attrs.r || 3            // default radius - 3
+        const r = attrs.r ?? 3            // default radius - 3
         return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
             ${convertToString({fill: "red", ...attrs})} />`;
     }
