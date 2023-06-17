@@ -6,6 +6,7 @@
 
 import Flatten from '../flatten';
 import CircularLinkedList from '../data_structures/circular_linked_list';
+import {CCW, ORIENTATION} from '../utils/constants';
 
 /**
  * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
@@ -44,7 +45,7 @@ export class Face extends CircularLinkedList {
         this._box = undefined;  // new Box();
         this._orientation = undefined;
 
-        if (args.length == 0) {
+        if (args.length === 0) {
             return;
         }
 
@@ -52,11 +53,11 @@ export class Face extends CircularLinkedList {
          1) array of shapes that performs close loop or
          2) array of points that performs set of vertices
          */
-        if (args.length == 1) {
+        if (args.length === 1) {
             if (args[0] instanceof Array) {
                 // let argsArray = args[0];
                 let shapes = args[0];  // argsArray[0];
-                if (shapes.length == 0)
+                if (shapes.length === 0)
                     return;
 
                 /* array of Flatten.Points */
@@ -104,7 +105,7 @@ export class Face extends CircularLinkedList {
             }
             /* Instantiate face from a circle in CCW orientation */
             else if (args[0] instanceof Flatten.Circle) {
-                this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
+                this.shapes2face(polygon.edges, [args[0].toArc(CCW)]);
             }
             /* Instantiate face from a box in CCW orientation */
             else if (args[0] instanceof Flatten.Box) {
@@ -120,7 +121,7 @@ export class Face extends CircularLinkedList {
         /* If passed two edges, consider them as start and end of the face loop */
         /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
         /* Assume that edges already copied to polygon.edges set in the clip algorithm !!! */
-        if (args.length == 2 && args[0] instanceof Flatten.Edge && args[1] instanceof Flatten.Edge) {
+        if (args.length === 2 && args[0] instanceof Flatten.Edge && args[1] instanceof Flatten.Edge) {
             this.first = args[0];                          // first edge in face or undefined
             this.last = args[1];                           // last edge in face or undefined
             this.last.next = this.first;
@@ -253,9 +254,24 @@ export class Face extends CircularLinkedList {
     }
 
     /**
+     * Merge two edges into one, edge_before will be extended,
+     * edge_after will be removed. The distortion of the polygon
+     * is on the responsibility of the use of this method
+     * @param {Edge} edge_before - edge to be extended
+     * @param {Edge} edge_after - edge to be removed
+     * @returns {Face}
+     */
+    merge_two_edges(edge_before, edge_after) {
+        edge_before.shape.end.x = edge_after.shape.end.x
+        edge_before.shape.end.y = edge_after.shape.end.y
+        this.remove(edge_after)
+        return this;
+    }
+
+    /**
      * Reverse orientation of the face: first edge become last and vice a verse,
      * all edges starts and ends swapped, direction of arcs inverted. If face was oriented
-     * clockwise, it becomes counter clockwise and vice versa
+     * clockwise, it becomes counterclockwise and vice versa
      */
     reverse() {
         // collect edges in revert order with reverted shapes
@@ -350,7 +366,7 @@ export class Face extends CircularLinkedList {
      * Return face orientation: one of Flatten.ORIENTATION.CCW, Flatten.ORIENTATION.CW, Flatten.ORIENTATION.NOT_ORIENTABLE <br/>
      * According to Green theorem the area of a closed curve may be calculated as double integral,
      * and the sign of the integral will be defined by the direction of the curve.
-     * When the integral ("signed area") will be negative, direction is counter clockwise,
+     * When the integral ("signed area") will be negative, direction is counterclockwise,
      * when positive - clockwise and when it is zero, polygon is not orientable.
      * See {@link https://mathinsight.org/greens_theorem_find_area}
      * @returns {number}
@@ -359,11 +375,11 @@ export class Face extends CircularLinkedList {
         if (this._orientation === undefined) {
             let area = this.signedArea();
             if (Flatten.Utils.EQ_0(area)) {
-                this._orientation = Flatten.ORIENTATION.NOT_ORIENTABLE;
+                this._orientation = ORIENTATION.NOT_ORIENTABLE;
             } else if (Flatten.Utils.LT(area, 0)) {
-                this._orientation = Flatten.ORIENTATION.CCW;
+                this._orientation = ORIENTATION.CCW;
             } else {
-                this._orientation = Flatten.ORIENTATION.CW;
+                this._orientation = ORIENTATION.CW;
             }
         }
         return this._orientation;
@@ -373,12 +389,12 @@ export class Face extends CircularLinkedList {
      * Returns true if face of the polygon is simple (no self-intersection points found)
      * NOTE: this method is incomplete because it does not exclude touching points.
      * Self intersection test should check if polygon change orientation in the test point.
-     * @param {Edges} edges - reference to polygon.edges to provide search index
+     * @param {PlanarSet} edges - reference to polygon edges to provide search index
      * @returns {boolean}
      */
     isSimple(edges) {
         let ip = Face.getSelfIntersections(this, edges, true);
-        return ip.length == 0;
+        return ip.length === 0;
     }
 
     static getSelfIntersections(face, edges, exitOnFirst = false) {
@@ -476,6 +492,6 @@ export class Face extends CircularLinkedList {
         return svgStr;
     }
 
-};
+}
 
 Flatten.Face = Face;

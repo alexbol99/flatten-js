@@ -37,10 +37,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" Upgrade rollup to version 3.25.1&#10; Upgrade plugin-node-resolve to 15.1.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/attributes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/attributes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +108,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "upgrate-rollup",
+    "git-widget-placeholder": "feature__request__remove__vertex",
     "last_opened_file_path": "/Users/alexanderbol/WebstormProjects/flatten-js",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -135,7 +136,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="Mocha.#Flatten.Polygon">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -202,7 +203,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Point" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
@@ -211,9 +212,9 @@
       <ui>bdd</ui>
       <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/classes/point.js</test-file>
+      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
       <test-names>
-        <name value="#Flatten.Point" />
+        <name value="#Flatten.Polygon" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -248,7 +249,7 @@
     <list>
       <item itemvalue="Mocha.#Flatten.Box" />
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Flatten.Point" />
+      <item itemvalue="Mocha.#Flatten.Polygon" />
       <item itemvalue="Mocha.#SVGAttributes" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
@@ -256,11 +257,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Mocha.#Flatten.Polygon" />
         <item itemvalue="npm.build" />
-        <item itemvalue="Mocha.#Flatten.Point" />
-        <item itemvalue="Mocha.#SVGAttributes" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
+        <item itemvalue="Mocha.#SVGAttributes" />
       </list>
     </recent_temporary>
   </component>
@@ -866,6 +867,12 @@
           <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
           <line>538</line>
           <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
+          <line>801</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

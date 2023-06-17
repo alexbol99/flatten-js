@@ -1,5 +1,5 @@
 /**
- * Global constant CCW defines counter clockwise direction of arc
+ * Global constant CCW defines counterclockwise direction of arc
  * @type {boolean}
  */
 export const CCW = true;
