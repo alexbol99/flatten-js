@@ -285,7 +285,7 @@ export class Polygon {
     removeEndVertex(edge) {
         const edge_next = edge.next
         if (edge_next === edge) return
-        edge.face.merge_two_edges(edge, edge_next)
+        edge.face.merge_with_next_edge(edge)
         this.edges.delete(edge_next)
     }
 

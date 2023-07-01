@@ -6795,17 +6795,16 @@ class Face extends CircularLinkedList {
     }
 
     /**
-     * Merge two edges into one, edge_before will be extended,
-     * edge_after will be removed. The distortion of the polygon
-     * is on the responsibility of the use of this method
-     * @param {Edge} edge_before - edge to be extended
-     * @param {Edge} edge_after - edge to be removed
+     * Merge current edge with the next edge. Given edge will be extended,
+     * next edge after it will be removed. The distortion of the polygon
+     * is on the responsibility of the user of this method
+     * @param {Edge} edge - edge to be extended
      * @returns {Face}
      */
-    merge_two_edges(edge_before, edge_after) {
-        edge_before.shape.end.x = edge_after.shape.end.x;
-        edge_before.shape.end.y = edge_after.shape.end.y;
-        this.remove(edge_after);
+    merge_with_next_edge(edge) {
+        edge.shape.end.x = edge.next.shape.end.x;
+        edge.shape.end.y = edge.next.shape.end.y;
+        this.remove(edge.next);
         return this;
     }
 
@@ -7519,7 +7518,7 @@ class Polygon {
     removeEndVertex(edge) {
         const edge_next = edge.next;
         if (edge_next === edge) return
-        edge.face.merge_two_edges(edge, edge_next);
+        edge.face.merge_with_next_edge(edge);
         this.edges.delete(edge_next);
     }
 
