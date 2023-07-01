@@ -279,6 +279,17 @@ export class Polygon {
     }
 
     /**
+     * Merge given edge with next edge and remove vertex between them
+     * @param {Edge} edge
+     */
+    removeEndVertex(edge) {
+        const edge_next = edge.next
+        if (edge_next === edge) return
+        edge.face.merge_with_next_edge(edge)
+        this.edges.delete(edge_next)
+    }
+
+    /**
      * Cut polygon with multiline and return array of new polygons
      * Multiline should be constructed from a line with intersection point, see notebook:
      * https://next.observablehq.com/@alexbol99/cut-polygon-with-line

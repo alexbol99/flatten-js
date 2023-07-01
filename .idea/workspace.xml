@@ -40,8 +40,57 @@
       <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Arc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Box.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Box.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Circle.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Circle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/CircularLinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/CircularLinkedList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/DE9IM.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/DE9IM.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Edge.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Errors.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Face.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Face.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Inversion.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Inversion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Line.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Line.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/LinkedList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/LinkedList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Matrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Matrix.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Multiline.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Multiline.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/PlanarSet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/PlanarSet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Point.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Point.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Polygon.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Polygon.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Ray.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Ray.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Segment.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Segment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Vector.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_boolean_op.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_boolean_op.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_distance.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_distance.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_ray_shooting.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_ray_shooting.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/algorithms_relation.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/algorithms_relation.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_arc.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_arc.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_box.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_box.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_circle.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_circle.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_edge.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_edge.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_face.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_face.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_inversion.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_inversion.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_line.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_line.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_matrix.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_matrix.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_multiline.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_multiline.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_point.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_point.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_polygon.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_polygon.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_ray.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_ray.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_segment.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_segment.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes_vector.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes_vector.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_circular_linked_list.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_de9im.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_linked_list.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data_structures_planar_set.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/global.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/global.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/module-BooleanOperations.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-BooleanOperations.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/module-RayShoot.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-RayShoot.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/module-Relation.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-Relation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_constants.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_constants.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_errors.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_errors.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils_utils.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/utils_utils.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/face.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/face.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +122,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature_request_remove_vertex" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -103,23 +152,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/Users/alexanderbol/WebstormProjects/flatten-js",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs.mocha.mocha_node_package_dir": "/Users/alexanderbol/WebstormProjects/flatten-js/node_modules/mocha",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature__request__remove__vertex&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/alexanderbol/WebstormProjects/flatten-js&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.mocha.mocha_node_package_dir&quot;: &quot;/Users/alexanderbol/WebstormProjects/flatten-js/node_modules/mocha&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -136,7 +185,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="npm.generate-docs">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -151,6 +200,26 @@
       <command value="run" />
       <scripts>
         <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="generate-docs" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -171,23 +240,6 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
-      <test-names>
-        <name value="#Algorithms.Boolean Operations" />
-        <name value="#Algorithms.Boolean Subtraction" />
-        <name value="Can perform subtract. Issue #55 case 0" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <configuration name="#Flatten.Box" type="mocha-javascript-test-runner" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -203,7 +255,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Point" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
@@ -212,24 +264,9 @@
       <ui>bdd</ui>
       <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/classes/point.js</test-file>
+      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
       <test-names>
-        <name value="#Flatten.Point" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="#SVGAttributes" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/utils/attributes.js</test-file>
-      <test-names>
-        <name value="#SVGAttributes" />
+        <name value="#Flatten.Polygon" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -249,19 +286,19 @@
     <list>
       <item itemvalue="Mocha.#Flatten.Box" />
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Flatten.Point" />
-      <item itemvalue="Mocha.#SVGAttributes" />
-      <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
+      <item itemvalue="Mocha.#Flatten.Polygon" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
+      <item itemvalue="npm.generate-docs" />
+      <item itemvalue="npm.test" />
       <item itemvalue="npm.build" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.generate-docs" />
         <item itemvalue="npm.build" />
-        <item itemvalue="Mocha.#Flatten.Point" />
-        <item itemvalue="Mocha.#SVGAttributes" />
+        <item itemvalue="npm.test" />
+        <item itemvalue="Mocha.#Flatten.Polygon" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
-        <item itemvalue="Mocha.#Algorithms.Boolean Operations.#Algorithms.Boolean Subtraction.Can perform subtract. Issue #55 case 0" />
       </list>
     </recent_temporary>
   </component>
@@ -846,7 +883,7 @@
     <MESSAGE value=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator" />
     <MESSAGE value=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline" />
     <MESSAGE value=" Upgrade rollup to version 3.25.1&#10; Upgrade plugin-node-resolve to 15.1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value=" Upgrade rollup to version 3.25.1&#10; Upgrade plugin-node-resolve to 15.1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -867,6 +904,11 @@
           <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
           <line>538</line>
           <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
+          <line>801</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

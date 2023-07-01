@@ -8,6 +8,8 @@ import Flatten, {matrix} from '../../index';
 import {Point, Circle, Line, Segment, Arc, Box, Polygon, Edge, PlanarSet} from '../../index';
 import {point, vector, circle, line, segment, box, multiline} from '../../index';
 import {intersectLine2Polygon} from "../../src/algorithms/intersection";
+import * as BooleanOperations from "../../src/algorithms/boolean_op";
+let {unify} = BooleanOperations;
 
 describe('#Flatten.Polygon', function() {
     it('May create new instance of Polygon', function () {
@@ -791,6 +793,20 @@ describe('#Flatten.Polygon', function() {
         const islandsArray = polygon.splitToIslands();
 
         expect(islandsArray.length).to.equal(0);
+    });
+    it('Can merge two edges into one', function() {
+        const a = new Polygon(box(0, 0, 100, 50).toPoints());
+        const b = new Polygon(box(0, 50, 100, 100).toPoints());
+
+        const union = unify(a, b);
+        expect(union.faces.size).to.equal(1);
+
+        const face = [...union.faces][0]
+        union.removeEndVertex(face.last)
+        expect(union.faces.size).to.equal(1);
+
+        union.removeEndVertex(face.first.next)
+        expect(union.faces.size).to.equal(1);
     });
     describe('#Flatten.Polygon.cut(multiline) methods', function() {
         it('Can cut polygon with line. Case of non-intersection', function() {

@@ -386,6 +386,7 @@ declare namespace Flatten {
 
     // @ts-ignore (Set)
     class PlanarSet extends Set {
+        // @ts-ignore (Set)
         constructor(shapes?: IndexableElement[] | Set<IndexableElement>);
 
         // members
@@ -502,6 +503,7 @@ declare namespace Flatten {
         recreateFaces(): void;
         removeChain(face: Face, edgeFrom: PolygonEdge, edgeTo: PolygonEdge): void;
         addVertex(pt: Point, edge: PolygonEdge): PolygonEdge;
+        removeEndVertex(edge: Edge): void;
         cut(multiline: Multiline): Polygon[];
         cutFace(pt1: Point, pt2: Point): [Polygon, Polygon];
         cutWithLine(line: Line): Polygon;
