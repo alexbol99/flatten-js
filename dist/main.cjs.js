@@ -3186,6 +3186,7 @@ const Interval = class Interval {
  * Created by Alex Bol on 3/28/2017.
  */
 
+
 // module.exports = {
 //     RB_TREE_COLOR_RED: 0,
 //     RB_TREE_COLOR_BLACK: 1
@@ -3197,6 +3198,7 @@ const RB_TREE_COLOR_BLACK = 1;
 /**
  * Created by Alex Bol on 4/1/2017.
  */
+
 
 class Node {
     constructor(key = undefined, value = undefined,
@@ -3223,46 +3225,36 @@ class Node {
             this.left === null && this.right === null && this.color === RB_TREE_COLOR_BLACK);
     }
 
+    _value_less_than(other_node) {
+        return this.item.value && other_node.item.value && this.item.value.less_than ?
+            this.item.value.less_than(other_node.item.value) :
+            this.item.value < other_node.item.value;
+    }
+
     less_than(other_node) {
         // if tree stores only keys
         if (this.item.value === this.item.key && other_node.item.value === other_node.item.key) {
             return this.item.key.less_than(other_node.item.key);
         }
         else {    // if tree stores keys and values
-            let value_less_than = this.item.value && other_node.item.value && this.item.value.less_than ? this.item.value.less_than(other_node.item.value) :
-                this.item.value < other_node.item.value;
             return this.item.key.less_than(other_node.item.key) ||
-                this.item.key.equal_to((other_node.item.key)) && value_less_than;
+                this.item.key.equal_to((other_node.item.key)) && this._value_less_than(other_node)
         }
-
-        // if (this.item.value && other_node.item.value) {
-        //     let item_less_than = this.item.value.less_than ? this.item.value.less_than(other_node.item.value) :
-        //         this.item.value < other_node.item.value;
-        //     return this.item.key.less_than(other_node.item.key) ||
-        //         this.item.key.equal_to((other_node.item.key)) && item_less_than;
-        // }
-        // else {
-        //     return this.item.key.less_than(other_node.item.key);
-        // }
     }
 
+    _value_equal(other_node) {
+        return this.item.value && other_node.item.value && this.item.value.equal_to ?
+            this.item.value.equal_to(other_node.item.value) :
+            this.item.value == other_node.item.value;
+    }
     equal_to(other_node) {
         // if tree stores only keys
         if (this.item.value === this.item.key && other_node.item.value === other_node.item.key) {
             return this.item.key.equal_to(other_node.item.key);
         }
         else {    // if tree stores keys and values
-            let value_equal = this.item.value && other_node.item.value && this.item.value.equal_to ? this.item.value.equal_to(other_node.item.value) :
-                this.item.value == other_node.item.value;
-            return this.item.key.equal_to(other_node.item.key) && value_equal;
+            return this.item.key.equal_to(other_node.item.key) && this._value_equal(other_node);
         }
-
-        // let value_equal = true;
-        // if (this.item.value && other_node.item.value) {
-        //     value_equal = this.item.value.equal_to ? this.item.value.equal_to(other_node.item.value) :
-        //         this.item.value == other_node.item.value;
-        // }
-        // return this.item.key.equal_to(other_node.item.key) && value_equal;
     }
 
     intersect(other_node) {
