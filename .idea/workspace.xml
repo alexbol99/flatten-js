@@ -39,9 +39,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/intersection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/intersection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +70,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="fix_segment_intersection" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -108,7 +105,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "increase__presicion__of__intersection",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "/Users/alexanderbol/WebstormProjects/flatten-js",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -136,7 +133,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations">
+  <component name="RunManager" selected="npm.build">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -146,11 +143,11 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="generate-docs" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="generate-docs" />
+        <script value="build" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -239,17 +236,17 @@
       <item itemvalue="Mocha.#test esm" />
       <item itemvalue="Mocha.#Flatten.Segment" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
+      <item itemvalue="npm.build" />
       <item itemvalue="npm.publish-npm" />
-      <item itemvalue="npm.generate-docs" />
       <item itemvalue="npm.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.build" />
+        <item itemvalue="npm.test" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Flatten.Segment" />
         <item itemvalue="npm.publish-npm" />
-        <item itemvalue="npm.test" />
-        <item itemvalue="npm.generate-docs" />
       </list>
     </recent_temporary>
   </component>
@@ -859,19 +856,16 @@
         <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
           <line>230</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/classes/point.js</url>
           <line>65</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
           <line>449</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
