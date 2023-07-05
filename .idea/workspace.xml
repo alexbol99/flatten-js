@@ -36,7 +36,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" Upgrade rollup to version 3.25.1&#10; Upgrade plugin-node-resolve to 15.1.0">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/intersection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/intersection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/point.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +108,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "increase__presicion__of__intersection",
     "last_opened_file_path": "/Users/alexanderbol/WebstormProjects/flatten-js",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -131,23 +136,13 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.publish-npm">
+  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
       <arguments />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
       <envs />
       <method v="2" />
     </configuration>
@@ -181,6 +176,21 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="#Algorithms.Boolean Operations" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/algorithms/boolean_op.js</test-file>
+      <test-names>
+        <name value="#Algorithms.Boolean Operations" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="#Flatten.Box" type="mocha-javascript-test-runner" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -196,7 +206,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Segment" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
@@ -205,9 +215,9 @@
       <ui>bdd</ui>
       <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
+      <test-file>$PROJECT_DIR$/test/classes/segment.js</test-file>
       <test-names>
-        <name value="#Flatten.Polygon" />
+        <name value="#Flatten.Segment" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -227,19 +237,19 @@
     <list>
       <item itemvalue="Mocha.#Flatten.Box" />
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Flatten.Polygon" />
+      <item itemvalue="Mocha.#Flatten.Segment" />
+      <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
       <item itemvalue="npm.publish-npm" />
       <item itemvalue="npm.generate-docs" />
       <item itemvalue="npm.test" />
-      <item itemvalue="npm.build" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
+        <item itemvalue="Mocha.#Flatten.Segment" />
         <item itemvalue="npm.publish-npm" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.generate-docs" />
-        <item itemvalue="npm.build" />
-        <item itemvalue="Mocha.#Flatten.Polygon" />
       </list>
     </recent_temporary>
   </component>
@@ -842,25 +852,35 @@
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
-          <line>538</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
           <line>801</line>
           <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
+          <line>230</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/classes/point.js</url>
+          <line>65</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
+          <line>449</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
         <watch expression="this" language="JavaScript" />
-        <watch expression="JSON.stringify(res_poly)" language="JavaScript" />
-        <watch expression="JSON.stringify(wrk_poly)" language="JavaScript" />
-        <watch expression="JSON.stringify([edge_from, edge_to])" language="JavaScript" />
-        <watch expression="JSON.stringify([edge_from1, edge_to1])" language="JavaScript" />
         <watch expression="shortest_segment" />
+        <watch expression="this" />
       </configuration>
     </watches-manager>
   </component>

@@ -3,7 +3,7 @@
  */
 
 import Flatten from '../flatten';
-import SVGAttributes, {convertToString} from "../utils/attributes";
+import {convertToString} from "../utils/attributes";
 
 /**
  *
@@ -56,8 +56,14 @@ export class Point {
             }
         }
 
+        if (args.length === 2) {
+            if (Decimal.isDecimal(args[0]) && Decimal.isDecimal(args[1])) {
+                this.x = args[0];
+                this.y = args[1];
+                return;
+            }
+        }
         throw Flatten.Errors.ILLEGAL_PARAMETERS;
-
     }
 
     /**
