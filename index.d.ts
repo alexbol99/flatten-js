@@ -606,7 +606,7 @@ declare namespace Flatten.BooleanOperations {
 }
 
 declare namespace Flatten.Relations {
-    function relate(shape1: Shape, shape2: Shape): DE9IM_matrix;
+    function relate(shape1: Shape, shape2: Shape): DE9IM;
     function equal(shape1: Shape, shape2: Shape): boolean;
     function intersect(shape1: Shape, shape2: Shape): boolean;
     function touch(shape1: Shape, shape2: Shape): boolean;

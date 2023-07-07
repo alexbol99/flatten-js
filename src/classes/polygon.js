@@ -466,7 +466,8 @@ export class Polygon {
     }
 
     /**
-     * Returns the first founded edge of polygon that contains given point
+     * Returns the first found edge of polygon that contains given point
+     * If point is a vertex, return the edge where the point is an end vertex, not a start one
      * @param {Point} pt
      * @returns {Edge}
      */
