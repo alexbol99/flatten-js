@@ -89,7 +89,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="fix_segment_intersection" />
+        <entry key="$PROJECT_DIR$" value="119-add-affine-transformations-to-all-classes" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -135,7 +135,7 @@
     "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -222,7 +222,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="#Flatten.Segment" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="#Flatten.Polygon" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
@@ -231,9 +231,9 @@
       <ui>bdd</ui>
       <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/classes/segment.js</test-file>
+      <test-file>$PROJECT_DIR$/test/classes/polygon.js</test-file>
       <test-names>
-        <name value="#Flatten.Segment" />
+        <name value="#Flatten.Polygon" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -253,7 +253,7 @@
     <list>
       <item itemvalue="Mocha.#Flatten.Box" />
       <item itemvalue="Mocha.#test esm" />
-      <item itemvalue="Mocha.#Flatten.Segment" />
+      <item itemvalue="Mocha.#Flatten.Polygon" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.publish-npm" />
@@ -266,6 +266,8 @@
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Flatten.Segment" />
         <item itemvalue="npm.publish-npm" />
+        <item itemvalue="npm.build" />
+        <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
       </list>
     </recent_temporary>
   </component>
@@ -867,11 +869,6 @@
           <line>182</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
-          <line>801</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
         <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
           <line>230</line>
@@ -881,6 +878,12 @@
           <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
           <line>449</line>
           <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
+          <line>509</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
