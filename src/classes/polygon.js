@@ -623,7 +623,7 @@ export class Polygon {
     /**
      * Return new polygon rotated by given angle around given point
      * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
+     * Positive value of angle defines rotation counterclockwise, negative - clockwise
      * @param {number} angle - rotation angle in radians
      * @param {Point} center - rotation center, default is (0,0)
      * @returns {Polygon} - new rotated polygon

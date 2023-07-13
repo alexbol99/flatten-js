@@ -5,12 +5,14 @@
 
 import Flatten from '../flatten';
 import {convertToString} from "../utils/attributes";
+import {Shape} from "./shape";
 
 /**
- * Class Box represent bounding box of the shape
+ * Class Box represents bounding box of the shape.
+ * It may also represent axis-aligned rectangle
  * @type {Box}
  */
-export class Box {
+export class Box extends Shape {
     /**
      *
      * @param {number} xmin - minimal x coordinate
@@ -19,6 +21,7 @@ export class Box {
      * @param {number} ymax - maximal y coordinate
      */
     constructor(xmin = undefined, ymin = undefined, xmax = undefined, ymax = undefined) {
+        super()
         /**
          * Minimal x coordinate
          * @type {number}
@@ -179,7 +182,7 @@ export class Box {
 
     /**
      * Set new values to the box object
-     * @param {number} xmin - miminal x coordinate
+     * @param {number} xmin - mininal x coordinate
      * @param {number} ymin - minimal y coordinate
      * @param {number} xmax - maximal x coordinate
      * @param {number} ymax - maximal y coordinate
@@ -192,7 +195,7 @@ export class Box {
     }
 
     /**
-     * Transform box into array of points from low left corner in counter clockwise
+     * Transform box into array of points from low left corner in counterclockwise
      * @returns {Point[]}
      */
     toPoints() {
@@ -205,7 +208,7 @@ export class Box {
     }
 
     /**
-     * Transform box into array of segments from low left corner in counter clockwise
+     * Transform box into array of segments from low left corner in counterclockwise
      * @returns {Segment[]}
      */
     toSegments() {
@@ -216,6 +219,28 @@ export class Box {
             new Flatten.Segment(pts[2], pts[3]),
             new Flatten.Segment(pts[3], pts[0])
         ];
+    }
+
+    /**
+     * Box rotation is not supported
+     * Attempt to rotate box throws error
+     * @param {number} angle - angle in radians
+     * @param {Point} [center=(0,0)] center
+     */
+    rotate(angle, center = new Flatten.Point()) {
+            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+    }
+
+    /**
+     * Return new box transformed using affine transformation matrix
+     * New box is a bounding box of transformed corner points
+     * @param {Matrix} m - affine transformation matrix
+     * @returns {Box}
+     */
+    transform(m = new Flatten.Matrix()) {
+        const transformed_points = this.toPoints().map(pt => m.transform([pt.x, pt.y]))
+        return transformed_points.reduce(
+            (new_box, pt) => new_box.merge(pt), new Box())
     }
 
     /**

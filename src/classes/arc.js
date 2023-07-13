@@ -6,21 +6,23 @@
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
 import {convertToString} from "../utils/attributes";
+import {Shape} from "./shape";
 
 /**
  * Class representing a circular arc
  * @type {Arc}
  */
-export class Arc {
+export class Arc extends Shape {
     /**
      *
      * @param {Point} pc - arc center
      * @param {number} r - arc radius
      * @param {number} startAngle - start angle in radians from 0 to 2*PI
      * @param {number} endAngle - end angle in radians from 0 to 2*PI
-     * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counter clockwise
+     * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counterclockwise
      */
     constructor(...args) {
+        super()
         /**
          * Arc center
          * @type {Point}
@@ -395,48 +397,10 @@ export class Arc {
     }
 
     /**
-     * Returns new arc translated by vector vec
-     * @param {Vector} vec
-     * @returns {Segment}
-     */
-    translate(...args) {
-        let arc = this.clone();
-        arc.pc = this.pc.translate(...args);
-        return arc;
-    }
-
-    /**
-     * Return new segment rotated by given angle around given point
-     * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
-     * @param {number} angle - rotation angle in radians
-     * @param {Point} center - center point, default is (0,0)
-     * @returns {Arc}
-     */
-    rotate(angle = 0, center = new Flatten.Point()) {
-        let m = new Flatten.Matrix();
-        m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
-        return this.transform(m);
-    }
-
-    /**
-     * Return new arc scaled by scaleX, scaleY.
-     * @param {number} scaleX - scale value by X
-     * @param {number} scaleY - scale value by Y
-     * @returns {Arc}
-     */
-    scale(scaleX = 1, scaleY = 1) {
-        let m = new Flatten.Matrix();
-        m = m.scale(scaleX, scaleY);
-        return this.transform(m);
-    }
-
-    /**
      * Return new arc transformed using affine transformation matrix <br/>
      * Note 1. Non-equal scaling by x and y (abs(matrix[0]) != abs(matrix[3])) produce illegal result because
      * it should create elliptic arc but this package does not support ellipses
      * Note 2. Mirror transformation (matrix[0] * matrix[3] < 0) change direction of the arc to the opposite
-     * TODO: support non-equal scaling arc to ellipse or throw exception ?
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Arc}
      */

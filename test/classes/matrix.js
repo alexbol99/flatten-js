@@ -25,7 +25,7 @@ describe('#Flatten.Matrix', function() {
         let vector = [10,5];
         expect(m.transform(vector)).to.deep.equal([15,15])
     });
-    it('Matrix can rotate vector counter clockwise', function() {
+    it('Matrix can rotate vector counterclockwise', function() {
         let cos = 0.0;
         let sin = 1.0;
         let m = matrix(cos, sin, -sin, cos, 0, 0);

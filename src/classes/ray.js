@@ -2,12 +2,13 @@
 
 import Flatten from '../flatten';
 import * as Intersection from "../algorithms/intersection";
+import {Shape} from "./shape";
 
 /**
  * Class representing a ray (a half-infinite line).
  * @type {Ray}
  */
-export class Ray {
+export class Ray extends Shape {
     /**
      * Ray may be constructed by setting an <b>origin</b> point and a <b>normal</b> vector, so that any point <b>x</b>
      * on a ray fit an equation: <br />
@@ -19,10 +20,11 @@ export class Ray {
      * @param {Vector} norm - normal vector
      */
     constructor(...args) {
+        super()
         this.pt = new Flatten.Point();
         this.norm = new Flatten.Vector(0,1);
 
-        if (args.length == 0) {
+        if (args.length === 0) {
             return;
         }
 
@@ -38,11 +40,6 @@ export class Ray {
             this.norm = args[1].clone();
             return;
         }
-
-        // if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-        //     this.pt = new Flatten.Point(args[0], args[1]);
-        //     return;
-        // }
 
         throw Flatten.Errors.ILLEGAL_PARAMETERS;
     }
@@ -74,7 +71,7 @@ export class Ray {
             slope > Math.PI/2 && slope < 3*Math.PI/2 ? Number.NEGATIVE_INFINITY : this.pt.x,
             slope >= 0 && slope <= Math.PI ? this.pt.y : Number.NEGATIVE_INFINITY,
             slope >= Math.PI/2 && slope <= 3*Math.PI/2 ? this.pt.x : Number.POSITIVE_INFINITY,
-            slope >= Math.PI && slope <= 2*Math.PI || slope == 0 ? this.pt.y : Number.POSITIVE_INFINITY
+            slope >= Math.PI && slope <= 2*Math.PI || slope === 0 ? this.pt.y : Number.POSITIVE_INFINITY
         )
     }
 
@@ -134,7 +131,7 @@ export class Ray {
 
     /**
      * Returns array of intersection points between ray and segment or arc
-     * @param {Segment|Arc} - Shape to intersect with ray
+     * @param {Segment|Arc} shape - Shape to intersect with ray
      * @returns {Array} array of intersection points
      */
     intersect(shape) {
@@ -150,15 +147,10 @@ export class Ray {
     intersectRay2Segment(ray, segment) {
         let ip = [];
 
-        // if (ray.box.not_intersect(segment.box)) {
-        //     return ip;
-        // }
-
         let line = new Flatten.Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(segment);
 
         for (let pt of ip_tmp) {
-            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
             if (ray.contains(pt)) {
                 ip.push(pt);
             }
@@ -167,7 +159,7 @@ export class Ray {
         /* If there were two intersection points between line and ray,
         and now there is exactly one left, it means ray starts between these points
         and there is another intersection point - start of the ray */
-        if (ip_tmp.length == 2 && ip.length == 1 && ray.start.on(line)) {
+        if (ip_tmp.length === 2 && ip.length === 1 && ray.start.on(line)) {
             ip.push(ray.start);
         }
 
@@ -177,20 +169,27 @@ export class Ray {
     intersectRay2Arc(ray, arc) {
         let ip = [];
 
-        // if (ray.box.not_intersect(arc.box)) {
-        //     return ip;
-        // }
-
         let line = new Flatten.Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(arc);
 
         for (let pt of ip_tmp) {
-            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
             if (ray.contains(pt)) {
                 ip.push(pt);
             }
         }
         return ip;
+    }
+
+    /**
+     * Return new ray transformed by affine transformation matrix
+     * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+     * @returns {Ray}
+     */
+    transform(m) {
+        return new Flatten.Ray(
+            m.transform([this.pt.x, this.pt.y]),
+            m.transform([this.norm.x, this.norm.y])
+        )
     }
 
     /**
@@ -208,7 +207,7 @@ export class Ray {
         return segment.svg(attrs);
     }
 
-};
+}
 
 Flatten.Ray = Ray;
 

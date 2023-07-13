@@ -24,6 +24,12 @@ describe('#Flatten.Point', function() {
     it('New point may be constructed with array of two numbers', function() {
         expect(point([1,3])).to.deep.equal({x:1, y:3});
     });
+    it('Constructor with illegal parameters throw error', function() {
+        let fn = function () {
+            return new Point(1, "1");
+        };
+        expect(fn).to.throw(ReferenceError);
+    });
     it('Method clone creates new instance of Point', function() {
         let point1 = new Point(2,1);
         let point2 = point1.clone();
@@ -48,14 +54,14 @@ describe('#Flatten.Point', function() {
         let tpoint = point.translate(2,0);
         expect(tpoint).to.deep.equal({x:3,y:1});
     });
-    it ('Method rotates returns new point rotated by default around (0.0), counter clockwise', function() {
+    it ('Method rotates returns new point rotated by default around (0.0), counterclockwise', function() {
         let point = new Point(1,1);
         let rotated_point = point.rotate(Math.PI/2);
         let expected_point = new Point(-1, 1);
         let equals = rotated_point.equalTo(expected_point);
         expect(equals).to.equal(true);
     });
-    it ('Method rotate returns new point rotated around center, counter clockwise', function() {
+    it ('Method rotate returns new point rotated around center, counterclockwise', function() {
         let point = new Point(2,1);
         let center = new Point(1,1);
         let rotated_point = point.rotate(Math.PI/2, center);
@@ -68,6 +74,11 @@ describe('#Flatten.Point', function() {
         let v = new Vector(2,0);
         let tpoint = point.translate(v);
         expect(tpoint).to.deep.equal({x:3,y:1});
+    });
+    it('Can scale point with scale factor', function() {
+        const point = new Point(2,3);
+        const scaled_point = point.scale(2,2);
+        expect(scaled_point).to.deep.equal({x:4, y:6})
     });
     it('Method translate with illegal parameters throws error', function () {
         let point = new Point(1,1);

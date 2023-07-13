@@ -7,18 +7,21 @@
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
 import {convertToString} from "../utils/attributes";
+import {Shape} from "./shape";
+import {Matrix} from "./matrix";
 
 /**
  * Class representing a circle
  * @type {Circle}
  */
-export class Circle {
+export class Circle extends Shape {
     /**
      *
      * @param {Point} pc - circle center point
      * @param {number} r - circle radius
      */
     constructor(...args) {
+        super()
         /**
          * Circle center
          * @type {Point}
@@ -111,6 +114,29 @@ export class Circle {
      */
     toArc(counterclockwise = true) {
         return new Flatten.Arc(this.center, this.r, Math.PI, -Math.PI, counterclockwise);
+    }
+
+    /**
+     * Method scale is supported only for uniform scaling of the circle with (0,0) center
+     * @param {number} sx
+     * @param {number} sy
+     * @returns {Circle}
+     */
+    scale(sx, sy) {
+        if (sx !== sy)
+            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+        if (!(this.pc.x === 0.0 && this.pc.y === 0.0))
+            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+        return new Flatten.Circle(this.pc, this.r*sx)
+    }
+
+    /**
+     * Return new circle transformed using affine transformation matrix
+     * @param {Matrix} matrix - affine transformation matrix
+     * @returns {Circle}
+     */
+    transform(m = new Flatten.Matrix()) {
+        return new Flatten.Circle(m.transform([this.pc.x, this.pc.y], this.r))
     }
 
     /**
