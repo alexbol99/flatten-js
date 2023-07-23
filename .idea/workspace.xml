@@ -35,12 +35,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Support translate, rotate, scale for all classes. Not tested yet">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/arc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/segment.js" afterDir="false" />
-    </list>
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="no comments" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,7 +129,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations">
+  <component name="RunManager" selected="npm.build">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -243,10 +238,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.build" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Flatten.Segment" />
         <item itemvalue="npm.test" />
-        <item itemvalue="npm.build" />
         <item itemvalue="npm.publish-npm" />
       </list>
     </recent_temporary>
@@ -447,28 +442,7 @@
       <workItem from="1689353072294" duration="664000" />
       <workItem from="1689353864234" duration="88000" />
       <workItem from="1689353964277" duration="606000" />
-      <workItem from="1689415670437" duration="10446000" />
-    </task>
-    <task id="LOCAL-00157" summary="- Added relatePolygon2Polygon method, added tests&#10;- Added relations INSIDE and COVERED&#10;- Boolean_op moved back to core&#10;- Interval_tree upgraded to v1.0.11&#10;- Published minor version 1.2.0">
-      <created>1586353127878</created>
-      <option name="number" value="00157" />
-      <option name="presentableId" value="LOCAL-00157" />
-      <option name="project" value="LOCAL" />
-      <updated>1586353127878</updated>
-    </task>
-    <task id="LOCAL-00158" summary="- Improved documentation and TypeScript type definition, fixed some bugs">
-      <created>1586602456538</created>
-      <option name="number" value="00158" />
-      <option name="presentableId" value="LOCAL-00158" />
-      <option name="project" value="LOCAL" />
-      <updated>1586602456538</updated>
-    </task>
-    <task id="LOCAL-00159" summary="- Fix bug in relateShapeToPolygon">
-      <created>1586676978595</created>
-      <option name="number" value="00159" />
-      <option name="presentableId" value="LOCAL-00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1586676978595</updated>
+      <workItem from="1689415670437" duration="11382000" />
     </task>
     <task id="LOCAL-00160" summary="- Fix bug in relatePolygonToPolygon&#10;- Remove redundant export regexp from relations module">
       <created>1587133771116</created>
@@ -792,7 +766,28 @@
       <option name="project" value="LOCAL" />
       <updated>1689224480741</updated>
     </task>
-    <option name="localTasksCounter" value="206" />
+    <task id="LOCAL-00206" summary="Fix bug in line transform()">
+      <created>1690122414968</created>
+      <option name="number" value="00206" />
+      <option name="presentableId" value="LOCAL-00206" />
+      <option name="project" value="LOCAL" />
+      <updated>1690122414968</updated>
+    </task>
+    <task id="LOCAL-00207" summary="Fix warnings">
+      <created>1690122786171</created>
+      <option name="number" value="00207" />
+      <option name="presentableId" value="LOCAL-00207" />
+      <option name="project" value="LOCAL" />
+      <updated>1690122786171</updated>
+    </task>
+    <task id="LOCAL-00208" summary="no comments">
+      <created>1690122910650</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1690122910650</updated>
+    </task>
+    <option name="localTasksCounter" value="209" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -811,9 +806,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- submit dist" />
-    <MESSAGE value="- fix issue #63 Infinite loop error in Relations.relate()" />
-    <MESSAGE value="- added Buy Me A Coffee button to README.md" />
     <MESSAGE value="- Fix order of arguments in addVertex method. Pull request #73 &#10;- Type declaration for Arc is incorrect. Pull request #74&#10;- Fix tolerance typings. Pull request #75&#10;- Documentation mistake: BooleanOp. Issue #77&#10;- Release patch v1.2.19" />
     <MESSAGE value="- Support GeoJSON polygon and multi-polygon parsing (added tests from GeoJSON spec)&#10;- Release patch v1.2.20" />
     <MESSAGE value="- Commit pull request #88 Reverse arc direction when reflecting over a single axis, publish compiled package" />
@@ -836,7 +828,10 @@
     <MESSAGE value=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline" />
     <MESSAGE value=" Upgrade rollup to version 3.25.1&#10; Upgrade plugin-node-resolve to 15.1.0" />
     <MESSAGE value="Support translate, rotate, scale for all classes. Not tested yet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Support translate, rotate, scale for all classes. Not tested yet" />
+    <MESSAGE value="Fix bug in line transform()" />
+    <MESSAGE value="Fix warnings" />
+    <MESSAGE value="no comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="no comments" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -867,12 +862,6 @@
           <url>file://$PROJECT_DIR$/src/algorithms/boolean_op.js</url>
           <line>449</line>
           <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/classes/segment.js</url>
-          <line>110</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
