@@ -458,7 +458,8 @@ export class Face extends CircularLinkedList {
     findEdgeByPoint(pt) {
         let edgeFound;
         for (let edge of this) {
-            if (edge.shape.contains(pt)) {
+            if (pt.equalTo(edge.shape.start)) continue
+            if (pt.equalTo(edge.shape.end) || edge.shape.contains(pt)) {
                 edgeFound = edge;
                 break;
             }

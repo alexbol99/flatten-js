@@ -496,6 +496,19 @@ describe('#Flatten.Polygon', function() {
         expect(edge.prev).to.equal(newEdge);
         expect(edge.next).to.equal(newEdge);
     });
+    it ('Can remove vertex and merge edges', function() {
+        const a = new Polygon(box(0, 0, 100, 50));
+        const b = new Polygon(box(0, 50, 100, 100));
+
+        const union = unify(a, b);
+        for (const pt of [point(0, 50), point(100, 50)]) {
+            let edge_to_merge = union.findEdgeByPoint(pt);
+            if (edge_to_merge === undefined) continue;
+            union.removeEndVertex(edge_to_merge);
+        }
+        expect(union.faces.size).to.equal(1);
+        expect(union.edges.size).to.equal(4);
+    })
     it('Can calculate inclusion flag of the edge', function () {
         "use strict";
         let points = [
@@ -793,20 +806,6 @@ describe('#Flatten.Polygon', function() {
         const islandsArray = polygon.splitToIslands();
 
         expect(islandsArray.length).to.equal(0);
-    });
-    it('Can merge two edges into one', function() {
-        const a = new Polygon(box(0, 0, 100, 50).toPoints());
-        const b = new Polygon(box(0, 50, 100, 100).toPoints());
-
-        const union = unify(a, b);
-        expect(union.faces.size).to.equal(1);
-
-        const face = [...union.faces][0]
-        union.removeEndVertex(face.last)
-        expect(union.faces.size).to.equal(1);
-
-        union.removeEndVertex(face.first.next)
-        expect(union.faces.size).to.equal(1);
     });
     describe('#Flatten.Polygon.cut(multiline) methods', function() {
         it('Can cut polygon with line. Case of non-intersection', function() {
