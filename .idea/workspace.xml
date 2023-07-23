@@ -35,29 +35,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment=" Upgrade rollup to version 3.25.1&#10; Upgrade plugin-node-resolve to 15.1.0">
-      <change afterPath="$PROJECT_DIR$/src/classes/shape.js" afterDir="false" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Support translate, rotate, scale for all classes. Not tested yet">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.cjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.umd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/arc.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/arc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/box.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/circle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/matrix.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/matrix.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/multiline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/multiline.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/ray.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/segment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/vector.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/vector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/errors.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/errors.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/matrix.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/matrix.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/point.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/vector.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/vector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/algorithms/boolean_op.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/algorithms/boolean_op.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/segment.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/segment.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,23 +101,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "119-add-affine-transformations-to-all-classes",
-    "last_opened_file_path": "/Users/alexanderbol/WebstormProjects/flatten-js",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs.mocha.mocha_node_package_dir": "/Users/alexanderbol/WebstormProjects/flatten-js/node_modules/mocha",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;119-add-affine-transformations-to-all-classes&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/alexanderbol/WebstormProjects/flatten-js&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.mocha.mocha_node_package_dir&quot;: &quot;/Users/alexanderbol/WebstormProjects/flatten-js/node_modules/mocha&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -152,7 +134,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.test">
+  <component name="RunManager" selected="Mocha.#Algorithms.Boolean Operations">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -261,10 +243,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.test" />
-        <item itemvalue="npm.build" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Flatten.Segment" />
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.build" />
         <item itemvalue="npm.publish-npm" />
       </list>
     </recent_temporary>
@@ -462,13 +444,10 @@
       <workItem from="1686054373419" duration="2604000" />
       <workItem from="1686118815206" duration="20884000" />
       <workItem from="1686404714564" duration="802000" />
-    </task>
-    <task id="LOCAL-00156" summary="- Added relatePolygon2Polygon method (not completes, not tested)">
-      <created>1586185851406</created>
-      <option name="number" value="00156" />
-      <option name="presentableId" value="LOCAL-00156" />
-      <option name="project" value="LOCAL" />
-      <updated>1586185851406</updated>
+      <workItem from="1689353072294" duration="664000" />
+      <workItem from="1689353864234" duration="88000" />
+      <workItem from="1689353964277" duration="606000" />
+      <workItem from="1689415670437" duration="10446000" />
     </task>
     <task id="LOCAL-00157" summary="- Added relatePolygon2Polygon method, added tests&#10;- Added relations INSIDE and COVERED&#10;- Boolean_op moved back to core&#10;- Interval_tree upgraded to v1.0.11&#10;- Published minor version 1.2.0">
       <created>1586353127878</created>
@@ -806,7 +785,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688215539541</updated>
     </task>
-    <option name="localTasksCounter" value="205" />
+    <task id="LOCAL-00205" summary="Support translate, rotate, scale for all classes. Not tested yet">
+      <created>1689224480741</created>
+      <option name="number" value="00205" />
+      <option name="presentableId" value="LOCAL-00205" />
+      <option name="project" value="LOCAL" />
+      <updated>1689224480741</updated>
+    </task>
+    <option name="localTasksCounter" value="206" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -825,7 +811,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- upgrade dependency to @flatten-js/interval-tree@1.0.12&#10;- fix problem with vector prototype" />
     <MESSAGE value="- submit dist" />
     <MESSAGE value="- fix issue #63 Infinite loop error in Relations.relate()" />
     <MESSAGE value="- added Buy Me A Coffee button to README.md" />
@@ -850,7 +835,8 @@
     <MESSAGE value=" * Remove redundant defaults&#10; * Implement default class attributes using rest operator" />
     <MESSAGE value=" * Set default &quot;fill&quot; = &quot;none&quot; for arc and polyline" />
     <MESSAGE value=" Upgrade rollup to version 3.25.1&#10; Upgrade plugin-node-resolve to 15.1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="Support translate, rotate, scale for all classes. Not tested yet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Support translate, rotate, scale for all classes. Not tested yet" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -882,12 +868,23 @@
           <line>449</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/classes/segment.js</url>
+          <line>110</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
+          <line>1006</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mocha-javascript-test-runner">
         <watch expression="this" language="JavaScript" />
-        <watch expression="shortest_segment" />
         <watch expression="this" />
       </configuration>
     </watches-manager>
