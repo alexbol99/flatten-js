@@ -5201,8 +5201,8 @@
          */
         transform(m) {
             return new Flatten.Line(
-                m.transform([this.pt.x, this.pt.y]),
-                m.transform([this.norm.x, this.norm.y])
+                new Flatten.Point(m.transform([this.pt.x, this.pt.y])),
+                new Flatten.Vector(m.transform([this.norm.x, this.norm.y]))
             )
         }
 
@@ -5901,9 +5901,6 @@
 
         /**
          * Return new arc transformed using affine transformation matrix <br/>
-         * Note 1. Non-equal scaling by x and y (abs(matrix[0]) != abs(matrix[3])) produce illegal result because
-         * it should create elliptic arc but this package does not support ellipses
-         * Note 2. Mirror transformation (matrix[0] * matrix[3] < 0) change direction of the arc to the opposite
          * @param {Matrix} matrix - affine transformation matrix
          * @returns {Arc}
          */

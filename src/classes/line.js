@@ -294,8 +294,8 @@ export class Line extends Shape {
      */
     transform(m) {
         return new Flatten.Line(
-            m.transform([this.pt.x, this.pt.y]),
-            m.transform([this.norm.x, this.norm.y])
+            new Flatten.Point(m.transform([this.pt.x, this.pt.y])),
+            new Flatten.Vector(m.transform([this.norm.x, this.norm.y]))
         )
     }
 

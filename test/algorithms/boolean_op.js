@@ -980,6 +980,33 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(p0.faces.size).to.equal(1);
             expect(p0.edges.size).to.equal(15);
         });
+        it("Infinite Loop when intersecting Polygons (v1.3.4) #139 case 2", function() {
+            let pA = new Flatten.Polygon([
+                [ 101.201, 2.97 ],
+                [ 101.202, 2.97 ],
+                [ 101.202, 2.9706 ],
+                [ 101.201, 2.9706 ]
+            ]);
+
+            let pB = new Flatten.Polygon([
+                [ 101.19,  2.99 ],
+                [ 101.22,  2.99 ],
+                [ 101.22,  2.97 ],
+                [ 101.2,  2.97]
+            ]);
+
+            let pA_scaled = pA.transform(new Flatten.Matrix().scale(10000,10000))
+            let pB_scaled = pB.transform(new Flatten.Matrix().scale(10000,10000))
+
+            if ([...pA_scaled.faces][0].orientation() != [...pB_scaled.faces][0].orientation()) {
+                pB_scaled = pB_scaled.reverse();
+            }
+
+            const p0 = Flatten.BooleanOperations.intersect(pA_scaled, pB_scaled);
+
+            expect(p0.faces.size).to.equal(1);
+            expect(p0.edges.size).to.equal(4);
+        })
     });
     describe("Boolean operations with empty polygon", function() {
         it ('Can operate with empty polygon', function() {
