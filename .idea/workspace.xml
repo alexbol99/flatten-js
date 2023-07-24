@@ -35,7 +35,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Fix bug in line.rotate()">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Commit build">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/line.js" afterDir="false" />
     </list>
@@ -132,7 +132,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.#Flatten.Line">
+  <component name="RunManager" selected="npm.build">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -246,8 +246,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Mocha.#Flatten.Line" />
         <item itemvalue="npm.build" />
+        <item itemvalue="Mocha.#Flatten.Line" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Flatten.Segment" />
         <item itemvalue="npm.test" />
@@ -452,21 +452,7 @@
       <workItem from="1689353964277" duration="606000" />
       <workItem from="1689415670437" duration="11382000" />
       <workItem from="1690122997843" duration="1498000" />
-      <workItem from="1690196279621" duration="2851000" />
-    </task>
-    <task id="LOCAL-00162" summary="- New README.md (not completed)">
-      <created>1587807979540</created>
-      <option name="number" value="00162" />
-      <option name="presentableId" value="LOCAL-00162" />
-      <option name="project" value="LOCAL" />
-      <updated>1587807979540</updated>
-    </task>
-    <task id="LOCAL-00163" summary="- New README.md (not completed)">
-      <created>1587848738129</created>
-      <option name="number" value="00163" />
-      <option name="presentableId" value="LOCAL-00163" />
-      <option name="project" value="LOCAL" />
-      <updated>1587848738129</updated>
+      <workItem from="1690196279621" duration="3896000" />
     </task>
     <task id="LOCAL-00164" summary="- Complete Serialization and Visualization sections of README.md&#10;- Release patch">
       <created>1588151602306</created>
@@ -797,7 +783,21 @@
       <option name="project" value="LOCAL" />
       <updated>1690198066034</updated>
     </task>
-    <option name="localTasksCounter" value="211" />
+    <task id="LOCAL-00211" summary="Fix more bugs in line transform">
+      <created>1690200348616</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1690200348616</updated>
+    </task>
+    <task id="LOCAL-00212" summary="Commit build">
+      <created>1690200490707</created>
+      <option name="number" value="00212" />
+      <option name="presentableId" value="LOCAL-00212" />
+      <option name="project" value="LOCAL" />
+      <updated>1690200490707</updated>
+    </task>
+    <option name="localTasksCounter" value="213" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -816,8 +816,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- Support GeoJSON polygon and multi-polygon parsing (added tests from GeoJSON spec)&#10;- Release patch v1.2.20" />
-    <MESSAGE value="- Commit pull request #88 Reverse arc direction when reflecting over a single axis, publish compiled package" />
     <MESSAGE value="- Create segment with optional second point omitted (issue #84)&#10;- Release patch v1.2.23" />
     <MESSAGE value="- Remove quick reject from ray2segment and ray2arc" />
     <MESSAGE value="- Merge pull request &quot;Add pointAtLength methods for Arc, Segment, Edge and Face&quot; - #95&#10;- Release patch v1.2.25" />
@@ -841,7 +839,9 @@
     <MESSAGE value="Fix warnings" />
     <MESSAGE value="no comments" />
     <MESSAGE value="Fix bug in line.rotate()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bug in line.rotate()" />
+    <MESSAGE value="Fix more bugs in line transform" />
+    <MESSAGE value="Commit build" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit build" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

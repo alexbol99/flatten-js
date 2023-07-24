@@ -5194,11 +5194,12 @@ let Line$1 = class Line extends Shape {
      * @param {Point}  center - center of rotation
      */
     rotate(angle, center = new Flatten.Point()) {
-        const projection_point = center.projectionOn(this);
         const m = new Matrix().rotate(angle, center.x, center.y);
+        const projection_point = center.projectionOn(this);
+        const rotated_normal = this.norm.rotate(angle);
         return new Flatten.Line(
             new Flatten.Point(m.transform([projection_point.x, projection_point.y])),
-            new Flatten.Vector(m.transform([this.norm.x, this.norm.y]))
+            rotated_normal
         )
     }
 
