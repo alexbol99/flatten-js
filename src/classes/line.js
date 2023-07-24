@@ -295,6 +295,7 @@ export class Line extends Shape {
      */
     rotate(angle, center = new Flatten.Point()) {
         const projection_point = center.projectionOn(this)
+        const m = new Matrix().rotate(angle, center.x, center.y)
         return new Flatten.Line(
             new Flatten.Point(m.transform([projection_point.x, projection_point.y])),
             new Flatten.Vector(m.transform([this.norm.x, this.norm.y]))
@@ -309,7 +310,7 @@ export class Line extends Shape {
     transform(m) {
         return new Flatten.Line(
             new Flatten.Point(m.transform([this.pt.x, this.pt.y])),
-            new Flatten.Vector(m.transform([this.norm.x, this.norm.y]))
+            this.norm.clone()
         )
     }
 

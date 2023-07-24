@@ -35,10 +35,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="no comments">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Fix bug in line.rotate()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/line.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -453,14 +452,7 @@
       <workItem from="1689353964277" duration="606000" />
       <workItem from="1689415670437" duration="11382000" />
       <workItem from="1690122997843" duration="1498000" />
-      <workItem from="1690196279621" duration="598000" />
-    </task>
-    <task id="LOCAL-00161" summary="- Add boolean operations test&#10;- Fix bug in Arc::split() method">
-      <created>1587199454093</created>
-      <option name="number" value="00161" />
-      <option name="presentableId" value="LOCAL-00161" />
-      <option name="project" value="LOCAL" />
-      <updated>1587199454093</updated>
+      <workItem from="1690196279621" duration="2851000" />
     </task>
     <task id="LOCAL-00162" summary="- New README.md (not completed)">
       <created>1587807979540</created>
@@ -798,7 +790,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690123048830</updated>
     </task>
-    <option name="localTasksCounter" value="210" />
+    <task id="LOCAL-00210" summary="Fix bug in line.rotate()">
+      <created>1690198066034</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1690198066034</updated>
+    </task>
+    <option name="localTasksCounter" value="211" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -817,7 +816,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- Fix order of arguments in addVertex method. Pull request #73 &#10;- Type declaration for Arc is incorrect. Pull request #74&#10;- Fix tolerance typings. Pull request #75&#10;- Documentation mistake: BooleanOp. Issue #77&#10;- Release patch v1.2.19" />
     <MESSAGE value="- Support GeoJSON polygon and multi-polygon parsing (added tests from GeoJSON spec)&#10;- Release patch v1.2.20" />
     <MESSAGE value="- Commit pull request #88 Reverse arc direction when reflecting over a single axis, publish compiled package" />
     <MESSAGE value="- Create segment with optional second point omitted (issue #84)&#10;- Release patch v1.2.23" />
@@ -842,7 +840,8 @@
     <MESSAGE value="Fix bug in line transform()" />
     <MESSAGE value="Fix warnings" />
     <MESSAGE value="no comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="no comments" />
+    <MESSAGE value="Fix bug in line.rotate()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bug in line.rotate()" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -878,11 +877,6 @@
           <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
           <line>1006</line>
           <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test/classes/line.js</url>
-          <line>201</line>
-          <option name="timeStamp" value="56" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
