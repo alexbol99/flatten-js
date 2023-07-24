@@ -5404,8 +5404,8 @@ let Circle$1 = class Circle extends Shape {
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Circle}
      */
-    transform(m = new Flatten.Matrix()) {
-        return new Flatten.Circle(m.transform([this.pc.x, this.pc.y], this.r))
+    transform(matrix = new Flatten.Matrix()) {
+        return new Flatten.Circle(this.pc.transform(matrix), this.r)
     }
 
     /**
