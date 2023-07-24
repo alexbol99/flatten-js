@@ -35,7 +35,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="no comments" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="no comments">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/line.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/classes/line.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,8 +64,8 @@
   <component name="Git.Settings">
     <option name="PUSH_TAGS">
       <GitPushTagMode>
-        <option name="argument" value="--tags" />
-        <option name="title" value="All" />
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
       </GitPushTagMode>
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -129,7 +133,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="Mocha.#Flatten.Line">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -144,16 +148,6 @@
       <command value="run" />
       <scripts>
         <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="publish-npm" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="publish-npm" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -199,6 +193,21 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="#Flatten.Line" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require=&quot;@babel/register&quot;</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/classes/line.js</test-file>
+      <test-names>
+        <name value="#Flatten.Line" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="#Flatten.Segment" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -230,19 +239,19 @@
     <list>
       <item itemvalue="Mocha.#Flatten.Box" />
       <item itemvalue="Mocha.#test esm" />
+      <item itemvalue="Mocha.#Flatten.Line" />
       <item itemvalue="Mocha.#Flatten.Segment" />
       <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
       <item itemvalue="npm.build" />
-      <item itemvalue="npm.publish-npm" />
       <item itemvalue="npm.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Mocha.#Flatten.Line" />
         <item itemvalue="npm.build" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Flatten.Segment" />
         <item itemvalue="npm.test" />
-        <item itemvalue="npm.publish-npm" />
       </list>
     </recent_temporary>
   </component>
@@ -443,13 +452,8 @@
       <workItem from="1689353864234" duration="88000" />
       <workItem from="1689353964277" duration="606000" />
       <workItem from="1689415670437" duration="11382000" />
-    </task>
-    <task id="LOCAL-00160" summary="- Fix bug in relatePolygonToPolygon&#10;- Remove redundant export regexp from relations module">
-      <created>1587133771116</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1587133771117</updated>
+      <workItem from="1690122997843" duration="1498000" />
+      <workItem from="1690196279621" duration="598000" />
     </task>
     <task id="LOCAL-00161" summary="- Add boolean operations test&#10;- Fix bug in Arc::split() method">
       <created>1587199454093</created>
@@ -787,7 +791,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690122910650</updated>
     </task>
-    <option name="localTasksCounter" value="209" />
+    <task id="LOCAL-00209" summary="no comments">
+      <created>1690123048830</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1690123048830</updated>
+    </task>
+    <option name="localTasksCounter" value="210" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -850,7 +861,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/classes/polygon.js</url>
-          <line>801</line>
+          <line>808</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint type="javascript">
@@ -866,8 +877,12 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/test/algorithms/boolean_op.js</url>
           <line>1006</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/classes/line.js</url>
+          <line>201</line>
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

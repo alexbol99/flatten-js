@@ -6,6 +6,7 @@
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
 import {Shape} from "./shape";
+import {Matrix} from "./matrix";
 
 let {vector} = Flatten;
 
@@ -285,6 +286,19 @@ export class Line extends Shape {
             multiline.split(sorted_points);
             return multiline.toShapes();
         }
+    }
+
+    /**
+     * Return new line rotated by angle
+     * @param {number} angle - angle in radians
+     * @param {Point}  center - center of rotation
+     */
+    rotate(angle, center = new Flatten.Point()) {
+        const projection_point = center.projectionOn(this)
+        return new Flatten.Line(
+            new Flatten.Point(m.transform([projection_point.x, projection_point.y])),
+            new Flatten.Vector(m.transform([this.norm.x, this.norm.y]))
+        )
     }
 
     /**
