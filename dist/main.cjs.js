@@ -5193,6 +5193,20 @@ let Line$1 = class Line extends Shape {
     }
 
     /**
+     * Return new line rotated by angle
+     * @param {number} angle - angle in radians
+     * @param {Point}  center - center of rotation
+     */
+    rotate(angle, center = new Flatten.Point()) {
+        const projection_point = center.projectionOn(this);
+        const m = new Matrix().rotate(angle, center.x, center.y);
+        return new Flatten.Line(
+            new Flatten.Point(m.transform([projection_point.x, projection_point.y])),
+            new Flatten.Vector(m.transform([this.norm.x, this.norm.y]))
+        )
+    }
+
+    /**
      * Return new line transformed by affine transformation matrix
      * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
      * @returns {Line}
@@ -5200,7 +5214,7 @@ let Line$1 = class Line extends Shape {
     transform(m) {
         return new Flatten.Line(
             new Flatten.Point(m.transform([this.pt.x, this.pt.y])),
-            new Flatten.Vector(m.transform([this.norm.x, this.norm.y]))
+            this.norm.clone()
         )
     }
 
@@ -5552,10 +5566,10 @@ class Arc extends Shape {
          */
         this.counterClockwise = Flatten.CCW;
 
-        if (args.length == 0)
+        if (args.length === 0)
             return;
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "arc") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "arc") {
             let {pc, r, startAngle, endAngle, counterClockwise} = args[0];
             this.pc = new Flatten.Point(pc.x, pc.y);
             this.r = r;
@@ -5572,6 +5586,8 @@ class Arc extends Shape {
             if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
             return;
         }
+
+        // throw Flatten.Errors.ILLEGAL_PARAMETERS; unreachable code
     }
 
     /**
@@ -5718,8 +5734,8 @@ class Arc extends Shape {
      */
     pointAtLength(length) {
         if (length > this.length || length < 0) return null;
-        if (length == 0) return this.start;
-        if (length == this.length) return this.end;
+        if (length === 0) return this.start;
+        if (length === this.length) return this.end;
         let factor = length / this.length;
         let endAngle = this.counterClockwise ? this.startAngle + this.sweep * factor : this.startAngle - this.sweep * factor;
         let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
@@ -5737,7 +5753,7 @@ class Arc extends Shape {
     /**
      * Returns array of intersection points between arc and other shape
      * @param {Shape} shape Shape of the one of supported types <br/>
-     * @returns {Points[]}
+     * @returns {Point[]}
      */
     intersect(shape) {
         if (shape instanceof Flatten.Point) {
@@ -5811,7 +5827,7 @@ class Arc extends Shape {
 
     /**
      * Breaks arc in extreme point 0, pi/2, pi, 3*pi/2 and returns array of sub-arcs
-     * @returns {Arcs[]}
+     * @returns {Arc[]}
      */
     breakToFunctional() {
         let func_arcs_array = [];
@@ -5832,7 +5848,7 @@ class Arc extends Shape {
             }
         }
 
-        if (test_arcs.length == 0) {                  // arc does contain any extreme point
+        if (test_arcs.length === 0) {                  // arc does contain any extreme point
             func_arcs_array.push(this.clone());
         } else {                                        // arc passes extreme point
             // sort these arcs by length
@@ -5874,8 +5890,7 @@ class Arc extends Shape {
     tangentInStart() {
         let vec = new Flatten.Vector(this.pc, this.start);
         let angle = this.counterClockwise ? Math.PI / 2. : -Math.PI / 2.;
-        let tangent = vec.rotate(angle).normalize();
-        return tangent;
+        return vec.rotate(angle).normalize();
     }
 
     /**
@@ -5885,8 +5900,7 @@ class Arc extends Shape {
     tangentInEnd() {
         let vec = new Flatten.Vector(this.pc, this.end);
         let angle = this.counterClockwise ? -Math.PI / 2. : Math.PI / 2.;
-        let tangent = vec.rotate(angle).normalize();
-        return tangent;
+        return vec.rotate(angle).normalize();
     }
 
     /**
@@ -5910,8 +5924,7 @@ class Arc extends Shape {
         if (matrix.a * matrix.d < 0) {
           newDirection = !newDirection;
         }
-        let arc = Flatten.Arc.arcSE(newCenter, newStart, newEnd, newDirection);
-        return arc;
+        return Flatten.Arc.arcSE(newCenter, newStart, newEnd, newDirection);
     }
 
     static arcSE(center, start, end, counterClockwise) {
@@ -5949,7 +5962,7 @@ class Arc extends Shape {
 
     /**
      * Sort given array of points from arc start to end, assuming all points lay on the arc
-     * @param {Point[]} array of points
+     * @param {Point[]} pts array of points
      * @returns {Point[]} new array sorted
      */
     sortPoints(pts) {
