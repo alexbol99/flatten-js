@@ -35,9 +35,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Commit build">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Another bug in line.rotate()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/line.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/circle.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -452,14 +452,7 @@
       <workItem from="1689353964277" duration="606000" />
       <workItem from="1689415670437" duration="11382000" />
       <workItem from="1690122997843" duration="1498000" />
-      <workItem from="1690196279621" duration="3896000" />
-    </task>
-    <task id="LOCAL-00164" summary="- Complete Serialization and Visualization sections of README.md&#10;- Release patch">
-      <created>1588151602306</created>
-      <option name="number" value="00164" />
-      <option name="presentableId" value="LOCAL-00164" />
-      <option name="project" value="LOCAL" />
-      <updated>1588151602306</updated>
+      <workItem from="1690196279621" duration="6576000" />
     </task>
     <task id="LOCAL-00165" summary="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)">
       <created>1588226163073</created>
@@ -797,7 +790,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690200490707</updated>
     </task>
-    <option name="localTasksCounter" value="213" />
+    <task id="LOCAL-00213" summary="Another bug in line.rotate()">
+      <created>1690201367344</created>
+      <option name="number" value="00213" />
+      <option name="presentableId" value="LOCAL-00213" />
+      <option name="project" value="LOCAL" />
+      <updated>1690201367344</updated>
+    </task>
+    <option name="localTasksCounter" value="214" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -816,7 +816,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- Create segment with optional second point omitted (issue #84)&#10;- Release patch v1.2.23" />
     <MESSAGE value="- Remove quick reject from ray2segment and ray2arc" />
     <MESSAGE value="- Merge pull request &quot;Add pointAtLength methods for Arc, Segment, Edge and Face&quot; - #95&#10;- Release patch v1.2.25" />
     <MESSAGE value="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic" />
@@ -841,7 +840,8 @@
     <MESSAGE value="Fix bug in line.rotate()" />
     <MESSAGE value="Fix more bugs in line transform" />
     <MESSAGE value="Commit build" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit build" />
+    <MESSAGE value="Another bug in line.rotate()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Another bug in line.rotate()" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
