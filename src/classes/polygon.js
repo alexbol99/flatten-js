@@ -156,7 +156,7 @@ export class Polygon {
 
     /**
      * Add new face to polygon. Returns added face
-     * @param {Points[]|Segments[]|Arcs[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
+     * @param {Point[]|Segment[]|Arc[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
      * 1) array of points that describe closed path (edges are segments) <br/>
      * 2) array of shapes (segments and arcs) which describe closed path <br/>
      * 3) circle - will be added as counterclockwise arc <br/>
