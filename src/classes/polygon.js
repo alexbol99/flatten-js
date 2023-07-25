@@ -18,6 +18,7 @@ import {Multiline} from "./multiline";
 import {intersectEdge2Line} from "../algorithms/intersection";
 import {INSIDE, BOUNDARY} from "../utils/constants";
 import {convertToString} from "../utils/attributes";
+import {Matrix} from "./matrix";
 
 /**
  * Class representing a polygon.<br/>
@@ -633,6 +634,20 @@ export class Polygon {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
             newPolygon.addFace(face.shapes.map(shape => shape.rotate(angle, center)));
+        }
+        return newPolygon;
+    }
+
+    /**
+     * Return new polygon with coordinates multiplied by scaling factor
+     * @param {number} sx - x-axis scaling factor
+     * @param {number} sy - y-axis scaling factor
+     * @returns {Polygon}
+     */
+    scale(sx, sy) {
+        let newPolygon = new Polygon();
+        for (let face of this.faces) {
+            newPolygon.addFace(face.shapes.map(shape => shape.scale(sx, sy)));
         }
         return newPolygon;
     }

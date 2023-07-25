@@ -35,8 +35,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="In rotate transformation, do not change anchor point for line">
-      <change beforePath="$PROJECT_DIR$/src/classes/ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/ray.js" afterDir="false" />
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Typo in ray.rotate()">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/polygon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/polygon.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +132,7 @@
       <recent name="C:\Users\Alex Bol\WebstormProjects\flatten-js\types" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="npm.test">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -245,11 +246,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.test" />
         <item itemvalue="npm.build" />
         <item itemvalue="Mocha.#Flatten.Line" />
         <item itemvalue="Mocha.#Algorithms.Boolean Operations" />
         <item itemvalue="Mocha.#Flatten.Segment" />
-        <item itemvalue="npm.test" />
       </list>
     </recent_temporary>
   </component>
@@ -451,14 +452,7 @@
       <workItem from="1689353964277" duration="606000" />
       <workItem from="1689415670437" duration="11382000" />
       <workItem from="1690122997843" duration="1498000" />
-      <workItem from="1690196279621" duration="9591000" />
-    </task>
-    <task id="LOCAL-00168" summary="- Fix polygon.contain method">
-      <created>1588940700178</created>
-      <option name="number" value="00168" />
-      <option name="presentableId" value="LOCAL-00168" />
-      <option name="project" value="LOCAL" />
-      <updated>1588940700179</updated>
+      <workItem from="1690196279621" duration="11220000" />
     </task>
     <task id="LOCAL-00169" summary="- Fix polygon.contain method">
       <created>1589643069466</created>
@@ -796,7 +790,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690272833455</updated>
     </task>
-    <option name="localTasksCounter" value="217" />
+    <task id="LOCAL-00217" summary="Typo in ray.rotate()">
+      <created>1690273629565</created>
+      <option name="number" value="00217" />
+      <option name="presentableId" value="LOCAL-00217" />
+      <option name="project" value="LOCAL" />
+      <updated>1690273629565</updated>
+    </task>
+    <option name="localTasksCounter" value="218" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -815,7 +816,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic" />
     <MESSAGE value="- improve performance of face perimeter calculation&#10;- fix Multiline::svg() method&#10;- in intersectMultiline2Polygon() sort intersection points along multiline" />
     <MESSAGE value="- dummy submit" />
     <MESSAGE value="- New method polygon.cutWithLine() which support polygon with holes Issue #102" />
@@ -840,7 +840,8 @@
     <MESSAGE value="Another bug in line.rotate()" />
     <MESSAGE value="Fix bug in circle.transform()" />
     <MESSAGE value="In rotate transformation, do not change anchor point for line" />
-    <option name="LAST_COMMIT_MESSAGE" value="In rotate transformation, do not change anchor point for line" />
+    <MESSAGE value="Typo in ray.rotate()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Typo in ray.rotate()" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
