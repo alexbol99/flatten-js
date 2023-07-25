@@ -238,7 +238,7 @@ export class Box extends Shape {
      * @returns {Box}
      */
     transform(m = new Flatten.Matrix()) {
-        const transformed_points = this.toPoints().map(pt => m.transform([pt.x, pt.y]))
+        const transformed_points = this.toPoints().map(pt => pt.transform(m))
         return transformed_points.reduce(
             (new_box, pt) => new_box.merge(pt), new Box())
     }
