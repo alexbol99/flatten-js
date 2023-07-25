@@ -6249,7 +6249,7 @@ class Box extends Shape {
     transform(m = new Flatten.Matrix()) {
         const transformed_points = this.toPoints().map(pt => pt.transform(m));
         return transformed_points.reduce(
-            (new_box, pt) => new_box.merge(pt), new Box())
+            (new_box, pt) => new_box.merge(pt.box), new Box())
     }
 
     /**
