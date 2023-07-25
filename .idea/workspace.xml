@@ -35,9 +35,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Another bug in line.rotate()">
+    <list default="true" id="3bad4cc5-c7a3-4d34-95ab-991545541eec" name="Default" comment="Fix bug in circle.transform()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/circle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/circle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/line.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/line.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/ray.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -452,21 +453,7 @@
       <workItem from="1689353964277" duration="606000" />
       <workItem from="1689415670437" duration="11382000" />
       <workItem from="1690122997843" duration="1498000" />
-      <workItem from="1690196279621" duration="6576000" />
-    </task>
-    <task id="LOCAL-00165" summary="- Added relation between circles, boxes and polygon (issue #41 Intersect between two circles missing)">
-      <created>1588226163073</created>
-      <option name="number" value="00165" />
-      <option name="presentableId" value="LOCAL-00165" />
-      <option name="project" value="LOCAL" />
-      <updated>1588226163073</updated>
-    </task>
-    <task id="LOCAL-00166" summary="- Fix issue #42 Intersect does not seem to work when a shape is inside another">
-      <created>1588275796109</created>
-      <option name="number" value="00166" />
-      <option name="presentableId" value="LOCAL-00166" />
-      <option name="project" value="LOCAL" />
-      <updated>1588275796110</updated>
+      <workItem from="1690196279621" duration="8784000" />
     </task>
     <task id="LOCAL-00167" summary="- Release patch 1.2.5">
       <created>1588432105729</created>
@@ -797,7 +784,21 @@
       <option name="project" value="LOCAL" />
       <updated>1690201367344</updated>
     </task>
-    <option name="localTasksCounter" value="214" />
+    <task id="LOCAL-00214" summary="Fix bug in circle.transform()">
+      <created>1690205364978</created>
+      <option name="number" value="00214" />
+      <option name="presentableId" value="LOCAL-00214" />
+      <option name="project" value="LOCAL" />
+      <updated>1690205364978</updated>
+    </task>
+    <task id="LOCAL-00215" summary="Fix bug in circle.transform()">
+      <created>1690205418815</created>
+      <option name="number" value="00215" />
+      <option name="presentableId" value="LOCAL-00215" />
+      <option name="project" value="LOCAL" />
+      <updated>1690205418815</updated>
+    </task>
+    <option name="localTasksCounter" value="216" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -816,7 +817,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="- Remove quick reject from ray2segment and ray2arc" />
     <MESSAGE value="- Merge pull request &quot;Add pointAtLength methods for Arc, Segment, Edge and Face&quot; - #95&#10;- Release patch v1.2.25" />
     <MESSAGE value="- Fix method Face::pointAtLength : use precalculated edge.arc_length property, change logic" />
     <MESSAGE value="- improve performance of face perimeter calculation&#10;- fix Multiline::svg() method&#10;- in intersectMultiline2Polygon() sort intersection points along multiline" />
@@ -841,7 +841,8 @@
     <MESSAGE value="Fix more bugs in line transform" />
     <MESSAGE value="Commit build" />
     <MESSAGE value="Another bug in line.rotate()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Another bug in line.rotate()" />
+    <MESSAGE value="Fix bug in circle.transform()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bug in circle.transform()" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

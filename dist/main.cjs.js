@@ -5195,15 +5195,12 @@ let Line$1 = class Line extends Shape {
     /**
      * Return new line rotated by angle
      * @param {number} angle - angle in radians
-     * @param {Point}  center - center of rotation
+     * @param {Point} center - center of rotation
      */
     rotate(angle, center = new Flatten.Point()) {
-        const m = new Matrix().rotate(angle, center.x, center.y);
-        const projection_point = center.projectionOn(this);
-        const rotated_normal = this.norm.rotate(angle);
         return new Flatten.Line(
-            new Flatten.Point(m.transform([projection_point.x, projection_point.y])),
-            rotated_normal
+            this.pt.rotate(angle, center),
+            this.norm.rotate(angle)
         )
     }
 
@@ -5214,7 +5211,7 @@ let Line$1 = class Line extends Shape {
      */
     transform(m) {
         return new Flatten.Line(
-            new Flatten.Point(m.transform([this.pt.x, this.pt.y])),
+            this.pt.transform(m),
             this.norm.clone()
         )
     }
@@ -7247,14 +7244,26 @@ class Ray extends Shape {
     }
 
     /**
+     * Return new line rotated by angle
+     * @param {number} angle - angle in radians
+     * @param {Point} center - center of rotation
+     */
+    rotate(angle, center = new Flatten.Point()) {
+        return new Flatten.Line(
+            this.pt.rotate(angle, center),
+            this.norm.rotate(angle)
+        )
+    }
+
+    /**
      * Return new ray transformed by affine transformation matrix
      * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
      * @returns {Ray}
      */
     transform(m) {
         return new Flatten.Ray(
-            m.transform([this.pt.x, this.pt.y]),
-            m.transform([this.norm.x, this.norm.y])
+            this.pt.transform(m),
+            this.norm.clone()
         )
     }
 

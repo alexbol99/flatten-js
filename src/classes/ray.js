@@ -181,14 +181,26 @@ export class Ray extends Shape {
     }
 
     /**
+     * Return new line rotated by angle
+     * @param {number} angle - angle in radians
+     * @param {Point} center - center of rotation
+     */
+    rotate(angle, center = new Flatten.Point()) {
+        return new Flatten.Line(
+            this.pt.rotate(angle, center),
+            this.norm.rotate(angle)
+        )
+    }
+
+    /**
      * Return new ray transformed by affine transformation matrix
      * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
      * @returns {Ray}
      */
     transform(m) {
         return new Flatten.Ray(
-            m.transform([this.pt.x, this.pt.y]),
-            m.transform([this.norm.x, this.norm.y])
+            this.pt.transform(m),
+            this.norm.clone()
         )
     }
 
