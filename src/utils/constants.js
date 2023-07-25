@@ -11,7 +11,7 @@ export const CCW = true;
 export const CW = false;
 
 /**
- * Defines orientation for face of the polygon: clockwise, counter clockwise
+ * Defines orientation for face of the polygon: clockwise, counterclockwise
  * or not orientable in the case of self-intersection
  * @type {{CW: number, CCW: number, NOT_ORIENTABLE: number}}
  */

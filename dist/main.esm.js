@@ -11,7 +11,7 @@ const CCW = true;
 const CW = false;
 
 /**
- * Defines orientation for face of the polygon: clockwise, counter clockwise
+ * Defines orientation for face of the polygon: clockwise, counterclockwise
  * or not orientable in the case of self-intersection
  * @type {{CW: number, CCW: number, NOT_ORIENTABLE: number}}
  */
@@ -187,6 +187,14 @@ class Errors {
      */
     static get INFINITE_LOOP() {
         return new Error('Infinite loop');
+    }
+
+    static get CANNOT_INVOKE_ABSTRACT_METHOD() {
+        return new Error('Abstract method cannot be invoked');
+    }
+
+    static get OPERATION_IS_NOT_SUPPORTED() {
+        return new Error('Operation is not supported')
     }
 }
 
@@ -2378,7 +2386,7 @@ class Multiline extends LinkedList {
     /**
      * Return new multiline rotated by given angle around given point
      * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
+     * Positive value of angle defines rotation counterclockwise, negative - clockwise
      * @param {number} angle - rotation angle in radians
      * @param {Point} center - rotation center, default is (0,0)
      * @returns {Multiline} - new rotated polygon
@@ -2980,16 +2988,17 @@ class Matrix {
     /**
      * Return new matrix as a result of multiplication of the current matrix
      * by the matrix(1,0,0,1,tx,ty)
-     * @param {number} tx - translation by x
-     * @param {number} ty - translation by y
+     * @param {Vector} vector - Translation by vector or
+     * @param {number} tx - translation by x-axis
+     * @param {number} ty - translation by y-axis
      * @returns {Matrix}
      */
     translate(...args) {
         let tx, ty;
-        if (args.length == 1 && (args[0] instanceof Flatten.Vector)) {
+        if (args.length == 1 &&  !isNaN(args[0].x) && !isNaN(args[0].y)) {
             tx = args[0].x;
             ty = args[0].y;
-        } else if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
+        } else if (args.length === 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
             tx = args[0];
             ty = args[1];
         } else {
@@ -3001,14 +3010,19 @@ class Matrix {
     /**
      * Return new matrix as a result of multiplication of the current matrix
      * by the matrix that defines rotation by given angle (in radians) around
-     * point (0,0) in counter clockwise direction
+     * center of rotation (centerX,centerY) in counterclockwise direction
      * @param {number} angle - angle in radians
+     * @param {number} centerX - center of rotation
+     * @param {number} centerY - center of rotation
      * @returns {Matrix}
      */
-    rotate(angle) {
+    rotate(angle, centerX = 0.0, centerY = 0.0) {
         let cos = Math.cos(angle);
         let sin = Math.sin(angle);
-        return this.multiply(new Matrix(cos, sin, -sin, cos, 0, 0));
+        return this
+            .translate(centerX, centerY)
+            .multiply(new Matrix(cos, sin, -sin, cos, 0, 0))
+            .translate(-centerX, -centerY);
     };
 
     /**
@@ -3973,6 +3987,51 @@ class PlanarSet extends Set {
 Flatten.PlanarSet = PlanarSet;
 
 /**
+ * Base class representing shape
+ * Implement common methods of affine transformations
+ */
+class Shape {
+    /**
+     * Returns new shape translated by given vector.
+     * Translation vector may be also defined by a pair of numbers.
+     * @param {Vector} vector - Translation vector or
+     * @param {number} tx - Translation by x-axis
+     * @param {number} ty - Translation by y-axis
+     * @returns {Shape}
+     */
+    translate(...args) {
+        return this.transform(new Matrix().translate(...args))
+    }
+
+    /**
+     * Returns new shape rotated by given angle around given center point.
+     * If center point is omitted, rotates around zero point (0,0).
+     * Positive value of angle defines rotation in counterclockwise direction,
+     * negative angle defines rotation in clockwise direction
+     * @param {number} angle - angle in radians
+     * @param {Point} [center=(0,0)] center
+     * @returns {Shape}
+     */
+    rotate(angle, center = new Flatten.Point()) {
+        return this.transform(new Matrix().rotate(angle, center.x, center.y));
+    }
+
+    /**
+     * Return new shape with coordinates multiplied by scaling factor
+     * @param {number} sx - x-axis scaling factor
+     * @param {number} sy - y-axis scaling factor
+     * @returns {Shape}
+     */
+    scale(sx, sy) {
+        return this.transform(new Matrix().scale(sx, sy));
+    }
+
+    transform(...args) {
+        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+}
+
+/**
  * Created by Alex Bol on 2/18/2017.
  */
 
@@ -3982,13 +4041,14 @@ Flatten.PlanarSet = PlanarSet;
  * Class representing a point
  * @type {Point}
  */
-let Point$1 = class Point {
+let Point$1 = class Point extends Shape {
     /**
      * Point may be constructed by two numbers, or by array of two numbers
      * @param {number} x - x-coordinate (float number)
      * @param {number} y - y-coordinate (float number)
      */
     constructor(...args) {
+        super();
         /**
          * x-coordinate (float number)
          * @type {number}
@@ -4022,14 +4082,6 @@ let Point$1 = class Point {
 
         if (args.length === 2) {
             if (typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-                this.x = args[0];
-                this.y = args[1];
-                return;
-            }
-        }
-
-        if (args.length === 2) {
-            if (Decimal.isDecimal(args[0]) && Decimal.isDecimal(args[1])) {
                 this.x = args[0];
                 this.y = args[1];
                 return;
@@ -4083,48 +4135,11 @@ let Point$1 = class Point {
     }
 
     /**
-     * Returns new point rotated by given angle around given center point.
-     * If center point is omitted, rotates around zero point (0,0).
-     * Positive value of angle defines rotation in counter clockwise direction,
-     * negative angle defines rotation in clockwise clockwise direction
-     * @param {number} angle - angle in radians
-     * @param {Point} [center=(0,0)] center
-     * @returns {Point}
-     */
-    rotate(angle, center = {x: 0, y: 0}) {
-        var x_rot = center.x + (this.x - center.x) * Math.cos(angle) - (this.y - center.y) * Math.sin(angle);
-        var y_rot = center.y + (this.x - center.x) * Math.sin(angle) + (this.y - center.y) * Math.cos(angle);
-
-        return new Flatten.Point(x_rot, y_rot);
-    }
-
-    /**
-     * Returns new point translated by given vector.
-     * Translation vector may by also defined by a pair of numbers.
-     * @param {Vector} vector - Translation vector defined as Flatten.Vector or
-     * @param {number|number} - Translation vector defined as pair of numbers
-     * @returns {Point}
-     */
-    translate(...args) {
-        if (args.length == 1 &&
-            (args[0] instanceof Flatten.Vector || !isNaN(args[0].x) && !isNaN(args[0].y))) {
-            return new Flatten.Point(this.x + args[0].x, this.y + args[0].y);
-        }
-
-        if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-            return new Flatten.Point(this.x + args[0], this.y + args[1]);
-        }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
-    }
-
-    /**
-     * Return new point transformed by affine transformation matrix m
+     * Return new point transformed by affine transformation matrix
      * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
      * @returns {Point}
      */
     transform(m) {
-        // let [x,y] = m.transform([this.x,this.y]);
         return new Flatten.Point(m.transform([this.x, this.y]))
     }
 
@@ -4184,14 +4199,10 @@ let Point$1 = class Point {
         }
 
         if (shape instanceof Flatten.Arc) {
-            // let [dist, ...rest] = Distance.point2arc(this, shape);
-            // return dist;
             return Flatten.Distance.point2arc(this, shape);
         }
 
         if (shape instanceof Flatten.Polygon) {
-            // let [dist, ...rest] = Distance.point2polygon(this, shape);
-            // return dist;
             return Flatten.Distance.point2polygon(this, shape);
         }
 
@@ -4279,7 +4290,7 @@ Flatten.point = point;
  * Class representing a vector
  * @type {Vector}
  */
-let Vector$1 = class Vector {
+let Vector$1 = class Vector extends Shape {
     /**
      * Vector may be constructed by two points, or by two float numbers,
      * or by array of two numbers
@@ -4287,6 +4298,7 @@ let Vector$1 = class Vector {
      * @param {Point} pe - end point
      */
     constructor(...args) {
+        super();
         /**
          * x-coordinate of a vector (float number)
          * @type {number}
@@ -4419,19 +4431,30 @@ let Vector$1 = class Vector {
 
     /**
      * Returns new vector rotated by given angle,
-     * positive angle defines rotation in counter clockwise direction,
+     * positive angle defines rotation in counterclockwise direction,
      * negative - in clockwise direction
+     * Vector only can be rotated around (0,0) point!
      * @param {number} angle - Angle in radians
      * @returns {Vector}
      */
-    rotate(angle) {
-        let point = new Flatten.Point(this.x, this.y);
-        let rpoint = point.rotate(angle);
-        return new Flatten.Vector(rpoint.x, rpoint.y);
+    rotate(angle, center = new Flatten.Point()) {
+        if (center.x === 0 && center.y === 0) {
+            return this.transform(new Matrix().rotate(angle));
+        }
+        throw(Flatten.Errors.OPERATION_IS_NOT_SUPPORTED);
     }
 
     /**
-     * Returns vector rotated 90 degrees counter clockwise
+     * Return new vector transformed by affine transformation matrix m
+     * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+     * @returns {Vector}
+     */
+    transform(m) {
+        return new Flatten.Vector(m.transform([this.x, this.y]))
+    }
+
+    /**
+     * Returns vector rotated 90 degrees counterclockwise
      * @returns {Vector}
      */
     rotate90CCW() {
@@ -4474,8 +4497,8 @@ let Vector$1 = class Vector {
 
     /**
      * Return angle between this vector and other vector. <br/>
-     * Angle is measured from 0 to 2*PI in the counter clockwise direction
-     * from current vector to other.
+     * Angle is measured from 0 to 2*PI in the counterclockwise direction
+     * from current vector to  another.
      * @param {Vector} v Another vector
      * @returns {number}
      */
@@ -4507,6 +4530,7 @@ let Vector$1 = class Vector {
         return Object.assign({}, this, {name: "vector"});
     }
 };
+
 Flatten.Vector = Vector$1;
 
 /**
@@ -4525,13 +4549,14 @@ Flatten.vector = vector$1;
  * Class representing a segment
  * @type {Segment}
  */
-class Segment {
+class Segment extends Shape {
     /**
      *
      * @param {Point} ps - start point
      * @param {Point} pe - end point
      */
     constructor(...args) {
+        super();
         /**
          * Start point
          * @type {Point}
@@ -4825,29 +4850,6 @@ class Segment {
     }
 
     /**
-     * Returns new segment translated by vector vec
-     * @param {Vector} vec
-     * @returns {Segment}
-     */
-    translate(...args) {
-        return new Segment(this.ps.translate(...args), this.pe.translate(...args));
-    }
-
-    /**
-     * Return new segment rotated by given angle around given point
-     * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
-     * @param {number} angle - rotation angle in radians
-     * @param {Point} center - center point, default is (0,0)
-     * @returns {Segment}
-     */
-    rotate(angle = 0, center = new Flatten.Point()) {
-        let m = new Flatten.Matrix();
-        m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
-        return this.transform(m);
-    }
-
-    /**
      * Return new segment transformed using affine transformation matrix
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Segment} - transformed segment
@@ -4912,13 +4914,14 @@ let {vector} = Flatten;
  * Class representing a line
  * @type {Line}
  */
-let Line$1 = class Line {
+let Line$1 = class Line extends Shape {
     /**
      * Line may be constructed by point and normal vector or by two points that a line passes through
      * @param {Point} pt - point that a line passes through
      * @param {Vector|Point} norm - normal vector to a line or second point a line passes through
      */
     constructor(...args) {
+        super();
         /**
          * Point a line passes through
          * @type {Point}
@@ -4932,18 +4935,18 @@ let Line$1 = class Line {
          */
         this.norm = new Flatten.Vector(0, 1);
 
-        if (args.length == 0) {
+        if (args.length === 0) {
             return;
         }
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "line") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "line") {
             let {pt, norm} = args[0];
             this.pt = new Flatten.Point(pt);
             this.norm = new Flatten.Vector(norm);
             return;
         }
 
-        if (args.length == 2) {
+        if (args.length === 2) {
             let a1 = args[0];
             let a2 = args[1];
 
@@ -5048,7 +5051,7 @@ let Line$1 = class Line {
     get standard() {
         let A = this.norm.x;
         let B = this.norm.y;
-        let C = this.norm.dot(this.pt);
+        let C = this.norm.dot(vector(this.pt.x, this.pt.y));
 
         return [A, B, C];
     }
@@ -5086,11 +5089,11 @@ let Line$1 = class Line {
     }
 
     /**
-     * Return coordinate of the point that lays on the line in the transformed
+     * Return coordinate of the point that lies on the line in the transformed
      * coordinate system where center is the projection of the point(0,0) to
      * the line and axe y is collinear to the normal vector. <br/>
-     * This method assumes that point lays on the line and does not check it
-     * @param {Point} pt - point on line
+     * This method assumes that point lies on the line and does not check it
+     * @param {Point} pt - point on a line
      * @returns {number}
      */
     coord(pt) {
@@ -5136,8 +5139,7 @@ let Line$1 = class Line {
     /**
      * Calculate distance and shortest segment from line to shape and returns array [distance, shortest_segment]
      * @param {Shape} shape Shape of the one of the types Point, Circle, Segment, Arc, Polygon
-     * @returns {Number}
-     * @returns {Segment}
+     * @returns {[number, Segment]}
      */
     distanceTo(shape) {
         if (shape instanceof Flatten.Point) {
@@ -5169,10 +5171,10 @@ let Line$1 = class Line {
     }
 
     /**
-     * Split line with array of points and return array of shapes
-     * Assumed that all points lay on the line
-     * @param {Point[]}
-     * @returns {Shape[]}
+     * Split line with a point or array of points and return array of shapes
+     * Assumed (but not checked) that all points lay on the line
+     * @param {Point | Point[]} pt
+     * @returns {MultilineShapes}
      */
     split(pt) {
         if (pt instanceof Flatten.Point) {
@@ -5187,7 +5189,31 @@ let Line$1 = class Line {
     }
 
     /**
-     * Sort given array of points that lay on line with respect to coordinate on a line
+     * Return new line rotated by angle
+     * @param {number} angle - angle in radians
+     * @param {Point} center - center of rotation
+     */
+    rotate(angle, center = new Flatten.Point()) {
+        return new Flatten.Line(
+            this.pt.rotate(angle, center),
+            this.norm.rotate(angle)
+        )
+    }
+
+    /**
+     * Return new line transformed by affine transformation matrix
+     * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+     * @returns {Line}
+     */
+    transform(m) {
+        return new Flatten.Line(
+            this.pt.transform(m),
+            this.norm.clone()
+        )
+    }
+
+    /**
+     * Sort given array of points that lay on a line with respect to coordinate on a line
      * The method assumes that points lay on the line and does not check this
      * @param {Point[]} pts - array of points
      * @returns {Point[]} new array sorted
@@ -5223,7 +5249,7 @@ let Line$1 = class Line {
         if (ip.length === 0)
             return "";
         let ps = ip[0];
-        let pe = ip.length == 2 ? ip[1] : ip.find(pt => !pt.equalTo(ps));
+        let pe = ip.length === 2 ? ip[1] : ip.find(pt => !pt.equalTo(ps));
         if (pe === undefined) pe = ps;
         let segment = new Flatten.Segment(ps, pe);
         return segment.svg(attrs);
@@ -5238,6 +5264,7 @@ let Line$1 = class Line {
         return unit.rotate90CCW();
     }
 };
+
 Flatten.Line = Line$1;
 /**
  * Function to create line equivalent to "new" constructor
@@ -5255,13 +5282,14 @@ Flatten.line = line;
  * Class representing a circle
  * @type {Circle}
  */
-let Circle$1 = class Circle {
+let Circle$1 = class Circle extends Shape {
     /**
      *
      * @param {Point} pc - circle center point
      * @param {number} r - circle radius
      */
     constructor(...args) {
+        super();
         /**
          * Circle center
          * @type {Point}
@@ -5352,6 +5380,29 @@ let Circle$1 = class Circle {
      */
     toArc(counterclockwise = true) {
         return new Flatten.Arc(this.center, this.r, Math.PI, -Math.PI, counterclockwise);
+    }
+
+    /**
+     * Method scale is supported only for uniform scaling of the circle with (0,0) center
+     * @param {number} sx
+     * @param {number} sy
+     * @returns {Circle}
+     */
+    scale(sx, sy) {
+        if (sx !== sy)
+            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+        if (!(this.pc.x === 0.0 && this.pc.y === 0.0))
+            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+        return new Flatten.Circle(this.pc, this.r*sx)
+    }
+
+    /**
+     * Return new circle transformed using affine transformation matrix
+     * @param {Matrix} matrix - affine transformation matrix
+     * @returns {Circle}
+     */
+    transform(matrix = new Flatten.Matrix()) {
+        return new Flatten.Circle(this.pc.transform(matrix), this.r)
     }
 
     /**
@@ -5472,16 +5523,17 @@ Flatten.circle = circle;
  * Class representing a circular arc
  * @type {Arc}
  */
-class Arc {
+class Arc extends Shape {
     /**
      *
      * @param {Point} pc - arc center
      * @param {number} r - arc radius
      * @param {number} startAngle - start angle in radians from 0 to 2*PI
      * @param {number} endAngle - end angle in radians from 0 to 2*PI
-     * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counter clockwise
+     * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counterclockwise
      */
     constructor(...args) {
+        super();
         /**
          * Arc center
          * @type {Point}
@@ -5508,10 +5560,10 @@ class Arc {
          */
         this.counterClockwise = Flatten.CCW;
 
-        if (args.length == 0)
+        if (args.length === 0)
             return;
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "arc") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "arc") {
             let {pc, r, startAngle, endAngle, counterClockwise} = args[0];
             this.pc = new Flatten.Point(pc.x, pc.y);
             this.r = r;
@@ -5528,6 +5580,8 @@ class Arc {
             if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
             return;
         }
+
+        // throw Flatten.Errors.ILLEGAL_PARAMETERS; unreachable code
     }
 
     /**
@@ -5674,8 +5728,8 @@ class Arc {
      */
     pointAtLength(length) {
         if (length > this.length || length < 0) return null;
-        if (length == 0) return this.start;
-        if (length == this.length) return this.end;
+        if (length === 0) return this.start;
+        if (length === this.length) return this.end;
         let factor = length / this.length;
         let endAngle = this.counterClockwise ? this.startAngle + this.sweep * factor : this.startAngle - this.sweep * factor;
         let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
@@ -5693,7 +5747,7 @@ class Arc {
     /**
      * Returns array of intersection points between arc and other shape
      * @param {Shape} shape Shape of the one of supported types <br/>
-     * @returns {Points[]}
+     * @returns {Point[]}
      */
     intersect(shape) {
         if (shape instanceof Flatten.Point) {
@@ -5767,7 +5821,7 @@ class Arc {
 
     /**
      * Breaks arc in extreme point 0, pi/2, pi, 3*pi/2 and returns array of sub-arcs
-     * @returns {Arcs[]}
+     * @returns {Arc[]}
      */
     breakToFunctional() {
         let func_arcs_array = [];
@@ -5788,7 +5842,7 @@ class Arc {
             }
         }
 
-        if (test_arcs.length == 0) {                  // arc does contain any extreme point
+        if (test_arcs.length === 0) {                  // arc does contain any extreme point
             func_arcs_array.push(this.clone());
         } else {                                        // arc passes extreme point
             // sort these arcs by length
@@ -5830,8 +5884,7 @@ class Arc {
     tangentInStart() {
         let vec = new Flatten.Vector(this.pc, this.start);
         let angle = this.counterClockwise ? Math.PI / 2. : -Math.PI / 2.;
-        let tangent = vec.rotate(angle).normalize();
-        return tangent;
+        return vec.rotate(angle).normalize();
     }
 
     /**
@@ -5841,8 +5894,7 @@ class Arc {
     tangentInEnd() {
         let vec = new Flatten.Vector(this.pc, this.end);
         let angle = this.counterClockwise ? -Math.PI / 2. : Math.PI / 2.;
-        let tangent = vec.rotate(angle).normalize();
-        return tangent;
+        return vec.rotate(angle).normalize();
     }
 
     /**
@@ -5854,48 +5906,7 @@ class Arc {
     }
 
     /**
-     * Returns new arc translated by vector vec
-     * @param {Vector} vec
-     * @returns {Segment}
-     */
-    translate(...args) {
-        let arc = this.clone();
-        arc.pc = this.pc.translate(...args);
-        return arc;
-    }
-
-    /**
-     * Return new segment rotated by given angle around given point
-     * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
-     * @param {number} angle - rotation angle in radians
-     * @param {Point} center - center point, default is (0,0)
-     * @returns {Arc}
-     */
-    rotate(angle = 0, center = new Flatten.Point()) {
-        let m = new Flatten.Matrix();
-        m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
-        return this.transform(m);
-    }
-
-    /**
-     * Return new arc scaled by scaleX, scaleY.
-     * @param {number} scaleX - scale value by X
-     * @param {number} scaleY - scale value by Y
-     * @returns {Arc}
-     */
-    scale(scaleX = 1, scaleY = 1) {
-        let m = new Flatten.Matrix();
-        m = m.scale(scaleX, scaleY);
-        return this.transform(m);
-    }
-
-    /**
      * Return new arc transformed using affine transformation matrix <br/>
-     * Note 1. Non-equal scaling by x and y (abs(matrix[0]) != abs(matrix[3])) produce illegal result because
-     * it should create elliptic arc but this package does not support ellipses
-     * Note 2. Mirror transformation (matrix[0] * matrix[3] < 0) change direction of the arc to the opposite
-     * TODO: support non-equal scaling arc to ellipse or throw exception ?
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Arc}
      */
@@ -5907,8 +5918,7 @@ class Arc {
         if (matrix.a * matrix.d < 0) {
           newDirection = !newDirection;
         }
-        let arc = Flatten.Arc.arcSE(newCenter, newStart, newEnd, newDirection);
-        return arc;
+        return Flatten.Arc.arcSE(newCenter, newStart, newEnd, newDirection);
     }
 
     static arcSE(center, start, end, counterClockwise) {
@@ -5946,7 +5956,7 @@ class Arc {
 
     /**
      * Sort given array of points from arc start to end, assuming all points lay on the arc
-     * @param {Point[]} array of points
+     * @param {Point[]} pts array of points
      * @returns {Point[]} new array sorted
      */
     sortPoints(pts) {
@@ -6007,10 +6017,11 @@ Flatten.arc = arc;
  */
 
 /**
- * Class Box represent bounding box of the shape
+ * Class Box represents bounding box of the shape.
+ * It may also represent axis-aligned rectangle
  * @type {Box}
  */
-class Box {
+class Box extends Shape {
     /**
      *
      * @param {number} xmin - minimal x coordinate
@@ -6019,6 +6030,7 @@ class Box {
      * @param {number} ymax - maximal y coordinate
      */
     constructor(xmin = undefined, ymin = undefined, xmax = undefined, ymax = undefined) {
+        super();
         /**
          * Minimal x coordinate
          * @type {number}
@@ -6179,7 +6191,7 @@ class Box {
 
     /**
      * Set new values to the box object
-     * @param {number} xmin - miminal x coordinate
+     * @param {number} xmin - mininal x coordinate
      * @param {number} ymin - minimal y coordinate
      * @param {number} xmax - maximal x coordinate
      * @param {number} ymax - maximal y coordinate
@@ -6192,7 +6204,7 @@ class Box {
     }
 
     /**
-     * Transform box into array of points from low left corner in counter clockwise
+     * Transform box into array of points from low left corner in counterclockwise
      * @returns {Point[]}
      */
     toPoints() {
@@ -6205,7 +6217,7 @@ class Box {
     }
 
     /**
-     * Transform box into array of segments from low left corner in counter clockwise
+     * Transform box into array of segments from low left corner in counterclockwise
      * @returns {Segment[]}
      */
     toSegments() {
@@ -6216,6 +6228,28 @@ class Box {
             new Flatten.Segment(pts[2], pts[3]),
             new Flatten.Segment(pts[3], pts[0])
         ];
+    }
+
+    /**
+     * Box rotation is not supported
+     * Attempt to rotate box throws error
+     * @param {number} angle - angle in radians
+     * @param {Point} [center=(0,0)] center
+     */
+    rotate(angle, center = new Flatten.Point()) {
+            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+    }
+
+    /**
+     * Return new box transformed using affine transformation matrix
+     * New box is a bounding box of transformed corner points
+     * @param {Matrix} m - affine transformation matrix
+     * @returns {Box}
+     */
+    transform(m = new Flatten.Matrix()) {
+        const transformed_points = this.toPoints().map(pt => m.transform([pt.x, pt.y]));
+        return transformed_points.reduce(
+            (new_box, pt) => new_box.merge(pt), new Box())
     }
 
     /**
@@ -7033,7 +7067,7 @@ Flatten.Face = Face;
  * Class representing a ray (a half-infinite line).
  * @type {Ray}
  */
-class Ray {
+class Ray extends Shape {
     /**
      * Ray may be constructed by setting an <b>origin</b> point and a <b>normal</b> vector, so that any point <b>x</b>
      * on a ray fit an equation: <br />
@@ -7045,10 +7079,11 @@ class Ray {
      * @param {Vector} norm - normal vector
      */
     constructor(...args) {
+        super();
         this.pt = new Flatten.Point();
         this.norm = new Flatten.Vector(0,1);
 
-        if (args.length == 0) {
+        if (args.length === 0) {
             return;
         }
 
@@ -7064,11 +7099,6 @@ class Ray {
             this.norm = args[1].clone();
             return;
         }
-
-        // if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-        //     this.pt = new Flatten.Point(args[0], args[1]);
-        //     return;
-        // }
 
         throw Flatten.Errors.ILLEGAL_PARAMETERS;
     }
@@ -7100,7 +7130,7 @@ class Ray {
             slope > Math.PI/2 && slope < 3*Math.PI/2 ? Number.NEGATIVE_INFINITY : this.pt.x,
             slope >= 0 && slope <= Math.PI ? this.pt.y : Number.NEGATIVE_INFINITY,
             slope >= Math.PI/2 && slope <= 3*Math.PI/2 ? this.pt.x : Number.POSITIVE_INFINITY,
-            slope >= Math.PI && slope <= 2*Math.PI || slope == 0 ? this.pt.y : Number.POSITIVE_INFINITY
+            slope >= Math.PI && slope <= 2*Math.PI || slope === 0 ? this.pt.y : Number.POSITIVE_INFINITY
         )
     }
 
@@ -7160,7 +7190,7 @@ class Ray {
 
     /**
      * Returns array of intersection points between ray and segment or arc
-     * @param {Segment|Arc} - Shape to intersect with ray
+     * @param {Segment|Arc} shape - Shape to intersect with ray
      * @returns {Array} array of intersection points
      */
     intersect(shape) {
@@ -7176,15 +7206,10 @@ class Ray {
     intersectRay2Segment(ray, segment) {
         let ip = [];
 
-        // if (ray.box.not_intersect(segment.box)) {
-        //     return ip;
-        // }
-
         let line = new Flatten.Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(segment);
 
         for (let pt of ip_tmp) {
-            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
             if (ray.contains(pt)) {
                 ip.push(pt);
             }
@@ -7193,7 +7218,7 @@ class Ray {
         /* If there were two intersection points between line and ray,
         and now there is exactly one left, it means ray starts between these points
         and there is another intersection point - start of the ray */
-        if (ip_tmp.length == 2 && ip.length == 1 && ray.start.on(line)) {
+        if (ip_tmp.length === 2 && ip.length === 1 && ray.start.on(line)) {
             ip.push(ray.start);
         }
 
@@ -7203,20 +7228,39 @@ class Ray {
     intersectRay2Arc(ray, arc) {
         let ip = [];
 
-        // if (ray.box.not_intersect(arc.box)) {
-        //     return ip;
-        // }
-
         let line = new Flatten.Line(ray.start, ray.norm);
         let ip_tmp = line.intersect(arc);
 
         for (let pt of ip_tmp) {
-            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
             if (ray.contains(pt)) {
                 ip.push(pt);
             }
         }
         return ip;
+    }
+
+    /**
+     * Return new line rotated by angle
+     * @param {number} angle - angle in radians
+     * @param {Point} center - center of rotation
+     */
+    rotate(angle, center = new Flatten.Point()) {
+        return new Flatten.Ray(
+            this.pt.rotate(angle, center),
+            this.norm.rotate(angle)
+        )
+    }
+
+    /**
+     * Return new ray transformed by affine transformation matrix
+     * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+     * @returns {Ray}
+     */
+    transform(m) {
+        return new Flatten.Ray(
+            this.pt.transform(m),
+            this.norm.clone()
+        )
     }
 
     /**
@@ -7235,6 +7279,7 @@ class Ray {
     }
 
 }
+
 Flatten.Ray = Ray;
 
 const ray = (...args) => new Flatten.Ray(...args);
@@ -7850,7 +7895,7 @@ class Polygon {
     /**
      * Return new polygon rotated by given angle around given point
      * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
+     * Positive value of angle defines rotation counterclockwise, negative - clockwise
      * @param {number} angle - rotation angle in radians
      * @param {Point} center - rotation center, default is (0,0)
      * @returns {Polygon} - new rotated polygon

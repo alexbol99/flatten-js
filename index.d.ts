@@ -61,7 +61,7 @@ declare namespace Flatten {
 
     class CircularLinkedList extends LinkedList {}
 
-    type DE9IM_element = Array<Shape> | undefined;
+    type DE9IM_element = Array<AnyShape> | undefined;
     /* Impossible to set length for tuple ? Really ? */
     type DE9IM_matrix = [
         DE9IM_element,DE9IM_element,DE9IM_element,
@@ -74,31 +74,31 @@ declare namespace Flatten {
         m: DE9IM_matrix;
 
         get I2I();
-        set I2I(geom: Array<Shape>);
+        set I2I(geom: Array<AnyShape>);
 
         get I2B();
-        set I2B(geom: Array<Shape>);
+        set I2B(geom: Array<AnyShape>);
 
         get I2E();
-        set I2E(geom: Array<Shape>);
+        set I2E(geom: Array<AnyShape>);
 
         get B2I();
-        set B2I(geom: Array<Shape>);
+        set B2I(geom: Array<AnyShape>);
 
         get B2B();
-        set B2B(geom: Array<Shape>);
+        set B2B(geom: Array<AnyShape>);
 
         get B2E();
-        set B2E(geom: Array<Shape>);
+        set B2E(geom: Array<AnyShape>);
 
         get E2I();
-        set E2I(geom: Array<Shape>);
+        set E2I(geom: Array<AnyShape>);
 
         get E2B();
-        set E2B(geom: Array<Shape>);
+        set E2B(geom: Array<AnyShape>);
 
         get E2E();
-        set E2E(geom: Array<Shape>);
+        set E2E(geom: Array<AnyShape>);
 
         toString() : string;
     }
@@ -106,7 +106,14 @@ declare namespace Flatten {
     const CCW = true;
     const CW = false;
 
-    class Arc {
+    class Shape {
+        translate(vec: Vector): Shape;
+        translate(x:number, y:number): Shape;
+        rotate(angle: number, center?: Point): Shape;
+        scale(scaleX: number, scaleY: number) : Shape;
+        transform(matrix: Matrix): Shape;
+    }
+    class Arc extends Shape {
         counterClockwise: boolean;
 
         // members
@@ -139,23 +146,20 @@ declare namespace Flatten {
         middle(): Point;
         pointAtLength(length: number): Point|null;
         chordHeight(): number;
-        intersect(shape: Shape): Array<Point>;
-        distanceTo(geom: Shape | PlanarSet): [number, Segment];
+        intersect(shape: AnyShape): Array<Point>;
+        distanceTo(geom: AnyShape | PlanarSet): [number, Segment];
         breakToFunctional(): Array<Arc>;
         tangentInEnd(): Vector;
         tangentInStart(): Vector;
         reverse(): Arc;
-        translate(vec: Vector): Arc;
-        translate(x:number, y:number): Arc;
-        rotate(angle: number, center: Point): Arc;
         scale(scaleX: number, scaleY: number) : Arc;
-        transform(matrix?: Matrix): Arc;
+        transform(matrix: Matrix): Arc;
         sortPoints(pts: Array<Point>): Array<Point>;
         toJSON() : Object;
         svg(attrs?: SVGAttributes): string;
     }
 
-    class Box implements Interval {
+    class Box extends Shape implements Interval {
         constructor(xmin?: number, ymin?: number, xmax?: number, ymax?: number);
 
         //members
@@ -182,6 +186,7 @@ declare namespace Flatten {
         set(xmin: number, ymin: number, xmax: number, ymax: number): void;
         toPoints() : Array<Point>;
         toSegments() : Array<Segment>;
+        transform(matrix: Matrix): Box;
         output(): Box;         // required by base type Interval
         svg(attrs?: SVGAttributes): string;
 
@@ -189,7 +194,7 @@ declare namespace Flatten {
         comparable_less_than(arg1: Comparable, arg2: Comparable ) : boolean;
     }
 
-    class Circle {
+    class Circle extends Shape {
         constructor(pc: Point, r: number);
 
         // members
@@ -202,15 +207,16 @@ declare namespace Flatten {
 
         // public methods
         clone(): Circle;
-        contains(shape: Shape): boolean;
+        contains(shape: AnyShape): boolean;
         toArc(counterclockwise?: boolean): Arc;
-        intersect(shape: Shape): Array<Point>;
-        distanceTo(geom: Shape | PlanarSet): [number, Segment];
+        intersect(shape: AnyShape): Array<Point>;
+        distanceTo(geom: AnyShape | PlanarSet): [number, Segment];
+        transform(matrix: Matrix): Circle;
         toJSON() : Object;
         svg(attrs?: SVGAttributes): string;
     }
 
-    class Line {
+    class Line extends Shape {
         constructor(pt?: Point, norm?: Vector);
         constructor(norm: Vector, pt: Point);
         constructor(pt1: Point, pt2: Point);
@@ -233,15 +239,16 @@ declare namespace Flatten {
         incidentTo(line: Line): boolean;
         contains(pt: Point): boolean;
         coord(pt: Point): number;
-        intersect(shape: Shape): Point[];
-        distanceTo(shape: Shape): [number, Segment];
-        split(pt: Point | Point[]): Shape[];
+        intersect(shape: AnyShape): Point[];
+        distanceTo(shape: AnyShape): [number, Segment];
+        split(pt: Point | Point[]): AnyShape[];
         sortPoints(points: Point[]): Point[];
+        transform(matrix: Matrix): Line;
         toJSON() : Object;
         svg(box: Box, attrs?: SVGAttributes): string;
     }
 
-    class Point {
+    class Point extends Shape {
         constructor(x?: number, y?: number);
         constructor(arg?: [number, number]);
 
@@ -257,19 +264,16 @@ declare namespace Flatten {
         clone(): Point;
         equalTo(pt: Point): boolean;
         lessThan(pt: Point): boolean;
-        rotate(angle: number, center?: Point): Point;
         transform(matrix: Matrix): Point;
-        translate(vec: Vector): Point;
-        translate(x: number, y: number): Point;
         projectionOn(line: Line): Point;
-        distanceTo(geom: Shape | PlanarSet): [number, Segment];
+        distanceTo(geom: AnyShape | PlanarSet): [number, Segment];
         leftTo(line: Line): boolean;
-        on(shape: Point | Shape): boolean;
+        on(shape: Point | AnyShape): boolean;
         toJSON() : Object;
         svg(attrs?: SVGAttributes): string;
     }
 
-    class Ray {
+    class Ray extends Shape {
         // members
         pt: Point;
         norm: Vector;
@@ -284,12 +288,13 @@ declare namespace Flatten {
         // public methods
         clone(): Ray;
         contains(pt: Point): boolean;
-        split(pt: Point[]): Shape[];
+        split(pt: Point[]): AnyShape[];
         intersect(shape: Segment | Arc): Point[];
+        transform(matrix: Matrix): Ray;
         svg(box: Box, attrs?: SVGAttributes): string;
     }
 
-    class Segment {
+    class Segment extends Shape {
         constructor(ps?: Point, pe?: Point);
 
         // members
@@ -308,25 +313,22 @@ declare namespace Flatten {
         clone(): Segment;
         equalTo(seg: Segment): boolean;
         contains(pt: Point): boolean;
-        intersect(shape: Shape): Point[];
-        distanceTo(shape: Shape): [number, Segment];
+        intersect(shape: AnyShape): Point[];
+        distanceTo(shape: AnyShape): [number, Segment];
         tangentInStart(): Vector;
         tangentInEnd(): Vector;
         reverse(): Segment;
         split(pt: Point): [Segment|null,Segment|null];
         middle(): Point;
         pointAtLength(length: number): Point|null;
-        rotate(angle: number, center?: Point): Segment;
         transform(matrix: Matrix): Segment;
-        translate(vec: Vector): Segment;
-        translate(x: number, y: number): Segment;
         isZeroLength(): boolean;
         sortPoint(points: Array<Point>) : Array<Point>;
         toJSON() : Object;
         svg(attrs?: SVGAttributes): string;
     }
 
-    class Vector {
+    class Vector extends Shape {
         constructor(x?: number, y?: number);
         constructor(ps: Point, pe: Point);
 
@@ -348,6 +350,7 @@ declare namespace Flatten {
         rotate(angle: number): Vector;
         rotate90CCW(): Vector;
         rotate90CW(): Vector;
+        transform(matrix: Matrix): Vector;
         invert(): Vector;
         add(v: Vector): Vector;
         subtract(v: Vector): Vector;
@@ -371,7 +374,7 @@ declare namespace Flatten {
         clone(): Matrix;
         equalTo(matrix: Matrix): boolean;
         multiply(matrix: Matrix): Matrix;
-        rotate(angle: number): Matrix;
+        rotate(angle: number, centerX?: number, centerY?: number): Matrix;
         scale(sx: number, sy: number): Matrix;
         transform(vector: [number,number]): [number, number];
         translate(tx: number, ty: number): Matrix;
@@ -410,7 +413,7 @@ declare namespace Flatten {
     const OVERLAP_OPPOSITE = 2;
     enum EdgeOverlappingType {OVERLAP_SAME, OVERLAP_OPPOSITE}
 
-    // Base class Edge for Polygon and Multiline
+    // Base class Edge for PolygonEdge and MultilineEdge
     class Edge {
         // members
         shape: any
@@ -510,9 +513,9 @@ declare namespace Flatten {
         findEdgeByPoint(pt: Point): PolygonEdge;
         splitToIslands() : Polygon[];
         reverse(): Polygon;
-        contains(shape: Shape): boolean;
-        distanceTo(shape: Shape): [number, Segment];
-        intersect(shape: Shape): Point[];
+        contains(shape: AnyShape): boolean;
+        distanceTo(shape: AnyShape): [number, Segment];
+        intersect(shape: AnyShape): Point[];
         rotate(angle?: number, center?: Point): Polygon;
         transform(matrix?: Matrix): Polygon;
         translate(vec: Vector): Polygon;
@@ -558,7 +561,7 @@ declare namespace Flatten {
         inverse(Circle: Circle) : Line | Circle;
     }
 
-    type Shape = Point | Line | Ray | Circle | Box | Segment | Arc | Polygon;
+    type AnyShape = Point | Vector | Line | Ray | Circle | Box | Segment | Arc | Polygon;
 
     function point(x?: number, y?: number): Point;
     function point(arr?: [number, number]): Point;
@@ -600,8 +603,8 @@ declare namespace Flatten.BooleanOperations {
     function unify(polygon1: Polygon, polygon2: Polygon): Polygon;
     function subtract(polygon1: Polygon, polygon2: Polygon): Polygon;
     function intersect(polygon1: Polygon, polygon2: Polygon): Polygon;
-    function innerClip(polygon1: Polygon, polygon2: Polygon): [Shape[], Shape[]];
-    function outerClip(polygon1: Polygon, polygon2: Polygon): Shape[];
+    function innerClip(polygon1: Polygon, polygon2: Polygon): [AnyShape[], AnyShape[]];
+    function outerClip(polygon1: Polygon, polygon2: Polygon): AnyShape[];
     function calculateIntersections(polygon1: Polygon, polygon2: Polygon): [Point[],Point[]];
 }
 

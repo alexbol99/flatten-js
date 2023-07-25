@@ -4,19 +4,22 @@
 
 import Flatten from '../flatten';
 import {convertToString} from "../utils/attributes";
+import {Matrix} from "./matrix";
+import {Shape} from "./shape";
 
 /**
  *
  * Class representing a point
  * @type {Point}
  */
-export class Point {
+export class Point extends Shape {
     /**
      * Point may be constructed by two numbers, or by array of two numbers
      * @param {number} x - x-coordinate (float number)
      * @param {number} y - y-coordinate (float number)
      */
     constructor(...args) {
+        super()
         /**
          * x-coordinate (float number)
          * @type {number}
@@ -50,14 +53,6 @@ export class Point {
 
         if (args.length === 2) {
             if (typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-                this.x = args[0];
-                this.y = args[1];
-                return;
-            }
-        }
-
-        if (args.length === 2) {
-            if (Decimal.isDecimal(args[0]) && Decimal.isDecimal(args[1])) {
                 this.x = args[0];
                 this.y = args[1];
                 return;
@@ -111,48 +106,11 @@ export class Point {
     }
 
     /**
-     * Returns new point rotated by given angle around given center point.
-     * If center point is omitted, rotates around zero point (0,0).
-     * Positive value of angle defines rotation in counter clockwise direction,
-     * negative angle defines rotation in clockwise clockwise direction
-     * @param {number} angle - angle in radians
-     * @param {Point} [center=(0,0)] center
-     * @returns {Point}
-     */
-    rotate(angle, center = {x: 0, y: 0}) {
-        var x_rot = center.x + (this.x - center.x) * Math.cos(angle) - (this.y - center.y) * Math.sin(angle);
-        var y_rot = center.y + (this.x - center.x) * Math.sin(angle) + (this.y - center.y) * Math.cos(angle);
-
-        return new Flatten.Point(x_rot, y_rot);
-    }
-
-    /**
-     * Returns new point translated by given vector.
-     * Translation vector may by also defined by a pair of numbers.
-     * @param {Vector} vector - Translation vector defined as Flatten.Vector or
-     * @param {number|number} - Translation vector defined as pair of numbers
-     * @returns {Point}
-     */
-    translate(...args) {
-        if (args.length == 1 &&
-            (args[0] instanceof Flatten.Vector || !isNaN(args[0].x) && !isNaN(args[0].y))) {
-            return new Flatten.Point(this.x + args[0].x, this.y + args[0].y);
-        }
-
-        if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-            return new Flatten.Point(this.x + args[0], this.y + args[1]);
-        }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
-    }
-
-    /**
-     * Return new point transformed by affine transformation matrix m
+     * Return new point transformed by affine transformation matrix
      * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
      * @returns {Point}
      */
     transform(m) {
-        // let [x,y] = m.transform([this.x,this.y]);
         return new Flatten.Point(m.transform([this.x, this.y]))
     }
 
@@ -212,14 +170,10 @@ export class Point {
         }
 
         if (shape instanceof Flatten.Arc) {
-            // let [dist, ...rest] = Distance.point2arc(this, shape);
-            // return dist;
             return Flatten.Distance.point2arc(this, shape);
         }
 
         if (shape instanceof Flatten.Polygon) {
-            // let [dist, ...rest] = Distance.point2polygon(this, shape);
-            // return dist;
             return Flatten.Distance.point2polygon(this, shape);
         }
 

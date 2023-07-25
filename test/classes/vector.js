@@ -87,7 +87,7 @@ describe('#Flatten.Vector', function() {
         let fn = function() { v.normalize() };
         expect(fn).to.throw(Error);
     });
-    it ('Method rotate returns new vector rotated by given angle, positive angle defines rotation in counter clockwise direction', function() {
+    it ('Method rotate returns new vector rotated by given angle, positive angle defines rotation in counterclockwise direction', function() {
         let vector = new Vector(1,1);
         let angle = Math.PI/2;
         let rotated_vector = vector.rotate(angle);

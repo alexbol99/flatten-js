@@ -18,6 +18,7 @@ import {Multiline} from "./multiline";
 import {intersectEdge2Line} from "../algorithms/intersection";
 import {INSIDE, BOUNDARY} from "../utils/constants";
 import {convertToString} from "../utils/attributes";
+import {Matrix} from "./matrix";
 
 /**
  * Class representing a polygon.<br/>
@@ -155,7 +156,7 @@ export class Polygon {
 
     /**
      * Add new face to polygon. Returns added face
-     * @param {Points[]|Segments[]|Arcs[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
+     * @param {Point[]|Segment[]|Arc[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
      * 1) array of points that describe closed path (edges are segments) <br/>
      * 2) array of shapes (segments and arcs) which describe closed path <br/>
      * 3) circle - will be added as counterclockwise arc <br/>
@@ -624,7 +625,7 @@ export class Polygon {
     /**
      * Return new polygon rotated by given angle around given point
      * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
+     * Positive value of angle defines rotation counterclockwise, negative - clockwise
      * @param {number} angle - rotation angle in radians
      * @param {Point} center - rotation center, default is (0,0)
      * @returns {Polygon} - new rotated polygon
@@ -633,6 +634,20 @@ export class Polygon {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
             newPolygon.addFace(face.shapes.map(shape => shape.rotate(angle, center)));
+        }
+        return newPolygon;
+    }
+
+    /**
+     * Return new polygon with coordinates multiplied by scaling factor
+     * @param {number} sx - x-axis scaling factor
+     * @param {number} sy - y-axis scaling factor
+     * @returns {Polygon}
+     */
+    scale(sx, sy) {
+        let newPolygon = new Polygon();
+        for (let face of this.faces) {
+            newPolygon.addFace(face.shapes.map(shape => shape.scale(sx, sy)));
         }
         return newPolygon;
     }

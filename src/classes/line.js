@@ -5,6 +5,8 @@
 
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
+import {Shape} from "./shape";
+import {Matrix} from "./matrix";
 
 let {vector} = Flatten;
 
@@ -12,13 +14,14 @@ let {vector} = Flatten;
  * Class representing a line
  * @type {Line}
  */
-export class Line {
+export class Line extends Shape {
     /**
      * Line may be constructed by point and normal vector or by two points that a line passes through
      * @param {Point} pt - point that a line passes through
      * @param {Vector|Point} norm - normal vector to a line or second point a line passes through
      */
     constructor(...args) {
+        super()
         /**
          * Point a line passes through
          * @type {Point}
@@ -32,18 +35,18 @@ export class Line {
          */
         this.norm = new Flatten.Vector(0, 1);
 
-        if (args.length == 0) {
+        if (args.length === 0) {
             return;
         }
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "line") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "line") {
             let {pt, norm} = args[0];
             this.pt = new Flatten.Point(pt);
             this.norm = new Flatten.Vector(norm);
             return;
         }
 
-        if (args.length == 2) {
+        if (args.length === 2) {
             let a1 = args[0];
             let a2 = args[1];
 
@@ -148,7 +151,7 @@ export class Line {
     get standard() {
         let A = this.norm.x;
         let B = this.norm.y;
-        let C = this.norm.dot(this.pt);
+        let C = this.norm.dot(vector(this.pt.x, this.pt.y));
 
         return [A, B, C];
     }
@@ -186,11 +189,11 @@ export class Line {
     }
 
     /**
-     * Return coordinate of the point that lays on the line in the transformed
+     * Return coordinate of the point that lies on the line in the transformed
      * coordinate system where center is the projection of the point(0,0) to
      * the line and axe y is collinear to the normal vector. <br/>
-     * This method assumes that point lays on the line and does not check it
-     * @param {Point} pt - point on line
+     * This method assumes that point lies on the line and does not check it
+     * @param {Point} pt - point on a line
      * @returns {number}
      */
     coord(pt) {
@@ -236,8 +239,7 @@ export class Line {
     /**
      * Calculate distance and shortest segment from line to shape and returns array [distance, shortest_segment]
      * @param {Shape} shape Shape of the one of the types Point, Circle, Segment, Arc, Polygon
-     * @returns {Number}
-     * @returns {Segment}
+     * @returns {[number, Segment]}
      */
     distanceTo(shape) {
         if (shape instanceof Flatten.Point) {
@@ -269,10 +271,10 @@ export class Line {
     }
 
     /**
-     * Split line with array of points and return array of shapes
-     * Assumed that all points lay on the line
-     * @param {Point[]}
-     * @returns {Shape[]}
+     * Split line with a point or array of points and return array of shapes
+     * Assumed (but not checked) that all points lay on the line
+     * @param {Point | Point[]} pt
+     * @returns {MultilineShapes}
      */
     split(pt) {
         if (pt instanceof Flatten.Point) {
@@ -287,7 +289,31 @@ export class Line {
     }
 
     /**
-     * Sort given array of points that lay on line with respect to coordinate on a line
+     * Return new line rotated by angle
+     * @param {number} angle - angle in radians
+     * @param {Point} center - center of rotation
+     */
+    rotate(angle, center = new Flatten.Point()) {
+        return new Flatten.Line(
+            this.pt.rotate(angle, center),
+            this.norm.rotate(angle)
+        )
+    }
+
+    /**
+     * Return new line transformed by affine transformation matrix
+     * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+     * @returns {Line}
+     */
+    transform(m) {
+        return new Flatten.Line(
+            this.pt.transform(m),
+            this.norm.clone()
+        )
+    }
+
+    /**
+     * Sort given array of points that lay on a line with respect to coordinate on a line
      * The method assumes that points lay on the line and does not check this
      * @param {Point[]} pts - array of points
      * @returns {Point[]} new array sorted
@@ -323,7 +349,7 @@ export class Line {
         if (ip.length === 0)
             return "";
         let ps = ip[0];
-        let pe = ip.length == 2 ? ip[1] : ip.find(pt => !pt.equalTo(ps));
+        let pe = ip.length === 2 ? ip[1] : ip.find(pt => !pt.equalTo(ps));
         if (pe === undefined) pe = ps;
         let segment = new Flatten.Segment(ps, pe);
         return segment.svg(attrs);
@@ -337,7 +363,7 @@ export class Line {
         let unit = vec.normalize();
         return unit.rotate90CCW();
     }
-};
+}
 
 Flatten.Line = Line;
 /**
