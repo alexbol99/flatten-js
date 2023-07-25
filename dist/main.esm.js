@@ -7245,7 +7245,7 @@ class Ray extends Shape {
      * @param {Point} center - center of rotation
      */
     rotate(angle, center = new Flatten.Point()) {
-        return new Flatten.Line(
+        return new Flatten.Ray(
             this.pt.rotate(angle, center),
             this.norm.rotate(angle)
         )
