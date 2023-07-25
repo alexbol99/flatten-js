@@ -246,22 +246,15 @@ class LinkedList {
         this.last = last || this.first;
     }
 
-    /**
-     * Throw an error if circular loop detected in the linked list
-     * @param {LinkedListElement} first element to start iteration
-     * @throws {Flatten.Errors.INFINITE_LOOP}
-     */
-    static testInfiniteLoop(first) {
-        let edge = first;
-        let controlEdge = first;
-        do {
-            if (edge != first && edge === controlEdge) {
-                throw Flatten.Errors.INFINITE_LOOP;  // new Error("Infinite loop")
+    [Symbol.iterator]() {
+        let value = undefined;
+        return {
+            next: () => {
+                value = value ? value.next : this.first;
+                return {value: value, done: value === undefined};
             }
-            edge = edge.next;
-            controlEdge = controlEdge.next.next;
-        } while (edge != first)
-    }
+        };
+    };
 
     /**
      * Return number of elements in the list
@@ -386,15 +379,22 @@ class LinkedList {
         return this.first === undefined;
     }
 
-    [Symbol.iterator]() {
-        let value = undefined;
-        return {
-            next: () => {
-                value = value ? value.next : this.first;
-                return {value: value, done: value === undefined};
+    /**
+     * Throw an error if circular loop detected in the linked list
+     * @param {LinkedListElement} first element to start iteration
+     * @throws {Flatten.Errors.INFINITE_LOOP}
+     */
+    static testInfiniteLoop(first) {
+        let edge = first;
+        let controlEdge = first;
+        do {
+            if (edge != first && edge === controlEdge) {
+                throw Flatten.Errors.INFINITE_LOOP;  // new Error("Infinite loop")
             }
-        };
-    };
+            edge = edge.next;
+            controlEdge = controlEdge.next.next;
+        } while (edge != first)
+    }
 }
 
 /*
@@ -6251,7 +6251,7 @@ class Box extends Shape {
      * @returns {Box}
      */
     transform(m = new Flatten.Matrix()) {
-        const transformed_points = this.toPoints().map(pt => m.transform([pt.x, pt.y]));
+        const transformed_points = this.toPoints().map(pt => pt.transform(m));
         return transformed_points.reduce(
             (new_box, pt) => new_box.merge(pt), new Box())
     }
@@ -7430,7 +7430,7 @@ class Polygon {
 
     /**
      * Add new face to polygon. Returns added face
-     * @param {Points[]|Segments[]|Arcs[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
+     * @param {Point[]|Segment[]|Arc[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
      * 1) array of points that describe closed path (edges are segments) <br/>
      * 2) array of shapes (segments and arcs) which describe closed path <br/>
      * 3) circle - will be added as counterclockwise arc <br/>
@@ -7908,6 +7908,20 @@ class Polygon {
         let newPolygon = new Polygon();
         for (let face of this.faces) {
             newPolygon.addFace(face.shapes.map(shape => shape.rotate(angle, center)));
+        }
+        return newPolygon;
+    }
+
+    /**
+     * Return new polygon with coordinates multiplied by scaling factor
+     * @param {number} sx - x-axis scaling factor
+     * @param {number} sy - y-axis scaling factor
+     * @returns {Polygon}
+     */
+    scale(sx, sy) {
+        let newPolygon = new Polygon();
+        for (let face of this.faces) {
+            newPolygon.addFace(face.shapes.map(shape => shape.scale(sx, sy)));
         }
         return newPolygon;
     }
