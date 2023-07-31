@@ -127,29 +127,18 @@ Multiline represent an unclosed chain of edges of type Segment or Arc
 
 Planar Set is a container of shapes that enables spatial seach by rectangular query.
 
-### Affine transformations
+### Transformations
 
-Affine transformation matrix is a 3x3 matrix of the form
-```
-      [ a  c  tx
- A =    b  d  ty
-        0  0  1  ]
-```
-Where a, b, c, d, represent rotation and scaling, tx, ty represent translation.
-Matrix constructor without parameters creates an identity matrix, and then
-resulted matrix may be composed by chaining basic operations,
-like ```translate```, ```rotate``` and ```scale```, like this:
+All the classes have methods ```translate```, ```rotate``` and ```scale``` 
+which may be chained. 
+<br/>Example:
 ```javascript
 // Rotate segment by 45 deg around its center
 let {point,segment,matrix} = Flatten;
 let s = segment(point(20,30), point(60,70));
 let center = s.box.center;
 let angle = 45.*Math.PI/180.;
-let m = matrix()
-        .translate(center.x, center.y)
-        .rotate(angle)
-        .translate(-center.x, -center.y);
-let t_s = s.transform(m);
+let rotated_segment = s.rotate(angle, center)
 ```
 ### Intersection points
 
