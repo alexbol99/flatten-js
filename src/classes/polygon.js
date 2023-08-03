@@ -592,6 +592,10 @@ export class Polygon {
             return Intersection.intersectLine2Polygon(shape, this);
         }
 
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Polygon(shape, this);
+        }
+
         if (shape instanceof Flatten.Circle) {
             return Intersection.intersectCircle2Polygon(shape, this);
         }

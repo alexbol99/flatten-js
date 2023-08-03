@@ -166,6 +166,10 @@ export class Segment extends Shape {
             return Intersection.intersectSegment2Line(this, shape);
         }
 
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Segment(shape, this);
+        }
+
         if (shape instanceof Flatten.Segment) {
             return  Intersection.intersectSegment2Segment(this, shape);
         }

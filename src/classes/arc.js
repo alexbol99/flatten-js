@@ -245,6 +245,9 @@ export class Arc extends Shape {
         if (shape instanceof Flatten.Line) {
             return Intersection.intersectLine2Arc(shape, this);
         }
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Arc(shape, this);
+        }
         if (shape instanceof Flatten.Circle) {
             return Intersection.intersectArc2Circle(this, shape);
         }

@@ -289,7 +289,7 @@ declare namespace Flatten {
         clone(): Ray;
         contains(pt: Point): boolean;
         split(pt: Point[]): AnyShape[];
-        intersect(shape: Segment | Arc): Point[];
+        intersect(shape: AnyShape): Point[];
         transform(matrix: Matrix): Ray;
         svg(box: Box, attrs?: SVGAttributes): string;
     }

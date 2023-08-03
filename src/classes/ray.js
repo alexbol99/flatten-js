@@ -130,54 +130,42 @@ export class Ray extends Shape {
     }
 
     /**
-     * Returns array of intersection points between ray and segment or arc
-     * @param {Segment|Arc} shape - Shape to intersect with ray
-     * @returns {Array} array of intersection points
+     * Returns array of intersection points between ray and another shape
+     * @param {Shape} shape - Shape to intersect with ray
+     * @returns {Point[]} array of intersection points
      */
     intersect(shape) {
+        if (shape instanceof Flatten.Point) {
+            return this.contains(shape) ? [shape] : [];
+        }
+
         if (shape instanceof Flatten.Segment) {
-            return this.intersectRay2Segment(this, shape);
+            return Intersection.intersectRay2Segment(this, shape);
         }
 
         if (shape instanceof Flatten.Arc) {
-            return this.intersectRay2Arc(this, shape);
-        }
-    }
-
-    intersectRay2Segment(ray, segment) {
-        let ip = [];
-
-        let line = new Flatten.Line(ray.start, ray.norm);
-        let ip_tmp = line.intersect(segment);
-
-        for (let pt of ip_tmp) {
-            if (ray.contains(pt)) {
-                ip.push(pt);
-            }
+            return Intersection.intersectRay2Arc(this, shape);
         }
 
-        /* If there were two intersection points between line and ray,
-        and now there is exactly one left, it means ray starts between these points
-        and there is another intersection point - start of the ray */
-        if (ip_tmp.length === 2 && ip.length === 1 && ray.start.on(line)) {
-            ip.push(ray.start);
+        if (shape instanceof Flatten.Line) {
+            return Intersection.intersectRay2Line(this, shape);
         }
 
-        return ip;
-    }
-
-    intersectRay2Arc(ray, arc) {
-        let ip = [];
-
-        let line = new Flatten.Line(ray.start, ray.norm);
-        let ip_tmp = line.intersect(arc);
-
-        for (let pt of ip_tmp) {
-            if (ray.contains(pt)) {
-                ip.push(pt);
-            }
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Ray(this, shape)
         }
-        return ip;
+
+        if (shape instanceof Flatten.Circle) {
+            return Intersection.intersectRay2Circle(this, shape);
+        }
+
+        if (shape instanceof Flatten.Box) {
+            return Intersection.intersectRay2Box(this, shape);
+        }
+
+        if (shape instanceof Flatten.Polygon) {
+            return  Intersection.intersectRay2Polygon(this, shape);
+        }
     }
 
     /**

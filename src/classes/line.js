@@ -214,6 +214,10 @@ export class Line extends Shape {
             return Intersection.intersectLine2Line(this, shape);
         }
 
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Line(shape, this);
+        }
+
         if (shape instanceof Flatten.Circle) {
             return Intersection.intersectLine2Circle(this, shape);
         }

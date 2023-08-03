@@ -196,6 +196,10 @@ export class Point extends Shape {
             return shape.contains(this);
         }
 
+        if (shape instanceof Flatten.Ray) {
+            return shape.contains(this)
+        }
+
         if (shape instanceof Flatten.Circle) {
             return shape.contains(this);
         }

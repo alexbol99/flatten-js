@@ -151,7 +151,9 @@ export class Circle extends Shape {
         if (shape instanceof Flatten.Line) {
             return Intersection.intersectLine2Circle(shape, this);
         }
-
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Circle(shape, this);
+        }
         if (shape instanceof Flatten.Segment) {
             return Intersection.intersectSegment2Circle(shape, this);
         }
