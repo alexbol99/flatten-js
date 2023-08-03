@@ -33,19 +33,17 @@ export class Circle extends Shape {
          */
         this.r = 1;
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "circle") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "circle") {
             let {pc, r} = args[0];
             this.pc = new Flatten.Point(pc);
             this.r = r;
-            return;
         } else {
             let [pc, r] = [...args];
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
             if (r !== undefined) this.r = r;
-            return;
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        // throw Flatten.Errors.ILLEGAL_PARAMETERS;    unreachable code
     }
 
     /**

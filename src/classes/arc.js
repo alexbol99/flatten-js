@@ -59,7 +59,6 @@ export class Arc extends Shape {
             this.startAngle = startAngle;
             this.endAngle = endAngle;
             this.counterClockwise = counterClockwise;
-            return;
         } else {
             let [pc, r, startAngle, endAngle, counterClockwise] = [...args];
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
@@ -67,7 +66,6 @@ export class Arc extends Shape {
             if (startAngle !== undefined) this.startAngle = startAngle;
             if (endAngle !== undefined) this.endAngle = endAngle;
             if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
-            return;
         }
 
         // throw Flatten.Errors.ILLEGAL_PARAMETERS; unreachable code
