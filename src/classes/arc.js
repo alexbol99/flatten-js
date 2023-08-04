@@ -464,13 +464,8 @@ export class Arc extends Shape {
         })
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "arc"});
+    get name() {
+        return "arc"
     }
 
     /**

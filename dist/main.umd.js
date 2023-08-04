@@ -4036,6 +4036,18 @@
      * Implement common methods of affine transformations
      */
     class Shape {
+        get name() {
+            throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        }
+
+        get box() {
+            throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        }
+
+        clone() {
+            throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        }
+
         /**
          * Returns new shape translated by given vector.
          * Translation vector may be also defined by a pair of numbers.
@@ -4072,6 +4084,19 @@
         }
 
         transform(...args) {
+            throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        }
+
+        /**
+         * This method returns an object that defines how data will be
+         * serialized when called JSON.stringify() method
+         * @returns {Object}
+         */
+        toJSON() {
+            return Object.assign({}, this, {name: this.name});
+        }
+
+        svg(attrs = {}) {
             throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
         }
     }
@@ -4291,13 +4316,8 @@
             }
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "point"});
+        get name() {
+            return "point"
         }
 
         /**
@@ -4570,13 +4590,8 @@
             return n.multiply(d);
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "vector"});
+        get name() {
+            return "vector"
         }
     };
 
@@ -4929,13 +4944,8 @@
             return line.sortPoints(pts);
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "segment"});
+        get name() {
+            return "segment"
         }
 
         /**
@@ -5287,13 +5297,8 @@
             })
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "line"});
+        get name() {
+            return "line"
         }
 
         /**
@@ -5341,6 +5346,11 @@
      */
     let Circle$1 = class Circle extends Shape {
         /**
+         * Class private property
+         * @type {string}
+         */
+
+        /**
          *
          * @param {Point} pc - circle center point
          * @param {number} r - circle radius
@@ -5358,17 +5368,16 @@
              */
             this.r = 1;
 
-            if (args.length == 1 && args[0] instanceof Object && args[0].name === "circle") {
+            if (args.length === 1 && args[0] instanceof Object && args[0].name === "circle") {
                 let {pc, r} = args[0];
                 this.pc = new Flatten.Point(pc);
                 this.r = r;
-                return;
             } else {
                 let [pc, r] = [...args];
                 if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
                 if (r !== undefined) this.r = r;
-                return;
             }
+            // throw Flatten.Errors.ILLEGAL_PARAMETERS;    unreachable code
         }
 
         /**
@@ -5544,13 +5553,17 @@
             }
         }
 
+        get name() {
+            return "circle"
+        }
+
         /**
          * This method returns an object that defines how data will be
          * serialized when called JSON.stringify() method
          * @returns {Object}
          */
         toJSON() {
-            return Object.assign({}, this, {name: "circle"});
+            return Object.assign({}, this, {name: this.name});
         }
 
         /**
@@ -5629,7 +5642,6 @@
                 this.startAngle = startAngle;
                 this.endAngle = endAngle;
                 this.counterClockwise = counterClockwise;
-                return;
             } else {
                 let [pc, r, startAngle, endAngle, counterClockwise] = [...args];
                 if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
@@ -5637,7 +5649,6 @@
                 if (startAngle !== undefined) this.startAngle = startAngle;
                 if (endAngle !== undefined) this.endAngle = endAngle;
                 if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
-                return;
             }
 
             // throw Flatten.Errors.ILLEGAL_PARAMETERS; unreachable code
@@ -6036,13 +6047,8 @@
             })
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "arc"});
+        get name() {
+            return "arc"
         }
 
         /**
@@ -6312,6 +6318,10 @@
             const transformed_points = this.toPoints().map(pt => pt.transform(m));
             return transformed_points.reduce(
                 (new_box, pt) => new_box.merge(pt.box), new Box())
+        }
+
+        get name() {
+            return "box"
         }
 
         /**
@@ -7311,6 +7321,10 @@
                 this.pt.transform(m),
                 this.norm.clone()
             )
+        }
+
+        get name() {
+            return "ray"
         }
 
         /**

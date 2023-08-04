@@ -243,6 +243,10 @@ export class Box extends Shape {
             (new_box, pt) => new_box.merge(pt.box), new Box())
     }
 
+    get name() {
+        return "box"
+    }
+
     /**
      * Return string to draw box in svg
      * @param {Object} attrs - an object with attributes of svg rectangle element

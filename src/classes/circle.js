@@ -16,6 +16,11 @@ import {Matrix} from "./matrix";
  */
 export class Circle extends Shape {
     /**
+     * Class private property
+     * @type {string}
+     */
+
+    /**
      *
      * @param {Point} pc - circle center point
      * @param {number} r - circle radius
@@ -42,7 +47,6 @@ export class Circle extends Shape {
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
             if (r !== undefined) this.r = r;
         }
-
         // throw Flatten.Errors.ILLEGAL_PARAMETERS;    unreachable code
     }
 
@@ -219,13 +223,8 @@ export class Circle extends Shape {
         }
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "circle"});
+    get name() {
+        return "circle"
     }
 
     /**

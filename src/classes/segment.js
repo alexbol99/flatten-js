@@ -344,13 +344,8 @@ export class Segment extends Shape {
         return line.sortPoints(pts);
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "segment"});
+    get name() {
+        return "segment"
     }
 
     /**

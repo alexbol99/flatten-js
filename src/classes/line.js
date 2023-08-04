@@ -334,13 +334,8 @@ export class Line extends Shape {
         })
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "line"});
+    get name() {
+        return "line"
     }
 
     /**

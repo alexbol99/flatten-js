@@ -192,6 +192,10 @@ export class Ray extends Shape {
         )
     }
 
+    get name() {
+        return "ray"
+    }
+
     /**
      * Return string to draw svg segment representing ray inside given box
      * @param {Box} box Box representing drawing area
