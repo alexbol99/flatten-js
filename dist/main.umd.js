@@ -5558,15 +5558,6 @@
         }
 
         /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: this.name});
-        }
-
-        /**
          * Return string to draw circle in svg
          * @param {Object} attrs - an object with attributes of svg circle element
          * @returns {string}
