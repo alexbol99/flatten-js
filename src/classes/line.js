@@ -214,6 +214,10 @@ export class Line extends Shape {
             return Intersection.intersectLine2Line(this, shape);
         }
 
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Line(shape, this);
+        }
+
         if (shape instanceof Flatten.Circle) {
             return Intersection.intersectLine2Circle(this, shape);
         }
@@ -330,13 +334,8 @@ export class Line extends Shape {
         })
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "line"});
+    get name() {
+        return "line"
     }
 
     /**

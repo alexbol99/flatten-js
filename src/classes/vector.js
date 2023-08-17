@@ -243,13 +243,8 @@ export class Vector extends Shape {
         return n.multiply(d);
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "vector"});
+    get name() {
+        return "vector"
     }
 }
 

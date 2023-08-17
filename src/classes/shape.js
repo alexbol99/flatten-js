@@ -6,6 +6,18 @@ import {Matrix} from "./matrix";
  * Implement common methods of affine transformations
  */
 export class Shape {
+    get name() {
+        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+
+    get box() {
+        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+
+    clone() {
+        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+
     /**
      * Returns new shape translated by given vector.
      * Translation vector may be also defined by a pair of numbers.
@@ -42,6 +54,19 @@ export class Shape {
     }
 
     transform(...args) {
+        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+
+    /**
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
+     */
+    toJSON() {
+        return Object.assign({}, this, {name: this.name});
+    }
+
+    svg(attrs = {}) {
         throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 }

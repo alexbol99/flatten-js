@@ -16,6 +16,11 @@ import {Matrix} from "./matrix";
  */
 export class Circle extends Shape {
     /**
+     * Class private property
+     * @type {string}
+     */
+
+    /**
      *
      * @param {Point} pc - circle center point
      * @param {number} r - circle radius
@@ -33,19 +38,16 @@ export class Circle extends Shape {
          */
         this.r = 1;
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "circle") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "circle") {
             let {pc, r} = args[0];
             this.pc = new Flatten.Point(pc);
             this.r = r;
-            return;
         } else {
             let [pc, r] = [...args];
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
             if (r !== undefined) this.r = r;
-            return;
         }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        // throw Flatten.Errors.ILLEGAL_PARAMETERS;    unreachable code
     }
 
     /**
@@ -151,7 +153,9 @@ export class Circle extends Shape {
         if (shape instanceof Flatten.Line) {
             return Intersection.intersectLine2Circle(shape, this);
         }
-
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Circle(shape, this);
+        }
         if (shape instanceof Flatten.Segment) {
             return Intersection.intersectSegment2Circle(shape, this);
         }
@@ -219,13 +223,8 @@ export class Circle extends Shape {
         }
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "circle"});
+    get name() {
+        return "circle"
     }
 
     /**

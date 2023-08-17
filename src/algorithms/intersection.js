@@ -589,3 +589,42 @@ export function intersectShape2Polygon(shape, polygon) {
 function ptInIntPoints(new_pt, ip) {
     return ip.some( pt => pt.equalTo(new_pt) )
 }
+
+function createLineFromRay(ray) {
+    return new Flatten.Line(ray.start, ray.norm)
+}
+export function intersectRay2Segment(ray, segment) {
+    return intersectSegment2Line(segment, createLineFromRay(ray))
+        .filter(pt => ray.contains(pt));
+}
+
+export function intersectRay2Arc(ray, arc) {
+    return intersectLine2Arc(createLineFromRay(ray), arc)
+        .filter(pt => ray.contains(pt))
+}
+
+export function intersectRay2Circle(ray, circle) {
+    return intersectLine2Circle(createLineFromRay(ray), circle)
+        .filter(pt => ray.contains(pt))
+}
+
+export function intersectRay2Box(ray, box) {
+    return intersectLine2Box(createLineFromRay(ray), box)
+        .filter(pt => ray.contains(pt))
+}
+
+export function intersectRay2Line(ray, line) {
+    return intersectLine2Line(createLineFromRay(ray), line)
+        .filter(pt => ray.contains(pt))
+}
+
+export function intersectRay2Ray(ray1, ray2) {
+    return intersectLine2Line(createLineFromRay(ray1), createLineFromRay(ray2))
+        .filter(pt => ray1.contains(pt))
+        .filter(pt => ray2.contains(pt))
+}
+
+export function intersectRay2Polygon(ray, polygon) {
+    return intersectLine2Polygon(createLineFromRay(ray), polygon)
+        .filter(pt => ray.contains(pt))
+}

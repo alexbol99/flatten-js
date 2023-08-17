@@ -196,6 +196,10 @@ export class Point extends Shape {
             return shape.contains(this);
         }
 
+        if (shape instanceof Flatten.Ray) {
+            return shape.contains(this)
+        }
+
         if (shape instanceof Flatten.Circle) {
             return shape.contains(this);
         }
@@ -213,13 +217,8 @@ export class Point extends Shape {
         }
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "point"});
+    get name() {
+        return "point"
     }
 
     /**

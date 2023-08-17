@@ -317,11 +317,11 @@ several basic attributes of svg element:
 
 Other packages, published under scope **@flatten-js/**:
 
-| Name        | Description  |
-| ------------- |:-------------:|
-| [@flatten-js/interval-tree](https://www.npmjs.com/package/@flatten-js/interval-tree) | Interval binary search tree 
-| [@flatten-js/boolean-op](https://www.npmjs.com/package/@flatten-js/boolean-op)    | Boolean operations (deprecated, use this functionality from the core package)
-| [@flatten-js/polygon-offset](https://www.npmjs.com/package/@flatten-js/polygon-offset)    | Polygon offset
+| Name                                                                                    |                                  Description                                  |
+|-----------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------:|
+| [@flatten-js/interval-tree](https://www.npmjs.com/package/@flatten-js/interval-tree)    |                          Interval binary search tree                          |
+| [@flatten-js/boolean-op](https://www.npmjs.com/package/@flatten-js/boolean-op)          | Boolean operations (deprecated, use this functionality from the core package) |
+|  [@flatten-js/polygon-offset](https://www.npmjs.com/package/@flatten-js/polygon-offset) |                                Polygon offset                                 |
 
 ## Support
 

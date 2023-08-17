@@ -2211,6 +2211,45 @@ function ptInIntPoints(new_pt, ip) {
     return ip.some( pt => pt.equalTo(new_pt) )
 }
 
+function createLineFromRay(ray) {
+    return new Flatten.Line(ray.start, ray.norm)
+}
+function intersectRay2Segment(ray, segment) {
+    return intersectSegment2Line(segment, createLineFromRay(ray))
+        .filter(pt => ray.contains(pt));
+}
+
+function intersectRay2Arc(ray, arc) {
+    return intersectLine2Arc(createLineFromRay(ray), arc)
+        .filter(pt => ray.contains(pt))
+}
+
+function intersectRay2Circle(ray, circle) {
+    return intersectLine2Circle(createLineFromRay(ray), circle)
+        .filter(pt => ray.contains(pt))
+}
+
+function intersectRay2Box(ray, box) {
+    return intersectLine2Box(createLineFromRay(ray), box)
+        .filter(pt => ray.contains(pt))
+}
+
+function intersectRay2Line(ray, line) {
+    return intersectLine2Line(createLineFromRay(ray), line)
+        .filter(pt => ray.contains(pt))
+}
+
+function intersectRay2Ray(ray1, ray2) {
+    return intersectLine2Line(createLineFromRay(ray1), createLineFromRay(ray2))
+        .filter(pt => ray1.contains(pt))
+        .filter(pt => ray2.contains(pt))
+}
+
+function intersectRay2Polygon(ray, polygon) {
+    return intersectLine2Polygon(createLineFromRay(ray), polygon)
+        .filter(pt => ray.contains(pt))
+}
+
 const defaultAttributes = {
     stroke: "black"
 };
@@ -3991,6 +4030,18 @@ Flatten.PlanarSet = PlanarSet;
  * Implement common methods of affine transformations
  */
 class Shape {
+    get name() {
+        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+
+    get box() {
+        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+
+    clone() {
+        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+
     /**
      * Returns new shape translated by given vector.
      * Translation vector may be also defined by a pair of numbers.
@@ -4027,6 +4078,19 @@ class Shape {
     }
 
     transform(...args) {
+        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+
+    /**
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
+     */
+    toJSON() {
+        return Object.assign({}, this, {name: this.name});
+    }
+
+    svg(attrs = {}) {
         throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 }
@@ -4225,6 +4289,10 @@ let Point$1 = class Point extends Shape {
             return shape.contains(this);
         }
 
+        if (shape instanceof Flatten.Ray) {
+            return shape.contains(this)
+        }
+
         if (shape instanceof Flatten.Circle) {
             return shape.contains(this);
         }
@@ -4242,13 +4310,8 @@ let Point$1 = class Point extends Shape {
         }
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "point"});
+    get name() {
+        return "point"
     }
 
     /**
@@ -4521,13 +4584,8 @@ let Vector$1 = class Vector extends Shape {
         return n.multiply(d);
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "vector"});
+    get name() {
+        return "vector"
     }
 };
 
@@ -4700,6 +4758,10 @@ class Segment extends Shape {
 
         if (shape instanceof Flatten.Line) {
             return intersectSegment2Line(this, shape);
+        }
+
+        if (shape instanceof Flatten.Ray) {
+            return intersectRay2Segment(shape, this);
         }
 
         if (shape instanceof Flatten.Segment) {
@@ -4876,13 +4938,8 @@ class Segment extends Shape {
         return line.sortPoints(pts);
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "segment"});
+    get name() {
+        return "segment"
     }
 
     /**
@@ -5114,6 +5171,10 @@ let Line$1 = class Line extends Shape {
             return intersectLine2Line(this, shape);
         }
 
+        if (shape instanceof Flatten.Ray) {
+            return intersectRay2Line(shape, this);
+        }
+
         if (shape instanceof Flatten.Circle) {
             return intersectLine2Circle(this, shape);
         }
@@ -5230,13 +5291,8 @@ let Line$1 = class Line extends Shape {
         })
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "line"});
+    get name() {
+        return "line"
     }
 
     /**
@@ -5284,6 +5340,11 @@ Flatten.line = line;
  */
 let Circle$1 = class Circle extends Shape {
     /**
+     * Class private property
+     * @type {string}
+     */
+
+    /**
      *
      * @param {Point} pc - circle center point
      * @param {number} r - circle radius
@@ -5301,17 +5362,16 @@ let Circle$1 = class Circle extends Shape {
          */
         this.r = 1;
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "circle") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "circle") {
             let {pc, r} = args[0];
             this.pc = new Flatten.Point(pc);
             this.r = r;
-            return;
         } else {
             let [pc, r] = [...args];
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
             if (r !== undefined) this.r = r;
-            return;
         }
+        // throw Flatten.Errors.ILLEGAL_PARAMETERS;    unreachable code
     }
 
     /**
@@ -5417,7 +5477,9 @@ let Circle$1 = class Circle extends Shape {
         if (shape instanceof Flatten.Line) {
             return intersectLine2Circle(shape, this);
         }
-
+        if (shape instanceof Flatten.Ray) {
+            return intersectRay2Circle(shape, this);
+        }
         if (shape instanceof Flatten.Segment) {
             return intersectSegment2Circle(shape, this);
         }
@@ -5485,13 +5547,17 @@ let Circle$1 = class Circle extends Shape {
         }
     }
 
+    get name() {
+        return "circle"
+    }
+
     /**
      * This method returns an object that defines how data will be
      * serialized when called JSON.stringify() method
      * @returns {Object}
      */
     toJSON() {
-        return Object.assign({}, this, {name: "circle"});
+        return Object.assign({}, this, {name: this.name});
     }
 
     /**
@@ -5570,7 +5636,6 @@ class Arc extends Shape {
             this.startAngle = startAngle;
             this.endAngle = endAngle;
             this.counterClockwise = counterClockwise;
-            return;
         } else {
             let [pc, r, startAngle, endAngle, counterClockwise] = [...args];
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
@@ -5578,7 +5643,6 @@ class Arc extends Shape {
             if (startAngle !== undefined) this.startAngle = startAngle;
             if (endAngle !== undefined) this.endAngle = endAngle;
             if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
-            return;
         }
 
         // throw Flatten.Errors.ILLEGAL_PARAMETERS; unreachable code
@@ -5755,6 +5819,9 @@ class Arc extends Shape {
         }
         if (shape instanceof Flatten.Line) {
             return intersectLine2Arc(shape, this);
+        }
+        if (shape instanceof Flatten.Ray) {
+            return intersectRay2Arc(shape, this);
         }
         if (shape instanceof Flatten.Circle) {
             return intersectArc2Circle(this, shape);
@@ -5974,13 +6041,8 @@ class Arc extends Shape {
         })
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "arc"});
+    get name() {
+        return "arc"
     }
 
     /**
@@ -6250,6 +6312,10 @@ class Box extends Shape {
         const transformed_points = this.toPoints().map(pt => pt.transform(m));
         return transformed_points.reduce(
             (new_box, pt) => new_box.merge(pt.box), new Box())
+    }
+
+    get name() {
+        return "box"
     }
 
     /**
@@ -7189,54 +7255,42 @@ class Ray extends Shape {
     }
 
     /**
-     * Returns array of intersection points between ray and segment or arc
-     * @param {Segment|Arc} shape - Shape to intersect with ray
-     * @returns {Array} array of intersection points
+     * Returns array of intersection points between ray and another shape
+     * @param {Shape} shape - Shape to intersect with ray
+     * @returns {Point[]} array of intersection points
      */
     intersect(shape) {
+        if (shape instanceof Flatten.Point) {
+            return this.contains(shape) ? [shape] : [];
+        }
+
         if (shape instanceof Flatten.Segment) {
-            return this.intersectRay2Segment(this, shape);
+            return intersectRay2Segment(this, shape);
         }
 
         if (shape instanceof Flatten.Arc) {
-            return this.intersectRay2Arc(this, shape);
-        }
-    }
-
-    intersectRay2Segment(ray, segment) {
-        let ip = [];
-
-        let line = new Flatten.Line(ray.start, ray.norm);
-        let ip_tmp = line.intersect(segment);
-
-        for (let pt of ip_tmp) {
-            if (ray.contains(pt)) {
-                ip.push(pt);
-            }
+            return intersectRay2Arc(this, shape);
         }
 
-        /* If there were two intersection points between line and ray,
-        and now there is exactly one left, it means ray starts between these points
-        and there is another intersection point - start of the ray */
-        if (ip_tmp.length === 2 && ip.length === 1 && ray.start.on(line)) {
-            ip.push(ray.start);
+        if (shape instanceof Flatten.Line) {
+            return intersectRay2Line(this, shape);
         }
 
-        return ip;
-    }
-
-    intersectRay2Arc(ray, arc) {
-        let ip = [];
-
-        let line = new Flatten.Line(ray.start, ray.norm);
-        let ip_tmp = line.intersect(arc);
-
-        for (let pt of ip_tmp) {
-            if (ray.contains(pt)) {
-                ip.push(pt);
-            }
+        if (shape instanceof Flatten.Ray) {
+            return intersectRay2Ray(this, shape)
         }
-        return ip;
+
+        if (shape instanceof Flatten.Circle) {
+            return intersectRay2Circle(this, shape);
+        }
+
+        if (shape instanceof Flatten.Box) {
+            return intersectRay2Box(this, shape);
+        }
+
+        if (shape instanceof Flatten.Polygon) {
+            return  intersectRay2Polygon(this, shape);
+        }
     }
 
     /**
@@ -7261,6 +7315,10 @@ class Ray extends Shape {
             this.pt.transform(m),
             this.norm.clone()
         )
+    }
+
+    get name() {
+        return "ray"
     }
 
     /**
@@ -7860,6 +7918,10 @@ class Polygon {
 
         if (shape instanceof Flatten.Line) {
             return intersectLine2Polygon(shape, this);
+        }
+
+        if (shape instanceof Flatten.Ray) {
+            return intersectRay2Polygon(shape, this);
         }
 
         if (shape instanceof Flatten.Circle) {
