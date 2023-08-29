@@ -1,13 +1,10 @@
 'use strict';
 
 import { expect } from 'chai';
-import Flatten, {multiline} from '../../index';
-// import {relate, disjoint, equal, intersect, touch, inside, contain, covered, cover} from '../../src/algorithms/relation';
-import {intersectLine2Polygon} from "../../src/algorithms/intersection";
+import Flatten from '../../index';
 
-let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
-
-let {point, vector, circle, line, segment, arc, ray, box} = Flatten;
+let {Polygon} = Flatten;
+let {point, vector, circle, line, box} = Flatten;
 let {relate, disjoint, equal, intersect, touch, inside, contain, covered, cover} = Flatten.Relations;
 
 describe('#Algorithms.Relation', function() {
@@ -270,8 +267,6 @@ describe('#Algorithms.Relation', function() {
             let p1 = new Polygon(box(0,0,50,100).toSegments());
             let p2 = new Polygon(box(50,50,100,150).toSegments());
 
-            let de9im = relate(p1, p2);
-
             expect(disjoint(p1, p2)).to.be.false;
             expect(equal(p1, p2)).to.be.false;
             expect(intersect(p1, p2)).to.be.true;
@@ -285,8 +280,6 @@ describe('#Algorithms.Relation', function() {
             let p1 = new Polygon(box(0,0,50,100).toSegments());
             let p2 = new Polygon(box(20,20,30,30).toSegments());
 
-            let de9im = relate(p1, p2);
-
             expect(disjoint(p1, p2)).to.be.false;
             expect(equal(p1, p2)).to.be.false;
             expect(intersect(p1, p2)).to.be.true;
@@ -299,8 +292,6 @@ describe('#Algorithms.Relation', function() {
         it('May calculate relations. Case of covered', () => {
             let p1 = new Polygon(box(0,0,50,100).toSegments());
             let p2 = new Polygon(box(20,0,50,30).toSegments());
-
-            let de9im = relate(p1, p2);
 
             expect(disjoint(p1, p2)).to.be.false;
             expect(equal(p1, p2)).to.be.false;
