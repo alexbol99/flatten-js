@@ -756,6 +756,21 @@ function insertBetweenIntPoints(int_point1, int_point2, new_edge) {
     edge_after.prev = new_edge;
 }
 
+var smart_intersections = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    addToIntPoints: addToIntPoints,
+    calculateInclusionFlags: calculateInclusionFlags,
+    filterDuplicatedIntersections: filterDuplicatedIntersections,
+    getSortedArray: getSortedArray,
+    getSortedArrayOnLine: getSortedArrayOnLine,
+    initializeInclusionFlags: initializeInclusionFlags,
+    insertBetweenIntPoints: insertBetweenIntPoints,
+    intPointsPoolCount: intPointsPoolCount,
+    setOverlappingFlags: setOverlappingFlags,
+    sortIntersections: sortIntersections,
+    splitByIntersections: splitByIntersections
+});
+
 /**
  * Created by Alex Bol on 12/02/2018.
  */
@@ -8717,4 +8732,4 @@ Flatten.Distance = Distance;
 Flatten.BooleanOperations = BooleanOperations;
 Flatten.Relations = Relations;
 
-export { Arc, BOUNDARY$1 as BOUNDARY, BooleanOperations, Box, CCW, CW, Circle$1 as Circle, Distance, Edge, errors as Errors, Face, INSIDE$2 as INSIDE, Inversion, Line$1 as Line, Matrix, Multiline, ORIENTATION, OUTSIDE$1 as OUTSIDE, PlanarSet, Point$1 as Point, Polygon, Ray, Relations, Segment, Utils$1 as Utils, Vector$1 as Vector, arc, box, circle, Flatten as default, inversion, line, matrix, multiline, point, polygon, ray, ray_shoot, segment, vector$1 as vector };
+export { Arc, BOUNDARY$1 as BOUNDARY, BooleanOperations, Box, CCW, CW, Circle$1 as Circle, Distance, Edge, errors as Errors, Face, INSIDE$2 as INSIDE, Inversion, Line$1 as Line, Matrix, Multiline, ORIENTATION, OUTSIDE$1 as OUTSIDE, PlanarSet, Point$1 as Point, Polygon, Ray, Relations, Segment, smart_intersections as SmartIntersections, Utils$1 as Utils, Vector$1 as Vector, arc, box, circle, Flatten as default, inversion, line, matrix, multiline, point, polygon, ray, ray_shoot, segment, vector$1 as vector };

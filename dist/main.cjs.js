@@ -760,6 +760,21 @@ function insertBetweenIntPoints(int_point1, int_point2, new_edge) {
     edge_after.prev = new_edge;
 }
 
+var smart_intersections = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    addToIntPoints: addToIntPoints,
+    calculateInclusionFlags: calculateInclusionFlags,
+    filterDuplicatedIntersections: filterDuplicatedIntersections,
+    getSortedArray: getSortedArray,
+    getSortedArrayOnLine: getSortedArrayOnLine,
+    initializeInclusionFlags: initializeInclusionFlags,
+    insertBetweenIntPoints: insertBetweenIntPoints,
+    intPointsPoolCount: intPointsPoolCount,
+    setOverlappingFlags: setOverlappingFlags,
+    sortIntersections: sortIntersections,
+    splitByIntersections: splitByIntersections
+});
+
 /**
  * Created by Alex Bol on 12/02/2018.
  */
@@ -8745,6 +8760,7 @@ exports.Polygon = Polygon;
 exports.Ray = Ray;
 exports.Relations = Relations;
 exports.Segment = Segment;
+exports.SmartIntersections = smart_intersections;
 exports.Utils = Utils$1;
 exports.Vector = Vector$1;
 exports.arc = arc;

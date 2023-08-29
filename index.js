@@ -7,6 +7,7 @@ import * as Utils from "./src/utils/utils";
 import * as Errors from "./src/utils/errors";
 import * as BooleanOperations from './src/algorithms/boolean_op';
 import * as Relations from './src/algorithms/relation';
+import * as SmartIntersections from './src/data_structures/smart_intersections';
 
 export {Utils, Errors};
 export {Matrix, matrix} from './src/classes/matrix';
@@ -28,6 +29,7 @@ export {Inversion, inversion} from './src/classes/inversion';
 export {Distance} from './src/algorithms/distance';
 export {BooleanOperations};
 export {Relations};
+export {SmartIntersections};
 
 Flatten.BooleanOperations = BooleanOperations;
 Flatten.Relations = Relations;
