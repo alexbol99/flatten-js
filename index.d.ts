@@ -609,14 +609,14 @@ declare namespace Flatten.BooleanOperations {
 }
 
 declare namespace Flatten.Relations {
-    function relate(shape1: Shape, shape2: Shape): DE9IM;
-    function equal(shape1: Shape, shape2: Shape): boolean;
-    function intersect(shape1: Shape, shape2: Shape): boolean;
-    function touch(shape1: Shape, shape2: Shape): boolean;
-    function disjoint(shape1: Shape, shape2: Shape): boolean;
-    function inside(shape1: Shape, shape2: Shape): boolean;
-    function covered(shape1: Shape, shape2: Shape): boolean;
-    function cover(shape1: Shape, shape2: Shape): boolean;
+    function relate(shape1: AnyShape, shape2: AnyShape): DE9IM;
+    function equal(shape1: AnyShape, shape2: AnyShape): boolean;
+    function intersect(shape1: AnyShape, shape2: AnyShape): boolean;
+    function touch(shape1: AnyShape, shape2: AnyShape): boolean;
+    function disjoint(shape1: AnyShape, shape2: AnyShape): boolean;
+    function inside(shape1: AnyShape, shape2: AnyShape): boolean;
+    function covered(shape1: AnyShape, shape2: AnyShape): boolean;
+    function cover(shape1: AnyShape, shape2: AnyShape): boolean;
 }
 
 export default Flatten;

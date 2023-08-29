@@ -34,6 +34,12 @@ describe('#Algorithms.Relation', function() {
         expect(intersect).to.be.a('function');
         expect(touch).to.be.a('function');
     });
+    it('v1.4 Relations.intersect() doesnt allow Polygon argument #149', () => {
+        const polygon = new Flatten.Polygon(new Flatten.Box(2, 2, 3, 3));
+        const box = new Flatten.Box(1, 1, 10, 10);
+        const bIntersect = Flatten.Relations.intersect(polygon, box);
+        expect(bIntersect).to.be.true;
+    })
     describe('#Algorithms.Relation.Line2Line', function() {
         it ('Parallel case (disjoint)', () => {
             let l1 = line( point(10,10), vector(1,1) );
