@@ -265,6 +265,8 @@ declare namespace Flatten {
         equalTo(pt: Point): boolean;
         lessThan(pt: Point): boolean;
         transform(matrix: Matrix): Point;
+        translate(vec: Vector): Point;
+        translate(x: number, y: number): Point;
         projectionOn(line: Line): Point;
         distanceTo(geom: AnyShape | PlanarSet): [number, Segment];
         leftTo(line: Line): boolean;
