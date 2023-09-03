@@ -152,6 +152,9 @@ declare namespace Flatten {
         tangentInEnd(): Vector;
         tangentInStart(): Vector;
         reverse(): Arc;
+        translate(vec: Vector): Arc;
+        translate(x:number, y:number): Arc;
+        rotate(angle: number, center?: Point): Arc;
         scale(scaleX: number, scaleY: number) : Arc;
         transform(matrix: Matrix): Arc;
         sortPoints(pts: Array<Point>): Array<Point>;
@@ -186,6 +189,10 @@ declare namespace Flatten {
         set(xmin: number, ymin: number, xmax: number, ymax: number): void;
         toPoints() : Array<Point>;
         toSegments() : Array<Segment>;
+        translate(vec: Vector): Box;
+        translate(x:number, y:number): Box;
+        rotate(angle: number, center?: Point): never;
+        scale(scaleX: number, scaleY: number) : Box;
         transform(matrix: Matrix): Box;
         output(): Box;         // required by base type Interval
         svg(attrs?: SVGAttributes): string;
@@ -211,6 +218,10 @@ declare namespace Flatten {
         toArc(counterclockwise?: boolean): Arc;
         intersect(shape: AnyShape): Array<Point>;
         distanceTo(geom: AnyShape | PlanarSet): [number, Segment];
+        translate(vec: Vector): Circle;
+        translate(x:number, y:number): Circle;
+        rotate(angle: number, center?: Point): Circle;
+        scale(scaleX: number, scaleY: number) : Circle | never;
         transform(matrix: Matrix): Circle;
         toJSON() : Object;
         svg(attrs?: SVGAttributes): string;
@@ -243,6 +254,10 @@ declare namespace Flatten {
         distanceTo(shape: AnyShape): [number, Segment];
         split(pt: Point | Point[]): AnyShape[];
         sortPoints(points: Point[]): Point[];
+        translate(vec: Vector): Line;
+        translate(x:number, y:number): Line;
+        rotate(angle: number, center?: Point): Line;
+        scale(scaleX: number, scaleY: number) : Line;
         transform(matrix: Matrix): Line;
         toJSON() : Object;
         svg(box: Box, attrs?: SVGAttributes): string;
@@ -264,9 +279,11 @@ declare namespace Flatten {
         clone(): Point;
         equalTo(pt: Point): boolean;
         lessThan(pt: Point): boolean;
-        transform(matrix: Matrix): Point;
         translate(vec: Vector): Point;
         translate(x: number, y: number): Point;
+        rotate(angle: number, center?: Point): Point;
+        scale(scaleX: number, scaleY: number) : Point;
+        transform(matrix: Matrix): Point;
         projectionOn(line: Line): Point;
         distanceTo(geom: AnyShape | PlanarSet): [number, Segment];
         leftTo(line: Line): boolean;
@@ -292,6 +309,10 @@ declare namespace Flatten {
         contains(pt: Point): boolean;
         split(pt: Point[]): AnyShape[];
         intersect(shape: AnyShape): Point[];
+        translate(vec: Vector): Ray;
+        translate(x:number, y:number): Ray;
+        rotate(angle: number, center?: Point): Ray;
+        scale(scaleX: number, scaleY: number) : Ray;
         transform(matrix: Matrix): Ray;
         svg(box: Box, attrs?: SVGAttributes): string;
     }
@@ -323,6 +344,10 @@ declare namespace Flatten {
         split(pt: Point): [Segment|null,Segment|null];
         middle(): Point;
         pointAtLength(length: number): Point|null;
+        translate(vec: Vector): Segment;
+        translate(x:number, y:number): Segment;
+        rotate(angle: number, center?: Point): Segment;
+        scale(scaleX: number, scaleY: number) : Segment;
         transform(matrix: Matrix): Segment;
         isZeroLength(): boolean;
         sortPoint(points: Array<Point>) : Array<Point>;
@@ -352,6 +377,10 @@ declare namespace Flatten {
         rotate(angle: number): Vector;
         rotate90CCW(): Vector;
         rotate90CW(): Vector;
+        translate(vec: Vector): Vector;
+        translate(x:number, y:number): Vector;
+        rotate(angle: number, center?: Point): Vector;
+        scale(scaleX: number, scaleY: number) : Vector;
         transform(matrix: Matrix): Vector;
         invert(): Vector;
         add(v: Vector): Vector;
