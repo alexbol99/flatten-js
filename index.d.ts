@@ -548,6 +548,7 @@ declare namespace Flatten {
         distanceTo(shape: AnyShape): [number, Segment];
         intersect(shape: AnyShape): Point[];
         rotate(angle?: number, center?: Point): Polygon;
+        scale(sx: number, sy: number): Polygon;
         transform(matrix?: Matrix): Polygon;
         translate(vec: Vector): Polygon;
         toJSON() : Object;
