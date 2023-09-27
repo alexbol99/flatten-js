@@ -6,18 +6,21 @@
 "use strict";
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
+import {convertToString} from "../utils/attributes";
+import {Shape} from "./shape";
 
 /**
  * Class representing a segment
  * @type {Segment}
  */
-export class Segment {
+export class Segment extends Shape {
     /**
      *
      * @param {Point} ps - start point
      * @param {Point} pe - end point
      */
     constructor(...args) {
+        super()
         /**
          * Start point
          * @type {Point}
@@ -47,6 +50,12 @@ export class Segment {
             return;
         }
 
+        // second point omitted issue #84
+        if (args.length === 1 && args[0] instanceof Flatten.Point) {
+            this.ps = args[0].clone();
+            return;
+        }
+
         if (args.length === 2 && args[0] instanceof Flatten.Point && args[1] instanceof Flatten.Point) {
             this.ps = args[0].clone();
             this.pe = args[1].clone();
@@ -63,7 +72,7 @@ export class Segment {
     }
 
     /**
-     * Method clone copies segment and returns a new instance
+     * Return new cloned instance of segment
      * @returns {Segment}
      */
     clone() {
@@ -155,6 +164,10 @@ export class Segment {
 
         if (shape instanceof Flatten.Line) {
             return Intersection.intersectSegment2Line(this, shape);
+        }
+
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Segment(shape, this);
         }
 
         if (shape instanceof Flatten.Segment) {
@@ -256,14 +269,11 @@ export class Segment {
      * @returns {Segment[]}
      */
     split(pt) {
-        if (!this.contains(pt))
-            return [];
+        if (this.start.equalTo(pt))
+            return [null, this.clone()];
 
-        if (this.start.equalTo(this.end))
-            return [this.clone()];
-
-        if (this.start.equalTo(pt) || this.end.equalTo(pt))
-            return [this];
+        if (this.end.equalTo(pt))
+            return [this.clone(), null];
 
         return [
             new Flatten.Segment(this.start, pt),
@@ -279,6 +289,22 @@ export class Segment {
         return new Flatten.Point((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2);
     }
 
+    /**
+     * Get point at given length
+     * @param {number} length - The length along the segment
+     * @returns {Point}
+     */
+    pointAtLength(length) {
+        if (length > this.length || length < 0) return null;
+        if (length == 0) return this.start;
+        if (length == this.length) return this.end;
+        let factor = length / this.length;
+        return new Flatten.Point(
+            (this.end.x - this.start.x) * factor + this.start.x,
+            (this.end.y - this.start.y) * factor + this.start.y
+        );
+    }
+
     distanceToPoint(pt) {
         let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
         return dist;
@@ -289,29 +315,6 @@ export class Segment {
         let dy1 = this.start.y - ymin;
         let dy2 = this.end.y - ymin;
         return (dx * (dy1 + dy2) / 2);
-    }
-
-    /**
-     * Returns new segment translated by vector vec
-     * @param {Vector} vec
-     * @returns {Segment}
-     */
-    translate(...args) {
-        return new Segment(this.ps.translate(...args), this.pe.translate(...args));
-    }
-
-    /**
-     * Return new segment rotated by given angle around given point
-     * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
-     * @param {number} angle - rotation angle in radians
-     * @param {Point} center - center point, default is (0,0)
-     * @returns {Segment}
-     */
-    rotate(angle = 0, center = new Flatten.Point()) {
-        let m = new Flatten.Matrix();
-        m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
-        return this.transform(m);
     }
 
     /**
@@ -332,6 +335,20 @@ export class Segment {
     }
 
     /**
+     * Sort given array of points from segment start to end, assuming all points lay on the segment
+     * @param {Point[]} - array of points
+     * @returns {Point[]} new array sorted
+     */
+    sortPoints(pts) {
+        let line = new Flatten.Line(this.start, this.end);
+        return line.sortPoints(pts);
+    }
+
+    get name() {
+        return "segment"
+    }
+
+    /**
      * Return string to draw segment in svg
      * @param {Object} attrs - an object with attributes for svg path element,
      * like "stroke", "strokeWidth" <br/>
@@ -339,24 +356,9 @@ export class Segment {
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" ${id_str} ${class_str} />`;
-
+        return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" ${convertToString(attrs)} />`;
     }
-
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "segment"});
-    }
-};
+}
 
 Flatten.Segment = Segment;
 /**

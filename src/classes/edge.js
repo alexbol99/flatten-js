@@ -19,21 +19,24 @@ export class Edge {
     constructor(shape) {
         /**
          * Shape of the edge: Segment or Arc
+         * @type {Segment|Arc}
          */
         this.shape = shape;
         /**
          * Pointer to the next edge in the face
+         * @type {Edge}
          */
-        this.next;
+        this.next = undefined;
         /**
          * Pointer to the previous edge in the face
+         * @type {Edge}
          */
-        this.prev;
+        this.prev = undefined;
         /**
          * Pointer to the face containing this edge
          * @type {Face}
          */
-        this.face;
+        this.face = undefined;
         /**
          * "Arc distance" from the face start
          * @type {number}
@@ -41,12 +44,12 @@ export class Edge {
         this.arc_length = 0;
         /**
          * Start inclusion flag (inside/outside/boundary)
-         * @type {Boolean}
+         * @type {*}
          */
         this.bvStart = undefined;
         /**
          * End inclusion flag (inside/outside/boundary)
-         * @type {Boolean}
+         * @type {*}
          */
         this.bvEnd = undefined;
         /**
@@ -107,6 +110,15 @@ export class Edge {
     }
 
     /**
+     * Get point at given length
+     * @param {number} length - The length along the edge
+     * @returns {Point}
+     */
+    pointAtLength(length) {
+        return this.shape.pointAtLength(length);
+    }
+
+    /**
      * Returns true if point belongs to the edge, false otherwise
      * @param {Point} pt - test point
      */
@@ -121,6 +133,11 @@ export class Edge {
      */
     setInclusion(polygon) {
         if (this.bv !== undefined) return this.bv;
+
+        if (this.shape instanceof Flatten.Line || this.shape instanceof Flatten.Ray) {
+            this.bv = Flatten.OUTSIDE;
+            return this.bv;
+        }
 
         if (this.bvStart === undefined) {
             this.bvStart = ray_shoot(polygon, this.start);
@@ -139,6 +156,8 @@ export class Edge {
         /* Both are boundary - check the middle point */
         else {
             let bvMiddle = ray_shoot(polygon, this.middle());
+            // let boundary = this.middle().distanceTo(polygon)[0] < 10*Flatten.DP_TOL;
+            // let bvMiddle = boundary ? Flatten.BOUNDARY : ray_shoot(polygon, this.middle());
             this.bv = bvMiddle;
         }
         return this.bv;

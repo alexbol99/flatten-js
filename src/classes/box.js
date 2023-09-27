@@ -4,12 +4,15 @@
 "use strict";
 
 import Flatten from '../flatten';
+import {convertToString} from "../utils/attributes";
+import {Shape} from "./shape";
 
 /**
- * Class Box represent bounding box of the shape
+ * Class Box represents bounding box of the shape.
+ * It may also represent axis-aligned rectangle
  * @type {Box}
  */
-export class Box {
+export class Box extends Shape {
     /**
      *
      * @param {number} xmin - minimal x coordinate
@@ -18,6 +21,7 @@ export class Box {
      * @param {number} ymax - maximal y coordinate
      */
     constructor(xmin = undefined, ymin = undefined, xmax = undefined, ymax = undefined) {
+        super()
         /**
          * Minimal x coordinate
          * @type {number}
@@ -41,7 +45,7 @@ export class Box {
     }
 
     /**
-     * Clones and returns new instance of box
+     * Return new cloned instance of box
      * @returns {Box}
      */
     clone() {
@@ -71,7 +75,7 @@ export class Box {
     get max() {
         return this.clone();
     }
-
+    
     /**
      * Return center of the box
      * @returns {Point}
@@ -80,6 +84,22 @@ export class Box {
         return new Flatten.Point((this.xmin + this.xmax) / 2, (this.ymin + this.ymax) / 2);
     }
 
+    /**
+     * Return the width of the box
+     * @returns {number}
+     */
+    get width() {
+        return Math.abs(this.xmax - this.xmin);
+    }
+
+    /**
+     * Return the height of the box
+     * @returns {number}
+     */
+    get height() {
+        return Math.abs(this.ymax - this.ymin);
+    }
+    
     /**
      * Return property box like all other shapes
      * @returns {Box}
@@ -162,7 +182,7 @@ export class Box {
 
     /**
      * Set new values to the box object
-     * @param {number} xmin - miminal x coordinate
+     * @param {number} xmin - mininal x coordinate
      * @param {number} ymin - minimal y coordinate
      * @param {number} xmax - maximal x coordinate
      * @param {number} ymax - maximal y coordinate
@@ -175,7 +195,7 @@ export class Box {
     }
 
     /**
-     * Transform box into array of points from low left corner in counter clockwise
+     * Transform box into array of points from low left corner in counterclockwise
      * @returns {Point[]}
      */
     toPoints() {
@@ -188,7 +208,7 @@ export class Box {
     }
 
     /**
-     * Transform box into array of segments from low left corner in counter clockwise
+     * Transform box into array of segments from low left corner in counterclockwise
      * @returns {Segment[]}
      */
     toSegments() {
@@ -202,27 +222,47 @@ export class Box {
     }
 
     /**
-     * Return string to draw circle in svg
-     * @param {Object} attrs - an object with attributes of svg rectangle element,
-     * like "stroke", "strokeWidth", "fill" <br/>
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+     * Box rotation is not supported
+     * Attempt to rotate box throws error
+     * @param {number} angle - angle in radians
+     * @param {Point} [center=(0,0)] center
+     */
+    rotate(angle, center = new Flatten.Point()) {
+            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+    }
+
+    /**
+     * Return new box transformed using affine transformation matrix
+     * New box is a bounding box of transformed corner points
+     * @param {Matrix} m - affine transformation matrix
+     * @returns {Box}
+     */
+    transform(m = new Flatten.Matrix()) {
+        const transformed_points = this.toPoints().map(pt => pt.transform(m))
+        return transformed_points.reduce(
+            (new_box, pt) => new_box.merge(pt.box), new Box())
+    }
+
+    get name() {
+        return "box"
+    }
+
+    /**
+     * Return string to draw box in svg
+     * @param {Object} attrs - an object with attributes of svg rectangle element
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-        let width = this.xmax - this.xmin;
-        let height = this.ymax - this.ymin;
-
-        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`;
+        const width = this.xmax - this.xmin;
+        const height = this.ymax - this.ymin;
+        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height}
+                ${convertToString({fill: "none", ...attrs})} />`;
     };
-};
+}
 
 Flatten.Box = Box;
 /**
- * Shortcut to create new circle
+ * Shortcut to create new box
  * @param args
  * @returns {Box}
  */

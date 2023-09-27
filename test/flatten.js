@@ -7,8 +7,7 @@
 import { expect } from 'chai';
 import Flatten from '../index';
 
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray, Matrix, Distance} from '../index';
-import {inverse} from '../index';
+import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray, Matrix, Distance, Inversion} from '../index';
 
 describe('#Flatten-JS', function() {
     it('Namespace Flatten defined', function () {
@@ -56,8 +55,8 @@ describe('#Flatten-JS', function() {
     it('Namespace Distance defined', function() {
         expect(Distance).to.exist;
     });
-    it('Method inverse defined', function() {
-        expect(inverse).to.exist;
+    it('Class Inverse defined', function() {
+        expect(Inversion).to.exist;
     })
 });
 

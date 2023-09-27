@@ -1,8 +1,5 @@
 // Just hit "node index.js" in the terminal while you are in the directory of this project
-
-// In the real app you will need to install @flatten-js/core
-let Flatten = require('@flatten-js/core');
-let {point, segment, circle} = Flatten;
+let {point, segment, circle} = require('@flatten-js/core');
 
 // make some construction
 let s1 = segment(10,10,200,200);

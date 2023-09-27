@@ -1,5 +1,4 @@
-import resolve from 'rollup-plugin-node-resolve';
-// import { terser } from "rollup-plugin-terser";
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
     input: 'index.js',
@@ -21,11 +20,5 @@ export default {
             exports: 'named'
         },
     ],
-    plugins: [
-        resolve({
-            customResolveOptions: {
-                moduleDirectory: 'node_modules'
-            }
-        })
-    ]
+    plugins: [nodeResolve()]
 };

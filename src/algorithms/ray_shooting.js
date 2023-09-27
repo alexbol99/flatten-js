@@ -1,28 +1,48 @@
-
+/**
+ * @module RayShoot
+ */
 "use strict";
 import Flatten from '../flatten';
 import * as Utils from '../utils/utils';
-
-export const ray_shoot = function(polygon, point) {
+import * as Constants from '../utils/constants';
+/**
+ * Implements ray shooting algorithm. Returns relation between point and polygon: inside, outside or boundary
+ * @param {Polygon} polygon - polygon to test
+ * @param {Point} point - point to test
+ * @returns {INSIDE|OUTSIDE|BOUNDARY}
+ */
+export function ray_shoot(polygon, point) {
     let contains = undefined;
 
-    // if (!(polygon instanceof Polygon && point instanceof Point)) {
-    //     throw Flatten.Errors.ILLEGAL_PARAMETERS;
-    // }
-
     // 1. Quick reject
-    if (polygon.box.not_intersect(point.box)) {
-        return Flatten.OUTSIDE;
-    }
+    // if (polygon.box.not_intersect(point.box)) {
+    //     return Flatten.OUTSIDE;
+    // }
 
     let ray = new Flatten.Ray(point);
     let line = new Flatten.Line(ray.pt, ray.norm);
 
     // 2. Locate relevant edges of the polygon
-    let resp_edges = polygon.edges.search(ray.box);
+    const searchBox = new Flatten.Box(
+        ray.box.xmin-Flatten.DP_TOL, ray.box.ymin-Flatten.DP_TOL,
+        ray.box.xmax, ray.box.ymax+Flatten.DP_TOL
+    );
+
+    if (polygon.box.not_intersect(searchBox)) {
+        return Flatten.OUTSIDE;
+    }
+
+    let resp_edges = polygon.edges.search(searchBox);
 
     if (resp_edges.length == 0) {
         return Flatten.OUTSIDE;
+    }
+
+    // 2.5 Check if boundary
+    for (let edge of resp_edges) {
+        if (edge.shape.contains(point)) {
+            return Flatten.BOUNDARY;
+        }
     }
 
     // 3. Calculate intersections
@@ -117,7 +137,7 @@ export const ray_shoot = function(polygon, point) {
     }
 
     // 6. Odd or even?
-    contains = counter % 2 == 1 ? Flatten.INSIDE : Flatten.OUTSIDE;
+    contains = counter % 2 == 1 ? Constants.INSIDE : Constants.OUTSIDE;
 
     return contains;
 };

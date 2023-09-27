@@ -8,5 +8,10 @@
     "destination": "./docs/",
     "recurse": true,
     "template": "./node_modules/minami"
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": true,
+    "sort": false
   }
 }

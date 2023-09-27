@@ -138,9 +138,11 @@ export class Distance {
 
         // Seg1 and seg2 not intersected
         let dist_and_segment = [];
-
-        dist_and_segment.push(Distance.point2segment(seg2.start, seg1));
-        dist_and_segment.push(Distance.point2segment(seg2.end, seg1));
+        let dist_tmp, shortest_segment_tmp
+        [dist_tmp, shortest_segment_tmp] = Distance.point2segment(seg2.start, seg1);
+        dist_and_segment.push([dist_tmp, shortest_segment_tmp.reverse()]);
+        [dist_tmp, shortest_segment_tmp] = Distance.point2segment(seg2.end, seg1);
+        dist_and_segment.push([dist_tmp, shortest_segment_tmp.reverse()]);
         dist_and_segment.push(Distance.point2segment(seg1.start, seg2));
         dist_and_segment.push(Distance.point2segment(seg1.end, seg2));
 

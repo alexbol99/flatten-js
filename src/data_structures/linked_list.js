@@ -1,5 +1,8 @@
+import Flatten from "../flatten";
+
 /**
- * Class implements bidirectional non-circular linked list
+ * Class implements bidirectional non-circular linked list. <br/>
+ * LinkedListElement - object of any type that has properties next and prev.
  */
 class LinkedList {
     constructor(first, last) {
@@ -39,6 +42,7 @@ class LinkedList {
         let from = start || this.first;
         let to = end || this.last;
         let element = from;
+        if (element === undefined) return elements;
         do {
             elements.push(element);
             element = element.next;
@@ -49,7 +53,7 @@ class LinkedList {
 
     /**
      * Append new element to the end of the list
-     * @param element
+     * @param {LinkedListElement} element
      * @returns {LinkedList}
      */
     append(element) {
@@ -71,8 +75,8 @@ class LinkedList {
 
     /**
      * Insert new element to the list after elementBefore
-     * @param newElement
-     * @param elementBefore
+     * @param {LinkedListElement} newElement
+     * @param {LinkedListElement} elementBefore
      * @returns {LinkedList}
      */
     insert(newElement, elementBefore) {
@@ -107,7 +111,7 @@ class LinkedList {
 
     /**
      * Remove element from the list
-     * @param element
+     * @param {LinkedListElement} element
      * @returns {LinkedList}
      */
     remove(element) {
@@ -139,6 +143,22 @@ class LinkedList {
         return this.first === undefined;
     }
 
+    /**
+     * Throw an error if circular loop detected in the linked list
+     * @param {LinkedListElement} first element to start iteration
+     * @throws {Flatten.Errors.INFINITE_LOOP}
+     */
+    static testInfiniteLoop(first) {
+        let edge = first;
+        let controlEdge = first;
+        do {
+            if (edge != first && edge === controlEdge) {
+                throw Flatten.Errors.INFINITE_LOOP;  // new Error("Infinite loop")
+            }
+            edge = edge.next;
+            controlEdge = controlEdge.next.next;
+        } while (edge != first)
+    }
 }
 
 export default LinkedList;
