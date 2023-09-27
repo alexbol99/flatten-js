@@ -650,4 +650,6 @@ declare namespace Flatten.Relations {
     function cover(shape1: AnyShape, shape2: AnyShape): boolean;
 }
 
-export default Flatten;
+export = Flatten;
+export as namespace Flatten;
+
