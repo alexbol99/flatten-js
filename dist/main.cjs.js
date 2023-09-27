@@ -3507,13 +3507,32 @@ class IntervalTree {
         this.tree_walk(this.root, (node) => visitor(node.item.key, node.item.value));
     }
 
-    /** Value Mapper. Walk through every node and map node value to another value
-    * @param callback(value,key) - function to be called for each tree item
-    */
+    /**
+     * Value Mapper. Walk through every node and map node value to another value
+     * @param callback(value,key) - function to be called for each tree item
+     */
     map(callback) {
         const tree = new IntervalTree();
         this.tree_walk(this.root, (node) => tree.insert(node.item.key, callback(node.item.value, node.item.key)));
         return tree;
+    }
+
+    /**
+     * @param {Interval} interval - optional if the iterator is intended to start from the beginning or end
+     * @param outputMapperFn(value,key) - optional function that maps (value, key) to custom output
+     * @returns {Iterator}
+     */
+    *iterate(interval, outputMapperFn = (value, key) => value === key ? key.output() : value) {
+        let node;
+        if (interval) {
+            node = this.tree_search_nearest_forward(this.root, new Node(interval));
+        } else if (this.root) {
+            node = this.local_minimum(this.root);
+        }
+        while (node) {
+            yield outputMapperFn(node.item.value, node.item.key);
+            node = this.tree_successor(node);
+        }
     }
 
     recalc_max(node) {
@@ -3748,6 +3767,21 @@ class IntervalTree {
         }
     }
 
+    tree_search_nearest_forward(node, search_node) {
+        let best;
+        let curr = node;
+        while (curr && curr != this.nil_node) {
+            if (curr.less_than(search_node)) {
+                if (curr.intersect(search_node) && (!best || curr.less_than(best))) best = curr;
+                curr = curr.right;
+            } else {
+                if (!best || curr.less_than(best)) best = curr;
+                curr = curr.left;
+            }
+        }
+        return best || null;
+    }
+
     // Original search_interval method; container res support push() insertion
     // Search all intervals intersecting given one
     tree_search_interval(node, search_node, res) {
@@ -3945,7 +3979,7 @@ class IntervalTree {
         }
         height += heightLeft;
         return height;
-    };
+    }
 }
 
 /**
