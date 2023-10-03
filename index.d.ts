@@ -350,7 +350,7 @@ declare namespace Flatten {
         scale(scaleX: number, scaleY: number) : Segment;
         transform(matrix: Matrix): Segment;
         isZeroLength(): boolean;
-        sortPoint(points: Array<Point>) : Array<Point>;
+        sortPoints(points: Array<Point>) : Array<Point>;
         toJSON() : Object;
         svg(attrs?: SVGAttributes): string;
     }
