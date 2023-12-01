@@ -1,12 +1,18 @@
 {
   "name": "@flatten-js/core",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Javascript library for 2d geometry",
-  "main": "dist/main.cjs.js",
+  "main": "dist/main.cjs",
   "umd:main": "dist/main.umd.js",
   "unpkg": "dist/main.umd.js",
-  "module": "dist/main.esm.js",
+  "module": "dist/main.mjs",
   "types": "index.d.ts",
+  "exports": {
+    "types": "./index.d.ts",
+    "require": "./dist/main.cjs",
+    "import": "./dist/main.mjs",
+    "default": "./dist/main.umd.js"
+  },
   "nyc": {
     "require": [
       "@babel/register"
