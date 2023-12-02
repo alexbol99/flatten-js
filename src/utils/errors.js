@@ -2,6 +2,8 @@
  * Created by Alex Bol on 2/19/2017.
  */
 
+import Flatten from "../flatten";
+
 /**
  * Class of system errors
  */
@@ -52,3 +54,4 @@ export class Errors {
     }
 }
 
+Flatten.Errors = Errors;

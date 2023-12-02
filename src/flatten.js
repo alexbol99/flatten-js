@@ -1,10 +1,9 @@
 import * as Constants from './utils/constants';
 import * as Utils from './utils/utils';
-import {Errors} from './utils/errors';
 
 let Flatten = {
     Utils: Utils,
-    Errors: Errors,
+    Errors: undefined,
     Matrix: undefined,
     Planar_set: undefined,
     Point: undefined,
