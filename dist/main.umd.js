@@ -154,9 +154,39 @@
         setTolerance: setTolerance
     });
 
+    let Flatten = {
+        Utils: Utils$1,
+        Errors: undefined,
+        Matrix: undefined,
+        Planar_set: undefined,
+        Point: undefined,
+        Vector: undefined,
+        Line: undefined,
+        Circle: undefined,
+        Segment: undefined,
+        Arc: undefined,
+        Box: undefined,
+        Edge: undefined,
+        Face: undefined,
+        Ray: undefined,
+        Ray_shooting: undefined,
+        Multiline: undefined,
+        Polygon: undefined,
+        Distance: undefined,
+        Inversion: undefined
+    };
+
+    for (let c in Constants) {Flatten[c] = Constants[c];}
+
+    Object.defineProperty(Flatten, 'DP_TOL', {
+        get:function(){return getTolerance()}, 
+        set:function(value){setTolerance(value);}
+    });
+
     /**
      * Created by Alex Bol on 2/19/2017.
      */
+
 
     /**
      * Class of system errors
@@ -208,34 +238,7 @@
         }
     }
 
-    let Flatten = {
-        Utils: Utils$1,
-        Errors: Errors,
-        Matrix: undefined,
-        Planar_set: undefined,
-        Point: undefined,
-        Vector: undefined,
-        Line: undefined,
-        Circle: undefined,
-        Segment: undefined,
-        Arc: undefined,
-        Box: undefined,
-        Edge: undefined,
-        Face: undefined,
-        Ray: undefined,
-        Ray_shooting: undefined,
-        Multiline: undefined,
-        Polygon: undefined,
-        Distance: undefined,
-        Inversion: undefined
-    };
-
-    for (let c in Constants) {Flatten[c] = Constants[c];}
-
-    Object.defineProperty(Flatten, 'DP_TOL', {
-        get:function(){return getTolerance()}, 
-        set:function(value){setTolerance(value);}
-    });
+    Flatten.Errors = Errors;
 
     /**
      * Class implements bidirectional non-circular linked list. <br/>
