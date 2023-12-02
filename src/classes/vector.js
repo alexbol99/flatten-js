@@ -7,6 +7,7 @@
 import Flatten from '../flatten';
 import {Shape} from "./shape";
 import {Matrix} from "./matrix";
+import {Errors} from "../utils/errors";
 
 /**
  * Class representing a vector
@@ -71,7 +72,7 @@ export class Vector extends Shape {
 
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -148,7 +149,7 @@ export class Vector extends Shape {
         if (!Flatten.Utils.EQ_0(this.length)) {
             return (new Flatten.Vector(this.x / this.length, this.y / this.length));
         }
-        throw Flatten.Errors.ZERO_DIVISION;
+        throw Errors.ZERO_DIVISION;
     }
 
     /**
@@ -163,7 +164,7 @@ export class Vector extends Shape {
         if (center.x === 0 && center.y === 0) {
             return this.transform(new Matrix().rotate(angle));
         }
-        throw(Flatten.Errors.OPERATION_IS_NOT_SUPPORTED);
+        throw(Errors.OPERATION_IS_NOT_SUPPORTED);
     }
 
     /**

@@ -6,7 +6,7 @@
  */
 "use strict";
 import Flatten from '../flatten';
-import Errors from "../utils/errors";
+import {Errors} from "../utils/errors";
 import * as Constants from '../utils/constants';
 import LinkedList from "../data_structures/linked_list";
 import {addToIntPoints, sortIntersections,
@@ -639,12 +639,17 @@ export function restoreFaces(polygon, int_points, other_int_points)
         let first = int_point.edge_after;      // face start
         let last = int_point.edge_before;      // face end;
 
-        LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
+        try {
+            LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
+        }
+        catch (error) {
+            throw Errors.CANNOT_COMPLETE_BOOLEAN_OPERATION
+        }
 
         let face = polygon.addFace(first, last);
 
         // Mark intersection points from the newly create face
-        // to avoid multiple creation of the same face
+        // to avoid multiple creation of the same face.
         // Face was assigned to each edge of new face in addFace function
         for (let int_point_tmp of int_points) {
             if (int_point_tmp.edge_before && int_point_tmp.edge_after &&

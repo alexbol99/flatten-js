@@ -9,6 +9,7 @@ import * as Intersection from '../algorithms/intersection';
 import {convertToString} from "../utils/attributes";
 import {Shape} from "./shape";
 import {Matrix} from "./matrix";
+import {Errors} from "../utils/errors";
 
 /**
  * Class representing a circle
@@ -47,7 +48,7 @@ export class Circle extends Shape {
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
             if (r !== undefined) this.r = r;
         }
-        // throw Flatten.Errors.ILLEGAL_PARAMETERS;    unreachable code
+        // throw Errors.ILLEGAL_PARAMETERS;    unreachable code
     }
 
     /**
@@ -126,9 +127,9 @@ export class Circle extends Shape {
      */
     scale(sx, sy) {
         if (sx !== sy)
-            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+            throw Errors.OPERATION_IS_NOT_SUPPORTED
         if (!(this.pc.x === 0.0 && this.pc.y === 0.0))
-            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+            throw Errors.OPERATION_IS_NOT_SUPPORTED
         return new Flatten.Circle(this.pc, this.r*sx)
     }
 

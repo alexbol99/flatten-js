@@ -1,6 +1,7 @@
 "use strict";
 
 import Flatten from '../flatten';
+import {Errors} from "../utils/errors";
 
 /**
  * Class representing an affine transformation 3x3 matrix:
@@ -91,7 +92,7 @@ export class Matrix {
             tx = args[0];
             ty = args[1];
         } else {
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
         return this.multiply(new Matrix(1, 0, 0, 1, tx, ty))
     };

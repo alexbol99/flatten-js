@@ -593,6 +593,16 @@ declare namespace Flatten {
         inverse(Circle: Circle) : Line | Circle;
     }
 
+    class Errors {
+        readonly ILLEGAL_PARAMETERS: ReferenceError;
+        readonly ZERO_DIVISION: Error;
+        readonly UNRESOLVED_BOUNDARY_CONFLICT: Error;
+        readonly INFINITE_LOOP: Error;
+        readonly CANNOT_COMPLETE_BOOLEAN_OPERATION: Error;
+        readonly CANNOT_INVOKE_ABSTRACT_METHOD: Error;
+        readonly OPERATION_IS_NOT_SUPPORTED: Error;
+    }
+
     type AnyShape = Point | Vector | Line | Ray | Circle | Box | Segment | Arc | Polygon;
 
     function point(x?: number, y?: number): Point;

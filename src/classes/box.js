@@ -6,6 +6,7 @@
 import Flatten from '../flatten';
 import {convertToString} from "../utils/attributes";
 import {Shape} from "./shape";
+import {Errors} from "../utils/errors";
 
 /**
  * Class Box represents bounding box of the shape.
@@ -228,7 +229,7 @@ export class Box extends Shape {
      * @param {Point} [center=(0,0)] center
      */
     rotate(angle, center = new Flatten.Point()) {
-            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+            throw Errors.OPERATION_IS_NOT_SUPPORTED
     }
 
     /**

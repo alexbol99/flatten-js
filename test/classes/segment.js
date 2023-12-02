@@ -8,6 +8,7 @@ import Flatten from '../../index';
 
 import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../../index';
 import {point, vector, circle, line, segment, arc, ray} from '../../index';
+import {Errors} from "../../src/utils/errors";
 
 describe('#Flatten.Segment', function() {
     it('May create new instance of Segment', function () {
@@ -39,7 +40,7 @@ describe('#Flatten.Segment', function() {
     });
     it('Constructor with illegal parameters throw error', function() {
         let fn = function () {new Segment([1,2,3])};
-        expect(fn).to.throw(ReferenceError);
+        expect(fn).to.throw(Errors.ILLEGAL_PARAMETERS.message);
     });
     it('Method clone copy to a new instance of Segment', function () {
         let ps = new Point(1,1);

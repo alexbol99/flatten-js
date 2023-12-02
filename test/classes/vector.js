@@ -6,6 +6,7 @@
 
 import { expect } from 'chai';
 import Flatten from '../../index';
+import {Errors} from "../../src/utils/errors";
 
 import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../../index';
 import {point, vector, circle, line, segment, arc, ray} from '../../index';
@@ -36,7 +37,7 @@ describe('#Flatten.Vector', function() {
     it('Constructor Vector with illegal parameters throw error', function () {
         let ps = new Point(1,1);
         let fn = function() { new Vector(ps,2) };
-        expect(fn).to.throw(ReferenceError);
+        expect(fn).to.throw(Errors.ILLEGAL_PARAMETERS.message);
     });
     it('New vector may be constructed by function call', function() {
         expect(vector(point(1,1), point(3,3))).to.deep.equal({x:2, y:2});
@@ -85,7 +86,7 @@ describe('#Flatten.Vector', function() {
     it('Method normalize throw error on zero length vector', function () {
         let v = new Vector(0,0);
         let fn = function() { v.normalize() };
-        expect(fn).to.throw(Error);
+        expect(fn).to.throw(Errors.ZERO_DIVISION.message);
     });
     it ('Method rotate returns new vector rotated by given angle, positive angle defines rotation in counterclockwise direction', function() {
         let vector = new Vector(1,1);

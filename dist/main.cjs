@@ -193,6 +193,10 @@ class Errors {
         return new Error('Infinite loop');
     }
 
+    static get CANNOT_COMPLETE_BOOLEAN_OPERATION() {
+        return new Error('Cannot complete boolean operation')
+    }
+
     static get CANNOT_INVOKE_ABSTRACT_METHOD() {
         return new Error('Abstract method cannot be invoked');
     }
@@ -201,11 +205,6 @@ class Errors {
         return new Error('Operation is not supported')
     }
 }
-
-var errors = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    default: Errors
-});
 
 let Flatten = {
     Utils: Utils$1,
@@ -382,14 +381,14 @@ class LinkedList {
     /**
      * Throw an error if circular loop detected in the linked list
      * @param {LinkedListElement} first element to start iteration
-     * @throws {Flatten.Errors.INFINITE_LOOP}
+     * @throws {Errors.INFINITE_LOOP}
      */
     static testInfiniteLoop(first) {
         let edge = first;
         let controlEdge = first;
         do {
             if (edge != first && edge === controlEdge) {
-                throw Flatten.Errors.INFINITE_LOOP;  // new Error("Infinite loop")
+                throw Errors.INFINITE_LOOP;  // new Error("Infinite loop")
             }
             edge = edge.next;
             controlEdge = controlEdge.next.next;
@@ -1407,12 +1406,17 @@ function restoreFaces(polygon, int_points, other_int_points)
         let first = int_point.edge_after;      // face start
         let last = int_point.edge_before;      // face end;
 
-        LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
+        try {
+            LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
+        }
+        catch (error) {
+            throw Errors.CANNOT_COMPLETE_BOOLEAN_OPERATION
+        }
 
         let face = polygon.addFace(first, last);
 
         // Mark intersection points from the newly create face
-        // to avoid multiple creation of the same face
+        // to avoid multiple creation of the same face.
         // Face was assigned to each edge of new face in addFace function
         for (let int_point_tmp of int_points) {
             if (int_point_tmp.edge_before && int_point_tmp.edge_after &&
@@ -3060,7 +3064,7 @@ class Matrix {
             tx = args[0];
             ty = args[1];
         } else {
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
         return this.multiply(new Matrix(1, 0, 0, 1, tx, ty))
     };
@@ -4050,23 +4054,22 @@ Flatten.PlanarSet = PlanarSet;
  */
 class Shape {
     get name() {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     get box() {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     clone() {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     /**
      * Returns new shape translated by given vector.
      * Translation vector may be also defined by a pair of numbers.
-     * @param {Vector} vector - Translation vector or
-     * @param {number} tx - Translation by x-axis
-     * @param {number} ty - Translation by y-axis
+     * @param {Vector | (number, number) } args - Translation vector
+     * or tuple of numbers
      * @returns {Shape}
      */
     translate(...args) {
@@ -4097,7 +4100,7 @@ class Shape {
     }
 
     transform(...args) {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     /**
@@ -4110,7 +4113,7 @@ class Shape {
     }
 
     svg(attrs = {}) {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 }
 
@@ -4170,7 +4173,7 @@ let Point$1 = class Point extends Shape {
                 return;
             }
         }
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -4431,7 +4434,7 @@ let Vector$1 = class Vector extends Shape {
 
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -4508,7 +4511,7 @@ let Vector$1 = class Vector extends Shape {
         if (!Flatten.Utils.EQ_0(this.length)) {
             return (new Flatten.Vector(this.x / this.length, this.y / this.length));
         }
-        throw Flatten.Errors.ZERO_DIVISION;
+        throw Errors.ZERO_DIVISION;
     }
 
     /**
@@ -4523,7 +4526,7 @@ let Vector$1 = class Vector extends Shape {
         if (center.x === 0 && center.y === 0) {
             return this.transform(new Matrix().rotate(angle));
         }
-        throw(Flatten.Errors.OPERATION_IS_NOT_SUPPORTED);
+        throw(Errors.OPERATION_IS_NOT_SUPPORTED);
     }
 
     /**
@@ -4681,7 +4684,7 @@ class Segment extends Shape {
             return;
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -5037,7 +5040,7 @@ let Line$1 = class Line extends Shape {
 
             if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Vector) {
                 if (Flatten.Utils.EQ_0(a2.x) && Flatten.Utils.EQ_0(a2.y)) {
-                    throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                    throw Errors.ILLEGAL_PARAMETERS;
                 }
                 this.pt = a1.clone();
                 this.norm = a2.clone();
@@ -5050,7 +5053,7 @@ let Line$1 = class Line extends Shape {
 
             if (a1 instanceof Flatten.Vector && a2 instanceof Flatten.Point) {
                 if (Flatten.Utils.EQ_0(a1.x) && Flatten.Utils.EQ_0(a1.y)) {
-                    throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                    throw Errors.ILLEGAL_PARAMETERS;
                 }
                 this.pt = a2.clone();
                 this.norm = a1.clone();
@@ -5062,7 +5065,7 @@ let Line$1 = class Line extends Shape {
             }
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -5332,7 +5335,7 @@ let Line$1 = class Line extends Shape {
 
     static points2norm(pt1, pt2) {
         if (pt1.equalTo(pt2)) {
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
         let vec = new Flatten.Vector(pt1, pt2);
         let unit = vec.normalize();
@@ -5390,7 +5393,7 @@ let Circle$1 = class Circle extends Shape {
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
             if (r !== undefined) this.r = r;
         }
-        // throw Flatten.Errors.ILLEGAL_PARAMETERS;    unreachable code
+        // throw Errors.ILLEGAL_PARAMETERS;    unreachable code
     }
 
     /**
@@ -5469,9 +5472,9 @@ let Circle$1 = class Circle extends Shape {
      */
     scale(sx, sy) {
         if (sx !== sy)
-            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+            throw Errors.OPERATION_IS_NOT_SUPPORTED
         if (!(this.pc.x === 0.0 && this.pc.y === 0.0))
-            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+            throw Errors.OPERATION_IS_NOT_SUPPORTED
         return new Flatten.Circle(this.pc, this.r*sx)
     }
 
@@ -6309,7 +6312,7 @@ class Box extends Shape {
      * @param {Point} [center=(0,0)] center
      */
     rotate(angle, center = new Flatten.Point()) {
-            throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+            throw Errors.OPERATION_IS_NOT_SUPPORTED
     }
 
     /**
@@ -7176,7 +7179,7 @@ class Ray extends Shape {
             return;
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -8745,7 +8748,7 @@ exports.CW = CW;
 exports.Circle = Circle$1;
 exports.Distance = Distance;
 exports.Edge = Edge;
-exports.Errors = errors;
+exports.Errors = Errors;
 exports.Face = Face;
 exports.INSIDE = INSIDE$2;
 exports.Inversion = Inversion;
