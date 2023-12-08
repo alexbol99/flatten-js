@@ -1,5 +1,6 @@
 import Flatten from '../flatten';
 import {Matrix} from "./matrix";
+import {Errors} from "../utils/errors";
 
 /**
  * Base class representing shape
@@ -7,23 +8,22 @@ import {Matrix} from "./matrix";
  */
 export class Shape {
     get name() {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     get box() {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     clone() {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     /**
      * Returns new shape translated by given vector.
      * Translation vector may be also defined by a pair of numbers.
-     * @param {Vector} vector - Translation vector or
-     * @param {number} tx - Translation by x-axis
-     * @param {number} ty - Translation by y-axis
+     * @param {Vector | (number, number) } args - Translation vector
+     * or tuple of numbers
      * @returns {Shape}
      */
     translate(...args) {
@@ -54,7 +54,7 @@ export class Shape {
     }
 
     transform(...args) {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     /**
@@ -67,6 +67,6 @@ export class Shape {
     }
 
     svg(attrs = {}) {
-        throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 }

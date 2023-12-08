@@ -7,6 +7,7 @@ import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
 import {Shape} from "./shape";
 import {Matrix} from "./matrix";
+import {Errors} from "../utils/errors";
 
 let {vector} = Flatten;
 
@@ -61,7 +62,7 @@ export class Line extends Shape {
 
             if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Vector) {
                 if (Flatten.Utils.EQ_0(a2.x) && Flatten.Utils.EQ_0(a2.y)) {
-                    throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                    throw Errors.ILLEGAL_PARAMETERS;
                 }
                 this.pt = a1.clone();
                 this.norm = a2.clone();
@@ -74,7 +75,7 @@ export class Line extends Shape {
 
             if (a1 instanceof Flatten.Vector && a2 instanceof Flatten.Point) {
                 if (Flatten.Utils.EQ_0(a1.x) && Flatten.Utils.EQ_0(a1.y)) {
-                    throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                    throw Errors.ILLEGAL_PARAMETERS;
                 }
                 this.pt = a2.clone();
                 this.norm = a1.clone();
@@ -86,7 +87,7 @@ export class Line extends Shape {
             }
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -356,7 +357,7 @@ export class Line extends Shape {
 
     static points2norm(pt1, pt2) {
         if (pt1.equalTo(pt2)) {
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
         let vec = new Flatten.Vector(pt1, pt2);
         let unit = vec.normalize();

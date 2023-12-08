@@ -4,12 +4,12 @@
 
 import Flatten from './src/flatten';
 import * as Utils from "./src/utils/utils";
-import * as Errors from "./src/utils/errors";
 import * as BooleanOperations from './src/algorithms/boolean_op';
 import * as Relations from './src/algorithms/relation';
 import * as SmartIntersections from './src/data_structures/smart_intersections';
 
-export {Utils, Errors};
+export {Utils}
+export {Errors} from './src/utils/errors';
 export {Matrix, matrix} from './src/classes/matrix';
 export {PlanarSet} from './src/data_structures/planar_set';
 export {Point, point} from './src/classes/point';

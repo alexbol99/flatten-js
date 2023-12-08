@@ -2,10 +2,12 @@
  * Created by Alex Bol on 2/19/2017.
  */
 
+import Flatten from "../flatten";
+
 /**
  * Class of system errors
  */
-class Errors {
+export class Errors {
     /**
      * Throw error ILLEGAL_PARAMETERS when cannot instantiate from given parameter
      * @returns {ReferenceError}
@@ -39,6 +41,10 @@ class Errors {
         return new Error('Infinite loop');
     }
 
+    static get CANNOT_COMPLETE_BOOLEAN_OPERATION() {
+        return new Error('Cannot complete boolean operation')
+    }
+
     static get CANNOT_INVOKE_ABSTRACT_METHOD() {
         return new Error('Abstract method cannot be invoked');
     }
@@ -48,4 +54,4 @@ class Errors {
     }
 }
 
-export default Errors;
+Flatten.Errors = Errors;

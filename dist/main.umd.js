@@ -154,9 +154,39 @@
         setTolerance: setTolerance
     });
 
+    let Flatten = {
+        Utils: Utils$1,
+        Errors: undefined,
+        Matrix: undefined,
+        Planar_set: undefined,
+        Point: undefined,
+        Vector: undefined,
+        Line: undefined,
+        Circle: undefined,
+        Segment: undefined,
+        Arc: undefined,
+        Box: undefined,
+        Edge: undefined,
+        Face: undefined,
+        Ray: undefined,
+        Ray_shooting: undefined,
+        Multiline: undefined,
+        Polygon: undefined,
+        Distance: undefined,
+        Inversion: undefined
+    };
+
+    for (let c in Constants) {Flatten[c] = Constants[c];}
+
+    Object.defineProperty(Flatten, 'DP_TOL', {
+        get:function(){return getTolerance()}, 
+        set:function(value){setTolerance(value);}
+    });
+
     /**
      * Created by Alex Bol on 2/19/2017.
      */
+
 
     /**
      * Class of system errors
@@ -195,6 +225,10 @@
             return new Error('Infinite loop');
         }
 
+        static get CANNOT_COMPLETE_BOOLEAN_OPERATION() {
+            return new Error('Cannot complete boolean operation')
+        }
+
         static get CANNOT_INVOKE_ABSTRACT_METHOD() {
             return new Error('Abstract method cannot be invoked');
         }
@@ -204,39 +238,7 @@
         }
     }
 
-    var errors = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        default: Errors
-    });
-
-    let Flatten = {
-        Utils: Utils$1,
-        Errors: Errors,
-        Matrix: undefined,
-        Planar_set: undefined,
-        Point: undefined,
-        Vector: undefined,
-        Line: undefined,
-        Circle: undefined,
-        Segment: undefined,
-        Arc: undefined,
-        Box: undefined,
-        Edge: undefined,
-        Face: undefined,
-        Ray: undefined,
-        Ray_shooting: undefined,
-        Multiline: undefined,
-        Polygon: undefined,
-        Distance: undefined,
-        Inversion: undefined
-    };
-
-    for (let c in Constants) {Flatten[c] = Constants[c];}
-
-    Object.defineProperty(Flatten, 'DP_TOL', {
-        get:function(){return getTolerance()}, 
-        set:function(value){setTolerance(value);}
-    });
+    Flatten.Errors = Errors;
 
     /**
      * Class implements bidirectional non-circular linked list. <br/>
@@ -384,14 +386,14 @@
         /**
          * Throw an error if circular loop detected in the linked list
          * @param {LinkedListElement} first element to start iteration
-         * @throws {Flatten.Errors.INFINITE_LOOP}
+         * @throws {Errors.INFINITE_LOOP}
          */
         static testInfiniteLoop(first) {
             let edge = first;
             let controlEdge = first;
             do {
                 if (edge != first && edge === controlEdge) {
-                    throw Flatten.Errors.INFINITE_LOOP;  // new Error("Infinite loop")
+                    throw Errors.INFINITE_LOOP;  // new Error("Infinite loop")
                 }
                 edge = edge.next;
                 controlEdge = controlEdge.next.next;
@@ -1409,12 +1411,17 @@
             let first = int_point.edge_after;      // face start
             let last = int_point.edge_before;      // face end;
 
-            LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
+            try {
+                LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
+            }
+            catch (error) {
+                throw Errors.CANNOT_COMPLETE_BOOLEAN_OPERATION
+            }
 
             let face = polygon.addFace(first, last);
 
             // Mark intersection points from the newly create face
-            // to avoid multiple creation of the same face
+            // to avoid multiple creation of the same face.
             // Face was assigned to each edge of new face in addFace function
             for (let int_point_tmp of int_points) {
                 if (int_point_tmp.edge_before && int_point_tmp.edge_after &&
@@ -3062,7 +3069,7 @@
                 tx = args[0];
                 ty = args[1];
             } else {
-                throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                throw Errors.ILLEGAL_PARAMETERS;
             }
             return this.multiply(new Matrix(1, 0, 0, 1, tx, ty))
         };
@@ -4052,23 +4059,22 @@
      */
     class Shape {
         get name() {
-            throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
         }
 
         get box() {
-            throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
         }
 
         clone() {
-            throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
         }
 
         /**
          * Returns new shape translated by given vector.
          * Translation vector may be also defined by a pair of numbers.
-         * @param {Vector} vector - Translation vector or
-         * @param {number} tx - Translation by x-axis
-         * @param {number} ty - Translation by y-axis
+         * @param {Vector | (number, number) } args - Translation vector
+         * or tuple of numbers
          * @returns {Shape}
          */
         translate(...args) {
@@ -4099,7 +4105,7 @@
         }
 
         transform(...args) {
-            throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
         }
 
         /**
@@ -4112,7 +4118,7 @@
         }
 
         svg(attrs = {}) {
-            throw(Flatten.Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
         }
     }
 
@@ -4172,7 +4178,7 @@
                     return;
                 }
             }
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -4433,7 +4439,7 @@
 
             }
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -4510,7 +4516,7 @@
             if (!Flatten.Utils.EQ_0(this.length)) {
                 return (new Flatten.Vector(this.x / this.length, this.y / this.length));
             }
-            throw Flatten.Errors.ZERO_DIVISION;
+            throw Errors.ZERO_DIVISION;
         }
 
         /**
@@ -4525,7 +4531,7 @@
             if (center.x === 0 && center.y === 0) {
                 return this.transform(new Matrix().rotate(angle));
             }
-            throw(Flatten.Errors.OPERATION_IS_NOT_SUPPORTED);
+            throw(Errors.OPERATION_IS_NOT_SUPPORTED);
         }
 
         /**
@@ -4683,7 +4689,7 @@
                 return;
             }
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -5039,7 +5045,7 @@
 
                 if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Vector) {
                     if (Flatten.Utils.EQ_0(a2.x) && Flatten.Utils.EQ_0(a2.y)) {
-                        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                        throw Errors.ILLEGAL_PARAMETERS;
                     }
                     this.pt = a1.clone();
                     this.norm = a2.clone();
@@ -5052,7 +5058,7 @@
 
                 if (a1 instanceof Flatten.Vector && a2 instanceof Flatten.Point) {
                     if (Flatten.Utils.EQ_0(a1.x) && Flatten.Utils.EQ_0(a1.y)) {
-                        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                        throw Errors.ILLEGAL_PARAMETERS;
                     }
                     this.pt = a2.clone();
                     this.norm = a1.clone();
@@ -5064,7 +5070,7 @@
                 }
             }
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -5334,7 +5340,7 @@
 
         static points2norm(pt1, pt2) {
             if (pt1.equalTo(pt2)) {
-                throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                throw Errors.ILLEGAL_PARAMETERS;
             }
             let vec = new Flatten.Vector(pt1, pt2);
             let unit = vec.normalize();
@@ -5392,7 +5398,7 @@
                 if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
                 if (r !== undefined) this.r = r;
             }
-            // throw Flatten.Errors.ILLEGAL_PARAMETERS;    unreachable code
+            // throw Errors.ILLEGAL_PARAMETERS;    unreachable code
         }
 
         /**
@@ -5471,9 +5477,9 @@
          */
         scale(sx, sy) {
             if (sx !== sy)
-                throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+                throw Errors.OPERATION_IS_NOT_SUPPORTED
             if (!(this.pc.x === 0.0 && this.pc.y === 0.0))
-                throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+                throw Errors.OPERATION_IS_NOT_SUPPORTED
             return new Flatten.Circle(this.pc, this.r*sx)
         }
 
@@ -6311,7 +6317,7 @@
          * @param {Point} [center=(0,0)] center
          */
         rotate(angle, center = new Flatten.Point()) {
-                throw Flatten.Errors.OPERATION_IS_NOT_SUPPORTED
+                throw Errors.OPERATION_IS_NOT_SUPPORTED
         }
 
         /**
@@ -7178,7 +7184,7 @@
                 return;
             }
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -8747,7 +8753,7 @@
     exports.Circle = Circle$1;
     exports.Distance = Distance;
     exports.Edge = Edge;
-    exports.Errors = errors;
+    exports.Errors = Errors;
     exports.Face = Face;
     exports.INSIDE = INSIDE$2;
     exports.Inversion = Inversion;

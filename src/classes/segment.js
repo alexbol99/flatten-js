@@ -8,6 +8,7 @@ import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
 import {convertToString} from "../utils/attributes";
 import {Shape} from "./shape";
+import {Errors} from "../utils/errors";
 
 /**
  * Class representing a segment
@@ -68,7 +69,7 @@ export class Segment extends Shape {
             return;
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**

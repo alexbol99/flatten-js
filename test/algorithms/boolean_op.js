@@ -5,15 +5,10 @@
 'use strict';
 
 import {expect} from 'chai';
-//import Flatten from 'https://unpkg.com/@flatten-js/core';
-//import {Polygon} from 'https://unpkg.com/@flatten-js/core';
-//import {point, segment, arc, circle} from 'https://unpkg.com/@flatten-js/core';
-
 import Flatten from '../../index';
-
 import {Polygon} from '../../index';
 import {point, circle, segment, arc} from '../../index';
-
+import {Errors} from "../../src/utils/errors";
 
 import * as BooleanOperations from "../../src/algorithms/boolean_op";
 let {unify, subtract, intersect} = BooleanOperations;
@@ -296,7 +291,7 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            expect( () => unify(poly1, poly2)).to.throw("Infinite loop")
+            expect( () => unify(poly1, poly2)).to.throw(Errors.CANNOT_COMPLETE_BOOLEAN_OPERATION.message)
             // let res = unify(poly1, poly2);
             // expect(res.faces.size).to.equal(1);
             // expect(res.edges.size).to.equal(44);
@@ -313,7 +308,6 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            // expect( () => unify(poly1, poly2)).to.throw("Unresolved boundary conflict in boolean operation")
             let res = unify(poly1, poly2);
             expect(res.faces.size).to.equal(1);
             expect(res.edges.size).to.equal(30);
@@ -463,22 +457,22 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly.faces.size).to.equal(2);
             expect(poly.edges.size).to.equal(9);
         });
-        // it('Can perform (boolean) subtraction. First polygon inside the second', function () {
-        //     "use strict";
-        //
-        //     let {Polygon, point} = Flatten;
-        //
-        //     let polygon1 = new Polygon();
-        //     polygon1.addFace([point(100, 10), point(100, 300), point(400, 150), point(250, 10)]);
-        //
-        //     let polygon2 = new Polygon();
-        //     polygon2.addFace([point(50, 0), point(50, 400), point(500, 400), point(500, 0)]);
-        //
-        //     let poly = subtract(polygon2, polygon1);
-        //     expect(poly.faces.size).to.equal(2);
-        //     expect(poly.edges.size).to.equal(8);
-        //
-        // });
+        it('Can perform (boolean) subtraction. First polygon inside the second', function () {
+            "use strict";
+
+            let {Polygon, point} = Flatten;
+
+            let polygon1 = new Polygon();
+            polygon1.addFace([point(100, 10), point(100, 300), point(400, 150), point(250, 10)]);
+
+            let polygon2 = new Polygon();
+            polygon2.addFace([point(50, 0), point(50, 400), point(500, 400), point(500, 0)]);
+
+            let poly = subtract(polygon2, polygon1);
+            expect(poly.faces.size).to.equal(2);
+            expect(poly.edges.size).to.equal(8);
+
+        });
 
         it('Can perform subtract big polygon from smaller polygon and get empty result (Issue #4)', function() {
             let polygon1 = new Polygon();
@@ -551,10 +545,9 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            // expect( () => subtract(poly1, poly2)).to.throw(Flatten.Errors.INFINITE_LOOP.message)
             let res = subtract(poly1, poly2);
-            // expect(res.faces.size).to.equal(1);
-            // expect(res.edges.size).to.equal(42);
+            expect(res.faces.size).to.equal(6);
+            expect(res.edges.size).to.equal(30);
         });
         it('Can perform subtract. Fixed: Infinite loop for boolean union over (valid) polygons. Issue #55 case 2', function () {
             "use strict";
@@ -568,10 +561,9 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            // expect( () => subtract(poly1, poly2)).to.throw(Flatten.Errors.INFINITE_LOOP.message)
             let res = subtract(poly1, poly2);
-            // expect(res.faces.size).to.equal(1);
-            // expect(res.edges.size).to.equal(11);
+            expect(res.faces.size).to.equal(3);
+            expect(res.edges.size).to.equal(11);
         });
         it('Can perform subtract. Fixed: Infinite loop for boolean union over (valid) polygons. Issue #55 case 3', function () {
             "use strict";
@@ -755,49 +747,36 @@ describe('#Algorithms.Boolean Operations', function () {
 
             let myPoly = new Polygon();
             myPoly.addFace([point(6, 6), point(6,114), point(114, 114), point(114, 6)]);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myPoly);  // 0
 
             let myCircle = new Polygon();
             myCircle.addFace([arc(point(0,0),84.5779281026111, 0, 2*Math.PI, Flatten.CW)]);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myCircle);  // 1
 
             myPoly = intersect(myPoly,myCircle);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myPoly);   // 2
 
             myCircle = new Polygon();
             myCircle.addFace([arc(point(0,0),84.49938828627135, 0, 2*Math.PI, Flatten.CW)]);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myCircle);  // 3
 
             myPoly = subtract(myPoly,myCircle);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myPoly);   // 4
 
             myCircle = new Polygon();
             myCircle.addFace([arc(point(0,120),84.8710637077582, 0, 2*Math.PI, Flatten.CW)]);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myCircle);  // 5
 
             myPoly = intersect(myPoly,myCircle);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myPoly);   // 6
 
             myCircle = new Polygon();
             myCircle.addFace([arc(point(0,120),84.79252389141845, 0, 2*Math.PI, Flatten.CW)]);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myCircle);  // 7
 
             myPoly = subtract(myPoly,myCircle);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myPoly);   // 8
 
             myCircle = new Polygon();
             myCircle.addFace([arc(point(120,120),85.20624291591454, 0, 2*Math.PI, Flatten.CW)]);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myCircle);  // 9
 
             myPoly = intersect(myPoly,myCircle);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myPoly);   // 10
 
             myCircle = new Polygon();
             myCircle.addFace([arc(point(120,120), 85.1277030995748, 0, 2*Math.PI, Flatten.CW)]);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myCircle);  // 11
 
             myPoly = subtract(myPoly,myCircle);
-            // state.layers[state.layers.length] = Layers.newLayer(stage, layers).add(myPoly);   // 12
 
             expect(myPoly.faces.size).to.equal(1);
             expect(myPoly.edges.size).to.equal(7);
@@ -882,8 +861,6 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(poly1.faces.size).to.equal(1);
             expect(poly2.faces.size).to.equal(1);
 
-            // expect( () => intersect(poly1, poly2)).to.throw(Flatten.Errors.INFINITE_LOOP.message)
-            // expect( () => intersect(poly1, poly2)).to.throw("Infinite loop")
             let res = intersect(poly1, poly2);
             expect(res.faces.size).to.equal(1);
             expect(res.edges.size).to.equal(26);

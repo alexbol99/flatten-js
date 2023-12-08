@@ -1,4 +1,4 @@
-import Flatten from "../flatten";
+import {Errors} from "../utils/errors";
 
 /**
  * Class implements bidirectional non-circular linked list. <br/>
@@ -146,14 +146,14 @@ class LinkedList {
     /**
      * Throw an error if circular loop detected in the linked list
      * @param {LinkedListElement} first element to start iteration
-     * @throws {Flatten.Errors.INFINITE_LOOP}
+     * @throws {Errors.INFINITE_LOOP}
      */
     static testInfiniteLoop(first) {
         let edge = first;
         let controlEdge = first;
         do {
             if (edge != first && edge === controlEdge) {
-                throw Flatten.Errors.INFINITE_LOOP;  // new Error("Infinite loop")
+                throw Errors.INFINITE_LOOP;  // new Error("Infinite loop")
             }
             edge = edge.next;
             controlEdge = controlEdge.next.next;

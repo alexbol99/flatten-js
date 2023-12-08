@@ -6,6 +6,7 @@ import Flatten from '../flatten';
 import {convertToString} from "../utils/attributes";
 import {Matrix} from "./matrix";
 import {Shape} from "./shape";
+import {Errors} from "../utils/errors";
 
 /**
  *
@@ -58,7 +59,7 @@ export class Point extends Shape {
                 return;
             }
         }
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**

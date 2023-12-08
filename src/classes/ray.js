@@ -3,6 +3,7 @@
 import Flatten from '../flatten';
 import * as Intersection from "../algorithms/intersection";
 import {Shape} from "./shape";
+import {Errors} from "../utils/errors";
 
 /**
  * Class representing a ray (a half-infinite line).
@@ -41,7 +42,7 @@ export class Ray extends Shape {
             return;
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
