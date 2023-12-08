@@ -192,6 +192,10 @@
      * Class of system errors
      */
     class Errors {
+        constructor() {
+            this.dummy = 0;
+        }
+
         /**
          * Throw error ILLEGAL_PARAMETERS when cannot instantiate from given parameter
          * @returns {ReferenceError}
