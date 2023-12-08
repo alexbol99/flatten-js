@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>classes/segment.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Arc.html">Arc</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#breakToFunctional">breakToFunctional</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#chordHeight">chordHeight</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#contains">contains</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#distanceTo">distanceTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#intersect">intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#middle">middle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#pointAtLength">pointAtLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#reverse">reverse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#sortPoints">sortPoints</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#split">split</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#tangentInEnd">tangentInEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#tangentInStart">tangentInStart</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Arc.html#transform">transform</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Box.html">Box</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#equal_to">equal_to</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#intersect">intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#less_than">less_than</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#merge">merge</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#not_intersect">not_intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#rotate">rotate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#set">set</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#toPoints">toPoints</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#toSegments">toSegments</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Box.html#transform">transform</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Circle.html">Circle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Circle.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Circle.html#contains">contains</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Circle.html#distanceTo">distanceTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Circle.html#intersect">intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Circle.html#scale">scale</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Circle.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Circle.html#toArc">toArc</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Circle.html#transform">transform</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CircularLinkedList.html">CircularLinkedList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CircularLinkedList.html#append">append</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CircularLinkedList.html#insert">insert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CircularLinkedList.html#remove">remove</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DE9IM.html">DE9IM</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DE9IM.html#toString">toString</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Edge.html">Edge</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Edge.html#contains">contains</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Edge.html#middle">middle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Edge.html#pointAtLength">pointAtLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Edge.html#setInclusion">setInclusion</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Edge.html#setOverlap">setOverlap</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Errors.html">Errors</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Face.html">Face</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#append">append</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#area">area</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#findEdgeByPoint">findEdgeByPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#insert">insert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#isSimple">isSimple</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#merge_with_next_edge">merge_with_next_edge</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#orientation">orientation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#pointAtLength">pointAtLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#remove">remove</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#reverse">reverse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#setArcLength">setArcLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#signedArea">signedArea</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Face.html#toPolygon">toPolygon</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Inversion.html">Inversion</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Line.html">Line</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#contains">contains</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#coord">coord</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#distanceTo">distanceTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#incidentTo">incidentTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#intersect">intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#parallelTo">parallelTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#rotate">rotate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#sortPoints">sortPoints</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#split">split</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Line.html#transform">transform</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="LinkedList.html">LinkedList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="LinkedList.html#.testInfiniteLoop">testInfiniteLoop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="LinkedList.html#append">append</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="LinkedList.html#insert">insert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="LinkedList.html#isEmpty">isEmpty</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="LinkedList.html#remove">remove</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="LinkedList.html#toArray">toArray</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Matrix.html">Matrix</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Matrix.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Matrix.html#equalTo">equalTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Matrix.html#multiply">multiply</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Matrix.html#rotate">rotate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Matrix.html#scale">scale</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Matrix.html#transform">transform</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Matrix.html#translate">translate</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Multiline.html">Multiline</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#addVertex">addVertex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#findEdgeByPoint">findEdgeByPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#rotate">rotate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#split">split</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#toJSON">toJSON</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#toShapes">toShapes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#transform">transform</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Multiline.html#translate">translate</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PlanarSet.html">PlanarSet</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PlanarSet.html#add">add</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PlanarSet.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PlanarSet.html#delete">delete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PlanarSet.html#hit">hit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PlanarSet.html#search">search</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PlanarSet.html#svg">svg</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Point.html">Point</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Point.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Point.html#distanceTo">distanceTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Point.html#equalTo">equalTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Point.html#leftTo">leftTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Point.html#lessThan">lessThan</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Point.html#on">on</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Point.html#projectionOn">projectionOn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Point.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Point.html#transform">transform</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Polygon.html">Polygon</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#addFace">addFace</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#addVertex">addVertex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#area">area</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#contains">contains</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#cut">cut</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#cutFace">cutFace</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#cutWithLine">cutWithLine</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#deleteFace">deleteFace</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#distanceTo">distanceTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#findEdgeByPoint">findEdgeByPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#intersect">intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#isEmpty">isEmpty</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#isValid">isValid</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#recreateFaces">recreateFaces</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#removeChain">removeChain</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#removeEndVertex">removeEndVertex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#reverse">reverse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#rotate">rotate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#scale">scale</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#splitToIslands">splitToIslands</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#toArray">toArray</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#toJSON">toJSON</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#transform">transform</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Polygon.html#translate">translate</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Ray.html">Ray</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Ray.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Ray.html#contains">contains</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Ray.html#intersect">intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Ray.html#rotate">rotate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Ray.html#split">split</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Ray.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Ray.html#transform">transform</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Segment.html">Segment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#contains">contains</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#distanceTo">distanceTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#equalTo">equalTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#intersect">intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#isZeroLength">isZeroLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#middle">middle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#pointAtLength">pointAtLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#reverse">reverse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#sortPoints">sortPoints</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#split">split</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#svg">svg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#tangentInEnd">tangentInEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#tangentInStart">tangentInStart</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Segment.html#transform">transform</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Shape.html">Shape</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Shape.html#rotate">rotate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Shape.html#scale">scale</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Shape.html#toJSON">toJSON</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Shape.html#translate">translate</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Vector.html">Vector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#add">add</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#angleTo">angleTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#clone">clone</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#cross">cross</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#dot">dot</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#equalTo">equalTo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#invert">invert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#multiply">multiply</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#normalize">normalize</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#projectionOn">projectionOn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#rotate">rotate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#rotate90CCW">rotate90CCW</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#rotate90CW">rotate90CW</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#subtract">subtract</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Vector.html#transform">transform</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-BooleanOperations.html">BooleanOperations</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-BooleanOperations.html#.calculateIntersections">calculateIntersections</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-BooleanOperations.html#.innerClip">innerClip</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-BooleanOperations.html#.intersect">intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-BooleanOperations.html#.outerClip">outerClip</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-BooleanOperations.html#.subtract">subtract</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-BooleanOperations.html#.unify">unify</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-RayShoot.html">RayShoot</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-RayShoot.html#.ray_shoot">ray_shoot</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Relation.html">Relation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Relation.html#.contain">contain</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Relation.html#.cover">cover</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Relation.html#.covered">covered</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Relation.html#.disjoint">disjoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Relation.html#.equal">equal</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Relation.html#.inside">inside</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Relation.html#.intersect">intersect</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Relation.html#.relate">relate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Relation.html#.touch">touch</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#arc">arc</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#box">box</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#CCW">CCW</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#circle">circle</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#CW">CW</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#DP_TOL">DP_TOL</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#EQ">EQ</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#EQ_0">EQ_0</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#GE">GE</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTolerance">getTolerance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#GT">GT</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#inversion">inversion</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#LE">LE</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#line">line</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#LT">LT</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#matrix">matrix</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#multiline">multiline</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#ORIENTATION">ORIENTATION</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#point">point</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#polygon">polygon</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#segment">segment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#setTolerance">setTolerance</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#vector">vector</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">classes/segment.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Created by Alex Bol on 3/10/2017.
+ */
+
+
+"use strict";
+import Flatten from '../flatten';
+import * as Intersection from '../algorithms/intersection';
+import {convertToString} from "../utils/attributes";
+import {Shape} from "./shape";
+import {Errors} from "../utils/errors";
+
+/**
+ * Class representing a segment
+ * @type {Segment}
+ */
+export class Segment extends Shape {
+    /**
+     *
+     * @param {Point} ps - start point
+     * @param {Point} pe - end point
+     */
+    constructor(...args) {
+        super()
+        /**
+         * Start point
+         * @type {Point}
+         */
+        this.ps = new Flatten.Point();
+        /**
+         * End Point
+         * @type {Point}
+         */
+        this.pe = new Flatten.Point();
+
+        if (args.length === 0) {
+            return;
+        }
+
+        if (args.length === 1 &amp;&amp; args[0] instanceof Array &amp;&amp; args[0].length === 4) {
+            let coords = args[0];
+            this.ps = new Flatten.Point(coords[0], coords[1]);
+            this.pe = new Flatten.Point(coords[2], coords[3]);
+            return;
+        }
+
+        if (args.length === 1 &amp;&amp; args[0] instanceof Object &amp;&amp; args[0].name === "segment") {
+            let {ps, pe} = args[0];
+            this.ps = new Flatten.Point(ps.x, ps.y);
+            this.pe = new Flatten.Point(pe.x, pe.y);
+            return;
+        }
+
+        // second point omitted issue #84
+        if (args.length === 1 &amp;&amp; args[0] instanceof Flatten.Point) {
+            this.ps = args[0].clone();
+            return;
+        }
+
+        if (args.length === 2 &amp;&amp; args[0] instanceof Flatten.Point &amp;&amp; args[1] instanceof Flatten.Point) {
+            this.ps = args[0].clone();
+            this.pe = args[1].clone();
+            return;
+        }
+
+        if (args.length === 4) {
+            this.ps = new Flatten.Point(args[0], args[1]);
+            this.pe = new Flatten.Point(args[2], args[3]);
+            return;
+        }
+
+        throw Errors.ILLEGAL_PARAMETERS;
+    }
+
+    /**
+     * Return new cloned instance of segment
+     * @returns {Segment}
+     */
+    clone() {
+        return new Flatten.Segment(this.start, this.end);
+    }
+
+    /**
+     * Start point
+     * @returns {Point}
+     */
+    get start() {
+        return this.ps;
+    }
+
+    /**
+     * End point
+     * @returns {Point}
+     */
+    get end() {
+        return this.pe;
+    }
+
+
+    /**
+     * Returns array of start and end point
+     * @returns [Point,Point]
+     */
+    get vertices() {
+        return [this.ps.clone(), this.pe.clone()];
+    }
+
+    /**
+     * Length of a segment
+     * @returns {number}
+     */
+    get length() {
+        return this.start.distanceTo(this.end)[0];
+    }
+
+    /**
+     * Slope of the line - angle to axe x in radians from 0 to 2PI
+     * @returns {number}
+     */
+    get slope() {
+        let vec = new Flatten.Vector(this.start, this.end);
+        return vec.slope;
+    }
+
+    /**
+     * Bounding box
+     * @returns {Box}
+     */
+    get box() {
+        return new Flatten.Box(
+            Math.min(this.start.x, this.end.x),
+            Math.min(this.start.y, this.end.y),
+            Math.max(this.start.x, this.end.x),
+            Math.max(this.start.y, this.end.y)
+        )
+    }
+
+    /**
+     * Returns true if equals to query segment, false otherwise
+     * @param {Seg} seg - query segment
+     * @returns {boolean}
+     */
+    equalTo(seg) {
+        return this.ps.equalTo(seg.ps) &amp;&amp; this.pe.equalTo(seg.pe);
+    }
+
+    /**
+     * Returns true if segment contains point
+     * @param {Point} pt Query point
+     * @returns {boolean}
+     */
+    contains(pt) {
+        return Flatten.Utils.EQ_0(this.distanceToPoint(pt));
+    }
+
+    /**
+     * Returns array of intersection points between segment and other shape
+     * @param {Shape} shape - Shape of the one of supported types &lt;br/>
+     * @returns {Point[]}
+     */
+    intersect(shape) {
+        if (shape instanceof Flatten.Point) {
+            return this.contains(shape) ? [shape] : [];
+        }
+
+        if (shape instanceof Flatten.Line) {
+            return Intersection.intersectSegment2Line(this, shape);
+        }
+
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Segment(shape, this);
+        }
+
+        if (shape instanceof Flatten.Segment) {
+            return  Intersection.intersectSegment2Segment(this, shape);
+        }
+
+        if (shape instanceof Flatten.Circle) {
+            return Intersection.intersectSegment2Circle(this, shape);
+        }
+
+        if (shape instanceof Flatten.Box) {
+            return Intersection.intersectSegment2Box(this, shape);
+        }
+
+        if (shape instanceof Flatten.Arc) {
+            return Intersection.intersectSegment2Arc(this, shape);
+        }
+
+        if (shape instanceof Flatten.Polygon) {
+            return  Intersection.intersectSegment2Polygon(this, shape);
+        }
+    }
+
+    /**
+     * Calculate distance and shortest segment from segment to shape and return as array [distance, shortest segment]
+     * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
+     * @returns {number} distance from segment to shape
+     * @returns {Segment} shortest segment between segment and shape (started at segment, ended at shape)
+     */
+    distanceTo(shape) {
+        if (shape instanceof Flatten.Point) {
+            let [dist, shortest_segment] = Flatten.Distance.point2segment(shape, this);
+            shortest_segment = shortest_segment.reverse();
+            return [dist, shortest_segment];
+        }
+
+        if (shape instanceof Flatten.Circle) {
+            let [dist, shortest_segment] = Flatten.Distance.segment2circle(this, shape);
+            return [dist, shortest_segment];
+        }
+
+        if (shape instanceof Flatten.Line) {
+            let [dist, shortest_segment] = Flatten.Distance.segment2line(this, shape);
+            return [dist, shortest_segment];
+        }
+
+        if (shape instanceof Flatten.Segment) {
+            let [dist, shortest_segment] = Flatten.Distance.segment2segment(this, shape);
+            return [dist, shortest_segment];
+        }
+
+        if (shape instanceof Flatten.Arc) {
+            let [dist, shortest_segment] = Flatten.Distance.segment2arc(this, shape);
+            return [dist, shortest_segment];
+        }
+
+        if (shape instanceof Flatten.Polygon) {
+            let [dist, shortest_segment] = Flatten.Distance.shape2polygon(this, shape);
+            return [dist, shortest_segment];
+        }
+
+        if (shape instanceof Flatten.PlanarSet) {
+            let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
+            return [dist, shortest_segment];
+        }
+    }
+
+    /**
+     * Returns unit vector in the direction from start to end
+     * @returns {Vector}
+     */
+    tangentInStart() {
+        let vec = new Flatten.Vector(this.start, this.end);
+        return vec.normalize();
+    }
+
+    /**
+     * Return unit vector in the direction from end to start
+     * @returns {Vector}
+     */
+    tangentInEnd() {
+        let vec = new Flatten.Vector(this.end, this.start);
+        return vec.normalize();
+    }
+
+    /**
+     * Returns new segment with swapped start and end points
+     * @returns {Segment}
+     */
+    reverse() {
+        return new Segment(this.end, this.start);
+    }
+
+    /**
+     * When point belongs to segment, return array of two segments split by given point,
+     * if point is inside segment. Returns clone of this segment if query point is incident
+     * to start or end point of the segment. Returns empty array if point does not belong to segment
+     * @param {Point} pt Query point
+     * @returns {Segment[]}
+     */
+    split(pt) {
+        if (this.start.equalTo(pt))
+            return [null, this.clone()];
+
+        if (this.end.equalTo(pt))
+            return [this.clone(), null];
+
+        return [
+            new Flatten.Segment(this.start, pt),
+            new Flatten.Segment(pt, this.end)
+        ]
+    }
+
+    /**
+     * Return middle point of the segment
+     * @returns {Point}
+     */
+    middle() {
+        return new Flatten.Point((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2);
+    }
+
+    /**
+     * Get point at given length
+     * @param {number} length - The length along the segment
+     * @returns {Point}
+     */
+    pointAtLength(length) {
+        if (length > this.length || length &lt; 0) return null;
+        if (length == 0) return this.start;
+        if (length == this.length) return this.end;
+        let factor = length / this.length;
+        return new Flatten.Point(
+            (this.end.x - this.start.x) * factor + this.start.x,
+            (this.end.y - this.start.y) * factor + this.start.y
+        );
+    }
+
+    distanceToPoint(pt) {
+        let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
+        return dist;
+    };
+
+    definiteIntegral(ymin = 0.0) {
+        let dx = this.end.x - this.start.x;
+        let dy1 = this.start.y - ymin;
+        let dy2 = this.end.y - ymin;
+        return (dx * (dy1 + dy2) / 2);
+    }
+
+    /**
+     * Return new segment transformed using affine transformation matrix
+     * @param {Matrix} matrix - affine transformation matrix
+     * @returns {Segment} - transformed segment
+     */
+    transform(matrix = new Flatten.Matrix()) {
+        return new Segment(this.ps.transform(matrix), this.pe.transform(matrix))
+    }
+
+    /**
+     * Returns true if segment start is equal to segment end up to DP_TOL
+     * @returns {boolean}
+     */
+    isZeroLength() {
+        return this.ps.equalTo(this.pe)
+    }
+
+    /**
+     * Sort given array of points from segment start to end, assuming all points lay on the segment
+     * @param {Point[]} - array of points
+     * @returns {Point[]} new array sorted
+     */
+    sortPoints(pts) {
+        let line = new Flatten.Line(this.start, this.end);
+        return line.sortPoints(pts);
+    }
+
+    get name() {
+        return "segment"
+    }
+
+    /**
+     * Return string to draw segment in svg
+     * @param {Object} attrs - an object with attributes for svg path element,
+     * like "stroke", "strokeWidth" &lt;br/>
+     * Defaults are stroke:"black", strokeWidth:"1"
+     * @returns {string}
+     */
+    svg(attrs = {}) {
+        return `\n&lt;line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" ${convertToString(attrs)} />`;
+    }
+}
+
+Flatten.Segment = Segment;
+/**
+ * Shortcut method to create new segment
+ */
+export const segment = (...args) => new Flatten.Segment(...args);
+Flatten.segment = segment
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Fri Dec 08 2023 17:16:27 GMT+0200 (Israel Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
