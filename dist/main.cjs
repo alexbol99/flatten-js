@@ -3983,28 +3983,35 @@ class PlanarSet extends Set {
      * This happens with no error, it is possible to use <i>size</i> property to check if
      * a shape was actually added.<br/>
      * Method returns planar set object updated and may be chained
-     * @param {Shape} shape - shape to be added, should have valid <i>box</i> property
+     * @param {AnyShape | {Box, AnyShape}} entry - shape to be added, should have valid <i>box</i> property
+     * Another option to transfer as an object {key: Box, value: AnyShape}
      * @returns {PlanarSet}
      */
-    add(shape) {
+    add(entry) {
         let size = this.size;
+        const {key, value} = entry;
+        const box = key || entry.box;
+        const shape = value || entry;
         super.add(shape);
         // size not changed - item not added, probably trying to add same item twice
         if (this.size > size) {
-            this.index.insert(shape.box, shape);
+            this.index.insert(box, shape);
         }
         return this;         // in accordance to Set.add interface
     }
 
     /**
      * Delete shape from planar set. Returns true if shape was actually deleted, false otherwise
-     * @param {Shape} shape - shape to be deleted
+     * @param {AnyShape | {Box, AnyShape}} entry - shape to be deleted
      * @returns {boolean}
      */
-    delete(shape) {
+    delete(entry) {
+        const {key, value} = entry;
+        const box = key || entry.box;
+        const shape = value || entry;
         let deleted = super.delete(shape);
         if (deleted) {
-            this.index.remove(shape.box, shape);
+            this.index.remove(box, shape);
         }
         return deleted;
     }
@@ -4021,7 +4028,7 @@ class PlanarSet extends Set {
      * 2d range search in planar set.<br/>
      * Returns array of all shapes in planar set which bounding box is intersected with query box
      * @param {Box} box - query box
-     * @returns {Shapes[]}
+     * @returns {AnyShape[]}
      */
     search(box) {
         let resp = this.index.search(box);
@@ -4031,7 +4038,7 @@ class PlanarSet extends Set {
     /**
      * Point location test. Returns array of shapes which contains given point
      * @param {Point} point - query point
-     * @returns {Array}
+     * @returns {AnyShape[]}
      */
     hit(point) {
         let box = new Flatten.Box(point.x - 1, point.y - 1, point.x + 1, point.y + 1);
@@ -4302,12 +4309,16 @@ let Point$1 = class Point extends Shape {
 
     /**
      * Returns true if point is on a shape, false otherwise
-     * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon
+     * @param {Shape} shape
      * @returns {boolean}
      */
     on(shape) {
         if (shape instanceof Flatten.Point) {
             return this.equalTo(shape);
+        }
+
+        if (shape instanceof Flatten.Box) {
+            return shape.contains(this);
         }
 
         if (shape instanceof Flatten.Line) {
@@ -6328,6 +6339,46 @@ class Box extends Shape {
         const transformed_points = this.toPoints().map(pt => pt.transform(m));
         return transformed_points.reduce(
             (new_box, pt) => new_box.merge(pt.box), new Box())
+    }
+
+    /**
+     * Return true if box contains shape: no point of shape lies outside the box
+     * @param {AnyShape} shape - test shape
+     * @returns {boolean}
+     */
+    contains(shape) {
+        if (shape instanceof Flatten.Point) {
+            return (shape.x >= this.xmin) && (shape.x <= this.xmax) && (shape.y >= this.ymin) && (shape.y <= this.ymax);
+        }
+
+        if (shape instanceof Flatten.Segment) {
+            return shape.vertices.every(vertex => this.contains(vertex))
+        }
+
+        if (shape instanceof Flatten.Box) {
+            return shape.toSegments().every(segment => this.contains(segment))
+        }
+
+        if (shape instanceof Flatten.Circle) {
+            return this.contains(shape.box)
+        }
+
+        if (shape instanceof Flatten.Arc) {
+            return shape.vertices.every(vertex => this.contains(vertex)) &&
+                shape.toSegments().every(segment => intersectSegment2Arc(segment, shape).length === 0)
+        }
+
+        if (shape instanceof Flatten.Line || shape instanceof Flatten.Ray) {
+            return false
+        }
+
+        if (shape instanceof Flatten.Multiline) {
+            return shape.toShapes().every(shape => this.contains(shape))
+        }
+
+        if (shape instanceof Flatten.Polygon) {
+            return this.contains(shape.box)
+        }
     }
 
     get name() {

@@ -7,6 +7,7 @@ import Flatten from '../flatten';
 import {convertToString} from "../utils/attributes";
 import {Shape} from "./shape";
 import {Errors} from "../utils/errors";
+import {intersectSegment2Arc, intersectSegment2Circle} from "../algorithms/intersection";
 
 /**
  * Class Box represents bounding box of the shape.
@@ -246,7 +247,7 @@ export class Box extends Shape {
 
     /**
      * Return true if box contains shape: no point of shape lies outside the box
-     * @param {Shape} shape - test shape
+     * @param {AnyShape} shape - test shape
      * @returns {boolean}
      */
     contains(shape) {
@@ -260,6 +261,27 @@ export class Box extends Shape {
 
         if (shape instanceof Flatten.Box) {
             return shape.toSegments().every(segment => this.contains(segment))
+        }
+
+        if (shape instanceof Flatten.Circle) {
+            return this.contains(shape.box)
+        }
+
+        if (shape instanceof Flatten.Arc) {
+            return shape.vertices.every(vertex => this.contains(vertex)) &&
+                shape.toSegments().every(segment => intersectSegment2Arc(segment, shape).length === 0)
+        }
+
+        if (shape instanceof Flatten.Line || shape instanceof Flatten.Ray) {
+            return false
+        }
+
+        if (shape instanceof Flatten.Multiline) {
+            return shape.toShapes().every(shape => this.contains(shape))
+        }
+
+        if (shape instanceof Flatten.Polygon) {
+            return this.contains(shape.box)
         }
     }
 

@@ -183,6 +183,7 @@ declare namespace Flatten {
         clone(): Box;
         not_intersect(box: Box): boolean;
         intersect(box: Box): boolean;
+        contains(shape: AnyShape): boolean;
         merge(box: Box): Box;
         less_than(box: Box): boolean;
         equal_to(box: Box): boolean;
@@ -412,26 +413,22 @@ declare namespace Flatten {
         translate(vector: Vector) : Matrix;
     }
 
-    // any object that has "box" property that implements "Interval" interface may be indexable
-    // all shapes has box property that fits Interval interface
-    interface IndexableElement {
-        box: Interval;
-    }
+    type PlanarSetEntry = AnyShape | {key: Box, value: AnyShape}
 
     // @ts-ignore (Set)
     class PlanarSet extends Set {
         // @ts-ignore (Set)
-        constructor(shapes?: IndexableElement[] | Set<IndexableElement>);
+        constructor(shapes?: PlanarSetEntry[] | Set<PlanarSetEntry>);
 
         // members
         index: IntervalTree;
 
         // public methods
-        add(element: IndexableElement): this;
-        delete(element: IndexableElement): boolean;
+        add(element: PlanarSetEntry): this;
+        delete(element: PlanarSetEntry): boolean;
         clear() : void;
-        hit(pt: Point): IndexableElement[];
-        search(box: Box): IndexableElement[];
+        hit(pt: Point): AnyShape[];
+        search(box: Box): AnyShape[];
         svg(): string;
     }
 
