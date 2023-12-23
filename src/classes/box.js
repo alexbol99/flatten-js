@@ -144,17 +144,47 @@ export class Box extends Shape {
     }
 
     /**
-     * Returns new box merged with other box
-     * @param {Box} other_box - Other box to merge with
+     * Returns new box merged with other box or point
+     * @param {Box|Point} other_box_pt - Other box or point to merge with
      * @returns {Box}
      */
-    merge(other_box) {
+    merge(other_box_pt) {
+        if (other_box_pt instanceof Flatten.Box) {
+            return new Box(
+                this.xmin === undefined ? other_box_pt.xmin : Math.min(this.xmin, other_box_pt.xmin),
+                this.ymin === undefined ? other_box_pt.ymin : Math.min(this.ymin, other_box_pt.ymin),
+                this.xmax === undefined ? other_box_pt.xmax : Math.max(this.xmax, other_box_pt.xmax),
+                this.ymax === undefined ? other_box_pt.ymax : Math.max(this.ymax, other_box_pt.ymax)
+                );
+        } else {
+            return this.merge(other_box_pt.box());
+        }
+    }
+
+    /**
+     * Returns new box inflated by dx, dy. If dx is the same as dy, the method could be called with a single parameter.
+     * @param {number} dx - inflated by delta x
+     * @param {number} dy - inflated by delta y
+     * @returns {Box}
+     */
+    inflate(...args) {
+        let dx, dy;
+        if (args.length == 1 && typeof (args[0]) == "number") {
+            dx = dy = args[0];
+        } else
+        if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
+            dx = args[0];
+            dy = args[1];
+        } else {
+            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        }
+
         return new Box(
-            this.xmin === undefined ? other_box.xmin : Math.min(this.xmin, other_box.xmin),
-            this.ymin === undefined ? other_box.ymin : Math.min(this.ymin, other_box.ymin),
-            this.xmax === undefined ? other_box.xmax : Math.max(this.xmax, other_box.xmax),
-            this.ymax === undefined ? other_box.ymax : Math.max(this.ymax, other_box.ymax)
-        );
+            this.xmin === undefined ? undefined : (this.xmin - dx),
+            this.ymin === undefined ? undefined : (this.ymin - dy),
+            this.xmax === undefined ? undefined : (this.xmax + dx),
+            this.ymax === undefined ? undefined : (this.ymax + dy)
+        );        
     }
 
     /**
