@@ -185,12 +185,16 @@ export class Point extends Shape {
 
     /**
      * Returns true if point is on a shape, false otherwise
-     * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon
+     * @param {Shape} shape
      * @returns {boolean}
      */
     on(shape) {
         if (shape instanceof Flatten.Point) {
             return this.equalTo(shape);
+        }
+
+        if (shape instanceof Flatten.Box) {
+            return shape.contains(this);
         }
 
         if (shape instanceof Flatten.Line) {

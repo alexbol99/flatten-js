@@ -28,6 +28,16 @@ describe('#Data_structures.PlanarSet', function() {
         expect(planarSet.has(circle)).to.equal(true);
         expect(planarSet.size).to.equal(2);
     });
+    it('May add planar objects using {key, value} interface', function () {
+        let planarSet = new PlanarSet();
+        let segment = new Segment(1,2,4,5);
+        let circle = new Circle(new Point(3,3), 5);
+        planarSet.add({key: segment.box, value: segment});
+        planarSet.add({key: circle.box, value: circle});
+        expect(planarSet.has(segment)).to.equal(true);
+        expect(planarSet.has(circle)).to.equal(true);
+        expect(planarSet.size).to.equal(2);
+    });
     it('May delete planar objects', function () {
         let planarSet = new PlanarSet();
         let segment = new Segment(1,2,4,5);
@@ -35,6 +45,16 @@ describe('#Data_structures.PlanarSet', function() {
         planarSet.add(segment);
         planarSet.add(circle);
         planarSet.delete(segment);
+        expect(planarSet.has(segment)).to.equal(false);
+        expect(planarSet.size).to.equal(1);
+    });
+    it('May delete planar objects using {key,value} interface', function () {
+        let planarSet = new PlanarSet();
+        let segment = new Segment(1,2,4,5);
+        let circle = new Circle(new Point(3,3), 5);
+        planarSet.add({key: segment.box, value: segment});
+        planarSet.add({key: circle.box, value: circle});
+        planarSet.delete({key: segment.box, value: segment});
         expect(planarSet.has(segment)).to.equal(false);
         expect(planarSet.size).to.equal(1);
     });
