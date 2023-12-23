@@ -185,7 +185,7 @@ export class Point extends Shape {
 
     /**
      * Returns true if point is on a shape, false otherwise
-     * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon
+     * @param {Shape} shape
      * @returns {boolean}
      */
     on(shape) {
