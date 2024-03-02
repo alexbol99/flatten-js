@@ -103,6 +103,14 @@ export class Multiline extends LinkedList {
         return newEdge;
     }
 
+    getChain(edgeFrom, edgeTo) {
+        let edges = []
+        for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
+            edges.push(edge)
+        }
+        return edges
+    }
+
     /**
      * Split edges of multiline with intersection points and return mutated multiline
      * @param {Point[]} ip - array of points to be added as new vertices

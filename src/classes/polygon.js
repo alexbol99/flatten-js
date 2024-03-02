@@ -11,11 +11,11 @@ import * as Intersection from "../algorithms/intersection";
 import * as Relations from "../algorithms/relation";
 import {
     addToIntPoints, calculateInclusionFlags, filterDuplicatedIntersections,
-    getSortedArray, getSortedArrayOnLine, initializeInclusionFlags, insertBetweenIntPoints,
+    getSortedArray, initializeInclusionFlags, insertBetweenIntPoints,
     splitByIntersections
 } from "../data_structures/smart_intersections";
 import {Multiline} from "./multiline";
-import {intersectEdge2Line} from "../algorithms/intersection";
+import {intersectEdge2Edge} from "../algorithms/intersection";
 import {INSIDE, BOUNDARY} from "../utils/constants";
 import {convertToString} from "../utils/attributes";
 import {Matrix} from "./matrix";
@@ -391,23 +391,26 @@ export class Polygon {
             int_points2_sorted: []
         };
 
-        // intersect line with each edge of the polygon
+        // intersect each edge of multiline with each edge of the polygon
         // and create smart intersections
-        for (let edge of newPoly.edges) {
-            let ip = intersectEdge2Line(edge, line);
-            // for each intersection point
-            for (let pt of ip) {
-                addToIntPoints(multiline.first, pt, intersections.int_points1);
-                addToIntPoints(edge, pt, intersections.int_points2);
+        for (let edge1 of multiline.edges) {
+            for (let edge2 of newPoly.edges) {
+                let ip = intersectEdge2Edge(edge1, edge2);
+                // for each intersection point
+                for (let pt of ip) {
+                    addToIntPoints(edge1, pt, intersections.int_points1);
+                    addToIntPoints(edge2, pt, intersections.int_points2);
+                }
             }
         }
+
 
         // No intersections - return a copy of the original polygon
         if (intersections.int_points1.length === 0)
             return newPoly;
 
         // sort smart intersections
-        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+        intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // split by intersection points
@@ -418,7 +421,7 @@ export class Polygon {
         filterDuplicatedIntersections(intersections);
 
         // sort intersection points again after filtering
-        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+        intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // initialize inclusion flags for edges of multiline incident to intersections
@@ -442,23 +445,27 @@ export class Polygon {
             return newPoly;
 
         // sort intersection points 3d time after filtering
-        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+        intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // Add 2 new inner edges between intersection points
-        let int_point1_prev = intersections.int_points1[0];
-        let new_edge;
-        for (let int_point1_curr of intersections.int_points1_sorted) {
+        let int_point1_prev
+        let int_point1_curr;
+        for (let i = 1; i <  intersections.int_points1_sorted.length; i++) {
+            int_point1_curr = intersections.int_points1_sorted[i]
+            int_point1_prev = intersections.int_points1_sorted[i-1];
             if (int_point1_curr.edge_before.bv === INSIDE) {
-                new_edge = new Flatten.Edge(new Flatten.Segment(int_point1_prev.pt, int_point1_curr.pt));    // (int_point1_curr.edge_before.shape);
-                insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], new_edge);
-                newPoly.edges.add(new_edge);
+                let edgeFrom = int_point1_prev.edge_after
+                let edgeTo = int_point1_curr.edge_before
+                let newEdges = multiline.getChain(edgeFrom, edgeTo)
+                insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], newEdges);
+                newEdges.forEach(edge => newPoly.edges.add(edge))
 
-                new_edge = new Flatten.Edge(new Flatten.Segment(int_point1_curr.pt, int_point1_prev.pt));    // (int_point1_curr.edge_before.shape.reverse());
-                insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], new_edge);
-                newPoly.edges.add(new_edge);
+                newEdges = newEdges.reverse().map(edge => new Flatten.Edge(edge.shape.reverse()))
+                insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], newEdges);
+                newEdges.forEach(edge => newPoly.edges.add(edge));
             }
-            int_point1_prev = int_point1_curr;
+
         }
 
         // Recreate faces

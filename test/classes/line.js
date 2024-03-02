@@ -87,7 +87,7 @@ describe('#Flatten.Line', function() {
         let l = line(pt,norm);
         let split_pt = point(300,200);
         let res = l.split(split_pt);
-        expect(res[0]).to.deep.equal(ray(split_pt, norm.invert()));
+        expect(res[0]).to.deep.equal(ray(split_pt, norm));
         expect(res[1]).to.deep.equal(ray(split_pt, norm));
     });
     it('May return 1-dim coordinate of point on line', function() {

@@ -908,4 +908,22 @@ describe('#Flatten.Polygon', function() {
         expect(res_poly.faces.size).to.equal(3);
         expect(res_poly.edges.size).to.equal(12);
     });
+
+    it('Can cut polygon without holes by line. Line is touching concave vertex', () => {
+        let l = line(point(100, 250), vector(0.7, 1));
+        let points = [
+            point(100, 20),
+            point(250, 75),
+            point(350, 75),
+            point(300, 350),
+            point(170, 200),
+            point(120, 350),
+            point(70, 120)
+        ];
+        let poly = new Polygon(points);
+        const res_poly = poly.cutWithLine(l);
+
+        expect(res_poly.faces.size).to.equal(3);
+        expect(res_poly.edges.size).to.equal(14);
+    });
 });

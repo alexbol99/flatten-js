@@ -4,6 +4,7 @@ import Flatten from '../flatten';
 import * as Intersection from "../algorithms/intersection";
 import {Shape} from "./shape";
 import {Errors} from "../utils/errors";
+import {vector} from './vector'
 
 /**
  * Class representing a ray (a half-infinite line).
@@ -109,6 +110,18 @@ export class Ray extends Shape {
             and cross product from vector to point is positive */
         let vec = new Flatten.Vector(this.pt, pt);
         return Flatten.Utils.EQ_0(this.norm.dot(vec)) && Flatten.Utils.GE(vec.cross(this.norm),0);
+    }
+
+    /**
+     * Return coordinate of the point that lies on the ray in the transformed
+     * coordinate system where center is the projection of the point(0,0) to
+     * the line containing this ray and axe y is collinear to the normal vector. <br/>
+     * This method assumes that point lies on the ray
+     * @param {Point} pt - point on a ray
+     * @returns {number}
+     */
+    coord(pt) {
+        return vector(pt.x, pt.y).cross(this.norm);
     }
 
     /**
