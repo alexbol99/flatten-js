@@ -93,12 +93,20 @@ export class Edge {
         return this.shape.box;
     }
 
-    isSegment() {
+    get isSegment() {
         return this.shape instanceof Flatten.Segment;
     }
 
-    isArc() {
+    get isArc() {
         return this.shape instanceof Flatten.Arc;
+    }
+
+    get isLine() {
+        return this.shape instanceof Flatten.Line;
+    }
+
+    get isRay() {
+        return this.shape instanceof Flatten.Ray
     }
 
     /**
