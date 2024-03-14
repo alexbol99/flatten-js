@@ -159,10 +159,10 @@ export function filterDuplicatedIntersections(intersections)
     for (let i = 1; i < intersections.int_points2_sorted.length; i++) {
         let int_point_cur2 = intersections.int_points2_sorted[i];
 
-        if (int_point_cur2.id == -1) continue;
+        if (int_point_cur2.id === -1) continue;
         /* already deleted */
 
-        if (int_point_ref2.id == -1 || /* can't be reference if already deleted */
+        if (int_point_ref2.id === -1 || /* can't be reference if already deleted */
             !(Utils.EQ(int_point_cur2.arc_length, int_point_ref2.arc_length))) {
             int_point_ref2 = int_point_cur2;
             int_point_ref1 = intersections.int_points1[int_point_ref2.id];
@@ -303,12 +303,12 @@ export function intPointsPoolCount(int_points, cur_int_point_num, cur_face)
 
     let int_points_pool_num = 1;
 
-    if (int_points.length == 1) return 1;
+    if (int_points.length === 1) return 1;
 
     int_point_current = int_points[cur_int_point_num];
 
     for (let i = cur_int_point_num + 1; i < int_points.length; i++) {
-        if (int_point_current.face != cur_face) {      /* next face started */
+        if (int_point_current.face !== cur_face) {      /* next face started */
             break;
         }
 

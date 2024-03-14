@@ -2,7 +2,6 @@
 
 import Flatten from '../flatten';
 import LinkedList from '../data_structures/linked_list';
-import {END_VERTEX, NOT_VERTEX, START_VERTEX} from "../utils/constants";
 import {convertToString} from "../utils/attributes";
 
 /**
@@ -17,10 +16,10 @@ export class Multiline extends LinkedList {
             return;
         }
 
-        if (args.length == 1) {
+        if (args.length === 1) {
             if (args[0] instanceof Array) {
                 let shapes = args[0];
-                if (shapes.length == 0)
+                if (shapes.length === 0)
                     return;
 
                 // TODO: more strict validation:
@@ -54,7 +53,7 @@ export class Multiline extends LinkedList {
      * @returns {Box}
      */
     get box() {
-        return this.edges.reduce( (acc,edge) => acc = acc.merge(edge.box), new Flatten.Box() );
+        return this.edges.reduce( (acc,edge) => acc.merge(edge.box), new Flatten.Box() );
     }
 
     /**
