@@ -291,97 +291,12 @@ export class Polygon {
     }
 
     /**
-     * Cut polygon with multiline and return array of new polygons
-     * Multiline should be constructed from a line with intersection point, see notebook:
-     * https://next.observablehq.com/@alexbol99/cut-polygon-with-line
+     * Cut polygon with multiline and return a new polygon
      * @param {Multiline} multiline
-     * @returns {Polygon[]}
+     * @returns {Polygon}
      */
     cut(multiline) {
-        let cutPolygons = [this.clone()];
-        for (let edge of multiline) {
-            if (edge.setInclusion(this) !== INSIDE)
-                continue;
-
-            let cut_edge_start = edge.shape.start;
-            let cut_edge_end = edge.shape.end;
-
-            let newCutPolygons = [];
-            for (let polygon of cutPolygons) {
-                if (polygon.findEdgeByPoint(cut_edge_start) === undefined) {
-                    newCutPolygons.push(polygon);
-                } else {
-                    let [cutPoly1, cutPoly2] = polygon.cutFace(cut_edge_start, cut_edge_end);
-                    newCutPolygons.push(cutPoly1, cutPoly2);
-                }
-            }
-            cutPolygons = newCutPolygons;
-        }
-        return cutPolygons;
-    }
-
-    /**
-     * Cut face of polygon with a segment between two points and create two new polygons
-     * Supposed that a segments between points does not intersect any other edge
-     * @param {Point} pt1
-     * @param {Point} pt2
-     * @returns {Polygon[]}
-     */
-    cutFace(pt1, pt2) {
-        let edge1 = this.findEdgeByPoint(pt1);
-        let edge2 = this.findEdgeByPoint(pt2);
-        if (edge1.face !== edge2.face)
-            return [];
-
-        // Cut face into two and create new polygon with two faces
-        let edgeBefore1 = this.addVertex(pt1, edge1);
-        edge2 = this.findEdgeByPoint(pt2);
-        let edgeBefore2 = this.addVertex(pt2, edge2);
-
-        let face = edgeBefore1.face;
-        let newEdge1 = new Flatten.Edge(
-            new Flatten.Segment(edgeBefore1.end, edgeBefore2.end)
-        );
-        let newEdge2 = new Flatten.Edge(
-            new Flatten.Segment(edgeBefore2.end, edgeBefore1.end)
-        );
-
-        // Swap links
-        edgeBefore1.next.prev = newEdge2;
-        newEdge2.next = edgeBefore1.next;
-
-        edgeBefore1.next = newEdge1;
-        newEdge1.prev = edgeBefore1;
-
-        edgeBefore2.next.prev = newEdge1;
-        newEdge1.next = edgeBefore2.next;
-
-        edgeBefore2.next = newEdge2;
-        newEdge2.prev = edgeBefore2;
-
-        // Insert new edge to the edges container and 2d index
-        this.edges.add(newEdge1);
-        this.edges.add(newEdge2);
-
-        // Add two new faces
-        let face1 = this.addFace(newEdge1, edgeBefore1);
-        let face2 = this.addFace(newEdge2, edgeBefore2);
-
-        // Remove old face
-        this.faces.delete(face);
-
-        return [face1.toPolygon(), face2.toPolygon()];
-    }
-
-    /**
-     * Return a result of cutting polygon with line
-     * @param {Line} line - cutting line
-     * @returns {Polygon} newPoly - resulted polygon
-     */
-    cutWithLine(line) {
-        let newPoly = this.clone();
-
-        let multiline = new Multiline([line]);
+        let newPoly = this.clone()
 
         // smart intersections
         let intersections = {
@@ -462,6 +377,10 @@ export class Polygon {
                 newEdges.forEach(edge => newPoly.edges.add(edge))
 
                 newEdges = newEdges.reverse().map(edge => new Flatten.Edge(edge.shape.reverse()))
+                for (let k=0; k < newEdges.length-1; k++) {
+                    newEdges[k].next = newEdges[k+1]
+                    newEdges[k+1].prev = newEdges[k]
+                }
                 insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], newEdges);
                 newEdges.forEach(edge => newPoly.edges.add(edge));
             }
@@ -470,7 +389,72 @@ export class Polygon {
 
         // Recreate faces
         newPoly.recreateFaces();
-        return newPoly;
+
+        return newPoly
+    }
+
+    /**
+     * Cut face of polygon with a segment between two points and create two new polygons
+     * Supposed that a segments between points does not intersect any other edge
+     * @param {Point} pt1
+     * @param {Point} pt2
+     * @returns {Polygon[]}
+     */
+    cutFace(pt1, pt2) {
+        let edge1 = this.findEdgeByPoint(pt1);
+        let edge2 = this.findEdgeByPoint(pt2);
+        if (edge1.face !== edge2.face)
+            return [];
+
+        // Cut face into two and create new polygon with two faces
+        let edgeBefore1 = this.addVertex(pt1, edge1);
+        edge2 = this.findEdgeByPoint(pt2);
+        let edgeBefore2 = this.addVertex(pt2, edge2);
+
+        let face = edgeBefore1.face;
+        let newEdge1 = new Flatten.Edge(
+            new Flatten.Segment(edgeBefore1.end, edgeBefore2.end)
+        );
+        let newEdge2 = new Flatten.Edge(
+            new Flatten.Segment(edgeBefore2.end, edgeBefore1.end)
+        );
+
+        // Swap links
+        edgeBefore1.next.prev = newEdge2;
+        newEdge2.next = edgeBefore1.next;
+
+        edgeBefore1.next = newEdge1;
+        newEdge1.prev = edgeBefore1;
+
+        edgeBefore2.next.prev = newEdge1;
+        newEdge1.next = edgeBefore2.next;
+
+        edgeBefore2.next = newEdge2;
+        newEdge2.prev = edgeBefore2;
+
+        // Insert new edge to the edges container and 2d index
+        this.edges.add(newEdge1);
+        this.edges.add(newEdge2);
+
+        // Add two new faces
+        let face1 = this.addFace(newEdge1, edgeBefore1);
+        let face2 = this.addFace(newEdge2, edgeBefore2);
+
+        // Remove old face
+        this.faces.delete(face);
+
+        return [face1.toPolygon(), face2.toPolygon()];
+    }
+
+    /**
+     * A special case of cut() function
+     * The return is a polygon cut with line
+     * @param {Line} line - cutting line
+     * @returns {Polygon} newPoly - resulted polygon
+     */
+    cutWithLine(line) {
+        let multiline = new Multiline([line]);
+        return this.cut(multiline);
     }
 
     /**
@@ -490,8 +474,8 @@ export class Polygon {
     }
 
     /**
-     * Split polygon into array of polygons, where each polygon is an island with all
-     * hole that it contains
+     * Split polygon into array of polygons, where each polygon is an outer face with all
+     * containing inner faces
      * @returns {Flatten.Polygon[]}
      */
     splitToIslands() {
