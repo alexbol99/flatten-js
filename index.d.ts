@@ -461,10 +461,12 @@ declare namespace Flatten {
         readonly end: Point;
         readonly length: number;
         readonly box: Box;
+        readonly isSegment: boolean;
+        readonly isArc: boolean;
+        readonly isLine: boolean;
+        readonly isRay: boolean
 
         // public methods
-        isSegment() : boolean;
-        isArc() : boolean;
         contains(pt: Point): boolean;
         middle(): Point;
         pointAtLength(length: number): Point|null;
@@ -536,7 +538,6 @@ declare namespace Flatten {
         addVertex(pt: Point, edge: PolygonEdge): PolygonEdge;
         removeEndVertex(edge: Edge): void;
         cut(multiline: Multiline): Polygon[];
-        cutFace(pt1: Point, pt2: Point): [Polygon, Polygon];
         cutWithLine(line: Line): Polygon;
         findEdgeByPoint(pt: Point): PolygonEdge;
         splitToIslands() : Polygon[];

@@ -283,7 +283,7 @@ export class Line extends Shape {
      */
     split(pt) {
         if (pt instanceof Flatten.Point) {
-            return [new Flatten.Ray(pt, this.norm.invert()), new Flatten.Ray(pt, this.norm)]
+            return [new Flatten.Ray(pt, this.norm), new Flatten.Ray(pt, this.norm)]
         }
         else {
             let multiline = new Flatten.Multiline([this]);
