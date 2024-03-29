@@ -319,7 +319,6 @@ export class Polygon {
             }
         }
 
-
         // No intersections - return a copy of the original polygon
         if (intersections.int_points1.length === 0)
             return newPoly;
@@ -347,7 +346,8 @@ export class Polygon {
 
         // filter intersections between two edges that got same inclusion flag
         for (let int_point1 of intersections.int_points1_sorted) {
-            if (int_point1.edge_before.bv === int_point1.edge_after.bv) {
+            if (int_point1.edge_before && int_point1.edge_after &&
+                int_point1.edge_before.bv === int_point1.edge_after.bv) {
                 intersections.int_points2[int_point1.id] = -1;   // to be filtered out
                 int_point1.id = -1;                              // to be filtered out
             }
@@ -363,13 +363,13 @@ export class Polygon {
         intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
-        // Add 2 new inner edges between intersection points
+        // Add new inner edges between intersection points
         let int_point1_prev
         let int_point1_curr;
         for (let i = 1; i <  intersections.int_points1_sorted.length; i++) {
             int_point1_curr = intersections.int_points1_sorted[i]
             int_point1_prev = intersections.int_points1_sorted[i-1];
-            if (int_point1_curr.edge_before.bv === INSIDE) {
+            if (int_point1_curr.edge_before && int_point1_curr.edge_before.bv === INSIDE) {
                 let edgeFrom = int_point1_prev.edge_after
                 let edgeTo = int_point1_curr.edge_before
                 let newEdges = multiline.getChain(edgeFrom, edgeTo)
@@ -391,59 +391,6 @@ export class Polygon {
         newPoly.recreateFaces();
 
         return newPoly
-    }
-
-    /**
-     * Cut face of polygon with a segment between two points and create two new polygons
-     * Supposed that a segments between points does not intersect any other edge
-     * @param {Point} pt1
-     * @param {Point} pt2
-     * @returns {Polygon[]}
-     */
-    cutFace(pt1, pt2) {
-        let edge1 = this.findEdgeByPoint(pt1);
-        let edge2 = this.findEdgeByPoint(pt2);
-        if (edge1.face !== edge2.face)
-            return [];
-
-        // Cut face into two and create new polygon with two faces
-        let edgeBefore1 = this.addVertex(pt1, edge1);
-        edge2 = this.findEdgeByPoint(pt2);
-        let edgeBefore2 = this.addVertex(pt2, edge2);
-
-        let face = edgeBefore1.face;
-        let newEdge1 = new Flatten.Edge(
-            new Flatten.Segment(edgeBefore1.end, edgeBefore2.end)
-        );
-        let newEdge2 = new Flatten.Edge(
-            new Flatten.Segment(edgeBefore2.end, edgeBefore1.end)
-        );
-
-        // Swap links
-        edgeBefore1.next.prev = newEdge2;
-        newEdge2.next = edgeBefore1.next;
-
-        edgeBefore1.next = newEdge1;
-        newEdge1.prev = edgeBefore1;
-
-        edgeBefore2.next.prev = newEdge1;
-        newEdge1.next = edgeBefore2.next;
-
-        edgeBefore2.next = newEdge2;
-        newEdge2.prev = edgeBefore2;
-
-        // Insert new edge to the edges container and 2d index
-        this.edges.add(newEdge1);
-        this.edges.add(newEdge2);
-
-        // Add two new faces
-        let face1 = this.addFace(newEdge1, edgeBefore1);
-        let face2 = this.addFace(newEdge2, edgeBefore2);
-
-        // Remove old face
-        this.faces.delete(face);
-
-        return [face1.toPolygon(), face2.toPolygon()];
     }
 
     /**

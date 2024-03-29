@@ -37,7 +37,9 @@ export function addToIntPoints(edge, pt, int_points)
         arc_length = shapes[0].coord(pt)
     }
     else {
-        arc_length = (is_vertex & Constants.END_VERTEX) && edge.next.arc_length === 0 ? 0 : edge.arc_length + len;
+        arc_length = (is_vertex & Constants.END_VERTEX) && edge.next && edge.next.arc_length === 0 ?
+            0 :
+            edge.arc_length + len;
     }
 
     int_points.push({
@@ -195,28 +197,32 @@ export function filterDuplicatedIntersections(intersections)
 export function initializeInclusionFlags(int_points)
 {
     for (let int_point of int_points) {
-        int_point.edge_before.bvStart = undefined;
-        int_point.edge_before.bvEnd = undefined;
-        int_point.edge_before.bv = undefined;
-        int_point.edge_before.overlap = undefined;
+        if (int_point.edge_before) {
+            int_point.edge_before.bvStart = undefined;
+            int_point.edge_before.bvEnd = undefined;
+            int_point.edge_before.bv = undefined;
+            int_point.edge_before.overlap = undefined;
+        }
 
-        int_point.edge_after.bvStart = undefined;
-        int_point.edge_after.bvEnd = undefined;
-        int_point.edge_after.bv = undefined;
-        int_point.edge_after.overlap = undefined;
+        if (int_point.edge_after) {
+            int_point.edge_after.bvStart = undefined;
+            int_point.edge_after.bvEnd = undefined;
+            int_point.edge_after.bv = undefined;
+            int_point.edge_after.overlap = undefined;
+        }
     }
 
     for (let int_point of int_points) {
-        int_point.edge_before.bvEnd = Constants.BOUNDARY;
-        int_point.edge_after.bvStart = Constants.BOUNDARY;
+        if (int_point.edge_before) int_point.edge_before.bvEnd = Constants.BOUNDARY;
+        if (int_point.edge_after) int_point.edge_after.bvStart = Constants.BOUNDARY;
     }
 }
 
 export function calculateInclusionFlags(int_points, polygon)
 {
     for (let int_point of int_points) {
-        int_point.edge_before.setInclusion(polygon);
-        int_point.edge_after.setInclusion(polygon);
+        if (int_point.edge_before) int_point.edge_before.setInclusion(polygon);
+        if (int_point.edge_after) int_point.edge_after.setInclusion(polygon);
     }
 }
 
@@ -341,8 +347,14 @@ export function splitByIntersections(polygon, int_points)
         }
 
         if (int_point.is_vertex & Constants.START_VERTEX) {  // nothing to split
-            int_point.edge_before = edge.prev;
-            int_point.is_vertex = Constants.END_VERTEX;
+            if (edge.prev) {
+                int_point.edge_before = edge.prev;           // polygon
+                int_point.is_vertex = Constants.END_VERTEX;
+            }
+            else {                                           // multiline start vertex
+                int_point.edge_after = int_point.edge_before
+                int_point.edge_before = edge.prev
+            }
             continue;
         }
         if (int_point.is_vertex & Constants.END_VERTEX) {    // nothing to split
@@ -354,7 +366,9 @@ export function splitByIntersections(polygon, int_points)
     }
 
     for (let int_point of int_points) {
-        int_point.edge_after = int_point.edge_before.next;
+        if (int_point.edge_before) {
+            int_point.edge_after = int_point.edge_before.next;
+        }
     }
 }
 

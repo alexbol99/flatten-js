@@ -438,7 +438,9 @@
             arc_length = shapes[0].coord(pt);
         }
         else {
-            arc_length = (is_vertex & END_VERTEX$1) && edge.next.arc_length === 0 ? 0 : edge.arc_length + len;
+            arc_length = (is_vertex & END_VERTEX$1) && edge.next && edge.next.arc_length === 0 ?
+                0 :
+                edge.arc_length + len;
         }
 
         int_points.push({
@@ -596,28 +598,32 @@
     function initializeInclusionFlags(int_points)
     {
         for (let int_point of int_points) {
-            int_point.edge_before.bvStart = undefined;
-            int_point.edge_before.bvEnd = undefined;
-            int_point.edge_before.bv = undefined;
-            int_point.edge_before.overlap = undefined;
+            if (int_point.edge_before) {
+                int_point.edge_before.bvStart = undefined;
+                int_point.edge_before.bvEnd = undefined;
+                int_point.edge_before.bv = undefined;
+                int_point.edge_before.overlap = undefined;
+            }
 
-            int_point.edge_after.bvStart = undefined;
-            int_point.edge_after.bvEnd = undefined;
-            int_point.edge_after.bv = undefined;
-            int_point.edge_after.overlap = undefined;
+            if (int_point.edge_after) {
+                int_point.edge_after.bvStart = undefined;
+                int_point.edge_after.bvEnd = undefined;
+                int_point.edge_after.bv = undefined;
+                int_point.edge_after.overlap = undefined;
+            }
         }
 
         for (let int_point of int_points) {
-            int_point.edge_before.bvEnd = BOUNDARY$1;
-            int_point.edge_after.bvStart = BOUNDARY$1;
+            if (int_point.edge_before) int_point.edge_before.bvEnd = BOUNDARY$1;
+            if (int_point.edge_after) int_point.edge_after.bvStart = BOUNDARY$1;
         }
     }
 
     function calculateInclusionFlags(int_points, polygon)
     {
         for (let int_point of int_points) {
-            int_point.edge_before.setInclusion(polygon);
-            int_point.edge_after.setInclusion(polygon);
+            if (int_point.edge_before) int_point.edge_before.setInclusion(polygon);
+            if (int_point.edge_after) int_point.edge_after.setInclusion(polygon);
         }
     }
 
@@ -742,8 +748,14 @@
             }
 
             if (int_point.is_vertex & START_VERTEX$1) {  // nothing to split
-                int_point.edge_before = edge.prev;
-                int_point.is_vertex = END_VERTEX$1;
+                if (edge.prev) {
+                    int_point.edge_before = edge.prev;           // polygon
+                    int_point.is_vertex = END_VERTEX$1;
+                }
+                else {                                           // multiline start vertex
+                    int_point.edge_after = int_point.edge_before;
+                    int_point.edge_before = edge.prev;
+                }
                 continue;
             }
             if (int_point.is_vertex & END_VERTEX$1) {    // nothing to split
@@ -755,7 +767,9 @@
         }
 
         for (let int_point of int_points) {
-            int_point.edge_after = int_point.edge_before.next;
+            if (int_point.edge_before) {
+                int_point.edge_after = int_point.edge_before.next;
+            }
         }
     }
 
@@ -2372,6 +2386,8 @@
                         let edge = new Flatten.Edge(shape);
                         this.append(edge);
                     }
+
+                    this.setArcLength();
                 }
             }
         }
@@ -2408,6 +2424,24 @@
          */
         clone() {
             return new Multiline(this.toShapes());
+        }
+
+        /**
+         * Set arc_length property for each of the edges in the face.
+         * Arc_length of the edge it the arc length from the first edge of the face
+         */
+        setArcLength() {
+            for (let edge of this) {
+                this.setOneEdgeArcLength(edge);
+            }
+        }
+
+        setOneEdgeArcLength(edge) {
+            if (edge === this.first) {
+                edge.arc_length = 0.0;
+            } else {
+                edge.arc_length = edge.prev.arc_length + edge.prev.length;
+            }
         }
 
         /**
@@ -7770,7 +7804,6 @@
                 }
             }
 
-
             // No intersections - return a copy of the original polygon
             if (intersections.int_points1.length === 0)
                 return newPoly;
@@ -7798,7 +7831,8 @@
 
             // filter intersections between two edges that got same inclusion flag
             for (let int_point1 of intersections.int_points1_sorted) {
-                if (int_point1.edge_before.bv === int_point1.edge_after.bv) {
+                if (int_point1.edge_before && int_point1.edge_after &&
+                    int_point1.edge_before.bv === int_point1.edge_after.bv) {
                     intersections.int_points2[int_point1.id] = -1;   // to be filtered out
                     int_point1.id = -1;                              // to be filtered out
                 }
@@ -7814,13 +7848,13 @@
             intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
             intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
-            // Add 2 new inner edges between intersection points
+            // Add new inner edges between intersection points
             let int_point1_prev;
             let int_point1_curr;
             for (let i = 1; i <  intersections.int_points1_sorted.length; i++) {
                 int_point1_curr = intersections.int_points1_sorted[i];
                 int_point1_prev = intersections.int_points1_sorted[i-1];
-                if (int_point1_curr.edge_before.bv === INSIDE$2) {
+                if (int_point1_curr.edge_before && int_point1_curr.edge_before.bv === INSIDE$2) {
                     let edgeFrom = int_point1_prev.edge_after;
                     let edgeTo = int_point1_curr.edge_before;
                     let newEdges = multiline.getChain(edgeFrom, edgeTo);
@@ -7842,59 +7876,6 @@
             newPoly.recreateFaces();
 
             return newPoly
-        }
-
-        /**
-         * Cut face of polygon with a segment between two points and create two new polygons
-         * Supposed that a segments between points does not intersect any other edge
-         * @param {Point} pt1
-         * @param {Point} pt2
-         * @returns {Polygon[]}
-         */
-        cutFace(pt1, pt2) {
-            let edge1 = this.findEdgeByPoint(pt1);
-            let edge2 = this.findEdgeByPoint(pt2);
-            if (edge1.face !== edge2.face)
-                return [];
-
-            // Cut face into two and create new polygon with two faces
-            let edgeBefore1 = this.addVertex(pt1, edge1);
-            edge2 = this.findEdgeByPoint(pt2);
-            let edgeBefore2 = this.addVertex(pt2, edge2);
-
-            let face = edgeBefore1.face;
-            let newEdge1 = new Flatten.Edge(
-                new Flatten.Segment(edgeBefore1.end, edgeBefore2.end)
-            );
-            let newEdge2 = new Flatten.Edge(
-                new Flatten.Segment(edgeBefore2.end, edgeBefore1.end)
-            );
-
-            // Swap links
-            edgeBefore1.next.prev = newEdge2;
-            newEdge2.next = edgeBefore1.next;
-
-            edgeBefore1.next = newEdge1;
-            newEdge1.prev = edgeBefore1;
-
-            edgeBefore2.next.prev = newEdge1;
-            newEdge1.next = edgeBefore2.next;
-
-            edgeBefore2.next = newEdge2;
-            newEdge2.prev = edgeBefore2;
-
-            // Insert new edge to the edges container and 2d index
-            this.edges.add(newEdge1);
-            this.edges.add(newEdge2);
-
-            // Add two new faces
-            let face1 = this.addFace(newEdge1, edgeBefore1);
-            let face2 = this.addFace(newEdge2, edgeBefore2);
-
-            // Remove old face
-            this.faces.delete(face);
-
-            return [face1.toPolygon(), face2.toPolygon()];
         }
 
         /**

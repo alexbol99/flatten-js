@@ -36,6 +36,8 @@ export class Multiline extends LinkedList {
                     let edge = new Flatten.Edge(shape);
                     this.append(edge);
                 }
+
+                this.setArcLength()
             }
         }
     }
@@ -72,6 +74,24 @@ export class Multiline extends LinkedList {
      */
     clone() {
         return new Multiline(this.toShapes());
+    }
+
+    /**
+     * Set arc_length property for each of the edges in the face.
+     * Arc_length of the edge it the arc length from the first edge of the face
+     */
+    setArcLength() {
+        for (let edge of this) {
+            this.setOneEdgeArcLength(edge);
+        }
+    }
+
+    setOneEdgeArcLength(edge) {
+        if (edge === this.first) {
+            edge.arc_length = 0.0;
+        } else {
+            edge.arc_length = edge.prev.arc_length + edge.prev.length;
+        }
     }
 
     /**

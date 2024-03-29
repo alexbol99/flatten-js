@@ -919,4 +919,25 @@ describe('#Flatten.Polygon', function() {
         expect(res_poly.faces.size).to.equal(3);
         expect(res_poly.edges.size).to.equal(14);
     });
+    it('Cannot cut polygon with MultiLine #159 - fixed', () => {
+        const { point, Polygon, Multiline } = Flatten;
+
+        const poly = new Polygon([
+            point(20, 20),
+            point(60, 20),
+            point(60, 60),
+            point(20, 60)
+        ]);
+        const segments = [
+            segment(20, 20, 40, 40),
+            segment(40, 40, 50, 40),
+            segment(50, 40, 60, 60)
+        ];
+
+        const multiLine = new Multiline(segments);
+        const newPoly = poly.cut(multiLine);
+
+        expect(newPoly.faces.size).to.equal(2);
+        expect(newPoly.edges.size).to.equal(10)
+    })
 });
