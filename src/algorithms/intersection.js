@@ -527,18 +527,7 @@ export function intersectEdge2Polygon(edge, polygon) {
     let resp_edges = polygon.edges.search(edge.shape.box);
 
     for (let resp_edge of resp_edges) {
-        if (resp_edge.isSegment) {
-            ip = [...ip, ...intersectSegment2Polygon(resp_edge, polygon)]
-        }
-        else if (resp_edge.isArc) {
-            ip = [...ip, ...intersectArc2Polygon(resp_edge, polygon)]
-        }
-        else if (resp_edge.isLine) {
-            ip = [...ip, ...intersectLine2Polygon(resp_edge, polygon)]
-        }
-        else if (resp_edge.isRay) {
-            ip = [...ip, ...intersectRay2Polygon(resp_edge, polygon)]
-        }
+        ip = [...ip, ...intersectEdge2Edge(edge, resp_edge)]
     }
 
     return ip;
@@ -552,9 +541,7 @@ export function intersectMultiline2Polygon(multiline, polygon) {
     }
 
     for (let edge of multiline) {
-        let ip_edge = intersectEdge2Polygon(edge, polygon);
-        let ip_sorted = edge.shape.sortPoints(ip_edge);  // TODO: support arc edge
-        ip = [...ip, ...ip_sorted];
+        ip = [...ip, ...intersectEdge2Polygon(edge, polygon)];
     }
 
     return ip;
@@ -572,9 +559,7 @@ export function intersectPolygon2Polygon(polygon1, polygon2) {
     }
 
     for (let edge1 of polygon1.edges) {
-        for (let pt of intersectEdge2Polygon(edge1, polygon2)) {
-            ip.push(pt);
-        }
+        ip = [...ip, ...intersectEdge2Polygon(edge1, polygon2)]
     }
 
     return ip;

@@ -5,9 +5,9 @@
 import { expect } from 'chai';
 import Flatten, {matrix} from '../../index';
 
-import {Point, Circle, Line, Segment, Arc, Box, Polygon, Edge, PlanarSet} from '../../index';
+import {Point, Circle, Line, Segment, Arc, Box, Polygon, Edge, PlanarSet, Multiline} from '../../index';
 import {point, vector, circle, line, segment, box, multiline} from '../../index';
-import {intersectLine2Polygon} from "../../src/algorithms/intersection";
+import {intersectLine2Polygon, intersectPolygon2Polygon, intersectMultiline2Polygon} from "../../src/algorithms/intersection";
 import * as BooleanOperations from "../../src/algorithms/boolean_op";
 let {unify} = BooleanOperations;
 
@@ -812,10 +812,7 @@ describe('#Flatten.Polygon', function() {
             let l = line( point(100,400), vector(0,1) );
             let points = [point(100, 20), point(250, 75), point(350, 75), point(300, 200), point(170, 200), point(120, 350), point(70, 120) ];
             let p = new Polygon(points);
-            let ip = intersectLine2Polygon(l, p);
-            let mline = multiline([l]);
-            mline.split(ip);
-            let cut_polygon = p.cut(mline);
+            let cut_polygon = p.cutWithLine(l);
 
             expect(cut_polygon.faces.size).to.equal(p.faces.size);
             expect(cut_polygon.edges.size).to.equal(p.edges.size);
@@ -919,25 +916,52 @@ describe('#Flatten.Polygon', function() {
         expect(res_poly.faces.size).to.equal(3);
         expect(res_poly.edges.size).to.equal(14);
     });
-    it('Cannot cut polygon with MultiLine #159 - fixed', () => {
-        const { point, Polygon, Multiline } = Flatten;
-
+    it('Can cut polygon with MultiLine #159', () => {
         const poly = new Polygon([
             point(20, 20),
             point(60, 20),
             point(60, 60),
             point(20, 60)
         ]);
-        const segments = [
+        const multiLine = new Multiline([
             segment(20, 20, 40, 40),
             segment(40, 40, 50, 40),
             segment(50, 40, 60, 60)
-        ];
-
-        const multiLine = new Multiline(segments);
+        ]);
         const newPoly = poly.cut(multiLine);
 
         expect(newPoly.faces.size).to.equal(2);
         expect(newPoly.edges.size).to.equal(10)
     })
+    describe('#Intersections', function () {
+        it('Can perform intersection between polygons', function () {
+            const poly1 = new Polygon(
+                [point(0, 0), point(150, 0), point(150, 30), point(0, 30)]
+            );
+            const poly2 = new Polygon(
+                [point(100, 20), point(200, 20), point(200, 40), point(100, 40)]
+            );
+            const ip = intersectPolygon2Polygon(poly1, poly2)
+
+            expect(ip.length).to.equal(2)
+            expect(ip[0]).to.deep.equal({x:150, y:20})
+            expect(ip[1]).to.deep.equal({x:100, y:30})
+        });
+        it('Can perform intersection between multiline and polygon', function() {
+            let poly = new Polygon([
+                point(100, 20),
+                point(250, 75),
+                point(350, 75),
+                point(300, 200),
+                point(170, 200),
+                point(120, 350),
+                point(70, 120)
+            ]);
+            let l = line( point(100,175), vector(0,1) );
+            let mline = new Multiline([l]);
+            let ip = intersectMultiline2Polygon(mline, poly)
+
+            expect(ip.length).to.equal(2);
+        });
+    });
 });
