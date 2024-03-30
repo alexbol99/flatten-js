@@ -2223,18 +2223,7 @@
         let resp_edges = polygon.edges.search(edge.shape.box);
 
         for (let resp_edge of resp_edges) {
-            if (resp_edge.isSegment) {
-                ip = [...ip, ...intersectSegment2Polygon(resp_edge, polygon)];
-            }
-            else if (resp_edge.isArc) {
-                ip = [...ip, ...intersectArc2Polygon(resp_edge, polygon)];
-            }
-            else if (resp_edge.isLine) {
-                ip = [...ip, ...intersectLine2Polygon(resp_edge, polygon)];
-            }
-            else if (resp_edge.isRay) {
-                ip = [...ip, ...intersectRay2Polygon(resp_edge, polygon)];
-            }
+            ip = [...ip, ...intersectEdge2Edge(edge, resp_edge)];
         }
 
         return ip;
@@ -2252,9 +2241,7 @@
         }
 
         for (let edge1 of polygon1.edges) {
-            for (let pt of intersectEdge2Polygon(edge1, polygon2)) {
-                ip.push(pt);
-            }
+            ip = [...ip, ...intersectEdge2Polygon(edge1, polygon2)];
         }
 
         return ip;
