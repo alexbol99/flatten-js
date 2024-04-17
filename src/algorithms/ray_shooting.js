@@ -45,6 +45,8 @@ export function ray_shoot(polygon, point) {
         }
     }
 
+    let faces = [...polygon.faces];
+
     // 3. Calculate intersections
     let intersections = [];
     for (let edge of resp_edges) {
@@ -57,7 +59,8 @@ export function ray_shoot(polygon, point) {
 
             intersections.push({
                 pt: ip,
-                edge: edge
+                edge: edge,
+                face_index: faces.indexOf(edge.face)
             });
         }
     }
@@ -76,12 +79,17 @@ export function ray_shoot(polygon, point) {
     // 5. Count real intersections, exclude touching
     let counter = 0;
 
+    let prev_intersection_by_face = new Array(faces.length);
+
     for (let i = 0; i < intersections.length; i++) {
         let intersection = intersections[i];
+
+        let prev_intersection = prev_intersection_by_face[intersection.face_index];
+
         if (intersection.pt.equalTo(intersection.edge.shape.start)) {
             /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.edge.prev === intersections[i - 1].edge) {
+            if (prev_intersection && intersection.pt.equalTo(prev_intersection.pt) &&
+                intersection.edge.prev === prev_intersection.edge) {
                 continue;
             }
             let prev_edge = intersection.edge.prev;
@@ -102,8 +110,8 @@ export function ray_shoot(polygon, point) {
             }
         } else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
             /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.edge.next === intersections[i - 1].edge) {
+            if (prev_intersection && intersection.pt.equalTo(prev_intersection.pt) &&
+                intersection.edge.next === prev_intersection.edge) {
                 continue;
             }
             let next_edge = intersection.edge.next;
@@ -134,6 +142,8 @@ export function ray_shoot(polygon, point) {
                 }
             }
         }
+
+        prev_intersection_by_face[intersection.face_index] = intersection;
     }
 
     // 6. Odd or even?
