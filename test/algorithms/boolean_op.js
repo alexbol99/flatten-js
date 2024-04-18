@@ -384,7 +384,8 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(p3.faces.size).to.equal(1);
             expect(p3.edges.size).to.equal(9);
         })
-        it('Fixed: Infinite Loop when calling unify for multipolygon with touching faces #??', () => {
+        
+        it('Fixed: Infinite Loop when calling unify for multipolygon with touching faces #171', () => {
             const a = new Flatten.Polygon([
                 [
                     point(70, 10),
@@ -413,6 +414,30 @@ describe('#Algorithms.Boolean Operations', function () {
             const c = Flatten.BooleanOperations.unify(a, b);
 
             expect(c.faces.size).to.equal(1);
+        });
+
+        it('Fixed: Infinite Loop when calling unify for multipolygon with touching faces #171: case 2 - self-touching face', () => {
+            const a = new Flatten.Polygon([
+                [
+                    point(70, 10),
+                    point(80, 10),
+                    point(80, 50),
+                    point(70, 50),
+                ],
+                [
+                    point(90, 10), point(100, 10), point(100, 50), point(110, 50), point(110, 10), point(100, 10), point(100, 0),
+                    point(120, 0), point(120, 60), point(90, 60)
+                ]
+            ]);
+            const b = new Flatten.Polygon([ point(0, 0), point(100, 0), point(100, 10), point(0, 10) ]);
+
+            // incorrectly reports polygon as invalid
+            // expect(a.isValid()).to.equal(true);
+            expect(b.isValid()).to.equal(true);
+
+            const c = Flatten.BooleanOperations.unify(a, b);
+
+            expect(c.faces.size).to.equal(2);
         });
     });
     describe('#Algorithms.Boolean Subtraction', function () {

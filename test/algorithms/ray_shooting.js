@@ -104,6 +104,7 @@ describe('#Algorithms.Ray_Shooting', function() {
         let contains = ray_shoot(polygon, pt);
         expect(contains).to.be.equal(Flatten.OUTSIDE);
     });
+    
     it('Can check point in contour. Multipolygon with touching faces - outside', function() {
         const polygon = new Flatten.Polygon();
         polygon.addFace([ point(90, 10), point(100, 10), point(100, 50), point(90, 50) ]);
@@ -120,5 +121,16 @@ describe('#Algorithms.Ray_Shooting', function() {
 
         let contains = ray_shoot(polygon, point(95, 10));
         expect(contains).to.be.equal(Flatten.BOUNDARY);
+    })
+
+    it('Can check point in contour. Polygon with self-touching face - outside', function() {
+        const polygon = new Flatten.Polygon();
+        polygon.addFace([
+            point(90, 10), point(100, 10), point(100, 50), point(110, 50), point(110, 10), point(100, 10), point(100, 0),
+            point(120, 0), point(120, 60), point(90, 60)
+        ]);
+
+        let contains = ray_shoot(polygon, point(85, 10));
+        expect(contains).to.be.equal(Flatten.OUTSIDE);
     })
 });

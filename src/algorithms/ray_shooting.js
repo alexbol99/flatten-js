@@ -79,18 +79,25 @@ export function ray_shoot(polygon, point) {
     // 5. Count real intersections, exclude touching
     let counter = 0;
 
-    let prev_intersection_by_face = new Array(faces.length);
-
     for (let i = 0; i < intersections.length; i++) {
         let intersection = intersections[i];
 
-        let prev_intersection = prev_intersection_by_face[intersection.face_index];
-
         if (intersection.pt.equalTo(intersection.edge.shape.start)) {
             /* skip same point between same edges if already counted */
-            if (prev_intersection && intersection.pt.equalTo(prev_intersection.pt) &&
-                intersection.edge.prev === prev_intersection.edge) {
-                continue;
+            if (i > 0) {
+                let j = i - 1;
+                let alreadyCounted = false;
+                /* same point may appear more than twice in case of touching faces/self-touching face */
+                while (j >= 0 && intersection.pt.equalTo(intersections[j].pt)) {
+                    if (intersection.edge.prev === intersections[j].edge) {
+                        alreadyCounted = true;
+                        break;
+                    }
+                    j--;
+                }
+                if (alreadyCounted) {
+                    continue;
+                }
             }
             let prev_edge = intersection.edge.prev;
             while (Utils.EQ_0(prev_edge.length)) {
@@ -110,9 +117,20 @@ export function ray_shoot(polygon, point) {
             }
         } else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
             /* skip same point between same edges if already counted */
-            if (prev_intersection && intersection.pt.equalTo(prev_intersection.pt) &&
-                intersection.edge.next === prev_intersection.edge) {
-                continue;
+            if (i > 0) {
+                let j = i - 1;
+                let alreadyCounted = false;
+                /* same point may appear more than twice in case of touching faces/self-touching face */
+                while (j >= 0 && intersection.pt.equalTo(intersections[j].pt)) {
+                    if (intersection.edge.next === intersections[j].edge) {
+                        alreadyCounted = true;
+                        break;
+                    }
+                    j--;
+                }
+                if (alreadyCounted) {
+                    continue;
+                }
             }
             let next_edge = intersection.edge.next;
             while (Utils.EQ_0(next_edge.length)) {
@@ -142,8 +160,6 @@ export function ray_shoot(polygon, point) {
                 }
             }
         }
-
-        prev_intersection_by_face[intersection.face_index] = intersection;
     }
 
     // 6. Odd or even?
