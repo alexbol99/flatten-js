@@ -384,6 +384,31 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(p3.faces.size).to.equal(1);
             expect(p3.edges.size).to.equal(9);
         })
+        it("Infinite Loop when calling unify for multipolygon with touching faces #171", function() {
+            const a = new Flatten.Polygon([
+                [
+                    point(70, 10),
+                    point(80, 10),
+                    point(80, 50),
+                    point(70, 50),
+                ],
+                [
+                    point(90, 10),
+                    point(100, 10),
+                    point(100, 50),
+                    point(90, 50),
+                ],
+                [
+                    point(100, 0),
+                    point(120, 0),
+                    point(120, 10),
+                    point(100, 10),
+                ],
+            ]);
+            const b = new Flatten.Polygon([ point(0, 0), point(100, 0), point(100, 10), point(0, 10) ]);
+
+            // const c = Flatten.BooleanOperations.unify(a, b); // Error: Cannot complete boolean operation
+        })
     });
     describe('#Algorithms.Boolean Subtraction', function () {
         it('Can perform subtract. 2 intersecting polygons', function () {
