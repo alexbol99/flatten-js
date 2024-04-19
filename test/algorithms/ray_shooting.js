@@ -108,8 +108,8 @@ describe('#Algorithms.Ray_Shooting', function() {
         const polygon = new Flatten.Polygon();
         polygon.addFace([ point(90, 10), point(100, 10), point(100, 50), point(90, 50) ]);
         polygon.addFace([ point(100, 0), point(120, 0), point(120, 10), point(100, 10) ]);
-
-        let contains = ray_shoot(polygon, point(85, 10));
+        const pt = point(85, 10)
+        let contains = ray_shoot(polygon, pt);
         expect(contains).to.be.equal(Flatten.OUTSIDE);
     })
     it('Can check point in contour. Multipolygon with touching faces - boundary', function() {
