@@ -45,6 +45,8 @@ export function ray_shoot(polygon, point) {
         }
     }
 
+    let faces = [...polygon.faces];
+
     // 3. Calculate intersections
     let intersections = [];
     for (let edge of resp_edges) {
@@ -57,7 +59,8 @@ export function ray_shoot(polygon, point) {
 
             intersections.push({
                 pt: ip,
-                edge: edge
+                edge: edge,
+                face_index: faces.indexOf(edge.face)
             });
         }
     }
@@ -78,11 +81,23 @@ export function ray_shoot(polygon, point) {
 
     for (let i = 0; i < intersections.length; i++) {
         let intersection = intersections[i];
+
         if (intersection.pt.equalTo(intersection.edge.shape.start)) {
             /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.edge.prev === intersections[i - 1].edge) {
-                continue;
+            if (i > 0) {
+                let j = i - 1;
+                let alreadyCounted = false;
+                /* same point may appear more than twice in case of touching faces/self-touching face */
+                while (j >= 0 && intersection.pt.equalTo(intersections[j].pt)) {
+                    if (intersection.edge.prev === intersections[j].edge) {
+                        alreadyCounted = true;
+                        break;
+                    }
+                    j--;
+                }
+                if (alreadyCounted) {
+                    continue;
+                }
             }
             let prev_edge = intersection.edge.prev;
             while (Utils.EQ_0(prev_edge.length)) {
@@ -102,9 +117,20 @@ export function ray_shoot(polygon, point) {
             }
         } else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
             /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.edge.next === intersections[i - 1].edge) {
-                continue;
+            if (i > 0) {
+                let j = i - 1;
+                let alreadyCounted = false;
+                /* same point may appear more than twice in case of touching faces/self-touching face */
+                while (j >= 0 && intersection.pt.equalTo(intersections[j].pt)) {
+                    if (intersection.edge.next === intersections[j].edge) {
+                        alreadyCounted = true;
+                        break;
+                    }
+                    j--;
+                }
+                if (alreadyCounted) {
+                    continue;
+                }
             }
             let next_edge = intersection.edge.next;
             while (Utils.EQ_0(next_edge.length)) {
