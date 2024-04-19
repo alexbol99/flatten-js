@@ -2602,7 +2602,7 @@
 
         let resp_edges = polygon.edges.search(searchBox);
 
-        if (resp_edges.length == 0) {
+        if (resp_edges.length === 0) {
             return Flatten.OUTSIDE;
         }
 
@@ -2612,6 +2612,8 @@
                 return Flatten.BOUNDARY;
             }
         }
+
+        let faces = [...polygon.faces];
 
         // 3. Calculate intersections
         let intersections = [];
@@ -2625,7 +2627,8 @@
 
                 intersections.push({
                     pt: ip,
-                    edge: edge
+                    edge: edge,
+                    face_index: faces.indexOf(edge.face)
                 });
             }
         }
@@ -2638,6 +2641,18 @@
             if (GT(i1.pt.x, i2.pt.x)) {
                 return 1;
             }
+            if (i1.face_index < i2.face_index) {
+                return -1
+            }
+            if (i1.face_index > i2.face_index) {
+                return 1
+            }
+            if (i1.edge.arc_length < i2.edge.arc_length) {
+                return -1
+            }
+            if (i1.edge.arc_length > i2.edge.arc_length) {
+                return 1
+            }
             return 0;
         });
 
@@ -2646,12 +2661,15 @@
 
         for (let i = 0; i < intersections.length; i++) {
             let intersection = intersections[i];
+
             if (intersection.pt.equalTo(intersection.edge.shape.start)) {
                 /* skip same point between same edges if already counted */
                 if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                    intersection.face_index === intersections[i - 1].face_index &&
                     intersection.edge.prev === intersections[i - 1].edge) {
                     continue;
                 }
+
                 let prev_edge = intersection.edge.prev;
                 while (EQ_0(prev_edge.length)) {
                     prev_edge = prev_edge.prev;
@@ -2671,9 +2689,11 @@
             } else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
                 /* skip same point between same edges if already counted */
                 if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                    intersection.face_index === intersections[i-1].face_index &&
                     intersection.edge.next === intersections[i - 1].edge) {
                     continue;
                 }
+
                 let next_edge = intersection.edge.next;
                 while (EQ_0(next_edge.length)) {
                     next_edge = next_edge.next;
@@ -2690,7 +2710,7 @@
                 if ((next_on_the_left && !cur_on_the_left) || (!next_on_the_left && cur_on_the_left)) {
                     counter++;
                 }
-            } else {        /* intersection point is not a coincident with a vertex */
+            } else {        /* intersection point is not a vertex */
                 if (intersection.edge.shape instanceof Flatten.Segment) {
                     counter++;
                 } else {
@@ -2705,8 +2725,7 @@
         }
 
         // 6. Odd or even?
-        contains = counter % 2 == 1 ? INSIDE$2 : OUTSIDE$1;
-
+        contains = counter % 2 === 1 ? INSIDE$2 : OUTSIDE$1;
         return contains;
     }
 
