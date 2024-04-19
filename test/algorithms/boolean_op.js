@@ -384,7 +384,6 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(p3.faces.size).to.equal(1);
             expect(p3.edges.size).to.equal(9);
         })
-        
         it('Fixed: Infinite Loop when calling unify for multipolygon with touching faces #171', () => {
             const a = new Flatten.Polygon([
                 [
