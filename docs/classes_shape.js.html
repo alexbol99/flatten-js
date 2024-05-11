@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>classes/box.js - Documentation</title>
+    <title>classes/shape.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">classes/box.js</h1>
+    <h1 class="page-title">classes/shape.js</h1>
     
 
     
@@ -39,319 +39,78 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Created by Alex Bol on 3/7/2017.
- */
-"use strict";
-
-import Flatten from '../flatten';
-import {convertToString} from "../utils/attributes";
-import {Shape} from "./shape";
+            <pre class="prettyprint source linenums"><code>import Flatten from '../flatten';
+import {Matrix} from "./matrix";
 import {Errors} from "../utils/errors";
-import {intersectSegment2Arc, intersectSegment2Circle} from "../algorithms/intersection";
 
 /**
- * Class Box represents bounding box of the shape.
- * It may also represent axis-aligned rectangle
- * @type {Box}
+ * Base class representing shape
+ * Implement common methods of affine transformations
  */
-export class Box extends Shape {
-    /**
-     *
-     * @param {number} xmin - minimal x coordinate
-     * @param {number} ymin - minimal y coordinate
-     * @param {number} xmax - maximal x coordinate
-     * @param {number} ymax - maximal y coordinate
-     */
-    constructor(xmin = undefined, ymin = undefined, xmax = undefined, ymax = undefined) {
-        super()
-        /**
-         * Minimal x coordinate
-         * @type {number}
-         */
-        this.xmin = xmin;
-        /**
-         * Minimal y coordinate
-         * @type {number}
-         */
-        this.ymin = ymin;
-        /**
-         * Maximal x coordinate
-         * @type {number}
-         */
-        this.xmax = xmax;
-        /**
-         * Maximal y coordinate
-         * @type {number}
-         */
-        this.ymax = ymax;
+export class Shape {
+    get name() {
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
-    /**
-     * Return new cloned instance of box
-     * @returns {Box}
-     */
-    clone() {
-        return new Box(this.xmin, this.ymin, this.xmax, this.ymax);
-    }
-
-    /**
-     * Property low need for interval tree interface
-     * @returns {Point}
-     */
-    get low() {
-        return new Flatten.Point(this.xmin, this.ymin);
-    }
-
-    /**
-     * Property high need for interval tree interface
-     * @returns {Point}
-     */
-    get high() {
-        return new Flatten.Point(this.xmax, this.ymax);
-    }
-
-    /**
-     * Property max returns the box itself !
-     * @returns {Box}
-     */
-    get max() {
-        return this.clone();
-    }
-    
-    /**
-     * Return center of the box
-     * @returns {Point}
-     */
-    get center() {
-        return new Flatten.Point((this.xmin + this.xmax) / 2, (this.ymin + this.ymax) / 2);
-    }
-
-    /**
-     * Return the width of the box
-     * @returns {number}
-     */
-    get width() {
-        return Math.abs(this.xmax - this.xmin);
-    }
-
-    /**
-     * Return the height of the box
-     * @returns {number}
-     */
-    get height() {
-        return Math.abs(this.ymax - this.ymin);
-    }
-    
-    /**
-     * Return property box like all other shapes
-     * @returns {Box}
-     */
     get box() {
-        return this.clone();
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+
+    clone() {
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     /**
-     * Returns true if not intersected with other box
-     * @param {Box} other_box - other box to test
-     * @returns {boolean}
+     * Returns new shape translated by given vector.
+     * Translation vector may be also defined by a pair of numbers.
+     * @param {Vector | (number, number) } args - Translation vector
+     * or tuple of numbers
+     * @returns {Shape}
      */
-    not_intersect(other_box) {
-        return (
-            this.xmax &lt; other_box.xmin ||
-            this.xmin > other_box.xmax ||
-            this.ymax &lt; other_box.ymin ||
-            this.ymin > other_box.ymax
-        );
+    translate(...args) {
+        return this.transform(new Matrix().translate(...args))
     }
 
     /**
-     * Returns true if intersected with other box
-     * @param {Box} other_box - Query box
-     * @returns {boolean}
-     */
-    intersect(other_box) {
-        return !this.not_intersect(other_box);
-    }
-
-    /**
-     * Returns new box merged with other box
-     * @param {Box} other_box - Other box to merge with
-     * @returns {Box}
-     */
-    merge(other_box) {
-        return new Box(
-            this.xmin === undefined ? other_box.xmin : Math.min(this.xmin, other_box.xmin),
-            this.ymin === undefined ? other_box.ymin : Math.min(this.ymin, other_box.ymin),
-            this.xmax === undefined ? other_box.xmax : Math.max(this.xmax, other_box.xmax),
-            this.ymax === undefined ? other_box.ymax : Math.max(this.ymax, other_box.ymax)
-        );
-    }
-
-    /**
-     * Defines predicate "less than" between two boxes. Need for interval index
-     * @param {Box} other_box - other box
-     * @returns {boolean} - true if this box less than other box, false otherwise
-     */
-    less_than(other_box) {
-        if (this.low.lessThan(other_box.low))
-            return true;
-        if (this.low.equalTo(other_box.low) &amp;&amp; this.high.lessThan(other_box.high))
-            return true;
-        return false;
-    }
-
-    /**
-     * Returns true if this box is equal to other box, false otherwise
-     * @param {Box} other_box - query box
-     * @returns {boolean}
-     */
-    equal_to(other_box) {
-        return (this.low.equalTo(other_box.low) &amp;&amp; this.high.equalTo(other_box.high));
-    }
-
-    output() {
-        return this.clone();
-    }
-
-    static comparable_max(box1, box2) {
-        // return pt1.lessThan(pt2) ? pt2.clone() : pt1.clone();
-        return box1.merge(box2);
-    }
-
-    static comparable_less_than(pt1, pt2) {
-        return pt1.lessThan(pt2);
-    }
-
-    /**
-     * Set new values to the box object
-     * @param {number} xmin - mininal x coordinate
-     * @param {number} ymin - minimal y coordinate
-     * @param {number} xmax - maximal x coordinate
-     * @param {number} ymax - maximal y coordinate
-     */
-    set(xmin, ymin, xmax, ymax) {
-        this.xmin = xmin;
-        this.ymin = ymin;
-        this.xmax = xmax;
-        this.ymax = ymax;
-    }
-
-    /**
-     * Transform box into array of points from low left corner in counterclockwise
-     * @returns {Point[]}
-     */
-    toPoints() {
-        return [
-            new Flatten.Point(this.xmin, this.ymin),
-            new Flatten.Point(this.xmax, this.ymin),
-            new Flatten.Point(this.xmax, this.ymax),
-            new Flatten.Point(this.xmin, this.ymax)
-        ];
-    }
-
-    /**
-     * Transform box into array of segments from low left corner in counterclockwise
-     * @returns {Segment[]}
-     */
-    toSegments() {
-        let pts = this.toPoints();
-        return [
-            new Flatten.Segment(pts[0], pts[1]),
-            new Flatten.Segment(pts[1], pts[2]),
-            new Flatten.Segment(pts[2], pts[3]),
-            new Flatten.Segment(pts[3], pts[0])
-        ];
-    }
-
-    /**
-     * Box rotation is not supported
-     * Attempt to rotate box throws error
+     * Returns new shape rotated by given angle around given center point.
+     * If center point is omitted, rotates around zero point (0,0).
+     * Positive value of angle defines rotation in counterclockwise direction,
+     * negative angle defines rotation in clockwise direction
      * @param {number} angle - angle in radians
      * @param {Point} [center=(0,0)] center
+     * @returns {Shape}
      */
     rotate(angle, center = new Flatten.Point()) {
-            throw Errors.OPERATION_IS_NOT_SUPPORTED
+        return this.transform(new Matrix().rotate(angle, center.x, center.y));
     }
 
     /**
-     * Return new box transformed using affine transformation matrix
-     * New box is a bounding box of transformed corner points
-     * @param {Matrix} m - affine transformation matrix
-     * @returns {Box}
+     * Return new shape with coordinates multiplied by scaling factor
+     * @param {number} sx - x-axis scaling factor
+     * @param {number} sy - y-axis scaling factor
+     * @returns {Shape}
      */
-    transform(m = new Flatten.Matrix()) {
-        const transformed_points = this.toPoints().map(pt => pt.transform(m))
-        return transformed_points.reduce(
-            (new_box, pt) => new_box.merge(pt.box), new Box())
+    scale(sx, sy) {
+        return this.transform(new Matrix().scale(sx, sy));
+    }
+
+    transform(...args) {
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
     }
 
     /**
-     * Return true if box contains shape: no point of shape lies outside the box
-     * @param {AnyShape} shape - test shape
-     * @returns {boolean}
+     * This method returns an object that defines how data will be
+     * serialized when called JSON.stringify() method
+     * @returns {Object}
      */
-    contains(shape) {
-        if (shape instanceof Flatten.Point) {
-            return (shape.x >= this.xmin) &amp;&amp; (shape.x &lt;= this.xmax) &amp;&amp; (shape.y >= this.ymin) &amp;&amp; (shape.y &lt;= this.ymax);
-        }
-
-        if (shape instanceof Flatten.Segment) {
-            return shape.vertices.every(vertex => this.contains(vertex))
-        }
-
-        if (shape instanceof Flatten.Box) {
-            return shape.toSegments().every(segment => this.contains(segment))
-        }
-
-        if (shape instanceof Flatten.Circle) {
-            return this.contains(shape.box)
-        }
-
-        if (shape instanceof Flatten.Arc) {
-            return shape.vertices.every(vertex => this.contains(vertex)) &amp;&amp;
-                shape.toSegments().every(segment => intersectSegment2Arc(segment, shape).length === 0)
-        }
-
-        if (shape instanceof Flatten.Line || shape instanceof Flatten.Ray) {
-            return false
-        }
-
-        if (shape instanceof Flatten.Multiline) {
-            return shape.toShapes().every(shape => this.contains(shape))
-        }
-
-        if (shape instanceof Flatten.Polygon) {
-            return this.contains(shape.box)
-        }
+    toJSON() {
+        return Object.assign({}, this, {name: this.name});
     }
 
-    get name() {
-        return "box"
-    }
-
-    /**
-     * Return string to draw box in svg
-     * @param {Object} attrs - an object with attributes of svg rectangle element
-     * @returns {string}
-     */
     svg(attrs = {}) {
-        const width = this.xmax - this.xmin;
-        const height = this.ymax - this.ymin;
-        return `\n&lt;rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height}
-                ${convertToString({fill: "none", ...attrs})} />`;
-    };
-}
-
-Flatten.Box = Box;
-/**
- * Shortcut to create new box
- * @param args
- * @returns {Box}
- */
-export const box = (...args) => new Flatten.Box(...args);
-Flatten.box = box;
-</code></pre>
+        throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+    }
+}</code></pre>
         </article>
     </section>
 

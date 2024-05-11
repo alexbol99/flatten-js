@@ -1,16 +1,15 @@
-import resolve from 'rollup-plugin-node-resolve';
-// import { terser } from "rollup-plugin-terser";
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
     input: 'index.js',
     output: [
         {
-            file: 'dist/main.cjs.js',
+            file: 'dist/main.cjs',
             format: 'cjs',
             exports: 'named'
         },
         {
-            file: 'dist/main.esm.js',
+            file: 'dist/main.mjs',
             format: 'esm',
             exports: 'named'
         },
@@ -21,11 +20,5 @@ export default {
             exports: 'named'
         },
     ],
-    plugins: [
-        resolve({
-            customResolveOptions: {
-                moduleDirectory: 'node_modules'
-            }
-        })
-    ]
+    plugins: [nodeResolve()]
 };

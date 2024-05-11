@@ -3,19 +3,24 @@
  */
 
 import Flatten from '../flatten';
+import {convertToString} from "../utils/attributes";
+import {Matrix} from "./matrix";
+import {Shape} from "./shape";
+import {Errors} from "../utils/errors";
 
 /**
  *
  * Class representing a point
  * @type {Point}
  */
-export class Point {
+export class Point extends Shape {
     /**
      * Point may be constructed by two numbers, or by array of two numbers
      * @param {number} x - x-coordinate (float number)
      * @param {number} y - y-coordinate (float number)
      */
     constructor(...args) {
+        super()
         /**
          * x-coordinate (float number)
          * @type {number}
@@ -54,9 +59,7 @@ export class Point {
                 return;
             }
         }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
-
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -104,48 +107,11 @@ export class Point {
     }
 
     /**
-     * Returns new point rotated by given angle around given center point.
-     * If center point is omitted, rotates around zero point (0,0).
-     * Positive value of angle defines rotation in counter clockwise direction,
-     * negative angle defines rotation in clockwise clockwise direction
-     * @param {number} angle - angle in radians
-     * @param {Point} [center=(0,0)] center
-     * @returns {Point}
-     */
-    rotate(angle, center = {x: 0, y: 0}) {
-        var x_rot = center.x + (this.x - center.x) * Math.cos(angle) - (this.y - center.y) * Math.sin(angle);
-        var y_rot = center.y + (this.x - center.x) * Math.sin(angle) + (this.y - center.y) * Math.cos(angle);
-
-        return new this.constructor(x_rot, y_rot);
-    }
-
-    /**
-     * Returns new point translated by given vector.
-     * Translation vector may by also defined by a pair of numbers.
-     * @param {Vector} vector - Translation vector defined as Flatten.Vector or
-     * @param {number|number} - Translation vector defined as pair of numbers
-     * @returns {Point}
-     */
-    translate(...args) {
-        if (args.length == 1 &&
-            (args[0] instanceof Flatten.Vector || !isNaN(args[0].x) && !isNaN(args[0].y))) {
-            return new this.constructor(this.x + args[0].x, this.y + args[0].y);
-        }
-
-        if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-            return new this.constructor(this.x + args[0], this.y + args[1]);
-        }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
-    }
-
-    /**
-     * Return new point transformed by affine transformation matrix m
+     * Return new point transformed by affine transformation matrix
      * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
      * @returns {Point}
      */
     transform(m) {
-        // let [x,y] = m.transform([this.x,this.y]);
         return new this.constructor(m.transform([this.x, this.y]))
     }
 
@@ -205,14 +171,10 @@ export class Point {
         }
 
         if (shape instanceof Flatten.Arc) {
-            // let [dist, ...rest] = Distance.point2arc(this, shape);
-            // return dist;
             return Flatten.Distance.point2arc(this, shape);
         }
 
         if (shape instanceof Flatten.Polygon) {
-            // let [dist, ...rest] = Distance.point2polygon(this, shape);
-            // return dist;
             return Flatten.Distance.point2polygon(this, shape);
         }
 
@@ -223,7 +185,7 @@ export class Point {
 
     /**
      * Returns true if point is on a shape, false otherwise
-     * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon
+     * @param {Shape} shape
      * @returns {boolean}
      */
     on(shape) {
@@ -231,8 +193,16 @@ export class Point {
             return this.equalTo(shape);
         }
 
+        if (shape instanceof Flatten.Box) {
+            return shape.contains(this);
+        }
+
         if (shape instanceof Flatten.Line) {
             return shape.contains(this);
+        }
+
+        if (shape instanceof Flatten.Ray) {
+            return shape.contains(this)
         }
 
         if (shape instanceof Flatten.Circle) {
@@ -252,13 +222,8 @@ export class Point {
         }
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "point"});
+    get name() {
+        return "point"
     }
 
     /**
@@ -275,14 +240,11 @@ export class Point {
      * @returns {String}
      */
     svg(attrs = {}) {
-        let {r, stroke, strokeWidth, fill, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-        return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 3}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${id_str} ${class_str} />`;
+        const r = attrs.r ?? 3            // default radius - 3
+        return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
+            ${convertToString({fill: "red", ...attrs})} />`;
     }
-
-};
+}
 
 Flatten.Point = Point;
 /**

@@ -5,21 +5,24 @@
 "use strict";
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
+import {convertToString} from "../utils/attributes";
+import {Shape} from "./shape";
 
 /**
  * Class representing a circular arc
  * @type {Arc}
  */
-export class Arc {
+export class Arc extends Shape {
     /**
      *
      * @param {Point} pc - arc center
      * @param {number} r - arc radius
      * @param {number} startAngle - start angle in radians from 0 to 2*PI
      * @param {number} endAngle - end angle in radians from 0 to 2*PI
-     * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counter clockwise
+     * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counterclockwise
      */
     constructor(...args) {
+        super()
         /**
          * Arc center
          * @type {Point}
@@ -46,17 +49,16 @@ export class Arc {
          */
         this.counterClockwise = Flatten.CCW;
 
-        if (args.length == 0)
+        if (args.length === 0)
             return;
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "arc") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "arc") {
             let {pc, r, startAngle, endAngle, counterClockwise} = args[0];
             this.pc = new Flatten.Point(pc.x, pc.y);
             this.r = r;
             this.startAngle = startAngle;
             this.endAngle = endAngle;
             this.counterClockwise = counterClockwise;
-            return;
         } else {
             let [pc, r, startAngle, endAngle, counterClockwise] = [...args];
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
@@ -64,10 +66,9 @@ export class Arc {
             if (startAngle !== undefined) this.startAngle = startAngle;
             if (endAngle !== undefined) this.endAngle = endAngle;
             if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
-            return;
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        // throw Flatten.Errors.ILLEGAL_PARAMETERS; unreachable code
     }
 
     /**
@@ -214,8 +215,8 @@ export class Arc {
      */
     pointAtLength(length) {
         if (length > this.length || length < 0) return null;
-        if (length == 0) return this.start;
-        if (length == this.length) return this.end;
+        if (length === 0) return this.start;
+        if (length === this.length) return this.end;
         let factor = length / this.length;
         let endAngle = this.counterClockwise ? this.startAngle + this.sweep * factor : this.startAngle - this.sweep * factor;
         let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
@@ -233,7 +234,7 @@ export class Arc {
     /**
      * Returns array of intersection points between arc and other shape
      * @param {Shape} shape Shape of the one of supported types <br/>
-     * @returns {Points[]}
+     * @returns {Point[]}
      */
     intersect(shape) {
         if (shape instanceof Flatten.Point) {
@@ -241,6 +242,9 @@ export class Arc {
         }
         if (shape instanceof Flatten.Line) {
             return Intersection.intersectLine2Arc(shape, this);
+        }
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Arc(shape, this);
         }
         if (shape instanceof Flatten.Circle) {
             return Intersection.intersectArc2Circle(this, shape);
@@ -307,7 +311,7 @@ export class Arc {
 
     /**
      * Breaks arc in extreme point 0, pi/2, pi, 3*pi/2 and returns array of sub-arcs
-     * @returns {Arcs[]}
+     * @returns {Arc[]}
      */
     breakToFunctional() {
         let func_arcs_array = [];
@@ -328,7 +332,7 @@ export class Arc {
             }
         }
 
-        if (test_arcs.length == 0) {                  // arc does contain any extreme point
+        if (test_arcs.length === 0) {                  // arc does contain any extreme point
             func_arcs_array.push(this.clone());
         } else {                                        // arc passes extreme point
             // sort these arcs by length
@@ -370,8 +374,7 @@ export class Arc {
     tangentInStart() {
         let vec = new Flatten.Vector(this.pc, this.start);
         let angle = this.counterClockwise ? Math.PI / 2. : -Math.PI / 2.;
-        let tangent = vec.rotate(angle).normalize();
-        return tangent;
+        return vec.rotate(angle).normalize();
     }
 
     /**
@@ -381,8 +384,7 @@ export class Arc {
     tangentInEnd() {
         let vec = new Flatten.Vector(this.pc, this.end);
         let angle = this.counterClockwise ? -Math.PI / 2. : Math.PI / 2.;
-        let tangent = vec.rotate(angle).normalize();
-        return tangent;
+        return vec.rotate(angle).normalize();
     }
 
     /**
@@ -394,48 +396,7 @@ export class Arc {
     }
 
     /**
-     * Returns new arc translated by vector vec
-     * @param {Vector} vec
-     * @returns {Segment}
-     */
-    translate(...args) {
-        let arc = this.clone();
-        arc.pc = this.pc.translate(...args);
-        return arc;
-    }
-
-    /**
-     * Return new segment rotated by given angle around given point
-     * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
-     * @param {number} angle - rotation angle in radians
-     * @param {Point} center - center point, default is (0,0)
-     * @returns {Arc}
-     */
-    rotate(angle = 0, center = new Flatten.Point()) {
-        let m = new Flatten.Matrix();
-        m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
-        return this.transform(m);
-    }
-
-    /**
-     * Return new arc scaled by scaleX, scaleY.
-     * @param {number} scaleX - scale value by X
-     * @param {number} scaleY - scale value by Y
-     * @returns {Arc}
-     */
-    scale(scaleX = 1, scaleY = 1) {
-        let m = new Flatten.Matrix();
-        m = m.scale(scaleX, scaleY);
-        return this.transform(m);
-    }
-
-    /**
      * Return new arc transformed using affine transformation matrix <br/>
-     * Note 1. Non-equal scaling by x and y (abs(matrix[0]) != abs(matrix[3])) produce illegal result because
-     * it should create elliptic arc but this package does not support ellipses
-     * Note 2. Mirror transformation (matrix[0] * matrix[3] < 0) change direction of the arc to the opposite
-     * TODO: support non-equal scaling arc to ellipse or throw exception ?
      * @param {Matrix} matrix - affine transformation matrix
      * @returns {Arc}
      */
@@ -447,8 +408,7 @@ export class Arc {
         if (matrix.a * matrix.d < 0) {
           newDirection = !newDirection;
         }
-        let arc = this.constructor.arcSE(newCenter, newStart, newEnd, newDirection);
-        return arc;
+        return this.constructor.arcSE(newCenter, newStart, newEnd, newDirection);
     }
 
     static arcSE(center, start, end, counterClockwise) {
@@ -486,7 +446,7 @@ export class Arc {
 
     /**
      * Sort given array of points from arc start to end, assuming all points lay on the arc
-     * @param {Point[]} array of points
+     * @param {Point[]} pts array of points
      * @returns {Point[]} new array sorted
      */
     sortPoints(pts) {
@@ -504,29 +464,18 @@ export class Arc {
         })
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "arc"});
+    get name() {
+        return "arc"
     }
 
     /**
      * Return string to draw arc in svg
-     * @param {Object} attrs - an object with attributes of svg path element,
-     * like "stroke", "strokeWidth", "fill" <br/>
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+     * @param {Object} attrs - an object with attributes of svg path element
      * @returns {string}
      */
     svg(attrs = {}) {
         let largeArcFlag = this.sweep <= Math.PI ? "0" : "1";
         let sweepFlag = this.counterClockwise ? "1" : "0";
-        let {stroke, strokeWidth, fill, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
 
         if (Flatten.Utils.EQ(this.sweep, 2 * Math.PI)) {
             let circle = new Flatten.Circle(this.pc, this.r);
@@ -534,11 +483,11 @@ export class Arc {
         } else {
             return `\n<path d="M${this.start.x},${this.start.y}
                              A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
-                    stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`
+                    ${convertToString({fill: "none", ...attrs})} />`
         }
     }
 
-};
+}
 
 Flatten.Arc = Arc;
 /**

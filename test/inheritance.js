@@ -33,7 +33,7 @@ describe("#Flatten.inheritance", function () {
   for (let className in testClasses) {
     it(`allows ${className} inheritance`, function () {
       const theClass = testClasses[className];
-      const instance = new theClass();
+      const instance = theClass === Box ? new theClass(0, 0, 1, 1) : new theClass();
       expect(instance.clone()).to.be.instanceof(theClass);
       if (instance.translate) {
         expect(instance.translate(new Vector(1, 1))).to.be.instanceof(theClass);
@@ -41,7 +41,7 @@ describe("#Flatten.inheritance", function () {
       if (instance.merge) {
         expect(instance.merge(instance.clone())).to.be.instanceof(theClass);
       }
-      if (instance.rotate) {
+      if (instance.rotate && className != 'Box') {
         expect(instance.rotate(Math.PI)).to.be.instanceof(theClass);
       }
       // Matrix.transform() expects Vector

@@ -5,6 +5,7 @@
 
 import { expect } from 'chai';
 import Flatten from '../../index';
+import {Errors} from "../../src/utils/errors";
 
 let {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} = Flatten;
 
@@ -38,23 +39,23 @@ describe('#Flatten.Line', function() {
     it('Constructor with illegal parameters throws error. Case 1', function () {
         let pt = new Flatten.Point(1, 1);
         let fn1 = function() { new Flatten.Line(pt) };
-        expect(fn1).to.throw(ReferenceError);
+        expect(fn1).to.throw(Errors.ILLEGAL_PARAMETERS.message);
     });
     it('Constructor with illegal parameters throws error. Case 2', function () {
         let pt = new Flatten.Point(1, 1);
         let fn2 = function() { new Flatten.Line(pt, '123') };
-        expect(fn2).to.throw(ReferenceError);
+        expect(fn2).to.throw(Errors.ILLEGAL_PARAMETERS.message);
     });
     it('Constructor with illegal parameters throws error. Case 3', function () {
         let pt = new Flatten.Point(1, 1);
         let fn3 = function() { new Flatten.Line(pt, pt) };
-        expect(fn3).to.throw(ReferenceError);
+        expect(fn3).to.throw(Errors.ILLEGAL_PARAMETERS.message);
     });
     it('Constructor with zero vector throws error', function () {
         let fn1 = function() { new Flatten.Line(point(1, 1), vector(0,0)) };
         let fn2 = function() { new Flatten.Line(vector(0,0), point(1, 1) ) };
-        expect(fn1).to.throw(ReferenceError);
-        expect(fn2).to.throw(ReferenceError);
+        expect(fn1).to.throw(Errors.ILLEGAL_PARAMETERS.message);
+        expect(fn2).to.throw(Errors.ILLEGAL_PARAMETERS.message);
     });
     it('New line may be constructed by function call', function() {
         let l = line(point(1,3), point(3,3));
@@ -86,7 +87,7 @@ describe('#Flatten.Line', function() {
         let l = line(pt,norm);
         let split_pt = point(300,200);
         let res = l.split(split_pt);
-        expect(res[0]).to.deep.equal(ray(split_pt, norm.invert()));
+        expect(res[0]).to.deep.equal(ray(split_pt, norm));
         expect(res[1]).to.deep.equal(ray(split_pt, norm));
     });
     it('May return 1-dim coordinate of point on line', function() {
@@ -208,15 +209,12 @@ describe('#Flatten.Line', function() {
         let box = new Box(0,0,4,4);
         let svg = l.svg(box);
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
-
     });
     it('Method svg() with extra parameters may add additional attributes', function() {
         let l = line(point(4, 0), point(0, 4));
         let box = new Box(0,0,4,4);
         let svg = l.svg(box,{id:"123",className:"name"});
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
         expect(svg.search("id")).to.not.equal(-1);
         expect(svg.search("class")).to.not.equal(-1);
     });

@@ -11,12 +11,14 @@ import * as Intersection from "../algorithms/intersection";
 import * as Relations from "../algorithms/relation";
 import {
     addToIntPoints, calculateInclusionFlags, filterDuplicatedIntersections,
-    getSortedArray, getSortedArrayOnLine, initializeInclusionFlags, insertBetweenIntPoints,
+    getSortedArray, initializeInclusionFlags, insertBetweenIntPoints,
     splitByIntersections
 } from "../data_structures/smart_intersections";
 import {Multiline} from "./multiline";
-import {intersectEdge2Line} from "../algorithms/intersection";
+import {intersectEdge2Edge} from "../algorithms/intersection";
 import {INSIDE, BOUNDARY} from "../utils/constants";
+import {convertToString} from "../utils/attributes";
+import {Matrix} from "./matrix";
 
 /**
  * Class representing a polygon.<br/>
@@ -154,7 +156,7 @@ export class Polygon {
 
     /**
      * Add new face to polygon. Returns added face
-     * @param {Points[]|Segments[]|Arcs[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
+     * @param {Point[]|Segment[]|Arc[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
      * 1) array of points that describe closed path (edges are segments) <br/>
      * 2) array of shapes (segments and arcs) which describe closed path <br/>
      * 3) circle - will be added as counterclockwise arc <br/>
@@ -278,97 +280,23 @@ export class Polygon {
     }
 
     /**
-     * Cut polygon with multiline and return array of new polygons
-     * Multiline should be constructed from a line with intersection point, see notebook:
-     * https://next.observablehq.com/@alexbol99/cut-polygon-with-line
+     * Merge given edge with next edge and remove vertex between them
+     * @param {Edge} edge
+     */
+    removeEndVertex(edge) {
+        const edge_next = edge.next
+        if (edge_next === edge) return
+        edge.face.merge_with_next_edge(edge)
+        this.edges.delete(edge_next)
+    }
+
+    /**
+     * Cut polygon with multiline and return a new polygon
      * @param {Multiline} multiline
-     * @returns {Polygon[]}
+     * @returns {Polygon}
      */
     cut(multiline) {
-        let cutPolygons = [this.clone()];
-        for (let edge of multiline) {
-            if (edge.setInclusion(this) !== INSIDE)
-                continue;
-
-            let cut_edge_start = edge.shape.start;
-            let cut_edge_end = edge.shape.end;
-
-            let newCutPolygons = [];
-            for (let polygon of cutPolygons) {
-                if (polygon.findEdgeByPoint(cut_edge_start) === undefined) {
-                    newCutPolygons.push(polygon);
-                } else {
-                    let [cutPoly1, cutPoly2] = polygon.cutFace(cut_edge_start, cut_edge_end);
-                    newCutPolygons.push(cutPoly1, cutPoly2);
-                }
-            }
-            cutPolygons = newCutPolygons;
-        }
-        return cutPolygons;
-    }
-
-    /**
-     * Cut face of polygon with a segment between two points and create two new polygons
-     * Supposed that a segments between points does not intersect any other edge
-     * @param {Point} pt1
-     * @param {Point} pt2
-     * @returns {Polygon[]}
-     */
-    cutFace(pt1, pt2) {
-        let edge1 = this.findEdgeByPoint(pt1);
-        let edge2 = this.findEdgeByPoint(pt2);
-        if (edge1.face !== edge2.face)
-            return [];
-
-        // Cut face into two and create new polygon with two faces
-        let edgeBefore1 = this.addVertex(pt1, edge1);
-        edge2 = this.findEdgeByPoint(pt2);
-        let edgeBefore2 = this.addVertex(pt2, edge2);
-
-        let face = edgeBefore1.face;
-        let newEdge1 = new Flatten.Edge(
-            new Flatten.Segment(edgeBefore1.end, edgeBefore2.end)
-        );
-        let newEdge2 = new Flatten.Edge(
-            new Flatten.Segment(edgeBefore2.end, edgeBefore1.end)
-        );
-
-        // Swap links
-        edgeBefore1.next.prev = newEdge2;
-        newEdge2.next = edgeBefore1.next;
-
-        edgeBefore1.next = newEdge1;
-        newEdge1.prev = edgeBefore1;
-
-        edgeBefore2.next.prev = newEdge1;
-        newEdge1.next = edgeBefore2.next;
-
-        edgeBefore2.next = newEdge2;
-        newEdge2.prev = edgeBefore2;
-
-        // Insert new edge to the edges container and 2d index
-        this.edges.add(newEdge1);
-        this.edges.add(newEdge2);
-
-        // Add two new faces
-        let face1 = this.addFace(newEdge1, edgeBefore1);
-        let face2 = this.addFace(newEdge2, edgeBefore2);
-
-        // Remove old face
-        this.faces.delete(face);
-
-        return [face1.toPolygon(), face2.toPolygon()];
-    }
-
-    /**
-     * Return a result of cutting polygon with line
-     * @param {Line} line - cutting line
-     * @returns {Polygon} newPoly - resulted polygon
-     */
-    cutWithLine(line) {
-        let newPoly = this.clone();
-
-        let multiline = new Multiline([line]);
+        let newPoly = this.clone()
 
         // smart intersections
         let intersections = {
@@ -378,14 +306,16 @@ export class Polygon {
             int_points2_sorted: []
         };
 
-        // intersect line with each edge of the polygon
+        // intersect each edge of multiline with each edge of the polygon
         // and create smart intersections
-        for (let edge of newPoly.edges) {
-            let ip = intersectEdge2Line(edge, line);
-            // for each intersection point
-            for (let pt of ip) {
-                addToIntPoints(multiline.first, pt, intersections.int_points1);
-                addToIntPoints(edge, pt, intersections.int_points2);
+        for (let edge1 of multiline.edges) {
+            for (let edge2 of newPoly.edges) {
+                let ip = intersectEdge2Edge(edge1, edge2);
+                // for each intersection point
+                for (let pt of ip) {
+                    addToIntPoints(edge1, pt, intersections.int_points1);
+                    addToIntPoints(edge2, pt, intersections.int_points2);
+                }
             }
         }
 
@@ -394,7 +324,7 @@ export class Polygon {
             return newPoly;
 
         // sort smart intersections
-        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+        intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // split by intersection points
@@ -405,7 +335,7 @@ export class Polygon {
         filterDuplicatedIntersections(intersections);
 
         // sort intersection points again after filtering
-        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+        intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
         // initialize inclusion flags for edges of multiline incident to intersections
@@ -416,7 +346,8 @@ export class Polygon {
 
         // filter intersections between two edges that got same inclusion flag
         for (let int_point1 of intersections.int_points1_sorted) {
-            if (int_point1.edge_before.bv === int_point1.edge_after.bv) {
+            if (int_point1.edge_before && int_point1.edge_after &&
+                int_point1.edge_before.bv === int_point1.edge_after.bv) {
                 intersections.int_points2[int_point1.id] = -1;   // to be filtered out
                 int_point1.id = -1;                              // to be filtered out
             }
@@ -429,32 +360,53 @@ export class Polygon {
             return newPoly;
 
         // sort intersection points 3d time after filtering
-        intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+        intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
-        // Add 2 new inner edges between intersection points
-        let int_point1_prev = intersections.int_points1[0];
-        let new_edge;
-        for (let int_point1_curr of intersections.int_points1_sorted) {
-            if (int_point1_curr.edge_before.bv === INSIDE) {
-                new_edge = new Flatten.Edge(new Flatten.Segment(int_point1_prev.pt, int_point1_curr.pt));    // (int_point1_curr.edge_before.shape);
-                insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], new_edge);
-                newPoly.edges.add(new_edge);
+        // Add new inner edges between intersection points
+        let int_point1_prev
+        let int_point1_curr;
+        for (let i = 1; i <  intersections.int_points1_sorted.length; i++) {
+            int_point1_curr = intersections.int_points1_sorted[i]
+            int_point1_prev = intersections.int_points1_sorted[i-1];
+            if (int_point1_curr.edge_before && int_point1_curr.edge_before.bv === INSIDE) {
+                let edgeFrom = int_point1_prev.edge_after
+                let edgeTo = int_point1_curr.edge_before
+                let newEdges = multiline.getChain(edgeFrom, edgeTo)
+                insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], newEdges);
+                newEdges.forEach(edge => newPoly.edges.add(edge))
 
-                new_edge = new Flatten.Edge(new Flatten.Segment(int_point1_curr.pt, int_point1_prev.pt));    // (int_point1_curr.edge_before.shape.reverse());
-                insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], new_edge);
-                newPoly.edges.add(new_edge);
+                newEdges = newEdges.reverse().map(edge => new Flatten.Edge(edge.shape.reverse()))
+                for (let k=0; k < newEdges.length-1; k++) {
+                    newEdges[k].next = newEdges[k+1]
+                    newEdges[k+1].prev = newEdges[k]
+                }
+                insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], newEdges);
+                newEdges.forEach(edge => newPoly.edges.add(edge));
             }
-            int_point1_prev = int_point1_curr;
+
         }
 
         // Recreate faces
         newPoly.recreateFaces();
-        return newPoly;
+
+        return newPoly
     }
 
     /**
-     * Returns the first founded edge of polygon that contains given point
+     * A special case of cut() function
+     * The return is a polygon cut with line
+     * @param {Line} line - cutting line
+     * @returns {Polygon} newPoly - resulted polygon
+     */
+    cutWithLine(line) {
+        let multiline = new Multiline([line]);
+        return this.cut(multiline);
+    }
+
+    /**
+     * Returns the first found edge of polygon that contains given point
+     * If point is a vertex, return the edge where the point is an end vertex, not a start one
      * @param {Point} pt
      * @returns {Edge}
      */
@@ -469,11 +421,12 @@ export class Polygon {
     }
 
     /**
-     * Split polygon into array of polygons, where each polygon is an island with all
-     * hole that it contains
+     * Split polygon into array of polygons, where each polygon is an outer face with all
+     * containing inner faces
      * @returns {Flatten.Polygon[]}
      */
     splitToIslands() {
+        if (this.isEmpty()) return [];      // return empty array if polygon is empty
         let polygons = this.toArray();      // split into array of one-loop polygons
         /* Sort polygons by area in descending order */
         polygons.sort((polygon1, polygon2) => polygon2.area() - polygon1.area());
@@ -577,6 +530,10 @@ export class Polygon {
             return Intersection.intersectLine2Polygon(shape, this);
         }
 
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Polygon(shape, this);
+        }
+
         if (shape instanceof Flatten.Circle) {
             return Intersection.intersectCircle2Polygon(shape, this);
         }
@@ -610,7 +567,7 @@ export class Polygon {
     /**
      * Return new polygon rotated by given angle around given point
      * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
+     * Positive value of angle defines rotation counterclockwise, negative - clockwise
      * @param {number} angle - rotation angle in radians
      * @param {Point} center - rotation center, default is (0,0)
      * @returns {Polygon} - new rotated polygon
@@ -619,6 +576,20 @@ export class Polygon {
         let newPolygon = new this.constructor();
         for (let face of this.faces) {
             newPolygon.addFace(face.shapes.map(shape => shape.rotate(angle, center)));
+        }
+        return newPolygon;
+    }
+
+    /**
+     * Return new polygon with coordinates multiplied by scaling factor
+     * @param {number} sx - x-axis scaling factor
+     * @param {number} sy - y-axis scaling factor
+     * @returns {Polygon}
+     */
+    scale(sx, sy) {
+        let newPolygon = new this.constructor();
+        for (let face of this.faces) {
+            newPolygon.addFace(face.shapes.map(shape => shape.scale(sx, sy)));
         }
         return newPolygon;
     }
@@ -655,18 +626,11 @@ export class Polygon {
 
     /**
      * Return string to draw polygon in svg
-     * @param attrs  - an object with attributes for svg path element,
-     * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+     * @param attrs  - an object with attributes for svg path element
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
-        // let restStr = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+        let svgStr = `\n<path ${convertToString({fillRule: "evenodd", fill: "lightcyan", ...attrs})} d="`;
         for (let face of this.faces) {
             svgStr += face.svg();
         }

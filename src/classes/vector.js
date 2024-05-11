@@ -5,12 +5,15 @@
 "use strict";
 
 import Flatten from '../flatten';
+import {Shape} from "./shape";
+import {Matrix} from "./matrix";
+import {Errors} from "../utils/errors";
 
 /**
  * Class representing a vector
  * @type {Vector}
  */
-export class Vector {
+export class Vector extends Shape {
     /**
      * Vector may be constructed by two points, or by two float numbers,
      * or by array of two numbers
@@ -18,6 +21,7 @@ export class Vector {
      * @param {Point} pe - end point
      */
     constructor(...args) {
+        super()
         /**
          * x-coordinate of a vector (float number)
          * @type {number}
@@ -68,7 +72,7 @@ export class Vector {
 
         }
 
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -145,24 +149,35 @@ export class Vector {
         if (!Flatten.Utils.EQ_0(this.length)) {
             return (new this.constructor(this.x / this.length, this.y / this.length));
         }
-        throw Flatten.Errors.ZERO_DIVISION;
+        throw Errors.ZERO_DIVISION;
     }
 
     /**
      * Returns new vector rotated by given angle,
-     * positive angle defines rotation in counter clockwise direction,
+     * positive angle defines rotation in counterclockwise direction,
      * negative - in clockwise direction
+     * Vector only can be rotated around (0,0) point!
      * @param {number} angle - Angle in radians
      * @returns {Vector}
      */
-    rotate(angle) {
-        let point = new Flatten.Point(this.x, this.y);
-        let rpoint = point.rotate(angle);
-        return new this.constructor(rpoint.x, rpoint.y);
+    rotate(angle, center = new Flatten.Point()) {
+        if (center.x === 0 && center.y === 0) {
+            return this.transform(new Matrix().rotate(angle));
+        }
+        throw(Errors.OPERATION_IS_NOT_SUPPORTED);
     }
 
     /**
-     * Returns vector rotated 90 degrees counter clockwise
+     * Return new vector transformed by affine transformation matrix m
+     * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+     * @returns {Vector}
+     */
+    transform(m) {
+        return new this.constructor(m.transform([this.x, this.y]))
+    }
+
+    /**
+     * Returns vector rotated 90 degrees counterclockwise
      * @returns {Vector}
      */
     rotate90CCW() {
@@ -205,8 +220,8 @@ export class Vector {
 
     /**
      * Return angle between this vector and other vector. <br/>
-     * Angle is measured from 0 to 2*PI in the counter clockwise direction
-     * from current vector to other.
+     * Angle is measured from 0 to 2*PI in the counterclockwise direction
+     * from current vector to  another.
      * @param {Vector} v Another vector
      * @returns {number}
      */
@@ -229,15 +244,10 @@ export class Vector {
         return n.multiply(d);
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "vector"});
+    get name() {
+        return "vector"
     }
-};
+}
 
 Flatten.Vector = Vector;
 

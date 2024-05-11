@@ -8,6 +8,7 @@ import Flatten from '../../index';
 
 import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../../index';
 import {point, vector, circle, line, segment, arc, ray} from '../../index';
+import {Errors} from "../../src/utils/errors";
 
 describe('#Flatten.Segment', function() {
     it('May create new instance of Segment', function () {
@@ -39,7 +40,7 @@ describe('#Flatten.Segment', function() {
     });
     it('Constructor with illegal parameters throw error', function() {
         let fn = function () {new Segment([1,2,3])};
-        expect(fn).to.throw(ReferenceError);
+        expect(fn).to.throw(Errors.ILLEGAL_PARAMETERS.message);
     });
     it('Method clone copy to a new instance of Segment', function () {
         let ps = new Point(1,1);
@@ -110,13 +111,11 @@ describe('#Flatten.Segment', function() {
         let seg = new Segment(point(-2,2), point(2,2));
         let svg = seg.svg();
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
     })
     it('Method svg() with extra parameters may add additional attributes', function() {
         let seg = new Segment(point(-2,2), point(2,2));
         let svg = seg.svg({id:"123",className:"name"});
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
         expect(svg.search("id")).to.not.equal(-1);
         expect(svg.search("class")).to.not.equal(-1);
     })

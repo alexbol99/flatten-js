@@ -4,12 +4,17 @@
 "use strict";
 
 import Flatten from '../flatten';
+import {convertToString} from "../utils/attributes";
+import {Shape} from "./shape";
+import {Errors} from "../utils/errors";
+import {intersectSegment2Arc, intersectSegment2Circle} from "../algorithms/intersection";
 
 /**
- * Class Box represent bounding box of the shape
+ * Class Box represents bounding box of the shape.
+ * It may also represent axis-aligned rectangle
  * @type {Box}
  */
-export class Box {
+export class Box extends Shape {
     /**
      *
      * @param {number} xmin - minimal x coordinate
@@ -18,6 +23,7 @@ export class Box {
      * @param {number} ymax - maximal y coordinate
      */
     constructor(xmin = undefined, ymin = undefined, xmax = undefined, ymax = undefined) {
+        super()
         /**
          * Minimal x coordinate
          * @type {number}
@@ -178,7 +184,7 @@ export class Box {
 
     /**
      * Set new values to the box object
-     * @param {number} xmin - miminal x coordinate
+     * @param {number} xmin - mininal x coordinate
      * @param {number} ymin - minimal y coordinate
      * @param {number} xmax - maximal x coordinate
      * @param {number} ymax - maximal y coordinate
@@ -191,7 +197,7 @@ export class Box {
     }
 
     /**
-     * Transform box into array of points from low left corner in counter clockwise
+     * Transform box into array of points from low left corner in counterclockwise
      * @returns {Point[]}
      */
     toPoints() {
@@ -204,7 +210,7 @@ export class Box {
     }
 
     /**
-     * Transform box into array of segments from low left corner in counter clockwise
+     * Transform box into array of segments from low left corner in counterclockwise
      * @returns {Segment[]}
      */
     toSegments() {
@@ -218,23 +224,83 @@ export class Box {
     }
 
     /**
-     * Return string to draw circle in svg
-     * @param {Object} attrs - an object with attributes of svg rectangle element,
-     * like "stroke", "strokeWidth", "fill" <br/>
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+     * Box rotation is not supported
+     * Attempt to rotate box throws error
+     * @param {number} angle - angle in radians
+     * @param {Point} [center=(0,0)] center
+     */
+    rotate(angle, center = new Flatten.Point()) {
+            throw Errors.OPERATION_IS_NOT_SUPPORTED
+    }
+
+    /**
+     * Return new box transformed using affine transformation matrix
+     * New box is a bounding box of transformed corner points
+     * @param {Matrix} m - affine transformation matrix
+     * @returns {Box}
+     */
+    transform(m = new Flatten.Matrix()) {
+        const transformed_points = this.toPoints().map(pt => pt.transform(m))
+        return transformed_points.reduce(
+            (new_box, pt) => new_box.merge(pt.box), new this.constructor())
+    }
+
+    /**
+     * Return true if box contains shape: no point of shape lies outside the box
+     * @param {AnyShape} shape - test shape
+     * @returns {boolean}
+     */
+    contains(shape) {
+        if (shape instanceof Flatten.Point) {
+            return (shape.x >= this.xmin) && (shape.x <= this.xmax) && (shape.y >= this.ymin) && (shape.y <= this.ymax);
+        }
+
+        if (shape instanceof Flatten.Segment) {
+            return shape.vertices.every(vertex => this.contains(vertex))
+        }
+
+        if (shape instanceof Flatten.Box) {
+            return shape.toSegments().every(segment => this.contains(segment))
+        }
+
+        if (shape instanceof Flatten.Circle) {
+            return this.contains(shape.box)
+        }
+
+        if (shape instanceof Flatten.Arc) {
+            return shape.vertices.every(vertex => this.contains(vertex)) &&
+                shape.toSegments().every(segment => intersectSegment2Arc(segment, shape).length === 0)
+        }
+
+        if (shape instanceof Flatten.Line || shape instanceof Flatten.Ray) {
+            return false
+        }
+
+        if (shape instanceof Flatten.Multiline) {
+            return shape.toShapes().every(shape => this.contains(shape))
+        }
+
+        if (shape instanceof Flatten.Polygon) {
+            return this.contains(shape.box)
+        }
+    }
+
+    get name() {
+        return "box"
+    }
+
+    /**
+     * Return string to draw box in svg
+     * @param {Object} attrs - an object with attributes of svg rectangle element
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-        let width = this.xmax - this.xmin;
-        let height = this.ymax - this.ymin;
-
-        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`;
+        const width = this.xmax - this.xmin;
+        const height = this.ymax - this.ymin;
+        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height}
+                ${convertToString({fill: "none", ...attrs})} />`;
     };
-};
+}
 
 Flatten.Box = Box;
 /**

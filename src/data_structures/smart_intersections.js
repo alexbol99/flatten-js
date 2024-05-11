@@ -32,7 +32,15 @@ export function addToIntPoints(edge, pt, int_points)
         is_vertex |= Constants.END_VERTEX;
     }
     // Fix intersection point which is end point of the last edge
-    let arc_length = (is_vertex & Constants.END_VERTEX) && edge.next.arc_length === 0 ? 0 : edge.arc_length + len;
+    let arc_length
+    if (len === Infinity) {
+        arc_length = shapes[0].coord(pt)
+    }
+    else {
+        arc_length = (is_vertex & Constants.END_VERTEX) && edge.next && edge.next.arc_length === 0 ?
+            0 :
+            edge.arc_length + len;
+    }
 
     int_points.push({
         id: id,
@@ -95,17 +103,17 @@ function compareFn(ip1, ip2)
     return 0;
 }
 
-export function getSortedArrayOnLine(line, int_points) {
-    return int_points.slice().sort( (int_point1, int_point2) => {
-        if (line.coord(int_point1.pt) < line.coord(int_point2.pt)) {
-            return -1;
-        }
-        if (line.coord(int_point1.pt) > line.coord(int_point2.pt)) {
-            return 1;
-        }
-        return 0;
-    })
-}
+// export function getSortedArrayOnLine(line, int_points) {
+//     return int_points.slice().sort( (int_point1, int_point2) => {
+//         if (line.coord(int_point1.pt) < line.coord(int_point2.pt)) {
+//             return -1;
+//         }
+//         if (line.coord(int_point1.pt) > line.coord(int_point2.pt)) {
+//             return 1;
+//         }
+//         return 0;
+//     })
+// }
 
 export function filterDuplicatedIntersections(intersections)
 {
@@ -153,10 +161,10 @@ export function filterDuplicatedIntersections(intersections)
     for (let i = 1; i < intersections.int_points2_sorted.length; i++) {
         let int_point_cur2 = intersections.int_points2_sorted[i];
 
-        if (int_point_cur2.id == -1) continue;
+        if (int_point_cur2.id === -1) continue;
         /* already deleted */
 
-        if (int_point_ref2.id == -1 || /* can't be reference if already deleted */
+        if (int_point_ref2.id === -1 || /* can't be reference if already deleted */
             !(Utils.EQ(int_point_cur2.arc_length, int_point_ref2.arc_length))) {
             int_point_ref2 = int_point_cur2;
             int_point_ref1 = intersections.int_points1[int_point_ref2.id];
@@ -189,28 +197,32 @@ export function filterDuplicatedIntersections(intersections)
 export function initializeInclusionFlags(int_points)
 {
     for (let int_point of int_points) {
-        int_point.edge_before.bvStart = undefined;
-        int_point.edge_before.bvEnd = undefined;
-        int_point.edge_before.bv = undefined;
-        int_point.edge_before.overlap = undefined;
+        if (int_point.edge_before) {
+            int_point.edge_before.bvStart = undefined;
+            int_point.edge_before.bvEnd = undefined;
+            int_point.edge_before.bv = undefined;
+            int_point.edge_before.overlap = undefined;
+        }
 
-        int_point.edge_after.bvStart = undefined;
-        int_point.edge_after.bvEnd = undefined;
-        int_point.edge_after.bv = undefined;
-        int_point.edge_after.overlap = undefined;
+        if (int_point.edge_after) {
+            int_point.edge_after.bvStart = undefined;
+            int_point.edge_after.bvEnd = undefined;
+            int_point.edge_after.bv = undefined;
+            int_point.edge_after.overlap = undefined;
+        }
     }
 
     for (let int_point of int_points) {
-        int_point.edge_before.bvEnd = Constants.BOUNDARY;
-        int_point.edge_after.bvStart = Constants.BOUNDARY;
+        if (int_point.edge_before) int_point.edge_before.bvEnd = Constants.BOUNDARY;
+        if (int_point.edge_after) int_point.edge_after.bvStart = Constants.BOUNDARY;
     }
 }
 
 export function calculateInclusionFlags(int_points, polygon)
 {
     for (let int_point of int_points) {
-        int_point.edge_before.setInclusion(polygon);
-        int_point.edge_after.setInclusion(polygon);
+        if (int_point.edge_before) int_point.edge_before.setInclusion(polygon);
+        if (int_point.edge_after) int_point.edge_after.setInclusion(polygon);
     }
 }
 
@@ -297,12 +309,12 @@ export function intPointsPoolCount(int_points, cur_int_point_num, cur_face)
 
     let int_points_pool_num = 1;
 
-    if (int_points.length == 1) return 1;
+    if (int_points.length === 1) return 1;
 
     int_point_current = int_points[cur_int_point_num];
 
     for (let i = cur_int_point_num + 1; i < int_points.length; i++) {
-        if (int_point_current.face != cur_face) {      /* next face started */
+        if (int_point_current.face !== cur_face) {      /* next face started */
             break;
         }
 
@@ -335,8 +347,14 @@ export function splitByIntersections(polygon, int_points)
         }
 
         if (int_point.is_vertex & Constants.START_VERTEX) {  // nothing to split
-            int_point.edge_before = edge.prev;
-            int_point.is_vertex = Constants.END_VERTEX;
+            if (edge.prev) {
+                int_point.edge_before = edge.prev;           // polygon
+                int_point.is_vertex = Constants.END_VERTEX;
+            }
+            else {                                           // multiline start vertex
+                int_point.edge_after = int_point.edge_before
+                int_point.edge_before = edge.prev
+            }
             continue;
         }
         if (int_point.is_vertex & Constants.END_VERTEX) {    // nothing to split
@@ -348,17 +366,19 @@ export function splitByIntersections(polygon, int_points)
     }
 
     for (let int_point of int_points) {
-        int_point.edge_after = int_point.edge_before.next;
+        if (int_point.edge_before) {
+            int_point.edge_after = int_point.edge_before.next;
+        }
     }
 }
 
-export function insertBetweenIntPoints(int_point1, int_point2, new_edge) {
-    let edge_before = int_point1.edge_before;
-    let edge_after = int_point2.edge_after;
+export function insertBetweenIntPoints(int_point1, int_point2, new_edges) {
+    const edge_before = int_point1.edge_before;
+    const edge_after = int_point2.edge_after;
+    const len = new_edges.length
+    edge_before.next = new_edges[0];
+    new_edges[0].prev = edge_before;
 
-    edge_before.next = new_edge;
-    new_edge.prev = edge_before;
-
-    new_edge.next = edge_after;
-    edge_after.prev = new_edge;
+    new_edges[len-1].next = edge_after;
+    edge_after.prev = new_edges[len-1];
 }

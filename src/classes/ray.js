@@ -2,12 +2,15 @@
 
 import Flatten from '../flatten';
 import * as Intersection from "../algorithms/intersection";
+import {Shape} from "./shape";
+import {Errors} from "../utils/errors";
+import {vector} from './vector'
 
 /**
  * Class representing a ray (a half-infinite line).
  * @type {Ray}
  */
-export class Ray {
+export class Ray extends Shape {
     /**
      * Ray may be constructed by setting an <b>origin</b> point and a <b>normal</b> vector, so that any point <b>x</b>
      * on a ray fit an equation: <br />
@@ -19,10 +22,11 @@ export class Ray {
      * @param {Vector} norm - normal vector
      */
     constructor(...args) {
+        super()
         this.pt = new Flatten.Point();
         this.norm = new Flatten.Vector(0,1);
 
-        if (args.length == 0) {
+        if (args.length === 0) {
             return;
         }
 
@@ -39,12 +43,7 @@ export class Ray {
             return;
         }
 
-        // if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-        //     this.pt = new Flatten.Point(args[0], args[1]);
-        //     return;
-        // }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        throw Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -74,7 +73,7 @@ export class Ray {
             slope > Math.PI/2 && slope < 3*Math.PI/2 ? Number.NEGATIVE_INFINITY : this.pt.x,
             slope >= 0 && slope <= Math.PI ? this.pt.y : Number.NEGATIVE_INFINITY,
             slope >= Math.PI/2 && slope <= 3*Math.PI/2 ? this.pt.x : Number.POSITIVE_INFINITY,
-            slope >= Math.PI && slope <= 2*Math.PI || slope == 0 ? this.pt.y : Number.POSITIVE_INFINITY
+            slope >= Math.PI && slope <= 2*Math.PI || slope === 0 ? this.pt.y : Number.POSITIVE_INFINITY
         )
     }
 
@@ -114,6 +113,18 @@ export class Ray {
     }
 
     /**
+     * Return coordinate of the point that lies on the ray in the transformed
+     * coordinate system where center is the projection of the point(0,0) to
+     * the line containing this ray and axe y is collinear to the normal vector. <br/>
+     * This method assumes that point lies on the ray
+     * @param {Point} pt - point on a ray
+     * @returns {number}
+     */
+    coord(pt) {
+        return vector(pt.x, pt.y).cross(this.norm);
+    }
+
+    /**
      * Split ray with point and return array of segment and new ray
      * @param {Point} pt
      * @returns [Segment,Ray]
@@ -133,64 +144,70 @@ export class Ray {
     }
 
     /**
-     * Returns array of intersection points between ray and segment or arc
-     * @param {Segment|Arc} - Shape to intersect with ray
-     * @returns {Array} array of intersection points
+     * Returns array of intersection points between ray and another shape
+     * @param {Shape} shape - Shape to intersect with ray
+     * @returns {Point[]} array of intersection points
      */
     intersect(shape) {
+        if (shape instanceof Flatten.Point) {
+            return this.contains(shape) ? [shape] : [];
+        }
+
         if (shape instanceof Flatten.Segment) {
-            return this.intersectRay2Segment(this, shape);
+            return Intersection.intersectRay2Segment(this, shape);
         }
 
         if (shape instanceof Flatten.Arc) {
-            return this.intersectRay2Arc(this, shape);
+            return Intersection.intersectRay2Arc(this, shape);
+        }
+
+        if (shape instanceof Flatten.Line) {
+            return Intersection.intersectRay2Line(this, shape);
+        }
+
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Ray(this, shape)
+        }
+
+        if (shape instanceof Flatten.Circle) {
+            return Intersection.intersectRay2Circle(this, shape);
+        }
+
+        if (shape instanceof Flatten.Box) {
+            return Intersection.intersectRay2Box(this, shape);
+        }
+
+        if (shape instanceof Flatten.Polygon) {
+            return  Intersection.intersectRay2Polygon(this, shape);
         }
     }
 
-    intersectRay2Segment(ray, segment) {
-        let ip = [];
-
-        // if (ray.box.not_intersect(segment.box)) {
-        //     return ip;
-        // }
-
-        let line = new Flatten.Line(ray.start, ray.norm);
-        let ip_tmp = line.intersect(segment);
-
-        for (let pt of ip_tmp) {
-            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
-            if (ray.contains(pt)) {
-                ip.push(pt);
-            }
-        }
-
-        /* If there were two intersection points between line and ray,
-        and now there is exactly one left, it means ray starts between these points
-        and there is another intersection point - start of the ray */
-        if (ip_tmp.length == 2 && ip.length == 1 && ray.start.on(line)) {
-            ip.push(ray.start);
-        }
-
-        return ip;
+    /**
+     * Return new line rotated by angle
+     * @param {number} angle - angle in radians
+     * @param {Point} center - center of rotation
+     */
+    rotate(angle, center = new Flatten.Point()) {
+        return new this.constructor(
+            this.pt.rotate(angle, center),
+            this.norm.rotate(angle)
+        )
     }
 
-    intersectRay2Arc(ray, arc) {
-        let ip = [];
+    /**
+     * Return new ray transformed by affine transformation matrix
+     * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+     * @returns {Ray}
+     */
+    transform(m) {
+        return new this.constructor(
+            this.pt.transform(m),
+            this.norm.clone()
+        )
+    }
 
-        // if (ray.box.not_intersect(arc.box)) {
-        //     return ip;
-        // }
-
-        let line = new Flatten.Line(ray.start, ray.norm);
-        let ip_tmp = line.intersect(arc);
-
-        for (let pt of ip_tmp) {
-            // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
-            if (ray.contains(pt)) {
-                ip.push(pt);
-            }
-        }
-        return ip;
+    get name() {
+        return "ray"
     }
 
     /**
@@ -208,7 +225,7 @@ export class Ray {
         return segment.svg(attrs);
     }
 
-};
+}
 
 Flatten.Ray = Ray;
 

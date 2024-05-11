@@ -1,6 +1,7 @@
 "use strict";
 
 import Flatten from '../flatten';
+import {Errors} from "../utils/errors";
 
 /**
  * Class representing an affine transformation 3x3 matrix:
@@ -77,20 +78,21 @@ export class Matrix {
     /**
      * Return new matrix as a result of multiplication of the current matrix
      * by the matrix(1,0,0,1,tx,ty)
-     * @param {number} tx - translation by x
-     * @param {number} ty - translation by y
+     * @param {Vector} vector - Translation by vector or
+     * @param {number} tx - translation by x-axis
+     * @param {number} ty - translation by y-axis
      * @returns {Matrix}
      */
     translate(...args) {
         let tx, ty;
-        if (args.length == 1 && (args[0] instanceof Flatten.Vector)) {
+        if (args.length == 1 &&  !isNaN(args[0].x) && !isNaN(args[0].y)) {
             tx = args[0].x;
             ty = args[0].y;
-        } else if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
+        } else if (args.length === 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
             tx = args[0];
             ty = args[1];
         } else {
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
         return this.multiply(new this.constructor(1, 0, 0, 1, tx, ty))
     };
@@ -98,14 +100,19 @@ export class Matrix {
     /**
      * Return new matrix as a result of multiplication of the current matrix
      * by the matrix that defines rotation by given angle (in radians) around
-     * point (0,0) in counter clockwise direction
+     * center of rotation (centerX,centerY) in counterclockwise direction
      * @param {number} angle - angle in radians
+     * @param {number} centerX - center of rotation
+     * @param {number} centerY - center of rotation
      * @returns {Matrix}
      */
-    rotate(angle) {
+    rotate(angle, centerX = 0.0, centerY = 0.0) {
         let cos = Math.cos(angle);
         let sin = Math.sin(angle);
-        return this.multiply(new this.constructor(cos, sin, -sin, cos, 0, 0));
+        return this
+            .translate(centerX, centerY)
+            .multiply(new this.constructor(cos, sin, -sin, cos, 0, 0))
+            .translate(-centerX, -centerY);
     };
 
     /**

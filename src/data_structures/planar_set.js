@@ -30,28 +30,35 @@ export class PlanarSet extends Set {
      * This happens with no error, it is possible to use <i>size</i> property to check if
      * a shape was actually added.<br/>
      * Method returns planar set object updated and may be chained
-     * @param {Shape} shape - shape to be added, should have valid <i>box</i> property
+     * @param {AnyShape | {Box, AnyShape}} entry - shape to be added, should have valid <i>box</i> property
+     * Another option to transfer as an object {key: Box, value: AnyShape}
      * @returns {PlanarSet}
      */
-    add(shape) {
+    add(entry) {
         let size = this.size;
+        const {key, value} = entry
+        const box = key || entry.box
+        const shape = value || entry
         super.add(shape);
         // size not changed - item not added, probably trying to add same item twice
         if (this.size > size) {
-            let node = this.index.insert(shape.box, shape);
+            let node = this.index.insert(box, shape);
         }
         return this;         // in accordance to Set.add interface
     }
 
     /**
      * Delete shape from planar set. Returns true if shape was actually deleted, false otherwise
-     * @param {Shape} shape - shape to be deleted
+     * @param {AnyShape | {Box, AnyShape}} entry - shape to be deleted
      * @returns {boolean}
      */
-    delete(shape) {
+    delete(entry) {
+        const {key, value} = entry
+        const box = key || entry.box
+        const shape = value || entry
         let deleted = super.delete(shape);
         if (deleted) {
-            this.index.remove(shape.box, shape);
+            this.index.remove(box, shape);
         }
         return deleted;
     }
@@ -68,7 +75,7 @@ export class PlanarSet extends Set {
      * 2d range search in planar set.<br/>
      * Returns array of all shapes in planar set which bounding box is intersected with query box
      * @param {Box} box - query box
-     * @returns {Shapes[]}
+     * @returns {AnyShape[]}
      */
     search(box) {
         let resp = this.index.search(box);
@@ -78,7 +85,7 @@ export class PlanarSet extends Set {
     /**
      * Point location test. Returns array of shapes which contains given point
      * @param {Point} point - query point
-     * @returns {Array}
+     * @returns {AnyShape[]}
      */
     hit(point) {
         let box = new Flatten.Box(point.x - 1, point.y - 1, point.x + 1, point.y + 1);

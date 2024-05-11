@@ -203,7 +203,7 @@ function relateLine2Circle(line,circle) {
         denim.I2B = ip_sorted;
         denim.I2E = [splitShapes[0], splitShapes[2]];
 
-        denim.E2I = new Flatten.Polygon([circle.toArc()]).cut(multiline);
+        denim.E2I = new Flatten.Polygon([circle.toArc()]).cutWithLine(line);
     }
 
     return denim;
@@ -245,7 +245,7 @@ function relateLine2Box(line, box) {
             denim.I2B = ip_sorted;
             denim.I2E = [splitShapes[0], splitShapes[2]];
 
-            denim.E2I = new Flatten.Polygon(box.toSegments()).cut(multiline);
+            denim.E2I = new Flatten.Polygon(box.toSegments()).cutWithLine(line);
         }
     }
     return denim;
@@ -265,7 +265,7 @@ function relateLine2Polygon(line, polygon) {
     denim.I2B = [...multiline].slice(1).map( (edge) => edge.bv === Flatten.BOUNDARY ? edge.shape : edge.shape.start );
     denim.I2E = [...multiline].filter(edge => edge.bv === Flatten.OUTSIDE).map(edge => edge.shape);
 
-    denim.E2I = polygon.cut(multiline);
+    denim.E2I = polygon.cutWithLine(line);
 
     return denim;
 }

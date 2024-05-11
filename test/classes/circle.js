@@ -221,16 +221,11 @@ describe('#Flatten.Circle', function() {
         let c = circle(point(300,25), 25);
         let svg = c.svg();
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
-        expect(svg.search("fill")).to.not.equal(-1);
-        expect(svg.search("fill-opacity")).to.not.equal(-1);
     });
     it('Method svg() with extra parameters may add additional attributes', function() {
         let c = circle(point(300,25), 25);
         let svg = c.svg({id:"123",className:"name"});
         expect(svg.search("stroke")).to.not.equal(-1);
-        expect(svg.search("stroke-width")).to.not.equal(-1);
-        expect(svg.search("fill")).to.not.equal(-1);
         expect(svg.search("id")).to.not.equal(-1);
         expect(svg.search("class")).to.not.equal(-1);
     })

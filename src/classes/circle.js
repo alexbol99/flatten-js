@@ -6,18 +6,28 @@
 
 import Flatten from '../flatten';
 import * as Intersection from '../algorithms/intersection';
+import {convertToString} from "../utils/attributes";
+import {Shape} from "./shape";
+import {Matrix} from "./matrix";
+import {Errors} from "../utils/errors";
 
 /**
  * Class representing a circle
  * @type {Circle}
  */
-export class Circle {
+export class Circle extends Shape {
+    /**
+     * Class private property
+     * @type {string}
+     */
+
     /**
      *
      * @param {Point} pc - circle center point
      * @param {number} r - circle radius
      */
     constructor(...args) {
+        super()
         /**
          * Circle center
          * @type {Point}
@@ -29,19 +39,16 @@ export class Circle {
          */
         this.r = 1;
 
-        if (args.length == 1 && args[0] instanceof Object && args[0].name === "circle") {
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "circle") {
             let {pc, r} = args[0];
             this.pc = new Flatten.Point(pc);
             this.r = r;
-            return;
         } else {
             let [pc, r] = [...args];
             if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
             if (r !== undefined) this.r = r;
-            return;
         }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+        // throw Errors.ILLEGAL_PARAMETERS;    unreachable code
     }
 
     /**
@@ -113,6 +120,29 @@ export class Circle {
     }
 
     /**
+     * Method scale is supported only for uniform scaling of the circle with (0,0) center
+     * @param {number} sx
+     * @param {number} sy
+     * @returns {Circle}
+     */
+    scale(sx, sy) {
+        if (sx !== sy)
+            throw Errors.OPERATION_IS_NOT_SUPPORTED
+        if (!(this.pc.x === 0.0 && this.pc.y === 0.0))
+            throw Errors.OPERATION_IS_NOT_SUPPORTED
+        return new this.constructor(this.pc, this.r*sx)
+    }
+
+    /**
+     * Return new circle transformed using affine transformation matrix
+     * @param {Matrix} matrix - affine transformation matrix
+     * @returns {Circle}
+     */
+    transform(matrix = new Flatten.Matrix()) {
+        return new this.constructor(this.pc.transform(matrix), this.r)
+    }
+
+    /**
      * Returns array of intersection points between circle and other shape
      * @param {Shape} shape Shape of the one of supported types
      * @returns {Point[]}
@@ -124,7 +154,9 @@ export class Circle {
         if (shape instanceof Flatten.Line) {
             return Intersection.intersectLine2Circle(shape, this);
         }
-
+        if (shape instanceof Flatten.Ray) {
+            return Intersection.intersectRay2Circle(shape, this);
+        }
         if (shape instanceof Flatten.Segment) {
             return Intersection.intersectSegment2Circle(shape, this);
         }
@@ -192,32 +224,21 @@ export class Circle {
         }
     }
 
-    /**
-     * This method returns an object that defines how data will be
-     * serialized when called JSON.stringify() method
-     * @returns {Object}
-     */
-    toJSON() {
-        return Object.assign({}, this, {name: "circle"});
+    get name() {
+        return "circle"
     }
 
     /**
      * Return string to draw circle in svg
-     * @param {Object} attrs - an object with attributes of svg circle element,
-     * like "stroke", "strokeWidth", "fill" <br/>
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+     * @param {Object} attrs - an object with attributes of svg circle element
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillOpacity, id, className} = attrs;
-        // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} />`;
+        return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}"
+                ${convertToString({fill: "none", ...attrs})} />`;
     }
 
-};
+}
 
 Flatten.Circle = Circle;
 /**

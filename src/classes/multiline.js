@@ -2,7 +2,7 @@
 
 import Flatten from '../flatten';
 import LinkedList from '../data_structures/linked_list';
-import {END_VERTEX, NOT_VERTEX, START_VERTEX} from "../utils/constants";
+import {convertToString} from "../utils/attributes";
 
 /**
  * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
@@ -16,10 +16,10 @@ export class Multiline extends LinkedList {
             return;
         }
 
-        if (args.length == 1) {
+        if (args.length === 1) {
             if (args[0] instanceof Array) {
                 let shapes = args[0];
-                if (shapes.length == 0)
+                if (shapes.length === 0)
                     return;
 
                 // TODO: more strict validation:
@@ -36,6 +36,8 @@ export class Multiline extends LinkedList {
                     let edge = new Flatten.Edge(shape);
                     this.append(edge);
                 }
+
+                this.setArcLength()
             }
         }
     }
@@ -53,7 +55,7 @@ export class Multiline extends LinkedList {
      * @returns {Box}
      */
     get box() {
-        return this.edges.reduce( (acc,edge) => acc = acc.merge(edge.box), new Flatten.Box() );
+        return this.edges.reduce( (acc,edge) => acc.merge(edge.box), new Flatten.Box() );
     }
 
     /**
@@ -72,6 +74,24 @@ export class Multiline extends LinkedList {
      */
     clone() {
         return new this.constructor(this.toShapes());
+    }
+
+    /**
+     * Set arc_length property for each of the edges in the face.
+     * Arc_length of the edge it the arc length from the first edge of the face
+     */
+    setArcLength() {
+        for (let edge of this) {
+            this.setOneEdgeArcLength(edge);
+        }
+    }
+
+    setOneEdgeArcLength(edge) {
+        if (edge === this.first) {
+            edge.arc_length = 0.0;
+        } else {
+            edge.arc_length = edge.prev.arc_length + edge.prev.length;
+        }
     }
 
     /**
@@ -100,6 +120,14 @@ export class Multiline extends LinkedList {
         edge.shape = shapes[1];
 
         return newEdge;
+    }
+
+    getChain(edgeFrom, edgeTo) {
+        let edges = []
+        for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
+            edges.push(edge)
+        }
+        return edges
     }
 
     /**
@@ -143,7 +171,7 @@ export class Multiline extends LinkedList {
     /**
      * Return new multiline rotated by given angle around given point
      * If point omitted, rotate around origin (0,0)
-     * Positive value of angle defines rotation counter clockwise, negative - clockwise
+     * Positive value of angle defines rotation counterclockwise, negative - clockwise
      * @param {number} angle - rotation angle in radians
      * @param {Point} center - rotation center, default is (0,0)
      * @returns {Multiline} - new rotated polygon
@@ -181,24 +209,17 @@ export class Multiline extends LinkedList {
 
     /**
      * Return string to draw multiline in svg
-     * @param attrs  - an object with attributes for svg path element,
-     * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
-     * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+     * @param attrs  - an object with attributes for svg path element
      * TODO: support semi-infinite Ray and infinite Line
      * @returns {string}
      */
     svg(attrs = {}) {
-        let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
-        let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-        let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-        let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+        let svgStr = `\n<path ${convertToString({fill: "none", ...attrs})} d="`;
         svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
         for (let edge of this) {
             svgStr += edge.svg();
         }
         svgStr += `" >\n</path>`;
-
         return svgStr;
     }
 }

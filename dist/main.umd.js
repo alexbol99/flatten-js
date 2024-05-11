@@ -1,11 +1,11 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = global || self, factory(global['@flatten-js/core'] = {}));
-}(this, function (exports) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["@flatten-js/core"] = {}));
+})(this, (function (exports) { 'use strict';
 
     /**
-     * Global constant CCW defines counter clockwise direction of arc
+     * Global constant CCW defines counterclockwise direction of arc
      * @type {boolean}
      */
     const CCW = true;
@@ -17,7 +17,7 @@
     const CW = false;
 
     /**
-     * Defines orientation for face of the polygon: clockwise, counter clockwise
+     * Defines orientation for face of the polygon: clockwise, counterclockwise
      * or not orientable in the case of self-intersection
      * @type {{CW: number, CCW: number, NOT_ORIENTABLE: number}}
      */
@@ -25,34 +25,35 @@
 
     const PIx2 = 2 * Math.PI;
 
-    const INSIDE = 1;
-    const OUTSIDE = 0;
-    const BOUNDARY = 2;
+    const INSIDE$2 = 1;
+    const OUTSIDE$1 = 0;
+    const BOUNDARY$1 = 2;
     const CONTAINS = 3;
     const INTERLACE = 4;
 
-    const OVERLAP_SAME = 1;
-    const OVERLAP_OPPOSITE = 2;
+    const OVERLAP_SAME$1 = 1;
+    const OVERLAP_OPPOSITE$1 = 2;
 
-    const NOT_VERTEX = 0;
-    const START_VERTEX = 1;
-    const END_VERTEX = 2;
+    const NOT_VERTEX$1 = 0;
+    const START_VERTEX$1 = 1;
+    const END_VERTEX$1 = 2;
 
     var Constants = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        BOUNDARY: BOUNDARY$1,
         CCW: CCW,
-        CW: CW,
-        ORIENTATION: ORIENTATION,
-        PIx2: PIx2,
-        INSIDE: INSIDE,
-        OUTSIDE: OUTSIDE,
-        BOUNDARY: BOUNDARY,
         CONTAINS: CONTAINS,
+        CW: CW,
+        END_VERTEX: END_VERTEX$1,
+        INSIDE: INSIDE$2,
         INTERLACE: INTERLACE,
-        OVERLAP_SAME: OVERLAP_SAME,
-        OVERLAP_OPPOSITE: OVERLAP_OPPOSITE,
-        NOT_VERTEX: NOT_VERTEX,
-        START_VERTEX: START_VERTEX,
-        END_VERTEX: END_VERTEX
+        NOT_VERTEX: NOT_VERTEX$1,
+        ORIENTATION: ORIENTATION,
+        OUTSIDE: OUTSIDE$1,
+        OVERLAP_OPPOSITE: OVERLAP_OPPOSITE$1,
+        OVERLAP_SAME: OVERLAP_SAME$1,
+        PIx2: PIx2,
+        START_VERTEX: START_VERTEX$1
     });
 
     /**
@@ -140,21 +141,52 @@
         return (x - y < DP_TOL);
     }
 
-    var Utils = /*#__PURE__*/Object.freeze({
-        setTolerance: setTolerance,
-        getTolerance: getTolerance,
+    var Utils$1 = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         DECIMALS: DECIMALS,
-        EQ_0: EQ_0,
         EQ: EQ,
-        GT: GT,
+        EQ_0: EQ_0,
         GE: GE,
+        GT: GT,
+        LE: LE,
         LT: LT,
-        LE: LE
+        getTolerance: getTolerance,
+        setTolerance: setTolerance
+    });
+
+    let Flatten = {
+        Utils: Utils$1,
+        Errors: undefined,
+        Matrix: undefined,
+        Planar_set: undefined,
+        Point: undefined,
+        Vector: undefined,
+        Line: undefined,
+        Circle: undefined,
+        Segment: undefined,
+        Arc: undefined,
+        Box: undefined,
+        Edge: undefined,
+        Face: undefined,
+        Ray: undefined,
+        Ray_shooting: undefined,
+        Multiline: undefined,
+        Polygon: undefined,
+        Distance: undefined,
+        Inversion: undefined
+    };
+
+    for (let c in Constants) {Flatten[c] = Constants[c];}
+
+    Object.defineProperty(Flatten, 'DP_TOL', {
+        get:function(){return getTolerance()}, 
+        set:function(value){setTolerance(value);}
     });
 
     /**
      * Created by Alex Bol on 2/19/2017.
      */
+
 
     /**
      * Class of system errors
@@ -192,40 +224,21 @@
         static get INFINITE_LOOP() {
             return new Error('Infinite loop');
         }
+
+        static get CANNOT_COMPLETE_BOOLEAN_OPERATION() {
+            return new Error('Cannot complete boolean operation')
+        }
+
+        static get CANNOT_INVOKE_ABSTRACT_METHOD() {
+            return new Error('Abstract method cannot be invoked');
+        }
+
+        static get OPERATION_IS_NOT_SUPPORTED() {
+            return new Error('Operation is not supported')
+        }
     }
 
-    var errors = /*#__PURE__*/Object.freeze({
-        default: Errors
-    });
-
-    let Flatten = {
-        Utils: Utils,
-        Errors: Errors,
-        Matrix: undefined,
-        Planar_set: undefined,
-        Point: undefined,
-        Vector: undefined,
-        Line: undefined,
-        Circle: undefined,
-        Segment: undefined,
-        Arc: undefined,
-        Box: undefined,
-        Edge: undefined,
-        Face: undefined,
-        Ray: undefined,
-        Ray_shooting: undefined,
-        Multiline: undefined,
-        Polygon: undefined,
-        Distance: undefined,
-        Inversion: undefined
-    };
-
-    for (let c in Constants) {Flatten[c] = Constants[c];}
-
-    Object.defineProperty(Flatten, 'DP_TOL', {
-        get:function(){return getTolerance()}, 
-        set:function(value){setTolerance(value);}
-    });
+    Flatten.Errors = Errors;
 
     /**
      * Class implements bidirectional non-circular linked list. <br/>
@@ -237,22 +250,15 @@
             this.last = last || this.first;
         }
 
-        /**
-         * Throw an error if circular loop detected in the linked list
-         * @param {LinkedListElement} first element to start iteration
-         * @throws {Flatten.Errors.INFINITE_LOOP}
-         */
-        static testInfiniteLoop(first) {
-            let edge = first;
-            let controlEdge = first;
-            do {
-                if (edge != first && edge === controlEdge) {
-                    throw Flatten.Errors.INFINITE_LOOP;  // new Error("Infinite loop")
+        [Symbol.iterator]() {
+            let value = undefined;
+            return {
+                next: () => {
+                    value = value ? value.next : this.first;
+                    return {value: value, done: value === undefined};
                 }
-                edge = edge.next;
-                controlEdge = controlEdge.next.next;
-            } while (edge != first)
-        }
+            };
+        };
 
         /**
          * Return number of elements in the list
@@ -377,15 +383,22 @@
             return this.first === undefined;
         }
 
-        [Symbol.iterator]() {
-            let value = undefined;
-            return {
-                next: () => {
-                    value = value ? value.next : this.first;
-                    return {value: value, done: value === undefined};
+        /**
+         * Throw an error if circular loop detected in the linked list
+         * @param {LinkedListElement} first element to start iteration
+         * @throws {Errors.INFINITE_LOOP}
+         */
+        static testInfiniteLoop(first) {
+            let edge = first;
+            let controlEdge = first;
+            do {
+                if (edge != first && edge === controlEdge) {
+                    throw Errors.INFINITE_LOOP;  // new Error("Infinite loop")
                 }
-            };
-        };
+                edge = edge.next;
+                controlEdge = controlEdge.next.next;
+            } while (edge != first)
+        }
     }
 
     /*
@@ -412,15 +425,23 @@
             len = shapes[0].length;
         }
 
-        let is_vertex = NOT_VERTEX;
+        let is_vertex = NOT_VERTEX$1;
         if (EQ(len, 0)) {
-            is_vertex |= START_VERTEX;
+            is_vertex |= START_VERTEX$1;
         }
         if (EQ(len, edge.shape.length)) {
-            is_vertex |= END_VERTEX;
+            is_vertex |= END_VERTEX$1;
         }
         // Fix intersection point which is end point of the last edge
-        let arc_length = (is_vertex & END_VERTEX) && edge.next.arc_length === 0 ? 0 : edge.arc_length + len;
+        let arc_length;
+        if (len === Infinity) {
+            arc_length = shapes[0].coord(pt);
+        }
+        else {
+            arc_length = (is_vertex & END_VERTEX$1) && edge.next && edge.next.arc_length === 0 ?
+                0 :
+                edge.arc_length + len;
+        }
 
         int_points.push({
             id: id,
@@ -483,17 +504,17 @@
         return 0;
     }
 
-    function getSortedArrayOnLine(line, int_points) {
-        return int_points.slice().sort( (int_point1, int_point2) => {
-            if (line.coord(int_point1.pt) < line.coord(int_point2.pt)) {
-                return -1;
-            }
-            if (line.coord(int_point1.pt) > line.coord(int_point2.pt)) {
-                return 1;
-            }
-            return 0;
-        })
-    }
+    // export function getSortedArrayOnLine(line, int_points) {
+    //     return int_points.slice().sort( (int_point1, int_point2) => {
+    //         if (line.coord(int_point1.pt) < line.coord(int_point2.pt)) {
+    //             return -1;
+    //         }
+    //         if (line.coord(int_point1.pt) > line.coord(int_point2.pt)) {
+    //             return 1;
+    //         }
+    //         return 0;
+    //     })
+    // }
 
     function filterDuplicatedIntersections(intersections)
     {
@@ -541,10 +562,10 @@
         for (let i = 1; i < intersections.int_points2_sorted.length; i++) {
             let int_point_cur2 = intersections.int_points2_sorted[i];
 
-            if (int_point_cur2.id == -1) continue;
+            if (int_point_cur2.id === -1) continue;
             /* already deleted */
 
-            if (int_point_ref2.id == -1 || /* can't be reference if already deleted */
+            if (int_point_ref2.id === -1 || /* can't be reference if already deleted */
                 !(EQ(int_point_cur2.arc_length, int_point_ref2.arc_length))) {
                 int_point_ref2 = int_point_cur2;
                 int_point_ref1 = intersections.int_points1[int_point_ref2.id];
@@ -577,28 +598,32 @@
     function initializeInclusionFlags(int_points)
     {
         for (let int_point of int_points) {
-            int_point.edge_before.bvStart = undefined;
-            int_point.edge_before.bvEnd = undefined;
-            int_point.edge_before.bv = undefined;
-            int_point.edge_before.overlap = undefined;
+            if (int_point.edge_before) {
+                int_point.edge_before.bvStart = undefined;
+                int_point.edge_before.bvEnd = undefined;
+                int_point.edge_before.bv = undefined;
+                int_point.edge_before.overlap = undefined;
+            }
 
-            int_point.edge_after.bvStart = undefined;
-            int_point.edge_after.bvEnd = undefined;
-            int_point.edge_after.bv = undefined;
-            int_point.edge_after.overlap = undefined;
+            if (int_point.edge_after) {
+                int_point.edge_after.bvStart = undefined;
+                int_point.edge_after.bvEnd = undefined;
+                int_point.edge_after.bv = undefined;
+                int_point.edge_after.overlap = undefined;
+            }
         }
 
         for (let int_point of int_points) {
-            int_point.edge_before.bvEnd = BOUNDARY;
-            int_point.edge_after.bvStart = BOUNDARY;
+            if (int_point.edge_before) int_point.edge_before.bvEnd = BOUNDARY$1;
+            if (int_point.edge_after) int_point.edge_after.bvStart = BOUNDARY$1;
         }
     }
 
     function calculateInclusionFlags(int_points, polygon)
     {
         for (let int_point of int_points) {
-            int_point.edge_before.setInclusion(polygon);
-            int_point.edge_after.setInclusion(polygon);
+            if (int_point.edge_before) int_point.edge_before.setInclusion(polygon);
+            if (int_point.edge_after) int_point.edge_after.setInclusion(polygon);
         }
     }
 
@@ -647,7 +672,7 @@
             let edge_from1 = cur_int_point1.edge_after;
             let edge_to1 = next_int_point1.edge_before;
 
-            if (!(edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY))      // not a boundary chain - skip
+            if (!(edge_from1.bv === BOUNDARY$1 && edge_to1.bv === BOUNDARY$1))      // not a boundary chain - skip
                 continue;
 
             if (edge_from1 !== edge_to1)                    //  one edge chain    TODO: support complex case
@@ -662,7 +687,7 @@
 
             /* if [edge_from2..edge_to2] is not a boundary chain, invert it */
             /* check also that chain consist of one or two edges */
-            if (!(edge_from2.bv === BOUNDARY && edge_to2.bv === BOUNDARY && edge_from2 === edge_to2)) {
+            if (!(edge_from2.bv === BOUNDARY$1 && edge_to2.bv === BOUNDARY$1 && edge_from2 === edge_to2)) {
                 cur_int_point2 = intersections.int_points2[next_int_point1.id];
                 next_int_point2 = intersections.int_points2[cur_int_point1.id];
 
@@ -670,7 +695,7 @@
                 edge_to2 = next_int_point2.edge_before;
             }
 
-            if (!(edge_from2.bv === BOUNDARY && edge_to2.bv === BOUNDARY && edge_from2 === edge_to2))
+            if (!(edge_from2.bv === BOUNDARY$1 && edge_to2.bv === BOUNDARY$1 && edge_from2 === edge_to2))
                 continue;                           // not an overlapping chain - skip   TODO: fix boundary conflict
 
             // Set overlapping flag - one-to-one case
@@ -685,12 +710,12 @@
 
         let int_points_pool_num = 1;
 
-        if (int_points.length == 1) return 1;
+        if (int_points.length === 1) return 1;
 
         int_point_current = int_points[cur_int_point_num];
 
         for (let i = cur_int_point_num + 1; i < int_points.length; i++) {
-            if (int_point_current.face != cur_face) {      /* next face started */
+            if (int_point_current.face !== cur_face) {      /* next face started */
                 break;
             }
 
@@ -714,20 +739,26 @@
             let edge = int_point.edge_before;
 
             // recalculate vertex flag: it may be changed after previous split
-            int_point.is_vertex = NOT_VERTEX;
+            int_point.is_vertex = NOT_VERTEX$1;
             if (edge.shape.start && edge.shape.start.equalTo(int_point.pt)) {
-                int_point.is_vertex |= START_VERTEX;
+                int_point.is_vertex |= START_VERTEX$1;
             }
             if (edge.shape.end && edge.shape.end.equalTo(int_point.pt)) {
-                int_point.is_vertex |= END_VERTEX;
+                int_point.is_vertex |= END_VERTEX$1;
             }
 
-            if (int_point.is_vertex & START_VERTEX) {  // nothing to split
-                int_point.edge_before = edge.prev;
-                int_point.is_vertex = END_VERTEX;
+            if (int_point.is_vertex & START_VERTEX$1) {  // nothing to split
+                if (edge.prev) {
+                    int_point.edge_before = edge.prev;           // polygon
+                    int_point.is_vertex = END_VERTEX$1;
+                }
+                else {                                           // multiline start vertex
+                    int_point.edge_after = int_point.edge_before;
+                    int_point.edge_before = edge.prev;
+                }
                 continue;
             }
-            if (int_point.is_vertex & END_VERTEX) {    // nothing to split
+            if (int_point.is_vertex & END_VERTEX$1) {    // nothing to split
                 continue;
             }
 
@@ -736,27 +767,46 @@
         }
 
         for (let int_point of int_points) {
-            int_point.edge_after = int_point.edge_before.next;
+            if (int_point.edge_before) {
+                int_point.edge_after = int_point.edge_before.next;
+            }
         }
     }
 
-    function insertBetweenIntPoints(int_point1, int_point2, new_edge) {
-        let edge_before = int_point1.edge_before;
-        let edge_after = int_point2.edge_after;
+    function insertBetweenIntPoints(int_point1, int_point2, new_edges) {
+        const edge_before = int_point1.edge_before;
+        const edge_after = int_point2.edge_after;
+        const len = new_edges.length;
+        edge_before.next = new_edges[0];
+        new_edges[0].prev = edge_before;
 
-        edge_before.next = new_edge;
-        new_edge.prev = edge_before;
-
-        new_edge.next = edge_after;
-        edge_after.prev = new_edge;
+        new_edges[len-1].next = edge_after;
+        edge_after.prev = new_edges[len-1];
     }
+
+    var smart_intersections = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        addToIntPoints: addToIntPoints,
+        calculateInclusionFlags: calculateInclusionFlags,
+        filterDuplicatedIntersections: filterDuplicatedIntersections,
+        getSortedArray: getSortedArray,
+        initializeInclusionFlags: initializeInclusionFlags,
+        insertBetweenIntPoints: insertBetweenIntPoints,
+        intPointsPoolCount: intPointsPoolCount,
+        setOverlappingFlags: setOverlappingFlags,
+        sortIntersections: sortIntersections,
+        splitByIntersections: splitByIntersections
+    });
 
     /**
      * Created by Alex Bol on 12/02/2018.
      */
+    /**
+     * @module BooleanOperations
+     */
 
-    const {INSIDE: INSIDE$1, OUTSIDE: OUTSIDE$1, BOUNDARY: BOUNDARY$1, OVERLAP_SAME: OVERLAP_SAME$1, OVERLAP_OPPOSITE: OVERLAP_OPPOSITE$1} = Constants;
-    const {NOT_VERTEX: NOT_VERTEX$1, START_VERTEX: START_VERTEX$1, END_VERTEX: END_VERTEX$1} = Constants;
+    const {INSIDE: INSIDE$1, OUTSIDE, BOUNDARY, OVERLAP_SAME, OVERLAP_OPPOSITE} = Constants;
+    const {NOT_VERTEX, START_VERTEX, END_VERTEX} = Constants;
 
     const BOOLEAN_UNION = 1;
     const BOOLEAN_INTERSECT = 2;
@@ -796,7 +846,7 @@
      * @param {Polygon} polygon2 - second operand
      * @returns {Polygon}
      */
-    function intersect(polygon1, polygon2) {
+    function intersect$1(polygon1, polygon2) {
         let [res_poly, wrk_poly] = booleanOpBinary(polygon1, polygon2, BOOLEAN_INTERSECT, true);
         return res_poly;
     }
@@ -1054,19 +1104,19 @@
             let edge_to1 = next_int_point1.edge_before;
 
             // Case #1. One of the ends is not boundary - probably tiny edge wrongly marked as boundary
-            if (edge_from1.bv === BOUNDARY$1 && edge_to1.bv != BOUNDARY$1) {
+            if (edge_from1.bv === BOUNDARY && edge_to1.bv != BOUNDARY) {
                 edge_from1.bv = edge_to1.bv;
                 continue;
             }
 
-            if (edge_from1.bv != BOUNDARY$1 && edge_to1.bv === BOUNDARY$1) {
+            if (edge_from1.bv != BOUNDARY && edge_to1.bv === BOUNDARY) {
                 edge_to1.bv = edge_from1.bv;
                 continue;
             }
 
             // Set up all boundary values for middle edges. Need for cases 2 and 3
-            if ( (edge_from1.bv === BOUNDARY$1 && edge_to1.bv === BOUNDARY$1 && edge_from1 != edge_to1) ||
-            (edge_from1.bv === INSIDE$1 && edge_to1.bv === OUTSIDE$1  || edge_from1.bv === OUTSIDE$1 && edge_to1.bv === INSIDE$1 ) ) {
+            if ( (edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY && edge_from1 != edge_to1) ||
+            (edge_from1.bv === INSIDE$1 && edge_to1.bv === OUTSIDE  || edge_from1.bv === OUTSIDE && edge_to1.bv === INSIDE$1 ) ) {
                 let edge_tmp = edge_from1.next;
                 while (edge_tmp != edge_to1) {
                     edge_tmp.bvStart = undefined;
@@ -1079,11 +1129,11 @@
 
             // Case #2. Both of the ends boundary. Check all the edges in the middle
             // If some edges in the middle are not boundary then update bv of 'from' and 'to' edges
-            if (edge_from1.bv === BOUNDARY$1 && edge_to1.bv === BOUNDARY$1 && edge_from1 != edge_to1) {
+            if (edge_from1.bv === BOUNDARY && edge_to1.bv === BOUNDARY && edge_from1 != edge_to1) {
                 let edge_tmp = edge_from1.next;
                 let new_bv;
                 while (edge_tmp != edge_to1) {
-                    if (edge_tmp.bv != BOUNDARY$1) {
+                    if (edge_tmp.bv != BOUNDARY) {
                         if (new_bv === undefined) {        // first not boundary edge between from and to
                             new_bv = edge_tmp.bv;
                         }
@@ -1104,7 +1154,7 @@
             }
 
             // Case 3. One of the ends is inner, another is outer
-            if (edge_from1.bv === INSIDE$1 && edge_to1.bv === OUTSIDE$1  || edge_from1.bv === OUTSIDE$1 && edge_to1.bv === INSIDE$1 ) {
+            if (edge_from1.bv === INSIDE$1 && edge_to1.bv === OUTSIDE  || edge_from1.bv === OUTSIDE && edge_to1.bv === INSIDE$1 ) {
                 let edge_tmp = edge_from1;
                 // Find missing intersection point
                 while (edge_tmp != edge_to1) {
@@ -1117,16 +1167,16 @@
 
                             // split edge_tmp in poly1 if need
                             let int_point1 = int_points1[int_points1.length-1];
-                            if (int_point1.is_vertex & START_VERTEX$1) {        // nothing to split
+                            if (int_point1.is_vertex & START_VERTEX) {        // nothing to split
                                 int_point1.edge_after = edge_tmp;
                                 int_point1.edge_before = edge_tmp.prev;
-                                edge_tmp.bvStart = BOUNDARY$1;
+                                edge_tmp.bvStart = BOUNDARY;
                                 edge_tmp.bv = undefined;
                                 edge_tmp.setInclusion(poly2);
                             }
-                            else if (int_point1.is_vertex & END_VERTEX$1) {    // nothing to split
+                            else if (int_point1.is_vertex & END_VERTEX) {    // nothing to split
                                 int_point1.edge_after = edge_tmp.next;
-                                edge_tmp.bvEnd = BOUNDARY$1;
+                                edge_tmp.bvEnd = BOUNDARY;
                                 edge_tmp.bv = undefined;
                                 edge_tmp.setInclusion(poly2);
                             }
@@ -1137,7 +1187,7 @@
 
                                 newEdge1.setInclusion(poly2);
 
-                                newEdge1.next.bvStart = BOUNDARY$1;
+                                newEdge1.next.bvStart = BOUNDARY;
                                 newEdge1.next.bvEnd = undefined;
                                 newEdge1.next.bv = undefined;
                                 newEdge1.next.setInclusion(poly2);
@@ -1148,11 +1198,11 @@
                             addToIntPoints(edge2, segment.pe, int_points2);
                             // split edge2 in poly2 if need
                             let int_point2 = int_points2[int_points2.length-1];
-                            if (int_point2.is_vertex & START_VERTEX$1) {        // nothing to split
+                            if (int_point2.is_vertex & START_VERTEX) {        // nothing to split
                                 int_point2.edge_after = edge2;
                                 int_point2.edge_before = edge2.prev;
                             }
-                            else if (int_point2.is_vertex & END_VERTEX$1) {    // nothing to split
+                            else if (int_point2.is_vertex & END_VERTEX) {    // nothing to split
                                 int_point2.edge_after = edge2.next;
                             }
                             else {        // split edge here
@@ -1168,11 +1218,11 @@
                                     int_point2_edge_after.edge_after = newEdge2;
 
                                 newEdge2.bvStart = undefined;
-                                newEdge2.bvEnd = BOUNDARY$1;
+                                newEdge2.bvEnd = BOUNDARY;
                                 newEdge2.bv = undefined;
                                 newEdge2.setInclusion(poly1);
 
-                                newEdge2.next.bvStart = BOUNDARY$1;
+                                newEdge2.next.bvStart = BOUNDARY;
                                 newEdge2.next.bvEnd = undefined;
                                 newEdge2.next.bv = undefined;
                                 newEdge2.next.setInclusion(poly1);
@@ -1240,11 +1290,11 @@
             let edge_to = int_point_next.edge_before;
 
             if ((edge_from.bv === INSIDE$1 && edge_to.bv === INSIDE$1 && op === BOOLEAN_UNION) ||
-                (edge_from.bv === OUTSIDE$1 && edge_to.bv === OUTSIDE$1 && op === BOOLEAN_INTERSECT) ||
-                ((edge_from.bv === OUTSIDE$1 || edge_to.bv === OUTSIDE$1) && op === BOOLEAN_SUBTRACT && !is_res_polygon) ||
+                (edge_from.bv === OUTSIDE && edge_to.bv === OUTSIDE && op === BOOLEAN_INTERSECT) ||
+                ((edge_from.bv === OUTSIDE || edge_to.bv === OUTSIDE) && op === BOOLEAN_SUBTRACT && !is_res_polygon) ||
                 ((edge_from.bv === INSIDE$1 || edge_to.bv === INSIDE$1) && op === BOOLEAN_SUBTRACT && is_res_polygon) ||
-                (edge_from.bv === BOUNDARY$1 && edge_to.bv === BOUNDARY$1 && (edge_from.overlap & OVERLAP_SAME$1) && is_res_polygon) ||
-                (edge_from.bv === BOUNDARY$1 && edge_to.bv === BOUNDARY$1 && (edge_from.overlap & OVERLAP_OPPOSITE$1))) {
+                (edge_from.bv === BOUNDARY && edge_to.bv === BOUNDARY && (edge_from.overlap & OVERLAP_SAME) && is_res_polygon) ||
+                (edge_from.bv === BOUNDARY && edge_to.bv === BOUNDARY && (edge_from.overlap & OVERLAP_OPPOSITE))) {
 
                 polygon.removeChain(cur_face, edge_from, edge_to);
 
@@ -1380,12 +1430,17 @@
             let first = int_point.edge_after;      // face start
             let last = int_point.edge_before;      // face end;
 
-            LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
+            try {
+                LinkedList.testInfiniteLoop(first);    // check and throw error if infinite loop found
+            }
+            catch (error) {
+                throw Errors.CANNOT_COMPLETE_BOOLEAN_OPERATION
+            }
 
             let face = polygon.addFace(first, last);
 
             // Mark intersection points from the newly create face
-            // to avoid multiple creation of the same face
+            // to avoid multiple creation of the same face.
             // Face was assigned to each edge of new face in addFace function
             for (let int_point_tmp of int_points) {
                 if (int_point_tmp.edge_before && int_point_tmp.edge_after &&
@@ -1409,8 +1464,8 @@
             let rel = face.first.bv;
             if (op === BOOLEAN_UNION && rel === INSIDE$1 ||
                 op === BOOLEAN_SUBTRACT && rel === INSIDE$1 && is_res_polygon ||
-                op === BOOLEAN_SUBTRACT && rel === OUTSIDE$1 && !is_res_polygon ||
-                op === BOOLEAN_INTERSECT && rel === OUTSIDE$1) {
+                op === BOOLEAN_SUBTRACT && rel === OUTSIDE && !is_res_polygon ||
+                op === BOOLEAN_INTERSECT && rel === OUTSIDE) {
 
                 polygon.deleteFace(face);
             }
@@ -1418,18 +1473,19 @@
     }
 
     var BooleanOperations = /*#__PURE__*/Object.freeze({
-        BOOLEAN_UNION: BOOLEAN_UNION,
+        __proto__: null,
         BOOLEAN_INTERSECT: BOOLEAN_INTERSECT,
         BOOLEAN_SUBTRACT: BOOLEAN_SUBTRACT,
-        unify: unify,
-        subtract: subtract,
-        intersect: intersect,
-        innerClip: innerClip,
-        outerClip: outerClip,
+        BOOLEAN_UNION: BOOLEAN_UNION,
         calculateIntersections: calculateIntersections,
+        innerClip: innerClip,
+        intersect: intersect$1,
+        outerClip: outerClip,
         removeNotRelevantChains: removeNotRelevantChains,
         removeOldFaces: removeOldFaces,
-        restoreFaces: restoreFaces
+        restoreFaces: restoreFaces,
+        subtract: subtract,
+        unify: unify
     });
 
     /*
@@ -1440,7 +1496,7 @@
     const EQUAL = RegExp('T.F..FFF.|T.F...F..');
     const INTERSECT = RegExp('T........|.T.......|...T.....|....T....');
     const TOUCH = RegExp('FT.......|F..T.....|F...T....');
-    const INSIDE$2 = RegExp('T.F..F...');
+    const INSIDE = RegExp('T.F..F...');
     const COVERED = RegExp('T.F..F...|.TF..F...|..FT.F...|..F.TF...');
 
     class DE9IM {
@@ -1634,7 +1690,7 @@
         }
 
         inside() {
-            return INSIDE$2.test(this.toString());
+            return INSIDE.test(this.toString());
         }
 
         covered() {
@@ -1646,6 +1702,7 @@
      * Intersection
      *
      * */
+
 
     function intersectLine2Line(line1, line2) {
         let ip = [];
@@ -1690,7 +1747,7 @@
 
     function intersectLine2Circle(line, circle) {
         let ip = [];
-        let prj = circle.pc.projectionOn(line);            // projection of circle center on line
+        let prj = circle.pc.projectionOn(line);            // projection of circle center on a line
         let dist = circle.pc.distanceTo(prj)[0];           // distance from circle center to projection
 
         if (Flatten.Utils.EQ(dist, circle.r)) {            // line tangent to circle - return single intersection point
@@ -1820,29 +1877,19 @@
         } else {                /* not incident - parallel or intersect */
             // Calculate intersection between lines
             let new_ip = intersectLine2Line(line1, line2);
-            if (new_ip.length > 0 && new_ip[0].on(seg1) && new_ip[0].on(seg2)) {
-                ip.push(new_ip[0]);
+            if (new_ip.length > 0) {
+                if (isPointInSegmentBox(new_ip[0], seg1) && isPointInSegmentBox(new_ip[0], seg2)) {
+                    ip.push(new_ip[0]);
+                }
             }
-
-            // Fix missing intersection
-            // const tol = 10*Flatten.DP_TOL;
-            // if (ip.length === 0 && new_ip.length > 0 && (new_ip[0].distanceTo(seg1)[0] < tol || new_ip[0].distanceTo(seg2)[0] < tol) ) {
-            //     if (seg1.start.distanceTo(seg2)[0] < tol) {
-            //         ip.push(new_ip[0]);
-            //     }
-            //     else if (seg1.end.distanceTo(seg2)[0] < tol) {
-            //         ip.push(new_ip[0]);
-            //     }
-            //     else if (seg2.start.distanceTo(seg1)[0] < tol) {
-            //         ip.push(new_ip[0]);
-            //     }
-            //     else if (seg2.end.distanceTo(seg1)[0] < tol) {
-            //         ip.push(new_ip[0]);
-            //     }
-            // }
         }
-
         return ip;
+    }
+
+    function isPointInSegmentBox(point, segment) {
+        const box = segment.box;
+        return Flatten.Utils.LE(point.x, box.xmax) && Flatten.Utils.GE(point.x, box.xmin) &&
+            Flatten.Utils.LE(point.y, box.ymax) && Flatten.Utils.GE(point.y, box.ymin)
     }
 
     function intersectSegment2Circle(segment, circle) {
@@ -1854,7 +1901,7 @@
 
         // Special case of zero length segment
         if (segment.isZeroLength()) {
-            let [dist, shortest_segment] = segment.ps.distanceTo(circle.pc);
+            let [dist, _] = segment.ps.distanceTo(circle.pc);
             if (Flatten.Utils.EQ(dist, circle.r)) {
                 ips.push(segment.ps);
             }
@@ -1994,7 +2041,7 @@
     }
 
     function intersectArc2Arc(arc1, arc2) {
-        var ip = [];
+        let ip = [];
 
         if (arc1.box.not_intersect(arc2.box)) {
             return ip;
@@ -2073,19 +2120,23 @@
     }
 
     function intersectEdge2Segment(edge, segment) {
-        return edge.isSegment() ? intersectSegment2Segment(edge.shape, segment) : intersectSegment2Arc(segment, edge.shape);
+        return edge.isSegment ? intersectSegment2Segment(edge.shape, segment) : intersectSegment2Arc(segment, edge.shape);
     }
 
     function intersectEdge2Arc(edge, arc) {
-        return edge.isSegment() ? intersectSegment2Arc(edge.shape, arc) : intersectArc2Arc(edge.shape, arc);
+        return edge.isSegment ? intersectSegment2Arc(edge.shape, arc) : intersectArc2Arc(edge.shape, arc);
     }
 
     function intersectEdge2Line(edge, line) {
-        return edge.isSegment() ? intersectSegment2Line(edge.shape, line) : intersectLine2Arc(line, edge.shape);
+        return edge.isSegment ? intersectSegment2Line(edge.shape, line) : intersectLine2Arc(line, edge.shape);
+    }
+
+    function intersectEdge2Ray(edge, ray) {
+        return edge.isSegment ? intersectRay2Segment(ray, edge.shape) : intersectRay2Arc(ray, edge.shape);
     }
 
     function intersectEdge2Circle(edge, circle) {
-        return edge.isSegment() ? intersectSegment2Circle(edge.shape, circle) : intersectArc2Circle(edge.shape, circle);
+        return edge.isSegment ? intersectSegment2Circle(edge.shape, circle) : intersectArc2Circle(edge.shape, circle);
     }
 
     function intersectSegment2Polygon(segment, polygon) {
@@ -2147,11 +2198,19 @@
     }
 
     function intersectEdge2Edge(edge1, edge2) {
-        const shape1 = edge1.shape;
-        const shape2 = edge2.shape;
-        return edge1.isSegment() ?
-            (edge2.isSegment() ? intersectSegment2Segment(shape1, shape2) : intersectSegment2Arc(shape1, shape2)) :
-            (edge2.isSegment() ? intersectSegment2Arc(shape2, shape1) : intersectArc2Arc(shape1, shape2));
+        if (edge1.isSegment) {
+            return intersectEdge2Segment(edge2, edge1.shape)
+        }
+        else if (edge1.isArc) {
+            return intersectEdge2Arc(edge2, edge1.shape)
+        }
+        else if (edge1.isLine) {
+            return intersectEdge2Line(edge2, edge1.shape)
+        }
+        else if (edge1.isRay) {
+            return intersectEdge2Ray(edge2, edge1.shape)
+        }
+        return []
     }
 
     function intersectEdge2Polygon(edge, polygon) {
@@ -2164,9 +2223,7 @@
         let resp_edges = polygon.edges.search(edge.shape.box);
 
         for (let resp_edge of resp_edges) {
-            for (let pt of intersectEdge2Edge(edge, resp_edge)) {
-                ip.push(pt);
-            }
+            ip = [...ip, ...intersectEdge2Edge(edge, resp_edge)];
         }
 
         return ip;
@@ -2184,9 +2241,7 @@
         }
 
         for (let edge1 of polygon1.edges) {
-            for (let pt of intersectEdge2Polygon(edge1, polygon2)) {
-                ip.push(pt);
-            }
+            ip = [...ip, ...intersectEdge2Polygon(edge1, polygon2)];
         }
 
         return ip;
@@ -2211,6 +2266,81 @@
         return ip.some( pt => pt.equalTo(new_pt) )
     }
 
+    function createLineFromRay(ray) {
+        return new Flatten.Line(ray.start, ray.norm)
+    }
+    function intersectRay2Segment(ray, segment) {
+        return intersectSegment2Line(segment, createLineFromRay(ray))
+            .filter(pt => ray.contains(pt));
+    }
+
+    function intersectRay2Arc(ray, arc) {
+        return intersectLine2Arc(createLineFromRay(ray), arc)
+            .filter(pt => ray.contains(pt))
+    }
+
+    function intersectRay2Circle(ray, circle) {
+        return intersectLine2Circle(createLineFromRay(ray), circle)
+            .filter(pt => ray.contains(pt))
+    }
+
+    function intersectRay2Box(ray, box) {
+        return intersectLine2Box(createLineFromRay(ray), box)
+            .filter(pt => ray.contains(pt))
+    }
+
+    function intersectRay2Line(ray, line) {
+        return intersectLine2Line(createLineFromRay(ray), line)
+            .filter(pt => ray.contains(pt))
+    }
+
+    function intersectRay2Ray(ray1, ray2) {
+        return intersectLine2Line(createLineFromRay(ray1), createLineFromRay(ray2))
+            .filter(pt => ray1.contains(pt))
+            .filter(pt => ray2.contains(pt))
+    }
+
+    function intersectRay2Polygon(ray, polygon) {
+        return intersectLine2Polygon(createLineFromRay(ray), polygon)
+            .filter(pt => ray.contains(pt))
+    }
+
+    const defaultAttributes = {
+        stroke: "black"
+    };
+
+    class SVGAttributes {
+        constructor(args = defaultAttributes) {
+            for(const property in args) {
+                this[property] = args[property];
+            }
+            this.stroke = args.stroke ?? defaultAttributes.stroke;
+        }
+
+        toAttributesString() {
+            return Object.keys(this)
+                .reduce( (acc, key) =>
+                        acc + (this[key] !== undefined ? this.toAttrString(key, this[key]) : "")
+                , ``)
+        }
+
+        toAttrString(key, value) {
+            const SVGKey = key === "className" ? "class" : this.convertCamelToKebabCase(key);
+            return value === null ? `${SVGKey} ` : `${SVGKey}="${value.toString()}" `
+        }
+
+        convertCamelToKebabCase(str) {
+            return str
+                .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+                .join('-')
+                .toLowerCase();
+        }
+    }
+
+    function convertToString(attrs) {
+        return new SVGAttributes(attrs).toAttributesString()
+    }
+
     /**
      * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
      * [segment]{@link Flatten.Segment}, [arc]{@link Flatten.Arc}, [line]{@link Flatten.Line} or [ray]{@link Flatten.Ray}
@@ -2223,16 +2353,16 @@
                 return;
             }
 
-            if (args.length == 1) {
+            if (args.length === 1) {
                 if (args[0] instanceof Array) {
                     let shapes = args[0];
-                    if (shapes.length == 0)
+                    if (shapes.length === 0)
                         return;
 
                     // TODO: more strict validation:
                     // there may be only one line
                     // only first and last may be rays
-                    let validShapes = shapes.every((shape) => {
+                    shapes.every((shape) => {
                         return shape instanceof Flatten.Segment ||
                             shape instanceof Flatten.Arc ||
                             shape instanceof Flatten.Ray ||
@@ -2243,6 +2373,8 @@
                         let edge = new Flatten.Edge(shape);
                         this.append(edge);
                     }
+
+                    this.setArcLength();
                 }
             }
         }
@@ -2260,7 +2392,7 @@
          * @returns {Box}
          */
         get box() {
-            return this.edges.reduce( (acc,edge) => acc = acc.merge(edge.box), new Flatten.Box() );
+            return this.edges.reduce( (acc,edge) => acc.merge(edge.box), new Flatten.Box() );
         }
 
         /**
@@ -2279,6 +2411,24 @@
          */
         clone() {
             return new Multiline(this.toShapes());
+        }
+
+        /**
+         * Set arc_length property for each of the edges in the face.
+         * Arc_length of the edge it the arc length from the first edge of the face
+         */
+        setArcLength() {
+            for (let edge of this) {
+                this.setOneEdgeArcLength(edge);
+            }
+        }
+
+        setOneEdgeArcLength(edge) {
+            if (edge === this.first) {
+                edge.arc_length = 0.0;
+            } else {
+                edge.arc_length = edge.prev.arc_length + edge.prev.length;
+            }
         }
 
         /**
@@ -2307,6 +2457,14 @@
             edge.shape = shapes[1];
 
             return newEdge;
+        }
+
+        getChain(edgeFrom, edgeTo) {
+            let edges = [];
+            for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
+                edges.push(edge);
+            }
+            return edges
         }
 
         /**
@@ -2350,7 +2508,7 @@
         /**
          * Return new multiline rotated by given angle around given point
          * If point omitted, rotate around origin (0,0)
-         * Positive value of angle defines rotation counter clockwise, negative - clockwise
+         * Positive value of angle defines rotation counterclockwise, negative - clockwise
          * @param {number} angle - rotation angle in radians
          * @param {Point} center - rotation center, default is (0,0)
          * @returns {Multiline} - new rotated polygon
@@ -2388,24 +2546,17 @@
 
         /**
          * Return string to draw multiline in svg
-         * @param attrs  - an object with attributes for svg path element,
-         * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
-         * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+         * @param attrs  - an object with attributes for svg path element
          * TODO: support semi-infinite Ray and infinite Line
          * @returns {string}
          */
         svg(attrs = {}) {
-            let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
-            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-            let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+            let svgStr = `\n<path ${convertToString({fill: "none", ...attrs})} d="`;
             svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
             for (let edge of this) {
                 svgStr += edge.svg();
             }
             svgStr += `" >\n</path>`;
-
             return svgStr;
         }
     }
@@ -2451,7 +2602,7 @@
 
         let resp_edges = polygon.edges.search(searchBox);
 
-        if (resp_edges.length == 0) {
+        if (resp_edges.length === 0) {
             return Flatten.OUTSIDE;
         }
 
@@ -2461,6 +2612,8 @@
                 return Flatten.BOUNDARY;
             }
         }
+
+        let faces = [...polygon.faces];
 
         // 3. Calculate intersections
         let intersections = [];
@@ -2474,7 +2627,8 @@
 
                 intersections.push({
                     pt: ip,
-                    edge: edge
+                    edge: edge,
+                    face_index: faces.indexOf(edge.face)
                 });
             }
         }
@@ -2487,6 +2641,18 @@
             if (GT(i1.pt.x, i2.pt.x)) {
                 return 1;
             }
+            if (i1.face_index < i2.face_index) {
+                return -1
+            }
+            if (i1.face_index > i2.face_index) {
+                return 1
+            }
+            if (i1.edge.arc_length < i2.edge.arc_length) {
+                return -1
+            }
+            if (i1.edge.arc_length > i2.edge.arc_length) {
+                return 1
+            }
             return 0;
         });
 
@@ -2495,12 +2661,15 @@
 
         for (let i = 0; i < intersections.length; i++) {
             let intersection = intersections[i];
+
             if (intersection.pt.equalTo(intersection.edge.shape.start)) {
                 /* skip same point between same edges if already counted */
                 if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                    intersection.face_index === intersections[i - 1].face_index &&
                     intersection.edge.prev === intersections[i - 1].edge) {
                     continue;
                 }
+
                 let prev_edge = intersection.edge.prev;
                 while (EQ_0(prev_edge.length)) {
                     prev_edge = prev_edge.prev;
@@ -2520,9 +2689,11 @@
             } else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
                 /* skip same point between same edges if already counted */
                 if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                    intersection.face_index === intersections[i-1].face_index &&
                     intersection.edge.next === intersections[i - 1].edge) {
                     continue;
                 }
+
                 let next_edge = intersection.edge.next;
                 while (EQ_0(next_edge.length)) {
                     next_edge = next_edge.next;
@@ -2539,7 +2710,7 @@
                 if ((next_on_the_left && !cur_on_the_left) || (!next_on_the_left && cur_on_the_left)) {
                     counter++;
                 }
-            } else {        /* intersection point is not a coincident with a vertex */
+            } else {        /* intersection point is not a vertex */
                 if (intersection.edge.shape instanceof Flatten.Segment) {
                     counter++;
                 } else {
@@ -2554,8 +2725,7 @@
         }
 
         // 6. Odd or even?
-        contains = counter % 2 == 1 ? INSIDE : OUTSIDE;
-
+        contains = counter % 2 === 1 ? INSIDE$2 : OUTSIDE$1;
         return contains;
     }
 
@@ -2563,6 +2733,7 @@
         Calculate relationship between two shapes and return result in the form of
         Dimensionally Extended nine-Intersection Matrix (https://en.wikipedia.org/wiki/DE-9IM)
      */
+
 
     /**
      * Returns true if shapes are topologically equal:  their interiors intersect and
@@ -2581,7 +2752,7 @@
      * @param shape2
      * @returns {boolean}
      */
-    function intersect$1(shape1, shape2) {
+    function intersect(shape1, shape2) {
         return relate(shape1, shape2).intersect();
     }
 
@@ -2602,7 +2773,7 @@
      * @returns {boolean}
      */
     function disjoint(shape1, shape2) {
-        return !intersect$1(shape1, shape2);
+        return !intersect(shape1, shape2);
     }
 
     /**
@@ -2740,7 +2911,7 @@
             denim.I2B = ip_sorted;
             denim.I2E = [splitShapes[0], splitShapes[2]];
 
-            denim.E2I = new Flatten.Polygon([circle.toArc()]).cut(multiline);
+            denim.E2I = new Flatten.Polygon([circle.toArc()]).cutWithLine(line);
         }
 
         return denim;
@@ -2782,7 +2953,7 @@
                 denim.I2B = ip_sorted;
                 denim.I2E = [splitShapes[0], splitShapes[2]];
 
-                denim.E2I = new Flatten.Polygon(box.toSegments()).cut(multiline);
+                denim.E2I = new Flatten.Polygon(box.toSegments()).cutWithLine(line);
             }
         }
         return denim;
@@ -2802,7 +2973,7 @@
         denim.I2B = [...multiline].slice(1).map( (edge) => edge.bv === Flatten.BOUNDARY ? edge.shape : edge.shape.start );
         denim.I2E = [...multiline].filter(edge => edge.bv === Flatten.OUTSIDE).map(edge => edge.shape);
 
-        denim.E2I = polygon.cut(multiline);
+        denim.E2I = polygon.cutWithLine(line);
 
         return denim;
     }
@@ -2836,8 +3007,6 @@
                 case Flatten.OUTSIDE:
                     denim.B2E.push(pt);
                     break;
-                default:
-                    break;
             }
         }
 
@@ -2850,7 +3019,7 @@
         let denim = new DE9IM();
 
         let [ip_sorted1, ip_sorted2] = calculateIntersections(polygon1, polygon2);
-        let boolean_intersection = intersect(polygon1, polygon2);
+        let boolean_intersection = intersect$1(polygon1, polygon2);
         let boolean_difference1 = subtract(polygon1, polygon2);
         let boolean_difference2 = subtract(polygon2, polygon1);
         let [inner_clip_shapes1, inner_clip_shapes2] = innerClip(polygon1, polygon2);
@@ -2873,15 +3042,16 @@
     }
 
     var Relations = /*#__PURE__*/Object.freeze({
-        equal: equal,
-        intersect: intersect$1,
-        touch: touch,
-        disjoint: disjoint,
-        inside: inside,
-        covered: covered,
+        __proto__: null,
         contain: contain,
         cover: cover,
-        relate: relate
+        covered: covered,
+        disjoint: disjoint,
+        equal: equal,
+        inside: inside,
+        intersect: intersect,
+        relate: relate,
+        touch: touch
     });
 
     /**
@@ -2959,20 +3129,21 @@
         /**
          * Return new matrix as a result of multiplication of the current matrix
          * by the matrix(1,0,0,1,tx,ty)
-         * @param {number} tx - translation by x
-         * @param {number} ty - translation by y
+         * @param {Vector} vector - Translation by vector or
+         * @param {number} tx - translation by x-axis
+         * @param {number} ty - translation by y-axis
          * @returns {Matrix}
          */
         translate(...args) {
             let tx, ty;
-            if (args.length == 1 && (args[0] instanceof Flatten.Vector)) {
+            if (args.length == 1 &&  !isNaN(args[0].x) && !isNaN(args[0].y)) {
                 tx = args[0].x;
                 ty = args[0].y;
-            } else if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
+            } else if (args.length === 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
                 tx = args[0];
                 ty = args[1];
             } else {
-                throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                throw Errors.ILLEGAL_PARAMETERS;
             }
             return this.multiply(new Matrix(1, 0, 0, 1, tx, ty))
         };
@@ -2980,14 +3151,19 @@
         /**
          * Return new matrix as a result of multiplication of the current matrix
          * by the matrix that defines rotation by given angle (in radians) around
-         * point (0,0) in counter clockwise direction
+         * center of rotation (centerX,centerY) in counterclockwise direction
          * @param {number} angle - angle in radians
+         * @param {number} centerX - center of rotation
+         * @param {number} centerY - center of rotation
          * @returns {Matrix}
          */
-        rotate(angle) {
+        rotate(angle, centerX = 0.0, centerY = 0.0) {
             let cos = Math.cos(angle);
             let sin = Math.sin(angle);
-            return this.multiply(new Matrix(cos, sin, -sin, cos, 0, 0));
+            return this
+                .translate(centerX, centerY)
+                .multiply(new Matrix(cos, sin, -sin, cos, 0, 0))
+                .translate(-centerX, -centerY);
         };
 
         /**
@@ -3151,6 +3327,7 @@
      * Created by Alex Bol on 3/28/2017.
      */
 
+
     // module.exports = {
     //     RB_TREE_COLOR_RED: 0,
     //     RB_TREE_COLOR_BLACK: 1
@@ -3162,6 +3339,7 @@
     /**
      * Created by Alex Bol on 4/1/2017.
      */
+
 
     class Node {
         constructor(key = undefined, value = undefined,
@@ -3188,46 +3366,36 @@
                 this.left === null && this.right === null && this.color === RB_TREE_COLOR_BLACK);
         }
 
+        _value_less_than(other_node) {
+            return this.item.value && other_node.item.value && this.item.value.less_than ?
+                this.item.value.less_than(other_node.item.value) :
+                this.item.value < other_node.item.value;
+        }
+
         less_than(other_node) {
             // if tree stores only keys
             if (this.item.value === this.item.key && other_node.item.value === other_node.item.key) {
                 return this.item.key.less_than(other_node.item.key);
             }
             else {    // if tree stores keys and values
-                let value_less_than = this.item.value && other_node.item.value && this.item.value.less_than ? this.item.value.less_than(other_node.item.value) :
-                    this.item.value < other_node.item.value;
                 return this.item.key.less_than(other_node.item.key) ||
-                    this.item.key.equal_to((other_node.item.key)) && value_less_than;
+                    this.item.key.equal_to((other_node.item.key)) && this._value_less_than(other_node)
             }
-
-            // if (this.item.value && other_node.item.value) {
-            //     let item_less_than = this.item.value.less_than ? this.item.value.less_than(other_node.item.value) :
-            //         this.item.value < other_node.item.value;
-            //     return this.item.key.less_than(other_node.item.key) ||
-            //         this.item.key.equal_to((other_node.item.key)) && item_less_than;
-            // }
-            // else {
-            //     return this.item.key.less_than(other_node.item.key);
-            // }
         }
 
+        _value_equal(other_node) {
+            return this.item.value && other_node.item.value && this.item.value.equal_to ?
+                this.item.value.equal_to(other_node.item.value) :
+                this.item.value == other_node.item.value;
+        }
         equal_to(other_node) {
             // if tree stores only keys
             if (this.item.value === this.item.key && other_node.item.value === other_node.item.key) {
                 return this.item.key.equal_to(other_node.item.key);
             }
             else {    // if tree stores keys and values
-                let value_equal = this.item.value && other_node.item.value && this.item.value.equal_to ? this.item.value.equal_to(other_node.item.value) :
-                    this.item.value == other_node.item.value;
-                return this.item.key.equal_to(other_node.item.key) && value_equal;
+                return this.item.key.equal_to(other_node.item.key) && this._value_equal(other_node);
             }
-
-            // let value_equal = true;
-            // if (this.item.value && other_node.item.value) {
-            //     value_equal = this.item.value.equal_to ? this.item.value.equal_to(other_node.item.value) :
-            //         this.item.value == other_node.item.value;
-            // }
-            // return this.item.key.equal_to(other_node.item.key) && value_equal;
         }
 
         intersect(other_node) {
@@ -3235,8 +3403,8 @@
         }
 
         copy_data(other_node) {
-            this.item.key = other_node.item.key.clone();
-            this.item.value = other_node.item.value && other_node.item.value.clone ? other_node.item.value.clone() : other_node.item.value;
+            this.item.key = other_node.item.key;
+            this.item.value = other_node.item.value;
         }
 
         update_max() {
@@ -3339,6 +3507,13 @@
          */
         isEmpty() {
             return (this.root == null || this.root == this.nil_node);
+        }
+
+        /**
+         * Clear tree
+         */
+        clear() {
+            this.root = null;
         }
 
         /**
@@ -3860,6 +4035,7 @@
      * Created by Alex Bol on 3/12/2017.
      */
 
+
     /**
      * Class representing a planar set - a generic container with ability to keep and retrieve shapes and
      * perform spatial queries. Planar set is an extension of Set container, so it supports
@@ -3883,28 +4059,35 @@
          * This happens with no error, it is possible to use <i>size</i> property to check if
          * a shape was actually added.<br/>
          * Method returns planar set object updated and may be chained
-         * @param {Shape} shape - shape to be added, should have valid <i>box</i> property
+         * @param {AnyShape | {Box, AnyShape}} entry - shape to be added, should have valid <i>box</i> property
+         * Another option to transfer as an object {key: Box, value: AnyShape}
          * @returns {PlanarSet}
          */
-        add(shape) {
+        add(entry) {
             let size = this.size;
+            const {key, value} = entry;
+            const box = key || entry.box;
+            const shape = value || entry;
             super.add(shape);
             // size not changed - item not added, probably trying to add same item twice
             if (this.size > size) {
-                let node = this.index.insert(shape.box, shape);
+                this.index.insert(box, shape);
             }
             return this;         // in accordance to Set.add interface
         }
 
         /**
          * Delete shape from planar set. Returns true if shape was actually deleted, false otherwise
-         * @param {Shape} shape - shape to be deleted
+         * @param {AnyShape | {Box, AnyShape}} entry - shape to be deleted
          * @returns {boolean}
          */
-        delete(shape) {
+        delete(entry) {
+            const {key, value} = entry;
+            const box = key || entry.box;
+            const shape = value || entry;
             let deleted = super.delete(shape);
             if (deleted) {
-                this.index.remove(shape.box, shape);
+                this.index.remove(box, shape);
             }
             return deleted;
         }
@@ -3921,7 +4104,7 @@
          * 2d range search in planar set.<br/>
          * Returns array of all shapes in planar set which bounding box is intersected with query box
          * @param {Box} box - query box
-         * @returns {Shapes[]}
+         * @returns {AnyShape[]}
          */
         search(box) {
             let resp = this.index.search(box);
@@ -3931,7 +4114,7 @@
         /**
          * Point location test. Returns array of shapes which contains given point
          * @param {Point} point - query point
-         * @returns {Array}
+         * @returns {AnyShape[]}
          */
         hit(point) {
             let box = new Flatten.Box(point.x - 1, point.y - 1, point.x + 1, point.y + 1);
@@ -3952,21 +4135,92 @@
     Flatten.PlanarSet = PlanarSet;
 
     /**
+     * Base class representing shape
+     * Implement common methods of affine transformations
+     */
+    class Shape {
+        get name() {
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        }
+
+        get box() {
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        }
+
+        clone() {
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        }
+
+        /**
+         * Returns new shape translated by given vector.
+         * Translation vector may be also defined by a pair of numbers.
+         * @param {Vector | (number, number) } args - Translation vector
+         * or tuple of numbers
+         * @returns {Shape}
+         */
+        translate(...args) {
+            return this.transform(new Matrix().translate(...args))
+        }
+
+        /**
+         * Returns new shape rotated by given angle around given center point.
+         * If center point is omitted, rotates around zero point (0,0).
+         * Positive value of angle defines rotation in counterclockwise direction,
+         * negative angle defines rotation in clockwise direction
+         * @param {number} angle - angle in radians
+         * @param {Point} [center=(0,0)] center
+         * @returns {Shape}
+         */
+        rotate(angle, center = new Flatten.Point()) {
+            return this.transform(new Matrix().rotate(angle, center.x, center.y));
+        }
+
+        /**
+         * Return new shape with coordinates multiplied by scaling factor
+         * @param {number} sx - x-axis scaling factor
+         * @param {number} sy - y-axis scaling factor
+         * @returns {Shape}
+         */
+        scale(sx, sy) {
+            return this.transform(new Matrix().scale(sx, sy));
+        }
+
+        transform(...args) {
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        }
+
+        /**
+         * This method returns an object that defines how data will be
+         * serialized when called JSON.stringify() method
+         * @returns {Object}
+         */
+        toJSON() {
+            return Object.assign({}, this, {name: this.name});
+        }
+
+        svg(attrs = {}) {
+            throw(Errors.CANNOT_INVOKE_ABSTRACT_METHOD);
+        }
+    }
+
+    /**
      * Created by Alex Bol on 2/18/2017.
      */
+
 
     /**
      *
      * Class representing a point
      * @type {Point}
      */
-    class Point {
+    let Point$1 = class Point extends Shape {
         /**
          * Point may be constructed by two numbers, or by array of two numbers
          * @param {number} x - x-coordinate (float number)
          * @param {number} y - y-coordinate (float number)
          */
         constructor(...args) {
+            super();
             /**
              * x-coordinate (float number)
              * @type {number}
@@ -4005,9 +4259,7 @@
                     return;
                 }
             }
-
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
-
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -4055,48 +4307,11 @@
         }
 
         /**
-         * Returns new point rotated by given angle around given center point.
-         * If center point is omitted, rotates around zero point (0,0).
-         * Positive value of angle defines rotation in counter clockwise direction,
-         * negative angle defines rotation in clockwise clockwise direction
-         * @param {number} angle - angle in radians
-         * @param {Point} [center=(0,0)] center
-         * @returns {Point}
-         */
-        rotate(angle, center = {x: 0, y: 0}) {
-            var x_rot = center.x + (this.x - center.x) * Math.cos(angle) - (this.y - center.y) * Math.sin(angle);
-            var y_rot = center.y + (this.x - center.x) * Math.sin(angle) + (this.y - center.y) * Math.cos(angle);
-
-            return new Flatten.Point(x_rot, y_rot);
-        }
-
-        /**
-         * Returns new point translated by given vector.
-         * Translation vector may by also defined by a pair of numbers.
-         * @param {Vector} vector - Translation vector defined as Flatten.Vector or
-         * @param {number|number} - Translation vector defined as pair of numbers
-         * @returns {Point}
-         */
-        translate(...args) {
-            if (args.length == 1 &&
-                (args[0] instanceof Flatten.Vector || !isNaN(args[0].x) && !isNaN(args[0].y))) {
-                return new Flatten.Point(this.x + args[0].x, this.y + args[0].y);
-            }
-
-            if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-                return new Flatten.Point(this.x + args[0], this.y + args[1]);
-            }
-
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
-        }
-
-        /**
-         * Return new point transformed by affine transformation matrix m
+         * Return new point transformed by affine transformation matrix
          * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
          * @returns {Point}
          */
         transform(m) {
-            // let [x,y] = m.transform([this.x,this.y]);
             return new Flatten.Point(m.transform([this.x, this.y]))
         }
 
@@ -4156,14 +4371,10 @@
             }
 
             if (shape instanceof Flatten.Arc) {
-                // let [dist, ...rest] = Distance.point2arc(this, shape);
-                // return dist;
                 return Flatten.Distance.point2arc(this, shape);
             }
 
             if (shape instanceof Flatten.Polygon) {
-                // let [dist, ...rest] = Distance.point2polygon(this, shape);
-                // return dist;
                 return Flatten.Distance.point2polygon(this, shape);
             }
 
@@ -4174,7 +4385,7 @@
 
         /**
          * Returns true if point is on a shape, false otherwise
-         * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon
+         * @param {Shape} shape
          * @returns {boolean}
          */
         on(shape) {
@@ -4182,8 +4393,16 @@
                 return this.equalTo(shape);
             }
 
+            if (shape instanceof Flatten.Box) {
+                return shape.contains(this);
+            }
+
             if (shape instanceof Flatten.Line) {
                 return shape.contains(this);
+            }
+
+            if (shape instanceof Flatten.Ray) {
+                return shape.contains(this)
             }
 
             if (shape instanceof Flatten.Circle) {
@@ -4203,13 +4422,8 @@
             }
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "point"});
+        get name() {
+            return "point"
         }
 
         /**
@@ -4226,15 +4440,13 @@
          * @returns {String}
          */
         svg(attrs = {}) {
-            let {r, stroke, strokeWidth, fill, id, className} = attrs;
-            // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-            return `\n<circle cx="${this.x}" cy="${this.y}" r="${r || 3}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "red"}" ${id_str} ${class_str} />`;
+            const r = attrs.r ?? 3;            // default radius - 3
+            return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
+            ${convertToString({fill: "red", ...attrs})} />`;
         }
+    };
 
-    }
-    Flatten.Point = Point;
+    Flatten.Point = Point$1;
     /**
      * Function to create point equivalent to "new" constructor
      * @param args
@@ -4248,11 +4460,12 @@
      * Created by Alex Bol on 2/19/2017.
      */
 
+
     /**
      * Class representing a vector
      * @type {Vector}
      */
-    class Vector {
+    let Vector$1 = class Vector extends Shape {
         /**
          * Vector may be constructed by two points, or by two float numbers,
          * or by array of two numbers
@@ -4260,6 +4473,7 @@
          * @param {Point} pe - end point
          */
         constructor(...args) {
+            super();
             /**
              * x-coordinate of a vector (float number)
              * @type {number}
@@ -4310,7 +4524,7 @@
 
             }
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -4387,24 +4601,35 @@
             if (!Flatten.Utils.EQ_0(this.length)) {
                 return (new Flatten.Vector(this.x / this.length, this.y / this.length));
             }
-            throw Flatten.Errors.ZERO_DIVISION;
+            throw Errors.ZERO_DIVISION;
         }
 
         /**
          * Returns new vector rotated by given angle,
-         * positive angle defines rotation in counter clockwise direction,
+         * positive angle defines rotation in counterclockwise direction,
          * negative - in clockwise direction
+         * Vector only can be rotated around (0,0) point!
          * @param {number} angle - Angle in radians
          * @returns {Vector}
          */
-        rotate(angle) {
-            let point = new Flatten.Point(this.x, this.y);
-            let rpoint = point.rotate(angle);
-            return new Flatten.Vector(rpoint.x, rpoint.y);
+        rotate(angle, center = new Flatten.Point()) {
+            if (center.x === 0 && center.y === 0) {
+                return this.transform(new Matrix().rotate(angle));
+            }
+            throw(Errors.OPERATION_IS_NOT_SUPPORTED);
         }
 
         /**
-         * Returns vector rotated 90 degrees counter clockwise
+         * Return new vector transformed by affine transformation matrix m
+         * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+         * @returns {Vector}
+         */
+        transform(m) {
+            return new Flatten.Vector(m.transform([this.x, this.y]))
+        }
+
+        /**
+         * Returns vector rotated 90 degrees counterclockwise
          * @returns {Vector}
          */
         rotate90CCW() {
@@ -4447,8 +4672,8 @@
 
         /**
          * Return angle between this vector and other vector. <br/>
-         * Angle is measured from 0 to 2*PI in the counter clockwise direction
-         * from current vector to other.
+         * Angle is measured from 0 to 2*PI in the counterclockwise direction
+         * from current vector to  another.
          * @param {Vector} v Another vector
          * @returns {number}
          */
@@ -4471,39 +4696,37 @@
             return n.multiply(d);
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "vector"});
+        get name() {
+            return "vector"
         }
-    }
-    Flatten.Vector = Vector;
+    };
+
+    Flatten.Vector = Vector$1;
 
     /**
      * Function to create vector equivalent to "new" constructor
      * @param args
      */
-    const vector = (...args) => new Flatten.Vector(...args);
-    Flatten.vector = vector;
+    const vector$1 = (...args) => new Flatten.Vector(...args);
+    Flatten.vector = vector$1;
 
     /**
      * Created by Alex Bol on 3/10/2017.
      */
 
+
     /**
      * Class representing a segment
      * @type {Segment}
      */
-    class Segment {
+    class Segment extends Shape {
         /**
          *
          * @param {Point} ps - start point
          * @param {Point} pe - end point
          */
         constructor(...args) {
+            super();
             /**
              * Start point
              * @type {Point}
@@ -4551,7 +4774,7 @@
                 return;
             }
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -4647,6 +4870,10 @@
 
             if (shape instanceof Flatten.Line) {
                 return intersectSegment2Line(this, shape);
+            }
+
+            if (shape instanceof Flatten.Ray) {
+                return intersectRay2Segment(shape, this);
             }
 
             if (shape instanceof Flatten.Segment) {
@@ -4797,29 +5024,6 @@
         }
 
         /**
-         * Returns new segment translated by vector vec
-         * @param {Vector} vec
-         * @returns {Segment}
-         */
-        translate(...args) {
-            return new Segment(this.ps.translate(...args), this.pe.translate(...args));
-        }
-
-        /**
-         * Return new segment rotated by given angle around given point
-         * If point omitted, rotate around origin (0,0)
-         * Positive value of angle defines rotation counter clockwise, negative - clockwise
-         * @param {number} angle - rotation angle in radians
-         * @param {Point} center - center point, default is (0,0)
-         * @returns {Segment}
-         */
-        rotate(angle = 0, center = new Flatten.Point()) {
-            let m = new Flatten.Matrix();
-            m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
-            return this.transform(m);
-        }
-
-        /**
          * Return new segment transformed using affine transformation matrix
          * @param {Matrix} matrix - affine transformation matrix
          * @returns {Segment} - transformed segment
@@ -4846,13 +5050,8 @@
             return line.sortPoints(pts);
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "segment"});
+        get name() {
+            return "segment"
         }
 
         /**
@@ -4863,16 +5062,10 @@
          * @returns {string}
          */
         svg(attrs = {}) {
-            let {stroke, strokeWidth, id, className} = attrs;
-            // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-            return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" ${id_str} ${class_str} />`;
-
+            return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" ${convertToString(attrs)} />`;
         }
-
     }
+
     Flatten.Segment = Segment;
     /**
      * Shortcut method to create new segment
@@ -4884,19 +5077,20 @@
      * Created by Alex Bol on 2/20/2017.
      */
 
-    let {vector: vector$1} = Flatten;
+    let {vector} = Flatten;
 
     /**
      * Class representing a line
      * @type {Line}
      */
-    class Line {
+    let Line$1 = class Line extends Shape {
         /**
          * Line may be constructed by point and normal vector or by two points that a line passes through
          * @param {Point} pt - point that a line passes through
          * @param {Vector|Point} norm - normal vector to a line or second point a line passes through
          */
         constructor(...args) {
+            super();
             /**
              * Point a line passes through
              * @type {Point}
@@ -4910,25 +5104,25 @@
              */
             this.norm = new Flatten.Vector(0, 1);
 
-            if (args.length == 0) {
+            if (args.length === 0) {
                 return;
             }
 
-            if (args.length == 1 && args[0] instanceof Object && args[0].name === "line") {
+            if (args.length === 1 && args[0] instanceof Object && args[0].name === "line") {
                 let {pt, norm} = args[0];
                 this.pt = new Flatten.Point(pt);
                 this.norm = new Flatten.Vector(norm);
                 return;
             }
 
-            if (args.length == 2) {
+            if (args.length === 2) {
                 let a1 = args[0];
                 let a2 = args[1];
 
                 if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Point) {
                     this.pt = a1;
                     this.norm = Line.points2norm(a1, a2);
-                    if (this.norm.dot(vector$1(this.pt.x,this.pt.y)) >= 0) {
+                    if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
                         this.norm.invert();
                     }
                     return;
@@ -4936,12 +5130,12 @@
 
                 if (a1 instanceof Flatten.Point && a2 instanceof Flatten.Vector) {
                     if (Flatten.Utils.EQ_0(a2.x) && Flatten.Utils.EQ_0(a2.y)) {
-                        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                        throw Errors.ILLEGAL_PARAMETERS;
                     }
                     this.pt = a1.clone();
                     this.norm = a2.clone();
                     this.norm = this.norm.normalize();
-                    if (this.norm.dot(vector$1(this.pt.x,this.pt.y)) >= 0) {
+                    if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
                         this.norm.invert();
                     }
                     return;
@@ -4949,19 +5143,19 @@
 
                 if (a1 instanceof Flatten.Vector && a2 instanceof Flatten.Point) {
                     if (Flatten.Utils.EQ_0(a1.x) && Flatten.Utils.EQ_0(a1.y)) {
-                        throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                        throw Errors.ILLEGAL_PARAMETERS;
                     }
                     this.pt = a2.clone();
                     this.norm = a1.clone();
                     this.norm = this.norm.normalize();
-                    if (this.norm.dot(vector$1(this.pt.x,this.pt.y)) >= 0) {
+                    if (this.norm.dot(vector(this.pt.x,this.pt.y)) >= 0) {
                         this.norm.invert();
                     }
                     return;
                 }
             }
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -5026,7 +5220,7 @@
         get standard() {
             let A = this.norm.x;
             let B = this.norm.y;
-            let C = this.norm.dot(this.pt);
+            let C = this.norm.dot(vector(this.pt.x, this.pt.y));
 
             return [A, B, C];
         }
@@ -5064,15 +5258,15 @@
         }
 
         /**
-         * Return coordinate of the point that lays on the line in the transformed
+         * Return coordinate of the point that lies on the line in the transformed
          * coordinate system where center is the projection of the point(0,0) to
          * the line and axe y is collinear to the normal vector. <br/>
-         * This method assumes that point lays on the line and does not check it
-         * @param {Point} pt - point on line
+         * This method assumes that point lies on the line and does not check it
+         * @param {Point} pt - point on a line
          * @returns {number}
          */
         coord(pt) {
-            return vector$1(pt.x, pt.y).cross(this.norm);
+            return vector(pt.x, pt.y).cross(this.norm);
         }
 
         /**
@@ -5087,6 +5281,10 @@
 
             if (shape instanceof Flatten.Line) {
                 return intersectLine2Line(this, shape);
+            }
+
+            if (shape instanceof Flatten.Ray) {
+                return intersectRay2Line(shape, this);
             }
 
             if (shape instanceof Flatten.Circle) {
@@ -5114,8 +5312,7 @@
         /**
          * Calculate distance and shortest segment from line to shape and returns array [distance, shortest_segment]
          * @param {Shape} shape Shape of the one of the types Point, Circle, Segment, Arc, Polygon
-         * @returns {Number}
-         * @returns {Segment}
+         * @returns {[number, Segment]}
          */
         distanceTo(shape) {
             if (shape instanceof Flatten.Point) {
@@ -5147,14 +5344,14 @@
         }
 
         /**
-         * Split line with array of points and return array of shapes
-         * Assumed that all points lay on the line
-         * @param {Point[]}
-         * @returns {Shape[]}
+         * Split line with a point or array of points and return array of shapes
+         * Assumed (but not checked) that all points lay on the line
+         * @param {Point | Point[]} pt
+         * @returns {MultilineShapes}
          */
         split(pt) {
             if (pt instanceof Flatten.Point) {
-                return [new Flatten.Ray(pt, this.norm.invert()), new Flatten.Ray(pt, this.norm)]
+                return [new Flatten.Ray(pt, this.norm), new Flatten.Ray(pt, this.norm)]
             }
             else {
                 let multiline = new Flatten.Multiline([this]);
@@ -5165,7 +5362,31 @@
         }
 
         /**
-         * Sort given array of points that lay on line with respect to coordinate on a line
+         * Return new line rotated by angle
+         * @param {number} angle - angle in radians
+         * @param {Point} center - center of rotation
+         */
+        rotate(angle, center = new Flatten.Point()) {
+            return new Flatten.Line(
+                this.pt.rotate(angle, center),
+                this.norm.rotate(angle)
+            )
+        }
+
+        /**
+         * Return new line transformed by affine transformation matrix
+         * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+         * @returns {Line}
+         */
+        transform(m) {
+            return new Flatten.Line(
+                this.pt.transform(m),
+                this.norm.clone()
+            )
+        }
+
+        /**
+         * Sort given array of points that lay on a line with respect to coordinate on a line
          * The method assumes that points lay on the line and does not check this
          * @param {Point[]} pts - array of points
          * @returns {Point[]} new array sorted
@@ -5182,13 +5403,8 @@
             })
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "line"});
+        get name() {
+            return "line"
         }
 
         /**
@@ -5201,7 +5417,7 @@
             if (ip.length === 0)
                 return "";
             let ps = ip[0];
-            let pe = ip.length == 2 ? ip[1] : ip.find(pt => !pt.equalTo(ps));
+            let pe = ip.length === 2 ? ip[1] : ip.find(pt => !pt.equalTo(ps));
             if (pe === undefined) pe = ps;
             let segment = new Flatten.Segment(ps, pe);
             return segment.svg(attrs);
@@ -5209,14 +5425,15 @@
 
         static points2norm(pt1, pt2) {
             if (pt1.equalTo(pt2)) {
-                throw Flatten.Errors.ILLEGAL_PARAMETERS;
+                throw Errors.ILLEGAL_PARAMETERS;
             }
             let vec = new Flatten.Vector(pt1, pt2);
             let unit = vec.normalize();
             return unit.rotate90CCW();
         }
-    }
-    Flatten.Line = Line;
+    };
+
+    Flatten.Line = Line$1;
     /**
      * Function to create line equivalent to "new" constructor
      * @param args
@@ -5228,17 +5445,24 @@
      * Created by Alex Bol on 3/6/2017.
      */
 
+
     /**
      * Class representing a circle
      * @type {Circle}
      */
-    class Circle {
+    let Circle$1 = class Circle extends Shape {
+        /**
+         * Class private property
+         * @type {string}
+         */
+
         /**
          *
          * @param {Point} pc - circle center point
          * @param {number} r - circle radius
          */
         constructor(...args) {
+            super();
             /**
              * Circle center
              * @type {Point}
@@ -5250,19 +5474,16 @@
              */
             this.r = 1;
 
-            if (args.length == 1 && args[0] instanceof Object && args[0].name === "circle") {
+            if (args.length === 1 && args[0] instanceof Object && args[0].name === "circle") {
                 let {pc, r} = args[0];
                 this.pc = new Flatten.Point(pc);
                 this.r = r;
-                return;
             } else {
                 let [pc, r] = [...args];
                 if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
                 if (r !== undefined) this.r = r;
-                return;
             }
-
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            // throw Errors.ILLEGAL_PARAMETERS;    unreachable code
         }
 
         /**
@@ -5334,6 +5555,29 @@
         }
 
         /**
+         * Method scale is supported only for uniform scaling of the circle with (0,0) center
+         * @param {number} sx
+         * @param {number} sy
+         * @returns {Circle}
+         */
+        scale(sx, sy) {
+            if (sx !== sy)
+                throw Errors.OPERATION_IS_NOT_SUPPORTED
+            if (!(this.pc.x === 0.0 && this.pc.y === 0.0))
+                throw Errors.OPERATION_IS_NOT_SUPPORTED
+            return new Flatten.Circle(this.pc, this.r*sx)
+        }
+
+        /**
+         * Return new circle transformed using affine transformation matrix
+         * @param {Matrix} matrix - affine transformation matrix
+         * @returns {Circle}
+         */
+        transform(matrix = new Flatten.Matrix()) {
+            return new Flatten.Circle(this.pc.transform(matrix), this.r)
+        }
+
+        /**
          * Returns array of intersection points between circle and other shape
          * @param {Shape} shape Shape of the one of supported types
          * @returns {Point[]}
@@ -5345,7 +5589,9 @@
             if (shape instanceof Flatten.Line) {
                 return intersectLine2Circle(shape, this);
             }
-
+            if (shape instanceof Flatten.Ray) {
+                return intersectRay2Circle(shape, this);
+            }
             if (shape instanceof Flatten.Segment) {
                 return intersectSegment2Circle(shape, this);
             }
@@ -5413,33 +5659,23 @@
             }
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "circle"});
+        get name() {
+            return "circle"
         }
 
         /**
          * Return string to draw circle in svg
-         * @param {Object} attrs - an object with attributes of svg circle element,
-         * like "stroke", "strokeWidth", "fill" <br/>
-         * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+         * @param {Object} attrs - an object with attributes of svg circle element
          * @returns {string}
          */
         svg(attrs = {}) {
-            let {stroke, strokeWidth, fill, fillOpacity, id, className} = attrs;
-            // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-            return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}" stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} />`;
+            return `\n<circle cx="${this.pc.x}" cy="${this.pc.y}" r="${this.r}"
+                ${convertToString({fill: "none", ...attrs})} />`;
         }
 
-    }
-    Flatten.Circle = Circle;
+    };
+
+    Flatten.Circle = Circle$1;
     /**
      * Shortcut to create new circle
      * @param args
@@ -5451,20 +5687,22 @@
      * Created by Alex Bol on 3/10/2017.
      */
 
+
     /**
      * Class representing a circular arc
      * @type {Arc}
      */
-    class Arc {
+    class Arc extends Shape {
         /**
          *
          * @param {Point} pc - arc center
          * @param {number} r - arc radius
          * @param {number} startAngle - start angle in radians from 0 to 2*PI
          * @param {number} endAngle - end angle in radians from 0 to 2*PI
-         * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counter clockwise
+         * @param {boolean} counterClockwise - arc direction, true - clockwise, false - counterclockwise
          */
         constructor(...args) {
+            super();
             /**
              * Arc center
              * @type {Point}
@@ -5491,17 +5729,16 @@
              */
             this.counterClockwise = Flatten.CCW;
 
-            if (args.length == 0)
+            if (args.length === 0)
                 return;
 
-            if (args.length == 1 && args[0] instanceof Object && args[0].name === "arc") {
+            if (args.length === 1 && args[0] instanceof Object && args[0].name === "arc") {
                 let {pc, r, startAngle, endAngle, counterClockwise} = args[0];
                 this.pc = new Flatten.Point(pc.x, pc.y);
                 this.r = r;
                 this.startAngle = startAngle;
                 this.endAngle = endAngle;
                 this.counterClockwise = counterClockwise;
-                return;
             } else {
                 let [pc, r, startAngle, endAngle, counterClockwise] = [...args];
                 if (pc && pc instanceof Flatten.Point) this.pc = pc.clone();
@@ -5509,10 +5746,9 @@
                 if (startAngle !== undefined) this.startAngle = startAngle;
                 if (endAngle !== undefined) this.endAngle = endAngle;
                 if (counterClockwise !== undefined) this.counterClockwise = counterClockwise;
-                return;
             }
 
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            // throw Flatten.Errors.ILLEGAL_PARAMETERS; unreachable code
         }
 
         /**
@@ -5659,8 +5895,8 @@
          */
         pointAtLength(length) {
             if (length > this.length || length < 0) return null;
-            if (length == 0) return this.start;
-            if (length == this.length) return this.end;
+            if (length === 0) return this.start;
+            if (length === this.length) return this.end;
             let factor = length / this.length;
             let endAngle = this.counterClockwise ? this.startAngle + this.sweep * factor : this.startAngle - this.sweep * factor;
             let arc = new Flatten.Arc(this.pc, this.r, this.startAngle, endAngle, this.counterClockwise);
@@ -5678,7 +5914,7 @@
         /**
          * Returns array of intersection points between arc and other shape
          * @param {Shape} shape Shape of the one of supported types <br/>
-         * @returns {Points[]}
+         * @returns {Point[]}
          */
         intersect(shape) {
             if (shape instanceof Flatten.Point) {
@@ -5686,6 +5922,9 @@
             }
             if (shape instanceof Flatten.Line) {
                 return intersectLine2Arc(shape, this);
+            }
+            if (shape instanceof Flatten.Ray) {
+                return intersectRay2Arc(shape, this);
             }
             if (shape instanceof Flatten.Circle) {
                 return intersectArc2Circle(this, shape);
@@ -5752,7 +5991,7 @@
 
         /**
          * Breaks arc in extreme point 0, pi/2, pi, 3*pi/2 and returns array of sub-arcs
-         * @returns {Arcs[]}
+         * @returns {Arc[]}
          */
         breakToFunctional() {
             let func_arcs_array = [];
@@ -5773,7 +6012,7 @@
                 }
             }
 
-            if (test_arcs.length == 0) {                  // arc does contain any extreme point
+            if (test_arcs.length === 0) {                  // arc does contain any extreme point
                 func_arcs_array.push(this.clone());
             } else {                                        // arc passes extreme point
                 // sort these arcs by length
@@ -5815,8 +6054,7 @@
         tangentInStart() {
             let vec = new Flatten.Vector(this.pc, this.start);
             let angle = this.counterClockwise ? Math.PI / 2. : -Math.PI / 2.;
-            let tangent = vec.rotate(angle).normalize();
-            return tangent;
+            return vec.rotate(angle).normalize();
         }
 
         /**
@@ -5826,8 +6064,7 @@
         tangentInEnd() {
             let vec = new Flatten.Vector(this.pc, this.end);
             let angle = this.counterClockwise ? -Math.PI / 2. : Math.PI / 2.;
-            let tangent = vec.rotate(angle).normalize();
-            return tangent;
+            return vec.rotate(angle).normalize();
         }
 
         /**
@@ -5839,48 +6076,7 @@
         }
 
         /**
-         * Returns new arc translated by vector vec
-         * @param {Vector} vec
-         * @returns {Segment}
-         */
-        translate(...args) {
-            let arc = this.clone();
-            arc.pc = this.pc.translate(...args);
-            return arc;
-        }
-
-        /**
-         * Return new segment rotated by given angle around given point
-         * If point omitted, rotate around origin (0,0)
-         * Positive value of angle defines rotation counter clockwise, negative - clockwise
-         * @param {number} angle - rotation angle in radians
-         * @param {Point} center - center point, default is (0,0)
-         * @returns {Arc}
-         */
-        rotate(angle = 0, center = new Flatten.Point()) {
-            let m = new Flatten.Matrix();
-            m = m.translate(center.x, center.y).rotate(angle).translate(-center.x, -center.y);
-            return this.transform(m);
-        }
-
-        /**
-         * Return new arc scaled by scaleX, scaleY.
-         * @param {number} scaleX - scale value by X
-         * @param {number} scaleY - scale value by Y
-         * @returns {Arc}
-         */
-        scale(scaleX = 1, scaleY = 1) {
-            let m = new Flatten.Matrix();
-            m = m.scale(scaleX, scaleY);
-            return this.transform(m);
-        }
-
-        /**
          * Return new arc transformed using affine transformation matrix <br/>
-         * Note 1. Non-equal scaling by x and y (abs(matrix[0]) != abs(matrix[3])) produce illegal result because
-         * it should create elliptic arc but this package does not support ellipses
-         * Note 2. Mirror transformation (matrix[0] * matrix[3] < 0) change direction of the arc to the opposite
-         * TODO: support non-equal scaling arc to ellipse or throw exception ?
          * @param {Matrix} matrix - affine transformation matrix
          * @returns {Arc}
          */
@@ -5892,8 +6088,7 @@
             if (matrix.a * matrix.d < 0) {
               newDirection = !newDirection;
             }
-            let arc = Flatten.Arc.arcSE(newCenter, newStart, newEnd, newDirection);
-            return arc;
+            return Flatten.Arc.arcSE(newCenter, newStart, newEnd, newDirection);
         }
 
         static arcSE(center, start, end, counterClockwise) {
@@ -5931,7 +6126,7 @@
 
         /**
          * Sort given array of points from arc start to end, assuming all points lay on the arc
-         * @param {Point[]} array of points
+         * @param {Point[]} pts array of points
          * @returns {Point[]} new array sorted
          */
         sortPoints(pts) {
@@ -5949,29 +6144,18 @@
             })
         }
 
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return Object.assign({}, this, {name: "arc"});
+        get name() {
+            return "arc"
         }
 
         /**
          * Return string to draw arc in svg
-         * @param {Object} attrs - an object with attributes of svg path element,
-         * like "stroke", "strokeWidth", "fill" <br/>
-         * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+         * @param {Object} attrs - an object with attributes of svg path element
          * @returns {string}
          */
         svg(attrs = {}) {
             let largeArcFlag = this.sweep <= Math.PI ? "0" : "1";
             let sweepFlag = this.counterClockwise ? "1" : "0";
-            let {stroke, strokeWidth, fill, id, className} = attrs;
-            // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
 
             if (Flatten.Utils.EQ(this.sweep, 2 * Math.PI)) {
                 let circle = new Flatten.Circle(this.pc, this.r);
@@ -5979,11 +6163,12 @@
             } else {
                 return `\n<path d="M${this.start.x},${this.start.y}
                              A${this.r},${this.r} 0 ${largeArcFlag},${sweepFlag} ${this.end.x},${this.end.y}"
-                    stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`
+                    ${convertToString({fill: "none", ...attrs})} />`
             }
         }
 
     }
+
     Flatten.Arc = Arc;
     /**
      * Function to create arc equivalent to "new" constructor
@@ -5997,10 +6182,11 @@
      */
 
     /**
-     * Class Box represent bounding box of the shape
+     * Class Box represents bounding box of the shape.
+     * It may also represent axis-aligned rectangle
      * @type {Box}
      */
-    class Box {
+    class Box extends Shape {
         /**
          *
          * @param {number} xmin - minimal x coordinate
@@ -6009,6 +6195,7 @@
          * @param {number} ymax - maximal y coordinate
          */
         constructor(xmin = undefined, ymin = undefined, xmax = undefined, ymax = undefined) {
+            super();
             /**
              * Minimal x coordinate
              * @type {number}
@@ -6169,7 +6356,7 @@
 
         /**
          * Set new values to the box object
-         * @param {number} xmin - miminal x coordinate
+         * @param {number} xmin - mininal x coordinate
          * @param {number} ymin - minimal y coordinate
          * @param {number} xmax - maximal x coordinate
          * @param {number} ymax - maximal y coordinate
@@ -6182,7 +6369,7 @@
         }
 
         /**
-         * Transform box into array of points from low left corner in counter clockwise
+         * Transform box into array of points from low left corner in counterclockwise
          * @returns {Point[]}
          */
         toPoints() {
@@ -6195,7 +6382,7 @@
         }
 
         /**
-         * Transform box into array of segments from low left corner in counter clockwise
+         * Transform box into array of segments from low left corner in counterclockwise
          * @returns {Segment[]}
          */
         toSegments() {
@@ -6209,23 +6396,84 @@
         }
 
         /**
-         * Return string to draw circle in svg
-         * @param {Object} attrs - an object with attributes of svg rectangle element,
-         * like "stroke", "strokeWidth", "fill" <br/>
-         * Defaults are stroke:"black", strokeWidth:"1", fill:"none"
+         * Box rotation is not supported
+         * Attempt to rotate box throws error
+         * @param {number} angle - angle in radians
+         * @param {Point} [center=(0,0)] center
+         */
+        rotate(angle, center = new Flatten.Point()) {
+                throw Errors.OPERATION_IS_NOT_SUPPORTED
+        }
+
+        /**
+         * Return new box transformed using affine transformation matrix
+         * New box is a bounding box of transformed corner points
+         * @param {Matrix} m - affine transformation matrix
+         * @returns {Box}
+         */
+        transform(m = new Flatten.Matrix()) {
+            const transformed_points = this.toPoints().map(pt => pt.transform(m));
+            return transformed_points.reduce(
+                (new_box, pt) => new_box.merge(pt.box), new Box())
+        }
+
+        /**
+         * Return true if box contains shape: no point of shape lies outside the box
+         * @param {AnyShape} shape - test shape
+         * @returns {boolean}
+         */
+        contains(shape) {
+            if (shape instanceof Flatten.Point) {
+                return (shape.x >= this.xmin) && (shape.x <= this.xmax) && (shape.y >= this.ymin) && (shape.y <= this.ymax);
+            }
+
+            if (shape instanceof Flatten.Segment) {
+                return shape.vertices.every(vertex => this.contains(vertex))
+            }
+
+            if (shape instanceof Flatten.Box) {
+                return shape.toSegments().every(segment => this.contains(segment))
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                return this.contains(shape.box)
+            }
+
+            if (shape instanceof Flatten.Arc) {
+                return shape.vertices.every(vertex => this.contains(vertex)) &&
+                    shape.toSegments().every(segment => intersectSegment2Arc(segment, shape).length === 0)
+            }
+
+            if (shape instanceof Flatten.Line || shape instanceof Flatten.Ray) {
+                return false
+            }
+
+            if (shape instanceof Flatten.Multiline) {
+                return shape.toShapes().every(shape => this.contains(shape))
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                return this.contains(shape.box)
+            }
+        }
+
+        get name() {
+            return "box"
+        }
+
+        /**
+         * Return string to draw box in svg
+         * @param {Object} attrs - an object with attributes of svg rectangle element
          * @returns {string}
          */
         svg(attrs = {}) {
-            let {stroke, strokeWidth, fill, id, className} = attrs;
-            // let rest_str = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-            let width = this.xmax - this.xmin;
-            let height = this.ymax - this.ymin;
-
-            return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height} stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "none"}" ${id_str} ${class_str} />`;
+            const width = this.xmax - this.xmin;
+            const height = this.ymax - this.ymin;
+            return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height}
+                ${convertToString({fill: "none", ...attrs})} />`;
         };
     }
+
     Flatten.Box = Box;
     /**
      * Shortcut to create new box
@@ -6238,6 +6486,7 @@
     /**
      * Created by Alex Bol on 3/17/2017.
      */
+
 
     /**
      * Class representing an edge of polygon. Edge shape may be Segment or Arc.
@@ -6327,12 +6576,20 @@
             return this.shape.box;
         }
 
-        isSegment() {
+        get isSegment() {
             return this.shape instanceof Flatten.Segment;
         }
 
-        isArc() {
+        get isArc() {
             return this.shape instanceof Flatten.Arc;
+        }
+
+        get isLine() {
+            return this.shape instanceof Flatten.Line;
+        }
+
+        get isRay() {
+            return this.shape instanceof Flatten.Ray
         }
 
         /**
@@ -6534,6 +6791,7 @@
      * Created by Alex Bol on 3/17/2017.
      */
 
+
     /**
      * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
      * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}.
@@ -6571,7 +6829,7 @@
             this._box = undefined;  // new Box();
             this._orientation = undefined;
 
-            if (args.length == 0) {
+            if (args.length === 0) {
                 return;
             }
 
@@ -6579,11 +6837,11 @@
              1) array of shapes that performs close loop or
              2) array of points that performs set of vertices
              */
-            if (args.length == 1) {
+            if (args.length === 1) {
                 if (args[0] instanceof Array) {
                     // let argsArray = args[0];
                     let shapes = args[0];  // argsArray[0];
-                    if (shapes.length == 0)
+                    if (shapes.length === 0)
                         return;
 
                     /* array of Flatten.Points */
@@ -6631,7 +6889,7 @@
                 }
                 /* Instantiate face from a circle in CCW orientation */
                 else if (args[0] instanceof Flatten.Circle) {
-                    this.shapes2face(polygon.edges, [args[0].toArc(Flatten.CCW)]);
+                    this.shapes2face(polygon.edges, [args[0].toArc(CCW)]);
                 }
                 /* Instantiate face from a box in CCW orientation */
                 else if (args[0] instanceof Flatten.Box) {
@@ -6647,7 +6905,7 @@
             /* If passed two edges, consider them as start and end of the face loop */
             /* THIS METHOD WILL BE USED BY BOOLEAN OPERATIONS */
             /* Assume that edges already copied to polygon.edges set in the clip algorithm !!! */
-            if (args.length == 2 && args[0] instanceof Flatten.Edge && args[1] instanceof Flatten.Edge) {
+            if (args.length === 2 && args[0] instanceof Flatten.Edge && args[1] instanceof Flatten.Edge) {
                 this.first = args[0];                          // first edge in face or undefined
                 this.last = args[1];                           // last edge in face or undefined
                 this.last.next = this.first;
@@ -6780,9 +7038,23 @@
         }
 
         /**
+         * Merge current edge with the next edge. Given edge will be extended,
+         * next edge after it will be removed. The distortion of the polygon
+         * is on the responsibility of the user of this method
+         * @param {Edge} edge - edge to be extended
+         * @returns {Face}
+         */
+        merge_with_next_edge(edge) {
+            edge.shape.end.x = edge.next.shape.end.x;
+            edge.shape.end.y = edge.next.shape.end.y;
+            this.remove(edge.next);
+            return this;
+        }
+
+        /**
          * Reverse orientation of the face: first edge become last and vice a verse,
          * all edges starts and ends swapped, direction of arcs inverted. If face was oriented
-         * clockwise, it becomes counter clockwise and vice versa
+         * clockwise, it becomes counterclockwise and vice versa
          */
         reverse() {
             // collect edges in revert order with reverted shapes
@@ -6877,7 +7149,7 @@
          * Return face orientation: one of Flatten.ORIENTATION.CCW, Flatten.ORIENTATION.CW, Flatten.ORIENTATION.NOT_ORIENTABLE <br/>
          * According to Green theorem the area of a closed curve may be calculated as double integral,
          * and the sign of the integral will be defined by the direction of the curve.
-         * When the integral ("signed area") will be negative, direction is counter clockwise,
+         * When the integral ("signed area") will be negative, direction is counterclockwise,
          * when positive - clockwise and when it is zero, polygon is not orientable.
          * See {@link https://mathinsight.org/greens_theorem_find_area}
          * @returns {number}
@@ -6886,11 +7158,11 @@
             if (this._orientation === undefined) {
                 let area = this.signedArea();
                 if (Flatten.Utils.EQ_0(area)) {
-                    this._orientation = Flatten.ORIENTATION.NOT_ORIENTABLE;
+                    this._orientation = ORIENTATION.NOT_ORIENTABLE;
                 } else if (Flatten.Utils.LT(area, 0)) {
-                    this._orientation = Flatten.ORIENTATION.CCW;
+                    this._orientation = ORIENTATION.CCW;
                 } else {
-                    this._orientation = Flatten.ORIENTATION.CW;
+                    this._orientation = ORIENTATION.CW;
                 }
             }
             return this._orientation;
@@ -6900,12 +7172,12 @@
          * Returns true if face of the polygon is simple (no self-intersection points found)
          * NOTE: this method is incomplete because it does not exclude touching points.
          * Self intersection test should check if polygon change orientation in the test point.
-         * @param {Edges} edges - reference to polygon.edges to provide search index
+         * @param {PlanarSet} edges - reference to polygon edges to provide search index
          * @returns {boolean}
          */
         isSimple(edges) {
             let ip = Face.getSelfIntersections(this, edges, true);
-            return ip.length == 0;
+            return ip.length === 0;
         }
 
         static getSelfIntersections(face, edges, exitOnFirst = false) {
@@ -6970,7 +7242,8 @@
         findEdgeByPoint(pt) {
             let edgeFound;
             for (let edge of this) {
-                if (edge.shape.contains(pt)) {
+                if (pt.equalTo(edge.shape.start)) continue
+                if (pt.equalTo(edge.shape.end) || edge.shape.contains(pt)) {
                     edgeFound = edge;
                     break;
                 }
@@ -7004,13 +7277,14 @@
         }
 
     }
+
     Flatten.Face = Face;
 
     /**
      * Class representing a ray (a half-infinite line).
      * @type {Ray}
      */
-    class Ray {
+    class Ray extends Shape {
         /**
          * Ray may be constructed by setting an <b>origin</b> point and a <b>normal</b> vector, so that any point <b>x</b>
          * on a ray fit an equation: <br />
@@ -7022,10 +7296,11 @@
          * @param {Vector} norm - normal vector
          */
         constructor(...args) {
+            super();
             this.pt = new Flatten.Point();
             this.norm = new Flatten.Vector(0,1);
 
-            if (args.length == 0) {
+            if (args.length === 0) {
                 return;
             }
 
@@ -7042,12 +7317,7 @@
                 return;
             }
 
-            // if (args.length == 2 && typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-            //     this.pt = new Flatten.Point(args[0], args[1]);
-            //     return;
-            // }
-
-            throw Flatten.Errors.ILLEGAL_PARAMETERS;
+            throw Errors.ILLEGAL_PARAMETERS;
         }
 
         /**
@@ -7077,7 +7347,7 @@
                 slope > Math.PI/2 && slope < 3*Math.PI/2 ? Number.NEGATIVE_INFINITY : this.pt.x,
                 slope >= 0 && slope <= Math.PI ? this.pt.y : Number.NEGATIVE_INFINITY,
                 slope >= Math.PI/2 && slope <= 3*Math.PI/2 ? this.pt.x : Number.POSITIVE_INFINITY,
-                slope >= Math.PI && slope <= 2*Math.PI || slope == 0 ? this.pt.y : Number.POSITIVE_INFINITY
+                slope >= Math.PI && slope <= 2*Math.PI || slope === 0 ? this.pt.y : Number.POSITIVE_INFINITY
             )
         }
 
@@ -7117,6 +7387,18 @@
         }
 
         /**
+         * Return coordinate of the point that lies on the ray in the transformed
+         * coordinate system where center is the projection of the point(0,0) to
+         * the line containing this ray and axe y is collinear to the normal vector. <br/>
+         * This method assumes that point lies on the ray
+         * @param {Point} pt - point on a ray
+         * @returns {number}
+         */
+        coord(pt) {
+            return vector$1(pt.x, pt.y).cross(this.norm);
+        }
+
+        /**
          * Split ray with point and return array of segment and new ray
          * @param {Point} pt
          * @returns [Segment,Ray]
@@ -7136,64 +7418,70 @@
         }
 
         /**
-         * Returns array of intersection points between ray and segment or arc
-         * @param {Segment|Arc} - Shape to intersect with ray
-         * @returns {Array} array of intersection points
+         * Returns array of intersection points between ray and another shape
+         * @param {Shape} shape - Shape to intersect with ray
+         * @returns {Point[]} array of intersection points
          */
         intersect(shape) {
+            if (shape instanceof Flatten.Point) {
+                return this.contains(shape) ? [shape] : [];
+            }
+
             if (shape instanceof Flatten.Segment) {
-                return this.intersectRay2Segment(this, shape);
+                return intersectRay2Segment(this, shape);
             }
 
             if (shape instanceof Flatten.Arc) {
-                return this.intersectRay2Arc(this, shape);
+                return intersectRay2Arc(this, shape);
+            }
+
+            if (shape instanceof Flatten.Line) {
+                return intersectRay2Line(this, shape);
+            }
+
+            if (shape instanceof Flatten.Ray) {
+                return intersectRay2Ray(this, shape)
+            }
+
+            if (shape instanceof Flatten.Circle) {
+                return intersectRay2Circle(this, shape);
+            }
+
+            if (shape instanceof Flatten.Box) {
+                return intersectRay2Box(this, shape);
+            }
+
+            if (shape instanceof Flatten.Polygon) {
+                return  intersectRay2Polygon(this, shape);
             }
         }
 
-        intersectRay2Segment(ray, segment) {
-            let ip = [];
-
-            // if (ray.box.not_intersect(segment.box)) {
-            //     return ip;
-            // }
-
-            let line = new Flatten.Line(ray.start, ray.norm);
-            let ip_tmp = line.intersect(segment);
-
-            for (let pt of ip_tmp) {
-                // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
-                if (ray.contains(pt)) {
-                    ip.push(pt);
-                }
-            }
-
-            /* If there were two intersection points between line and ray,
-            and now there is exactly one left, it means ray starts between these points
-            and there is another intersection point - start of the ray */
-            if (ip_tmp.length == 2 && ip.length == 1 && ray.start.on(line)) {
-                ip.push(ray.start);
-            }
-
-            return ip;
+        /**
+         * Return new line rotated by angle
+         * @param {number} angle - angle in radians
+         * @param {Point} center - center of rotation
+         */
+        rotate(angle, center = new Flatten.Point()) {
+            return new Flatten.Ray(
+                this.pt.rotate(angle, center),
+                this.norm.rotate(angle)
+            )
         }
 
-        intersectRay2Arc(ray, arc) {
-            let ip = [];
+        /**
+         * Return new ray transformed by affine transformation matrix
+         * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
+         * @returns {Ray}
+         */
+        transform(m) {
+            return new Flatten.Ray(
+                this.pt.transform(m),
+                this.norm.clone()
+            )
+        }
 
-            // if (ray.box.not_intersect(arc.box)) {
-            //     return ip;
-            // }
-
-            let line = new Flatten.Line(ray.start, ray.norm);
-            let ip_tmp = line.intersect(arc);
-
-            for (let pt of ip_tmp) {
-                // if (Flatten.Utils.GE(pt.x, ray.start.x)) {
-                if (ray.contains(pt)) {
-                    ip.push(pt);
-                }
-            }
-            return ip;
+        get name() {
+            return "ray"
         }
 
         /**
@@ -7212,6 +7500,7 @@
         }
 
     }
+
     Flatten.Ray = Ray;
 
     const ray = (...args) => new Flatten.Ray(...args);
@@ -7220,6 +7509,7 @@
     /**
      * Created by Alex Bol on 3/15/2017.
      */
+
 
     /**
      * Class representing a polygon.<br/>
@@ -7357,7 +7647,7 @@
 
         /**
          * Add new face to polygon. Returns added face
-         * @param {Points[]|Segments[]|Arcs[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
+         * @param {Point[]|Segment[]|Arc[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
          * 1) array of points that describe closed path (edges are segments) <br/>
          * 2) array of shapes (segments and arcs) which describe closed path <br/>
          * 3) circle - will be added as counterclockwise arc <br/>
@@ -7481,97 +7771,23 @@
         }
 
         /**
-         * Cut polygon with multiline and return array of new polygons
-         * Multiline should be constructed from a line with intersection point, see notebook:
-         * https://next.observablehq.com/@alexbol99/cut-polygon-with-line
+         * Merge given edge with next edge and remove vertex between them
+         * @param {Edge} edge
+         */
+        removeEndVertex(edge) {
+            const edge_next = edge.next;
+            if (edge_next === edge) return
+            edge.face.merge_with_next_edge(edge);
+            this.edges.delete(edge_next);
+        }
+
+        /**
+         * Cut polygon with multiline and return a new polygon
          * @param {Multiline} multiline
-         * @returns {Polygon[]}
+         * @returns {Polygon}
          */
         cut(multiline) {
-            let cutPolygons = [this.clone()];
-            for (let edge of multiline) {
-                if (edge.setInclusion(this) !== INSIDE)
-                    continue;
-
-                let cut_edge_start = edge.shape.start;
-                let cut_edge_end = edge.shape.end;
-
-                let newCutPolygons = [];
-                for (let polygon of cutPolygons) {
-                    if (polygon.findEdgeByPoint(cut_edge_start) === undefined) {
-                        newCutPolygons.push(polygon);
-                    } else {
-                        let [cutPoly1, cutPoly2] = polygon.cutFace(cut_edge_start, cut_edge_end);
-                        newCutPolygons.push(cutPoly1, cutPoly2);
-                    }
-                }
-                cutPolygons = newCutPolygons;
-            }
-            return cutPolygons;
-        }
-
-        /**
-         * Cut face of polygon with a segment between two points and create two new polygons
-         * Supposed that a segments between points does not intersect any other edge
-         * @param {Point} pt1
-         * @param {Point} pt2
-         * @returns {Polygon[]}
-         */
-        cutFace(pt1, pt2) {
-            let edge1 = this.findEdgeByPoint(pt1);
-            let edge2 = this.findEdgeByPoint(pt2);
-            if (edge1.face !== edge2.face)
-                return [];
-
-            // Cut face into two and create new polygon with two faces
-            let edgeBefore1 = this.addVertex(pt1, edge1);
-            edge2 = this.findEdgeByPoint(pt2);
-            let edgeBefore2 = this.addVertex(pt2, edge2);
-
-            let face = edgeBefore1.face;
-            let newEdge1 = new Flatten.Edge(
-                new Flatten.Segment(edgeBefore1.end, edgeBefore2.end)
-            );
-            let newEdge2 = new Flatten.Edge(
-                new Flatten.Segment(edgeBefore2.end, edgeBefore1.end)
-            );
-
-            // Swap links
-            edgeBefore1.next.prev = newEdge2;
-            newEdge2.next = edgeBefore1.next;
-
-            edgeBefore1.next = newEdge1;
-            newEdge1.prev = edgeBefore1;
-
-            edgeBefore2.next.prev = newEdge1;
-            newEdge1.next = edgeBefore2.next;
-
-            edgeBefore2.next = newEdge2;
-            newEdge2.prev = edgeBefore2;
-
-            // Insert new edge to the edges container and 2d index
-            this.edges.add(newEdge1);
-            this.edges.add(newEdge2);
-
-            // Add two new faces
-            let face1 = this.addFace(newEdge1, edgeBefore1);
-            let face2 = this.addFace(newEdge2, edgeBefore2);
-
-            // Remove old face
-            this.faces.delete(face);
-
-            return [face1.toPolygon(), face2.toPolygon()];
-        }
-
-        /**
-         * Return a result of cutting polygon with line
-         * @param {Line} line - cutting line
-         * @returns {Polygon} newPoly - resulted polygon
-         */
-        cutWithLine(line) {
             let newPoly = this.clone();
-
-            let multiline = new Multiline([line]);
 
             // smart intersections
             let intersections = {
@@ -7581,14 +7797,16 @@
                 int_points2_sorted: []
             };
 
-            // intersect line with each edge of the polygon
+            // intersect each edge of multiline with each edge of the polygon
             // and create smart intersections
-            for (let edge of newPoly.edges) {
-                let ip = intersectEdge2Line(edge, line);
-                // for each intersection point
-                for (let pt of ip) {
-                    addToIntPoints(multiline.first, pt, intersections.int_points1);
-                    addToIntPoints(edge, pt, intersections.int_points2);
+            for (let edge1 of multiline.edges) {
+                for (let edge2 of newPoly.edges) {
+                    let ip = intersectEdge2Edge(edge1, edge2);
+                    // for each intersection point
+                    for (let pt of ip) {
+                        addToIntPoints(edge1, pt, intersections.int_points1);
+                        addToIntPoints(edge2, pt, intersections.int_points2);
+                    }
                 }
             }
 
@@ -7597,7 +7815,7 @@
                 return newPoly;
 
             // sort smart intersections
-            intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+            intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
             intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
             // split by intersection points
@@ -7608,7 +7826,7 @@
             filterDuplicatedIntersections(intersections);
 
             // sort intersection points again after filtering
-            intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+            intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
             intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
             // initialize inclusion flags for edges of multiline incident to intersections
@@ -7619,7 +7837,8 @@
 
             // filter intersections between two edges that got same inclusion flag
             for (let int_point1 of intersections.int_points1_sorted) {
-                if (int_point1.edge_before.bv === int_point1.edge_after.bv) {
+                if (int_point1.edge_before && int_point1.edge_after &&
+                    int_point1.edge_before.bv === int_point1.edge_after.bv) {
                     intersections.int_points2[int_point1.id] = -1;   // to be filtered out
                     int_point1.id = -1;                              // to be filtered out
                 }
@@ -7632,32 +7851,53 @@
                 return newPoly;
 
             // sort intersection points 3d time after filtering
-            intersections.int_points1_sorted = getSortedArrayOnLine(line, intersections.int_points1);
+            intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
             intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 
-            // Add 2 new inner edges between intersection points
-            let int_point1_prev = intersections.int_points1[0];
-            let new_edge;
-            for (let int_point1_curr of intersections.int_points1_sorted) {
-                if (int_point1_curr.edge_before.bv === INSIDE) {
-                    new_edge = new Flatten.Edge(new Flatten.Segment(int_point1_prev.pt, int_point1_curr.pt));    // (int_point1_curr.edge_before.shape);
-                    insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], new_edge);
-                    newPoly.edges.add(new_edge);
+            // Add new inner edges between intersection points
+            let int_point1_prev;
+            let int_point1_curr;
+            for (let i = 1; i <  intersections.int_points1_sorted.length; i++) {
+                int_point1_curr = intersections.int_points1_sorted[i];
+                int_point1_prev = intersections.int_points1_sorted[i-1];
+                if (int_point1_curr.edge_before && int_point1_curr.edge_before.bv === INSIDE$2) {
+                    let edgeFrom = int_point1_prev.edge_after;
+                    let edgeTo = int_point1_curr.edge_before;
+                    let newEdges = multiline.getChain(edgeFrom, edgeTo);
+                    insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], newEdges);
+                    newEdges.forEach(edge => newPoly.edges.add(edge));
 
-                    new_edge = new Flatten.Edge(new Flatten.Segment(int_point1_curr.pt, int_point1_prev.pt));    // (int_point1_curr.edge_before.shape.reverse());
-                    insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], new_edge);
-                    newPoly.edges.add(new_edge);
+                    newEdges = newEdges.reverse().map(edge => new Flatten.Edge(edge.shape.reverse()));
+                    for (let k=0; k < newEdges.length-1; k++) {
+                        newEdges[k].next = newEdges[k+1];
+                        newEdges[k+1].prev = newEdges[k];
+                    }
+                    insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], newEdges);
+                    newEdges.forEach(edge => newPoly.edges.add(edge));
                 }
-                int_point1_prev = int_point1_curr;
+
             }
 
             // Recreate faces
             newPoly.recreateFaces();
-            return newPoly;
+
+            return newPoly
         }
 
         /**
-         * Returns the first founded edge of polygon that contains given point
+         * A special case of cut() function
+         * The return is a polygon cut with line
+         * @param {Line} line - cutting line
+         * @returns {Polygon} newPoly - resulted polygon
+         */
+        cutWithLine(line) {
+            let multiline = new Multiline([line]);
+            return this.cut(multiline);
+        }
+
+        /**
+         * Returns the first found edge of polygon that contains given point
+         * If point is a vertex, return the edge where the point is an end vertex, not a start one
          * @param {Point} pt
          * @returns {Edge}
          */
@@ -7672,11 +7912,12 @@
         }
 
         /**
-         * Split polygon into array of polygons, where each polygon is an island with all
-         * hole that it contains
+         * Split polygon into array of polygons, where each polygon is an outer face with all
+         * containing inner faces
          * @returns {Flatten.Polygon[]}
          */
         splitToIslands() {
+            if (this.isEmpty()) return [];      // return empty array if polygon is empty
             let polygons = this.toArray();      // split into array of one-loop polygons
             /* Sort polygons by area in descending order */
             polygons.sort((polygon1, polygon2) => polygon2.area() - polygon1.area());
@@ -7720,7 +7961,7 @@
         contains(shape) {
             if (shape instanceof Flatten.Point) {
                 let rel = ray_shoot(this, shape);
-                return rel === INSIDE || rel === BOUNDARY;
+                return rel === INSIDE$2 || rel === BOUNDARY$1;
             } else {
                 return cover(this, shape);
             }
@@ -7780,6 +8021,10 @@
                 return intersectLine2Polygon(shape, this);
             }
 
+            if (shape instanceof Flatten.Ray) {
+                return intersectRay2Polygon(shape, this);
+            }
+
             if (shape instanceof Flatten.Circle) {
                 return intersectCircle2Polygon(shape, this);
             }
@@ -7813,7 +8058,7 @@
         /**
          * Return new polygon rotated by given angle around given point
          * If point omitted, rotate around origin (0,0)
-         * Positive value of angle defines rotation counter clockwise, negative - clockwise
+         * Positive value of angle defines rotation counterclockwise, negative - clockwise
          * @param {number} angle - rotation angle in radians
          * @param {Point} center - rotation center, default is (0,0)
          * @returns {Polygon} - new rotated polygon
@@ -7822,6 +8067,20 @@
             let newPolygon = new Polygon();
             for (let face of this.faces) {
                 newPolygon.addFace(face.shapes.map(shape => shape.rotate(angle, center)));
+            }
+            return newPolygon;
+        }
+
+        /**
+         * Return new polygon with coordinates multiplied by scaling factor
+         * @param {number} sx - x-axis scaling factor
+         * @param {number} sy - y-axis scaling factor
+         * @returns {Polygon}
+         */
+        scale(sx, sy) {
+            let newPolygon = new Polygon();
+            for (let face of this.faces) {
+                newPolygon.addFace(face.shapes.map(shape => shape.scale(sx, sy)));
             }
             return newPolygon;
         }
@@ -7858,18 +8117,11 @@
 
         /**
          * Return string to draw polygon in svg
-         * @param attrs  - an object with attributes for svg path element,
-         * like "stroke", "strokeWidth", "fill", "fillRule", "fillOpacity"
-         * Defaults are stroke:"black", strokeWidth:"1", fill:"lightcyan", fillRule:"evenodd", fillOpacity: "1"
+         * @param attrs  - an object with attributes for svg path element
          * @returns {string}
          */
         svg(attrs = {}) {
-            let {stroke, strokeWidth, fill, fillRule, fillOpacity, id, className} = attrs;
-            // let restStr = Object.keys(rest).reduce( (acc, key) => acc += ` ${key}="${rest[key]}"`, "");
-            let id_str = (id && id.length > 0) ? `id="${id}"` : "";
-            let class_str = (className && className.length > 0) ? `class="${className}"` : "";
-
-            let svgStr = `\n<path stroke="${stroke || "black"}" stroke-width="${strokeWidth || 1}" fill="${fill || "lightcyan"}" fill-rule="${fillRule || "evenodd"}" fill-opacity="${fillOpacity || 1.0}" ${id_str} ${class_str} d="`;
+            let svgStr = `\n<path ${convertToString({fillRule: "evenodd", fill: "lightcyan", ...attrs})} d="`;
             for (let face of this.faces) {
                 svgStr += face.svg();
             }
@@ -7886,7 +8138,7 @@
     const polygon = (...args) => new Flatten.Polygon(...args);
     Flatten.polygon = polygon;
 
-    const {Circle: Circle$1, Line: Line$1, Point: Point$1, Vector: Vector$1, Utils: Utils$1} = Flatten;
+    const {Circle, Line, Point, Vector, Utils} = Flatten;
     /**
      * Class Inversion represent operator of inversion in circle
      * Inversion is a transformation of the Euclidean plane that maps generalized circles
@@ -7910,55 +8162,55 @@
         }
 
         static inversePoint(inversion_circle, point) {
-            const v = new Vector$1(inversion_circle.pc, point);
+            const v = new Vector(inversion_circle.pc, point);
             const k2 = inversion_circle.r * inversion_circle.r;
             const len2 = v.dot(v);
-            const reflected_point = Utils$1.EQ_0(len2) ?
-                new Point$1(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY) :
+            const reflected_point = Utils.EQ_0(len2) ?
+                new Point(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY) :
                 inversion_circle.pc.translate(v.multiply(k2 / len2));
             return reflected_point;
         }
 
         static inverseCircle(inversion_circle, circle) {
             const dist = inversion_circle.pc.distanceTo(circle.pc)[0];
-            if (Utils$1.EQ(dist, circle.r)) {     // Circle passing through inversion center mapped into line
+            if (Utils.EQ(dist, circle.r)) {     // Circle passing through inversion center mapped into line
                 let d = (inversion_circle.r * inversion_circle.r) / (2 * circle.r);
-                let v = new Vector$1(inversion_circle.pc, circle.pc);
+                let v = new Vector(inversion_circle.pc, circle.pc);
                 v = v.normalize();
                 let pt = inversion_circle.pc.translate(v.multiply(d));
 
-                return new Line$1(pt, v);
+                return new Line(pt, v);
             } else {                           // Circle not passing through inversion center - map into another circle */
                 /* Taken from http://mathworld.wolfram.com */
-                let v = new Vector$1(inversion_circle.pc, circle.pc);
+                let v = new Vector(inversion_circle.pc, circle.pc);
                 let s = inversion_circle.r * inversion_circle.r / (v.dot(v) - circle.r * circle.r);
                 let pc = inversion_circle.pc.translate(v.multiply(s));
                 let r = Math.abs(s) * circle.r;
 
-                return new Circle$1(pc, r);
+                return new Circle(pc, r);
             }
         }
 
         static inverseLine(inversion_circle, line) {
             const [dist, shortest_segment] = inversion_circle.pc.distanceTo(line);
-            if (Utils$1.EQ_0(dist)) {            // Line passing through inversion center, is mapping to itself
+            if (Utils.EQ_0(dist)) {            // Line passing through inversion center, is mapping to itself
                 return line.clone();
             } else {                           // Line not passing through inversion center is mapping into circle
                 let r = inversion_circle.r * inversion_circle.r / (2 * dist);
-                let v = new Vector$1(inversion_circle.pc, shortest_segment.end);
+                let v = new Vector(inversion_circle.pc, shortest_segment.end);
                 v = v.multiply(r / dist);
-                return new Circle$1(inversion_circle.pc.translate(v), r);
+                return new Circle(inversion_circle.pc.translate(v), r);
             }
         }
 
         inverse(shape) {
-            if (shape instanceof Point$1) {
+            if (shape instanceof Point) {
                 return Inversion.inversePoint(this.circle, shape);
             }
-            else if (shape instanceof Circle$1) {
+            else if (shape instanceof Circle) {
                 return Inversion.inverseCircle(this.circle, shape);
             }
-            else if (shape instanceof Line$1) {
+            else if (shape instanceof Line) {
                 return Inversion.inverseLine(this.circle, shape);
             }
         }
@@ -8571,35 +8823,39 @@
      * Created by Alex Bol on 2/18/2017.
      */
 
+
     Flatten.BooleanOperations = BooleanOperations;
     Flatten.Relations = Relations;
 
     exports.Arc = Arc;
-    exports.BOUNDARY = BOUNDARY;
+    exports.BOUNDARY = BOUNDARY$1;
     exports.BooleanOperations = BooleanOperations;
     exports.Box = Box;
     exports.CCW = CCW;
     exports.CW = CW;
-    exports.Circle = Circle;
+    exports.Circle = Circle$1;
     exports.Distance = Distance;
     exports.Edge = Edge;
-    exports.Errors = errors;
+    exports.Errors = Errors;
     exports.Face = Face;
-    exports.INSIDE = INSIDE;
+    exports.INSIDE = INSIDE$2;
     exports.Inversion = Inversion;
-    exports.Line = Line;
+    exports.Line = Line$1;
     exports.Matrix = Matrix;
     exports.Multiline = Multiline;
     exports.ORIENTATION = ORIENTATION;
-    exports.OUTSIDE = OUTSIDE;
+    exports.OUTSIDE = OUTSIDE$1;
+    exports.OVERLAP_OPPOSITE = OVERLAP_OPPOSITE$1;
+    exports.OVERLAP_SAME = OVERLAP_SAME$1;
     exports.PlanarSet = PlanarSet;
-    exports.Point = Point;
+    exports.Point = Point$1;
     exports.Polygon = Polygon;
     exports.Ray = Ray;
     exports.Relations = Relations;
     exports.Segment = Segment;
-    exports.Utils = Utils;
-    exports.Vector = Vector;
+    exports.SmartIntersections = smart_intersections;
+    exports.Utils = Utils$1;
+    exports.Vector = Vector$1;
     exports.arc = arc;
     exports.box = box;
     exports.circle = circle;
@@ -8613,7 +8869,7 @@
     exports.ray = ray;
     exports.ray_shoot = ray_shoot;
     exports.segment = segment;
-    exports.vector = vector;
+    exports.vector = vector$1;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
