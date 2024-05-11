@@ -101,7 +101,7 @@ export class Circle extends Shape {
                 Flatten.Utils.LE(shape.end.distanceTo(this.center)[0], this.r);
         }
 
-        if (shape instanceof Constructor) {
+        if (shape instanceof Circle) {
             return this.intersect(shape).length === 0 &&
                 Flatten.Utils.LE(shape.r, this.r) &&
                 Flatten.Utils.LE(shape.center.distanceTo(this.center)[0], this.r);
