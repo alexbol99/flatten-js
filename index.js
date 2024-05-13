@@ -34,6 +34,6 @@ export {SmartIntersections};
 Flatten.BooleanOperations = BooleanOperations;
 Flatten.Relations = Relations;
 
-export {CCW, CW, ORIENTATION, INSIDE, OUTSIDE, BOUNDARY} from './src/utils/constants';
+export {CCW, CW, ORIENTATION, INSIDE, OUTSIDE, BOUNDARY, OVERLAP_SAME, OVERLAP_OPPOSITE} from './src/utils/constants';
 
 export default Flatten;
