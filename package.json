@@ -1,6 +1,6 @@
 {
   "name": "@flatten-js/core",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Javascript library for 2d geometry",
   "main": "dist/main.cjs",
   "umd:main": "dist/main.umd.js",
