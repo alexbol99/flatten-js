@@ -4,6 +4,7 @@
  */
 import * as Utils from "../utils/utils";
 import * as Constants from '../utils/constants';
+import {Multiline} from "../classes/multiline";
 
 export function addToIntPoints(edge, pt, int_points)
 {
@@ -55,11 +56,7 @@ export function addToIntPoints(edge, pt, int_points)
 
 export function sortIntersections(intersections)
 {
-    // if (intersections.int_points1.length === 0) return;
-
     // augment intersections with new sorted arrays
-    // intersections.int_points1_sorted = intersections.int_points1.slice().sort(compareFn);
-    // intersections.int_points2_sorted = intersections.int_points2.slice().sort(compareFn);
     intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
     intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
 }
@@ -102,18 +99,6 @@ function compareFn(ip1, ip2)
     }
     return 0;
 }
-
-// export function getSortedArrayOnLine(line, int_points) {
-//     return int_points.slice().sort( (int_point1, int_point2) => {
-//         if (line.coord(int_point1.pt) < line.coord(int_point2.pt)) {
-//             return -1;
-//         }
-//         if (line.coord(int_point1.pt) > line.coord(int_point2.pt)) {
-//             return 1;
-//         }
-//         return 0;
-//     })
-// }
 
 export function filterDuplicatedIntersections(intersections)
 {
@@ -346,14 +331,10 @@ export function splitByIntersections(polygon, int_points)
             int_point.is_vertex |= Constants.END_VERTEX;
         }
 
-        if (int_point.is_vertex & Constants.START_VERTEX) {  // nothing to split
+        if (int_point.is_vertex & Constants.START_VERTEX) {    // nothing to split
+            int_point.edge_before = edge.prev;
             if (edge.prev) {
-                int_point.edge_before = edge.prev;           // polygon
-                int_point.is_vertex = Constants.END_VERTEX;
-            }
-            else {                                           // multiline start vertex
-                int_point.edge_after = int_point.edge_before
-                int_point.edge_before = edge.prev
+                int_point.is_vertex = Constants.END_VERTEX;   // polygon
             }
             continue;
         }
@@ -368,6 +349,11 @@ export function splitByIntersections(polygon, int_points)
     for (let int_point of int_points) {
         if (int_point.edge_before) {
             int_point.edge_after = int_point.edge_before.next;
+        }
+        else {
+            if (polygon instanceof Multiline && int_point.is_vertex & Constants.START_VERTEX) {
+                int_point.edge_after = polygon.first
+            }
         }
     }
 }

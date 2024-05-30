@@ -933,6 +933,54 @@ describe('#Flatten.Polygon', function() {
         expect(newPoly.faces.size).to.equal(2);
         expect(newPoly.edges.size).to.equal(10)
     })
+    it('Polygon.cut error #175', () => {
+        // Create polygon from json
+        let json = [
+            [
+                {
+                    ps: {x: 641.64, y: 118.32, name: "point"},
+                    pe: {x: 641.64, y: 151.74, name: "point"},
+                    name: "segment"
+                },
+                {
+                    ps: {x: 641.64, y: 151.74, name: "point"},
+                    pe: {x: 504.66, y: 151.74, name: "point"},
+                    name: "segment"
+                },
+                {
+                    ps: {x: 504.66, y: 151.74, name: "point"},
+                    pe: {x: 504.66, y: 118.32, name: "point"},
+                    name: "segment"
+                },
+                {
+                    ps: {x: 504.66, y: 118.32, name: "point"},
+                    pe: {x: 641.64, y: 118.32, name: "point"},
+                    name: "segment"
+                }
+            ]
+        ];
+
+        let polygon = new Polygon(json);
+
+        // Create Multiline
+        let mlj = [
+            {
+                ps: {x: 576.48, y: 118.32, name: "point"},
+                pe: {x: 576.48, y: 274.14, name: "point"},
+                name: "segment"
+            },
+            {
+                ps: {x: 576.48, y: 274.14, name: "point"},
+                pe: {x: 641.64, y: 274.14, name: "point"},
+                name: "segment"
+            }
+        ];
+        let ml = multiline(mlj.map((s) => segment(s)));
+        const newPoly = polygon.cut(ml)
+        const a = newPoly.toArray()
+        expect(newPoly.faces.size).to.equal(2);
+        expect(newPoly.edges.size).to.equal(8)
+    })
     describe('#Intersections', function () {
         it('Can perform intersection between polygons', function () {
             const poly1 = new Polygon(
