@@ -7824,6 +7824,9 @@ class Polygon {
         }
         intersections.int_points1 = intersections.int_points1.filter( int_point => int_point.id >= 0);
         intersections.int_points2 = intersections.int_points2.filter( int_point => int_point.id >= 0);
+        intersections.int_points1.forEach((int_point, index) => { int_point.id = index; });
+        intersections.int_points2.forEach((int_point, index) => { int_point.id = index; });
+
 
         // No intersections left after filtering - return a copy of the original polygon
         if (intersections.int_points1.length === 0)

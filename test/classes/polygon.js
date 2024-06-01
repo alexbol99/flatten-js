@@ -981,6 +981,94 @@ describe('#Flatten.Polygon', function() {
         expect(newPoly.faces.size).to.equal(2);
         expect(newPoly.edges.size).to.equal(8)
     })
+    it("Polygon cut error #176", () => {
+        let polygon = new Polygon([
+            [
+                {
+                    ps: {x: 310.1, y: 423.82, name: "point",},
+                    pe: {x: 310.1, y: 460.66, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 310.1, y: 460.66, name: "point",},
+                    pe: {x: 189.98, y: 460.66, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 189.98, y: 460.66, name: "point",},
+                    pe: {x: 189.98, y: 423.94, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 189.98, y: 423.94, name: "point",},
+                    pe: {x: 210.5, y: 423.94, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 210.5, y: 423.94, name: "point",},
+                    pe: {x: 210.5, y: 313.75, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 210.5, y: 313.75, name: "point",},
+                    pe: {x: 272.66, y: 313.75, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 272.66, y: 313.75, name: "point",},
+                    pe: {x: 272.66, y: 325.99, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 272.66, y: 325.99, name: "point",},
+                    pe: {x: 291.38, y: 325.99, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 291.38, y: 325.99, name: "point",},
+                    pe: {x: 291.38, y: 423.94, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 291.38, y: 423.94, name: "point",},
+                    pe: {x: 310.1, y: 423.82, name: "point",},
+                    name: "segment",
+                },
+            ]])
+
+        let ml = new Multiline([
+            {
+                ps: {x: 210.5, y: 460.66, name: "point"},
+                pe: {x: 210.5, y: 423.94, name: "point"},
+                name: "segment",
+            }, {
+                ps: {x: 210.5, y: 423.94, name: "point",},
+                pe: {x: 253.94, y: 423.94, name: "point",},
+                name: "segment",
+            },
+            {
+                ps: {x: 253.94, y: 423.94, name: "point",},
+                pe: {x: 253.94, y: 442.3, name: "point",},
+                name: "segment",
+            },
+            {
+                ps: {x: 253.94, y: 442.3, name: "point",},
+                pe: {x: 272.66, y: 442.3, name: "point",},
+                name: "segment",
+            },
+            {
+                ps: {x: 272.66, y: 442.3, name: "point",},
+                pe: {x: 272.66, y: 460.66, name: "point",},
+                name: "segment",
+            },
+        ].map(l => segment(l)))
+
+        let slices = polygon.cut(ml)
+
+        if (slices.toArray().length != 3) {
+            console.error('Cut fail.')
+        }
+    })
     describe('#Intersections', function () {
         it('Can perform intersection between polygons', function () {
             const poly1 = new Polygon(
