@@ -95,7 +95,7 @@ export class Line extends Shape {
      * @returns {Line}
      */
     clone() {
-        return new Flatten.Line(this.pt, this.norm);
+        return new this.constructor(this.pt, this.norm);
     }
 
     /* The following methods need for implementation of Edge interface
@@ -211,7 +211,7 @@ export class Line extends Shape {
             return this.contains(shape) ? [shape] : [];
         }
 
-        if (shape instanceof Flatten.Line) {
+        if (shape instanceof Line) {
             return Intersection.intersectLine2Line(this, shape);
         }
 
@@ -299,7 +299,7 @@ export class Line extends Shape {
      * @param {Point} center - center of rotation
      */
     rotate(angle, center = new Flatten.Point()) {
-        return new Flatten.Line(
+        return new this.constructor(
             this.pt.rotate(angle, center),
             this.norm.rotate(angle)
         )
@@ -311,7 +311,7 @@ export class Line extends Shape {
      * @returns {Line}
      */
     transform(m) {
-        return new Flatten.Line(
+        return new this.constructor(
             this.pt.transform(m),
             this.norm.clone()
         )

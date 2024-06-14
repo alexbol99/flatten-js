@@ -76,7 +76,7 @@ export class Arc extends Shape {
      * @returns {Arc}
      */
     clone() {
-        return new Flatten.Arc(this.pc.clone(), this.r, this.startAngle, this.endAngle, this.counterClockwise);
+        return new this.constructor(this.pc.clone(), this.r, this.startAngle, this.endAngle, this.counterClockwise);
     }
 
     /**
@@ -193,8 +193,8 @@ export class Arc extends Shape {
         let angle = new Flatten.Vector(this.pc, pt).slope;
 
         return [
-            new Flatten.Arc(this.pc, this.r, this.startAngle, angle, this.counterClockwise),
-            new Flatten.Arc(this.pc, this.r, angle, this.endAngle, this.counterClockwise)
+            new this.constructor(this.pc, this.r, this.startAngle, angle, this.counterClockwise),
+            new this.constructor(this.pc, this.r, angle, this.endAngle, this.counterClockwise)
         ]
     }
 
@@ -255,7 +255,7 @@ export class Arc extends Shape {
         if (shape instanceof Flatten.Box) {
             return Intersection.intersectArc2Box(this, shape);
         }
-        if (shape instanceof Flatten.Arc) {
+        if (shape instanceof Arc) {
             return Intersection.intersectArc2Arc(this, shape);
         }
         if (shape instanceof Flatten.Polygon) {
@@ -293,7 +293,7 @@ export class Arc extends Shape {
             return [dist, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Arc) {
+        if (shape instanceof Arc) {
             let [dist, shortest_segment] = Flatten.Distance.arc2arc(this, shape);
             return [dist, shortest_segment];
         }
@@ -342,9 +342,9 @@ export class Arc extends Shape {
                 let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
                 let new_arc;
                 if (prev_arc) {
-                    new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, test_arcs[i].endAngle, this.counterClockwise);
+                    new_arc = new this.constructor(this.pc, this.r, prev_arc.endAngle, test_arcs[i].endAngle, this.counterClockwise);
                 } else {
-                    new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, test_arcs[i].endAngle, this.counterClockwise);
+                    new_arc = new this.constructor(this.pc, this.r, this.startAngle, test_arcs[i].endAngle, this.counterClockwise);
                 }
                 if (!Flatten.Utils.EQ_0(new_arc.length)) {
                     func_arcs_array.push(new_arc.clone());
@@ -355,9 +355,9 @@ export class Arc extends Shape {
             let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
             let new_arc;
             if (prev_arc) {
-                new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, this.endAngle, this.counterClockwise);
+                new_arc = new this.constructor(this.pc, this.r, prev_arc.endAngle, this.endAngle, this.counterClockwise);
             } else {
-                new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, this.endAngle, this.counterClockwise);
+                new_arc = new this.constructor(this.pc, this.r, this.startAngle, this.endAngle, this.counterClockwise);
             }
             // It could be 2*PI when occasionally start = 0 and end = 2*PI but this is not valid for breakToFunctional
             if (!Flatten.Utils.EQ_0(new_arc.length) && !Flatten.Utils.EQ(new_arc.sweep, 2*Math.PI)) {
@@ -392,7 +392,7 @@ export class Arc extends Shape {
      * @returns {Arc}
      */
     reverse() {
-        return new Flatten.Arc(this.pc, this.r, this.endAngle, this.startAngle, !this.counterClockwise);
+        return new this.constructor(this.pc, this.r, this.endAngle, this.startAngle, !this.counterClockwise);
     }
 
     /**
@@ -408,7 +408,7 @@ export class Arc extends Shape {
         if (matrix.a * matrix.d < 0) {
           newDirection = !newDirection;
         }
-        return Flatten.Arc.arcSE(newCenter, newStart, newEnd, newDirection);
+        return this.constructor.arcSE(newCenter, newStart, newEnd, newDirection);
     }
 
     static arcSE(center, start, end, counterClockwise) {
@@ -421,7 +421,7 @@ export class Arc extends Shape {
         }
         let r = vector(center, start).length;
 
-        return new Flatten.Arc(center, r, startAngle, endAngle, counterClockwise);
+        return new this(center, r, startAngle, endAngle, counterClockwise);
     }
 
     definiteIntegral(ymin = 0) {

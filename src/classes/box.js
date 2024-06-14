@@ -51,7 +51,7 @@ export class Box extends Shape {
      * @returns {Box}
      */
     clone() {
-        return new Box(this.xmin, this.ymin, this.xmax, this.ymax);
+        return new this.constructor(this.xmin, this.ymin, this.xmax, this.ymax);
     }
 
     /**
@@ -139,7 +139,7 @@ export class Box extends Shape {
      * @returns {Box}
      */
     merge(other_box) {
-        return new Box(
+        return new this.constructor(
             this.xmin === undefined ? other_box.xmin : Math.min(this.xmin, other_box.xmin),
             this.ymin === undefined ? other_box.ymin : Math.min(this.ymin, other_box.ymin),
             this.xmax === undefined ? other_box.xmax : Math.max(this.xmax, other_box.xmax),
@@ -242,7 +242,7 @@ export class Box extends Shape {
     transform(m = new Flatten.Matrix()) {
         const transformed_points = this.toPoints().map(pt => pt.transform(m))
         return transformed_points.reduce(
-            (new_box, pt) => new_box.merge(pt.box), new Box())
+            (new_box, pt) => new_box.merge(pt.box), new this.constructor())
     }
 
     /**

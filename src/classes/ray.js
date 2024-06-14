@@ -51,7 +51,7 @@ export class Ray extends Shape {
      * @returns {Ray}
      */
     clone() {
-        return new Ray(this.pt, this.norm);
+        return new this.constructor(this.pt, this.norm);
     }
 
     /**
@@ -139,7 +139,7 @@ export class Ray extends Shape {
 
         return [
             new Flatten.Segment(this.pt, pt),
-            new Flatten.Ray(pt, this.norm)
+            new this.constructor(pt, this.norm)
         ]
     }
 
@@ -188,7 +188,7 @@ export class Ray extends Shape {
      * @param {Point} center - center of rotation
      */
     rotate(angle, center = new Flatten.Point()) {
-        return new Flatten.Ray(
+        return new this.constructor(
             this.pt.rotate(angle, center),
             this.norm.rotate(angle)
         )
@@ -200,7 +200,7 @@ export class Ray extends Shape {
      * @returns {Ray}
      */
     transform(m) {
-        return new Flatten.Ray(
+        return new this.constructor(
             this.pt.transform(m),
             this.norm.clone()
         )

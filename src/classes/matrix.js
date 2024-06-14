@@ -37,7 +37,7 @@ export class Matrix {
      * @return {Matrix}
      **/
     clone() {
-        return new Matrix(this.a, this.b, this.c, this.d, this.tx, this.ty);
+        return new this.constructor(this.a, this.b, this.c, this.d, this.tx, this.ty);
     };
 
     /**
@@ -65,7 +65,7 @@ export class Matrix {
      * @returns {Matrix}
      */
     multiply(other_matrix) {
-        return new Matrix(
+        return new this.constructor(
             this.a * other_matrix.a + this.c * other_matrix.b,
             this.b * other_matrix.a + this.d * other_matrix.b,
             this.a * other_matrix.c + this.c * other_matrix.d,
@@ -94,7 +94,7 @@ export class Matrix {
         } else {
             throw Errors.ILLEGAL_PARAMETERS;
         }
-        return this.multiply(new Matrix(1, 0, 0, 1, tx, ty))
+        return this.multiply(new this.constructor(1, 0, 0, 1, tx, ty))
     };
 
     /**
@@ -111,7 +111,7 @@ export class Matrix {
         let sin = Math.sin(angle);
         return this
             .translate(centerX, centerY)
-            .multiply(new Matrix(cos, sin, -sin, cos, 0, 0))
+            .multiply(new this.constructor(cos, sin, -sin, cos, 0, 0))
             .translate(-centerX, -centerY);
     };
 
@@ -123,7 +123,7 @@ export class Matrix {
      * @returns {Matrix}
      */
     scale(sx, sy) {
-        return this.multiply(new Matrix(sx, 0, 0, sy, 0, 0));
+        return this.multiply(new this.constructor(sx, 0, 0, sy, 0, 0));
     };
 
     /**

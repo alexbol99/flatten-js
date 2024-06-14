@@ -80,7 +80,7 @@ export class Vector extends Shape {
      * @returns {Vector}
      */
     clone() {
-        return new Flatten.Vector(this.x, this.y);
+        return new this.constructor(this.x, this.y);
     }
 
     /**
@@ -117,7 +117,7 @@ export class Vector extends Shape {
      * @returns {Vector}
      */
     multiply(scalar) {
-        return (new Flatten.Vector(scalar * this.x, scalar * this.y));
+        return (new this.constructor(scalar * this.x, scalar * this.y));
     }
 
     /**
@@ -147,7 +147,7 @@ export class Vector extends Shape {
      */
     normalize() {
         if (!Flatten.Utils.EQ_0(this.length)) {
-            return (new Flatten.Vector(this.x / this.length, this.y / this.length));
+            return (new this.constructor(this.x / this.length, this.y / this.length));
         }
         throw Errors.ZERO_DIVISION;
     }
@@ -173,7 +173,7 @@ export class Vector extends Shape {
      * @returns {Vector}
      */
     transform(m) {
-        return new Flatten.Vector(m.transform([this.x, this.y]))
+        return new this.constructor(m.transform([this.x, this.y]))
     }
 
     /**
@@ -181,7 +181,7 @@ export class Vector extends Shape {
      * @returns {Vector}
      */
     rotate90CCW() {
-        return new Flatten.Vector(-this.y, this.x);
+        return new this.constructor(-this.y, this.x);
     };
 
     /**
@@ -189,7 +189,7 @@ export class Vector extends Shape {
      * @returns {Vector}
      */
     rotate90CW() {
-        return new Flatten.Vector(this.y, -this.x);
+        return new this.constructor(this.y, -this.x);
     };
 
     /**
@@ -197,7 +197,7 @@ export class Vector extends Shape {
      * @returns {Vector}
      */
     invert() {
-        return new Flatten.Vector(-this.x, -this.y);
+        return new this.constructor(-this.x, -this.y);
     }
 
     /**
@@ -206,7 +206,7 @@ export class Vector extends Shape {
      * @returns {Vector}
      */
     add(v) {
-        return new Flatten.Vector(this.x + v.x, this.y + v.y);
+        return new this.constructor(this.x + v.x, this.y + v.y);
     }
 
     /**
@@ -215,7 +215,7 @@ export class Vector extends Shape {
      * @returns {Vector}
      */
     subtract(v) {
-        return new Flatten.Vector(this.x - v.x, this.y - v.y);
+        return new this.constructor(this.x - v.x, this.y - v.y);
     }
 
     /**

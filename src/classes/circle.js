@@ -56,7 +56,7 @@ export class Circle extends Shape {
      * @returns {Circle}
      */
     clone() {
-        return new Flatten.Circle(this.pc.clone(), this.r);
+        return new this.constructor(this.pc.clone(), this.r);
     }
 
     /**
@@ -101,7 +101,7 @@ export class Circle extends Shape {
                 Flatten.Utils.LE(shape.end.distanceTo(this.center)[0], this.r);
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Circle) {
             return this.intersect(shape).length === 0 &&
                 Flatten.Utils.LE(shape.r, this.r) &&
                 Flatten.Utils.LE(shape.center.distanceTo(this.center)[0], this.r);
@@ -130,7 +130,7 @@ export class Circle extends Shape {
             throw Errors.OPERATION_IS_NOT_SUPPORTED
         if (!(this.pc.x === 0.0 && this.pc.y === 0.0))
             throw Errors.OPERATION_IS_NOT_SUPPORTED
-        return new Flatten.Circle(this.pc, this.r*sx)
+        return new this.constructor(this.pc, this.r*sx)
     }
 
     /**
@@ -139,7 +139,7 @@ export class Circle extends Shape {
      * @returns {Circle}
      */
     transform(matrix = new Flatten.Matrix()) {
-        return new Flatten.Circle(this.pc.transform(matrix), this.r)
+        return new this.constructor(this.pc.transform(matrix), this.r)
     }
 
     /**
@@ -161,7 +161,7 @@ export class Circle extends Shape {
             return Intersection.intersectSegment2Circle(shape, this);
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Circle) {
             return Intersection.intersectCircle2Circle(shape, this);
         }
 
@@ -191,7 +191,7 @@ export class Circle extends Shape {
             return [distance, shortest_segment];
         }
 
-        if (shape instanceof Flatten.Circle) {
+        if (shape instanceof Circle) {
             let [distance, shortest_segment] = Flatten.Distance.circle2circle(this, shape);
             return [distance, shortest_segment];
         }

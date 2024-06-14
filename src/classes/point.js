@@ -75,7 +75,7 @@ export class Point extends Shape {
      * @returns {Point}
      */
     clone() {
-        return new Flatten.Point(this.x, this.y);
+        return new this.constructor(this.x, this.y);
     }
 
     get vertices() {
@@ -112,7 +112,7 @@ export class Point extends Shape {
      * @returns {Point}
      */
     transform(m) {
-        return new Flatten.Point(m.transform([this.x, this.y]))
+        return new this.constructor(m.transform([this.x, this.y]))
     }
 
     /**
@@ -189,7 +189,7 @@ export class Point extends Shape {
      * @returns {boolean}
      */
     on(shape) {
-        if (shape instanceof Flatten.Point) {
+        if (shape instanceof Point) {
             return this.equalTo(shape);
         }
 
