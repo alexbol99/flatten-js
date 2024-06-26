@@ -2,8 +2,7 @@
 import { expect } from 'chai';
 import Flatten from '../../index';
 
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../../index';
-import {point, vector, circle, line, segment, arc} from '../../index';
+import {point, segment} from '../../index';
 
 describe('#Flatten.Multiline', function() {
     "use strict";
@@ -186,6 +185,25 @@ describe('#Flatten.Multiline', function() {
         let str = ml.svg();
 
         expect(str).not.to.be.empty;
+    })
+    it('May create dpath string to be inserted into "d" atrtibute', function() {
+        let shapes = [
+            segment(point(0,0), point(50,100)),
+            segment(point(50,100), point(100,0))
+        ];
+        let ml = new Flatten.Multiline(shapes);
+        let str = ml.dpath();
 
+        expect(str).not.to.be.empty;
+    })
+    it('May create points string to be inserted into "points" atrtibute', function() {
+        let shapes = [
+            segment(point(0,0), point(50,100)),
+            segment(point(50,100), point(100,0))
+        ];
+        let ml = new Flatten.Multiline(shapes);
+        let str = ml.svgPoints();
+
+        expect(str).not.to.be.empty;
     })
 });
