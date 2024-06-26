@@ -2,8 +2,7 @@
 import { expect } from 'chai';
 import Flatten from '../../index';
 
-import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, PlanarSet} from '../../index';
-import {point, vector, circle, line, segment, arc} from '../../index';
+import {point, segment} from '../../index';
 
 describe('#Flatten.Multiline', function() {
     "use strict";

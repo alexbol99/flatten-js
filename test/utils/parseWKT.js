@@ -2,8 +2,7 @@
 
 import { expect } from 'chai';
 import {parseWKT, isWktString} from "../../src/utils/parseWKT";
-import {Point, Segment, Multiline, Polygon} from "../../index";
-import Flatten from "../../index";
+import {Point, Multiline, Polygon} from "../../index";
 
 const wktPoint = "POINT (30 10)"
 const wktMultipoint = "MULTIPOINT (10 40, 40 30, 20 20, 30 10)"

@@ -7,7 +7,7 @@ import Flatten, {matrix} from '../../index';
 
 import {Point, Circle, Line, Segment, Arc, Box, Polygon, Edge, PlanarSet, Multiline} from '../../index';
 import {point, vector, circle, line, segment, box, multiline} from '../../index';
-import {intersectLine2Polygon, intersectPolygon2Polygon, intersectMultiline2Polygon} from "../../src/algorithms/intersection";
+import {intersectPolygon2Polygon, intersectMultiline2Polygon} from "../../src/algorithms/intersection";
 import * as BooleanOperations from "../../src/algorithms/boolean_op";
 let {unify} = BooleanOperations;
 
@@ -1065,7 +1065,7 @@ describe('#Flatten.Polygon', function() {
 
         let slices = polygon.cut(ml)
 
-        if (slices.toArray().length != 3) {
+        if (slices.toArray().length !== 3) {
             console.error('Cut fail.')
         }
     })
