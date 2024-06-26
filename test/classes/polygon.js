@@ -1100,4 +1100,24 @@ describe('#Flatten.Polygon', function() {
             expect(ip.length).to.equal(2);
         });
     });
+    describe('#SVG output', function () {
+        it('Can create path element', function () {
+            const poly = new Polygon(
+                [point(0, 0), point(150, 0), point(150, 30), point(0, 30)]
+            );
+
+            const svg = poly.svg();
+            expect(typeof svg).to.be.equal("string")
+            expect(svg).to.not.equal("");
+        });
+        it('Can create dpath string', function () {
+            const poly = new Polygon(
+                [point(0, 0), point(150, 0), point(150, 30), point(0, 30)]
+            );
+
+            const svg = poly.dpath();
+            expect(typeof svg).to.be.equal("string")
+            expect(svg).to.not.equal("");
+        });
+    });
 });

@@ -208,6 +208,26 @@ export class Multiline extends LinkedList {
     }
 
     /**
+     * Return string to be inserted into 'points' attribute of <polyline> element
+     * @returns {string}
+     */
+    svgPoints() {
+        return this.vertices.map(p => `${p.x},${p.y}`).join(' ')
+    }
+
+    /**
+     * Return string to be assigned to 'd' attribute of <path> element
+     * @returns {*}
+     */
+    dpath() {
+        let dPathStr = `M${this.first.start.x},${this.first.start.y}`;
+        for (let edge of this) {
+            dPathStr += edge.svg();
+        }
+        return dPathStr
+    }
+
+    /**
      * Return string to draw multiline in svg
      * @param attrs  - an object with attributes for svg path element
      * TODO: support semi-infinite Ray and infinite Line
