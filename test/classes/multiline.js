@@ -1,6 +1,6 @@
 
 import { expect } from 'chai';
-import Flatten from '../../index';
+import Flatten, { ray } from '../../index';
 
 import {point, segment} from '../../index';
 
@@ -19,6 +19,23 @@ describe('#Flatten.Multiline', function() {
         let shapes = [
             segment(point(0,0), point(50,100)),
             segment(point(50,100), point(100,75))
+            ];
+        let ml = new Flatten.Multiline(shapes);
+        expect(ml.size).to.equal(2);
+    });
+    it('May construct multiline from two ray', function() {
+        let shapes = [
+            ray(point(0,0),vector(1,0)),
+            ray(point(50,0),vector(1,1)),
+            ];
+        let ml = new Flatten.Multiline(shapes);
+        expect(ml.size).to.equal(2);
+    });
+    it('May construct multiline with ray in middle', function() {
+        let shapes = [
+            segment(point(0,0), point(1,0)),
+            ray(point(1,0),vector(1,0)),
+            ray(point(50,0),vector(1,1)),
             ];
         let ml = new Flatten.Multiline(shapes);
         expect(ml.size).to.equal(2);
