@@ -1,4 +1,5 @@
 import {Multiline, Point, Segment, Polygon} from "../../index";
+import Flatten from "../flatten";
 
 // POINT (30 10)
 // MULTIPOINT (10 40, 40 30, 20 20, 30 10)
@@ -149,3 +150,5 @@ export function isWktString(str) {
     )
 }
 
+Flatten.isWktString = isWktString
+Flatten.parseWKT = parseWKT
