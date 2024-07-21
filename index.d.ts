@@ -619,6 +619,8 @@ declare namespace Flatten {
     function ray(pt?: Point) : Ray;
     function ray(x: number, y: number): Ray;
     function matrix(a: number, b: number, c: number, d: number, tx: number, ty: number) : Matrix;
+    function isWktString(wkt: string): boolean;
+    function parseWKT(wkt: string): Point | Point[] | Multiline | Multiline[] | Polygon | null ;
 }
 
 declare namespace Flatten.ORIENTATION {

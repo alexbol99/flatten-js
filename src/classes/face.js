@@ -484,7 +484,7 @@ export class Face extends CircularLinkedList {
      * @returns {string}
      */
     svg() {
-        let svgStr = `\nM${this.first.start.x},${this.first.start.y}`;
+        let svgStr = `M${this.first.start.x},${this.first.start.y}`;
         for (let edge of this) {
             svgStr += edge.svg();
         }

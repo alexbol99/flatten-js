@@ -401,6 +401,291 @@
         }
     }
 
+    const defaultAttributes = {
+        stroke: "black"
+    };
+
+    class SVGAttributes {
+        constructor(args = defaultAttributes) {
+            for(const property in args) {
+                this[property] = args[property];
+            }
+            this.stroke = args.stroke ?? defaultAttributes.stroke;
+        }
+
+        toAttributesString() {
+            return Object.keys(this)
+                .reduce( (acc, key) =>
+                        acc + (this[key] !== undefined ? this.toAttrString(key, this[key]) : "")
+                , ``)
+        }
+
+        toAttrString(key, value) {
+            const SVGKey = key === "className" ? "class" : this.convertCamelToKebabCase(key);
+            return value === null ? `${SVGKey} ` : `${SVGKey}="${value.toString()}" `
+        }
+
+        convertCamelToKebabCase(str) {
+            return str
+                .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+                .join('-')
+                .toLowerCase();
+        }
+    }
+
+    function convertToString(attrs) {
+        return new SVGAttributes(attrs).toAttributesString()
+    }
+
+    /**
+     * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
+     * [segment]{@link Flatten.Segment}, [arc]{@link Flatten.Arc}, [line]{@link Flatten.Line} or [ray]{@link Flatten.Ray}
+     */
+    class Multiline extends LinkedList {
+        constructor(...args) {
+            super();
+
+            if (args.length === 0) {
+                return;
+            }
+
+            if (args.length === 1) {
+                if (args[0] instanceof Array) {
+                    let shapes = args[0];
+                    if (shapes.length === 0)
+                        return;
+
+                    // TODO: more strict validation:
+                    // there may be only one line
+                    // only first and last may be rays
+                    shapes.every((shape) => {
+                        return shape instanceof Flatten.Segment ||
+                            shape instanceof Flatten.Arc ||
+                            shape instanceof Flatten.Ray ||
+                            shape instanceof Flatten.Line
+                    });
+
+                    for (let shape of shapes) {
+                        let edge = new Flatten.Edge(shape);
+                        this.append(edge);
+                    }
+
+                    this.setArcLength();
+                }
+            }
+        }
+
+        /**
+         * (Getter) Return array of edges
+         * @returns {Edge[]}
+         */
+        get edges() {
+            return [...this];
+        }
+
+        /**
+         * (Getter) Return bounding box of the multiline
+         * @returns {Box}
+         */
+        get box() {
+            return this.edges.reduce( (acc,edge) => acc.merge(edge.box), new Flatten.Box() );
+        }
+
+        /**
+         * (Getter) Returns array of vertices
+         * @returns {Point[]}
+         */
+        get vertices() {
+            let v = this.edges.map(edge => edge.start);
+            v.push(this.last.end);
+            return v;
+        }
+
+        /**
+         * Return new cloned instance of Multiline
+         * @returns {Multiline}
+         */
+        clone() {
+            return new Multiline(this.toShapes());
+        }
+
+        /**
+         * Set arc_length property for each of the edges in the face.
+         * Arc_length of the edge it the arc length from the first edge of the face
+         */
+        setArcLength() {
+            for (let edge of this) {
+                this.setOneEdgeArcLength(edge);
+            }
+        }
+
+        setOneEdgeArcLength(edge) {
+            if (edge === this.first) {
+                edge.arc_length = 0.0;
+            } else {
+                edge.arc_length = edge.prev.arc_length + edge.prev.length;
+            }
+        }
+
+        /**
+         * Split edge and add new vertex, return new edge inserted
+         * @param {Point} pt - point on edge that will be added as new vertex
+         * @param {Edge} edge - edge to split
+         * @returns {Edge}
+         */
+        addVertex(pt, edge) {
+            let shapes = edge.shape.split(pt);
+            // if (shapes.length < 2) return;
+
+            if (shapes[0] === null)   // point incident to edge start vertex, return previous edge
+               return edge.prev;
+
+            if (shapes[1] === null)   // point incident to edge end vertex, return edge itself
+               return edge;
+
+            let newEdge = new Flatten.Edge(shapes[0]);
+            let edgeBefore = edge.prev;
+
+            /* Insert first split edge into linked list after edgeBefore */
+            this.insert(newEdge, edgeBefore);     // edge.face ?
+
+            // Update edge shape with second split edge keeping links
+            edge.shape = shapes[1];
+
+            return newEdge;
+        }
+
+        getChain(edgeFrom, edgeTo) {
+            let edges = [];
+            for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
+                edges.push(edge);
+            }
+            return edges
+        }
+
+        /**
+         * Split edges of multiline with intersection points and return mutated multiline
+         * @param {Point[]} ip - array of points to be added as new vertices
+         * @returns {Multiline}
+         */
+        split(ip) {
+            for (let pt of ip) {
+                let edge = this.findEdgeByPoint(pt);
+                this.addVertex(pt, edge);
+            }
+            return this;
+        }
+
+        /**
+         * Returns edge which contains given point
+         * @param {Point} pt
+         * @returns {Edge}
+         */
+        findEdgeByPoint(pt) {
+            let edgeFound;
+            for (let edge of this) {
+                if (edge.shape.contains(pt)) {
+                    edgeFound = edge;
+                    break;
+                }
+            }
+            return edgeFound;
+        }
+
+        /**
+         * Returns new multiline translated by vector vec
+         * @param {Vector} vec
+         * @returns {Multiline}
+         */
+        translate(vec) {
+            return new Multiline(this.edges.map( edge => edge.shape.translate(vec)));
+        }
+
+        /**
+         * Return new multiline rotated by given angle around given point
+         * If point omitted, rotate around origin (0,0)
+         * Positive value of angle defines rotation counterclockwise, negative - clockwise
+         * @param {number} angle - rotation angle in radians
+         * @param {Point} center - rotation center, default is (0,0)
+         * @returns {Multiline} - new rotated polygon
+         */
+        rotate(angle = 0, center = new Flatten.Point()) {
+            return new Multiline(this.edges.map( edge => edge.shape.rotate(angle, center) ));
+        }
+
+        /**
+         * Return new multiline transformed using affine transformation matrix
+         * Method does not support unbounded shapes
+         * @param {Matrix} matrix - affine transformation matrix
+         * @returns {Multiline} - new multiline
+         */
+        transform(matrix = new Flatten.Matrix()) {
+            return new Multiline(this.edges.map( edge => edge.shape.transform(matrix)));
+        }
+
+        /**
+         * Transform multiline into array of shapes
+         * @returns {Shape[]}
+         */
+        toShapes() {
+            return this.edges.map(edge => edge.shape.clone())
+        }
+
+        /**
+         * This method returns an object that defines how data will be
+         * serialized when called JSON.stringify() method
+         * @returns {Object}
+         */
+        toJSON() {
+            return this.edges.map(edge => edge.toJSON());
+        }
+
+        /**
+         * Return string to be inserted into 'points' attribute of <polyline> element
+         * @returns {string}
+         */
+        svgPoints() {
+            return this.vertices.map(p => `${p.x},${p.y}`).join(' ')
+        }
+
+        /**
+         * Return string to be assigned to 'd' attribute of <path> element
+         * @returns {*}
+         */
+        dpath() {
+            let dPathStr = `M${this.first.start.x},${this.first.start.y}`;
+            for (let edge of this) {
+                dPathStr += edge.svg();
+            }
+            return dPathStr
+        }
+
+        /**
+         * Return string to draw multiline in svg
+         * @param attrs  - an object with attributes for svg path element
+         * TODO: support semi-infinite Ray and infinite Line
+         * @returns {string}
+         */
+        svg(attrs = {}) {
+            let svgStr = `\n<path ${convertToString({fill: "none", ...attrs})} d="`;
+            svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
+            for (let edge of this) {
+                svgStr += edge.svg();
+            }
+            svgStr += `" >\n</path>`;
+            return svgStr;
+        }
+    }
+
+    Flatten.Multiline = Multiline;
+
+    /**
+     * Shortcut function to create multiline
+     * @param args
+     */
+    const multiline = (...args) => new Flatten.Multiline(...args);
+    Flatten.multiline = multiline;
+
     /*
         Smart intersections describe intersection points that refers to the edges they intersect
         This function are supposed for internal usage by morphing and relation methods between
@@ -456,11 +741,7 @@
 
     function sortIntersections(intersections)
     {
-        // if (intersections.int_points1.length === 0) return;
-
         // augment intersections with new sorted arrays
-        // intersections.int_points1_sorted = intersections.int_points1.slice().sort(compareFn);
-        // intersections.int_points2_sorted = intersections.int_points2.slice().sort(compareFn);
         intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
         intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
     }
@@ -503,18 +784,6 @@
         }
         return 0;
     }
-
-    // export function getSortedArrayOnLine(line, int_points) {
-    //     return int_points.slice().sort( (int_point1, int_point2) => {
-    //         if (line.coord(int_point1.pt) < line.coord(int_point2.pt)) {
-    //             return -1;
-    //         }
-    //         if (line.coord(int_point1.pt) > line.coord(int_point2.pt)) {
-    //             return 1;
-    //         }
-    //         return 0;
-    //     })
-    // }
 
     function filterDuplicatedIntersections(intersections)
     {
@@ -747,14 +1016,10 @@
                 int_point.is_vertex |= END_VERTEX$1;
             }
 
-            if (int_point.is_vertex & START_VERTEX$1) {  // nothing to split
+            if (int_point.is_vertex & START_VERTEX$1) {    // nothing to split
+                int_point.edge_before = edge.prev;
                 if (edge.prev) {
-                    int_point.edge_before = edge.prev;           // polygon
-                    int_point.is_vertex = END_VERTEX$1;
-                }
-                else {                                           // multiline start vertex
-                    int_point.edge_after = int_point.edge_before;
-                    int_point.edge_before = edge.prev;
+                    int_point.is_vertex = END_VERTEX$1;   // polygon
                 }
                 continue;
             }
@@ -769,6 +1034,11 @@
         for (let int_point of int_points) {
             if (int_point.edge_before) {
                 int_point.edge_after = int_point.edge_before.next;
+            }
+            else {
+                if (polygon instanceof Multiline && int_point.is_vertex & START_VERTEX$1) {
+                    int_point.edge_after = polygon.first;
+                }
             }
         }
     }
@@ -2304,271 +2574,6 @@
         return intersectLine2Polygon(createLineFromRay(ray), polygon)
             .filter(pt => ray.contains(pt))
     }
-
-    const defaultAttributes = {
-        stroke: "black"
-    };
-
-    class SVGAttributes {
-        constructor(args = defaultAttributes) {
-            for(const property in args) {
-                this[property] = args[property];
-            }
-            this.stroke = args.stroke ?? defaultAttributes.stroke;
-        }
-
-        toAttributesString() {
-            return Object.keys(this)
-                .reduce( (acc, key) =>
-                        acc + (this[key] !== undefined ? this.toAttrString(key, this[key]) : "")
-                , ``)
-        }
-
-        toAttrString(key, value) {
-            const SVGKey = key === "className" ? "class" : this.convertCamelToKebabCase(key);
-            return value === null ? `${SVGKey} ` : `${SVGKey}="${value.toString()}" `
-        }
-
-        convertCamelToKebabCase(str) {
-            return str
-                .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-                .join('-')
-                .toLowerCase();
-        }
-    }
-
-    function convertToString(attrs) {
-        return new SVGAttributes(attrs).toAttributesString()
-    }
-
-    /**
-     * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
-     * [segment]{@link Flatten.Segment}, [arc]{@link Flatten.Arc}, [line]{@link Flatten.Line} or [ray]{@link Flatten.Ray}
-     */
-    class Multiline extends LinkedList {
-        constructor(...args) {
-            super();
-
-            if (args.length === 0) {
-                return;
-            }
-
-            if (args.length === 1) {
-                if (args[0] instanceof Array) {
-                    let shapes = args[0];
-                    if (shapes.length === 0)
-                        return;
-
-                    // TODO: more strict validation:
-                    // there may be only one line
-                    // only first and last may be rays
-                    shapes.every((shape) => {
-                        return shape instanceof Flatten.Segment ||
-                            shape instanceof Flatten.Arc ||
-                            shape instanceof Flatten.Ray ||
-                            shape instanceof Flatten.Line
-                    });
-
-                    for (let shape of shapes) {
-                        let edge = new Flatten.Edge(shape);
-                        this.append(edge);
-                    }
-
-                    this.setArcLength();
-                }
-            }
-        }
-
-        /**
-         * (Getter) Return array of edges
-         * @returns {Edge[]}
-         */
-        get edges() {
-            return [...this];
-        }
-
-        /**
-         * (Getter) Return bounding box of the multiline
-         * @returns {Box}
-         */
-        get box() {
-            return this.edges.reduce( (acc,edge) => acc.merge(edge.box), new Flatten.Box() );
-        }
-
-        /**
-         * (Getter) Returns array of vertices
-         * @returns {Point[]}
-         */
-        get vertices() {
-            let v = this.edges.map(edge => edge.start);
-            v.push(this.last.end);
-            return v;
-        }
-
-        /**
-         * Return new cloned instance of Multiline
-         * @returns {Multiline}
-         */
-        clone() {
-            return new Multiline(this.toShapes());
-        }
-
-        /**
-         * Set arc_length property for each of the edges in the face.
-         * Arc_length of the edge it the arc length from the first edge of the face
-         */
-        setArcLength() {
-            for (let edge of this) {
-                this.setOneEdgeArcLength(edge);
-            }
-        }
-
-        setOneEdgeArcLength(edge) {
-            if (edge === this.first) {
-                edge.arc_length = 0.0;
-            } else {
-                edge.arc_length = edge.prev.arc_length + edge.prev.length;
-            }
-        }
-
-        /**
-         * Split edge and add new vertex, return new edge inserted
-         * @param {Point} pt - point on edge that will be added as new vertex
-         * @param {Edge} edge - edge to split
-         * @returns {Edge}
-         */
-        addVertex(pt, edge) {
-            let shapes = edge.shape.split(pt);
-            // if (shapes.length < 2) return;
-
-            if (shapes[0] === null)   // point incident to edge start vertex, return previous edge
-               return edge.prev;
-
-            if (shapes[1] === null)   // point incident to edge end vertex, return edge itself
-               return edge;
-
-            let newEdge = new Flatten.Edge(shapes[0]);
-            let edgeBefore = edge.prev;
-
-            /* Insert first split edge into linked list after edgeBefore */
-            this.insert(newEdge, edgeBefore);     // edge.face ?
-
-            // Update edge shape with second split edge keeping links
-            edge.shape = shapes[1];
-
-            return newEdge;
-        }
-
-        getChain(edgeFrom, edgeTo) {
-            let edges = [];
-            for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
-                edges.push(edge);
-            }
-            return edges
-        }
-
-        /**
-         * Split edges of multiline with intersection points and return mutated multiline
-         * @param {Point[]} ip - array of points to be added as new vertices
-         * @returns {Multiline}
-         */
-        split(ip) {
-            for (let pt of ip) {
-                let edge = this.findEdgeByPoint(pt);
-                this.addVertex(pt, edge);
-            }
-            return this;
-        }
-
-        /**
-         * Returns edge which contains given point
-         * @param {Point} pt
-         * @returns {Edge}
-         */
-        findEdgeByPoint(pt) {
-            let edgeFound;
-            for (let edge of this) {
-                if (edge.shape.contains(pt)) {
-                    edgeFound = edge;
-                    break;
-                }
-            }
-            return edgeFound;
-        }
-
-        /**
-         * Returns new multiline translated by vector vec
-         * @param {Vector} vec
-         * @returns {Multiline}
-         */
-        translate(vec) {
-            return new Multiline(this.edges.map( edge => edge.shape.translate(vec)));
-        }
-
-        /**
-         * Return new multiline rotated by given angle around given point
-         * If point omitted, rotate around origin (0,0)
-         * Positive value of angle defines rotation counterclockwise, negative - clockwise
-         * @param {number} angle - rotation angle in radians
-         * @param {Point} center - rotation center, default is (0,0)
-         * @returns {Multiline} - new rotated polygon
-         */
-        rotate(angle = 0, center = new Flatten.Point()) {
-            return new Multiline(this.edges.map( edge => edge.shape.rotate(angle, center) ));
-        }
-
-        /**
-         * Return new multiline transformed using affine transformation matrix
-         * Method does not support unbounded shapes
-         * @param {Matrix} matrix - affine transformation matrix
-         * @returns {Multiline} - new multiline
-         */
-        transform(matrix = new Flatten.Matrix()) {
-            return new Multiline(this.edges.map( edge => edge.shape.transform(matrix)));
-        }
-
-        /**
-         * Transform multiline into array of shapes
-         * @returns {Shape[]}
-         */
-        toShapes() {
-            return this.edges.map(edge => edge.shape.clone())
-        }
-
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return this.edges.map(edge => edge.toJSON());
-        }
-
-        /**
-         * Return string to draw multiline in svg
-         * @param attrs  - an object with attributes for svg path element
-         * TODO: support semi-infinite Ray and infinite Line
-         * @returns {string}
-         */
-        svg(attrs = {}) {
-            let svgStr = `\n<path ${convertToString({fill: "none", ...attrs})} d="`;
-            svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
-            for (let edge of this) {
-                svgStr += edge.svg();
-            }
-            svgStr += `" >\n</path>`;
-            return svgStr;
-        }
-    }
-
-    Flatten.Multiline = Multiline;
-
-    /**
-     * Shortcut function to create multiline
-     * @param args
-     */
-    const multiline = (...args) => new Flatten.Multiline(...args);
-    Flatten.multiline = multiline;
 
     /**
      * @module RayShoot
@@ -7268,7 +7273,7 @@
          * @returns {string}
          */
         svg() {
-            let svgStr = `\nM${this.first.start.x},${this.first.start.y}`;
+            let svgStr = `M${this.first.start.x},${this.first.start.y}`;
             for (let edge of this) {
                 svgStr += edge.svg();
             }
@@ -7845,6 +7850,9 @@
             }
             intersections.int_points1 = intersections.int_points1.filter( int_point => int_point.id >= 0);
             intersections.int_points2 = intersections.int_points2.filter( int_point => int_point.id >= 0);
+            intersections.int_points1.forEach((int_point, index) => { int_point.id = index; });
+            intersections.int_points2.forEach((int_point, index) => { int_point.id = index; });
+
 
             // No intersections left after filtering - return a copy of the original polygon
             if (intersections.int_points1.length === 0)
@@ -8116,6 +8124,14 @@
         }
 
         /**
+         * Return string to be assigned to 'd' attribute of <path> element
+         * @returns {*}
+         */
+        dpath() {
+            return [...this.faces].reduce((acc, face) => acc + face.svg(), "")
+        }
+
+        /**
          * Return string to draw polygon in svg
          * @param attrs  - an object with attributes for svg path element
          * @returns {string}
@@ -8123,7 +8139,7 @@
         svg(attrs = {}) {
             let svgStr = `\n<path ${convertToString({fillRule: "evenodd", fill: "lightcyan", ...attrs})} d="`;
             for (let face of this.faces) {
-                svgStr += face.svg();
+                svgStr += `\n${face.svg()}` ;
             }
             svgStr += `" >\n</path>`;
             return svgStr;
@@ -8819,6 +8835,158 @@
 
     Flatten.Distance = Distance;
 
+    // POINT (30 10)
+    // MULTIPOINT (10 40, 40 30, 20 20, 30 10)
+    // LINESTRING (30 10, 10 30, 40 40)
+    // MULTILINESTRING ((10 10, 20 20, 10 40), (40 40, 30 30, 40 20, 30 10))
+    // MULTILINESTRING ((8503.732 4424.547, 8963.747 3964.532), (8963.747 3964.532, 8707.468 3708.253), (8707.468 3708.253, 8247.454 4168.268), (8247.454 4168.268, 8503.732 4424.547))
+    // POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))
+    // MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20)))
+
+    function parseSinglePoint(pointStr) {
+        return new Point$1(pointStr.split(' ').map(Number))
+    }
+
+    function parseMultiPoint(multipointStr) {
+        return multipointStr.split(', ').map(parseSinglePoint)
+    }
+
+    function parseLineString(lineStr) {
+        const points = parseMultiPoint(lineStr);
+        let segments = [];
+        for (let i = 0; i < points.length-1;  i++) {
+            segments.push(new Segment(points[i], points[i+1]));
+        }
+        return new Multiline(segments)
+    }
+
+    function parseMultiLineString(multilineStr) {
+        const lineStrings = multilineStr.replace(/\(\(/, '').replace(/\)\)$/, '').split('), (');
+        return lineStrings.map(parseLineString)
+    }
+
+    function parseSinglePolygon(polygonStr) {
+        const facesStr = polygonStr.replace(/\(\(/, '').replace(/\)\)$/, '').split('), (');
+        const polygon = new Polygon();
+        let orientation;
+        facesStr.forEach((facesStr, idx) => {
+            let points = facesStr.split(', ').map(coordStr => {
+                return new Point$1(coordStr.split(' ').map(Number))
+            });
+            const face = polygon.addFace(points);
+            if (idx === 0) {
+                orientation = face.orientation();
+            }
+            else {
+                if (face.orientation() === orientation) {
+                    face.reverse();
+                }
+            }
+        });
+        return polygon
+    }
+
+    function parseMutliPolygon(multiPolygonString) {
+        const polygonStrings = multiPolygonString.split('?');
+        const polygons = polygonStrings.map(parseSinglePolygon);
+        const polygon = new Polygon();
+        const faces = polygons.reduce((acc, polygon) => [...acc, ...polygon?.faces], []);
+        faces.forEach(face => polygon.addFace([...face?.shapes]));
+        return polygon;
+    }
+
+    function parsePolygon(wkt) {
+        if (wkt.startsWith("POLYGON")) {
+            const polygonStr = wkt.replace(/^POLYGON /, '');
+            return parseSinglePolygon(polygonStr)
+        }
+        else {
+            const multiPolygonString = wkt.replace(/^MULTIPOLYGON \(/, '').replace(/\)$/, '').replace(/\)\), \(\(/,'))?((');
+            return parseMutliPolygon(multiPolygonString)
+        }
+    }
+
+    function parseArrayOfPoints(str) {
+        const arr = str.split('\n').map(x => x.match(/\(([^)]+)\)/)[1]);
+        return arr.map(parseSinglePoint)
+    }
+
+    function parseArrayOfLineStrings(str) {
+        const arr = str.split('\n').map(x => x.match(/\(([^)]+)\)/)[1]);
+        return arr.map(parseLineString).reduce((acc, x) => [...acc, ...x], [])
+    }
+
+    /**
+     * Convert WKT string to array of Flatten shapes.
+     * @param str
+     * @returns {Point | Point[] | Multiline | Multiline[] | Polygon | Shape[] | null}
+     */
+    function parseWKT(str) {
+        if (str.startsWith("POINT")) {
+            const pointStr = str.replace(/^POINT \(/, '').replace(/\)$/, '');
+            return parseSinglePoint(pointStr)
+        }
+        else if (str.startsWith("MULTIPOINT")) {
+            const multiPointStr = str.replace(/^MULTIPOINT \(/, '').replace(/\)$/, '');
+            return parseMultiPoint(multiPointStr)
+        }
+        else if (str.startsWith("LINESTRING")) {
+            const lineStr = str.replace(/^LINESTRING \(/, '').replace(/\)$/, '');
+            return parseLineString(lineStr)
+        }
+        else if (str.startsWith("MULTILINESTRING")) {
+            const multilineStr = str.replace(/^MULTILINESTRING /, '');
+            return parseMultiLineString(multilineStr)
+        }
+        else if (str.startsWith("POLYGON") || str.startsWith("MULTIPOLYGON")) {
+            return parsePolygon(str)
+        }
+        else if (str.startsWith("GEOMETRYCOLLECTION")) {
+            const regex = /(POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON|GEOMETRYCOLLECTION) \([^\)]+\)/g;
+            const wktArray = str.match(regex);
+            if (wktArray[0].startsWith('GEOMETRYCOLLECTION')) {
+                wktArray[0] = wktArray[0].replace('GEOMETRYCOLLECTION (','');
+            }
+            const flArray = wktArray.map(parseWKT).map(x => x instanceof Array ? x : [x]);
+            return flArray.reduce((acc, x) => [...acc, ...x], [])
+        }
+        else if (isArrayOfPoints(str)) {
+            return parseArrayOfPoints(str)
+        }
+        else if (isArrayOfLines(str)) {
+            return parseArrayOfLineStrings(str)
+        }
+        return []
+    }
+
+    function isArrayOfPoints(str) {
+        return str.split('\n')?.every(str => str.includes('POINT'))
+    }
+
+    function isArrayOfLines(str) {
+        return str.split('\n')?.every(str => str.includes('LINESTRING'))
+    }
+
+    /**
+     * Return true if given string starts with one of WKT tags and possibly contains WKT string,
+     * @param str
+     * @returns {boolean}
+     */
+    function isWktString(str) {
+        return (
+            str.startsWith("POINT") || isArrayOfPoints(str) ||
+            str.startsWith("LINESTRING") || isArrayOfLines(str) ||
+            str.startsWith("MULTILINESTRING") ||
+            str.startsWith("POLYGON") ||
+            str.startsWith("MULTIPOINT") ||
+            str.startsWith("MULTIPOLYGON") ||
+            str.startsWith("GEOMETRYCOLLECTION")
+        )
+    }
+
+    Flatten.isWktString = isWktString;
+    Flatten.parseWKT = parseWKT;
+
     /**
      * Created by Alex Bol on 2/18/2017.
      */
@@ -8861,9 +9029,11 @@
     exports.circle = circle;
     exports.default = Flatten;
     exports.inversion = inversion;
+    exports.isWktString = isWktString;
     exports.line = line;
     exports.matrix = matrix;
     exports.multiline = multiline;
+    exports.parseWKT = parseWKT;
     exports.point = point;
     exports.polygon = polygon;
     exports.ray = ray;

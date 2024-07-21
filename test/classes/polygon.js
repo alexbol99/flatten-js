@@ -7,7 +7,7 @@ import Flatten, {matrix} from '../../index';
 
 import {Point, Circle, Line, Segment, Arc, Box, Polygon, Edge, PlanarSet, Multiline} from '../../index';
 import {point, vector, circle, line, segment, box, multiline} from '../../index';
-import {intersectLine2Polygon, intersectPolygon2Polygon, intersectMultiline2Polygon} from "../../src/algorithms/intersection";
+import {intersectPolygon2Polygon, intersectMultiline2Polygon} from "../../src/algorithms/intersection";
 import * as BooleanOperations from "../../src/algorithms/boolean_op";
 let {unify} = BooleanOperations;
 
@@ -933,6 +933,142 @@ describe('#Flatten.Polygon', function() {
         expect(newPoly.faces.size).to.equal(2);
         expect(newPoly.edges.size).to.equal(10)
     })
+    it('Polygon.cut error #175', () => {
+        // Create polygon from json
+        let json = [
+            [
+                {
+                    ps: {x: 641.64, y: 118.32, name: "point"},
+                    pe: {x: 641.64, y: 151.74, name: "point"},
+                    name: "segment"
+                },
+                {
+                    ps: {x: 641.64, y: 151.74, name: "point"},
+                    pe: {x: 504.66, y: 151.74, name: "point"},
+                    name: "segment"
+                },
+                {
+                    ps: {x: 504.66, y: 151.74, name: "point"},
+                    pe: {x: 504.66, y: 118.32, name: "point"},
+                    name: "segment"
+                },
+                {
+                    ps: {x: 504.66, y: 118.32, name: "point"},
+                    pe: {x: 641.64, y: 118.32, name: "point"},
+                    name: "segment"
+                }
+            ]
+        ];
+
+        let polygon = new Polygon(json);
+
+        // Create Multiline
+        let mlj = [
+            {
+                ps: {x: 576.48, y: 118.32, name: "point"},
+                pe: {x: 576.48, y: 274.14, name: "point"},
+                name: "segment"
+            },
+            {
+                ps: {x: 576.48, y: 274.14, name: "point"},
+                pe: {x: 641.64, y: 274.14, name: "point"},
+                name: "segment"
+            }
+        ];
+        let ml = multiline(mlj.map((s) => segment(s)));
+        const newPoly = polygon.cut(ml)
+        const a = newPoly.toArray()
+        expect(newPoly.faces.size).to.equal(2);
+        expect(newPoly.edges.size).to.equal(8)
+    })
+    it("Polygon cut error #176", () => {
+        let polygon = new Polygon([
+            [
+                {
+                    ps: {x: 310.1, y: 423.82, name: "point",},
+                    pe: {x: 310.1, y: 460.66, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 310.1, y: 460.66, name: "point",},
+                    pe: {x: 189.98, y: 460.66, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 189.98, y: 460.66, name: "point",},
+                    pe: {x: 189.98, y: 423.94, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 189.98, y: 423.94, name: "point",},
+                    pe: {x: 210.5, y: 423.94, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 210.5, y: 423.94, name: "point",},
+                    pe: {x: 210.5, y: 313.75, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 210.5, y: 313.75, name: "point",},
+                    pe: {x: 272.66, y: 313.75, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 272.66, y: 313.75, name: "point",},
+                    pe: {x: 272.66, y: 325.99, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 272.66, y: 325.99, name: "point",},
+                    pe: {x: 291.38, y: 325.99, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 291.38, y: 325.99, name: "point",},
+                    pe: {x: 291.38, y: 423.94, name: "point",},
+                    name: "segment",
+                },
+                {
+                    ps: {x: 291.38, y: 423.94, name: "point",},
+                    pe: {x: 310.1, y: 423.82, name: "point",},
+                    name: "segment",
+                },
+            ]])
+
+        let ml = new Multiline([
+            {
+                ps: {x: 210.5, y: 460.66, name: "point"},
+                pe: {x: 210.5, y: 423.94, name: "point"},
+                name: "segment",
+            }, {
+                ps: {x: 210.5, y: 423.94, name: "point",},
+                pe: {x: 253.94, y: 423.94, name: "point",},
+                name: "segment",
+            },
+            {
+                ps: {x: 253.94, y: 423.94, name: "point",},
+                pe: {x: 253.94, y: 442.3, name: "point",},
+                name: "segment",
+            },
+            {
+                ps: {x: 253.94, y: 442.3, name: "point",},
+                pe: {x: 272.66, y: 442.3, name: "point",},
+                name: "segment",
+            },
+            {
+                ps: {x: 272.66, y: 442.3, name: "point",},
+                pe: {x: 272.66, y: 460.66, name: "point",},
+                name: "segment",
+            },
+        ].map(l => segment(l)))
+
+        let slices = polygon.cut(ml)
+
+        if (slices.toArray().length !== 3) {
+            console.error('Cut fail.')
+        }
+    })
     describe('#Intersections', function () {
         it('Can perform intersection between polygons', function () {
             const poly1 = new Polygon(
@@ -962,6 +1098,26 @@ describe('#Flatten.Polygon', function() {
             let ip = intersectMultiline2Polygon(mline, poly)
 
             expect(ip.length).to.equal(2);
+        });
+    });
+    describe('#SVG output', function () {
+        it('Can create path element', function () {
+            const poly = new Polygon(
+                [point(0, 0), point(150, 0), point(150, 30), point(0, 30)]
+            );
+
+            const svg = poly.svg();
+            expect(typeof svg).to.be.equal("string")
+            expect(svg).to.not.equal("");
+        });
+        it('Can create dpath string', function () {
+            const poly = new Polygon(
+                [point(0, 0), point(150, 0), point(150, 30), point(0, 30)]
+            );
+
+            const svg = poly.dpath();
+            expect(typeof svg).to.be.equal("string")
+            expect(svg).to.not.equal("");
         });
     });
 });
