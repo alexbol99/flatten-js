@@ -181,6 +181,10 @@ export class Point extends Shape {
         if (shape instanceof Flatten.PlanarSet) {
             return Flatten.Distance.shape2planarSet(this, shape);
         }
+
+        if (shape instanceof Flatten.Multiline) {
+            return Flatten.Distance.shape2multiline(this, shape);
+        }
     }
 
     /**

@@ -11,6 +11,7 @@ import {convertToString} from "../utils/attributes";
 export class Multiline extends LinkedList {
     constructor(...args) {
         super();
+        this.isInfinite = false;
 
         if (args.length === 0) {
             return;
@@ -25,21 +26,32 @@ export class Multiline extends LinkedList {
                 // TODO: more strict validation:
                 // there may be only one line
                 // only first and last may be rays
-                let validShapes = shapes.every((shape) => {
-                    return shape instanceof Flatten.Segment ||
-                        shape instanceof Flatten.Arc ||
+                let validShapes = shapes.every(shape =>
+                    shape instanceof Flatten.Segment ||
+                    shape instanceof Flatten.Arc ||
+                    shape instanceof Flatten.Ray ||
+                    shape instanceof Flatten.Line
+                );
+
+                if (validShapes) {
+
+                    this.isInfinite = shapes.some(shape =>
                         shape instanceof Flatten.Ray ||
                         shape instanceof Flatten.Line
-                });
+                    );
 
-                for (let shape of shapes) {
-                    let edge = new Flatten.Edge(shape);
-                    this.append(edge);
+                    for (let shape of shapes) {
+                        let edge = new Flatten.Edge(shape);
+                        this.append(edge);
+                    }
+
+                    this.setArcLength()
+                    return
                 }
-
-                this.setArcLength()
             }
         }
+
+        throw Flatten.Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -69,6 +81,21 @@ export class Multiline extends LinkedList {
     }
 
     /**
+     * (Getter) Returns length of the multiline, return POSITIVE_INFINITY if multiline is infinite
+     * @returns {number}
+     */
+    get length() {
+        if (this.isEmpty()) return 0;
+        if (this.isInfinite) return Number.POSITIVE_INFINITY;
+
+        let len = 0
+        for (let edge of this) {
+            len += edge.length;
+        }
+        return len
+    }
+
+    /**
      * Return new cloned instance of Multiline
      * @returns {Multiline}
      */
@@ -77,8 +104,8 @@ export class Multiline extends LinkedList {
     }
 
     /**
-     * Set arc_length property for each of the edges in the face.
-     * Arc_length of the edge it the arc length from the first edge of the face
+     * Set arc_length property for each of the edges in the multiline.
+     * Arc_length of the edge is the arc length from the multiline start vertex to the edge start vertex
      */
     setArcLength() {
         for (let edge of this) {
@@ -92,6 +119,26 @@ export class Multiline extends LinkedList {
         } else {
             edge.arc_length = edge.prev.arc_length + edge.prev.length;
         }
+    }
+
+    /**
+     * Return point on multiline at given length from the start of the multiline
+     * @param length
+     * @returns {Point | null}
+     */
+    pointAtLength(length) {
+        if (length > this.length || length < 0) return null;
+        if (this.isInfinite) return null
+
+        let point = null;
+        for (let edge of this) {
+            if (length >= edge.arc_length &&
+                (edge === this.last || length < edge.next.arc_length)) {
+                point = edge.pointAtLength(length - edge.arc_length);
+                break;
+            }
+        }
+        return point;
     }
 
     /**
@@ -157,6 +204,42 @@ export class Multiline extends LinkedList {
             }
         }
         return edgeFound;
+    }
+
+    /**
+     * Calculate distance and shortest segment from any shape to multiline
+     * @param shape
+     * @returns {[number,Flatten.Segment]}
+     */
+    distanceTo(shape) {
+        if (shape instanceof Point) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Line) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Circle) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Segment) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Arc) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Multiline) {
+            return Flatten.Distance.multiline2multiline(this, shape);
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
 
 import { expect } from 'chai';
-import Flatten from '../../index';
+import Flatten, {line} from '../../index';
 
 import {point, segment} from '../../index';
 
@@ -51,6 +51,51 @@ describe('#Flatten.Multiline', function() {
         ];
         let ml = new Flatten.Multiline(shapes);
         expect(ml.box).to.deep.equal({xmin:0, ymin:0, xmax:100, ymax:100});
+    });
+    it ('May get length of multiline', function() {
+        let shapes = [
+            segment([0, 0, 50, 100]),
+            segment([50, 100, 100, 75])
+        ];
+        let ml = new Flatten.Multiline(shapes);
+        expect(ml.length).to.be.closeTo(167.705098, 0.001);
+    });
+    it ('May create infinite multiline', function() {
+        let shapes = [line(point(0, 0), point(50, 100))]
+        let ml = new Flatten.Multiline(shapes);
+        expect(ml.isInfinite).to.be.true;
+    });
+    it ('May get length of infinite multiline', function() {
+        let shapes = [line(point(0, 0), point(50, 100))]
+        let ml = new Flatten.Multiline(shapes);
+        expect(ml.length).to.be.equal(Infinity);
+    });
+    it('May calculate pointAtLength in multiline', function() {
+        const shapes = [
+            segment(point(0,0), point(50,0)),
+            segment(point(50,0), point(50,50)),
+            segment(point(50,50), point(100,50))
+        ];
+        const ml = new Flatten.Multiline(shapes);
+        const p1 = ml.pointAtLength(0);
+        const p2 = ml.pointAtLength(75);
+        const p3 = ml.pointAtLength(120);
+
+        expect(p1).to.be.deep.equal(point(0,0));
+        expect(p2).to.be.deep.equal(point(50,25));
+        expect(p3).to.be.deep.equal(point(70,50));
+    });
+    it('May calculate distance between a point and a multiline', function() {
+        const shapes = [
+            segment(point(0,0), point(50,0)),
+            segment(point(50,0), point(50,50)),
+            segment(point(50,50), point(100,50))
+        ];
+        const ml = new Flatten.Multiline(shapes);
+        const d1 = point(25,25).distanceTo(ml);
+        const d2 = point(-25,0).distanceTo(ml);
+        expect(d1[0]).to.be.equal(25);
+        expect(d2[0]).to.be.equal(25);
     });
     it('May transform multiline to an array of shapes', function() {
         let shapes = [

@@ -137,7 +137,7 @@ export class Segment extends Shape {
 
     /**
      * Returns true if equals to query segment, false otherwise
-     * @param {Seg} seg - query segment
+     * @param {Segment} seg - query segment
      * @returns {boolean}
      */
     equalTo(seg) {
@@ -195,8 +195,7 @@ export class Segment extends Shape {
     /**
      * Calculate distance and shortest segment from segment to shape and return as array [distance, shortest segment]
      * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
-     * @returns {number} distance from segment to shape
-     * @returns {Segment} shortest segment between segment and shape (started at segment, ended at shape)
+     * @returns {[number, Segment]} shortest segment between segment and shape (started at segment, ended at shape)
      */
     distanceTo(shape) {
         if (shape instanceof Flatten.Point) {
@@ -233,6 +232,10 @@ export class Segment extends Shape {
         if (shape instanceof Flatten.PlanarSet) {
             let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
             return [dist, shortest_segment];
+        }
+
+        if (shape instanceof Flatten.Multiline) {
+            return Flatten.Distance.shape2multiline(this, shape);
         }
     }
 

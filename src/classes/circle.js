@@ -222,6 +222,11 @@ export class Circle extends Shape {
             let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
             return [dist, shortest_segment];
         }
+
+        if (shape instanceof Flatten.Multiline) {
+            let [dist, shortest_segment] = Flatten.Distance.shape2multiline(this, shape);
+            return [dist, shortest_segment];
+        }
     }
 
     get name() {

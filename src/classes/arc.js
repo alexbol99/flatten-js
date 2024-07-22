@@ -307,6 +307,10 @@ export class Arc extends Shape {
             let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
             return [dist, shortest_segment];
         }
+
+        if (shape instanceof Flatten.Multiline) {
+           return Flatten.Distance.shape2multiline(this, shape);
+        }
     }
 
     /**
