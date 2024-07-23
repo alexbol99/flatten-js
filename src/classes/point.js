@@ -197,33 +197,11 @@ export class Point extends Shape {
             return this.equalTo(shape);
         }
 
-        if (shape instanceof Flatten.Box) {
+        if (shape.contains && shape.contains instanceof Function) {
             return shape.contains(this);
         }
 
-        if (shape instanceof Flatten.Line) {
-            return shape.contains(this);
-        }
-
-        if (shape instanceof Flatten.Ray) {
-            return shape.contains(this)
-        }
-
-        if (shape instanceof Flatten.Circle) {
-            return shape.contains(this);
-        }
-
-        if (shape instanceof Flatten.Segment) {
-            return shape.contains(this);
-        }
-
-        if (shape instanceof Flatten.Arc) {
-            return shape.contains(this);
-        }
-
-        if (shape instanceof Flatten.Polygon) {
-            return shape.contains(this);
-        }
+        throw Flatten.Errors.UNSUPPORTED_SHAPE_TYPE;
     }
 
     get name() {

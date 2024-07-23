@@ -569,11 +569,16 @@ declare namespace Flatten {
         get edges() : MultilineEdge[];
         get vertices(): Point[];
         get box(): Box;
+        get length(): number;
 
         clone(): Multiline;
         addVertex(pt: Point, edge: MultilineEdge): MultilineEdge;
         split(ip: Point[]) : Multiline;
+        pointAtLength(length: number): Point|null;
         findEdgeByPoint(pt: Point): MultilineEdge | undefined;
+        contains(shape: AnyShape): boolean;
+        distanceTo(shape: AnyShape): [number, Segment];
+        intersect(shape: AnyShape): Point[];
         rotate(angle?: number, center?: Point): Multiline;
         transform(matrix?: Matrix): Multiline;
         translate(vec: Vector): Multiline;
@@ -601,7 +606,7 @@ declare namespace Flatten {
         readonly OPERATION_IS_NOT_SUPPORTED: Error;
     }
 
-    type AnyShape = Point | Vector | Line | Ray | Circle | Box | Segment | Arc | Polygon;
+    type AnyShape = Point | Vector | Line | Ray | Circle | Box | Segment | Arc | Polygon | Multiline;
 
     function point(x?: number, y?: number): Point;
     function point(arr?: [number, number]): Point;

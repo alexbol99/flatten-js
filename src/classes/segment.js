@@ -190,6 +190,10 @@ export class Segment extends Shape {
         if (shape instanceof Flatten.Polygon) {
             return  Intersection.intersectSegment2Polygon(this, shape);
         }
+
+        if (shape instanceof Flatten.Multiline) {
+            return Intersection.intersectShape2Multiline(this, shape);
+        }
     }
 
     /**

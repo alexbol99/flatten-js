@@ -3,6 +3,7 @@
 import Flatten from '../flatten';
 import LinkedList from '../data_structures/linked_list';
 import {convertToString} from "../utils/attributes";
+import * as Intersection from "../algorithms/intersection";
 
 /**
  * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
@@ -13,45 +14,39 @@ export class Multiline extends LinkedList {
         super();
         this.isInfinite = false;
 
-        if (args.length === 0) {
-            return;
-        }
+        if (args.length === 1 && args[0] instanceof Array && args[0].length > 0) {
+            // there may be only one line and
+            // only first and last may be rays
+            let validShapes = false
+            const shapes = args[0]
+            const L = shapes.length
+            const anyShape = (s) =>
+                s instanceof Flatten.Segment || s instanceof Flatten.Arc ||
+                s instanceof Flatten.Ray || s instanceof Flatten.Line;
+            const anyShapeExceptLine = (s) =>
+                s instanceof Flatten.Segment || s instanceof Flatten.Arc || s instanceof Flatten.Ray;
+            const shapeSegmentOrArc = (s) => s instanceof Flatten.Segment || s instanceof Flatten.Arc;
+            validShapes =
+                L === 1 && anyShape(shapes[0]) ||
+                L > 1 && anyShapeExceptLine(shapes[0]) && anyShapeExceptLine(shapes[L - 1]) &&
+                shapes.slice(1, L - 1).every(shapeSegmentOrArc)
 
-        if (args.length === 1) {
-            if (args[0] instanceof Array) {
-                let shapes = args[0];
-                if (shapes.length === 0)
-                    return;
-
-                // TODO: more strict validation:
-                // there may be only one line
-                // only first and last may be rays
-                let validShapes = shapes.every(shape =>
-                    shape instanceof Flatten.Segment ||
-                    shape instanceof Flatten.Arc ||
+            if (validShapes) {
+                this.isInfinite = shapes.some(shape =>
                     shape instanceof Flatten.Ray ||
                     shape instanceof Flatten.Line
                 );
 
-                if (validShapes) {
-
-                    this.isInfinite = shapes.some(shape =>
-                        shape instanceof Flatten.Ray ||
-                        shape instanceof Flatten.Line
-                    );
-
-                    for (let shape of shapes) {
-                        let edge = new Flatten.Edge(shape);
-                        this.append(edge);
-                    }
-
-                    this.setArcLength()
-                    return
+                for (let shape of shapes) {
+                    let edge = new Flatten.Edge(shape);
+                    this.append(edge);
                 }
+
+                this.setArcLength()
+            } else {
+                throw Flatten.Errors.ILLEGAL_PARAMETERS;
             }
         }
-
-        throw Flatten.Errors.ILLEGAL_PARAMETERS;
     }
 
     /**
@@ -240,6 +235,35 @@ export class Multiline extends LinkedList {
         if (shape instanceof Flatten.Multiline) {
             return Flatten.Distance.multiline2multiline(this, shape);
         }
+
+        throw Flatten.Errors.UNSUPPORTED_SHAPE_TYPE;
+    }
+
+    /**
+     * Calculate intersection of multiline with other shape
+     * @param {Shape} shape
+     * @returns {Point[]}
+     */
+    intersect(shape) {
+        if (shape instanceof Flatten.Multiline) {
+            return Intersection.intersectMultiline2Multiline(this, shape);
+        }
+        else {
+            return Intersection.intersectShape2Multiline(shape, this);
+        }
+    }
+
+    /**
+     * Return true if multiline contains the shape: no point of shape lies outside
+     * @param shape
+     * @returns {boolean}
+     */
+    contains(shape) {
+        if (shape instanceof Flatten.Point) {
+            return this.edges.some(edge => edge.shape.contains(shape));
+        }
+
+        throw Flatten.Errors.UNSUPPORTED_SHAPE_TYPE;
     }
 
     /**

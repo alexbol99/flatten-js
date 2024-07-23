@@ -1,8 +1,7 @@
 
 import { expect } from 'chai';
-import Flatten, {line} from '../../index';
-
-import {point, segment} from '../../index';
+import Flatten, {line, ray, point, segment, vector, Point} from '../../index';
+import {Errors} from "../../src/utils/errors";
 
 describe('#Flatten.Multiline', function() {
     "use strict";
@@ -22,6 +21,26 @@ describe('#Flatten.Multiline', function() {
             ];
         let ml = new Flatten.Multiline(shapes);
         expect(ml.size).to.equal(2);
+    });
+    it('May construct multiline from two ray', function() {
+        let shapes = [
+            ray(point(0,0),vector(1,0)),
+            ray(point(50,0),vector(1,1)),
+        ];
+        let ml = new Flatten.Multiline(shapes);
+        expect(ml.size).to.equal(2);
+    });
+    it('May throw exception when trying to construct multiline with ray in the middle', function() {
+        let shapes = [
+            segment(point(0,0), point(1,0)),
+            ray(point(1,0),vector(1,0)),
+            ray(point(50,0),vector(1,1)),
+        ];
+        let fn = function () {
+            return new Flatten.Multiline(shapes);
+        };
+        expect(fn).to.throw(Errors.ILLEGAL_PARAMETERS.message);
+
     });
     it ('May get array of edges of multiline', function() {
         let shapes = [
