@@ -10,7 +10,8 @@ const wktLinestring = "LINESTRING (30 10, 10 30, 40 40)"
 const wktMultilineString = "MULTILINESTRING ((10 10, 20 20, 10 40), (40 40, 30 30, 40 20, 30 10))"
 const wktPolygon = "POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))"
 const wktMultipolygon = "MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20)))"
-const geometryCollection = "GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))"
+const geometryCollection = "GEOMETRYCOLLECTION (POINT (0 0), LINESTRING (0 0, 1440 900), POLYGON ((0 0, 0 1024, 1024 1024, 1024 0, 0 0)))"
+const geometryCollection2 = "GEOMETRYCOLLECTION (POINT (0 0), LINESTRING (0 0, 1440 900), POLYGON ((0 0, 0 1024, 1024 1024, 1024 0, 0 0)))"
 
 describe('#SVGAttributes', function() {
     it('May check if string starts with one of keywords', function () {
@@ -54,7 +55,7 @@ describe('#SVGAttributes', function() {
         expect(polygon.faces.size).to.be.equal(3);
     });
     it('May parse wkt geometry collection', function () {
-        let arr= parseWKT(geometryCollection);
+        let arr= parseWKT(geometryCollection2);
         expect(arr).to.be.instanceof(Array)
         expect(arr.length).to.be.equal(3);
         expect(arr[0]).to.be.instanceof(Point)

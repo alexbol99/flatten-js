@@ -8836,6 +8836,8 @@ Flatten.Distance = Distance;
 // MULTILINESTRING ((8503.732 4424.547, 8963.747 3964.532), (8963.747 3964.532, 8707.468 3708.253), (8707.468 3708.253, 8247.454 4168.268), (8247.454 4168.268, 8503.732 4424.547))
 // POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))
 // MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20)))
+// GEOMETRYCOLLECTION (POINT (0 0), LINESTRING (0 0, 1440 900), POLYGON ((0 0, 0 1024, 1024 1024, 1024 0, 0 0)))
+// GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))
 
 function parseSinglePoint(pointStr) {
     return new Point$1(pointStr.split(' ').map(Number))
@@ -8936,7 +8938,17 @@ function parseWKT(str) {
         return parsePolygon(str)
     }
     else if (str.startsWith("GEOMETRYCOLLECTION")) {
-        const regex = /(POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON|GEOMETRYCOLLECTION) \([^\)]+\)/g;
+        // const regex = /(POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON|GEOMETRYCOLLECTION) \([^\)]+\)/g
+        /* Explanation:
+(?<type>POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON):
+This named group will capture the geometry type. The type label helps with understanding the structure but
+ is not necessary unless you process the matches programmatically and want easy access to the geometry type.
+\( and \): Match the opening and closing parentheses.
+(?:[^\(\)]|\([^\)]*\))*: A non-capturing group that allows for:
+[^\(\)]: Matching any character except parentheses, handling simple geometries.
+|\([^\)]*\): Handling nested parentheses for geometries like POLYGON and MULTILINESTRING.
+* after the non-capturing group: Allows for repeating the pattern zero or more times to match all contents between the outermost parentheses. */
+        const regex = /(?<type>POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON) \((?:[^\(\)]|\([^\)]*\))*\)/g;
         const wktArray = str.match(regex);
         if (wktArray[0].startsWith('GEOMETRYCOLLECTION')) {
             wktArray[0] = wktArray[0].replace('GEOMETRYCOLLECTION (','');
