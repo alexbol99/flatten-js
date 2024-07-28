@@ -297,7 +297,7 @@ export class Box extends Shape {
     svg(attrs = {}) {
         const width = this.xmax - this.xmin;
         const height = this.ymax - this.ymin;
-        return `\n<rect x="${this.xmin}" y="${this.ymin}" width=${width} height=${height}
+        return `\n<rect x="${this.xmin}" y="${this.ymin}" width="${width}" height="${height}"
                 ${convertToString({fill: "none", ...attrs})} />`;
     };
 }
