@@ -21,22 +21,17 @@ export class Multiline extends LinkedList {
                 let shapes = args[0];
                 if (shapes.length === 0)
                     return;
-
-                // TODO: more strict validation:
-                // there may be only one line
-                // only first and last may be rays
-                let validShapes = shapes.every((shape) => {
-                    return shape instanceof Flatten.Segment ||
+                // Ignore invalid shapes in constructor. If all shapes are invalid, nothing appended to list.
+                shapes.forEach((shape,index)=>{
+                    if(index!=0 && index!=shapes.length-1 && shape instanceof Flatten.Ray) return
+                    if(shape instanceof Flatten.Segment ||
                         shape instanceof Flatten.Arc ||
                         shape instanceof Flatten.Ray ||
-                        shape instanceof Flatten.Line
-                });
-
-                for (let shape of shapes) {
-                    let edge = new Flatten.Edge(shape);
-                    this.append(edge);
-                }
-
+                        shape instanceof Flatten.Line){
+                            let edge = new Flatten.Edge(shape);
+                            this.append(edge);
+                        }
+                })
                 this.setArcLength()
             }
         }
