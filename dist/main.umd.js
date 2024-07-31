@@ -8889,7 +8889,10 @@
     }
 
     function parseMutliPolygon(multiPolygonString) {
-        const polygonStrings = multiPolygonString.split('?');
+        // const polygonStrings = multiPolygonString.split('?')
+        // Split the string by the delimiter ")), ((" which separates the polygons
+        const polygonStrings = multiPolygonString.split(/\)\), \(\(/).map(polygon => '((' + polygon + '))');
+
         const polygons = polygonStrings.map(parseSinglePolygon);
         const polygon = new Polygon();
         const faces = polygons.reduce((acc, polygon) => [...acc, ...polygon?.faces], []);
@@ -8903,7 +8906,8 @@
             return parseSinglePolygon(polygonStr)
         }
         else {
-            const multiPolygonString = wkt.replace(/^MULTIPOLYGON \(/, '').replace(/\)$/, '').replace(/\)\), \(\(/,'))?((');
+            // const multiPolygonString = wkt.replace(/^MULTIPOLYGON \(/, '').replace(/\)$/, '').replace(/\)\), \(\(/,'))?((')
+            const multiPolygonString = wkt.replace(/^MULTIPOLYGON \(\(\((.*)\)\)\)$/, '$1');
             return parseMutliPolygon(multiPolygonString)
         }
     }
