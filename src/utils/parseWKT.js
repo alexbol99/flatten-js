@@ -1,4 +1,7 @@
-import {Multiline, Point, Segment, Polygon} from "../../index";
+import { Multiline } from "../classes/Multiline";
+import { Point } from "../classes/Point";
+import { Segment } from "../classes/Segment";
+import { Polygon } from "../classes/Polygon";
 import Flatten from "../flatten";
 
 // POINT (30 10)

@@ -184,6 +184,7 @@ declare namespace Flatten {
         not_intersect(box: Box): boolean;
         intersect(box: Box): boolean;
         contains(shape: AnyShape): boolean;
+        distanceTo(shape: AnyShape): [number, Point];
         merge(box: Box): Box;
         less_than(box: Box): boolean;
         equal_to(box: Box): boolean;

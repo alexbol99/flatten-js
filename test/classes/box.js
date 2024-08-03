@@ -6,7 +6,7 @@
 import { expect } from 'chai';
 import Flatten from '../../index';
 
-import {Box} from '../../index';
+import {Box, Point} from '../../index';
 
 describe('#Flatten.Box', function() {
     it('May create new instance of Box', function () {
@@ -35,5 +35,12 @@ describe('#Flatten.Box', function() {
         expect(svg.search("id")).to.not.equal(-1);
         expect(svg.search("class")).to.not.equal(-1);
     })
+    it('Can measure distance to box', function() {
+        let box = new Box(-30, -30, 20, 20);
+        let pt = new Point(30, 0)
+        const [dist, shortest_segment] = box.distanceTo(pt)
+        expect(dist).to.be.equal(10);
+        expect(shortest_segment).to.be.deep.equal({ps: {x: 20, y: 0}, pe: {x:30, y: 0}});
+    });
 });
 
