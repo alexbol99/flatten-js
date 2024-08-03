@@ -285,6 +285,27 @@ export class Box extends Shape {
         }
     }
 
+    /**
+     * Calculate distance and shortest segment from box to shape and return as array [distance, shortest segment]
+     * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
+     * @returns {number} distance from box to shape
+     * @returns {Segment} shortest segment between box and shape (started at box, ended at shape)
+     */
+    distanceTo(shape) {
+        const distanceInfos = this.toSegments()
+          .map(segment => segment.distanceTo(shape));
+        let shortestDistanceInfo = [
+          Number.MAX_SAFE_INTEGER,
+          null,
+        ];
+        distanceInfos.forEach(distanceInfo => {
+          if (distanceInfo[0] < shortestDistanceInfo[0]) {
+            shortestDistanceInfo = distanceInfo;
+          }
+        });
+        return shortestDistanceInfo;
+    }
+
     get name() {
         return "box"
     }
