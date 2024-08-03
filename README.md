@@ -243,7 +243,7 @@ console.log(p)             // true / false
 * `equal` - shapes a and b are topologically equal
 * `touch` - shapes a and b have at least one point in common but their interiors not intersect
 * `inside` - shape a lies in the interior of shape b
-* `contain` - shape b lies in the interior of shape b
+* `contain` - shape b lies in the interior of shape a
 * `covered` - every point of a lies or in the interior or on the boundary of shape b
 * `covered` - every point of b lies or in the interior or on the boundary of shape a
 
