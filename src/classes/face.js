@@ -10,7 +10,7 @@ import {CCW, ORIENTATION} from '../utils/constants';
 
 /**
  * Class representing a face (closed loop) in a [polygon]{@link Flatten.Polygon} object.
- * Face is a circular bidirectional linked list of [edges]{@link Flatten.Edge}.
+ * Face is a circular bidirectionally linked list of [edges]{@link Flatten.Edge}.
  * Face object cannot be instantiated with a constructor.
  * Instead, use [polygon.addFace()]{@link Flatten.Polygon#addFace} method.
  * <br/>

@@ -3,6 +3,7 @@
 import Flatten from '../flatten';
 import LinkedList from '../data_structures/linked_list';
 import {convertToString} from "../utils/attributes";
+import * as Intersection from "../algorithms/intersection";
 
 /**
  * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
@@ -11,26 +12,30 @@ import {convertToString} from "../utils/attributes";
 export class Multiline extends LinkedList {
     constructor(...args) {
         super();
+        this.isInfinite = false;
 
-        if (args.length === 0) {
-            return;
-        }
+        if (args.length === 1 && args[0] instanceof Array && args[0].length > 0) {
+            // there may be only one line and
+            // only first and last may be rays
+            let validShapes = false
+            const shapes = args[0]
+            const L = shapes.length
+            const anyShape = (s) =>
+                s instanceof Flatten.Segment || s instanceof Flatten.Arc ||
+                s instanceof Flatten.Ray || s instanceof Flatten.Line;
+            const anyShapeExceptLine = (s) =>
+                s instanceof Flatten.Segment || s instanceof Flatten.Arc || s instanceof Flatten.Ray;
+            const shapeSegmentOrArc = (s) => s instanceof Flatten.Segment || s instanceof Flatten.Arc;
+            validShapes =
+                L === 1 && anyShape(shapes[0]) ||
+                L > 1 && anyShapeExceptLine(shapes[0]) && anyShapeExceptLine(shapes[L - 1]) &&
+                shapes.slice(1, L - 1).every(shapeSegmentOrArc)
 
-        if (args.length === 1) {
-            if (args[0] instanceof Array) {
-                let shapes = args[0];
-                if (shapes.length === 0)
-                    return;
-
-                // TODO: more strict validation:
-                // there may be only one line
-                // only first and last may be rays
-                let validShapes = shapes.every((shape) => {
-                    return shape instanceof Flatten.Segment ||
-                        shape instanceof Flatten.Arc ||
-                        shape instanceof Flatten.Ray ||
-                        shape instanceof Flatten.Line
-                });
+            if (validShapes) {
+                this.isInfinite = shapes.some(shape =>
+                    shape instanceof Flatten.Ray ||
+                    shape instanceof Flatten.Line
+                );
 
                 for (let shape of shapes) {
                     let edge = new Flatten.Edge(shape);
@@ -38,6 +43,8 @@ export class Multiline extends LinkedList {
                 }
 
                 this.setArcLength()
+            } else {
+                throw Flatten.Errors.ILLEGAL_PARAMETERS;
             }
         }
     }
@@ -69,6 +76,21 @@ export class Multiline extends LinkedList {
     }
 
     /**
+     * (Getter) Returns length of the multiline, return POSITIVE_INFINITY if multiline is infinite
+     * @returns {number}
+     */
+    get length() {
+        if (this.isEmpty()) return 0;
+        if (this.isInfinite) return Number.POSITIVE_INFINITY;
+
+        let len = 0
+        for (let edge of this) {
+            len += edge.length;
+        }
+        return len
+    }
+
+    /**
      * Return new cloned instance of Multiline
      * @returns {Multiline}
      */
@@ -77,8 +99,8 @@ export class Multiline extends LinkedList {
     }
 
     /**
-     * Set arc_length property for each of the edges in the face.
-     * Arc_length of the edge it the arc length from the first edge of the face
+     * Set arc_length property for each of the edges in the multiline.
+     * Arc_length of the edge is the arc length from the multiline start vertex to the edge start vertex
      */
     setArcLength() {
         for (let edge of this) {
@@ -92,6 +114,26 @@ export class Multiline extends LinkedList {
         } else {
             edge.arc_length = edge.prev.arc_length + edge.prev.length;
         }
+    }
+
+    /**
+     * Return point on multiline at given length from the start of the multiline
+     * @param length
+     * @returns {Point | null}
+     */
+    pointAtLength(length) {
+        if (length > this.length || length < 0) return null;
+        if (this.isInfinite) return null
+
+        let point = null;
+        for (let edge of this) {
+            if (length >= edge.arc_length &&
+                (edge === this.last || length < edge.next.arc_length)) {
+                point = edge.pointAtLength(length - edge.arc_length);
+                break;
+            }
+        }
+        return point;
     }
 
     /**
@@ -157,6 +199,71 @@ export class Multiline extends LinkedList {
             }
         }
         return edgeFound;
+    }
+
+    /**
+     * Calculate distance and shortest segment from any shape to multiline
+     * @param shape
+     * @returns {[number,Flatten.Segment]}
+     */
+    distanceTo(shape) {
+        if (shape instanceof Point) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Line) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Circle) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Segment) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Arc) {
+            const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
+            return [dist, shortest_segment.reverse()];
+        }
+
+        if (shape instanceof Flatten.Multiline) {
+            return Flatten.Distance.multiline2multiline(this, shape);
+        }
+
+        throw Flatten.Errors.UNSUPPORTED_SHAPE_TYPE;
+    }
+
+    /**
+     * Calculate intersection of multiline with other shape
+     * @param {Shape} shape
+     * @returns {Point[]}
+     */
+    intersect(shape) {
+        if (shape instanceof Flatten.Multiline) {
+            return Intersection.intersectMultiline2Multiline(this, shape);
+        }
+        else {
+            return Intersection.intersectShape2Multiline(shape, this);
+        }
+    }
+
+    /**
+     * Return true if multiline contains the shape: no point of shape lies outside
+     * @param shape
+     * @returns {boolean}
+     */
+    contains(shape) {
+        if (shape instanceof Flatten.Point) {
+            return this.edges.some(edge => edge.shape.contains(shape));
+        }
+
+        throw Flatten.Errors.UNSUPPORTED_SHAPE_TYPE;
     }
 
     /**

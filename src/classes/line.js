@@ -239,6 +239,10 @@ export class Line extends Shape {
             return  Intersection.intersectLine2Polygon(this, shape);
         }
 
+        if (shape instanceof Flatten.Multiline) {
+            return Intersection.intersectShape2Multiline(this, shape);
+        }
+
     }
 
     /**

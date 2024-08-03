@@ -261,6 +261,9 @@ export class Arc extends Shape {
         if (shape instanceof Flatten.Polygon) {
             return Intersection.intersectArc2Polygon(this, shape);
         }
+        if (shape instanceof Flatten.Multiline) {
+            return Intersection.intersectShape2Multiline(this, shape);
+        }
     }
 
     /**
@@ -306,6 +309,10 @@ export class Arc extends Shape {
         if (shape instanceof Flatten.PlanarSet) {
             let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
             return [dist, shortest_segment];
+        }
+
+        if (shape instanceof Flatten.Multiline) {
+           return Flatten.Distance.shape2multiline(this, shape);
         }
     }
 

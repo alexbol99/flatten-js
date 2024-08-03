@@ -5,12 +5,13 @@ import IntervalTree from '@flatten-js/interval-tree';
 import * as Intersection from '../algorithms/intersection';
 import Flatten from '../flatten';
 
+
 export class Distance {
     /**
      * Calculate distance and shortest segment between points
      * @param pt1
      * @param pt2
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static point2point(pt1, pt2) {
         return pt1.distanceTo(pt2);
@@ -20,7 +21,7 @@ export class Distance {
      * Calculate distance and shortest segment between point and line
      * @param pt
      * @param line
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static point2line(pt, line) {
         let closest_point = pt.projectionOn(line);
@@ -32,7 +33,7 @@ export class Distance {
      * Calculate distance and shortest segment between point and circle
      * @param pt
      * @param circle
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static point2circle(pt, circle) {
         let [dist2center, shortest_dist] = pt.distanceTo(circle.center);
@@ -50,7 +51,7 @@ export class Distance {
      * Calculate distance and shortest segment between point and segment
      * @param pt
      * @param segment
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static point2segment(pt, segment) {
         /* Degenerated case of zero-length segment */
@@ -86,7 +87,7 @@ export class Distance {
      * Calculate distance and shortest segment between point and arc
      * @param pt
      * @param arc
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static point2arc(pt, arc) {
         let circle = new Flatten.Circle(arc.pc, arc.r);
@@ -105,10 +106,22 @@ export class Distance {
     }
 
     /**
+     * Calculate distance and shortest segment between point and edge
+     * @param pt
+     * @param edge
+     * @returns {[number, Flatten.Segment]}
+     */
+    static point2edge(pt, edge) {
+        return edge.shape instanceof Flatten.Segment ?
+            Distance.point2segment(pt, edge.shape) :
+            Distance.point2arc(pt, edge.shape);
+    }
+
+    /**
      * Calculate distance and shortest segment between segment and line
      * @param seg
      * @param line
-     * @returns {Number | Segment}
+     * @returns {[number, Flatten.Segment]}
      */
     static segment2line(seg, line) {
         let ip = seg.intersect(line);
@@ -128,7 +141,7 @@ export class Distance {
      * Calculate distance and shortest segment between two segments
      * @param seg1
      * @param seg2
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static segment2segment(seg1, seg2) {
         let ip = Intersection.intersectSegment2Segment(seg1, seg2);
@@ -154,7 +167,7 @@ export class Distance {
      * Calculate distance and shortest segment between segment and circle
      * @param seg
      * @param circle
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static segment2circle(seg, circle) {
         /* Case 1 Segment and circle intersected. Return the first point and zero distance */
@@ -187,7 +200,7 @@ export class Distance {
      * Calculate distance and shortest segment between segment and arc
      * @param seg
      * @param arc
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static segment2arc(seg, arc) {
         /* Case 1 Segment and arc intersected. Return the first point and zero distance */
@@ -232,7 +245,7 @@ export class Distance {
      * Calculate distance and shortest segment between two circles
      * @param circle1
      * @param circle2
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static circle2circle(circle1, circle2) {
         let ip = circle1.intersect(circle2);
@@ -267,7 +280,7 @@ export class Distance {
      * Calculate distance and shortest segment between two circles
      * @param circle
      * @param line
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static circle2line(circle, line) {
         let ip = circle.intersect(line);
@@ -285,7 +298,7 @@ export class Distance {
      * Calculate distance and shortest segment between arc and line
      * @param arc
      * @param line
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static arc2line(arc, line) {
         /* Case 1 Line and arc intersected. Return the first point and zero distance */
@@ -321,7 +334,7 @@ export class Distance {
      * Calculate distance and shortest segment between arc and circle
      * @param arc
      * @param circle2
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static arc2circle(arc, circle2) {
         let ip = arc.intersect(circle2);
@@ -350,7 +363,7 @@ export class Distance {
      * Calculate distance and shortest segment between two arcs
      * @param arc1
      * @param arc2
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static arc2arc(arc1, arc2) {
         let ip = arc1.intersect(arc2);
@@ -411,13 +424,12 @@ export class Distance {
      * Calculate distance and shortest segment between point and polygon
      * @param point
      * @param polygon
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static point2polygon(point, polygon) {
         let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
         for (let edge of polygon.edges) {
-            let [dist, shortest_segment] = (edge.shape instanceof Flatten.Segment) ?
-                Distance.point2segment(point, edge.shape) : Distance.point2arc(point, edge.shape);
+            let [dist, shortest_segment] = Distance.point2edge(point, edge);
             if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
                 min_dist_and_segment = [dist, shortest_segment];
             }
@@ -440,7 +452,7 @@ export class Distance {
      * Calculate distance and shortest segment between two polygons
      * @param polygon1
      * @param polygon2
-     * @returns {Number | Segment} - distance and shortest segment
+     * @returns {[number, Flatten.Segment]} - distance and shortest segment
      */
     static polygon2polygon(polygon1, polygon2) {
         let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
@@ -594,6 +606,42 @@ export class Distance {
 
     static distance(shape1, shape2) {
         return shape1.distanceTo(shape2);
+    }
+
+    /**
+     * Calculate distance and shortest segment any shape and multiline
+     * @param shape
+     * @param multiline
+     * @returns {[number, Flatten.Segment]}
+     */
+    static shape2multiline(shape, multiline) {
+        let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
+        for (let edge of multiline) {
+            let [dist, shortest_segment] = Distance.distance(shape, edge.shape);
+            if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
+                min_dist_and_segment = [dist, shortest_segment];
+            }
+        }
+        return min_dist_and_segment;
+    }
+
+    /**
+     * Calculate distance and shortest segment between two multilines
+     * @param multiline1
+     * @param multiline2
+     * @returns {[number, Flatten.Segment]}
+     */
+    static multiline2multiline(multiline1, multiline2) {
+        let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
+        for (let edge1 of multiline1) {
+            for (let edge2 of multiline2) {
+                let [dist, shortest_segment] = Distance.distance(edge1.shape, edge2.shape);
+                if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
+                    min_dist_and_segment = [dist, shortest_segment];
+                }
+            }
+        }
+        return min_dist_and_segment;
     }
 }
 

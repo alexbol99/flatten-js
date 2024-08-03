@@ -52,6 +52,10 @@ export class Errors {
     static get OPERATION_IS_NOT_SUPPORTED() {
         return new Error('Operation is not supported')
     }
+
+    static get UNSUPPORTED_SHAPE_TYPE() {
+        return new Error('Unsupported shape type')
+    }
 }
 
 Flatten.Errors = Errors;

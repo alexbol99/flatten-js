@@ -7,6 +7,7 @@
 "use strict";
 
 import Flatten from "../flatten";
+import {Errors} from "../utils/errors";
 
 export function intersectLine2Line(line1, line2) {
     let ip = [];
@@ -633,4 +634,29 @@ export function intersectRay2Ray(ray1, ray2) {
 export function intersectRay2Polygon(ray, polygon) {
     return intersectLine2Polygon(createLineFromRay(ray), polygon)
         .filter(pt => ray.contains(pt))
+}
+
+export function intersectShape2Shape(shape1, shape2) {
+    if (shape1.intersect && shape1.intersect instanceof Function) {
+        return shape1.intersect(shape2)
+    }
+    throw Errors.UNSUPPORTED_SHAPE_TYPE
+}
+
+export function intersectShape2Multiline(shape, multiline) {
+    let ip = [];
+    for (let edge of multiline) {
+        ip = [...ip, ...intersectShape2Shape(edge, edge.shape)];
+    }
+    return ip;
+}
+
+export function intersectMultiline2Multiline(multiline1, multiline2) {
+    let ip = [];
+    for (let edge1 of multiline1) {
+        for (let edge2 of multiline2) {
+            ip = [...ip, ...intersectShape2Shape(edge1, edge2)];
+        }
+    }
+    return ip;
 }
