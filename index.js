@@ -30,7 +30,7 @@ export {Distance} from './src/algorithms/distance';
 export {BooleanOperations};
 export {Relations};
 export {SmartIntersections};
-// export { parseWKT, isWktString } from './src/utils/parseWKT'
+export { parseWKT, isWktString } from './src/utils/parseWKT'
 
 Flatten.BooleanOperations = BooleanOperations;
 Flatten.Relations = Relations;

@@ -1,5 +1,5 @@
-import {Multiline, Point, Segment, Polygon} from "../../index";
 import Flatten from "../flatten";
+const {Multiline, Point, Segment, Polygon} = Flatten
 
 // POINT (30 10)
 // MULTIPOINT (10 40, 40 30, 20 20, 30 10)
