@@ -1091,7 +1091,7 @@
      * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
      * [segment]{@link Flatten.Segment}, [arc]{@link Flatten.Arc}, [line]{@link Flatten.Line} or [ray]{@link Flatten.Ray}
      */
-    let Multiline$1 = class Multiline extends LinkedList {
+    class Multiline extends LinkedList {
         constructor(...args) {
             super();
             this.isInfinite = false;
@@ -1431,16 +1431,16 @@
             svgStr += `" >\n</path>`;
             return svgStr;
         }
-    };
+    }
 
-    Flatten.Multiline = Multiline$1;
+    Flatten.Multiline = Multiline;
 
     /**
      * Shortcut function to create multiline
      * @param args
      */
-    const multiline$1 = (...args) => new Flatten.Multiline(...args);
-    Flatten.multiline = multiline$1;
+    const multiline = (...args) => new Flatten.Multiline(...args);
+    Flatten.multiline = multiline;
 
     /*
         Smart intersections describe intersection points that refers to the edges they intersect
@@ -1792,7 +1792,7 @@
                 int_point.edge_after = int_point.edge_before.next;
             }
             else {
-                if (polygon instanceof Multiline$1 && int_point.is_vertex & START_VERTEX$1) {
+                if (polygon instanceof Multiline && int_point.is_vertex & START_VERTEX$1) {
                     int_point.edge_after = polygon.first;
                 }
             }
@@ -3056,7 +3056,7 @@
             denim.E2I = [circle];
         }
         else {       // ip.length == 2
-            let multiline = new Multiline$1([line]);
+            let multiline = new Multiline([line]);
             let ip_sorted = line.sortPoints(ip);
             multiline.split(ip_sorted);
             let splitShapes = multiline.toShapes();
@@ -3089,7 +3089,7 @@
             denim.E2I = [box];
         }
         else {                     // ip.length == 2
-            let multiline = new Multiline$1([line]);
+            let multiline = new Multiline([line]);
             let ip_sorted = line.sortPoints(ip);
             multiline.split(ip_sorted);
             let splitShapes = multiline.toShapes();
@@ -3116,7 +3116,7 @@
     function relateLine2Polygon(line, polygon) {
         let denim = new DE9IM();
         let ip = intersectLine2Polygon(line, polygon);
-        let multiline = new Multiline$1([line]);
+        let multiline = new Multiline([line]);
         let ip_sorted = ip.length > 0 ? ip.slice() : line.sortPoints(ip);
 
         multiline.split(ip_sorted);
@@ -3137,7 +3137,7 @@
         let ip = intersectShape2Polygon(shape, polygon);
         let ip_sorted = ip.length > 0 ? ip.slice() : shape.sortPoints(ip);
 
-        let multiline = new Multiline$1([shape]);
+        let multiline = new Multiline([shape]);
         multiline.split(ip_sorted);
 
         [...multiline].forEach(edge => edge.setInclusion(polygon));
@@ -4405,7 +4405,7 @@
      * Class representing a point
      * @type {Point}
      */
-    let Point$3 = class Point extends Shape {
+    let Point$2 = class Point extends Shape {
         /**
          * Point may be constructed by two numbers, or by array of two numbers
          * @param {number} x - x-coordinate (float number)
@@ -4620,13 +4620,13 @@
         }
     };
 
-    Flatten.Point = Point$3;
+    Flatten.Point = Point$2;
     /**
      * Function to create point equivalent to "new" constructor
      * @param args
      */
-    const point$1 = (...args) => new Flatten.Point(...args);
-    Flatten.point = point$1;
+    const point = (...args) => new Flatten.Point(...args);
+    Flatten.point = point;
 
     // export {Point};
 
@@ -4893,7 +4893,7 @@
      * Class representing a segment
      * @type {Segment}
      */
-    let Segment$1 = class Segment extends Shape {
+    class Segment extends Shape {
         /**
          *
          * @param {Point} ps - start point
@@ -5245,14 +5245,14 @@
         svg(attrs = {}) {
             return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" ${convertToString(attrs)} />`;
         }
-    };
+    }
 
-    Flatten.Segment = Segment$1;
+    Flatten.Segment = Segment;
     /**
      * Shortcut method to create new segment
      */
-    const segment$1 = (...args) => new Flatten.Segment(...args);
-    Flatten.segment = segment$1;
+    const segment = (...args) => new Flatten.Segment(...args);
+    Flatten.segment = segment;
 
     /**
      * Created by Alex Bol on 2/20/2017.
@@ -7738,7 +7738,7 @@
      * Face, in turn, is a closed loop of [edges]{@link Flatten.Edge}, where edge may be segment or circular arc<br/>
      * @type {Polygon}
      */
-    let Polygon$1 = class Polygon {
+    class Polygon {
         /**
          * Constructor creates new instance of polygon. With no arguments new polygon is empty.<br/>
          * Constructor accepts as argument array that define loop of shapes
@@ -8115,7 +8115,7 @@
          * @returns {Polygon} newPoly - resulted polygon
          */
         cutWithLine(line) {
-            let multiline = new Multiline$1([line]);
+            let multiline = new Multiline([line]);
             return this.cut(multiline);
         }
 
@@ -8364,17 +8364,17 @@
             svgStr += `" >\n</path>`;
             return svgStr;
         }
-    };
+    }
 
-    Flatten.Polygon = Polygon$1;
+    Flatten.Polygon = Polygon;
 
     /**
      * Shortcut method to create new polygon
      */
-    const polygon$1 = (...args) => new Flatten.Polygon(...args);
-    Flatten.polygon = polygon$1;
+    const polygon = (...args) => new Flatten.Polygon(...args);
+    Flatten.polygon = polygon;
 
-    const {Circle, Line, Point: Point$2, Vector, Utils} = Flatten;
+    const {Circle, Line, Point: Point$1, Vector, Utils} = Flatten;
     /**
      * Class Inversion represent operator of inversion in circle
      * Inversion is a transformation of the Euclidean plane that maps generalized circles
@@ -8402,7 +8402,7 @@
             const k2 = inversion_circle.r * inversion_circle.r;
             const len2 = v.dot(v);
             const reflected_point = Utils.EQ_0(len2) ?
-                new Point$2(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY) :
+                new Point$1(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY) :
                 inversion_circle.pc.translate(v.multiply(k2 / len2));
             return reflected_point;
         }
@@ -8440,7 +8440,7 @@
         }
 
         inverse(shape) {
-            if (shape instanceof Point$2) {
+            if (shape instanceof Point$1) {
                 return Inversion.inversePoint(this.circle, shape);
             }
             else if (shape instanceof Circle) {
@@ -9103,1784 +9103,10 @@
     Flatten.Distance = Distance;
 
     /**
-     * Class Multiline represent connected path of [edges]{@link Flatten.Edge}, where each edge may be
-     * [segment]{@link Flatten.Segment}, [arc]{@link Flatten.Arc}, [line]{@link Flatten.Line} or [ray]{@link Flatten.Ray}
-     */
-    class Multiline extends LinkedList {
-        constructor(...args) {
-            super();
-            this.isInfinite = false;
-
-            if (args.length === 1 && args[0] instanceof Array && args[0].length > 0) {
-                // there may be only one line and
-                // only first and last may be rays
-                let validShapes = false;
-                const shapes = args[0];
-                const L = shapes.length;
-                const anyShape = (s) =>
-                    s instanceof Flatten.Segment || s instanceof Flatten.Arc ||
-                    s instanceof Flatten.Ray || s instanceof Flatten.Line;
-                const anyShapeExceptLine = (s) =>
-                    s instanceof Flatten.Segment || s instanceof Flatten.Arc || s instanceof Flatten.Ray;
-                const shapeSegmentOrArc = (s) => s instanceof Flatten.Segment || s instanceof Flatten.Arc;
-                validShapes =
-                    L === 1 && anyShape(shapes[0]) ||
-                    L > 1 && anyShapeExceptLine(shapes[0]) && anyShapeExceptLine(shapes[L - 1]) &&
-                    shapes.slice(1, L - 1).every(shapeSegmentOrArc);
-
-                if (validShapes) {
-                    this.isInfinite = shapes.some(shape =>
-                        shape instanceof Flatten.Ray ||
-                        shape instanceof Flatten.Line
-                    );
-
-                    for (let shape of shapes) {
-                        let edge = new Flatten.Edge(shape);
-                        this.append(edge);
-                    }
-
-                    this.setArcLength();
-                } else {
-                    throw Flatten.Errors.ILLEGAL_PARAMETERS;
-                }
-            }
-        }
-
-        /**
-         * (Getter) Return array of edges
-         * @returns {Edge[]}
-         */
-        get edges() {
-            return [...this];
-        }
-
-        /**
-         * (Getter) Return bounding box of the multiline
-         * @returns {Box}
-         */
-        get box() {
-            return this.edges.reduce( (acc,edge) => acc.merge(edge.box), new Flatten.Box() );
-        }
-
-        /**
-         * (Getter) Returns array of vertices
-         * @returns {Point[]}
-         */
-        get vertices() {
-            let v = this.edges.map(edge => edge.start);
-            v.push(this.last.end);
-            return v;
-        }
-
-        /**
-         * (Getter) Returns length of the multiline, return POSITIVE_INFINITY if multiline is infinite
-         * @returns {number}
-         */
-        get length() {
-            if (this.isEmpty()) return 0;
-            if (this.isInfinite) return Number.POSITIVE_INFINITY;
-
-            let len = 0;
-            for (let edge of this) {
-                len += edge.length;
-            }
-            return len
-        }
-
-        /**
-         * Return new cloned instance of Multiline
-         * @returns {Multiline}
-         */
-        clone() {
-            return new Multiline(this.toShapes());
-        }
-
-        /**
-         * Set arc_length property for each of the edges in the multiline.
-         * Arc_length of the edge is the arc length from the multiline start vertex to the edge start vertex
-         */
-        setArcLength() {
-            for (let edge of this) {
-                this.setOneEdgeArcLength(edge);
-            }
-        }
-
-        setOneEdgeArcLength(edge) {
-            if (edge === this.first) {
-                edge.arc_length = 0.0;
-            } else {
-                edge.arc_length = edge.prev.arc_length + edge.prev.length;
-            }
-        }
-
-        /**
-         * Return point on multiline at given length from the start of the multiline
-         * @param length
-         * @returns {Point | null}
-         */
-        pointAtLength(length) {
-            if (length > this.length || length < 0) return null;
-            if (this.isInfinite) return null
-
-            let point = null;
-            for (let edge of this) {
-                if (length >= edge.arc_length &&
-                    (edge === this.last || length < edge.next.arc_length)) {
-                    point = edge.pointAtLength(length - edge.arc_length);
-                    break;
-                }
-            }
-            return point;
-        }
-
-        /**
-         * Split edge and add new vertex, return new edge inserted
-         * @param {Point} pt - point on edge that will be added as new vertex
-         * @param {Edge} edge - edge to split
-         * @returns {Edge}
-         */
-        addVertex(pt, edge) {
-            let shapes = edge.shape.split(pt);
-            // if (shapes.length < 2) return;
-
-            if (shapes[0] === null)   // point incident to edge start vertex, return previous edge
-               return edge.prev;
-
-            if (shapes[1] === null)   // point incident to edge end vertex, return edge itself
-               return edge;
-
-            let newEdge = new Flatten.Edge(shapes[0]);
-            let edgeBefore = edge.prev;
-
-            /* Insert first split edge into linked list after edgeBefore */
-            this.insert(newEdge, edgeBefore);     // edge.face ?
-
-            // Update edge shape with second split edge keeping links
-            edge.shape = shapes[1];
-
-            return newEdge;
-        }
-
-        getChain(edgeFrom, edgeTo) {
-            let edges = [];
-            for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
-                edges.push(edge);
-            }
-            return edges
-        }
-
-        /**
-         * Split edges of multiline with intersection points and return mutated multiline
-         * @param {Point[]} ip - array of points to be added as new vertices
-         * @returns {Multiline}
-         */
-        split(ip) {
-            for (let pt of ip) {
-                let edge = this.findEdgeByPoint(pt);
-                this.addVertex(pt, edge);
-            }
-            return this;
-        }
-
-        /**
-         * Returns edge which contains given point
-         * @param {Point} pt
-         * @returns {Edge}
-         */
-        findEdgeByPoint(pt) {
-            let edgeFound;
-            for (let edge of this) {
-                if (edge.shape.contains(pt)) {
-                    edgeFound = edge;
-                    break;
-                }
-            }
-            return edgeFound;
-        }
-
-        /**
-         * Calculate distance and shortest segment from any shape to multiline
-         * @param shape
-         * @returns {[number,Flatten.Segment]}
-         */
-        distanceTo(shape) {
-            if (shape instanceof Point) {
-                const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
-                return [dist, shortest_segment.reverse()];
-            }
-
-            if (shape instanceof Flatten.Line) {
-                const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
-                return [dist, shortest_segment.reverse()];
-            }
-
-            if (shape instanceof Flatten.Circle) {
-                const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
-                return [dist, shortest_segment.reverse()];
-            }
-
-            if (shape instanceof Flatten.Segment) {
-                const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
-                return [dist, shortest_segment.reverse()];
-            }
-
-            if (shape instanceof Flatten.Arc) {
-                const [dist, shortest_segment] = Flatten.Distance.shape2multiline(shape, this);
-                return [dist, shortest_segment.reverse()];
-            }
-
-            if (shape instanceof Flatten.Multiline) {
-                return Flatten.Distance.multiline2multiline(this, shape);
-            }
-
-            throw Flatten.Errors.UNSUPPORTED_SHAPE_TYPE;
-        }
-
-        /**
-         * Calculate intersection of multiline with other shape
-         * @param {Shape} shape
-         * @returns {Point[]}
-         */
-        intersect(shape) {
-            if (shape instanceof Flatten.Multiline) {
-                return intersectMultiline2Multiline(this, shape);
-            }
-            else {
-                return intersectShape2Multiline(shape, this);
-            }
-        }
-
-        /**
-         * Return true if multiline contains the shape: no point of shape lies outside
-         * @param shape
-         * @returns {boolean}
-         */
-        contains(shape) {
-            if (shape instanceof Flatten.Point) {
-                return this.edges.some(edge => edge.shape.contains(shape));
-            }
-
-            throw Flatten.Errors.UNSUPPORTED_SHAPE_TYPE;
-        }
-
-        /**
-         * Returns new multiline translated by vector vec
-         * @param {Vector} vec
-         * @returns {Multiline}
-         */
-        translate(vec) {
-            return new Multiline(this.edges.map( edge => edge.shape.translate(vec)));
-        }
-
-        /**
-         * Return new multiline rotated by given angle around given point
-         * If point omitted, rotate around origin (0,0)
-         * Positive value of angle defines rotation counterclockwise, negative - clockwise
-         * @param {number} angle - rotation angle in radians
-         * @param {Point} center - rotation center, default is (0,0)
-         * @returns {Multiline} - new rotated polygon
-         */
-        rotate(angle = 0, center = new Flatten.Point()) {
-            return new Multiline(this.edges.map( edge => edge.shape.rotate(angle, center) ));
-        }
-
-        /**
-         * Return new multiline transformed using affine transformation matrix
-         * Method does not support unbounded shapes
-         * @param {Matrix} matrix - affine transformation matrix
-         * @returns {Multiline} - new multiline
-         */
-        transform(matrix = new Flatten.Matrix()) {
-            return new Multiline(this.edges.map( edge => edge.shape.transform(matrix)));
-        }
-
-        /**
-         * Transform multiline into array of shapes
-         * @returns {Shape[]}
-         */
-        toShapes() {
-            return this.edges.map(edge => edge.shape.clone())
-        }
-
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return this.edges.map(edge => edge.toJSON());
-        }
-
-        /**
-         * Return string to be inserted into 'points' attribute of <polyline> element
-         * @returns {string}
-         */
-        svgPoints() {
-            return this.vertices.map(p => `${p.x},${p.y}`).join(' ')
-        }
-
-        /**
-         * Return string to be assigned to 'd' attribute of <path> element
-         * @returns {*}
-         */
-        dpath() {
-            let dPathStr = `M${this.first.start.x},${this.first.start.y}`;
-            for (let edge of this) {
-                dPathStr += edge.svg();
-            }
-            return dPathStr
-        }
-
-        /**
-         * Return string to draw multiline in svg
-         * @param attrs  - an object with attributes for svg path element
-         * TODO: support semi-infinite Ray and infinite Line
-         * @returns {string}
-         */
-        svg(attrs = {}) {
-            let svgStr = `\n<path ${convertToString({fill: "none", ...attrs})} d="`;
-            svgStr += `\nM${this.first.start.x},${this.first.start.y}`;
-            for (let edge of this) {
-                svgStr += edge.svg();
-            }
-            svgStr += `" >\n</path>`;
-            return svgStr;
-        }
-    }
-
-    Flatten.Multiline = Multiline;
-
-    /**
-     * Shortcut function to create multiline
-     * @param args
-     */
-    const multiline = (...args) => new Flatten.Multiline(...args);
-    Flatten.multiline = multiline;
-
-    /**
      * Created by Alex Bol on 2/18/2017.
      */
 
-
-    /**
-     *
-     * Class representing a point
-     * @type {Point}
-     */
-    let Point$1 = class Point extends Shape {
-        /**
-         * Point may be constructed by two numbers, or by array of two numbers
-         * @param {number} x - x-coordinate (float number)
-         * @param {number} y - y-coordinate (float number)
-         */
-        constructor(...args) {
-            super();
-            /**
-             * x-coordinate (float number)
-             * @type {number}
-             */
-            this.x = 0;
-            /**
-             * y-coordinate (float number)
-             * @type {number}
-             */
-            this.y = 0;
-
-            if (args.length === 0) {
-                return;
-            }
-
-            if (args.length === 1 && args[0] instanceof Array && args[0].length === 2) {
-                let arr = args[0];
-                if (typeof (arr[0]) == "number" && typeof (arr[1]) == "number") {
-                    this.x = arr[0];
-                    this.y = arr[1];
-                    return;
-                }
-            }
-
-            if (args.length === 1 && args[0] instanceof Object && args[0].name === "point") {
-                let {x, y} = args[0];
-                this.x = x;
-                this.y = y;
-                return;
-            }
-
-            if (args.length === 2) {
-                if (typeof (args[0]) == "number" && typeof (args[1]) == "number") {
-                    this.x = args[0];
-                    this.y = args[1];
-                    return;
-                }
-            }
-            throw Errors.ILLEGAL_PARAMETERS;
-        }
-
-        /**
-         * Returns bounding box of a point
-         * @returns {Box}
-         */
-        get box() {
-            return new Flatten.Box(this.x, this.y, this.x, this.y);
-        }
-
-        /**
-         * Return new cloned instance of point
-         * @returns {Point}
-         */
-        clone() {
-            return new Flatten.Point(this.x, this.y);
-        }
-
-        get vertices() {
-            return [this.clone()];
-        }
-
-        /**
-         * Returns true if points are equal up to [Flatten.Utils.DP_TOL]{@link DP_TOL} tolerance
-         * @param {Point} pt Query point
-         * @returns {boolean}
-         */
-        equalTo(pt) {
-            return Flatten.Utils.EQ(this.x, pt.x) && Flatten.Utils.EQ(this.y, pt.y);
-        }
-
-        /**
-         * Defines predicate "less than" between points. Returns true if the point is less than query points, false otherwise <br/>
-         * By definition point1 < point2 if {point1.y < point2.y || point1.y == point2.y && point1.x < point2.x <br/>
-         * Numeric values compared with [Flatten.Utils.DP_TOL]{@link DP_TOL} tolerance
-         * @param {Point} pt Query point
-         * @returns {boolean}
-         */
-        lessThan(pt) {
-            if (Flatten.Utils.LT(this.y, pt.y))
-                return true;
-            if (Flatten.Utils.EQ(this.y, pt.y) && Flatten.Utils.LT(this.x, pt.x))
-                return true;
-            return false;
-        }
-
-        /**
-         * Return new point transformed by affine transformation matrix
-         * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
-         * @returns {Point}
-         */
-        transform(m) {
-            return new Flatten.Point(m.transform([this.x, this.y]))
-        }
-
-        /**
-         * Returns projection point on given line
-         * @param {Line} line Line this point be projected on
-         * @returns {Point}
-         */
-        projectionOn(line) {
-            if (this.equalTo(line.pt))                   // this point equal to line anchor point
-                return this.clone();
-
-            let vec = new Flatten.Vector(this, line.pt);
-            if (Flatten.Utils.EQ_0(vec.cross(line.norm)))    // vector to point from anchor point collinear to normal vector
-                return line.pt.clone();
-
-            let dist = vec.dot(line.norm);             // signed distance
-            let proj_vec = line.norm.multiply(dist);
-            return this.translate(proj_vec);
-        }
-
-        /**
-         * Returns true if point belongs to the "left" semi-plane, which means, point belongs to the same semi plane where line normal vector points to
-         * Return false if point belongs to the "right" semi-plane or to the line itself
-         * @param {Line} line Query line
-         * @returns {boolean}
-         */
-        leftTo(line) {
-            let vec = new Flatten.Vector(line.pt, this);
-            let onLeftSemiPlane = Flatten.Utils.GT(vec.dot(line.norm), 0);
-            return onLeftSemiPlane;
-        }
-
-        /**
-         * Calculate distance and shortest segment from point to shape and return as array [distance, shortest segment]
-         * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
-         * @returns {number} distance from point to shape
-         * @returns {Segment} shortest segment between point and shape (started at point, ended at shape)
-         */
-        distanceTo(shape) {
-            if (shape instanceof Point) {
-                let dx = shape.x - this.x;
-                let dy = shape.y - this.y;
-                return [Math.sqrt(dx * dx + dy * dy), new Flatten.Segment(this, shape)];
-            }
-
-            if (shape instanceof Flatten.Line) {
-                return Flatten.Distance.point2line(this, shape);
-            }
-
-            if (shape instanceof Flatten.Circle) {
-                return Flatten.Distance.point2circle(this, shape);
-            }
-
-            if (shape instanceof Flatten.Segment) {
-                return Flatten.Distance.point2segment(this, shape);
-            }
-
-            if (shape instanceof Flatten.Arc) {
-                return Flatten.Distance.point2arc(this, shape);
-            }
-
-            if (shape instanceof Flatten.Polygon) {
-                return Flatten.Distance.point2polygon(this, shape);
-            }
-
-            if (shape instanceof Flatten.PlanarSet) {
-                return Flatten.Distance.shape2planarSet(this, shape);
-            }
-
-            if (shape instanceof Flatten.Multiline) {
-                return Flatten.Distance.shape2multiline(this, shape);
-            }
-        }
-
-        /**
-         * Returns true if point is on a shape, false otherwise
-         * @param {Shape} shape
-         * @returns {boolean}
-         */
-        on(shape) {
-            if (shape instanceof Flatten.Point) {
-                return this.equalTo(shape);
-            }
-
-            if (shape.contains && shape.contains instanceof Function) {
-                return shape.contains(this);
-            }
-
-            throw Flatten.Errors.UNSUPPORTED_SHAPE_TYPE;
-        }
-
-        get name() {
-            return "point"
-        }
-
-        /**
-         * Return string to draw point in svg as circle with radius "r" <br/>
-         * Accept any valid attributes of svg elements as svg object
-         * Defaults attribues are: <br/>
-         * {
-         *    r:"3",
-         *    stroke:"black",
-         *    strokeWidth:"1",
-         *    fill:"red"
-         * }
-         * @param {Object} attrs - Any valid attributes of svg circle element, like "r", "stroke", "strokeWidth", "fill"
-         * @returns {String}
-         */
-        svg(attrs = {}) {
-            const r = attrs.r ?? 3;            // default radius - 3
-            return `\n<circle cx="${this.x}" cy="${this.y}" r="${r}"
-            ${convertToString({fill: "red", ...attrs})} />`;
-        }
-    };
-
-    Flatten.Point = Point$1;
-    /**
-     * Function to create point equivalent to "new" constructor
-     * @param args
-     */
-    const point = (...args) => new Flatten.Point(...args);
-    Flatten.point = point;
-
-    // export {Point};
-
-    /**
-     * Created by Alex Bol on 3/10/2017.
-     */
-
-
-    /**
-     * Class representing a segment
-     * @type {Segment}
-     */
-    class Segment extends Shape {
-        /**
-         *
-         * @param {Point} ps - start point
-         * @param {Point} pe - end point
-         */
-        constructor(...args) {
-            super();
-            /**
-             * Start point
-             * @type {Point}
-             */
-            this.ps = new Flatten.Point();
-            /**
-             * End Point
-             * @type {Point}
-             */
-            this.pe = new Flatten.Point();
-
-            if (args.length === 0) {
-                return;
-            }
-
-            if (args.length === 1 && args[0] instanceof Array && args[0].length === 4) {
-                let coords = args[0];
-                this.ps = new Flatten.Point(coords[0], coords[1]);
-                this.pe = new Flatten.Point(coords[2], coords[3]);
-                return;
-            }
-
-            if (args.length === 1 && args[0] instanceof Object && args[0].name === "segment") {
-                let {ps, pe} = args[0];
-                this.ps = new Flatten.Point(ps.x, ps.y);
-                this.pe = new Flatten.Point(pe.x, pe.y);
-                return;
-            }
-
-            // second point omitted issue #84
-            if (args.length === 1 && args[0] instanceof Flatten.Point) {
-                this.ps = args[0].clone();
-                return;
-            }
-
-            if (args.length === 2 && args[0] instanceof Flatten.Point && args[1] instanceof Flatten.Point) {
-                this.ps = args[0].clone();
-                this.pe = args[1].clone();
-                return;
-            }
-
-            if (args.length === 4) {
-                this.ps = new Flatten.Point(args[0], args[1]);
-                this.pe = new Flatten.Point(args[2], args[3]);
-                return;
-            }
-
-            throw Errors.ILLEGAL_PARAMETERS;
-        }
-
-        /**
-         * Return new cloned instance of segment
-         * @returns {Segment}
-         */
-        clone() {
-            return new Flatten.Segment(this.start, this.end);
-        }
-
-        /**
-         * Start point
-         * @returns {Point}
-         */
-        get start() {
-            return this.ps;
-        }
-
-        /**
-         * End point
-         * @returns {Point}
-         */
-        get end() {
-            return this.pe;
-        }
-
-
-        /**
-         * Returns array of start and end point
-         * @returns [Point,Point]
-         */
-        get vertices() {
-            return [this.ps.clone(), this.pe.clone()];
-        }
-
-        /**
-         * Length of a segment
-         * @returns {number}
-         */
-        get length() {
-            return this.start.distanceTo(this.end)[0];
-        }
-
-        /**
-         * Slope of the line - angle to axe x in radians from 0 to 2PI
-         * @returns {number}
-         */
-        get slope() {
-            let vec = new Flatten.Vector(this.start, this.end);
-            return vec.slope;
-        }
-
-        /**
-         * Bounding box
-         * @returns {Box}
-         */
-        get box() {
-            return new Flatten.Box(
-                Math.min(this.start.x, this.end.x),
-                Math.min(this.start.y, this.end.y),
-                Math.max(this.start.x, this.end.x),
-                Math.max(this.start.y, this.end.y)
-            )
-        }
-
-        /**
-         * Returns true if equals to query segment, false otherwise
-         * @param {Segment} seg - query segment
-         * @returns {boolean}
-         */
-        equalTo(seg) {
-            return this.ps.equalTo(seg.ps) && this.pe.equalTo(seg.pe);
-        }
-
-        /**
-         * Returns true if segment contains point
-         * @param {Point} pt Query point
-         * @returns {boolean}
-         */
-        contains(pt) {
-            return Flatten.Utils.EQ_0(this.distanceToPoint(pt));
-        }
-
-        /**
-         * Returns array of intersection points between segment and other shape
-         * @param {Shape} shape - Shape of the one of supported types <br/>
-         * @returns {Point[]}
-         */
-        intersect(shape) {
-            if (shape instanceof Flatten.Point) {
-                return this.contains(shape) ? [shape] : [];
-            }
-
-            if (shape instanceof Flatten.Line) {
-                return intersectSegment2Line(this, shape);
-            }
-
-            if (shape instanceof Flatten.Ray) {
-                return intersectRay2Segment(shape, this);
-            }
-
-            if (shape instanceof Flatten.Segment) {
-                return  intersectSegment2Segment(this, shape);
-            }
-
-            if (shape instanceof Flatten.Circle) {
-                return intersectSegment2Circle(this, shape);
-            }
-
-            if (shape instanceof Flatten.Box) {
-                return intersectSegment2Box(this, shape);
-            }
-
-            if (shape instanceof Flatten.Arc) {
-                return intersectSegment2Arc(this, shape);
-            }
-
-            if (shape instanceof Flatten.Polygon) {
-                return  intersectSegment2Polygon(this, shape);
-            }
-
-            if (shape instanceof Flatten.Multiline) {
-                return intersectShape2Multiline(this, shape);
-            }
-        }
-
-        /**
-         * Calculate distance and shortest segment from segment to shape and return as array [distance, shortest segment]
-         * @param {Shape} shape Shape of the one of supported types Point, Line, Circle, Segment, Arc, Polygon or Planar Set
-         * @returns {[number, Segment]} shortest segment between segment and shape (started at segment, ended at shape)
-         */
-        distanceTo(shape) {
-            if (shape instanceof Flatten.Point) {
-                let [dist, shortest_segment] = Flatten.Distance.point2segment(shape, this);
-                shortest_segment = shortest_segment.reverse();
-                return [dist, shortest_segment];
-            }
-
-            if (shape instanceof Flatten.Circle) {
-                let [dist, shortest_segment] = Flatten.Distance.segment2circle(this, shape);
-                return [dist, shortest_segment];
-            }
-
-            if (shape instanceof Flatten.Line) {
-                let [dist, shortest_segment] = Flatten.Distance.segment2line(this, shape);
-                return [dist, shortest_segment];
-            }
-
-            if (shape instanceof Flatten.Segment) {
-                let [dist, shortest_segment] = Flatten.Distance.segment2segment(this, shape);
-                return [dist, shortest_segment];
-            }
-
-            if (shape instanceof Flatten.Arc) {
-                let [dist, shortest_segment] = Flatten.Distance.segment2arc(this, shape);
-                return [dist, shortest_segment];
-            }
-
-            if (shape instanceof Flatten.Polygon) {
-                let [dist, shortest_segment] = Flatten.Distance.shape2polygon(this, shape);
-                return [dist, shortest_segment];
-            }
-
-            if (shape instanceof Flatten.PlanarSet) {
-                let [dist, shortest_segment] = Flatten.Distance.shape2planarSet(this, shape);
-                return [dist, shortest_segment];
-            }
-
-            if (shape instanceof Flatten.Multiline) {
-                return Flatten.Distance.shape2multiline(this, shape);
-            }
-        }
-
-        /**
-         * Returns unit vector in the direction from start to end
-         * @returns {Vector}
-         */
-        tangentInStart() {
-            let vec = new Flatten.Vector(this.start, this.end);
-            return vec.normalize();
-        }
-
-        /**
-         * Return unit vector in the direction from end to start
-         * @returns {Vector}
-         */
-        tangentInEnd() {
-            let vec = new Flatten.Vector(this.end, this.start);
-            return vec.normalize();
-        }
-
-        /**
-         * Returns new segment with swapped start and end points
-         * @returns {Segment}
-         */
-        reverse() {
-            return new Segment(this.end, this.start);
-        }
-
-        /**
-         * When point belongs to segment, return array of two segments split by given point,
-         * if point is inside segment. Returns clone of this segment if query point is incident
-         * to start or end point of the segment. Returns empty array if point does not belong to segment
-         * @param {Point} pt Query point
-         * @returns {Segment[]}
-         */
-        split(pt) {
-            if (this.start.equalTo(pt))
-                return [null, this.clone()];
-
-            if (this.end.equalTo(pt))
-                return [this.clone(), null];
-
-            return [
-                new Flatten.Segment(this.start, pt),
-                new Flatten.Segment(pt, this.end)
-            ]
-        }
-
-        /**
-         * Return middle point of the segment
-         * @returns {Point}
-         */
-        middle() {
-            return new Flatten.Point((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2);
-        }
-
-        /**
-         * Get point at given length
-         * @param {number} length - The length along the segment
-         * @returns {Point}
-         */
-        pointAtLength(length) {
-            if (length > this.length || length < 0) return null;
-            if (length == 0) return this.start;
-            if (length == this.length) return this.end;
-            let factor = length / this.length;
-            return new Flatten.Point(
-                (this.end.x - this.start.x) * factor + this.start.x,
-                (this.end.y - this.start.y) * factor + this.start.y
-            );
-        }
-
-        distanceToPoint(pt) {
-            let [dist, ...rest] = Flatten.Distance.point2segment(pt, this);
-            return dist;
-        };
-
-        definiteIntegral(ymin = 0.0) {
-            let dx = this.end.x - this.start.x;
-            let dy1 = this.start.y - ymin;
-            let dy2 = this.end.y - ymin;
-            return (dx * (dy1 + dy2) / 2);
-        }
-
-        /**
-         * Return new segment transformed using affine transformation matrix
-         * @param {Matrix} matrix - affine transformation matrix
-         * @returns {Segment} - transformed segment
-         */
-        transform(matrix = new Flatten.Matrix()) {
-            return new Segment(this.ps.transform(matrix), this.pe.transform(matrix))
-        }
-
-        /**
-         * Returns true if segment start is equal to segment end up to DP_TOL
-         * @returns {boolean}
-         */
-        isZeroLength() {
-            return this.ps.equalTo(this.pe)
-        }
-
-        /**
-         * Sort given array of points from segment start to end, assuming all points lay on the segment
-         * @param {Point[]} - array of points
-         * @returns {Point[]} new array sorted
-         */
-        sortPoints(pts) {
-            let line = new Flatten.Line(this.start, this.end);
-            return line.sortPoints(pts);
-        }
-
-        get name() {
-            return "segment"
-        }
-
-        /**
-         * Return string to draw segment in svg
-         * @param {Object} attrs - an object with attributes for svg path element,
-         * like "stroke", "strokeWidth" <br/>
-         * Defaults are stroke:"black", strokeWidth:"1"
-         * @returns {string}
-         */
-        svg(attrs = {}) {
-            return `\n<line x1="${this.start.x}" y1="${this.start.y}" x2="${this.end.x}" y2="${this.end.y}" ${convertToString(attrs)} />`;
-        }
-    }
-
-    Flatten.Segment = Segment;
-    /**
-     * Shortcut method to create new segment
-     */
-    const segment = (...args) => new Flatten.Segment(...args);
-    Flatten.segment = segment;
-
-    /**
-     * Created by Alex Bol on 3/15/2017.
-     */
-
-
-    /**
-     * Class representing a polygon.<br/>
-     * Polygon in FlattenJS is a multipolygon comprised from a set of [faces]{@link Flatten.Face}. <br/>
-     * Face, in turn, is a closed loop of [edges]{@link Flatten.Edge}, where edge may be segment or circular arc<br/>
-     * @type {Polygon}
-     */
-    class Polygon {
-        /**
-         * Constructor creates new instance of polygon. With no arguments new polygon is empty.<br/>
-         * Constructor accepts as argument array that define loop of shapes
-         * or array of arrays in case of multi polygon <br/>
-         * Loop may be defined in different ways: <br/>
-         * - array of shapes of type Segment or Arc <br/>
-         * - array of points (Flatten.Point) <br/>
-         * - array of numeric pairs which represent points <br/>
-         * - box or circle object <br/>
-         * Alternatively, it is possible to use polygon.addFace method
-         * @param {args} - array of shapes or array of arrays
-         */
-        constructor() {
-            /**
-             * Container of faces (closed loops), may be empty
-             * @type {PlanarSet}
-             */
-            this.faces = new Flatten.PlanarSet();
-            /**
-             * Container of edges
-             * @type {PlanarSet}
-             */
-            this.edges = new Flatten.PlanarSet();
-
-            /* It may be array of something that may represent one loop (face) or
-             array of arrays that represent multiple loops
-             */
-            let args = [...arguments];
-            if (args.length === 1 &&
-                ((args[0] instanceof Array && args[0].length > 0) ||
-                    args[0] instanceof Flatten.Circle || args[0] instanceof Flatten.Box)) {
-                let argsArray = args[0];
-                if (args[0] instanceof Array && args[0].every((loop) => {
-                    return loop instanceof Array
-                })) {
-                    if (argsArray.every(el => {
-                        return el instanceof Array && el.length === 2 && typeof (el[0]) === "number" && typeof (el[1]) === "number"
-                    })) {
-                        this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon as array of pairs of numbers
-                    } else {
-                        for (let loop of argsArray) {   // multi-loop polygon
-                            /* Check extra level of nesting for GeoJSON-style multi polygons */
-                            if (loop instanceof Array && loop[0] instanceof Array &&
-                                loop[0].every(el => {
-                                    return el instanceof Array && el.length === 2 && typeof (el[0]) === "number" && typeof (el[1]) === "number"
-                                })) {
-                                for (let loop1 of loop) {
-                                    this.faces.add(new Flatten.Face(this, loop1));
-                                }
-                            } else {
-                                this.faces.add(new Flatten.Face(this, loop));
-                            }
-                        }
-                    }
-                } else {
-                    this.faces.add(new Flatten.Face(this, argsArray));    // one-loop polygon
-                }
-            }
-        }
-
-        /**
-         * (Getter) Returns bounding box of the polygon
-         * @returns {Box}
-         */
-        get box() {
-            return [...this.faces].reduce((acc, face) => acc.merge(face.box), new Flatten.Box());
-        }
-
-        /**
-         * (Getter) Returns array of vertices
-         * @returns {Array}
-         */
-        get vertices() {
-            return [...this.edges].map(edge => edge.start);
-        }
-
-        /**
-         * Create new cloned instance of the polygon
-         * @returns {Polygon}
-         */
-        clone() {
-            let polygon = new Polygon();
-            for (let face of this.faces) {
-                polygon.addFace(face.shapes);
-            }
-            return polygon;
-        }
-
-        /**
-         * Return true is polygon has no edges
-         * @returns {boolean}
-         */
-        isEmpty() {
-            return this.edges.size === 0;
-        }
-
-        /**
-         * Return true if polygon is valid for boolean operations
-         * Polygon is valid if <br/>
-         * 1. All faces are simple polygons (there are no self-intersected polygons) <br/>
-         * 2. All faces are orientable and there is no island inside island or hole inside hole - TODO <br/>
-         * 3. There is no intersections between faces (excluding touching) - TODO <br/>
-         * @returns {boolean}
-         */
-        isValid() {
-            let valid = true;
-            // 1. Polygon is invalid if at least one face is not simple
-            for (let face of this.faces) {
-                if (!face.isSimple(this.edges)) {
-                    valid = false;
-                    break;
-                }
-            }
-            // 2. TODO: check if no island inside island and no hole inside hole
-            // 3. TODO: check the there is no intersection between faces
-            return valid;
-        }
-
-        /**
-         * Returns area of the polygon. Area of an island will be added, area of a hole will be subtracted
-         * @returns {number}
-         */
-        area() {
-            let signedArea = [...this.faces].reduce((acc, face) => acc + face.signedArea(), 0);
-            return Math.abs(signedArea);
-        }
-
-        /**
-         * Add new face to polygon. Returns added face
-         * @param {Point[]|Segment[]|Arc[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
-         * 1) array of points that describe closed path (edges are segments) <br/>
-         * 2) array of shapes (segments and arcs) which describe closed path <br/>
-         * 3) circle - will be added as counterclockwise arc <br/>
-         * 4) box - will be added as counterclockwise rectangle <br/>
-         * You can chain method face.reverse() is you need to change direction of the creates face
-         * @returns {Face}
-         */
-        addFace(...args) {
-            let face = new Flatten.Face(this, ...args);
-            this.faces.add(face);
-            return face;
-        }
-
-        /**
-         * Delete existing face from polygon
-         * @param {Face} face Face to be deleted
-         * @returns {boolean}
-         */
-        deleteFace(face) {
-            for (let edge of face) {
-                this.edges.delete(edge);
-            }
-            return this.faces.delete(face);
-        }
-
-        /**
-         * Clear all faces and create new faces from edges
-         */
-        recreateFaces() {
-            // Remove all faces
-            this.faces.clear();
-            for (let edge of this.edges) {
-                edge.face = null;
-            }
-
-            // Restore faces
-            let first;
-            let unassignedEdgeFound = true;
-            while (unassignedEdgeFound) {
-                unassignedEdgeFound = false;
-                for (let edge of this.edges) {
-                    if (edge.face === null) {
-                        first = edge;
-                        unassignedEdgeFound = true;
-                        break;
-                    }
-                }
-
-                if (unassignedEdgeFound) {
-                    let last = first;
-                    do {
-                        last = last.next;
-                    } while (last.next !== first)
-
-                    this.addFace(first, last);
-                }
-            }
-        }
-
-        /**
-         * Delete chain of edges from the face.
-         * @param {Face} face Face to remove chain
-         * @param {Edge} edgeFrom Start of the chain of edges to be removed
-         * @param {Edge} edgeTo End of the chain of edges to be removed
-         */
-        removeChain(face, edgeFrom, edgeTo) {
-            // Special case: all edges removed
-            if (edgeTo.next === edgeFrom) {
-                this.deleteFace(face);
-                return;
-            }
-            for (let edge = edgeFrom; edge !== edgeTo.next; edge = edge.next) {
-                face.remove(edge);
-                this.edges.delete(edge);      // delete from PlanarSet of edges and update index
-                if (face.isEmpty()) {
-                    this.deleteFace(face);    // delete from PlanarSet of faces and update index
-                    break;
-                }
-            }
-        }
-
-        /**
-         * Add point as a new vertex and split edge. Point supposed to belong to an edge.
-         * When edge is split, new edge created from the start of the edge to the new vertex
-         * and inserted before current edge.
-         * Current edge is trimmed and updated.
-         * Method returns new edge added. If no edge added, it returns edge before vertex
-         * @param {Point} pt Point to be added as a new vertex
-         * @param {Edge} edge Edge to be split with new vertex and then trimmed from start
-         * @returns {Edge}
-         */
-        addVertex(pt, edge) {
-            let shapes = edge.shape.split(pt);
-            // if (shapes.length < 2) return;
-
-            if (shapes[0] === null)   // point incident to edge start vertex, return previous edge
-                return edge.prev;
-
-            if (shapes[1] === null)   // point incident to edge end vertex, return edge itself
-                return edge;
-
-            let newEdge = new Flatten.Edge(shapes[0]);
-            let edgeBefore = edge.prev;
-
-            /* Insert first split edge into linked list after edgeBefore */
-            edge.face.insert(newEdge, edgeBefore);
-
-            // Remove old edge from edges container and 2d index
-            this.edges.delete(edge);
-
-            // Insert new edge to the edges container and 2d index
-            this.edges.add(newEdge);
-
-            // Update edge shape with second split edge keeping links
-            edge.shape = shapes[1];
-
-            // Add updated edge to the edges container and 2d index
-            this.edges.add(edge);
-
-            return newEdge;
-        }
-
-        /**
-         * Merge given edge with next edge and remove vertex between them
-         * @param {Edge} edge
-         */
-        removeEndVertex(edge) {
-            const edge_next = edge.next;
-            if (edge_next === edge) return
-            edge.face.merge_with_next_edge(edge);
-            this.edges.delete(edge_next);
-        }
-
-        /**
-         * Cut polygon with multiline and return a new polygon
-         * @param {Multiline} multiline
-         * @returns {Polygon}
-         */
-        cut(multiline) {
-            let newPoly = this.clone();
-
-            // smart intersections
-            let intersections = {
-                int_points1: [],
-                int_points2: [],
-                int_points1_sorted: [],
-                int_points2_sorted: []
-            };
-
-            // intersect each edge of multiline with each edge of the polygon
-            // and create smart intersections
-            for (let edge1 of multiline.edges) {
-                for (let edge2 of newPoly.edges) {
-                    let ip = intersectEdge2Edge(edge1, edge2);
-                    // for each intersection point
-                    for (let pt of ip) {
-                        addToIntPoints(edge1, pt, intersections.int_points1);
-                        addToIntPoints(edge2, pt, intersections.int_points2);
-                    }
-                }
-            }
-
-            // No intersections - return a copy of the original polygon
-            if (intersections.int_points1.length === 0)
-                return newPoly;
-
-            // sort smart intersections
-            intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
-            intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
-
-            // split by intersection points
-            splitByIntersections(multiline, intersections.int_points1_sorted);
-            splitByIntersections(newPoly, intersections.int_points2_sorted);
-
-            // filter duplicated intersection points
-            filterDuplicatedIntersections(intersections);
-
-            // sort intersection points again after filtering
-            intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
-            intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
-
-            // initialize inclusion flags for edges of multiline incident to intersections
-            initializeInclusionFlags(intersections.int_points1);
-
-            // calculate inclusion flag for edges of multiline incident to intersections
-            calculateInclusionFlags(intersections.int_points1, newPoly);
-
-            // filter intersections between two edges that got same inclusion flag
-            for (let int_point1 of intersections.int_points1_sorted) {
-                if (int_point1.edge_before && int_point1.edge_after &&
-                    int_point1.edge_before.bv === int_point1.edge_after.bv) {
-                    intersections.int_points2[int_point1.id] = -1;   // to be filtered out
-                    int_point1.id = -1;                              // to be filtered out
-                }
-            }
-            intersections.int_points1 = intersections.int_points1.filter( int_point => int_point.id >= 0);
-            intersections.int_points2 = intersections.int_points2.filter( int_point => int_point.id >= 0);
-            intersections.int_points1.forEach((int_point, index) => { int_point.id = index; });
-            intersections.int_points2.forEach((int_point, index) => { int_point.id = index; });
-
-
-            // No intersections left after filtering - return a copy of the original polygon
-            if (intersections.int_points1.length === 0)
-                return newPoly;
-
-            // sort intersection points 3d time after filtering
-            intersections.int_points1_sorted = getSortedArray(intersections.int_points1);
-            intersections.int_points2_sorted = getSortedArray(intersections.int_points2);
-
-            // Add new inner edges between intersection points
-            let int_point1_prev;
-            let int_point1_curr;
-            for (let i = 1; i <  intersections.int_points1_sorted.length; i++) {
-                int_point1_curr = intersections.int_points1_sorted[i];
-                int_point1_prev = intersections.int_points1_sorted[i-1];
-                if (int_point1_curr.edge_before && int_point1_curr.edge_before.bv === INSIDE$2) {
-                    let edgeFrom = int_point1_prev.edge_after;
-                    let edgeTo = int_point1_curr.edge_before;
-                    let newEdges = multiline.getChain(edgeFrom, edgeTo);
-                    insertBetweenIntPoints(intersections.int_points2[int_point1_prev.id], intersections.int_points2[int_point1_curr.id], newEdges);
-                    newEdges.forEach(edge => newPoly.edges.add(edge));
-
-                    newEdges = newEdges.reverse().map(edge => new Flatten.Edge(edge.shape.reverse()));
-                    for (let k=0; k < newEdges.length-1; k++) {
-                        newEdges[k].next = newEdges[k+1];
-                        newEdges[k+1].prev = newEdges[k];
-                    }
-                    insertBetweenIntPoints(intersections.int_points2[int_point1_curr.id], intersections.int_points2[int_point1_prev.id], newEdges);
-                    newEdges.forEach(edge => newPoly.edges.add(edge));
-                }
-
-            }
-
-            // Recreate faces
-            newPoly.recreateFaces();
-
-            return newPoly
-        }
-
-        /**
-         * A special case of cut() function
-         * The return is a polygon cut with line
-         * @param {Line} line - cutting line
-         * @returns {Polygon} newPoly - resulted polygon
-         */
-        cutWithLine(line) {
-            let multiline = new Multiline$1([line]);
-            return this.cut(multiline);
-        }
-
-        /**
-         * Returns the first found edge of polygon that contains given point
-         * If point is a vertex, return the edge where the point is an end vertex, not a start one
-         * @param {Point} pt
-         * @returns {Edge}
-         */
-        findEdgeByPoint(pt) {
-            let edge;
-            for (let face of this.faces) {
-                edge = face.findEdgeByPoint(pt);
-                if (edge !== undefined)
-                    break;
-            }
-            return edge;
-        }
-
-        /**
-         * Split polygon into array of polygons, where each polygon is an outer face with all
-         * containing inner faces
-         * @returns {Flatten.Polygon[]}
-         */
-        splitToIslands() {
-            if (this.isEmpty()) return [];      // return empty array if polygon is empty
-            let polygons = this.toArray();      // split into array of one-loop polygons
-            /* Sort polygons by area in descending order */
-            polygons.sort((polygon1, polygon2) => polygon2.area() - polygon1.area());
-            /* define orientation of the island by orientation of the first polygon in array */
-            let orientation = [...polygons[0].faces][0].orientation();
-            /* Create output array from polygons with same orientation as a first polygon (array of islands) */
-            let newPolygons = polygons.filter(polygon => [...polygon.faces][0].orientation() === orientation);
-            for (let polygon of polygons) {
-                let face = [...polygon.faces][0];
-                if (face.orientation() === orientation) continue;  // skip same orientation
-                /* Proceed with opposite orientation */
-                /* Look if any of island polygons contains tested polygon as a hole */
-                for (let islandPolygon of newPolygons) {
-                    if (face.shapes.every(shape => islandPolygon.contains(shape))) {
-                        islandPolygon.addFace(face.shapes);      // add polygon as a hole in islandPolygon
-                        break;
-                    }
-                }
-            }
-            // TODO: assert if not all polygons added into output
-            return newPolygons;
-        }
-
-        /**
-         * Reverse orientation of all faces to opposite
-         * @returns {Polygon}
-         */
-        reverse() {
-            for (let face of this.faces) {
-                face.reverse();
-            }
-            return this;
-        }
-
-        /**
-         * Returns true if polygon contains shape: no point of shape lay outside of the polygon,
-         * false otherwise
-         * @param {Shape} shape - test shape
-         * @returns {boolean}
-         */
-        contains(shape) {
-            if (shape instanceof Flatten.Point) {
-                let rel = ray_shoot(this, shape);
-                return rel === INSIDE$2 || rel === BOUNDARY$1;
-            } else {
-                return cover(this, shape);
-            }
-        }
-
-        /**
-         * Return distance and shortest segment between polygon and other shape as array [distance, shortest_segment]
-         * @param {Shape} shape Shape of one of the types Point, Circle, Line, Segment, Arc or Polygon
-         * @returns {Number | Segment}
-         */
-        distanceTo(shape) {
-            // let {Distance} = Flatten;
-
-            if (shape instanceof Flatten.Point) {
-                let [dist, shortest_segment] = Flatten.Distance.point2polygon(shape, this);
-                shortest_segment = shortest_segment.reverse();
-                return [dist, shortest_segment];
-            }
-
-            if (shape instanceof Flatten.Circle ||
-                shape instanceof Flatten.Line ||
-                shape instanceof Flatten.Segment ||
-                shape instanceof Flatten.Arc) {
-                let [dist, shortest_segment] = Flatten.Distance.shape2polygon(shape, this);
-                shortest_segment = shortest_segment.reverse();
-                return [dist, shortest_segment];
-            }
-
-            /* this method is bit faster */
-            if (shape instanceof Flatten.Polygon) {
-                let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
-                let dist, shortest_segment;
-
-                for (let edge of this.edges) {
-                    // let [dist, shortest_segment] = Distance.shape2polygon(edge.shape, shape);
-                    let min_stop = min_dist_and_segment[0];
-                    [dist, shortest_segment] = Flatten.Distance.shape2planarSet(edge.shape, shape.edges, min_stop);
-                    if (Flatten.Utils.LT(dist, min_stop)) {
-                        min_dist_and_segment = [dist, shortest_segment];
-                    }
-                }
-                return min_dist_and_segment;
-            }
-        }
-
-        /**
-         * Return array of intersection points between polygon and other shape
-         * @param shape Shape of the one of supported types <br/>
-         * @returns {Point[]}
-         */
-        intersect(shape) {
-            if (shape instanceof Flatten.Point) {
-                return this.contains(shape) ? [shape] : [];
-            }
-
-            if (shape instanceof Flatten.Line) {
-                return intersectLine2Polygon(shape, this);
-            }
-
-            if (shape instanceof Flatten.Ray) {
-                return intersectRay2Polygon(shape, this);
-            }
-
-            if (shape instanceof Flatten.Circle) {
-                return intersectCircle2Polygon(shape, this);
-            }
-
-            if (shape instanceof Flatten.Segment) {
-                return intersectSegment2Polygon(shape, this);
-            }
-
-            if (shape instanceof Flatten.Arc) {
-                return intersectArc2Polygon(shape, this);
-            }
-
-            if (shape instanceof Flatten.Polygon) {
-                return intersectPolygon2Polygon(shape, this);
-            }
-
-            if (shape instanceof Flatten.Multiline) {
-                return intersectMultiline2Polygon(shape, this);
-            }
-        }
-
-        /**
-         * Returns new polygon translated by vector vec
-         * @param {Vector} vec
-         * @returns {Polygon}
-         */
-        translate(vec) {
-            let newPolygon = new Polygon();
-            for (let face of this.faces) {
-                newPolygon.addFace(face.shapes.map(shape => shape.translate(vec)));
-            }
-            return newPolygon;
-        }
-
-        /**
-         * Return new polygon rotated by given angle around given point
-         * If point omitted, rotate around origin (0,0)
-         * Positive value of angle defines rotation counterclockwise, negative - clockwise
-         * @param {number} angle - rotation angle in radians
-         * @param {Point} center - rotation center, default is (0,0)
-         * @returns {Polygon} - new rotated polygon
-         */
-        rotate(angle = 0, center = new Flatten.Point()) {
-            let newPolygon = new Polygon();
-            for (let face of this.faces) {
-                newPolygon.addFace(face.shapes.map(shape => shape.rotate(angle, center)));
-            }
-            return newPolygon;
-        }
-
-        /**
-         * Return new polygon with coordinates multiplied by scaling factor
-         * @param {number} sx - x-axis scaling factor
-         * @param {number} sy - y-axis scaling factor
-         * @returns {Polygon}
-         */
-        scale(sx, sy) {
-            let newPolygon = new Polygon();
-            for (let face of this.faces) {
-                newPolygon.addFace(face.shapes.map(shape => shape.scale(sx, sy)));
-            }
-            return newPolygon;
-        }
-
-        /**
-         * Return new polygon transformed using affine transformation matrix
-         * @param {Matrix} matrix - affine transformation matrix
-         * @returns {Polygon} - new polygon
-         */
-        transform(matrix = new Flatten.Matrix()) {
-            let newPolygon = new Polygon();
-            for (let face of this.faces) {
-                newPolygon.addFace(face.shapes.map(shape => shape.transform(matrix)));
-            }
-            return newPolygon;
-        }
-
-        /**
-         * This method returns an object that defines how data will be
-         * serialized when called JSON.stringify() method
-         * @returns {Object}
-         */
-        toJSON() {
-            return [...this.faces].map(face => face.toJSON());
-        }
-
-        /**
-         * Transform all faces into array of polygons
-         * @returns {Flatten.Polygon[]}
-         */
-        toArray() {
-            return [...this.faces].map(face => face.toPolygon());
-        }
-
-        /**
-         * Return string to be assigned to 'd' attribute of <path> element
-         * @returns {*}
-         */
-        dpath() {
-            return [...this.faces].reduce((acc, face) => acc + face.svg(), "")
-        }
-
-        /**
-         * Return string to draw polygon in svg
-         * @param attrs  - an object with attributes for svg path element
-         * @returns {string}
-         */
-        svg(attrs = {}) {
-            let svgStr = `\n<path ${convertToString({fillRule: "evenodd", fill: "lightcyan", ...attrs})} d="`;
-            for (let face of this.faces) {
-                svgStr += `\n${face.svg()}` ;
-            }
-            svgStr += `" >\n</path>`;
-            return svgStr;
-        }
-    }
-
-    Flatten.Polygon = Polygon;
-
-    /**
-     * Shortcut method to create new polygon
-     */
-    const polygon = (...args) => new Flatten.Polygon(...args);
-    Flatten.polygon = polygon;
-
-    // POINT (30 10)
-    // MULTIPOINT (10 40, 40 30, 20 20, 30 10)
-    // LINESTRING (30 10, 10 30, 40 40)
-    // MULTILINESTRING ((10 10, 20 20, 10 40), (40 40, 30 30, 40 20, 30 10))
-    // MULTILINESTRING ((8503.732 4424.547, 8963.747 3964.532), (8963.747 3964.532, 8707.468 3708.253), (8707.468 3708.253, 8247.454 4168.268), (8247.454 4168.268, 8503.732 4424.547))
-    // POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))
-    // MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20)))
-    // GEOMETRYCOLLECTION (POINT (0 0), LINESTRING (0 0, 1440 900), POLYGON ((0 0, 0 1024, 1024 1024, 1024 0, 0 0)))
-    // GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))
-
-    function parseSinglePoint(pointStr) {
-        return new Point$1(pointStr.split(' ').map(Number))
-    }
-
-    function parseMultiPoint(multipointStr) {
-        return multipointStr.split(', ').map(parseSinglePoint)
-    }
-
-    function parseLineString(lineStr) {
-        const points = parseMultiPoint(lineStr);
-        let segments = [];
-        for (let i = 0; i < points.length-1;  i++) {
-            segments.push(new Segment(points[i], points[i+1]));
-        }
-        return new Multiline(segments)
-    }
-
-    function parseMultiLineString(multilineStr) {
-        const lineStrings = multilineStr.replace(/\(\(/, '').replace(/\)\)$/, '').split('), (');
-        return lineStrings.map(parseLineString)
-    }
-
-    function parseSinglePolygon(polygonStr) {
-        const facesStr = polygonStr.replace(/\(\(/, '').replace(/\)\)$/, '').split('), (');
-        const polygon = new Polygon();
-        let orientation;
-        facesStr.forEach((facesStr, idx) => {
-            let points = facesStr.split(', ').map(coordStr => {
-                return new Point$1(coordStr.split(' ').map(Number))
-            });
-            const face = polygon.addFace(points);
-            if (idx === 0) {
-                orientation = face.orientation();
-            }
-            else {
-                if (face.orientation() === orientation) {
-                    face.reverse();
-                }
-            }
-        });
-        return polygon
-    }
-
-    function parseMutliPolygon(multiPolygonString) {
-        // const polygonStrings = multiPolygonString.split('?')
-        // Split the string by the delimiter ")), ((" which separates the polygons
-        const polygonStrings = multiPolygonString.split(/\)\), \(\(/).map(polygon => '((' + polygon + '))');
-
-        const polygons = polygonStrings.map(parseSinglePolygon);
-        const polygon = new Polygon();
-        const faces = polygons.reduce((acc, polygon) => [...acc, ...polygon?.faces], []);
-        faces.forEach(face => polygon.addFace([...face?.shapes]));
-        return polygon;
-    }
-
-    function parsePolygon(wkt) {
-        if (wkt.startsWith("POLYGON")) {
-            const polygonStr = wkt.replace(/^POLYGON /, '');
-            return parseSinglePolygon(polygonStr)
-        }
-        else {
-            // const multiPolygonString = wkt.replace(/^MULTIPOLYGON \(/, '').replace(/\)$/, '').replace(/\)\), \(\(/,'))?((')
-            const multiPolygonString = wkt.replace(/^MULTIPOLYGON \(\(\((.*)\)\)\)$/, '$1');
-            return parseMutliPolygon(multiPolygonString)
-        }
-    }
-
-    function parseArrayOfPoints(str) {
-        const arr = str.split('\n').map(x => x.match(/\(([^)]+)\)/)[1]);
-        return arr.map(parseSinglePoint)
-    }
-
-    function parseArrayOfLineStrings(str) {
-        const arr = str.split('\n').map(x => x.match(/\(([^)]+)\)/)[1]);
-        return arr.map(parseLineString).reduce((acc, x) => [...acc, ...x], [])
-    }
-
-    /**
-     * Convert WKT string to array of Flatten shapes.
-     * @param str
-     * @returns {Point | Point[] | Multiline | Multiline[] | Polygon | Shape[] | null}
-     */
-    function parseWKT(str) {
-        if (str.startsWith("POINT")) {
-            const pointStr = str.replace(/^POINT \(/, '').replace(/\)$/, '');
-            return parseSinglePoint(pointStr)
-        }
-        else if (str.startsWith("MULTIPOINT")) {
-            const multiPointStr = str.replace(/^MULTIPOINT \(/, '').replace(/\)$/, '');
-            return parseMultiPoint(multiPointStr)
-        }
-        else if (str.startsWith("LINESTRING")) {
-            const lineStr = str.replace(/^LINESTRING \(/, '').replace(/\)$/, '');
-            return parseLineString(lineStr)
-        }
-        else if (str.startsWith("MULTILINESTRING")) {
-            const multilineStr = str.replace(/^MULTILINESTRING /, '');
-            return parseMultiLineString(multilineStr)
-        }
-        else if (str.startsWith("POLYGON") || str.startsWith("MULTIPOLYGON")) {
-            return parsePolygon(str)
-        }
-        else if (str.startsWith("GEOMETRYCOLLECTION")) {
-            // const regex = /(POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON|GEOMETRYCOLLECTION) \([^\)]+\)/g
-            /* Explanation:
-    (?<type>POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON):
-    This named group will capture the geometry type. The type label helps with understanding the structure but
-     is not necessary unless you process the matches programmatically and want easy access to the geometry type.
-    \( and \): Match the opening and closing parentheses.
-    (?:[^\(\)]|\([^\)]*\))*: A non-capturing group that allows for:
-    [^\(\)]: Matching any character except parentheses, handling simple geometries.
-    |\([^\)]*\): Handling nested parentheses for geometries like POLYGON and MULTILINESTRING.
-    * after the non-capturing group: Allows for repeating the pattern zero or more times to match all contents between the outermost parentheses. */
-            const regex = /(?<type>POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON) \((?:[^\(\)]|\([^\)]*\))*\)/g;
-            const wktArray = str.match(regex);
-            if (wktArray[0].startsWith('GEOMETRYCOLLECTION')) {
-                wktArray[0] = wktArray[0].replace('GEOMETRYCOLLECTION (','');
-            }
-            const flArray = wktArray.map(parseWKT).map(x => x instanceof Array ? x : [x]);
-            return flArray.reduce((acc, x) => [...acc, ...x], [])
-        }
-        else if (isArrayOfPoints(str)) {
-            return parseArrayOfPoints(str)
-        }
-        else if (isArrayOfLines(str)) {
-            return parseArrayOfLineStrings(str)
-        }
-        return []
-    }
-
-    function isArrayOfPoints(str) {
-        return str.split('\n')?.every(str => str.includes('POINT'))
-    }
-
-    function isArrayOfLines(str) {
-        return str.split('\n')?.every(str => str.includes('LINESTRING'))
-    }
-
-    /**
-     * Return true if given string starts with one of WKT tags and possibly contains WKT string,
-     * @param str
-     * @returns {boolean}
-     */
-    function isWktString(str) {
-        return (
-            str.startsWith("POINT") || isArrayOfPoints(str) ||
-            str.startsWith("LINESTRING") || isArrayOfLines(str) ||
-            str.startsWith("MULTILINESTRING") ||
-            str.startsWith("POLYGON") ||
-            str.startsWith("MULTIPOINT") ||
-            str.startsWith("MULTIPOLYGON") ||
-            str.startsWith("GEOMETRYCOLLECTION")
-        )
-    }
-
-    Flatten.isWktString = isWktString;
-    Flatten.parseWKT = parseWKT;
-
-    /**
-     * Created by Alex Bol on 2/18/2017.
-     */
-
+    // export { parseWKT, isWktString } from './src/utils/parseWKT'
 
     Flatten.BooleanOperations = BooleanOperations;
     Flatten.Relations = Relations;
@@ -10900,17 +9126,17 @@
     exports.Inversion = Inversion;
     exports.Line = Line$1;
     exports.Matrix = Matrix;
-    exports.Multiline = Multiline$1;
+    exports.Multiline = Multiline;
     exports.ORIENTATION = ORIENTATION;
     exports.OUTSIDE = OUTSIDE$1;
     exports.OVERLAP_OPPOSITE = OVERLAP_OPPOSITE$1;
     exports.OVERLAP_SAME = OVERLAP_SAME$1;
     exports.PlanarSet = PlanarSet;
-    exports.Point = Point$3;
-    exports.Polygon = Polygon$1;
+    exports.Point = Point$2;
+    exports.Polygon = Polygon;
     exports.Ray = Ray;
     exports.Relations = Relations;
-    exports.Segment = Segment$1;
+    exports.Segment = Segment;
     exports.SmartIntersections = smart_intersections;
     exports.Utils = Utils$1;
     exports.Vector = Vector$1;
@@ -10919,16 +9145,14 @@
     exports.circle = circle;
     exports.default = Flatten;
     exports.inversion = inversion;
-    exports.isWktString = isWktString;
     exports.line = line;
     exports.matrix = matrix;
-    exports.multiline = multiline$1;
-    exports.parseWKT = parseWKT;
-    exports.point = point$1;
-    exports.polygon = polygon$1;
+    exports.multiline = multiline;
+    exports.point = point;
+    exports.polygon = polygon;
     exports.ray = ray;
     exports.ray_shoot = ray_shoot;
-    exports.segment = segment$1;
+    exports.segment = segment;
     exports.vector = vector$1;
 
     Object.defineProperty(exports, '__esModule', { value: true });
