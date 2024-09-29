@@ -646,7 +646,7 @@ export function intersectShape2Shape(shape1, shape2) {
 export function intersectShape2Multiline(shape, multiline) {
     let ip = [];
     for (let edge of multiline) {
-        ip = [...ip, ...intersectShape2Shape(edge, edge.shape)];
+        ip = [...ip, ...intersectShape2Shape(shape, edge.shape)];
     }
     return ip;
 }
