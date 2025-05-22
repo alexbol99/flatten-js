@@ -269,7 +269,7 @@ export class Box extends Shape {
 
         if (shape instanceof Flatten.Arc) {
             return shape.vertices.every(vertex => this.contains(vertex)) &&
-                shape.toSegments().every(segment => intersectSegment2Arc(segment, shape).length === 0)
+                this.toSegments().every(segment => intersectSegment2Arc(segment, shape).length === 0)
         }
 
         if (shape instanceof Flatten.Line || shape instanceof Flatten.Ray) {
