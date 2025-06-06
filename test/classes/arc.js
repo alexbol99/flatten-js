@@ -400,5 +400,21 @@ describe('#Flatten.Arc', function() {
             const distanceInfo = arc.distanceTo(point);
             expect(distanceInfo[0]).to.be.closeTo(1 - Math.sqrt(0.5 * 0.5 + 0.5 * 0.5), Flatten.DP_TOL);
         });
+        /**
+         *         -------
+         *    -----       -----
+         *  --                 --
+         * -                     -
+         * -
+         *  --     X
+         *    -----
+         *         ----
+         **/
+        it('distance to point inside 3rd quadrant of the arc', function () {
+            let arc = new Arc(new Point(0, 0), 1, 0, 2*Math.PI* 3/4, true);
+            let point = new Point(-0.5, -0.5);
+            const distanceInfo = arc.distanceTo(point);
+            expect(distanceInfo[0]).to.be.closeTo(1 - Math.sqrt(0.5 * 0.5 + 0.5 * 0.5), Flatten.DP_TOL);
+        });
     });
 });
