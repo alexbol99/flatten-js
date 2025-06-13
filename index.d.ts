@@ -118,7 +118,7 @@ declare namespace Flatten {
 
         // members
         ps: Point;
-        r: Number;
+        r: number;
         startAngle: number;
         endAngle: number;
 
