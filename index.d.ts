@@ -504,7 +504,10 @@ declare namespace Flatten {
         signedArea(): number;
         orientation(): Flatten.ORIENTATION.PolygonOrientationType;
         isSimple(edges: PolygonEdge[]): boolean;
-        findEdgeByPoint(pt: Point): PolygonEdge | undefined;
+    /**
+     * Finds an edge by a given point. Returns the edge if found, otherwise returns undefined.
+     */
+    findEdgeByPoint(pt: Point): PolygonEdge | undefined;
         pointAtLength(length: number): Point|null;
         toPolygon(): Polygon;
         svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
