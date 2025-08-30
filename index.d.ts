@@ -538,7 +538,7 @@ declare namespace Flatten {
         removeChain(face: Face, edgeFrom: PolygonEdge, edgeTo: PolygonEdge): void;
         addVertex(pt: Point, edge: PolygonEdge): PolygonEdge;
         removeEndVertex(edge: Edge): void;
-        cut(multiline: Multiline): Polygon[];
+        cut(multiline: Multiline): Polygon;
         cutWithLine(line: Line): Polygon;
         findEdgeByPoint(pt: Point): PolygonEdge;
         splitToIslands() : Polygon[];
