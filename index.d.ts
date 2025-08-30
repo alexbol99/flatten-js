@@ -504,10 +504,7 @@ declare namespace Flatten {
         signedArea(): number;
         orientation(): Flatten.ORIENTATION.PolygonOrientationType;
         isSimple(edges: PolygonEdge[]): boolean;
-    /**
-     * Finds an edge by a given point. Returns the edge if found, otherwise returns undefined.
-     */
-    findEdgeByPoint(pt: Point): PolygonEdge | undefined;
+        findEdgeByPoint(pt: Point): PolygonEdge | undefined;
         pointAtLength(length: number): Point|null;
         toPolygon(): Polygon;
         svg(attrs?: SVGAttributes, pathDefined? : boolean): string;
@@ -543,7 +540,7 @@ declare namespace Flatten {
         removeEndVertex(edge: Edge): void;
         cut(multiline: Multiline): Polygon;
         cutWithLine(line: Line): Polygon;
-        findEdgeByPoint(pt: Point): PolygonEdge;
+        findEdgeByPoint(pt: Point): PolygonEdge | undefined;
         splitToIslands() : Polygon[];
         reverse(): Polygon;
         contains(shape: AnyShape): boolean;
@@ -556,6 +553,7 @@ declare namespace Flatten {
         toJSON() : Object;
         toArray() : Polygon[];
         svg(attrs?: SVGAttributes): string;
+        dpath(): string;
     }
 
     type MultilineEdgeShape = Segment | Arc | Ray | Line;
