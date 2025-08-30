@@ -230,6 +230,25 @@ describe('#Flatten.Multiline', function() {
 
         expect(ml.size).to.equal(4);
     });
+    it('May intersect polyline with another polyline', function() {
+        let shapes = [
+            segment(point(0,0), point(50,100)),
+            segment(point(50,100), point(100,0))
+        ];
+        let ml1 = new Flatten.Multiline([
+            segment(point(0,0), point(50,100)),
+            segment(point(50,100), point(100,0))
+        ]);
+        let ml2 = new Flatten.Multiline([
+            segment(point(0,100), point(50,0)),
+            segment(point(50,0), point(100,100))
+        ]);
+        const ip = ml1.intersect(ml2);
+
+        expect(ip.length).to.equal(2);
+        expect(ip[0].equalTo(point(25, 50)) ).to.be.true
+        expect(ip[1].equalTo(point(75, 50)) ).to.be.true
+    });
     it('May stringify using toJSON transformation', function() {
         let shapes = [
             segment(point(0,0), point(50,100)),

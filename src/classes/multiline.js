@@ -324,7 +324,7 @@ export class Multiline extends LinkedList {
 
     /**
      * Return string to be assigned to 'd' attribute of <path> element
-     * @returns {*}
+     * @returns {string}
      */
     dpath() {
         let dPathStr = `M${this.first.start.x},${this.first.start.y}`;

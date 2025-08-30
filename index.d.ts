@@ -540,7 +540,7 @@ declare namespace Flatten {
         removeEndVertex(edge: Edge): void;
         cut(multiline: Multiline): Polygon;
         cutWithLine(line: Line): Polygon;
-        findEdgeByPoint(pt: Point): PolygonEdge;
+        findEdgeByPoint(pt: Point): PolygonEdge | undefined;
         splitToIslands() : Polygon[];
         reverse(): Polygon;
         contains(shape: AnyShape): boolean;
@@ -553,6 +553,7 @@ declare namespace Flatten {
         toJSON() : Object;
         toArray() : Polygon[];
         svg(attrs?: SVGAttributes): string;
+        dpath(): string;
     }
 
     type MultilineEdgeShape = Segment | Arc | Ray | Line;
