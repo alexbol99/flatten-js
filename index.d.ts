@@ -586,6 +586,7 @@ declare namespace Flatten {
         toShapes(): MultilineShapes;
         toJSON() : Object;
         svg(attrs?: SVGAttributes): string;
+        dpath(): string;
     }
 
     class Inversion {
