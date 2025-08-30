@@ -633,7 +633,7 @@ export class Polygon {
 
     /**
      * Return string to be assigned to 'd' attribute of <path> element
-     * @returns {*}
+     * @returns {string}
      */
     dpath() {
         return [...this.faces].reduce((acc, face) => acc + face.svg(), "")
