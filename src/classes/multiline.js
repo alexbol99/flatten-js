@@ -17,7 +17,6 @@ export class Multiline extends LinkedList {
         if (args.length === 1 && args[0] instanceof Array && args[0].length > 0) {
             // there may be only one line and
             // only first and last may be rays
-            let validShapes = false
             const shapes = args[0]
             const L = shapes.length
             const anyShape = (s) =>
@@ -26,7 +25,7 @@ export class Multiline extends LinkedList {
             const anyShapeExceptLine = (s) =>
                 s instanceof Flatten.Segment || s instanceof Flatten.Arc || s instanceof Flatten.Ray;
             const shapeSegmentOrArc = (s) => s instanceof Flatten.Segment || s instanceof Flatten.Arc;
-            validShapes =
+            const validShapes =
                 L === 1 && anyShape(shapes[0]) ||
                 L > 1 && anyShapeExceptLine(shapes[0]) && anyShapeExceptLine(shapes[L - 1]) &&
                 shapes.slice(1, L - 1).every(shapeSegmentOrArc)

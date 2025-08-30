@@ -15,7 +15,7 @@ import {
     splitByIntersections
 } from "../data_structures/smart_intersections";
 import {Multiline} from "./multiline";
-import {intersectEdge2Edge, intersectMultiline2Polygon} from "../algorithms/intersection";
+import {intersectEdge2Edge} from "../algorithms/intersection";
 import {INSIDE, BOUNDARY} from "../utils/constants";
 import {convertToString} from "../utils/attributes";
 import {Matrix} from "./matrix";
