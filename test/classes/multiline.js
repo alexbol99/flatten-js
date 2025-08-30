@@ -1,6 +1,6 @@
 
 import { expect } from 'chai';
-import Flatten, {line, ray, point, segment, vector, Point} from '../../index';
+import Flatten, {line, ray, point, segment, vector} from '../../index';
 import {Errors} from "../../src/utils/errors";
 
 describe('#Flatten.Multiline', function() {
@@ -231,10 +231,6 @@ describe('#Flatten.Multiline', function() {
         expect(ml.size).to.equal(4);
     });
     it('May intersect polyline with another polyline', function() {
-        let shapes = [
-            segment(point(0,0), point(50,100)),
-            segment(point(50,100), point(100,0))
-        ];
         let ml1 = new Flatten.Multiline([
             segment(point(0,0), point(50,100)),
             segment(point(50,100), point(100,0))
