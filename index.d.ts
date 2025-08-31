@@ -309,7 +309,7 @@ declare namespace Flatten {
         // public methods
         clone(): Ray;
         contains(pt: Point): boolean;
-        split(pt: Point[]): AnyShape[];
+        split(pt: Point): AnyShape[];
         intersect(shape: AnyShape): Point[];
         translate(vec: Vector): Ray;
         translate(x:number, y:number): Ray;
