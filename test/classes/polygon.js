@@ -3,7 +3,7 @@
  */
 
 import { expect } from 'chai';
-import Flatten, {matrix} from '../../index';
+import Flatten, {arc, matrix} from '../../index';
 
 import {Point, Circle, Line, Segment, Arc, Box, Polygon, Edge, PlanarSet, Multiline} from '../../index';
 import {point, vector, circle, line, segment, box, multiline} from '../../index';
@@ -321,6 +321,17 @@ describe('#Flatten.Polygon', function() {
         ]);
         expect(polygon.area()).to.equal(2);
     });
+    it('"Illegal parameters" when computing area of a valid polygon #220', function () {
+        const c3 = new Polygon([
+            arc(point(0, 0), 1, 2 * Math.PI * 1.4999998, 0.000001, true),
+            segment(point(1, 0), point(Math.SQRT1_2, Math.SQRT1_2)),
+            segment(point(Math.SQRT1_2, Math.SQRT1_2), point(-1, 0))
+        ]);
+
+        const area = c3.area();
+        // expect to be almost equal to 2.2779 with tolerance 0.001
+        expect(area).to.be.approximately(2.2779, 0.001);
+    })
     it('Can check point in contour. Donut Case 1 Boundary top',function() {
         let polygon = new Polygon();
         let a = circle(point(200,200), 100).toArc(true);

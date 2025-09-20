@@ -438,13 +438,16 @@ export class Arc extends Shape {
     }
 
     circularSegmentDefiniteIntegral(ymin) {
-        let line = new Flatten.Line(this.start, this.end);
-        let onLeftSide = this.pc.leftTo(line);
         let segment = new Flatten.Segment(this.start, this.end);
         let areaTrapez = segment.definiteIntegral(ymin);
         let areaCircularSegment = this.circularSegmentArea();
-        let area = onLeftSide ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
-        return area;
+        if (this.start.equalTo(this.end) && Flatten.Utils.EQ_0(areaCircularSegment)) {
+            return areaTrapez
+        } else {
+            let line = new Flatten.Line(this.start, this.end);
+            let onLeftSide = this.pc.leftTo(line);
+            return onLeftSide ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
+        }
     }
 
     circularSegmentArea() {
