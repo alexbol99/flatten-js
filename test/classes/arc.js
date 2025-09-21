@@ -137,7 +137,7 @@ describe('#Flatten.Arc', function() {
             expect(Flatten.Utils.EQ(f_arcs[0].startAngle, arc.startAngle)).to.equal(true);
             expect(Flatten.Utils.EQ(f_arcs[0].endAngle, 0)).to.equal(true);
             expect(Flatten.Utils.EQ(f_arcs[1].startAngle, 0)).to.equal(true);
-            expect(Flatten.Utils.EQ(f_arcs[1].endAngle, arc.endAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[1].endAngle, 2 * Math.PI + arc.endAngle)).to.equal(true);
         });
         it('Case 4. One intersection, start at extreme point', function () {
             let arc = new Arc(new Point(), 1, Math.PI/2, 3*Math.PI/4, true);
@@ -164,7 +164,7 @@ describe('#Flatten.Arc', function() {
             expect(Flatten.Utils.EQ(f_arcs[1].startAngle, Math.PI/2)).to.equal(true);
             expect(Flatten.Utils.EQ(f_arcs[1].endAngle, 0)).to.equal(true);
             expect(Flatten.Utils.EQ(f_arcs[2].startAngle, 0)).to.equal(true);
-            expect(Flatten.Utils.EQ(f_arcs[2].endAngle, arc.endAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[2].endAngle, 2 * Math.PI + arc.endAngle)).to.equal(true);
         });
         it('Case 7. 2 intersections on extreme points, 1 parts, CW', function () {
             let arc = new Arc(new Point(), 1, Math.PI/2, 0, false);

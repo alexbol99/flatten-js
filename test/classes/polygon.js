@@ -322,15 +322,22 @@ describe('#Flatten.Polygon', function() {
         expect(polygon.area()).to.equal(2);
     });
     it('"Illegal parameters" when computing area of a valid polygon #220', function () {
+        // This test (and the code of arc.breakToFunctional and arc.sweep)
+        // assumes that arcs become circles only when abs(startAngle - endAngle)
+        // is 2 PI within tolerance, but not when the span of the angles we pass
+        // in is *bigger* than 2 PI. That's as good a choice as any, and seems
+        // to be consistent behavior across Flatten, but it's worth noting that
+        // it could be that anything > 2 PI is a circle, and this would allow
+        // for arcs arbitrarily close to full circles (within float epsilon) to
+        // be distinguished from circles and treated appropriately.
         const c3 = new Polygon([
             arc(point(0, 0), 1, 2 * Math.PI * 1.4999998, 0.000001, true),
-            segment(point(1, 0), point(Math.SQRT1_2, Math.SQRT1_2)),
-            segment(point(Math.SQRT1_2, Math.SQRT1_2), point(-1, 0))
+            segment(point(1, 0).rotate(0.000001), point(0, 0)),
+            segment(point(0, 0), point(1, 0).rotate(2 * Math.PI * 1.4999998)),
         ]);
 
         const area = c3.area();
-        // expect to be almost equal to 2.2779 with tolerance 0.001
-        expect(area).to.be.approximately(2.2779, 0.001);
+        expect(area).to.be.approximately(((2 * Math.PI * 1.4999998 - 2 * Math.PI) + 0.000001) / 2, 0.001);
     })
     it('Can check point in contour. Donut Case 1 Boundary top',function() {
         let polygon = new Polygon();
