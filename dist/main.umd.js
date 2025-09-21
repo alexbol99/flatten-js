@@ -2746,7 +2746,7 @@
         // 2. Locate relevant edges of the polygon
         const searchBox = new Flatten.Box(
             ray.box.xmin-Flatten.DP_TOL, ray.box.ymin-Flatten.DP_TOL,
-            ray.box.xmax, ray.box.ymax+Flatten.DP_TOL
+            ray.box.xmax+Flatten.DP_TOL, ray.box.ymax+Flatten.DP_TOL
         );
 
         if (polygon.box.not_intersect(searchBox)) {
@@ -6313,13 +6313,8 @@
             let segment = new Flatten.Segment(this.start, this.end);
             let areaTrapez = segment.definiteIntegral(ymin);
             let areaCircularSegment = this.circularSegmentArea();
-            if (this.start.equalTo(this.end) && Flatten.Utils.EQ_0(areaCircularSegment)) {
-                return areaTrapez
-            } else {
-                let line = new Flatten.Line(this.start, this.end);
-                let onLeftSide = this.pc.leftTo(line);
-                return onLeftSide ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
-            }
+            let onLeftSide = this.counterClockwise ? this.sweep < Math.PI : this.sweep > Math.PI;
+            return onLeftSide ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
         }
 
         circularSegmentArea() {
