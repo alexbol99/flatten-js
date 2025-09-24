@@ -83,30 +83,6 @@ export class Arc extends Shape {
      * Get sweep angle in radians. Sweep angle is non-negative number from 0 to 2*PI
      * @returns {number}
      */
-    // get sweep() {
-    //     if (Flatten.Utils.EQ(this.startAngle, this.endAngle))
-    //         return 0.0;
-    //     if (Flatten.Utils.EQ(Math.abs(this.startAngle - this.endAngle), Flatten.PIx2)) {
-    //         return Flatten.PIx2;
-    //     }
-    //     let sweep;
-    //     if (this.counterClockwise) {
-    //         sweep = Flatten.Utils.GT(this.endAngle, this.startAngle) ?
-    //             this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2;
-    //     } else {
-    //         sweep = Flatten.Utils.GT(this.startAngle, this.endAngle) ?
-    //             this.startAngle - this.endAngle : this.startAngle - this.endAngle + Flatten.PIx2;
-    //     }
-    //
-    //     if (Flatten.Utils.GT(sweep, Flatten.PIx2)) {
-    //         sweep -= Flatten.PIx2;
-    //     }
-    //     if (Flatten.Utils.LT(sweep, 0)) {
-    //         sweep += Flatten.PIx2;
-    //     }
-    //     return sweep;
-    // }
-
     get sweep() {
         let startAngle = this.startAngle;
         let endAngle = this.endAngle;
@@ -446,7 +422,7 @@ export class Arc extends Shape {
     }
 
     /**
-     * Returns new arc with swapped start and end angles and reversed direction
+     * Returns new arc with swapped start and end angles asweepnd reversed direction
      * @returns {Arc}
      */
     reverse() {
