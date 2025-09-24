@@ -422,7 +422,7 @@ export class Arc extends Shape {
     }
 
     /**
-     * Returns new arc with swapped start and end angles asweepnd reversed direction
+     * Returns new arc with swapped start and end angles and reversed direction
      * @returns {Arc}
      */
     reverse() {
