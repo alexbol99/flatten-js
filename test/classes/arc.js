@@ -185,6 +185,21 @@ describe('#Flatten.Arc', function() {
             let f_arcs = arc.breakToFunctional();
             expect(f_arcs.length).to.equal(4);
         });
+        it('#220 case 1. Start/end very close to extreme points', function () {
+            let arc = new Arc (new Point(0, 0), 1, 2 * Math.PI * 0.9999999, 0.000001, true)
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(2);
+        })
+        it('#220 case 2. Start/end very close to extreme points', function () {
+            let arc = new Arc(new Point(0, 0), 1, 2 * Math.PI * 0.9999999, (Math.PI / 2) * 0.9999993, true)
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(2);
+        })
+        it('#220 case 3. Start/end very close to extreme points', function () {
+            let arc = new Arc(new Point(), 1, 2 * Math.PI * 1.4999998, 0.000001, true)
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(4);
+        })
     });
     describe('#Flatten.Arc.intersect', function() {
         it('Intersect arc with segment', function() {

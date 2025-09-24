@@ -47,7 +47,7 @@ export class Arc extends Shape {
          * Arc orientation
          * @type {boolean}
          */
-        this.counterClockwise = Flatten.CCW;
+        this.counterClockwise = true;
 
         if (args.length === 0)
             return;
@@ -83,28 +83,63 @@ export class Arc extends Shape {
      * Get sweep angle in radians. Sweep angle is non-negative number from 0 to 2*PI
      * @returns {number}
      */
+    // get sweep() {
+    //     if (Flatten.Utils.EQ(this.startAngle, this.endAngle))
+    //         return 0.0;
+    //     if (Flatten.Utils.EQ(Math.abs(this.startAngle - this.endAngle), Flatten.PIx2)) {
+    //         return Flatten.PIx2;
+    //     }
+    //     let sweep;
+    //     if (this.counterClockwise) {
+    //         sweep = Flatten.Utils.GT(this.endAngle, this.startAngle) ?
+    //             this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2;
+    //     } else {
+    //         sweep = Flatten.Utils.GT(this.startAngle, this.endAngle) ?
+    //             this.startAngle - this.endAngle : this.startAngle - this.endAngle + Flatten.PIx2;
+    //     }
+    //
+    //     if (Flatten.Utils.GT(sweep, Flatten.PIx2)) {
+    //         sweep -= Flatten.PIx2;
+    //     }
+    //     if (Flatten.Utils.LT(sweep, 0)) {
+    //         sweep += Flatten.PIx2;
+    //     }
+    //     return sweep;
+    // }
+
     get sweep() {
-        if (Flatten.Utils.EQ(this.startAngle, this.endAngle))
-            return 0.0;
-        if (Flatten.Utils.EQ(Math.abs(this.startAngle - this.endAngle), Flatten.PIx2)) {
-            return Flatten.PIx2;
-        }
+        let startAngle = this.startAngle;
+        let endAngle = this.endAngle;
         let sweep;
-        if (this.counterClockwise) {
-            sweep = Flatten.Utils.GT(this.endAngle, this.startAngle) ?
-                this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2;
-        } else {
-            sweep = Flatten.Utils.GT(this.startAngle, this.endAngle) ?
-                this.startAngle - this.endAngle : this.startAngle - this.endAngle + Flatten.PIx2;
+
+        // check full circle before normalizing angles
+        if (Flatten.Utils.EQ(Math.abs(startAngle - endAngle), Flatten.PIx2)) {
+            sweep = Flatten.PIx2;
+            endAngle = startAngle;
         }
 
-        if (Flatten.Utils.GT(sweep, Flatten.PIx2)) {
-            sweep -= Flatten.PIx2;
+        // normalize angles
+        if (Math.abs(startAngle) > Flatten.PIx2) {
+            startAngle -= Math.trunc(startAngle / Flatten.PIx2) * Flatten.PIx2;
         }
-        if (Flatten.Utils.LT(sweep, 0)) {
-            sweep += Flatten.PIx2;
+        if (startAngle < 0) {
+            startAngle += Flatten.PIx2;
         }
-        return sweep;
+        if (Math.abs(endAngle) > Flatten.PIx2) {
+            endAngle -= Math.trunc(endAngle / Flatten.PIx2) * Flatten.PIx2;
+        }
+        if (endAngle < 0) {
+            endAngle += Flatten.PIx2;
+        }
+
+        // calculate sweep if it isn't a full circle
+        if (sweep === undefined) {
+            sweep = this.counterClockwise ? endAngle - startAngle : startAngle - endAngle;
+            if (sweep < 0) {
+                sweep += Flatten.PIx2;
+            }
+        }
+        return sweep
     }
 
     /**
@@ -325,11 +360,9 @@ export class Arc extends Shape {
         let angles = [0, Math.PI / 2, Math.PI, 3 * Math.PI / 2];
         let startAngle = this.startAngle;
         let endAngle = this.endAngle;
-        let sweep;
 
         // check full circle before normalizing angles
         if (Flatten.Utils.EQ(Math.abs(startAngle - endAngle), Flatten.PIx2)) {
-            sweep = Flatten.PIx2;
             endAngle = startAngle;
         }
 
@@ -345,14 +378,6 @@ export class Arc extends Shape {
         }
         if (endAngle < 0) {
             endAngle += Flatten.PIx2;
-        }
-
-        // calculate sweep if it isn't a full circle
-        if (sweep === undefined) {
-            sweep = this.counterClockwise ? endAngle - startAngle : startAngle - endAngle;
-            if (sweep < 0) {
-                sweep += Flatten.PIx2;
-            }
         }
 
         // set up the loop
@@ -378,7 +403,7 @@ export class Arc extends Shape {
             if (incrementalSweep < 0) {
                 incrementalSweep += Flatten.PIx2;
             }
-            if (incrementalSweep > sweep) {
+            if (incrementalSweep > this.sweep) {
                 break;
             }
             func_arcs_array.push(new Flatten.Arc(this.pc, this.r, prev, next, this.counterClockwise));
@@ -466,14 +491,10 @@ export class Arc extends Shape {
     circularSegmentDefiniteIntegral(ymin) {
         let segment = new Flatten.Segment(this.start, this.end);
         let areaTrapez = segment.definiteIntegral(ymin);
-        let areaCircularSegment = this.circularSegmentArea();
-        if (this.start.equalTo(this.end) && Flatten.Utils.EQ_0(areaCircularSegment)) {
-            return areaTrapez
-        } else {
-            let line = new Flatten.Line(this.start, this.end);
-            let onLeftSide = this.pc.leftTo(line);
-            return onLeftSide ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
-        }
+        // can't be full circle after breakToFunctional, consider zero-arc
+        let areaCircularSegment = Flatten.Utils.EQ(this.sweep, Flatten.PIx2)
+            ? 0 : this.circularSegmentArea();
+        return this.counterClockwise ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
     }
 
     circularSegmentArea() {
