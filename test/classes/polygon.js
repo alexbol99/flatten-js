@@ -321,16 +321,44 @@ describe('#Flatten.Polygon', function() {
         ]);
         expect(polygon.area()).to.equal(2);
     });
-    it('"Illegal parameters" when computing area of a valid polygon #220', function () {
+    it('"Illegal parameters" when computing area of a valid polygon #220 case 3', function () {
+        // This test (and the code of arc.breakToFunctional and arc.sweep)
+        // assumes that arcs become circles only when abs(startAngle - endAngle)
+        // is 2 PI within tolerance, but not when the span of the angles we pass
+        // in is *bigger* than 2 PI. That's as good a choice as any, and seems
+        // to be consistent behavior across Flatten, but it's worth noting that
+        // it could be that anything > 2 PI is a circle, and this would allow
+        // for arcs arbitrarily close to full circles (within float epsilon) to
+        // be distinguished from circles and treated appropriately.
         const c3 = new Polygon([
             arc(point(0, 0), 1, 2 * Math.PI * 1.4999998, 0.000001, true),
-            segment(point(1, 0), point(Math.SQRT1_2, Math.SQRT1_2)),
-            segment(point(Math.SQRT1_2, Math.SQRT1_2), point(-1, 0))
+            segment(point(1, 0).rotate(0.000001), point(0, 0)),
+            segment(point(0, 0), point(1, 0).rotate(2 * Math.PI * 1.4999998)),
         ]);
 
         const area = c3.area();
-        // expect to be almost equal to 2.2779 with tolerance 0.001
-        expect(area).to.be.approximately(2.2779, 0.001);
+        expect(area).to.be.approximately(((2 * Math.PI * 1.4999998 - 2 * Math.PI) + 0.000001) / 2, 0.001);
+    })
+    it('"Illegal parameters" when computing area of a valid polygon #220 case #1', function () {
+        const a1 = arc(point(0, 0), 1, 2 * Math.PI * 0.9999999, 0.000001, true);
+        const c1 = new Polygon([
+            a1,
+            segment(a1.end, point(Math.SQRT1_2, Math.SQRT1_2)),
+            segment(point(Math.SQRT1_2, Math.SQRT1_2), a1.start)
+        ]);
+        const area1 = c1.area();
+        expect(area1).to.be.lessThan(Flatten.DP_TOL);
+    })
+    it('"Illegal parameters" when computing area of a valid polygon #220 case #2', function () {
+        const a2 = arc(point(0, 0), 1, 2 * Math.PI * 0.9999999, (Math.PI / 2) * 0.9999993, true)
+        const c2 = new Polygon([
+            a2,
+            segment(a2.end, point(Math.SQRT1_2, Math.SQRT1_2)),
+            segment(point(Math.SQRT1_2, Math.SQRT1_2), a2.start)
+        ]);
+
+        const area2 = c2.area();
+        expect(area2).to.be.approximately(Math.PI/4 - Math.SQRT1_2, 0.001);
     })
     it('Can check point in contour. Donut Case 1 Boundary top',function() {
         let polygon = new Polygon();

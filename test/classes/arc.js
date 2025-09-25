@@ -137,7 +137,7 @@ describe('#Flatten.Arc', function() {
             expect(Flatten.Utils.EQ(f_arcs[0].startAngle, arc.startAngle)).to.equal(true);
             expect(Flatten.Utils.EQ(f_arcs[0].endAngle, 0)).to.equal(true);
             expect(Flatten.Utils.EQ(f_arcs[1].startAngle, 0)).to.equal(true);
-            expect(Flatten.Utils.EQ(f_arcs[1].endAngle, arc.endAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[1].endAngle, 2 * Math.PI + arc.endAngle)).to.equal(true);
         });
         it('Case 4. One intersection, start at extreme point', function () {
             let arc = new Arc(new Point(), 1, Math.PI/2, 3*Math.PI/4, true);
@@ -164,7 +164,7 @@ describe('#Flatten.Arc', function() {
             expect(Flatten.Utils.EQ(f_arcs[1].startAngle, Math.PI/2)).to.equal(true);
             expect(Flatten.Utils.EQ(f_arcs[1].endAngle, 0)).to.equal(true);
             expect(Flatten.Utils.EQ(f_arcs[2].startAngle, 0)).to.equal(true);
-            expect(Flatten.Utils.EQ(f_arcs[2].endAngle, arc.endAngle)).to.equal(true);
+            expect(Flatten.Utils.EQ(f_arcs[2].endAngle, 2 * Math.PI + arc.endAngle)).to.equal(true);
         });
         it('Case 7. 2 intersections on extreme points, 1 parts, CW', function () {
             let arc = new Arc(new Point(), 1, Math.PI/2, 0, false);
@@ -185,6 +185,21 @@ describe('#Flatten.Arc', function() {
             let f_arcs = arc.breakToFunctional();
             expect(f_arcs.length).to.equal(4);
         });
+        it('#220 case 1. Start/end very close to extreme points', function () {
+            let arc = new Arc (new Point(0, 0), 1, 2 * Math.PI * 0.9999999, 0.000001, true)
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(2);
+        })
+        it('#220 case 2. Start/end very close to extreme points', function () {
+            let arc = new Arc(new Point(0, 0), 1, 2 * Math.PI * 0.9999999, (Math.PI / 2) * 0.9999993, true)
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(2);
+        })
+        it('#220 case 3. Start/end very close to extreme points', function () {
+            let arc = new Arc(new Point(), 1, 2 * Math.PI * 1.4999998, 0.000001, true)
+            let f_arcs = arc.breakToFunctional();
+            expect(f_arcs.length).to.equal(4);
+        })
     });
     describe('#Flatten.Arc.intersect', function() {
         it('Intersect arc with segment', function() {

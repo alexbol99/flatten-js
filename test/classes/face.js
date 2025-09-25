@@ -187,4 +187,30 @@ describe('#Flatten.Face', function() {
         }
 
     });
+    it('Can calculate signed area of ccw polygon with cw arc', function () {
+        const shapes = [
+            new Segment(new Point(0, 0), new Point(2, 0)),
+            new Segment(new Point(2, 0), new Point(2, 1)),
+            new Arc(new Point(3, 1), 1, Math.PI, Math.PI/2, false),
+            new Segment(new Point(3, 2), new Point(0, 2)),
+            new Segment(new Point(0, 2), new Point(0, 0))
+        ]
+        const polygon = new Polygon();
+        const face = polygon.addFace(shapes);
+        expect(face.signedArea()).to.approximately(-(4 + (1 - Math.PI/4)), Flatten.DP_TOL);
+        expect(face.orientation()).to.equal(Flatten.ORIENTATION.CCW);
+    })
+    it('Can calculate signed area of cw polygon with ccw arc', function () {
+        const shapes = [
+            new Segment(new Point(0, 0), new Point(0, 2)),
+            new Segment(new Point(0, 2), new Point(3, 2)),
+            new Arc(new Point(3, 1), 1, Math.PI/2, Math.PI, true),
+            new Segment(new Point(2, 1), new Point(2, 0)),
+            new Segment(new Point(2, 0), new Point(0, 0))
+        ]
+        const polygon = new Polygon();
+        const face = polygon.addFace(shapes);
+        expect(face.signedArea()).to.approximately(4 + (1 - Math.PI/4), Flatten.DP_TOL);
+        expect(face.orientation()).to.equal(Flatten.ORIENTATION.CW);
+    })
 });

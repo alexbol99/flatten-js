@@ -47,7 +47,7 @@ export class Arc extends Shape {
          * Arc orientation
          * @type {boolean}
          */
-        this.counterClockwise = Flatten.CCW;
+        this.counterClockwise = true;
 
         if (args.length === 0)
             return;
@@ -84,27 +84,34 @@ export class Arc extends Shape {
      * @returns {number}
      */
     get sweep() {
-        if (Flatten.Utils.EQ(this.startAngle, this.endAngle))
-            return 0.0;
-        if (Flatten.Utils.EQ(Math.abs(this.startAngle - this.endAngle), Flatten.PIx2)) {
+        let startAngle = this.startAngle;
+        let endAngle = this.endAngle;
+
+        // check full circle
+        if (Flatten.Utils.EQ(Math.abs(startAngle - endAngle), Flatten.PIx2)) {
             return Flatten.PIx2;
         }
-        let sweep;
-        if (this.counterClockwise) {
-            sweep = Flatten.Utils.GT(this.endAngle, this.startAngle) ?
-                this.endAngle - this.startAngle : this.endAngle - this.startAngle + Flatten.PIx2;
-        } else {
-            sweep = Flatten.Utils.GT(this.startAngle, this.endAngle) ?
-                this.startAngle - this.endAngle : this.startAngle - this.endAngle + Flatten.PIx2;
+
+        // normalize angles
+        if (Math.abs(startAngle) > Flatten.PIx2) {
+            startAngle -= Math.trunc(startAngle / Flatten.PIx2) * Flatten.PIx2;
+        }
+        if (startAngle < 0) {
+            startAngle += Flatten.PIx2;
+        }
+        if (Math.abs(endAngle) > Flatten.PIx2) {
+            endAngle -= Math.trunc(endAngle / Flatten.PIx2) * Flatten.PIx2;
+        }
+        if (endAngle < 0) {
+            endAngle += Flatten.PIx2;
         }
 
-        if (Flatten.Utils.GT(sweep, Flatten.PIx2)) {
-            sweep -= Flatten.PIx2;
-        }
-        if (Flatten.Utils.LT(sweep, 0)) {
+        // calculate sweep
+        let sweep = this.counterClockwise ? endAngle - startAngle : startAngle - endAngle;
+        if (sweep < 0) {
             sweep += Flatten.PIx2;
         }
-        return sweep;
+        return sweep
     }
 
     /**
@@ -322,55 +329,71 @@ export class Arc extends Shape {
      */
     breakToFunctional() {
         let func_arcs_array = [];
-        let angles = [0, Math.PI / 2, 2 * Math.PI / 2, 3 * Math.PI / 2];
-        let pts = [
-            this.pc.translate(this.r, 0),
-            this.pc.translate(0, this.r),
-            this.pc.translate(-this.r, 0),
-            this.pc.translate(0, -this.r)
-        ];
+        let angles = [0, Math.PI / 2, Math.PI, 3 * Math.PI / 2];
+        let startAngle = this.startAngle;
+        let endAngle = this.endAngle;
 
-        // If arc contains extreme point,
-        // create test arc started at start point and ended at this extreme point
-        let test_arcs = [];
-        for (let i = 0; i < 4; i++) {
-            if (pts[i].on(this)) {
-                test_arcs.push(new Flatten.Arc(this.pc, this.r, this.startAngle, angles[i], this.counterClockwise));
-            }
+        // check full circle before normalizing angles
+        if (Flatten.Utils.EQ(Math.abs(startAngle - endAngle), Flatten.PIx2)) {
+            endAngle = startAngle;
         }
 
-        if (test_arcs.length === 0) {                  // arc does contain any extreme point
-            func_arcs_array.push(this.clone());
-        } else {                                        // arc passes extreme point
-            // sort these arcs by length
-            test_arcs.sort((arc1, arc2) => arc1.length - arc2.length);
-
-            for (let i = 0; i < test_arcs.length; i++) {
-                let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
-                let new_arc;
-                if (prev_arc) {
-                    new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, test_arcs[i].endAngle, this.counterClockwise);
-                } else {
-                    new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, test_arcs[i].endAngle, this.counterClockwise);
-                }
-                if (!Flatten.Utils.EQ_0(new_arc.length)) {
-                    func_arcs_array.push(new_arc.clone());
-                }
-            }
-
-            // add last sub arc
-            let prev_arc = func_arcs_array.length > 0 ? func_arcs_array[func_arcs_array.length - 1] : undefined;
-            let new_arc;
-            if (prev_arc) {
-                new_arc = new Flatten.Arc(this.pc, this.r, prev_arc.endAngle, this.endAngle, this.counterClockwise);
-            } else {
-                new_arc = new Flatten.Arc(this.pc, this.r, this.startAngle, this.endAngle, this.counterClockwise);
-            }
-            // It could be 2*PI when occasionally start = 0 and end = 2*PI but this is not valid for breakToFunctional
-            if (!Flatten.Utils.EQ_0(new_arc.length) && !Flatten.Utils.EQ(new_arc.sweep, 2*Math.PI)) {
-                func_arcs_array.push(new_arc.clone());
-            }
+        // normalize angles
+        if (Math.abs(startAngle) > Flatten.PIx2) {
+            startAngle -= Math.trunc(startAngle / Flatten.PIx2) * Flatten.PIx2;
         }
+        if (startAngle < 0) {
+            startAngle += Flatten.PIx2;
+        }
+        if (Math.abs(endAngle) > Flatten.PIx2) {
+            endAngle -= Math.trunc(endAngle / Flatten.PIx2) * Flatten.PIx2;
+        }
+        if (endAngle < 0) {
+            endAngle += Flatten.PIx2;
+        }
+
+        // set up the loop
+        let prev = startAngle;
+        let next;
+        let firstj;
+        let d;
+        if (this.counterClockwise) {
+            firstj = Math.ceil(startAngle / (Math.PI / 2)) % 4;
+            d = 1;
+        } else {
+            firstj = Math.floor(startAngle / (Math.PI / 2)) % 4;
+            d = -1;
+        }
+
+        // loop over crossings while incremental sweep is less than sweep
+        for (let i = 0, j = firstj; i < 4; i++, j = (j + d + 4) % 4) {
+            next = angles[j];
+            if (next === prev) {
+                continue;
+            }
+            let incrementalSweep = this.counterClockwise ? next - startAngle : startAngle - next;
+            if (incrementalSweep < 0) {
+                incrementalSweep += Flatten.PIx2;
+            }
+            if (incrementalSweep > this.sweep) {
+                break;
+            }
+            func_arcs_array.push(new Flatten.Arc(this.pc, this.r, prev, next, this.counterClockwise));
+            prev = next;
+        }
+
+        // return the original arc for no crossings
+        if (func_arcs_array.length === 0) {
+            func_arcs_array.push(this);
+            return func_arcs_array;
+        }
+
+        // add the last arc
+        next = endAngle;
+        if (prev !== next) {
+            func_arcs_array.push(new Flatten.Arc(this.pc, this.r, prev, next, this.counterClockwise));
+        }
+
         return func_arcs_array;
     }
 
@@ -440,14 +463,10 @@ export class Arc extends Shape {
     circularSegmentDefiniteIntegral(ymin) {
         let segment = new Flatten.Segment(this.start, this.end);
         let areaTrapez = segment.definiteIntegral(ymin);
-        let areaCircularSegment = this.circularSegmentArea();
-        if (this.start.equalTo(this.end) && Flatten.Utils.EQ_0(areaCircularSegment)) {
-            return areaTrapez
-        } else {
-            let line = new Flatten.Line(this.start, this.end);
-            let onLeftSide = this.pc.leftTo(line);
-            return onLeftSide ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
-        }
+        // can't be full circle after breakToFunctional, consider zero-arc
+        let areaCircularSegment = Flatten.Utils.EQ(this.sweep, Flatten.PIx2)
+            ? 0 : this.circularSegmentArea();
+        return this.counterClockwise ? areaTrapez - areaCircularSegment : areaTrapez + areaCircularSegment;
     }
 
     circularSegmentArea() {
