@@ -2746,7 +2746,7 @@
         // 2. Locate relevant edges of the polygon
         const searchBox = new Flatten.Box(
             ray.box.xmin-Flatten.DP_TOL, ray.box.ymin-Flatten.DP_TOL,
-            ray.box.xmax, ray.box.ymax+Flatten.DP_TOL
+            ray.box.xmax+Flatten.DP_TOL, ray.box.ymax+Flatten.DP_TOL
         );
 
         if (polygon.box.not_intersect(searchBox)) {
