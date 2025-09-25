@@ -86,12 +86,10 @@ export class Arc extends Shape {
     get sweep() {
         let startAngle = this.startAngle;
         let endAngle = this.endAngle;
-        let sweep;
 
-        // check full circle before normalizing angles
+        // check full circle
         if (Flatten.Utils.EQ(Math.abs(startAngle - endAngle), Flatten.PIx2)) {
-            sweep = Flatten.PIx2;
-            endAngle = startAngle;
+            return Flatten.PIx2;
         }
 
         // normalize angles
@@ -108,12 +106,10 @@ export class Arc extends Shape {
             endAngle += Flatten.PIx2;
         }
 
-        // calculate sweep if it isn't a full circle
-        if (sweep === undefined) {
-            sweep = this.counterClockwise ? endAngle - startAngle : startAngle - endAngle;
-            if (sweep < 0) {
-                sweep += Flatten.PIx2;
-            }
+        // calculate sweep
+        let sweep = this.counterClockwise ? endAngle - startAngle : startAngle - endAngle;
+        if (sweep < 0) {
+            sweep += Flatten.PIx2;
         }
         return sweep
     }
