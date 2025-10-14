@@ -505,13 +505,16 @@ export class Distance {
             // if (Flatten.Utils.GT(mindist, min_stop))
             //     continue;
 
-            // Estimate min-max dist to the shape stored in the node.item, using node.item.key which is shape's box
+            // Estimate min-max dist to the shape stored in the node.items, using node.item.key which is shape's box
             [mindist, maxdist] = Distance.box2box_minmax(shape.box, node.item.key);
-            if (node.item.value instanceof Flatten.Edge) {
-                tree.insert([mindist, maxdist], node.item.value.shape);
-            } else {
-                tree.insert([mindist, maxdist], node.item.value);
+            for (let value of node.item.values) {
+                if (value instanceof Flatten.Edge) {
+                    tree.insert([mindist, maxdist], value.shape);
+                } else {
+                    tree.insert([mindist, maxdist], value);
+                }
             }
+
             if (Flatten.Utils.LT(maxdist, min_stop)) {
                 min_stop = maxdist;                       // this will be the new distance estimation
             }
@@ -561,8 +564,7 @@ export class Distance {
                 return [min_dist_and_segment_new, true];   // stop condition
             }
 
-            let [dist, shortest_segment] = Distance.distance(shape, node.item.value);
-            // console.log(dist)
+            let [dist, shortest_segment] = Distance.distanceToArray(shape, node.item.values);
             if (Flatten.Utils.LT(dist, min_dist_and_segment_new[0])) {
                 min_dist_and_segment_new = [dist, shortest_segment];
             }
@@ -606,6 +608,17 @@ export class Distance {
 
     static distance(shape1, shape2) {
         return shape1.distanceTo(shape2);
+    }
+
+    static distanceToArray(shape1, shapes) {
+        let min_dist_and_segment = [Number.POSITIVE_INFINITY, new Flatten.Segment()];
+        for (let shape2 of shapes) {
+            let [dist, shortest_segment] = shape1.distanceTo(shape2);
+            if (Flatten.Utils.LT(dist, min_dist_and_segment[0])) {
+                min_dist_and_segment = [dist, shortest_segment];
+            }
+        }
+        return min_dist_and_segment;
     }
 
     /**
