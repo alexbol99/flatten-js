@@ -137,15 +137,23 @@ export class Face extends CircularLinkedList {
 
     /**
      * Return array of edges from first to last
-     * @returns {Array}
+     * @returns {PolygonEdge[]}
      */
     get edges() {
         return this.toArray();
     }
 
     /**
-     * Return array of shapes which comprise face
-     * @returns {Array}
+     * Return array of vertices from first to last
+     * @returns {Point[]}
+     */
+    get vertices() {
+        return this.edges.map(edge => edge.shape.start.clone());
+    }
+
+    /**
+     * Return array of shapes which comprise the face
+     * @returns {Array<Segment | Arc>}
      */
     get shapes() {
         return this.edges.map(edge => edge.shape.clone());

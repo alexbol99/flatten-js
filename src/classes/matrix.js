@@ -17,8 +17,8 @@ export class Matrix {
      * Construct new instance of affine transformation matrix <br/>
      * If parameters omitted, construct identity matrix a = 1, d = 1
      * @param {number} a - position(0,0)   sx*cos(alpha)
-     * @param {number} b - position (0,1)  sx*sin(alpha)
      * @param {number} c - position (1,0)  -sy*sin(alpha)
+     * @param {number} b - position (0,1)  sx*sin(alpha)
      * @param {number} d - position (1,1)  sy*cos(alpha)
      * @param {number} tx - position (2,0) translation by x
      * @param {number} ty - position (2,1) translation by y
@@ -30,6 +30,29 @@ export class Matrix {
         this.d = d;
         this.tx = tx;
         this.ty = ty;
+    }
+
+    /**
+     * Return new matrix from 3x3 affine transformation matrix
+     * @param {AffineMatrix3x3} matrix3x3
+     * @returns {Matrix}
+     */
+    fromMatrix3x3(matrix3x3) {
+        const [a, c, tx] = matrix3x3[0]
+        const [b, d, ty] = matrix3x3[1]
+        return new Matrix(a, b, c, d, tx, ty)
+    }
+
+    /**
+     * Return 3x3 affine transformation matrix
+     * @returns {AffineMatrix3x3}
+     */
+    toMatrix3x3() {
+        return [
+            [this.a, this.c, this.tx],
+            [this.b, this.d, this.ty],
+            [0, 0, 1]
+        ]
     }
 
     /**
@@ -45,8 +68,8 @@ export class Matrix {
      * Vector [x,y] is an abstract array[2] of numbers and not a FlattenJS object <br/>
      * The result is also an abstract vector [x',y'] = A * [x,y]:
      * <code>
-     * [x'       [ ax + by + tx
-     *  y'   =     cx + dy + ty
+     * [x'       [ ax + cy + tx
+     *  y'   =     bx + dy + ty
      *  1]                    1 ]
      * </code>
      * @param {number[]} vector - array[2] of numbers

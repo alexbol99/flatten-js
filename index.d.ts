@@ -189,6 +189,7 @@ declare namespace Flatten {
         less_than(box: Box): boolean;
         equal_to(box: Box): boolean;
         set(xmin: number, ymin: number, xmax: number, ymax: number): void;
+        extend(extension: number): Box;
         toPoints() : Array<Point>;
         toSegments() : Array<Segment>;
         translate(vec: Vector): Box;
@@ -360,6 +361,8 @@ declare namespace Flatten {
     class Vector extends Shape {
         constructor(x?: number, y?: number);
         constructor(ps: Point, pe: Point);
+        constructor(v: Vector);
+        constructor(segment: Segment);
 
         // members
         x: number;
@@ -371,6 +374,7 @@ declare namespace Flatten {
 
         // public methods
         clone(): Vector;
+        isZeroLength(): boolean;
         equalTo(v: Vector): boolean;
         multiply(scalar: number): Vector;
         dot(v: Vector): number;
@@ -392,6 +396,12 @@ declare namespace Flatten {
         toJSON() : Object;
     }
 
+    type AffineMatrix3x3 = [
+        [number, number, number],
+        [number, number, number],
+        [0, 0, 1]
+    ]
+
     class Matrix {
         constructor(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number);
 
@@ -405,6 +415,8 @@ declare namespace Flatten {
 
         // public methods
         clone(): Matrix;
+        fromMatrix3x3(matrix: AffineMatrix3x3): Matrix;
+        toMatrix3x3(): AffineMatrix3x3;
         equalTo(matrix: Matrix): boolean;
         multiply(matrix: Matrix): Matrix;
         rotate(angle: number, centerX?: number, centerY?: number): Matrix;
@@ -493,6 +505,8 @@ declare namespace Flatten {
         readonly length: number;
         readonly perimeter: number;
         readonly edges: PolygonEdge[];
+        readonly vertices: Point[];
+        readonly shapes: Array<Segment | Arc>
 
         // public methods
         append(edge: PolygonEdge): Face;
@@ -542,6 +556,10 @@ declare namespace Flatten {
         cutWithLine(line: Line): Polygon;
         findEdgeByPoint(pt: Point): PolygonEdge | undefined;
         splitToIslands() : Polygon[];
+        rearrange() : Polygon;
+        orientation(): Flatten.ORIENTATION.PolygonOrientationType;
+        isOuter(): boolean;
+        isMultiPolygon(): boolean;
         reverse(): Polygon;
         contains(shape: AnyShape): boolean;
         distanceTo(shape: AnyShape): [number, Segment];

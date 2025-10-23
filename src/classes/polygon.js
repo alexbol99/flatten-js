@@ -16,7 +16,7 @@ import {
 } from "../data_structures/smart_intersections";
 import {Multiline} from "./multiline";
 import {intersectEdge2Edge} from "../algorithms/intersection";
-import {INSIDE, BOUNDARY} from "../utils/constants";
+import {INSIDE, BOUNDARY, ORIENTATION} from "../utils/constants";
 import {convertToString} from "../utils/attributes";
 import {Matrix} from "./matrix";
 
@@ -100,7 +100,8 @@ export class Polygon {
      * @returns {Array}
      */
     get vertices() {
-        return [...this.edges].map(edge => edge.start);
+        return [...this.faces].flatMap(face => face.vertices);
+        // return [...this.edges].map(edge => edge.start);
     }
 
     /**
@@ -116,11 +117,11 @@ export class Polygon {
     }
 
     /**
-     * Return true is polygon has no edges
+     * Return true is polygon has no edges or faces
      * @returns {boolean}
      */
     isEmpty() {
-        return this.edges.size === 0;
+        return this.edges.size === 0 || this.faces.size === 0;
     }
 
     /**
@@ -451,6 +452,51 @@ export class Polygon {
         }
         // TODO: assert if not all polygons added into output
         return newPolygons;
+    }
+
+    /**
+     * Rearrange polygon to ensure that all outer faces go first and all inner faces (holes) go after
+     * @returns {Polygon}
+     */
+    rearrange() {
+        if (this.faces.size <=1 ) return this.clone()
+        const islands = this.splitToIslands()
+        const newPolygon = new Polygon()
+        islands.forEach(island => {
+            island.faces.forEach((face) => newPolygon.addFace(face.shapes))
+        })
+        return newPolygon
+    }
+
+    /**
+     * Helper method to get orientation of the polygon as the first face orientation
+     * Assume that polygon is properly arranged and the first face is the outer face
+     * @returns {Flatten.ORIENTATION.PolygonOrientationType}
+     */
+    orientation() {
+        if (this.isEmpty()) return ORIENTATION.NOT_ORIENTABLE
+        return [...this.faces][0].orientation();
+    }
+
+    /**
+     * Helper method to check if face is outer face of the polygon
+     * @param face
+     * @returns {boolean}
+     */
+    isOuter(face) {
+        return face.orientation() === this.orientation();
+    }
+
+    /**
+     * Helper method to check if a polygon is a multi-polygon (has more than one outer face)
+     * @returns {boolean}
+     */
+    isMultiPolygon() {
+        let outerCounter = 0
+        this.faces.forEach(face => {
+            if (this.isOuter(face)) outerCounter++
+        })
+        return outerCounter > 1
     }
 
     /**

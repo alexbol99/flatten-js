@@ -16,7 +16,7 @@ import {Errors} from "../utils/errors";
 export class Vector extends Shape {
     /**
      * Vector may be constructed by two points, or by two float numbers,
-     * or by array of two numbers
+     * or by array of two numbers or by segment
      * @param {Point} ps - start point
      * @param {Point} pe - end point
      */
@@ -51,6 +51,13 @@ export class Vector extends Shape {
             let {x, y} = args[0];
             this.x = x;
             this.y = y;
+            return;
+        }
+
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "segment") {
+            let {start, end} = args[0];
+            this.x = end.x - start.x;
+            this.y = end.y - start.y;
             return;
         }
 
@@ -102,6 +109,14 @@ export class Vector extends Shape {
     }
 
     /**
+     * Returns true if the vector is zero length
+     * @returns {boolean}
+     */
+    isZeroLength() {
+        return Flatten.Utils.EQ_0(this.length);
+    }
+
+    /**
      * Returns true if vectors are equal up to [DP_TOL]{@link http://localhost:63342/flatten-js/docs/global.html#DP_TOL}
      * tolerance
      * @param {Vector} v
@@ -146,10 +161,10 @@ export class Vector extends Shape {
      * @returns {Vector}
      */
     normalize() {
-        if (!Flatten.Utils.EQ_0(this.length)) {
-            return (new Flatten.Vector(this.x / this.length, this.y / this.length));
+        if (this.isZeroLength()) {
+            throw Errors.ZERO_DIVISION;
         }
-        throw Errors.ZERO_DIVISION;
+        return (new Flatten.Vector(this.x / this.length, this.y / this.length));
     }
 
     /**
@@ -158,6 +173,7 @@ export class Vector extends Shape {
      * negative - in clockwise direction
      * Vector only can be rotated around (0,0) point!
      * @param {number} angle - Angle in radians
+     * @param {Point} center - Center of rotation, default is (0,0)
      * @returns {Vector}
      */
     rotate(angle, center = new Flatten.Point()) {

@@ -8,6 +8,7 @@ import {convertToString} from "../utils/attributes";
 import {Shape} from "./shape";
 import {Errors} from "../utils/errors";
 import {intersectSegment2Arc, intersectSegment2Circle} from "../algorithms/intersection";
+import {Utils} from "../../index";
 
 /**
  * Class Box represents bounding box of the shape.
@@ -189,6 +190,21 @@ export class Box extends Shape {
         this.ymin = ymin;
         this.xmax = xmax;
         this.ymax = ymax;
+    }
+
+    /**
+     * Return new extended box
+     * @param {number} extension - positive number, how much to extend the box
+     * @returns {Box}
+     */
+    extend(extension) {
+        if (Utils.LT(extension, 0)) return this.clone();
+        return new Box(
+            this.xmin - extension,
+            this.ymin - extension,
+            this.xmax + extension,
+            this.ymax + extension
+        )
     }
 
     /**
