@@ -7,8 +7,7 @@ import Flatten from '../flatten';
 import {convertToString} from "../utils/attributes";
 import {Shape} from "./shape";
 import {Errors} from "../utils/errors";
-import {intersectSegment2Arc, intersectSegment2Circle} from "../algorithms/intersection";
-import {Utils} from "../../index";
+import {intersectSegment2Arc} from "../algorithms/intersection";
 
 /**
  * Class Box represents bounding box of the shape.
@@ -198,7 +197,7 @@ export class Box extends Shape {
      * @returns {Box}
      */
     extend(extension) {
-        if (Utils.LT(extension, 0)) return this.clone();
+        if (extension <= 0) return this.clone();
         return new Box(
             this.xmin - extension,
             this.ymin - extension,

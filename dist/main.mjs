@@ -3215,8 +3215,8 @@ class Matrix {
      * Construct new instance of affine transformation matrix <br/>
      * If parameters omitted, construct identity matrix a = 1, d = 1
      * @param {number} a - position(0,0)   sx*cos(alpha)
-     * @param {number} b - position (0,1)  sx*sin(alpha)
      * @param {number} c - position (1,0)  -sy*sin(alpha)
+     * @param {number} b - position (0,1)  sx*sin(alpha)
      * @param {number} d - position (1,1)  sy*cos(alpha)
      * @param {number} tx - position (2,0) translation by x
      * @param {number} ty - position (2,1) translation by y
@@ -3228,6 +3228,29 @@ class Matrix {
         this.d = d;
         this.tx = tx;
         this.ty = ty;
+    }
+
+    /**
+     * Return new matrix from 3x3 affine transformation matrix
+     * @param {AffineMatrix3x3} matrix3x3
+     * @returns {Matrix}
+     */
+    fromMatrix3x3(matrix3x3) {
+        const [a, c, tx] = matrix3x3[0];
+        const [b, d, ty] = matrix3x3[1];
+        return new Matrix(a, b, c, d, tx, ty)
+    }
+
+    /**
+     * Return 3x3 affine transformation matrix
+     * @returns {AffineMatrix3x3}
+     */
+    toMatrix3x3() {
+        return [
+            [this.a, this.c, this.tx],
+            [this.b, this.d, this.ty],
+            [0, 0, 1]
+        ]
     }
 
     /**
@@ -3243,8 +3266,8 @@ class Matrix {
      * Vector [x,y] is an abstract array[2] of numbers and not a FlattenJS object <br/>
      * The result is also an abstract vector [x',y'] = A * [x,y]:
      * <code>
-     * [x'       [ ax + by + tx
-     *  y'   =     cx + dy + ty
+     * [x'       [ ax + cy + tx
+     *  y'   =     bx + dy + ty
      *  1]                    1 ]
      * </code>
      * @param {number[]} vector - array[2] of numbers
@@ -4588,7 +4611,7 @@ Flatten.point = point;
 let Vector$1 = class Vector extends Shape {
     /**
      * Vector may be constructed by two points, or by two float numbers,
-     * or by array of two numbers
+     * or by array of two numbers or by segment
      * @param {Point} ps - start point
      * @param {Point} pe - end point
      */
@@ -4623,6 +4646,13 @@ let Vector$1 = class Vector extends Shape {
             let {x, y} = args[0];
             this.x = x;
             this.y = y;
+            return;
+        }
+
+        if (args.length === 1 && args[0] instanceof Object && args[0].name === "segment") {
+            let {start, end} = args[0];
+            this.x = end.x - start.x;
+            this.y = end.y - start.y;
             return;
         }
 
@@ -4674,6 +4704,14 @@ let Vector$1 = class Vector extends Shape {
     }
 
     /**
+     * Returns true if the vector is zero length
+     * @returns {boolean}
+     */
+    isZeroLength() {
+        return Flatten.Utils.EQ_0(this.length);
+    }
+
+    /**
      * Returns true if vectors are equal up to [DP_TOL]{@link http://localhost:63342/flatten-js/docs/global.html#DP_TOL}
      * tolerance
      * @param {Vector} v
@@ -4718,10 +4756,10 @@ let Vector$1 = class Vector extends Shape {
      * @returns {Vector}
      */
     normalize() {
-        if (!Flatten.Utils.EQ_0(this.length)) {
-            return (new Flatten.Vector(this.x / this.length, this.y / this.length));
+        if (this.isZeroLength()) {
+            throw Errors.ZERO_DIVISION;
         }
-        throw Errors.ZERO_DIVISION;
+        return (new Flatten.Vector(this.x / this.length, this.y / this.length));
     }
 
     /**
@@ -4730,6 +4768,7 @@ let Vector$1 = class Vector extends Shape {
      * negative - in clockwise direction
      * Vector only can be rotated around (0,0) point!
      * @param {number} angle - Angle in radians
+     * @param {Point} center - Center of rotation, default is (0,0)
      * @returns {Vector}
      */
     rotate(angle, center = new Flatten.Point()) {
@@ -6532,6 +6571,21 @@ class Box extends Shape {
     }
 
     /**
+     * Return new extended box
+     * @param {number} extension - positive number, how much to extend the box
+     * @returns {Box}
+     */
+    extend(extension) {
+        if (extension <= 0) return this.clone();
+        return new Box(
+            this.xmin - extension,
+            this.ymin - extension,
+            this.xmax + extension,
+            this.ymax + extension
+        )
+    }
+
+    /**
      * Transform box into array of points from low left corner in counterclockwise
      * @returns {Point[]}
      */
@@ -7105,15 +7159,23 @@ class Face extends CircularLinkedList {
 
     /**
      * Return array of edges from first to last
-     * @returns {Array}
+     * @returns {PolygonEdge[]}
      */
     get edges() {
         return this.toArray();
     }
 
     /**
-     * Return array of shapes which comprise face
-     * @returns {Array}
+     * Return array of vertices from first to last
+     * @returns {Point[]}
+     */
+    get vertices() {
+        return this.edges.map(edge => edge.shape.start.clone());
+    }
+
+    /**
+     * Return array of shapes which comprise the face
+     * @returns {Array<Segment | Arc>}
      */
     get shapes() {
         return this.edges.map(edge => edge.shape.clone());
@@ -7775,7 +7837,8 @@ let Polygon$1 = class Polygon {
      * @returns {Array}
      */
     get vertices() {
-        return [...this.edges].map(edge => edge.start);
+        return [...this.faces].flatMap(face => face.vertices);
+        // return [...this.edges].map(edge => edge.start);
     }
 
     /**
@@ -7791,11 +7854,11 @@ let Polygon$1 = class Polygon {
     }
 
     /**
-     * Return true is polygon has no edges
+     * Return true is polygon has no edges or faces
      * @returns {boolean}
      */
     isEmpty() {
-        return this.edges.size === 0;
+        return this.edges.size === 0 || this.faces.size === 0;
     }
 
     /**
@@ -8126,6 +8189,51 @@ let Polygon$1 = class Polygon {
         }
         // TODO: assert if not all polygons added into output
         return newPolygons;
+    }
+
+    /**
+     * Rearrange polygon to ensure that all outer faces go first and all inner faces (holes) go after
+     * @returns {Polygon}
+     */
+    rearrange() {
+        if (this.faces.size <=1 ) return this.clone()
+        const islands = this.splitToIslands();
+        const newPolygon = new Polygon();
+        islands.forEach(island => {
+            island.faces.forEach((face) => newPolygon.addFace(face.shapes));
+        });
+        return newPolygon
+    }
+
+    /**
+     * Helper method to get orientation of the polygon as the first face orientation
+     * Assume that polygon is properly arranged and the first face is the outer face
+     * @returns {Flatten.ORIENTATION.PolygonOrientationType}
+     */
+    orientation() {
+        if (this.isEmpty()) return ORIENTATION.NOT_ORIENTABLE
+        return [...this.faces][0].orientation();
+    }
+
+    /**
+     * Helper method to check if face is outer face of the polygon
+     * @param face
+     * @returns {boolean}
+     */
+    isOuter(face) {
+        return face.orientation() === this.orientation();
+    }
+
+    /**
+     * Helper method to check if a polygon is a multi-polygon (has more than one outer face)
+     * @returns {boolean}
+     */
+    isMultiPolygon() {
+        let outerCounter = 0;
+        this.faces.forEach(face => {
+            if (this.isOuter(face)) outerCounter++;
+        });
+        return outerCounter > 1
     }
 
     /**
