@@ -139,11 +139,6 @@ export function intersectSegment2Line(seg, line) {
 export function intersectSegment2Segment(seg1, seg2) {
     let ip = [];
 
-    // quick reject
-    if (seg1.box.not_intersect(seg2.box)) {
-        return ip;
-    }
-
     // Special case of seg1 zero length
     if (seg1.isZeroLength()) {
         if (seg1.ps.on(seg2)) {
@@ -200,10 +195,6 @@ function isPointInSegmentBox(point, segment) {
 export function intersectSegment2Circle(segment, circle) {
     let ips = [];
 
-    if (segment.box.not_intersect(circle.box)) {
-        return ips;
-    }
-
     // Special case of zero length segment
     if (segment.isZeroLength()) {
         let [dist, _] = segment.ps.distanceTo(circle.pc);
@@ -229,10 +220,6 @@ export function intersectSegment2Circle(segment, circle) {
 
 export function intersectSegment2Arc(segment, arc) {
     let ip = [];
-
-    if (segment.box.not_intersect(arc.box)) {
-        return ip;
-    }
 
     // Special case of zero-length segment
     if (segment.isZeroLength()) {
@@ -270,10 +257,6 @@ export function intersectSegment2Box(segment, box) {
 
 export function intersectCircle2Circle(circle1, circle2) {
     let ip = [];
-
-    if (circle1.box.not_intersect(circle2.box)) {
-        return ip;
-    }
 
     let vec = new Flatten.Vector(circle1.pc, circle2.pc);
 
@@ -348,10 +331,6 @@ export function intersectCircle2Box(circle, box) {
 export function intersectArc2Arc(arc1, arc2) {
     let ip = [];
 
-    if (arc1.box.not_intersect(arc2.box)) {
-        return ip;
-    }
-
     // Special case: overlapping arcs
     // May return up to 4 intersection points
     if (arc1.pc.equalTo(arc2.pc) && Flatten.Utils.EQ(arc1.r, arc2.r)) {
@@ -388,10 +367,6 @@ export function intersectArc2Arc(arc1, arc2) {
 
 export function intersectArc2Circle(arc, circle) {
     let ip = [];
-
-    if (arc.box.not_intersect(circle.box)) {
-        return ip;
-    }
 
     // Case when arc center incident to circle center
     // Return arc's end points as 2 intersection points

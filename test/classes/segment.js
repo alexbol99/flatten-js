@@ -1,10 +1,10 @@
 /**
  * Created by Alex Bol on 9/8/2017.
  */
-'use strict';
+ 'use strict';
 
 import { expect } from 'chai';
-import Flatten from '../../index';
+import Flatten, {Relations as to} from '../../index';
 
 import {Point, Vector, Circle, Line, Segment, Arc, Box, Polygon, Edge, Face, Ray} from '../../index';
 import {point, vector, circle, line, segment, arc, ray} from '../../index';
@@ -158,6 +158,13 @@ describe('#Flatten.Segment', function() {
             expect(segment.intersect(line)[0]).to.deep.equal({x:0, y:0});
             expect(segment.intersect(line)[1]).to.deep.equal({x:2, y:2});
         });
+        it('intersectSegment2Segment does not report touching segments #85', function () {
+            const a = new Segment(new Point(-1, 0), new Point(0, 0));
+            const b = new Segment(new Point(1e-30, 0), new Point(1, 0));
+
+            expect(a.intersect(b).length).to.equal(1);
+            expect(a.intersect(b)[0].equalTo(new Point(0, 0))).to.be.true;
+        })
         it('Intersection with Circle', function () {
             let segment = new Segment(0,0,2,2);
             let circle = new Circle(new Point(0,0), 1);
@@ -215,7 +222,7 @@ describe('#Flatten.Segment', function() {
             const s2 = segment([25.4, 36.55742640037563, 31.25, 36.55742640037563]);
 
             const ip = s1.intersect(s2);
-            expect(ip.length).to.equal(0);
+            expect(ip.length).to.equal(2);
 
             const [dist, shortest_segment] = s1.distanceTo(s2);
         })
