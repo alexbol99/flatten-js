@@ -180,6 +180,10 @@ export class Ray extends Shape {
         if (shape instanceof Flatten.Polygon) {
             return  Intersection.intersectRay2Polygon(this, shape);
         }
+
+        if (shape instanceof Flatten.Multiline) {
+            return Intersection.intersectShape2Multiline(this, shape);
+        }
     }
 
     /**
