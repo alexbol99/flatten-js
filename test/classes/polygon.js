@@ -1108,6 +1108,25 @@ describe('#Flatten.Polygon', function() {
             console.error('Cut fail.')
         }
     })
+    it('Self-intersecting output when cutting a multipolygon with a multiline #205', () => {
+        const input = new Polygon([[
+            {"ps":{"x":0,"y":0,"name":"point"},"pe":{"x":0,"y":50,"name":"point"},"name":"segment"},
+            {"ps":{"x":0,"y":50,"name":"point"},"pe":{"x":100,"y":50,"name":"point"},"name":"segment"},
+            {"ps":{"x":100,"y":50,"name":"point"},"pe":{"x":100,"y":0,"name":"point"},"name":"segment"},
+            {"ps":{"x":100,"y":0,"name":"point"},"pe":{"x":0,"y":0,"name":"point"},"name":"segment"}
+        ],[
+            {"ps":{"x":0,"y":50,"name":"point"},"pe":{"x":0,"y":100,"name":"point"},"name":"segment"},
+            {"ps":{"x":0,"y":100,"name":"point"},"pe":{"x":100,"y":100,"name":"point"},"name":"segment"},
+            {"ps":{"x":100,"y":100,"name":"point"},"pe":{"x":100,"y":50,"name":"point"},"name":"segment"},
+            {"ps":{"x":100,"y":50,"name":"point"},"pe":{"x":0,"y":50,"name":"point"},"name":"segment"}
+        ]])
+        const cutline = new Multiline([
+            new Segment(point(50,110), point(50, -10))
+        ])
+        const result = input.cut(cutline)
+        expect(result.faces.size).to.equal(4)
+        expect(result.edges.size).to.equal(16)
+    })
     describe('#Intersections', function () {
         it('Can perform intersection between polygons', function () {
             const poly1 = new Polygon(

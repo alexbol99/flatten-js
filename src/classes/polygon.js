@@ -117,6 +117,17 @@ export class Polygon {
     }
 
     /**
+     * Create a polygon from an array of polygons. Each polygon is an outer face with all containing inner faces
+     * @param polygons
+     * @returns {Polygon}
+     */
+    createFromArray(polygons) {
+        const newPolygon = new Polygon();
+        polygons.forEach(polygon => [...polygon.faces].forEach(face => newPolygon.addFace(face.shapes)));
+        return newPolygon;
+    }
+
+    /**
      * Return true is polygon has no edges or faces
      * @returns {boolean}
      */
@@ -156,7 +167,7 @@ export class Polygon {
     }
 
     /**
-     * Add new face to polygon. Returns added face
+     * Add a new face to polygon. Returns added face
      * @param {Point[]|Segment[]|Arc[]|Circle|Box} args -  new face may be create with one of the following ways: <br/>
      * 1) array of points that describe closed path (edges are segments) <br/>
      * 2) array of shapes (segments and arcs) which describe closed path <br/>
@@ -293,11 +304,25 @@ export class Polygon {
 
     /**
      * Cut polygon with multiline and return a new polygon
-     * @param {Multiline} multiline
+     * The cutting is done by intersection of multiline with edges of the polygon.
+     * @param multiline
      * @returns {Polygon}
      */
     cut(multiline) {
+        const polygons = this.splitToIslands();
+        const result = polygons.flatMap(polygon => polygon._cutSingleIsland(multiline))
+            .filter(polygon => polygon.isValid() && polygon.isEmpty() === false);
+        return this.createFromArray(result);
+    }
+
+    /**
+     * Cut polygon with multiline and return a new polygon
+     * @param {Multiline} multiline
+     * @returns {Polygon}
+     */
+    _cutSingleIsland(inputMultiline) {
         let newPoly = this.clone()
+        const multiline = inputMultiline.clone();
 
         // smart intersections
         let intersections = {
