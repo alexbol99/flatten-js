@@ -181,6 +181,9 @@ function swapLinksAndRestore(res_poly, wrk_poly, intersections, op) {
     restoreFaces(res_poly, intersections.int_points1, intersections.int_points2);
     restoreFaces(res_poly, intersections.int_points2, intersections.int_points1);
 
+    removeDetachedEdges(res_poly);
+    removeDetachedEdges(wrk_poly);
+
     // merge relevant not intersected faces from wrk_polygon to res_polygon
     // mergeRelevantNotIntersectedFaces(res_poly, wrk_poly);
 }
@@ -686,5 +689,13 @@ function mergeRelevantNotIntersectedFaces(res_polygon, wrk_polygon)
     // All not relevant faces should be already deleted from wrk_polygon
     for (let face of wrk_polygon.faces) {
         res_polygon.addFace(face);
+    }
+}
+
+function removeDetachedEdges(polygon)
+{
+    const detachedEdges = [...polygon.edges].filter(edge => !edge.face || !polygon.faces.has(edge.face));
+    for (const edge of detachedEdges) {
+        polygon.edges.delete(edge);
     }
 }

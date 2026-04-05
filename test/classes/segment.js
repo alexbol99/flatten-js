@@ -226,6 +226,15 @@ describe('#Flatten.Segment', function() {
 
             const [dist, shortest_segment] = s1.distanceTo(s2);
         })
+        it('Intersection with Segment - near parallel segments still report crossing point', function () {
+            const segment1 = segment(11335.229832925092, 4254.81399998397, 11335.571, 3628.053);
+            const segment2 = segment(11335.571, 3628, 11335.23, 4254.814);
+
+            const ip = segment1.intersect(segment2);
+
+            expect(ip.length).to.equal(1);
+            expect(ip[0].equalTo(point(11335.520788125817, 3720.297670684383))).to.be.true;
+        });
     });
     describe('#Flatten.Segment.DistanceTo', function() {
         it('Distance to Segment Case 1 Intersected Segments', function () {

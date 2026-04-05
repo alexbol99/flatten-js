@@ -8,6 +8,7 @@ import {expect} from 'chai';
 import Flatten from '../../index';
 import {Polygon} from '../../index';
 import {point, circle, segment, arc} from '../../index';
+import {parseWKT} from '../../index';
 import {Errors} from "../../src/utils/errors";
 
 import * as BooleanOperations from "../../src/algorithms/boolean_op";
@@ -868,7 +869,22 @@ describe('#Algorithms.Boolean Operations', function () {
             const reducedAreas = subtract(poly, cutter);
 
             expect(reducedAreas.faces.size).to.equal(1);
-            expect(reducedAreas.edges.size).to.equal(7);
+            expect(reducedAreas.edges.size).to.equal(4);
+        });
+        it('Can perform subtract without creating a degenerate sliver for partially overlapped polygon (#243)', function () {
+            const subject = parseWKT('POLYGON ((11335.571 3628.053, 10952.698 3628.191, 10952.698 4304.072, 11335.203 4304.109, 11335.571 3628.053))');
+            const clip = parseWKT('POLYGON ((9579.31 4444.626, 13631.338 4445.097, 13632.387 17.095, 9579.32 17.277, 9579.31 4444.626), (10285.3 2457.83, 10285.3 2258.04, 9719.8 2258.05, 9719.79 156.911, 11484.938 156.951, 11485.32 858, 11725.26 858, 11725.553 156.616, 13491.025 156.626, 13491.35 2258.05, 12925.3 2258.05, 12925.3 2457.88, 13491.32 2457.88, 13491.084 4304.201, 11725.566 4304.146, 11725.29 3628, 11335.571 3628, 11335.23 4254.814, 9719.81 4254.659, 9719.81 2457.59, 10285.3 2457.83))');
+
+            const result = subtract(subject, clip);
+
+            expect(result.isValid()).to.be.true;
+            expect(result.faces.size).to.equal(1);
+            expect(result.edges.size).to.equal(5);
+            expect(result.area()).to.be.closeTo(239829.50944038085, 1e-6);
+
+            const vertices = result.vertices;
+            expect(vertices.find((pt) => pt.equalTo(point(11335.520788125817, 3720.297670684383)))).not.to.be.undefined;
+            expect(vertices.find((pt) => pt.equalTo(point(10952.698, 4254.777295947803)))).not.to.be.undefined;
         });
         it('Can perform intersection. Fixed: Issue #55 case 0', function () {
             "use strict";
@@ -885,7 +901,7 @@ describe('#Algorithms.Boolean Operations', function () {
             let res = intersect(poly2, poly1);
 
             expect(res.faces.size).to.equal(1);
-            expect(res.edges.size).to.equal(18);
+            expect(res.edges.size).to.equal(19);
         });
         it('Can perform intersection. Fixed: Issue #55 case 1', function () {
             "use strict";
