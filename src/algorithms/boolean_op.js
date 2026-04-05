@@ -694,7 +694,12 @@ function mergeRelevantNotIntersectedFaces(res_polygon, wrk_polygon)
 
 function removeDetachedEdges(polygon)
 {
-    const detachedEdges = [...polygon.edges].filter(edge => !edge.face || !polygon.faces.has(edge.face));
+    const detachedEdges = [];
+    for (const edge of polygon.edges) {
+        if (!edge.face || !polygon.faces.has(edge.face)) {
+            detachedEdges.push(edge);
+        }
+    }
     for (const edge of detachedEdges) {
         polygon.edges.delete(edge);
     }

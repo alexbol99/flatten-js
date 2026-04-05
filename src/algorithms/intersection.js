@@ -189,7 +189,7 @@ export function intersectSegment2Segment(seg1, seg2) {
                 ip.push(snapToSegmentEndpoints(seg1.ps.translate(r.multiply(t)), seg1, seg2));
             }
         }
-    } else {                /* not incident - parallel or intersect */
+    } else {                /* not incident and not parallel - potential intersection */
         // Calculate intersection between lines
         let new_ip = intersectLine2Line(line1, line2);
         if (new_ip.length > 0) {
