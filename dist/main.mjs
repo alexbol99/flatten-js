@@ -591,7 +591,7 @@ function intersectSegment2Segment(seg1, seg2) {
     let line1 = new Flatten.Line(seg1.ps, seg1.pe);
     let line2 = new Flatten.Line(seg2.ps, seg2.pe);
 
-    // Check overlapping between segments in case of incidence
+    // Check overlapping between segments in case of incidence.
     // If segments touching, add one point. If overlapping, add two points
     if (line1.incidentTo(line2)) {
         if (seg1.ps.on(seg2)) {
@@ -606,16 +606,40 @@ function intersectSegment2Segment(seg1, seg2) {
         if (seg2.pe.on(seg1) && !seg2.pe.equalTo(seg1.ps) && !seg2.pe.equalTo(seg1.pe)) {
             ip.push(seg2.pe);
         }
-    } else {                /* not incident - parallel or intersect */
+    } else if (line1.parallelTo(line2)) {
+        const r = new Flatten.Vector(seg1.ps, seg1.pe);
+        const s = new Flatten.Vector(seg2.ps, seg2.pe);
+        const q_p = new Flatten.Vector(seg1.ps, seg2.ps);
+        const r_cross_s = r.cross(s);
+
+        if (!Flatten.Utils.EQ_0(r_cross_s)) {
+            const t = q_p.cross(s) / r_cross_s;
+            const u = q_p.cross(r) / r_cross_s;
+
+            if (Flatten.Utils.GE(t, 0) && Flatten.Utils.LE(t, 1) &&
+                Flatten.Utils.GE(u, 0) && Flatten.Utils.LE(u, 1)) {
+                ip.push(snapToSegmentEndpoints(seg1.ps.translate(r.multiply(t)), seg1, seg2));
+            }
+        }
+    } else {                /* not incident and not parallel - potential intersection */
         // Calculate intersection between lines
         let new_ip = intersectLine2Line(line1, line2);
         if (new_ip.length > 0) {
             if (isPointInSegmentBox(new_ip[0], seg1) && isPointInSegmentBox(new_ip[0], seg2)) {
-                ip.push(new_ip[0]);
+                ip.push(snapToSegmentEndpoints(new_ip[0], seg1, seg2));
             }
         }
     }
     return ip;
+}
+
+function snapToSegmentEndpoints(pt, seg1, seg2) {
+    for (const endpoint of [seg1.ps, seg1.pe, seg2.ps, seg2.pe]) {
+        if (pt.equalTo(endpoint)) {
+            return endpoint;
+        }
+    }
+    return pt;
 }
 
 function isPointInSegmentBox(point, segment) {
@@ -1967,6 +1991,9 @@ function swapLinksAndRestore(res_poly, wrk_poly, intersections, op) {
     restoreFaces(res_poly, intersections.int_points1, intersections.int_points2);
     restoreFaces(res_poly, intersections.int_points2, intersections.int_points1);
 
+    removeDetachedEdges(res_poly);
+    removeDetachedEdges(wrk_poly);
+
     // merge relevant not intersected faces from wrk_polygon to res_polygon
     // mergeRelevantNotIntersectedFaces(res_poly, wrk_poly);
 }
@@ -2463,6 +2490,19 @@ function removeNotRelevantNotIntersectedFaces(polygon, notIntersectedFaces, op, 
 
             polygon.deleteFace(face);
         }
+    }
+}
+
+function removeDetachedEdges(polygon)
+{
+    const detachedEdges = [];
+    for (const edge of polygon.edges) {
+        if (!edge.face || !polygon.faces.has(edge.face)) {
+            detachedEdges.push(edge);
+        }
+    }
+    for (const edge of detachedEdges) {
+        polygon.edges.delete(edge);
     }
 }
 
