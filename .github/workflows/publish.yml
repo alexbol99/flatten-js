@@ -24,8 +24,6 @@ jobs:
       - run: npm run -s build
       - run: npm test --silent
 
-      # npm >= 11.5.1 supports OIDC trusted publishing (no NPM_TOKEN)
+      # npm trusted publishing uses GitHub's OIDC identity, so no NPM_TOKEN is required
       - name: Publish
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
