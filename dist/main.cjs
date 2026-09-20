@@ -9336,12 +9336,12 @@ function parseMutliPolygon(multiPolygonString) {
 
 function parsePolygon(wkt) {
     if (wkt.startsWith("POLYGON")) {
-        const polygonStr = wkt.replace(/^POLYGON /, '');
+        const polygonStr = wkt.replace(/^POLYGON\s*/, '');
         return parseSinglePolygon(polygonStr)
     }
     else {
         // const multiPolygonString = wkt.replace(/^MULTIPOLYGON \(/, '').replace(/\)$/, '').replace(/\)\), \(\(/,'))?((')
-        const multiPolygonString = wkt.replace(/^MULTIPOLYGON \(\(\((.*)\)\)\)$/, '$1');
+        const multiPolygonString = wkt.replace(/^MULTIPOLYGON\s*\(\(\((.*)\)\)\)$/, '$1');
         return parseMutliPolygon(multiPolygonString)
     }
 }
@@ -9363,19 +9363,19 @@ function parseArrayOfLineStrings(str) {
  */
 function parseWKT(str) {
     if (str.startsWith("POINT")) {
-        const pointStr = str.replace(/^POINT \(/, '').replace(/\)$/, '');
+        const pointStr = str.replace(/^POINT\s*\(/, '').replace(/\)$/, '');
         return parseSinglePoint(pointStr)
     }
     else if (str.startsWith("MULTIPOINT")) {
-        const multiPointStr = str.replace(/^MULTIPOINT \(/, '').replace(/\)$/, '');
+        const multiPointStr = str.replace(/^MULTIPOINT\s*\(/, '').replace(/\)$/, '');
         return parseMultiPoint(multiPointStr)
     }
     else if (str.startsWith("LINESTRING")) {
-        const lineStr = str.replace(/^LINESTRING \(/, '').replace(/\)$/, '');
+        const lineStr = str.replace(/^LINESTRING\s*\(/, '').replace(/\)$/, '');
         return parseLineString(lineStr)
     }
     else if (str.startsWith("MULTILINESTRING")) {
-        const multilineStr = str.replace(/^MULTILINESTRING /, '');
+        const multilineStr = str.replace(/^MULTILINESTRING\s*/, '');
         return parseMultiLineString(multilineStr)
     }
     else if (str.startsWith("POLYGON") || str.startsWith("MULTIPOLYGON")) {
@@ -9392,7 +9392,7 @@ This named group will capture the geometry type. The type label helps with under
 [^\(\)]: Matching any character except parentheses, handling simple geometries.
 |\([^\)]*\): Handling nested parentheses for geometries like POLYGON and MULTILINESTRING.
 * after the non-capturing group: Allows for repeating the pattern zero or more times to match all contents between the outermost parentheses. */
-        const regex = /(?<type>POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON) \((?:[^\(\)]|\([^\)]*\))*\)/g;
+        const regex = /(?<type>POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON)\s*\((?:[^\(\)]|\([^\)]*\))*\)/g;
         const wktArray = str.match(regex);
         if (wktArray[0].startsWith('GEOMETRYCOLLECTION')) {
             wktArray[0] = wktArray[0].replace('GEOMETRYCOLLECTION (','');

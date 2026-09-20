@@ -69,4 +69,22 @@ describe('#SVGAttributes', function() {
         expect(polygon).to.be.instanceof(Polygon)
         expect(polygon.faces.size).to.be.equal(16);
     });
+
+    [wktPoint, wktMultipoint, wktLinestring, wktMultilineString,
+        wktPolygon, wktMultipolygon, geometryCollection2, mp].forEach(wkt => {
+        ['', ' ', '  ', '\t', '\n', '\r\n'].forEach(separator => {
+            it(`May parse ${wkt.split(' ')[0]} with separator ${JSON.stringify(separator)}`, function () {
+                const input = wkt.replace(/([A-Z]+) \(/g, `$1${separator}(`);
+                expect(isWktString(input)).to.be.true;
+                expect(JSON.stringify(parseWKT(input))).to.equal(JSON.stringify(parseWKT(wkt)));
+            });
+        });
+    });
+
+    it('May use a compact polygon in geometric operations', function () {
+        const polygon = parseWKT('POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))');
+        expect(polygon.vertices.length).to.equal(4);
+        expect(polygon.area()).to.equal(100);
+        expect(polygon.contains(new Point(5, 5))).to.be.true;
+    });
 });
