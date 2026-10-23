@@ -451,7 +451,7 @@ export class Polygon {
 
     /**
      * Split polygon into array of polygons, where each polygon is an outer face with all
-     * containing inner faces
+     * containing inner faces. Uncontained opposite-oriented faces become standalone islands.
      * @returns {Flatten.Polygon[]}
      */
     splitToIslands() {
@@ -468,14 +468,19 @@ export class Polygon {
             if (face.orientation() === orientation) continue;  // skip same orientation
             /* Proceed with opposite orientation */
             /* Look if any of island polygons contains tested polygon as a hole */
+            let contained = false;
             for (let islandPolygon of newPolygons) {
                 if (face.shapes.every(shape => islandPolygon.contains(shape))) {
                     islandPolygon.addFace(face.shapes);      // add polygon as a hole in islandPolygon
+                    contained = true;
                     break;
                 }
             }
+            if (!contained) {
+                polygon.reverse();                          // preserve an uncontained face as an island
+                newPolygons.push(polygon);
+            }
         }
-        // TODO: assert if not all polygons added into output
         return newPolygons;
     }
 
@@ -505,7 +510,7 @@ export class Polygon {
 
     /**
      * Helper method to check if face is outer face of the polygon
-     * @param face
+     * @param {Flatten.Face} face - face to check
      * @returns {boolean}
      */
     isOuter(face) {

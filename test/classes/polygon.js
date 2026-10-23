@@ -840,6 +840,20 @@ describe('#Flatten.Polygon', function() {
         expect(islandsArray[1].faces.size).to.equal(1);
         expect(islandsArray[1].edges.size).to.equal(4);
     });
+    it('splitToIslands preserves an uncontained oppositely oriented face', function() {
+        const polygon = new Polygon();
+        polygon.addFace([point(0, 0), point(100, 0), point(100, 100), point(0, 100)]);
+        polygon.addFace([point(220, 20), point(220, 40), point(240, 40), point(240, 20)]);
+
+        const inputFaceCount = polygon.faces.size;
+        const islands = polygon.splitToIslands();
+        const outputFaceCount = islands.reduce((count, island) => count + island.faces.size, 0);
+
+        expect(inputFaceCount).to.equal(2);
+        expect(outputFaceCount).to.equal(inputFaceCount);
+        expect(islands).to.have.length(2);
+        expect([...islands[1].faces][0].orientation()).to.equal([...islands[0].faces][0].orientation());
+    });
     it('splitToIslands should not fail if the polygon is empty', function() {
         const polygon = new Polygon();
         const islandsArray = polygon.splitToIslands();

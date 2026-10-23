@@ -559,7 +559,7 @@ declare namespace Flatten {
         splitToIslands() : Polygon[];
         rearrange() : Polygon;
         orientation(): Flatten.ORIENTATION.PolygonOrientationType;
-        isOuter(): boolean;
+        isOuter(face: Face): boolean;
         isMultiPolygon(): boolean;
         reverse(): Polygon;
         contains(shape: AnyShape): boolean;
