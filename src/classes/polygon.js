@@ -450,8 +450,10 @@ export class Polygon {
     }
 
     /**
-     * Split polygon into array of polygons, where each polygon is an outer face with all
-     * containing inner faces. Uncontained opposite-oriented faces become standalone islands.
+     * Split polygon into an array of islands with their contained holes.
+     * The largest face defines the outer orientation; opposite-oriented faces represent voids.
+     * Holes not contained in any island are omitted from the result, without changing
+     * their orientation or the input polygon. This method does not clip overlapping faces.
      * @returns {Flatten.Polygon[]}
      */
     splitToIslands() {
@@ -468,18 +470,13 @@ export class Polygon {
             if (face.orientation() === orientation) continue;  // skip same orientation
             /* Proceed with opposite orientation */
             /* Look if any of island polygons contains tested polygon as a hole */
-            let contained = false;
             for (let islandPolygon of newPolygons) {
                 if (face.shapes.every(shape => islandPolygon.contains(shape))) {
                     islandPolygon.addFace(face.shapes);      // add polygon as a hole in islandPolygon
-                    contained = true;
                     break;
                 }
             }
-            if (!contained) {
-                polygon.reverse();                          // preserve an uncontained face as an island
-                newPolygons.push(polygon);
-            }
+            // An uncontained hole is a void outside the islands and contributes no filled region.
         }
         return newPolygons;
     }
