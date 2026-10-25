@@ -9275,16 +9275,47 @@ const {Multiline, Point, Segment, Polygon} = Flatten;
 // GEOMETRYCOLLECTION (POINT (0 0), LINESTRING (0 0, 1440 900), POLYGON ((0 0, 0 1024, 1024 1024, 1024 0, 0 0)))
 // GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))
 
+// Split only at the current nesting level, preserving rings and collection members.
+function splitComponents(str) {
+    const components = [];
+    let depth = 0;
+    let start = 0;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === '(') depth++;
+        if (str[i] === ')') depth--;
+        if (depth < 0) throw Flatten.Errors.ILLEGAL_PARAMETERS
+        if (str[i] === ',' && depth === 0) {
+            components.push(str.slice(start, i).trim());
+            start = i + 1;
+        }
+    }
+    if (depth !== 0) throw Flatten.Errors.ILLEGAL_PARAMETERS
+    components.push(str.slice(start).trim());
+    return components
+}
+
+function unwrap(str) {
+    str = str.trim();
+    if (str === 'EMPTY') throw new Error('Empty geometry not supported')
+    if (!str.startsWith('(') || !str.endsWith(')')) {
+        throw Flatten.Errors.ILLEGAL_PARAMETERS
+    }
+    return str.slice(1, -1).trim()
+}
+
 function parseSinglePoint(pointStr) {
-    return new Point(pointStr.split(' ').map(Number))
+    pointStr = pointStr.trim();
+    if (pointStr === 'EMPTY') throw new Error('Empty geometry not supported')
+    return new Point(pointStr.split(/\s+/).map(Number))
 }
 
 function parseMultiPoint(multipointStr) {
-    return multipointStr.split(', ').map(parseSinglePoint)
+    return splitComponents(multipointStr).map(str =>
+        parseSinglePoint(str.startsWith('(') ? unwrap(str) : str))
 }
 
 function parseLineString(lineStr) {
-    const points = parseMultiPoint(lineStr);
+    const points = splitComponents(lineStr).map(parseSinglePoint);
     let segments = [];
     for (let i = 0; i < points.length-1;  i++) {
         segments.push(new Segment(points[i], points[i+1]));
@@ -9293,53 +9324,33 @@ function parseLineString(lineStr) {
 }
 
 function parseMultiLineString(multilineStr) {
-    const lineStrings = multilineStr.replace(/\(\(/, '').replace(/\)\)$/, '').split('), (');
-    return lineStrings.map(parseLineString)
+    return splitComponents(multilineStr).map(str => parseLineString(unwrap(str)))
 }
 
 function parseSinglePolygon(polygonStr) {
-    const facesStr = polygonStr.replace(/\(\(/, '').replace(/\)\)$/, '').split('), (');
     const polygon = new Polygon();
+    if (polygonStr.trim() === 'EMPTY') return polygon
+    const facesStr = splitComponents(unwrap(polygonStr));
     let orientation;
-    facesStr.forEach((facesStr, idx) => {
-        let points = facesStr.split(', ').map(coordStr => {
-            return new Point(coordStr.split(' ').map(Number))
-        });
+    facesStr.forEach((faceStr, idx) => {
+        const points = splitComponents(unwrap(faceStr)).map(parseSinglePoint);
         const face = polygon.addFace(points);
         if (idx === 0) {
             orientation = face.orientation();
         }
-        else {
-            if (face.orientation() === orientation) {
-                face.reverse();
-            }
+        else if (face.orientation() === orientation) {
+            face.reverse();
         }
     });
     return polygon
 }
 
-function parseMutliPolygon(multiPolygonString) {
-    // const polygonStrings = multiPolygonString.split('?')
-    // Split the string by the delimiter ")), ((" which separates the polygons
-    const polygonStrings = multiPolygonString.split(/\)\), \(\(/).map(polygon => '((' + polygon + '))');
-
-    const polygons = polygonStrings.map(parseSinglePolygon);
+function parseMultiPolygon(multiPolygonStr) {
     const polygon = new Polygon();
-    const faces = polygons.reduce((acc, polygon) => [...acc, ...polygon?.faces], []);
-    faces.forEach(face => polygon.addFace([...face?.shapes]));
-    return polygon;
-}
-
-function parsePolygon(wkt) {
-    if (wkt.startsWith("POLYGON")) {
-        const polygonStr = wkt.replace(/^POLYGON\s*/, '');
-        return parseSinglePolygon(polygonStr)
-    }
-    else {
-        // const multiPolygonString = wkt.replace(/^MULTIPOLYGON \(/, '').replace(/\)$/, '').replace(/\)\), \(\(/,'))?((')
-        const multiPolygonString = wkt.replace(/^MULTIPOLYGON\s*\(\(\((.*)\)\)\)$/, '$1');
-        return parseMutliPolygon(multiPolygonString)
-    }
+    splitComponents(multiPolygonStr).map(parseSinglePolygon).forEach(part => {
+        part.faces.forEach(face => polygon.addFace([...face.shapes]));
+    });
+    return polygon
 }
 
 function parseArrayOfPoints(str) {
@@ -9353,48 +9364,41 @@ function parseArrayOfLineStrings(str) {
 }
 
 /**
- * Convert WKT string to array of Flatten shapes.
+ * Convert WKT string to Flatten shapes. Collections are flattened into an array.
+ * POLYGON EMPTY returns an empty Polygon; other EMPTY geometries are unsupported.
+ * @throws {Error} Empty geometry not supported for non-polygon EMPTY geometries.
  * @param str
  * @returns {Point | Point[] | Multiline | Multiline[] | Polygon | Shape[] | null}
  */
 function parseWKT(str) {
-    if (str.startsWith("POINT")) {
-        const pointStr = str.replace(/^POINT\s*\(/, '').replace(/\)$/, '');
-        return parseSinglePoint(pointStr)
-    }
-    else if (str.startsWith("MULTIPOINT")) {
-        const multiPointStr = str.replace(/^MULTIPOINT\s*\(/, '').replace(/\)$/, '');
-        return parseMultiPoint(multiPointStr)
-    }
-    else if (str.startsWith("LINESTRING")) {
-        const lineStr = str.replace(/^LINESTRING\s*\(/, '').replace(/\)$/, '');
-        return parseLineString(lineStr)
-    }
-    else if (str.startsWith("MULTILINESTRING")) {
-        const multilineStr = str.replace(/^MULTILINESTRING\s*/, '');
-        return parseMultiLineString(multilineStr)
-    }
-    else if (str.startsWith("POLYGON") || str.startsWith("MULTIPOLYGON")) {
-        return parsePolygon(str)
-    }
-    else if (str.startsWith("GEOMETRYCOLLECTION")) {
-        // const regex = /(POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON|GEOMETRYCOLLECTION) \([^\)]+\)/g
-        /* Explanation:
-(?<type>POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON):
-This named group will capture the geometry type. The type label helps with understanding the structure but
- is not necessary unless you process the matches programmatically and want easy access to the geometry type.
-\( and \): Match the opening and closing parentheses.
-(?:[^\(\)]|\([^\)]*\))*: A non-capturing group that allows for:
-[^\(\)]: Matching any character except parentheses, handling simple geometries.
-|\([^\)]*\): Handling nested parentheses for geometries like POLYGON and MULTILINESTRING.
-* after the non-capturing group: Allows for repeating the pattern zero or more times to match all contents between the outermost parentheses. */
-        const regex = /(?<type>POINT|LINESTRING|POLYGON|MULTIPOINT|MULTILINESTRING|MULTIPOLYGON)\s*\((?:[^\(\)]|\([^\)]*\))*\)/g;
-        const wktArray = str.match(regex);
-        if (wktArray[0].startsWith('GEOMETRYCOLLECTION')) {
-            wktArray[0] = wktArray[0].replace('GEOMETRYCOLLECTION (','');
+    // Only complete records on separate lines form a list; a geometry may itself span lines.
+    const records = str.trim().split('\n');
+    if (records.length > 1) {
+        if (records.every(record => /^\s*POINT\s*\([^()]*\)\s*$/.test(record))) {
+            return parseArrayOfPoints(str.trim())
         }
-        const flArray = wktArray.map(parseWKT).map(x => x instanceof Array ? x : [x]);
-        return flArray.reduce((acc, x) => [...acc, ...x], [])
+        if (records.every(record => /^\s*LINESTRING\s*\([^()]*\)\s*$/.test(record))) {
+            return parseArrayOfLineStrings(str.trim())
+        }
+    }
+    const geometry = str.trim().match(/^(POINT|MULTIPOINT|LINESTRING|MULTILINESTRING|POLYGON|MULTIPOLYGON|GEOMETRYCOLLECTION)\s*(EMPTY|\([\s\S]*\))$/);
+    if (geometry) {
+        const [, type, body] = geometry;
+        if (body === 'EMPTY') {
+            if (type === 'POLYGON') return new Polygon()
+            throw new Error('Empty geometry not supported')
+        }
+        const content = unwrap(body);
+        switch (type) {
+            case 'POINT': return parseSinglePoint(content)
+            case 'MULTIPOINT': return parseMultiPoint(content)
+            case 'LINESTRING': return parseLineString(content)
+            case 'MULTILINESTRING': return parseMultiLineString(content)
+            case 'POLYGON': return parseSinglePolygon(body)
+            case 'MULTIPOLYGON': return parseMultiPolygon(content)
+            case 'GEOMETRYCOLLECTION':
+                return splitComponents(content).map(parseWKT).reduce((acc, shapes) => acc.concat(shapes), [])
+        }
     }
     else if (isArrayOfPoints(str)) {
         return parseArrayOfPoints(str)
