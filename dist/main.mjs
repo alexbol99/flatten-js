@@ -9371,6 +9371,16 @@ function parseArrayOfLineStrings(str) {
  * @returns {Point | Point[] | Multiline | Multiline[] | Polygon | Shape[] | null}
  */
 function parseWKT(str) {
+    // Only complete records on separate lines form a list; a geometry may itself span lines.
+    const records = str.trim().split('\n');
+    if (records.length > 1) {
+        if (records.every(record => /^\s*POINT\s*\([^()]*\)\s*$/.test(record))) {
+            return parseArrayOfPoints(str.trim())
+        }
+        if (records.every(record => /^\s*LINESTRING\s*\([^()]*\)\s*$/.test(record))) {
+            return parseArrayOfLineStrings(str.trim())
+        }
+    }
     const geometry = str.trim().match(/^(POINT|MULTIPOINT|LINESTRING|MULTILINESTRING|POLYGON|MULTIPOLYGON|GEOMETRYCOLLECTION)\s*(EMPTY|\([\s\S]*\))$/);
     if (geometry) {
         const [, type, body] = geometry;

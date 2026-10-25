@@ -101,6 +101,31 @@ describe('#parseWKT', function() {
         expect(line.vertices).to.deep.equal([new Point(0, 0), new Point(10, 10)]);
     });
 
+    ['\n', '\r\n'].forEach(newline => {
+        it(`Preserves indented point records separated by ${JSON.stringify(newline)}`, function () {
+            const points = parseWKT(` POINT (1 2)${newline} POINT (3 4)`);
+            expect(points).to.deep.equal([new Point(1, 2), new Point(3, 4)]);
+        });
+
+        it(`Preserves indented line records separated by ${JSON.stringify(newline)}`, function () {
+            const edges = parseWKT(` LINESTRING (0 0,1 1,2 2)${newline} LINESTRING (3 3,4 4)`);
+            expect(edges.map(edge => [edge.start, edge.end])).to.deep.equal([
+                [new Point(0, 0), new Point(1, 1)],
+                [new Point(1, 1), new Point(2, 2)],
+                [new Point(3, 3), new Point(4, 4)]
+            ]);
+        });
+    });
+
+    it('Preserves newlines within a single geometry', function () {
+        expect(parseWKT(' POINT\n(1\n2)')).to.deep.equal(new Point(1, 2));
+        const line = parseWKT(' LINESTRING (0 0,\n1 1,\n2 2)');
+        expect(line).to.be.instanceof(Multiline);
+        expect(line.vertices).to.deep.equal([new Point(0, 0), new Point(1, 1), new Point(2, 2)]);
+        const shapes = parseWKT('GEOMETRYCOLLECTION(\nPOINT (1 2),\nPOINT (3 4)\n)');
+        expect(shapes).to.deep.equal([new Point(1, 2), new Point(3, 4)]);
+    });
+
     ['MULTIPOINT ((1 2), (3 4))', 'MULTIPOINT((1 2),(3 4))',
         'MULTIPOINT ( ( 1 2 ) , ( 3 4 ) )'].forEach(wkt => {
         it(`Parses parenthesized coordinates in ${wkt}`, function () {
