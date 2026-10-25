@@ -115,6 +115,13 @@ Polygon provides various useful methods:
 * ```reverse``` - revert orientation of faces
 * ````splitToIslands```` - split to array of islands with holes
 
+`splitToIslands()` uses the largest face's orientation to identify outer faces.
+Opposite-oriented faces represent holes (voids), and are attached to islands that contain them.
+A hole moved completely outside the islands contributes no filled region and is omitted from
+the returned polygons; it is not reversed into a new island. The original polygon is unchanged,
+so the result may contain fewer faces than the input. This method does not clip partially
+overlapping faces; callers should supply non-overlapping faces with consistent winding.
+
 ### Multiline
 
 Multiline represent an unclosed chain of edges of type Segment or Arc

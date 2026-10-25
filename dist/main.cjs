@@ -8239,8 +8239,10 @@ let Polygon$1 = class Polygon {
     }
 
     /**
-     * Split polygon into array of polygons, where each polygon is an outer face with all
-     * containing inner faces
+     * Split polygon into an array of islands with their contained holes.
+     * The largest face defines the outer orientation; opposite-oriented faces represent voids.
+     * Holes not contained in any island are omitted from the result, without changing
+     * their orientation or the input polygon. This method does not clip overlapping faces.
      * @returns {Flatten.Polygon[]}
      */
     splitToIslands() {
@@ -8263,8 +8265,8 @@ let Polygon$1 = class Polygon {
                     break;
                 }
             }
+            // An uncontained hole is a void outside the islands and contributes no filled region.
         }
-        // TODO: assert if not all polygons added into output
         return newPolygons;
     }
 
@@ -8294,7 +8296,7 @@ let Polygon$1 = class Polygon {
 
     /**
      * Helper method to check if face is outer face of the polygon
-     * @param face
+     * @param {Flatten.Face} face - face to check
      * @returns {boolean}
      */
     isOuter(face) {

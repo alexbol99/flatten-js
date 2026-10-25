@@ -840,6 +840,21 @@ describe('#Flatten.Polygon', function() {
         expect(islandsArray[1].faces.size).to.equal(1);
         expect(islandsArray[1].edges.size).to.equal(4);
     });
+    it('splitToIslands omits an uncontained hole without changing the input', function() {
+        const polygon = new Polygon();
+        polygon.addFace([point(0, 0), point(100, 0), point(100, 100), point(0, 100)]);
+        polygon.addFace([point(220, 20), point(220, 40), point(240, 40), point(240, 20)]);
+
+        const input = JSON.stringify(polygon);
+        const islands = polygon.splitToIslands();
+
+        expect(islands).to.have.length(1);
+        expect(islands[0].faces.size).to.equal(1);
+        expect(islands[0].area()).to.equal(10000);
+        expect(islands[0].contains(point(230, 30))).to.be.false;
+        expect(polygon.faces.size).to.equal(2);
+        expect(JSON.stringify(polygon)).to.equal(input);
+    });
     it('splitToIslands should not fail if the polygon is empty', function() {
         const polygon = new Polygon();
         const islandsArray = polygon.splitToIslands();
