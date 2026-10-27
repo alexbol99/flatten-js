@@ -130,4 +130,41 @@ describe('#Algorithms.Ray_Shooting', function() {
         let contains = ray_shoot(polygon, point(85, 10));
         expect(contains).to.be.equal(Flatten.OUTSIDE);
     })
+    it('classifies points when a cutout has a near-zero edge', function() {
+        const polygon = new Polygon();
+        polygon.addFace([point(0, -10000000), point(5000000, -10000000),
+            point(5000000, 0), point(0, 0)]);
+        const vertices = [
+            point(2006000.0000000026, -7048999.999999999),
+            point(2006000.0000000026, -7048999.999999997),
+            point(2005559.9998705671, -7040043.591610284),
+            point(3000000, -7000000)
+        ];
+        polygon.addFace(vertices.map((v, i) => new Flatten.Segment(v, vertices[(i + 1) % vertices.length])));
+        expect(ray_shoot(polygon, point(1901000.0000000028, -7048999.999999999))).to.equal(Flatten.INSIDE);
+        expect(ray_shoot(polygon, point(2330000, -7030000))).to.equal(Flatten.OUTSIDE);
+        expect(ray_shoot(polygon, point(5000001, -7020000))).to.equal(Flatten.OUTSIDE);
+    });
+
+    it('counts shared vertices across zero-length edges in either direction', function() {
+        const vertices = [point(0, 0), point(3, 0), point(3, 2),
+            point(3, 2 + 5e-7), point(3, 2 + 9e-7), point(3, 4), point(0, 4)];
+        for (const ordered of [vertices, [...vertices].reverse()]) {
+            for (let start = 0; start < ordered.length; start++) {
+                const points = ordered.slice(start).concat(ordered.slice(0, start));
+                const polygon = new Polygon();
+                polygon.addFace(points.map((v, i) => new Flatten.Segment(v, points[(i + 1) % points.length])));
+                expect(ray_shoot(polygon, point(1, 2))).to.equal(Flatten.INSIDE);
+                expect(ray_shoot(polygon, point(-1, 2))).to.equal(Flatten.OUTSIDE);
+            }
+        }
+    });
+    it('retains boundaries and avoids looping on an entirely degenerate face', function() {
+        const polygon = new Polygon();
+        const vertices = [point(1, 1), point(1 + 1e-7, 1), point(1, 1 + 1e-7)];
+        polygon.addFace(vertices.map((v, i) => new Flatten.Segment(v, vertices[(i + 1) % vertices.length])));
+        expect(ray_shoot(polygon, point(1, 1))).to.equal(Flatten.BOUNDARY);
+        expect(ray_shoot(polygon, point(0, 1))).to.equal(Flatten.OUTSIDE);
+    });
+
 });
