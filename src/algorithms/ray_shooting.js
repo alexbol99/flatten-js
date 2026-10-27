@@ -50,6 +50,8 @@ export function ray_shoot(polygon, point) {
     // 3. Calculate intersections
     let intersections = [];
     for (let edge of resp_edges) {
+        // A tolerance-zero edge has no tangent and contributes no crossing.
+        if (Utils.EQ_0(edge.length)) continue;
         for (let ip of ray.intersect(edge.shape)) {
 
             // If intersection is equal to query point then point lays on boundary
@@ -95,16 +97,15 @@ export function ray_shoot(polygon, point) {
         let intersection = intersections[i];
 
         if (intersection.pt.equalTo(intersection.edge.shape.start)) {
-            /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.face_index === intersections[i - 1].face_index &&
-                intersection.edge.prev === intersections[i - 1].edge) {
-                continue;
-            }
-
             let prev_edge = intersection.edge.prev;
             while (Utils.EQ_0(prev_edge.length)) {
                 prev_edge = prev_edge.prev;
+            }
+            /* Skip a shared vertex even when zero-length edges separate it. */
+            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                intersection.face_index === intersections[i - 1].face_index &&
+                prev_edge === intersections[i - 1].edge) {
+                continue;
             }
             let prev_tangent = prev_edge.shape.tangentInEnd();
             let prev_point = intersection.pt.translate(prev_tangent);
@@ -119,16 +120,15 @@ export function ray_shoot(polygon, point) {
                 counter++;
             }
         } else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
-            /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.face_index === intersections[i-1].face_index &&
-                intersection.edge.next === intersections[i - 1].edge) {
-                continue;
-            }
-
             let next_edge = intersection.edge.next;
             while (Utils.EQ_0(next_edge.length)) {
                 next_edge = next_edge.next;
+            }
+            /* Skip a shared vertex even when zero-length edges separate it. */
+            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                intersection.face_index === intersections[i-1].face_index &&
+                next_edge === intersections[i - 1].edge) {
+                continue;
             }
             let next_tangent = next_edge.shape.tangentInStart();
             let next_point = intersection.pt.translate(next_tangent);
