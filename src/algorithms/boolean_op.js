@@ -227,6 +227,9 @@ function getIntersections(polygon1, polygon2)
         int_points2: []
     };
 
+    let found = [];
+    let overlaps = [];
+
     // calculate intersections
     for (let edge1 of polygon1.edges) {
 
@@ -243,10 +246,64 @@ function getIntersections(polygon1, polygon2)
             for (let pt of ip) {
                 addToIntPoints(edge1, pt, intersections.int_points1);
                 addToIntPoints(edge2, pt, intersections.int_points2);
+                found.push(pt);
+            }
+
+            if (ip.length === 2 && shapesOverlap(edge1.shape, edge2.shape)) {
+                overlaps.push({edge1, edge2});
             }
         }
     }
+
+    addIntersectionsInsideOverlaps(overlaps, found, intersections);
+
     return intersections;
+}
+
+function shapesOverlap(shape1, shape2) {
+    if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
+        let line = new Flatten.Line(shape1.start, shape1.end);
+        return line.contains(shape2.start) && line.contains(shape2.end);
+    }
+    if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
+        return shape1.pc.equalTo(shape2.pc) && Flatten.Utils.EQ(shape1.r, shape2.r);
+    }
+    return false;
+}
+
+function isInnerPoint(shape, pt) {
+    return shape.contains(pt) && !shape.start.equalTo(pt) && !shape.end.equalTo(pt);
+}
+
+/*
+ * Intersection of two overlapping edges gives only the ends of the overlap.
+ * When another intersection point lies inside the overlap (for example, a vertex
+ * of another face of the same polygon touches the overlapping edge), only one of the
+ * two edges gets split there, the overlapping parts never match and faces can't be restored.
+ * Register such a point on the overlapping pair too.
+ * Skip points where the overlap is shared with another edge (faces of one polygon sharing
+ * a boundary): adding the point there makes such polygons fail.
+ */
+function addIntersectionsInsideOverlaps(overlaps, found, intersections) {
+    const tol = Flatten.Utils.getTolerance();
+    for (let overlap of overlaps) {
+        let {edge1, edge2} = overlap;
+        let box1 = edge1.box, box2 = edge2.box;
+        let xmin = Math.max(box1.xmin, box2.xmin) - tol, xmax = Math.min(box1.xmax, box2.xmax) + tol;
+        let ymin = Math.max(box1.ymin, box2.ymin) - tol, ymax = Math.min(box1.ymax, box2.ymax) + tol;
+        let added = [];
+        for (let pt of found) {
+            if (pt.x < xmin || pt.x > xmax || pt.y < ymin || pt.y > ymax) continue;
+            if (!isInnerPoint(edge1.shape, pt) || !isInnerPoint(edge2.shape, pt)) continue;
+            if (added.some(other => other.equalTo(pt))) continue;
+            if (overlaps.some(other => other !== overlap &&
+                ((other.edge1 === edge1 && other.edge2.shape.contains(pt)) ||
+                 (other.edge2 === edge2 && other.edge1.shape.contains(pt))))) continue;
+            addToIntPoints(edge1, pt, intersections.int_points1);
+            addToIntPoints(edge2, pt, intersections.int_points2);
+            added.push(pt);
+        }
+    }
 }
 
 function getNotIntersectedFaces(poly, int_points)

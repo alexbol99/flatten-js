@@ -1055,6 +1055,43 @@ describe('#Algorithms.Boolean Operations', function () {
             expect(p0.edges.size).to.equal(4);
         })
     });
+    describe("Boolean operations when a face touches an overlapping edge at a vertex (#258)", function() {
+        const poly = (faces) => {
+            const polygon = new Polygon();
+            for (let face of faces) polygon.addFace(face.map(([x, y]) => point(x, y)));
+            return polygon;
+        };
+        // A: 2x2 square. B: lower half of A, plus a triangle touching B's bottom edge at (1,0)
+        const A = () => poly([[[0, 0], [2, 0], [2, 2], [0, 2]]]);
+        const B = () => poly([[[0, 0], [2, 0], [2, 1], [0, 1]], [[1, 0], [1, -1], [2, -1]]]);
+        // C: triangle. D: triangle sharing an edge part with C, plus a triangle touching that edge at (1,1)
+        const C = () => poly([[[0, 1], [3, 1], [4, 4]]]);
+        const D = () => poly([[[3, 1], [1, 2], [0, 1]], [[1, 1], [0, 0], [1, 0]]]);
+
+        const check = (result, area) => {
+            expect(result.isValid()).to.be.true;
+            expect(result.area()).to.be.closeTo(area, 1e-9);
+        };
+
+        it("Can unify polygons", function() {
+            check(unify(A(), B()), 4.5);
+            check(unify(B(), A()), 4.5);
+            check(unify(C(), D()), 5.15);
+            check(unify(D(), C()), 5.15);
+        });
+        it("Can intersect polygons", function() {
+            check(intersect(A(), B()), 2);
+            check(intersect(B(), A()), 2);
+            check(intersect(C(), D()), 1.35);
+            check(intersect(D(), C()), 1.35);
+        });
+        it("Can subtract polygons", function() {
+            check(subtract(A(), B()), 2);
+            check(subtract(B(), A()), 0.5);
+            check(subtract(C(), D()), 3.15);
+            check(subtract(D(), C()), 0.65);
+        });
+    });
     describe("Boolean operations with empty polygon", function() {
         it ('Can operate with empty polygon', function() {
             const p1 = new Polygon([[[0, 0], [0, 100], [100, 100], [100, 0]]]);
