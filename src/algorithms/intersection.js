@@ -312,9 +312,11 @@ export function intersectCircle2Circle(circle1, circle2) {
     let pt;
 
     // Case of touching from outside or from inside - single intersection point
-    // TODO: check this specifically not sure if correct
-    if (Flatten.Utils.EQ(dist, r1 + r2) || Flatten.Utils.EQ(dist, Math.abs(r1 - r2))) {
-        pt = circle1.pc.translate(r1 * vec.x, r1 * vec.y);
+    // The point lies towards circle2's center, unless circle1 is the inner circle
+    const touchingOutside = Flatten.Utils.EQ(dist, r1 + r2);
+    if (touchingOutside || Flatten.Utils.EQ(dist, Math.abs(r1 - r2))) {
+        const dir = touchingOutside || r1 > r2 ? 1 : -1;
+        pt = circle1.pc.translate(dir * r1 * vec.x, dir * r1 * vec.y);
         ip.push(pt);
         return ip;
     }
