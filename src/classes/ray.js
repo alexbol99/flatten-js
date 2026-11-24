@@ -202,11 +202,28 @@ export class Ray extends Shape {
      * Return new ray transformed by affine transformation matrix
      * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
      * @returns {Ray}
+     * @throws {ReferenceError} If the transformation collapses the ray to a point
      */
     transform(m) {
+        // Taking the perpendicular of the transformed tangent also preserves reflections.
+        let norm = new Flatten.Vector(
+            m.d * this.norm.x - m.b * this.norm.y,
+            m.a * this.norm.y - m.c * this.norm.x
+        );
+        if (norm.x === 0 && norm.y === 0) {
+            throw Errors.ILLEGAL_PARAMETERS;
+        }
+        const length = Math.hypot(norm.x, norm.y);
+        const originalLength = Math.hypot(this.norm.x, this.norm.y);
+        if (length !== originalLength) {
+            norm = new Flatten.Vector(
+                norm.x / length * originalLength,
+                norm.y / length * originalLength
+            );
+        }
         return new Flatten.Ray(
             this.pt.transform(m),
-            this.norm.clone()
+            norm
         )
     }
 
