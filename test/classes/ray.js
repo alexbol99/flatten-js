@@ -16,6 +16,46 @@ describe('#Flatten.Ray', function() {
         expect(ray).to.be.an.instanceof(Ray);
         expect(ray.start).to.be.deep.equal({x:0,y:0})
     });
+    for (const [name, matrix, factor = 1] of [
+        ['identity', new Flatten.Matrix()],
+        ['translation', new Flatten.Matrix().translate(7, -2)],
+        ['rotation', new Flatten.Matrix().rotate(Math.PI / 2)],
+        ['shear', new Flatten.Matrix(1, 0, 2, 1)],
+        ['nonuniform scale', new Flatten.Matrix().scale(2, 3)],
+        ['reflection', new Flatten.Matrix().scale(-1, 1)],
+        ['general affine', new Flatten.Matrix(2, 1, -1, 3, 7, -4)],
+        ['singular without collapse', new Flatten.Matrix().scale(1, 0)],
+        ['small scale', new Flatten.Matrix().scale(1e-8, 1e-8), 1e8]
+    ]) {
+        it(`May transform a ray by ${name}`, function() {
+            for (const sign of [1, -1]) {
+                const origin = point(2 * factor, 3 * factor);
+                const normal = vector(-3 * sign, 4 * sign);
+                const r = ray(origin, normal);
+                const transformed = r.transform(matrix);
+                const forward = point((2 + 4 * sign) * factor, (3 + 3 * sign) * factor);
+                const behind = point((2 - 4 * sign) * factor, (3 - 3 * sign) * factor);
+                const offRay = point((2 - 3 * sign) * factor, (3 + 4 * sign) * factor);
+
+                expect(transformed.start.equalTo(origin.transform(matrix))).to.be.true;
+                expect(transformed.contains(forward.transform(matrix))).to.be.true;
+                expect(transformed.contains(behind.transform(matrix))).to.be.false;
+                expect(transformed.contains(offRay.transform(matrix))).to.be.false;
+                expect(transformed.norm.length).to.be.closeTo(normal.length, 1e-12);
+                if (name === 'identity' || name === 'translation') {
+                    expect(transformed.norm).to.deep.equal(normal);
+                }
+                expect(r.start).to.deep.equal(origin);
+                expect(r.norm).to.deep.equal(normal);
+            }
+        });
+    }
+    it('Cannot transform a ray into a point', function() {
+        const r = ray(point(2, 3), vector(0, 1));
+        for (const matrix of [new Flatten.Matrix().scale(0, 1), new Flatten.Matrix().scale(0, 0)]) {
+            expect(() => r.transform(matrix)).to.throw(Flatten.Errors.ILLEGAL_PARAMETERS.message);
+        }
+    });
     it('May return bounding box of ray', function () {
         let ray = new Ray(point(2,2));
         expect(ray.box).to.be.deep.equal({xmin:2,ymin:2,xmax:Number.POSITIVE_INFINITY,ymax:2});

@@ -318,11 +318,21 @@ export class Line extends Shape {
      * Return new line transformed by affine transformation matrix
      * @param {Matrix} m - affine transformation matrix (a,b,c,d,tx,ty)
      * @returns {Line}
+     * @throws {ReferenceError} If the transformation collapses the line to a point
      */
     transform(m) {
+        // Take the perpendicular of the transformed tangent, not the transformed normal.
+        const norm = new Flatten.Vector(
+            m.d * this.norm.x - m.b * this.norm.y,
+            m.a * this.norm.y - m.c * this.norm.x
+        );
+        if (norm.x === 0 && norm.y === 0) {
+            throw Errors.ILLEGAL_PARAMETERS;
+        }
+        const length = Math.hypot(norm.x, norm.y);
         return new Flatten.Line(
             this.pt.transform(m),
-            this.norm.clone()
+            new Flatten.Vector(norm.x / length, norm.y / length)
         )
     }
 

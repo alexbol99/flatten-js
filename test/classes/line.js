@@ -68,6 +68,37 @@ describe('#Flatten.Line', function() {
         expect(l1).to.deep.equal(l);
         expect(l1 === l).to.be.false;
     });
+    for (const [name, matrix, factor = 1] of [
+        ['identity', new Flatten.Matrix()],
+        ['translation', new Flatten.Matrix().translate(7, -2)],
+        ['rotation', new Flatten.Matrix().rotate(Math.PI / 2)],
+        ['shear', new Flatten.Matrix(1, 0, 2, 1)],
+        ['nonuniform scale', new Flatten.Matrix().scale(2, 3)],
+        ['reflection', new Flatten.Matrix().scale(-1, 1)],
+        ['general affine', new Flatten.Matrix(2, 1, -1, 3, 7, -4)],
+        ['singular without collapse', new Flatten.Matrix().scale(1, 0)],
+        ['small scale', new Flatten.Matrix().scale(1e-8, 1e-8), 1e8]
+    ]) {
+        it(`May transform a line by ${name}`, function() {
+            const origin = point(2 * factor, 3 * factor);
+            const l = line(origin, vector(-3, 4));
+            const normal = l.norm.clone();
+            const transformed = l.transform(matrix);
+
+            expect(transformed.contains(origin.transform(matrix))).to.be.true;
+            expect(transformed.contains(point(6 * factor, 6 * factor).transform(matrix))).to.be.true;
+            expect(transformed.contains(point(-2 * factor, 0).transform(matrix))).to.be.true;
+            expect(transformed.norm.length).to.be.closeTo(1, 1e-12);
+            expect(l.pt).to.deep.equal(origin);
+            expect(l.norm).to.deep.equal(normal);
+        });
+    }
+    it('Cannot transform a line into a point', function() {
+        const l = line(point(2, 3), vector(0, 1));
+        for (const matrix of [new Flatten.Matrix().scale(0, 1), new Flatten.Matrix().scale(0, 0)]) {
+            expect(() => l.transform(matrix)).to.throw(Errors.ILLEGAL_PARAMETERS.message);
+        }
+    });
     it('Get slope - angle in radians between line and axe x', function() {
         let pt1 = new Flatten.Point(1,1);
         let pt2 = new Flatten.Point(2,2);
