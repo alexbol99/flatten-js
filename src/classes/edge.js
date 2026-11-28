@@ -172,37 +172,43 @@ export class Edge {
     }
 
     /**
+     * Return the overlap direction of two coincident shapes without changing edges.
+     * @param {Segment|Arc} shape1
+     * @param {Segment|Arc} shape2
+     * @returns {number|undefined} OVERLAP_SAME, OVERLAP_OPPOSITE, or undefined
+     */
+    static getOverlap(shape1, shape2) {
+        const segment1 = shape1 instanceof Flatten.Segment;
+        const segment2 = shape2 instanceof Flatten.Segment;
+        const arc1 = shape1 instanceof Flatten.Arc;
+        const arc2 = shape2 instanceof Flatten.Arc;
+        if (!(segment1 || arc1) || !(segment2 || arc2)) return undefined;
+
+        // Matching endpoints determine a segment, but arcs can take different paths.
+        if (!(segment1 && segment2) && !shape1.middle().equalTo(shape2.middle())) return undefined;
+
+        if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end)) {
+            // Full circles have identical endpoints and midpoints in either direction.
+            if (arc1 && arc2 && Flatten.Utils.EQ(shape1.sweep, Flatten.PIx2) &&
+                Flatten.Utils.EQ(shape2.sweep, Flatten.PIx2) &&
+                shape1.counterClockwise !== shape2.counterClockwise) {
+                return Flatten.OVERLAP_OPPOSITE;
+            }
+            return Flatten.OVERLAP_SAME;
+        }
+        if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start)) {
+            return Flatten.OVERLAP_OPPOSITE;
+        }
+        return undefined;
+    }
+
+    /**
      * Set overlapping between two coincident boundary edges
      * Overlapping flag is one of Flatten.OVERLAP_SAME or Flatten.OVERLAP_OPPOSITE
      * @param edge
      */
     setOverlap(edge) {
-        let flag = undefined;
-        let shape1 = this.shape;
-        let shape2 = edge.shape;
-
-        if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
-            if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end)) {
-                flag = Flatten.OVERLAP_SAME;
-            } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start)) {
-                flag = Flatten.OVERLAP_OPPOSITE;
-            }
-        } else if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
-            if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && /*shape1.counterClockwise === shape2.counterClockwise &&*/
-                shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_SAME;
-            } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && /*shape1.counterClockwise !== shape2.counterClockwise &&*/
-                shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_OPPOSITE;
-            }
-        } else if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Arc ||
-            shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Segment) {
-            if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_SAME;
-            } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_OPPOSITE;
-            }
-        }
+        const flag = Edge.getOverlap(this.shape, edge.shape);
 
         /* Do not update overlap flag if already set on previous chain */
         if (this.overlap === undefined) this.overlap = flag;

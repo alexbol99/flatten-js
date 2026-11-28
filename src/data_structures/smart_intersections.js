@@ -5,6 +5,7 @@
 import * as Utils from "../utils/utils";
 import * as Constants from '../utils/constants';
 import {Multiline} from "../classes/multiline";
+import {Edge} from "../classes/edge";
 
 export function addToIntPoints(edge, pt, int_points)
 {
@@ -317,7 +318,7 @@ function matchingBoundaryChains(chain1, chain2, reverse) {
     while (shape1 && shape2) {
         // Coordinate-wise equality can hold even when lengths differ by more
         // than the tolerance. Accept that match before attempting a split.
-        if (sameDirectedShape(shape1, shape2)) {
+        if (Edge.getOverlap(shape1, shape2) === Constants.OVERLAP_SAME) {
             shape1 = shapes1[++i];
             shape2 = shapes2[++j];
         } else if (Utils.EQ(shape1.length, shape2.length)) {
@@ -325,13 +326,13 @@ function matchingBoundaryChains(chain1, chain2, reverse) {
         } else if (shape1.length < shape2.length) {
             if (!shape2.contains(shape1.end)) return false;
             const [prefix, remainder] = shape2.split(shape1.end);
-            if (!prefix || !remainder || !sameDirectedShape(shape1, prefix)) return false;
+            if (!prefix || !remainder || Edge.getOverlap(shape1, prefix) !== Constants.OVERLAP_SAME) return false;
             shape1 = shapes1[++i];
             shape2 = remainder;
         } else {
             if (!shape1.contains(shape2.end)) return false;
             const [prefix, remainder] = shape1.split(shape2.end);
-            if (!prefix || !remainder || !sameDirectedShape(prefix, shape2)) return false;
+            if (!prefix || !remainder || Edge.getOverlap(prefix, shape2) !== Constants.OVERLAP_SAME) return false;
             shape1 = remainder;
             shape2 = shapes2[++j];
         }
@@ -339,16 +340,11 @@ function matchingBoundaryChains(chain1, chain2, reverse) {
     return !shape1 && !shape2;
 }
 
-function sameDirectedShape(shape1, shape2) {
-    // Oppositely traversed full circles have the same endpoints and midpoint.
-    if (shape1.name === "arc" && shape2.name === "arc" &&
-        Utils.EQ(shape1.sweep, Constants.PIx2) && Utils.EQ(shape2.sweep, Constants.PIx2) &&
-        shape1.counterClockwise !== shape2.counterClockwise) return false;
-    return shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) &&
-        shape1.middle().equalTo(shape2.middle());
-}
-
 function markOverlappingChains(chain1, chain2, flag) {
+    if (chain1.length === 1 && chain2.length === 1) {
+        chain1[0].setOverlap(chain2[0]);
+        return;
+    }
     // Removal still operates between all intersection points, so every edge in
     // the matched span needs the flag, including edges at unrelated contacts.
     for (const chain of [chain1, chain2]) {
