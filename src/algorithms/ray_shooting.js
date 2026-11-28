@@ -45,11 +45,36 @@ export function ray_shoot(polygon, point) {
         }
     }
 
+    // Use half-open crossings for segment-only faces containing tiny segments.
+    // This preserves crossings through chains whose total length exceeds tolerance.
+    const segmentFaces = new Set();
+    const checkedFaces = new Set();
+    for (const edge of resp_edges) {
+        if (edge.isSegment && Utils.EQ_0(edge.length) && !checkedFaces.has(edge.face)) {
+            checkedFaces.add(edge.face);
+            if ([...edge.face].every(faceEdge => faceEdge.isSegment)) segmentFaces.add(edge.face);
+        }
+    }
+    let segmentCounter = 0;
+    for (const edge of resp_edges) {
+        if (!segmentFaces.has(edge.face)) continue;
+        const start = edge.start;
+        const end = edge.end;
+        if ((start.y > point.y) !== (end.y > point.y)) {
+            const t = (point.y - start.y) / (end.y - start.y);
+            if (start.x + t * (end.x - start.x) > point.x) segmentCounter++;
+        }
+    }
+
     let faces = [...polygon.faces];
 
     // 3. Calculate intersections
     let intersections = [];
     for (let edge of resp_edges) {
+        // Segment-only faces with tiny edges were counted above.
+        if (segmentFaces.has(edge.face)) continue;
+        // A tolerance-zero edge has no tangent and contributes no crossing.
+        if (Utils.EQ_0(edge.length)) continue;
         for (let ip of ray.intersect(edge.shape)) {
 
             // If intersection is equal to query point then point lays on boundary
@@ -89,22 +114,21 @@ export function ray_shoot(polygon, point) {
     });
 
     // 5. Count real intersections, exclude touching
-    let counter = 0;
+    let counter = segmentCounter;
 
     for (let i = 0; i < intersections.length; i++) {
         let intersection = intersections[i];
 
         if (intersection.pt.equalTo(intersection.edge.shape.start)) {
-            /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.face_index === intersections[i - 1].face_index &&
-                intersection.edge.prev === intersections[i - 1].edge) {
-                continue;
-            }
-
             let prev_edge = intersection.edge.prev;
             while (Utils.EQ_0(prev_edge.length)) {
                 prev_edge = prev_edge.prev;
+            }
+            /* Skip a shared vertex even when zero-length edges separate it. */
+            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                intersection.face_index === intersections[i - 1].face_index &&
+                prev_edge === intersections[i - 1].edge) {
+                continue;
             }
             let prev_tangent = prev_edge.shape.tangentInEnd();
             let prev_point = intersection.pt.translate(prev_tangent);
@@ -119,16 +143,15 @@ export function ray_shoot(polygon, point) {
                 counter++;
             }
         } else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
-            /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.face_index === intersections[i-1].face_index &&
-                intersection.edge.next === intersections[i - 1].edge) {
-                continue;
-            }
-
             let next_edge = intersection.edge.next;
             while (Utils.EQ_0(next_edge.length)) {
                 next_edge = next_edge.next;
+            }
+            /* Skip a shared vertex even when zero-length edges separate it. */
+            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                intersection.face_index === intersections[i-1].face_index &&
+                next_edge === intersections[i - 1].edge) {
+                continue;
             }
             let next_tangent = next_edge.shape.tangentInStart();
             let next_point = intersection.pt.translate(next_tangent);

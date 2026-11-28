@@ -130,4 +130,86 @@ describe('#Algorithms.Ray_Shooting', function() {
         let contains = ray_shoot(polygon, point(85, 10));
         expect(contains).to.be.equal(Flatten.OUTSIDE);
     })
+    it('classifies points when a cutout has a near-zero edge', function() {
+        const polygon = new Polygon();
+        polygon.addFace([point(0, -10000000), point(5000000, -10000000),
+            point(5000000, 0), point(0, 0)]);
+        const vertices = [
+            point(2006000.0000000026, -7048999.999999999),
+            point(2006000.0000000026, -7048999.999999997),
+            point(2005559.9998705671, -7040043.591610284),
+            point(3000000, -7000000)
+        ];
+        polygon.addFace(vertices.map((v, i) => new Flatten.Segment(v, vertices[(i + 1) % vertices.length])));
+        expect(ray_shoot(polygon, point(1901000.0000000028, -7048999.999999999))).to.equal(Flatten.INSIDE);
+        expect(ray_shoot(polygon, point(2330000, -7030000))).to.equal(Flatten.OUTSIDE);
+        expect(ray_shoot(polygon, point(5000001, -7020000))).to.equal(Flatten.OUTSIDE);
+    });
+
+    it('counts shared vertices across zero-length edges in either direction', function() {
+        const vertices = [point(0, 0), point(3, 0), point(3, 2),
+            point(3, 2 + 5e-7), point(3, 2 + 9e-7), point(3, 4), point(0, 4)];
+        for (const ordered of [vertices, [...vertices].reverse()]) {
+            for (let start = 0; start < ordered.length; start++) {
+                const points = ordered.slice(start).concat(ordered.slice(0, start));
+                const polygon = new Polygon();
+                polygon.addFace(points.map((v, i) => new Flatten.Segment(v, points[(i + 1) % points.length])));
+                expect(ray_shoot(polygon, point(1, 2))).to.equal(Flatten.INSIDE);
+                expect(ray_shoot(polygon, point(-1, 2))).to.equal(Flatten.OUTSIDE);
+            }
+        }
+    });
+    it('retains boundaries and avoids looping on an entirely degenerate face', function() {
+        const polygon = new Polygon();
+        const vertices = [point(1, 1), point(1 + 1e-7, 1), point(1, 1 + 1e-7)];
+        polygon.addFace(vertices.map((v, i) => new Flatten.Segment(v, vertices[(i + 1) % vertices.length])));
+        expect(ray_shoot(polygon, point(1, 1))).to.equal(Flatten.BOUNDARY);
+        expect(ray_shoot(polygon, point(0, 1))).to.equal(Flatten.OUTSIDE);
+    });
+
+    describe('half-open crossings for tiny segment chains', function() {
+        // Changing the first edge or orientation must not change containment.
+        function checkVariants(shapes, queries) {
+            for (const ordered of [shapes, shapes.slice().reverse().map(shape => shape.reverse())]) {
+                for (let first = 0; first < ordered.length; first++) {
+                    const polygon = new Polygon();
+                    polygon.addFace(ordered.slice(first).concat(ordered.slice(0, first)));
+                    for (const [query, expected] of queries) {
+                        expect(ray_shoot(polygon, query),
+                            `first=${first}, query=(${query.x}, ${query.y})`).to.equal(expected);
+                    }
+                }
+            }
+        }
+
+        function segments(vertices) {
+            return vertices.map((v, i) => new Flatten.Segment(v, vertices[(i + 1) % vertices.length]));
+        }
+
+        it('preserves crossings of tiny segment chains spanning more than tolerance', function() {
+            for (const count of [2, 6]) {
+                const vertices = [point(0, 0), point(3, 0),
+                    ...Array.from({length: count + 1}, (_, i) => point(3, 2 + i * 9e-7)),
+                    point(3, 4), point(0, 4)];
+                // For six short edges neither long neighbor reaches the ray.
+                const y = 2 + count * 9e-7 / 2;
+                checkVariants(segments(vertices), [
+                    [point(1, y), Flatten.INSIDE], [point(-1, y), Flatten.OUTSIDE],
+                    [point(3, y), Flatten.BOUNDARY]
+                ]);
+            }
+        });
+
+        it('retains an enclosed area even when every edge is shorter than tolerance', function() {
+            const step = 8e-7;
+            const vertices = [];
+            for (let i = 0; i < 10; i++) vertices.push(point(i * step, 0));
+            for (let i = 0; i < 10; i++) vertices.push(point(10 * step, i * step));
+            for (let i = 0; i < 10; i++) vertices.push(point((10 - i) * step, 10 * step));
+            for (let i = 0; i < 10; i++) vertices.push(point(0, (10 - i) * step));
+            checkVariants(segments(vertices), [[point(4e-6, 4e-6), Flatten.INSIDE],
+                [point(-4e-6, 4e-6), Flatten.OUTSIDE], [point(0, 4e-6), Flatten.BOUNDARY]]);
+        });
+
+    });
 });
