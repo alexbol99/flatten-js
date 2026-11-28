@@ -863,7 +863,9 @@ describe('#Algorithms.Boolean Operations', function () {
             const valid1 = p1.isValid()
             const p = unify(p1, p2)
             expect(p.faces.size).to.equal(1);
-            expect(p.edges.size).to.equal(12);
+            expect(p.edges.size).to.equal(8);
+            expect(p.isValid()).to.be.true;
+            expect(p.area()).to.be.closeTo(p1.area() + p2.area(), 1e-9);
         });
         it("Subtract bug from flatten-js/core 1.2 onwards #15", function() {
             const poly = new Polygon();

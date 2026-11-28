@@ -19,7 +19,51 @@ function checkResult(result, area, faces) {
 }
 
 describe('Boolean operations with differently subdivided overlapping boundaries', function() {
+    const sharedA = [[[1, 0], [3, 1], [2, 2]], [[3, 2], [3, 3], [1, 2]]];
+    const sharedB = [[[3, 2], [5, 2], [5, 5], [3, 5]], [[1, 2], [3, 2], [3, 4], [1, 4]]];
     const cases = [
+        {
+            name: 'faces sharing an internal seam (PR #259)',
+            a: () => new Polygon(sharedA), b: () => new Polygon(sharedB),
+            areas: [11.5, 1, 1.5, 9], faces: [2, 1, 1, 1]
+        },
+        {
+            name: 'adjacent outer faces with a hole',
+            a: () => new Polygon([
+                [[0, 0], [3, 0], [3, 4], [0, 4]], [[3, 0], [6, 0], [6, 4], [3, 4]],
+                [[1, 1], [1, 2], [2, 2], [2, 1]]
+            ]),
+            b: () => new Polygon([[1.2, 1.2], [1.8, 1.2], [1.8, 1.8], [1.2, 1.8]]),
+            areas: [23.36, 0, 23, 0.36], faces: [3, 0, 2, 1]
+        },
+        {
+            name: 'adjacent holes preserve their orientation',
+            a: () => new Polygon([
+                [[0, 0], [6, 0], [6, 6], [0, 6]],
+                [[1, 1], [1, 3], [2, 3], [2, 1]], [[2, 1], [2, 3], [3, 3], [3, 1]]
+            ]),
+            b: () => new Polygon([[1.25, 1.25], [2.75, 1.25], [2.75, 2.75], [1.25, 2.75]]),
+            areas: [34.25, 0, 32, 2.25], faces: [3, 0, 2, 1]
+        },
+        {
+            name: 'merging adjacent faces creates a hole',
+            a: () => new Polygon([
+                [[0, 0], [3, 0], [3, 1], [1, 1], [1, 3], [3, 3], [3, 4], [0, 4]],
+                [[3, 0], [4, 0], [4, 4], [3, 4]]
+            ]),
+            b: () => new Polygon([[-1, -1], [5, -1], [5, 5], [-1, 5]]),
+            areas: [36, 12, 0, 24], faces: [1, 2, 0, 3]
+        },
+        {
+            name: 'faces sharing a curved internal seam',
+            a: () => new Polygon([
+                [circle(point(0, 0), 1).toArc(true)],
+                [arc(point(0, 0), 2, 0, Math.PI, true), segment(-2, 0, -1, 0),
+                    arc(point(0, 0), 1, Math.PI, 0, false), segment(1, 0, 2, 0)]
+            ]),
+            b: () => new Polygon([[-3, -3], [3, -3], [3, 3], [-3, 3]]),
+            areas: [36, 2.5 * Math.PI, 0, 36 - 2.5 * Math.PI], faces: [1, 1, 0, 2]
+        },
         {
             name: 'square and rectangle with a touching triangle (#258)',
             a: () => new Polygon([[[0, 0], [2, 0], [2, 2], [0, 2]]]),
@@ -88,20 +132,20 @@ describe('Boolean operations with differently subdivided overlapping boundaries'
     }
 
     it('Finds the overlapping face regardless of face insertion order', function() {
-        const a = cases[0].a();
+        const a = new Polygon([[[0, 0], [2, 0], [2, 2], [0, 2]]]);
         const b = new Polygon([[[1, 0], [1, -1], [2, -1]], [[0, 0], [2, 0], [2, 1], [0, 1]]]);
         checkResult(BooleanOperations.unify(a, b), 4.5, 2);
         checkResult(BooleanOperations.unify(b, a), 4.5, 2);
     });
 
-    it('Preserves union area with conflicting shared-face boundaries (PR #259)', function() {
-        const a = new Polygon([[[1, 0], [3, 1], [2, 2]], [[3, 2], [3, 3], [1, 2]]]);
-        const b = new Polygon([[[3, 2], [5, 2], [5, 5], [3, 5]], [[1, 2], [3, 2], [3, 4], [1, 4]]]);
-        // Master already has inconsistent backlinks in this case. Pin the area
-        // that worked, without claiming to repair its shared-face topology.
-        const result = BooleanOperations.unify(a, b);
-        expect(result.area()).to.equal(11.5);
-        expect(result.faces.size).to.equal(3);
-        expect(result.isValid()).to.be.true;
+    it('Merges shared-face boundaries independently of face insertion order', function() {
+        for (const reverseA of [false, true]) {
+            for (const reverseB of [false, true]) {
+                const a = new Polygon(reverseA ? sharedA.slice().reverse() : sharedA);
+                const b = new Polygon(reverseB ? sharedB.slice().reverse() : sharedB);
+                checkResult(BooleanOperations.unify(a, b), 11.5, 2);
+                checkResult(BooleanOperations.unify(b, a), 11.5, 2);
+            }
+        }
     });
 });
