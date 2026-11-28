@@ -744,9 +744,11 @@ function intersectCircle2Circle(circle1, circle2) {
     let pt;
 
     // Case of touching from outside or from inside - single intersection point
-    // TODO: check this specifically not sure if correct
-    if (Flatten.Utils.EQ(dist, r1 + r2) || Flatten.Utils.EQ(dist, Math.abs(r1 - r2))) {
-        pt = circle1.pc.translate(r1 * vec.x, r1 * vec.y);
+    // The point lies towards circle2's center, unless circle1 is the inner circle
+    const touchingOutside = Flatten.Utils.EQ(dist, r1 + r2);
+    if (touchingOutside || Flatten.Utils.EQ(dist, Math.abs(r1 - r2))) {
+        const dir = touchingOutside || r1 > r2 ? 1 : -1;
+        pt = circle1.pc.translate(dir * r1 * vec.x, dir * r1 * vec.y);
         ip.push(pt);
         return ip;
     }
@@ -1439,6 +1441,435 @@ Flatten.Multiline = Multiline$1;
 const multiline = (...args) => new Flatten.Multiline(...args);
 Flatten.multiline = multiline;
 
+/**
+ * @module RayShoot
+ */
+/**
+ * Implements ray shooting algorithm. Returns relation between point and polygon: inside, outside or boundary
+ * @param {Polygon} polygon - polygon to test
+ * @param {Point} point - point to test
+ * @returns {INSIDE|OUTSIDE|BOUNDARY}
+ */
+function ray_shoot(polygon, point) {
+    let contains = undefined;
+
+    // 1. Quick reject
+    // if (polygon.box.not_intersect(point.box)) {
+    //     return Flatten.OUTSIDE;
+    // }
+
+    let ray = new Flatten.Ray(point);
+    let line = new Flatten.Line(ray.pt, ray.norm);
+
+    // 2. Locate relevant edges of the polygon
+    const searchBox = new Flatten.Box(
+        ray.box.xmin-Flatten.DP_TOL, ray.box.ymin-Flatten.DP_TOL,
+        ray.box.xmax+Flatten.DP_TOL, ray.box.ymax+Flatten.DP_TOL
+    );
+
+    if (polygon.box.not_intersect(searchBox)) {
+        return Flatten.OUTSIDE;
+    }
+
+    let resp_edges = polygon.edges.search(searchBox);
+
+    if (resp_edges.length === 0) {
+        return Flatten.OUTSIDE;
+    }
+
+    // 2.5 Check if boundary
+    for (let edge of resp_edges) {
+        if (edge.shape.contains(point)) {
+            return Flatten.BOUNDARY;
+        }
+    }
+
+    // Use half-open crossings for segment-only faces containing tiny segments.
+    // This preserves crossings through chains whose total length exceeds tolerance.
+    const segmentFaces = new Set();
+    const checkedFaces = new Set();
+    for (const edge of resp_edges) {
+        if (edge.isSegment && EQ_0(edge.length) && !checkedFaces.has(edge.face)) {
+            checkedFaces.add(edge.face);
+            if ([...edge.face].every(faceEdge => faceEdge.isSegment)) segmentFaces.add(edge.face);
+        }
+    }
+    let segmentCounter = 0;
+    for (const edge of resp_edges) {
+        if (!segmentFaces.has(edge.face)) continue;
+        const start = edge.start;
+        const end = edge.end;
+        if ((start.y > point.y) !== (end.y > point.y)) {
+            const t = (point.y - start.y) / (end.y - start.y);
+            if (start.x + t * (end.x - start.x) > point.x) segmentCounter++;
+        }
+    }
+
+    let faces = [...polygon.faces];
+
+    // 3. Calculate intersections
+    let intersections = [];
+    for (let edge of resp_edges) {
+        // Segment-only faces with tiny edges were counted above.
+        if (segmentFaces.has(edge.face)) continue;
+        // A tolerance-zero edge has no tangent and contributes no crossing.
+        if (EQ_0(edge.length)) continue;
+        for (let ip of ray.intersect(edge.shape)) {
+
+            // If intersection is equal to query point then point lays on boundary
+            if (ip.equalTo(point)) {
+                return Flatten.BOUNDARY;
+            }
+
+            intersections.push({
+                pt: ip,
+                edge: edge,
+                face_index: faces.indexOf(edge.face)
+            });
+        }
+    }
+
+    // 4. Sort intersection in x-ascending order
+    intersections.sort((i1, i2) => {
+        if (LT(i1.pt.x, i2.pt.x)) {
+            return -1;
+        }
+        if (GT(i1.pt.x, i2.pt.x)) {
+            return 1;
+        }
+        if (i1.face_index < i2.face_index) {
+            return -1
+        }
+        if (i1.face_index > i2.face_index) {
+            return 1
+        }
+        if (i1.edge.arc_length < i2.edge.arc_length) {
+            return -1
+        }
+        if (i1.edge.arc_length > i2.edge.arc_length) {
+            return 1
+        }
+        return 0;
+    });
+
+    // 5. Count real intersections, exclude touching
+    let counter = segmentCounter;
+
+    for (let i = 0; i < intersections.length; i++) {
+        let intersection = intersections[i];
+
+        if (intersection.pt.equalTo(intersection.edge.shape.start)) {
+            let prev_edge = intersection.edge.prev;
+            while (EQ_0(prev_edge.length)) {
+                prev_edge = prev_edge.prev;
+            }
+            /* Skip a shared vertex even when zero-length edges separate it. */
+            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                intersection.face_index === intersections[i - 1].face_index &&
+                prev_edge === intersections[i - 1].edge) {
+                continue;
+            }
+            let prev_tangent = prev_edge.shape.tangentInEnd();
+            let prev_point = intersection.pt.translate(prev_tangent);
+
+            let cur_tangent = intersection.edge.shape.tangentInStart();
+            let cur_point = intersection.pt.translate(cur_tangent);
+
+            let prev_on_the_left = prev_point.leftTo(line);
+            let cur_on_the_left = cur_point.leftTo(line);
+
+            if ((prev_on_the_left && !cur_on_the_left) || (!prev_on_the_left && cur_on_the_left)) {
+                counter++;
+            }
+        } else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
+            let next_edge = intersection.edge.next;
+            while (EQ_0(next_edge.length)) {
+                next_edge = next_edge.next;
+            }
+            /* Skip a shared vertex even when zero-length edges separate it. */
+            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
+                intersection.face_index === intersections[i-1].face_index &&
+                next_edge === intersections[i - 1].edge) {
+                continue;
+            }
+            let next_tangent = next_edge.shape.tangentInStart();
+            let next_point = intersection.pt.translate(next_tangent);
+
+            let cur_tangent = intersection.edge.shape.tangentInEnd();
+            let cur_point = intersection.pt.translate(cur_tangent);
+
+            let next_on_the_left = next_point.leftTo(line);
+            let cur_on_the_left = cur_point.leftTo(line);
+
+            if ((next_on_the_left && !cur_on_the_left) || (!next_on_the_left && cur_on_the_left)) {
+                counter++;
+            }
+        } else {        /* intersection point is not a vertex */
+            if (intersection.edge.shape instanceof Flatten.Segment) {
+                counter++;
+            } else {
+                /* Check if ray does not touch the curve in the extremal (top or bottom) point */
+                let box = intersection.edge.shape.box;
+                if (!(EQ(intersection.pt.y, box.ymin) ||
+                    EQ(intersection.pt.y, box.ymax))) {
+                    counter++;
+                }
+            }
+        }
+    }
+
+    // 6. Odd or even?
+    contains = counter % 2 === 1 ? INSIDE$2 : OUTSIDE$1;
+    return contains;
+}
+
+/**
+ * Created by Alex Bol on 3/17/2017.
+ */
+
+
+/**
+ * Class representing an edge of polygon. Edge shape may be Segment or Arc.
+ * Each edge contains references to the next and previous edges in the face of the polygon.
+ *
+ * @type {Edge}
+ */
+class Edge {
+    /**
+     * Construct new instance of edge
+     * @param {Shape} shape Shape of type Segment or Arc
+     */
+    constructor(shape) {
+        /**
+         * Shape of the edge: Segment or Arc
+         * @type {Segment|Arc}
+         */
+        this.shape = shape;
+        /**
+         * Pointer to the next edge in the face
+         * @type {Edge}
+         */
+        this.next = undefined;
+        /**
+         * Pointer to the previous edge in the face
+         * @type {Edge}
+         */
+        this.prev = undefined;
+        /**
+         * Pointer to the face containing this edge
+         * @type {Face}
+         */
+        this.face = undefined;
+        /**
+         * "Arc distance" from the face start
+         * @type {number}
+         */
+        this.arc_length = 0;
+        /**
+         * Start inclusion flag (inside/outside/boundary)
+         * @type {*}
+         */
+        this.bvStart = undefined;
+        /**
+         * End inclusion flag (inside/outside/boundary)
+         * @type {*}
+         */
+        this.bvEnd = undefined;
+        /**
+         * Edge inclusion flag (Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY)
+         * @type {*}
+         */
+        this.bv = undefined;
+        /**
+         * Overlap flag for boundary edge (Flatten.OVERLAP_SAME/Flatten.OVERLAP_OPPOSITE)
+         * @type {*}
+         */
+        this.overlap = undefined;
+    }
+
+    /**
+     * Get edge start point
+     */
+    get start() {
+        return this.shape.start;
+    }
+
+    /**
+     * Get edge end point
+     */
+    get end() {
+        return this.shape.end;
+    }
+
+    /**
+     * Get edge length
+     */
+    get length() {
+        return this.shape.length;
+    }
+
+    /**
+     * Get bounding box of the edge
+     * @returns {Box}
+     */
+    get box() {
+        return this.shape.box;
+    }
+
+    get isSegment() {
+        return this.shape instanceof Flatten.Segment;
+    }
+
+    get isArc() {
+        return this.shape instanceof Flatten.Arc;
+    }
+
+    get isLine() {
+        return this.shape instanceof Flatten.Line;
+    }
+
+    get isRay() {
+        return this.shape instanceof Flatten.Ray
+    }
+
+    /**
+     * Get middle point of the edge
+     * @returns {Point}
+     */
+    middle() {
+        return this.shape.middle();
+    }
+
+    /**
+     * Get point at given length
+     * @param {number} length - The length along the edge
+     * @returns {Point}
+     */
+    pointAtLength(length) {
+        return this.shape.pointAtLength(length);
+    }
+
+    /**
+     * Returns true if point belongs to the edge, false otherwise
+     * @param {Point} pt - test point
+     */
+    contains(pt) {
+        return this.shape.contains(pt);
+    }
+
+    /**
+     * Set inclusion flag of the edge with respect to another polygon
+     * Inclusion flag is one of Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY
+     * @param polygon
+     */
+    setInclusion(polygon) {
+        if (this.bv !== undefined) return this.bv;
+
+        if (this.shape instanceof Flatten.Line || this.shape instanceof Flatten.Ray) {
+            this.bv = Flatten.OUTSIDE;
+            return this.bv;
+        }
+
+        if (this.bvStart === undefined) {
+            this.bvStart = ray_shoot(polygon, this.start);
+        }
+        if (this.bvEnd === undefined) {
+            this.bvEnd = ray_shoot(polygon, this.end);
+        }
+        /* At least one end outside - the whole edge outside */
+        if (this.bvStart === Flatten.OUTSIDE || this.bvEnd == Flatten.OUTSIDE) {
+            this.bv = Flatten.OUTSIDE;
+        }
+        /* At least one end inside - the whole edge inside */
+        else if (this.bvStart === Flatten.INSIDE || this.bvEnd == Flatten.INSIDE) {
+            this.bv = Flatten.INSIDE;
+        }
+        /* Both are boundary - check the middle point */
+        else {
+            let bvMiddle = ray_shoot(polygon, this.middle());
+            // let boundary = this.middle().distanceTo(polygon)[0] < 10*Flatten.DP_TOL;
+            // let bvMiddle = boundary ? Flatten.BOUNDARY : ray_shoot(polygon, this.middle());
+            this.bv = bvMiddle;
+        }
+        return this.bv;
+    }
+
+    /**
+     * Return the overlap direction of two coincident shapes without changing edges.
+     * @param {Segment|Arc} shape1
+     * @param {Segment|Arc} shape2
+     * @returns {number|undefined} OVERLAP_SAME, OVERLAP_OPPOSITE, or undefined
+     */
+    static getOverlap(shape1, shape2) {
+        const segment1 = shape1 instanceof Flatten.Segment;
+        const segment2 = shape2 instanceof Flatten.Segment;
+        const arc1 = shape1 instanceof Flatten.Arc;
+        const arc2 = shape2 instanceof Flatten.Arc;
+        if (!(segment1 || arc1) || !(segment2 || arc2)) return undefined;
+
+        // Matching endpoints determine a segment, but arcs can take different paths.
+        if (!(segment1 && segment2) && !shape1.middle().equalTo(shape2.middle())) return undefined;
+
+        if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end)) {
+            // Full circles have identical endpoints and midpoints in either direction.
+            if (arc1 && arc2 && Flatten.Utils.EQ(shape1.sweep, Flatten.PIx2) &&
+                Flatten.Utils.EQ(shape2.sweep, Flatten.PIx2) &&
+                shape1.counterClockwise !== shape2.counterClockwise) {
+                return Flatten.OVERLAP_OPPOSITE;
+            }
+            return Flatten.OVERLAP_SAME;
+        }
+        if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start)) {
+            return Flatten.OVERLAP_OPPOSITE;
+        }
+        return undefined;
+    }
+
+    /**
+     * Set overlapping between two coincident boundary edges
+     * Overlapping flag is one of Flatten.OVERLAP_SAME or Flatten.OVERLAP_OPPOSITE
+     * @param edge
+     */
+    setOverlap(edge) {
+        const flag = Edge.getOverlap(this.shape, edge.shape);
+
+        /* Do not update overlap flag if already set on previous chain */
+        if (this.overlap === undefined) this.overlap = flag;
+        if (edge.overlap === undefined) edge.overlap = flag;
+    }
+
+    svg() {
+        if (this.shape instanceof Flatten.Segment) {
+            return ` L${this.shape.end.x},${this.shape.end.y}`;
+        } else if (this.shape instanceof Flatten.Arc) {
+            let arc = this.shape;
+            let largeArcFlag;
+            let sweepFlag = arc.counterClockwise ? "1" : "0";
+
+            // Draw full circe arc as special case: split it into two half-circles
+            if (Flatten.Utils.EQ(arc.sweep, 2 * Math.PI)) {
+                let sign = arc.counterClockwise ? 1 : -1;
+                let halfArc1 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle, arc.startAngle + sign * Math.PI, arc.counterClockwise);
+                let halfArc2 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle + sign * Math.PI, arc.endAngle, arc.counterClockwise);
+
+                largeArcFlag = "0";
+
+                return ` A${halfArc1.r},${halfArc1.r} 0 ${largeArcFlag},${sweepFlag} ${halfArc1.end.x},${halfArc1.end.y}
+                    A${halfArc2.r},${halfArc2.r} 0 ${largeArcFlag},${sweepFlag} ${halfArc2.end.x},${halfArc2.end.y}`
+            } else {
+                largeArcFlag = arc.sweep <= Math.PI ? "0" : "1";
+
+                return ` A${arc.r},${arc.r} 0 ${largeArcFlag},${sweepFlag} ${arc.end.x},${arc.end.y}`;
+            }
+        }
+    }
+
+    toJSON() {
+        return this.shape.toJSON();
+    }
+}
+Flatten.Edge = Edge;
+
 /*
     Smart intersections describe intersection points that refers to the edges they intersect
     This function are supposed for internal usage by morphing and relation methods between
@@ -1651,77 +2082,143 @@ function calculateInclusionFlags(int_points, polygon)
 
 function setOverlappingFlags(intersections)
 {
-    let cur_face = undefined;
-    let first_int_point_in_face_id = undefined;
-    let next_int_point1 = undefined;
-    let num_int_points = intersections.int_points1.length;
+    // Keep the order along polygon1, but consider each pair of faces separately.
+    // A contact with another face must not interrupt an overlapping boundary.
+    const facePairs = new Map();
+    const matches = [];
+    for (const ip1 of intersections.int_points1_sorted) {
+        const ip2 = intersections.int_points2[ip1.id];
+        if (!facePairs.has(ip1.face)) facePairs.set(ip1.face, new Map());
+        const otherFaces = facePairs.get(ip1.face);
+        if (!otherFaces.has(ip2.face)) otherFaces.set(ip2.face, []);
+        otherFaces.get(ip2.face).push([ip1, ip2]);
+    }
 
-    for (let i = 0; i < num_int_points; i++) {
-        let cur_int_point1 = intersections.int_points1_sorted[i];
+    for (const otherFaces of facePairs.values()) {
+        for (const points of otherFaces.values()) {
+            const pools = [];
+            for (const pair of points) {
+                const previous = pools[pools.length - 1];
+                if (previous && previous[0][0].edge_before === pair[0].edge_before &&
+                    previous[0][0].edge_after === pair[0].edge_after) {
+                    previous.push(pair);
+                } else {
+                    pools.push([pair]);
+                }
+            }
+            for (let i = 0; i < pools.length; i++) {
+                for (const [from1, from2] of pools[i]) {
+                    for (const [to1, to2] of pools[(i + 1) % pools.length]) {
+                        const chain1 = boundaryChain(from1.edge_after, to1.edge_before);
+                        if (!chain1) continue;
 
-        // Find boundary chain in the polygon1
-        if (cur_int_point1.face !== cur_face) {                               // next chain started
-            first_int_point_in_face_id = i; // cur_int_point1;
-            cur_face = cur_int_point1.face;
-        }
-
-        // Skip duplicated points with same <x,y> in "cur_int_point1" pool
-        let int_points_cur_pool_start = i;
-        let int_points_cur_pool_num = intPointsPoolCount(intersections.int_points1_sorted, i, cur_face);
-        let next_int_point_id;
-        if (int_points_cur_pool_start + int_points_cur_pool_num < num_int_points &&
-            intersections.int_points1_sorted[int_points_cur_pool_start + int_points_cur_pool_num].face === cur_face) {
-            next_int_point_id = int_points_cur_pool_start + int_points_cur_pool_num;
-        } else {                                         // get first point from the same face
-            next_int_point_id = first_int_point_in_face_id;
-        }
-
-        // From all points with same ,x,y. in 'next_int_point1' pool choose one that
-        // has same face both in res_poly and in wrk_poly
-        let int_points_next_pool_num = intPointsPoolCount(intersections.int_points1_sorted, next_int_point_id, cur_face);
-        next_int_point1 = null;
-        for (let j=next_int_point_id; j < next_int_point_id + int_points_next_pool_num; j++) {
-            let next_int_point1_tmp = intersections.int_points1_sorted[j];
-            if (next_int_point1_tmp.face === cur_face &&
-                intersections.int_points2[next_int_point1_tmp.id].face === intersections.int_points2[cur_int_point1.id].face) {
-                next_int_point1 = next_int_point1_tmp;
-                break;
+                        const same = boundaryChain(from2.edge_after, to2.edge_before, chain1[0].shape);
+                        if (same && matchingBoundaryChains(chain1, same, false)) {
+                            matches.push({chain1, chain2: same, flag: OVERLAP_SAME$1});
+                            continue;
+                        }
+                        const opposite = boundaryChain(to2.edge_after, from2.edge_before, chain1[0].shape, true);
+                        if (opposite && matchingBoundaryChains(chain1, opposite, true)) {
+                            matches.push({chain1, chain2: opposite, flag: OVERLAP_OPPOSITE$1});
+                        }
+                    }
+                }
             }
         }
-        if (next_int_point1 === null)
-            continue;
+    }
 
-        let edge_from1 = cur_int_point1.edge_after;
-        let edge_to1 = next_int_point1.edge_before;
-
-        if (!(edge_from1.bv === BOUNDARY$1 && edge_to1.bv === BOUNDARY$1))      // not a boundary chain - skip
-            continue;
-
-        if (edge_from1 !== edge_to1)                    //  one edge chain    TODO: support complex case
-            continue;
-
-        /* Find boundary chain in polygon2 between same intersection points */
-        let cur_int_point2 = intersections.int_points2[cur_int_point1.id];
-        let next_int_point2 = intersections.int_points2[next_int_point1.id];
-
-        let edge_from2 = cur_int_point2.edge_after;
-        let edge_to2 = next_int_point2.edge_before;
-
-        /* if [edge_from2..edge_to2] is not a boundary chain, invert it */
-        /* check also that chain consist of one or two edges */
-        if (!(edge_from2.bv === BOUNDARY$1 && edge_to2.bv === BOUNDARY$1 && edge_from2 === edge_to2)) {
-            cur_int_point2 = intersections.int_points2[next_int_point1.id];
-            next_int_point2 = intersections.int_points2[cur_int_point1.id];
-
-            edge_from2 = cur_int_point2.edge_after;
-            edge_to2 = next_int_point2.edge_before;
+    // A boundary shared by several faces can match in both directions. The
+    // single overlap flag cannot represent that topology. Preserve one-to-one
+    // handling on those faces rather than introducing additional chain removals.
+    const edgeFlags = new Map();
+    for (const {chain1, chain2, flag} of matches) {
+        for (const edge of [...chain1, ...chain2]) {
+            edgeFlags.set(edge, (edgeFlags.get(edge) || 0) | flag);
         }
+    }
+    const ambiguousFaces = new Set();
+    for (const [edge, flags] of edgeFlags) {
+        if (flags === (OVERLAP_SAME$1 | OVERLAP_OPPOSITE$1)) {
+            ambiguousFaces.add(edge.face);
+        }
+    }
+    for (const {chain1, chain2, flag} of matches) {
+        if ((chain1.length > 1 || chain2.length > 1) &&
+            (ambiguousFaces.has(chain1[0].face) || ambiguousFaces.has(chain2[0].face))) continue;
+        markOverlappingChains(chain1, chain2, flag);
+    }
+}
 
-        if (!(edge_from2.bv === BOUNDARY$1 && edge_to2.bv === BOUNDARY$1 && edge_from2 === edge_to2))
-            continue;                           // not an overlapping chain - skip   TODO: fix boundary conflict
+function boundaryChain(first, last, referenceShape, reverse = false) {
+    if (!first || !last || first.bv !== BOUNDARY$1 || last.bv !== BOUNDARY$1) {
+        return undefined;
+    }
+    // Reject a different outgoing path before walking the rest of the face.
+    // In particular, opposite overlaps should not scan the complementary chain.
+    if (referenceShape) {
+        const candidate = reverse ? last.shape.reverse() : first.shape;
+        const length = Math.min(referenceShape.length, candidate.length);
+        if (length > 0 && (!referenceShape.start.equalTo(candidate.start) ||
+            !referenceShape.pointAtLength(length / 2).equalTo(candidate.pointAtLength(length / 2)))) {
+            return undefined;
+        }
+    }
+    const edges = [];
+    let edge = first;
+    do {
+        if (edge.bv !== BOUNDARY$1) return undefined;
+        edges.push(edge);
+        if (edge === last) return edges;
+        edge = edge.next;
+    } while (edge && edge !== first);
+    return undefined;
+}
 
-        // Set overlapping flag - one-to-one case
-        edge_from1.setOverlap(edge_from2);
+function matchingBoundaryChains(chain1, chain2, reverse) {
+    const shapes1 = chain1.map(edge => edge.shape).filter(shape => shape.length > 0);
+    const shapes2 = (reverse ? chain2.slice().reverse().map(edge => edge.shape.reverse()) :
+        chain2.map(edge => edge.shape)).filter(shape => shape.length > 0);
+    let i = 0, j = 0;
+    let shape1 = shapes1[i], shape2 = shapes2[j];
+
+    // Compare matching portions without changing either polygon's edges. This
+    // handles different subdivisions of segments and arcs, including full circles.
+    while (shape1 && shape2) {
+        // Coordinate-wise equality can hold even when lengths differ by more
+        // than the tolerance. Accept that match before attempting a split.
+        if (Edge.getOverlap(shape1, shape2) === OVERLAP_SAME$1) {
+            shape1 = shapes1[++i];
+            shape2 = shapes2[++j];
+        } else if (EQ(shape1.length, shape2.length)) {
+            return false;
+        } else if (shape1.length < shape2.length) {
+            if (!shape2.contains(shape1.end)) return false;
+            const [prefix, remainder] = shape2.split(shape1.end);
+            if (!prefix || !remainder || Edge.getOverlap(shape1, prefix) !== OVERLAP_SAME$1) return false;
+            shape1 = shapes1[++i];
+            shape2 = remainder;
+        } else {
+            if (!shape1.contains(shape2.end)) return false;
+            const [prefix, remainder] = shape1.split(shape2.end);
+            if (!prefix || !remainder || Edge.getOverlap(prefix, shape2) !== OVERLAP_SAME$1) return false;
+            shape1 = remainder;
+            shape2 = shapes2[++j];
+        }
+    }
+    return !shape1 && !shape2;
+}
+
+function markOverlappingChains(chain1, chain2, flag) {
+    if (chain1.length === 1 && chain2.length === 1) {
+        chain1[0].setOverlap(chain2[0]);
+        return;
+    }
+    // Removal still operates between all intersection points, so every edge in
+    // the matched span needs the flag, including edges at unrelated contacts.
+    for (const chain of [chain1, chain2]) {
+        for (const edge of chain) {
+            if (edge.overlap === undefined) edge.overlap = flag;
+        }
     }
 }
 
@@ -2009,6 +2506,11 @@ function booleanOpBinary(polygon1, polygon2, op, restore)
     let res_poly = polygon1.clone();
     let wrk_poly = polygon2.clone();
 
+    // Internal seams between adjacent faces are not boundaries of the operand.
+    // Remove them before collecting intersections with the other polygon.
+    mergeAdjacentFaces(res_poly);
+    mergeAdjacentFaces(wrk_poly);
+
     // get intersection points
     let intersections = getIntersections(res_poly, wrk_poly);
 
@@ -2033,6 +2535,52 @@ function booleanOpBinary(polygon1, polygon2, op, restore)
     }
 
     return [res_poly, wrk_poly];
+}
+
+function mergeAdjacentFaces(polygon) {
+    let pair;
+    while ((pair = findAdjacentFaces(polygon))) {
+        const [face1, face2] = pair;
+        // Each temporary operand has one face, so this cannot recursively merge
+        // faces. Union removes the shared edge and joins the remaining boundaries.
+        const merged = unify(new Flatten.Polygon(face1.shapes), new Flatten.Polygon(face2.shapes));
+        polygon.deleteFace(face1);
+        polygon.deleteFace(face2);
+        for (const face of merged.faces) polygon.addFace(face.shapes);
+    }
+}
+
+function findAdjacentFaces(polygon) {
+    if (polygon.faces.size < 2) return undefined;
+    const visited = new Set();
+    for (const edge of polygon.edges) {
+        visited.add(edge);
+        for (const other of polygon.edges.search(edge.box)) {
+            if (visited.has(other) || edge.face === other.face) continue;
+            const orientation = edge.face.orientation();
+            if (orientation === ORIENTATION.NOT_ORIENTABLE ||
+                orientation !== other.face.orientation()) continue;
+            if (oppositeBoundaryOverlap(edge.shape, other.shape)) return [edge.face, other.face];
+        }
+    }
+    return undefined;
+}
+
+function oppositeBoundaryOverlap(shape1, shape2) {
+    if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
+        const points = shape1.intersect(shape2);
+        return points.length === 2 && !points[0].equalTo(points[1]) &&
+            shape1.tangentInStart().dot(shape2.tangentInStart()) < 0;
+    }
+    if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc &&
+        shape1.counterClockwise !== shape2.counterClockwise &&
+        shape1.pc.equalTo(shape2.pc) && Flatten.Utils.EQ(shape1.r, shape2.r)) {
+        const inside = (point, shape) => shape.contains(point) &&
+            !point.equalTo(shape.start) && !point.equalTo(shape.end);
+        return [shape1.start, shape1.end, shape1.middle()].some(point => inside(point, shape2)) ||
+            [shape2.start, shape2.end, shape2.middle()].some(point => inside(point, shape1));
+    }
+    return false;
 }
 
 function getIntersections(polygon1, polygon2)
@@ -2735,165 +3283,6 @@ class DE9IM {
     covered() {
         return COVERED.test(this.toString());
     }
-}
-
-/**
- * @module RayShoot
- */
-/**
- * Implements ray shooting algorithm. Returns relation between point and polygon: inside, outside or boundary
- * @param {Polygon} polygon - polygon to test
- * @param {Point} point - point to test
- * @returns {INSIDE|OUTSIDE|BOUNDARY}
- */
-function ray_shoot(polygon, point) {
-    let contains = undefined;
-
-    // 1. Quick reject
-    // if (polygon.box.not_intersect(point.box)) {
-    //     return Flatten.OUTSIDE;
-    // }
-
-    let ray = new Flatten.Ray(point);
-    let line = new Flatten.Line(ray.pt, ray.norm);
-
-    // 2. Locate relevant edges of the polygon
-    const searchBox = new Flatten.Box(
-        ray.box.xmin-Flatten.DP_TOL, ray.box.ymin-Flatten.DP_TOL,
-        ray.box.xmax+Flatten.DP_TOL, ray.box.ymax+Flatten.DP_TOL
-    );
-
-    if (polygon.box.not_intersect(searchBox)) {
-        return Flatten.OUTSIDE;
-    }
-
-    let resp_edges = polygon.edges.search(searchBox);
-
-    if (resp_edges.length === 0) {
-        return Flatten.OUTSIDE;
-    }
-
-    // 2.5 Check if boundary
-    for (let edge of resp_edges) {
-        if (edge.shape.contains(point)) {
-            return Flatten.BOUNDARY;
-        }
-    }
-
-    let faces = [...polygon.faces];
-
-    // 3. Calculate intersections
-    let intersections = [];
-    for (let edge of resp_edges) {
-        for (let ip of ray.intersect(edge.shape)) {
-
-            // If intersection is equal to query point then point lays on boundary
-            if (ip.equalTo(point)) {
-                return Flatten.BOUNDARY;
-            }
-
-            intersections.push({
-                pt: ip,
-                edge: edge,
-                face_index: faces.indexOf(edge.face)
-            });
-        }
-    }
-
-    // 4. Sort intersection in x-ascending order
-    intersections.sort((i1, i2) => {
-        if (LT(i1.pt.x, i2.pt.x)) {
-            return -1;
-        }
-        if (GT(i1.pt.x, i2.pt.x)) {
-            return 1;
-        }
-        if (i1.face_index < i2.face_index) {
-            return -1
-        }
-        if (i1.face_index > i2.face_index) {
-            return 1
-        }
-        if (i1.edge.arc_length < i2.edge.arc_length) {
-            return -1
-        }
-        if (i1.edge.arc_length > i2.edge.arc_length) {
-            return 1
-        }
-        return 0;
-    });
-
-    // 5. Count real intersections, exclude touching
-    let counter = 0;
-
-    for (let i = 0; i < intersections.length; i++) {
-        let intersection = intersections[i];
-
-        if (intersection.pt.equalTo(intersection.edge.shape.start)) {
-            /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.face_index === intersections[i - 1].face_index &&
-                intersection.edge.prev === intersections[i - 1].edge) {
-                continue;
-            }
-
-            let prev_edge = intersection.edge.prev;
-            while (EQ_0(prev_edge.length)) {
-                prev_edge = prev_edge.prev;
-            }
-            let prev_tangent = prev_edge.shape.tangentInEnd();
-            let prev_point = intersection.pt.translate(prev_tangent);
-
-            let cur_tangent = intersection.edge.shape.tangentInStart();
-            let cur_point = intersection.pt.translate(cur_tangent);
-
-            let prev_on_the_left = prev_point.leftTo(line);
-            let cur_on_the_left = cur_point.leftTo(line);
-
-            if ((prev_on_the_left && !cur_on_the_left) || (!prev_on_the_left && cur_on_the_left)) {
-                counter++;
-            }
-        } else if (intersection.pt.equalTo(intersection.edge.shape.end)) {
-            /* skip same point between same edges if already counted */
-            if (i > 0 && intersection.pt.equalTo(intersections[i - 1].pt) &&
-                intersection.face_index === intersections[i-1].face_index &&
-                intersection.edge.next === intersections[i - 1].edge) {
-                continue;
-            }
-
-            let next_edge = intersection.edge.next;
-            while (EQ_0(next_edge.length)) {
-                next_edge = next_edge.next;
-            }
-            let next_tangent = next_edge.shape.tangentInStart();
-            let next_point = intersection.pt.translate(next_tangent);
-
-            let cur_tangent = intersection.edge.shape.tangentInEnd();
-            let cur_point = intersection.pt.translate(cur_tangent);
-
-            let next_on_the_left = next_point.leftTo(line);
-            let cur_on_the_left = cur_point.leftTo(line);
-
-            if ((next_on_the_left && !cur_on_the_left) || (!next_on_the_left && cur_on_the_left)) {
-                counter++;
-            }
-        } else {        /* intersection point is not a vertex */
-            if (intersection.edge.shape instanceof Flatten.Segment) {
-                counter++;
-            } else {
-                /* Check if ray does not touch the curve in the extremal (top or bottom) point */
-                let box = intersection.edge.shape.box;
-                if (!(EQ(intersection.pt.y, box.ymin) ||
-                    EQ(intersection.pt.y, box.ymax))) {
-                    counter++;
-                }
-            }
-        }
-    }
-
-    // 6. Odd or even?
-    contains = counter % 2 === 1 ? INSIDE$2 : OUTSIDE$1;
-    return contains;
 }
 
 /*
@@ -6764,247 +7153,6 @@ Flatten.Box = Box;
  */
 const box = (...args) => new Flatten.Box(...args);
 Flatten.box = box;
-
-/**
- * Created by Alex Bol on 3/17/2017.
- */
-
-
-/**
- * Class representing an edge of polygon. Edge shape may be Segment or Arc.
- * Each edge contains references to the next and previous edges in the face of the polygon.
- *
- * @type {Edge}
- */
-class Edge {
-    /**
-     * Construct new instance of edge
-     * @param {Shape} shape Shape of type Segment or Arc
-     */
-    constructor(shape) {
-        /**
-         * Shape of the edge: Segment or Arc
-         * @type {Segment|Arc}
-         */
-        this.shape = shape;
-        /**
-         * Pointer to the next edge in the face
-         * @type {Edge}
-         */
-        this.next = undefined;
-        /**
-         * Pointer to the previous edge in the face
-         * @type {Edge}
-         */
-        this.prev = undefined;
-        /**
-         * Pointer to the face containing this edge
-         * @type {Face}
-         */
-        this.face = undefined;
-        /**
-         * "Arc distance" from the face start
-         * @type {number}
-         */
-        this.arc_length = 0;
-        /**
-         * Start inclusion flag (inside/outside/boundary)
-         * @type {*}
-         */
-        this.bvStart = undefined;
-        /**
-         * End inclusion flag (inside/outside/boundary)
-         * @type {*}
-         */
-        this.bvEnd = undefined;
-        /**
-         * Edge inclusion flag (Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY)
-         * @type {*}
-         */
-        this.bv = undefined;
-        /**
-         * Overlap flag for boundary edge (Flatten.OVERLAP_SAME/Flatten.OVERLAP_OPPOSITE)
-         * @type {*}
-         */
-        this.overlap = undefined;
-    }
-
-    /**
-     * Get edge start point
-     */
-    get start() {
-        return this.shape.start;
-    }
-
-    /**
-     * Get edge end point
-     */
-    get end() {
-        return this.shape.end;
-    }
-
-    /**
-     * Get edge length
-     */
-    get length() {
-        return this.shape.length;
-    }
-
-    /**
-     * Get bounding box of the edge
-     * @returns {Box}
-     */
-    get box() {
-        return this.shape.box;
-    }
-
-    get isSegment() {
-        return this.shape instanceof Flatten.Segment;
-    }
-
-    get isArc() {
-        return this.shape instanceof Flatten.Arc;
-    }
-
-    get isLine() {
-        return this.shape instanceof Flatten.Line;
-    }
-
-    get isRay() {
-        return this.shape instanceof Flatten.Ray
-    }
-
-    /**
-     * Get middle point of the edge
-     * @returns {Point}
-     */
-    middle() {
-        return this.shape.middle();
-    }
-
-    /**
-     * Get point at given length
-     * @param {number} length - The length along the edge
-     * @returns {Point}
-     */
-    pointAtLength(length) {
-        return this.shape.pointAtLength(length);
-    }
-
-    /**
-     * Returns true if point belongs to the edge, false otherwise
-     * @param {Point} pt - test point
-     */
-    contains(pt) {
-        return this.shape.contains(pt);
-    }
-
-    /**
-     * Set inclusion flag of the edge with respect to another polygon
-     * Inclusion flag is one of Flatten.INSIDE, Flatten.OUTSIDE, Flatten.BOUNDARY
-     * @param polygon
-     */
-    setInclusion(polygon) {
-        if (this.bv !== undefined) return this.bv;
-
-        if (this.shape instanceof Flatten.Line || this.shape instanceof Flatten.Ray) {
-            this.bv = Flatten.OUTSIDE;
-            return this.bv;
-        }
-
-        if (this.bvStart === undefined) {
-            this.bvStart = ray_shoot(polygon, this.start);
-        }
-        if (this.bvEnd === undefined) {
-            this.bvEnd = ray_shoot(polygon, this.end);
-        }
-        /* At least one end outside - the whole edge outside */
-        if (this.bvStart === Flatten.OUTSIDE || this.bvEnd == Flatten.OUTSIDE) {
-            this.bv = Flatten.OUTSIDE;
-        }
-        /* At least one end inside - the whole edge inside */
-        else if (this.bvStart === Flatten.INSIDE || this.bvEnd == Flatten.INSIDE) {
-            this.bv = Flatten.INSIDE;
-        }
-        /* Both are boundary - check the middle point */
-        else {
-            let bvMiddle = ray_shoot(polygon, this.middle());
-            // let boundary = this.middle().distanceTo(polygon)[0] < 10*Flatten.DP_TOL;
-            // let bvMiddle = boundary ? Flatten.BOUNDARY : ray_shoot(polygon, this.middle());
-            this.bv = bvMiddle;
-        }
-        return this.bv;
-    }
-
-    /**
-     * Set overlapping between two coincident boundary edges
-     * Overlapping flag is one of Flatten.OVERLAP_SAME or Flatten.OVERLAP_OPPOSITE
-     * @param edge
-     */
-    setOverlap(edge) {
-        let flag = undefined;
-        let shape1 = this.shape;
-        let shape2 = edge.shape;
-
-        if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
-            if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end)) {
-                flag = Flatten.OVERLAP_SAME;
-            } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start)) {
-                flag = Flatten.OVERLAP_OPPOSITE;
-            }
-        } else if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc) {
-            if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && /*shape1.counterClockwise === shape2.counterClockwise &&*/
-                shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_SAME;
-            } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && /*shape1.counterClockwise !== shape2.counterClockwise &&*/
-                shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_OPPOSITE;
-            }
-        } else if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Arc ||
-            shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Segment) {
-            if (shape1.start.equalTo(shape2.start) && shape1.end.equalTo(shape2.end) && shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_SAME;
-            } else if (shape1.start.equalTo(shape2.end) && shape1.end.equalTo(shape2.start) && shape1.middle().equalTo(shape2.middle())) {
-                flag = Flatten.OVERLAP_OPPOSITE;
-            }
-        }
-
-        /* Do not update overlap flag if already set on previous chain */
-        if (this.overlap === undefined) this.overlap = flag;
-        if (edge.overlap === undefined) edge.overlap = flag;
-    }
-
-    svg() {
-        if (this.shape instanceof Flatten.Segment) {
-            return ` L${this.shape.end.x},${this.shape.end.y}`;
-        } else if (this.shape instanceof Flatten.Arc) {
-            let arc = this.shape;
-            let largeArcFlag;
-            let sweepFlag = arc.counterClockwise ? "1" : "0";
-
-            // Draw full circe arc as special case: split it into two half-circles
-            if (Flatten.Utils.EQ(arc.sweep, 2 * Math.PI)) {
-                let sign = arc.counterClockwise ? 1 : -1;
-                let halfArc1 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle, arc.startAngle + sign * Math.PI, arc.counterClockwise);
-                let halfArc2 = new Flatten.Arc(arc.pc, arc.r, arc.startAngle + sign * Math.PI, arc.endAngle, arc.counterClockwise);
-
-                largeArcFlag = "0";
-
-                return ` A${halfArc1.r},${halfArc1.r} 0 ${largeArcFlag},${sweepFlag} ${halfArc1.end.x},${halfArc1.end.y}
-                    A${halfArc2.r},${halfArc2.r} 0 ${largeArcFlag},${sweepFlag} ${halfArc2.end.x},${halfArc2.end.y}`
-            } else {
-                largeArcFlag = arc.sweep <= Math.PI ? "0" : "1";
-
-                return ` A${arc.r},${arc.r} 0 ${largeArcFlag},${sweepFlag} ${arc.end.x},${arc.end.y}`;
-            }
-        }
-    }
-
-    toJSON() {
-        return this.shape.toJSON();
-    }
-}
-Flatten.Edge = Edge;
 
 /**
  * Class implements circular bidirectional linked list <br/>
