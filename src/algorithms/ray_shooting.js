@@ -45,11 +45,34 @@ export function ray_shoot(polygon, point) {
         }
     }
 
+    // Use half-open crossings for segment-only faces containing tiny segments.
+    // This preserves crossings through chains whose total length exceeds tolerance.
+    const segmentFaces = new Set();
+    const checkedFaces = new Set();
+    for (const edge of resp_edges) {
+        if (edge.isSegment && Utils.EQ_0(edge.length) && !checkedFaces.has(edge.face)) {
+            checkedFaces.add(edge.face);
+            if ([...edge.face].every(faceEdge => faceEdge.isSegment)) segmentFaces.add(edge.face);
+        }
+    }
+    let segmentCounter = 0;
+    for (const edge of resp_edges) {
+        if (!segmentFaces.has(edge.face)) continue;
+        const start = edge.start;
+        const end = edge.end;
+        if ((start.y > point.y) !== (end.y > point.y)) {
+            const t = (point.y - start.y) / (end.y - start.y);
+            if (start.x + t * (end.x - start.x) > point.x) segmentCounter++;
+        }
+    }
+
     let faces = [...polygon.faces];
 
     // 3. Calculate intersections
     let intersections = [];
     for (let edge of resp_edges) {
+        // Segment-only faces with tiny edges were counted above.
+        if (segmentFaces.has(edge.face)) continue;
         // A tolerance-zero edge has no tangent and contributes no crossing.
         if (Utils.EQ_0(edge.length)) continue;
         for (let ip of ray.intersect(edge.shape)) {
@@ -91,7 +114,7 @@ export function ray_shoot(polygon, point) {
     });
 
     // 5. Count real intersections, exclude touching
-    let counter = 0;
+    let counter = segmentCounter;
 
     for (let i = 0; i < intersections.length; i++) {
         let intersection = intersections[i];

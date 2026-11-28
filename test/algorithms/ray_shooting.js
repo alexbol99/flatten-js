@@ -167,4 +167,49 @@ describe('#Algorithms.Ray_Shooting', function() {
         expect(ray_shoot(polygon, point(0, 1))).to.equal(Flatten.OUTSIDE);
     });
 
+    describe('half-open crossings for tiny segment chains', function() {
+        // Changing the first edge or orientation must not change containment.
+        function checkVariants(shapes, queries) {
+            for (const ordered of [shapes, shapes.slice().reverse().map(shape => shape.reverse())]) {
+                for (let first = 0; first < ordered.length; first++) {
+                    const polygon = new Polygon();
+                    polygon.addFace(ordered.slice(first).concat(ordered.slice(0, first)));
+                    for (const [query, expected] of queries) {
+                        expect(ray_shoot(polygon, query),
+                            `first=${first}, query=(${query.x}, ${query.y})`).to.equal(expected);
+                    }
+                }
+            }
+        }
+
+        function segments(vertices) {
+            return vertices.map((v, i) => new Flatten.Segment(v, vertices[(i + 1) % vertices.length]));
+        }
+
+        it('preserves crossings of tiny segment chains spanning more than tolerance', function() {
+            for (const count of [2, 6]) {
+                const vertices = [point(0, 0), point(3, 0),
+                    ...Array.from({length: count + 1}, (_, i) => point(3, 2 + i * 9e-7)),
+                    point(3, 4), point(0, 4)];
+                // For six short edges neither long neighbor reaches the ray.
+                const y = 2 + count * 9e-7 / 2;
+                checkVariants(segments(vertices), [
+                    [point(1, y), Flatten.INSIDE], [point(-1, y), Flatten.OUTSIDE],
+                    [point(3, y), Flatten.BOUNDARY]
+                ]);
+            }
+        });
+
+        it('retains an enclosed area even when every edge is shorter than tolerance', function() {
+            const step = 8e-7;
+            const vertices = [];
+            for (let i = 0; i < 10; i++) vertices.push(point(i * step, 0));
+            for (let i = 0; i < 10; i++) vertices.push(point(10 * step, i * step));
+            for (let i = 0; i < 10; i++) vertices.push(point((10 - i) * step, 10 * step));
+            for (let i = 0; i < 10; i++) vertices.push(point(0, (10 - i) * step));
+            checkVariants(segments(vertices), [[point(4e-6, 4e-6), Flatten.INSIDE],
+                [point(-4e-6, 4e-6), Flatten.OUTSIDE], [point(0, 4e-6), Flatten.BOUNDARY]]);
+        });
+
+    });
 });
