@@ -194,6 +194,11 @@ function booleanOpBinary(polygon1, polygon2, op, restore)
     let res_poly = polygon1.clone();
     let wrk_poly = polygon2.clone();
 
+    // Internal seams between adjacent faces are not boundaries of the operand.
+    // Remove them before collecting intersections with the other polygon.
+    mergeAdjacentFaces(res_poly);
+    mergeAdjacentFaces(wrk_poly);
+
     // get intersection points
     let intersections = getIntersections(res_poly, wrk_poly);
 
@@ -218,6 +223,52 @@ function booleanOpBinary(polygon1, polygon2, op, restore)
     }
 
     return [res_poly, wrk_poly];
+}
+
+function mergeAdjacentFaces(polygon) {
+    let pair;
+    while ((pair = findAdjacentFaces(polygon))) {
+        const [face1, face2] = pair;
+        // Each temporary operand has one face, so this cannot recursively merge
+        // faces. Union removes the shared edge and joins the remaining boundaries.
+        const merged = unify(new Flatten.Polygon(face1.shapes), new Flatten.Polygon(face2.shapes));
+        polygon.deleteFace(face1);
+        polygon.deleteFace(face2);
+        for (const face of merged.faces) polygon.addFace(face.shapes);
+    }
+}
+
+function findAdjacentFaces(polygon) {
+    if (polygon.faces.size < 2) return undefined;
+    const visited = new Set();
+    for (const edge of polygon.edges) {
+        visited.add(edge);
+        for (const other of polygon.edges.search(edge.box)) {
+            if (visited.has(other) || edge.face === other.face) continue;
+            const orientation = edge.face.orientation();
+            if (orientation === Constants.ORIENTATION.NOT_ORIENTABLE ||
+                orientation !== other.face.orientation()) continue;
+            if (oppositeBoundaryOverlap(edge.shape, other.shape)) return [edge.face, other.face];
+        }
+    }
+    return undefined;
+}
+
+function oppositeBoundaryOverlap(shape1, shape2) {
+    if (shape1 instanceof Flatten.Segment && shape2 instanceof Flatten.Segment) {
+        const points = shape1.intersect(shape2);
+        return points.length === 2 && !points[0].equalTo(points[1]) &&
+            shape1.tangentInStart().dot(shape2.tangentInStart()) < 0;
+    }
+    if (shape1 instanceof Flatten.Arc && shape2 instanceof Flatten.Arc &&
+        shape1.counterClockwise !== shape2.counterClockwise &&
+        shape1.pc.equalTo(shape2.pc) && Flatten.Utils.EQ(shape1.r, shape2.r)) {
+        const inside = (point, shape) => shape.contains(point) &&
+            !point.equalTo(shape.start) && !point.equalTo(shape.end);
+        return [shape1.start, shape1.end, shape1.middle()].some(point => inside(point, shape2)) ||
+            [shape2.start, shape2.end, shape2.middle()].some(point => inside(point, shape1));
+    }
+    return false;
 }
 
 function getIntersections(polygon1, polygon2)

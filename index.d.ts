@@ -484,6 +484,7 @@ declare namespace Flatten {
         middle(): Point;
         pointAtLength(length: number): Point|null;
         setInclusion(polygon: Polygon): EdgeRelationType;
+        static getOverlap(shape1: Segment | Arc, shape2: Segment | Arc): EdgeOverlappingType | undefined;
         setOverlap(edge: Edge) : EdgeOverlappingType;
     }
 

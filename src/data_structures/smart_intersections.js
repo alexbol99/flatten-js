@@ -5,6 +5,7 @@
 import * as Utils from "../utils/utils";
 import * as Constants from '../utils/constants';
 import {Multiline} from "../classes/multiline";
+import {Edge} from "../classes/edge";
 
 export function addToIntPoints(edge, pt, int_points)
 {
@@ -213,77 +214,143 @@ export function calculateInclusionFlags(int_points, polygon)
 
 export function setOverlappingFlags(intersections)
 {
-    let cur_face = undefined;
-    let first_int_point_in_face_id = undefined;
-    let next_int_point1 = undefined;
-    let num_int_points = intersections.int_points1.length;
+    // Keep the order along polygon1, but consider each pair of faces separately.
+    // A contact with another face must not interrupt an overlapping boundary.
+    const facePairs = new Map();
+    const matches = [];
+    for (const ip1 of intersections.int_points1_sorted) {
+        const ip2 = intersections.int_points2[ip1.id];
+        if (!facePairs.has(ip1.face)) facePairs.set(ip1.face, new Map());
+        const otherFaces = facePairs.get(ip1.face);
+        if (!otherFaces.has(ip2.face)) otherFaces.set(ip2.face, []);
+        otherFaces.get(ip2.face).push([ip1, ip2]);
+    }
 
-    for (let i = 0; i < num_int_points; i++) {
-        let cur_int_point1 = intersections.int_points1_sorted[i];
+    for (const otherFaces of facePairs.values()) {
+        for (const points of otherFaces.values()) {
+            const pools = [];
+            for (const pair of points) {
+                const previous = pools[pools.length - 1];
+                if (previous && previous[0][0].edge_before === pair[0].edge_before &&
+                    previous[0][0].edge_after === pair[0].edge_after) {
+                    previous.push(pair);
+                } else {
+                    pools.push([pair]);
+                }
+            }
+            for (let i = 0; i < pools.length; i++) {
+                for (const [from1, from2] of pools[i]) {
+                    for (const [to1, to2] of pools[(i + 1) % pools.length]) {
+                        const chain1 = boundaryChain(from1.edge_after, to1.edge_before);
+                        if (!chain1) continue;
 
-        // Find boundary chain in the polygon1
-        if (cur_int_point1.face !== cur_face) {                               // next chain started
-            first_int_point_in_face_id = i; // cur_int_point1;
-            cur_face = cur_int_point1.face;
-        }
-
-        // Skip duplicated points with same <x,y> in "cur_int_point1" pool
-        let int_points_cur_pool_start = i;
-        let int_points_cur_pool_num = intPointsPoolCount(intersections.int_points1_sorted, i, cur_face);
-        let next_int_point_id;
-        if (int_points_cur_pool_start + int_points_cur_pool_num < num_int_points &&
-            intersections.int_points1_sorted[int_points_cur_pool_start + int_points_cur_pool_num].face === cur_face) {
-            next_int_point_id = int_points_cur_pool_start + int_points_cur_pool_num;
-        } else {                                         // get first point from the same face
-            next_int_point_id = first_int_point_in_face_id;
-        }
-
-        // From all points with same ,x,y. in 'next_int_point1' pool choose one that
-        // has same face both in res_poly and in wrk_poly
-        let int_points_next_pool_num = intPointsPoolCount(intersections.int_points1_sorted, next_int_point_id, cur_face);
-        next_int_point1 = null;
-        for (let j=next_int_point_id; j < next_int_point_id + int_points_next_pool_num; j++) {
-            let next_int_point1_tmp = intersections.int_points1_sorted[j];
-            if (next_int_point1_tmp.face === cur_face &&
-                intersections.int_points2[next_int_point1_tmp.id].face === intersections.int_points2[cur_int_point1.id].face) {
-                next_int_point1 = next_int_point1_tmp;
-                break;
+                        const same = boundaryChain(from2.edge_after, to2.edge_before, chain1[0].shape);
+                        if (same && matchingBoundaryChains(chain1, same, false)) {
+                            matches.push({chain1, chain2: same, flag: Constants.OVERLAP_SAME});
+                            continue;
+                        }
+                        const opposite = boundaryChain(to2.edge_after, from2.edge_before, chain1[0].shape, true);
+                        if (opposite && matchingBoundaryChains(chain1, opposite, true)) {
+                            matches.push({chain1, chain2: opposite, flag: Constants.OVERLAP_OPPOSITE});
+                        }
+                    }
+                }
             }
         }
-        if (next_int_point1 === null)
-            continue;
+    }
 
-        let edge_from1 = cur_int_point1.edge_after;
-        let edge_to1 = next_int_point1.edge_before;
-
-        if (!(edge_from1.bv === Constants.BOUNDARY && edge_to1.bv === Constants.BOUNDARY))      // not a boundary chain - skip
-            continue;
-
-        if (edge_from1 !== edge_to1)                    //  one edge chain    TODO: support complex case
-            continue;
-
-        /* Find boundary chain in polygon2 between same intersection points */
-        let cur_int_point2 = intersections.int_points2[cur_int_point1.id];
-        let next_int_point2 = intersections.int_points2[next_int_point1.id];
-
-        let edge_from2 = cur_int_point2.edge_after;
-        let edge_to2 = next_int_point2.edge_before;
-
-        /* if [edge_from2..edge_to2] is not a boundary chain, invert it */
-        /* check also that chain consist of one or two edges */
-        if (!(edge_from2.bv === Constants.BOUNDARY && edge_to2.bv === Constants.BOUNDARY && edge_from2 === edge_to2)) {
-            cur_int_point2 = intersections.int_points2[next_int_point1.id];
-            next_int_point2 = intersections.int_points2[cur_int_point1.id];
-
-            edge_from2 = cur_int_point2.edge_after;
-            edge_to2 = next_int_point2.edge_before;
+    // A boundary shared by several faces can match in both directions. The
+    // single overlap flag cannot represent that topology. Preserve one-to-one
+    // handling on those faces rather than introducing additional chain removals.
+    const edgeFlags = new Map();
+    for (const {chain1, chain2, flag} of matches) {
+        for (const edge of [...chain1, ...chain2]) {
+            edgeFlags.set(edge, (edgeFlags.get(edge) || 0) | flag);
         }
+    }
+    const ambiguousFaces = new Set();
+    for (const [edge, flags] of edgeFlags) {
+        if (flags === (Constants.OVERLAP_SAME | Constants.OVERLAP_OPPOSITE)) {
+            ambiguousFaces.add(edge.face);
+        }
+    }
+    for (const {chain1, chain2, flag} of matches) {
+        if ((chain1.length > 1 || chain2.length > 1) &&
+            (ambiguousFaces.has(chain1[0].face) || ambiguousFaces.has(chain2[0].face))) continue;
+        markOverlappingChains(chain1, chain2, flag);
+    }
+}
 
-        if (!(edge_from2.bv === Constants.BOUNDARY && edge_to2.bv === Constants.BOUNDARY && edge_from2 === edge_to2))
-            continue;                           // not an overlapping chain - skip   TODO: fix boundary conflict
+function boundaryChain(first, last, referenceShape, reverse = false) {
+    if (!first || !last || first.bv !== Constants.BOUNDARY || last.bv !== Constants.BOUNDARY) {
+        return undefined;
+    }
+    // Reject a different outgoing path before walking the rest of the face.
+    // In particular, opposite overlaps should not scan the complementary chain.
+    if (referenceShape) {
+        const candidate = reverse ? last.shape.reverse() : first.shape;
+        const length = Math.min(referenceShape.length, candidate.length);
+        if (length > 0 && (!referenceShape.start.equalTo(candidate.start) ||
+            !referenceShape.pointAtLength(length / 2).equalTo(candidate.pointAtLength(length / 2)))) {
+            return undefined;
+        }
+    }
+    const edges = [];
+    let edge = first;
+    do {
+        if (edge.bv !== Constants.BOUNDARY) return undefined;
+        edges.push(edge);
+        if (edge === last) return edges;
+        edge = edge.next;
+    } while (edge && edge !== first);
+    return undefined;
+}
 
-        // Set overlapping flag - one-to-one case
-        edge_from1.setOverlap(edge_from2);
+function matchingBoundaryChains(chain1, chain2, reverse) {
+    const shapes1 = chain1.map(edge => edge.shape).filter(shape => shape.length > 0);
+    const shapes2 = (reverse ? chain2.slice().reverse().map(edge => edge.shape.reverse()) :
+        chain2.map(edge => edge.shape)).filter(shape => shape.length > 0);
+    let i = 0, j = 0;
+    let shape1 = shapes1[i], shape2 = shapes2[j];
+
+    // Compare matching portions without changing either polygon's edges. This
+    // handles different subdivisions of segments and arcs, including full circles.
+    while (shape1 && shape2) {
+        // Coordinate-wise equality can hold even when lengths differ by more
+        // than the tolerance. Accept that match before attempting a split.
+        if (Edge.getOverlap(shape1, shape2) === Constants.OVERLAP_SAME) {
+            shape1 = shapes1[++i];
+            shape2 = shapes2[++j];
+        } else if (Utils.EQ(shape1.length, shape2.length)) {
+            return false;
+        } else if (shape1.length < shape2.length) {
+            if (!shape2.contains(shape1.end)) return false;
+            const [prefix, remainder] = shape2.split(shape1.end);
+            if (!prefix || !remainder || Edge.getOverlap(shape1, prefix) !== Constants.OVERLAP_SAME) return false;
+            shape1 = shapes1[++i];
+            shape2 = remainder;
+        } else {
+            if (!shape1.contains(shape2.end)) return false;
+            const [prefix, remainder] = shape1.split(shape2.end);
+            if (!prefix || !remainder || Edge.getOverlap(prefix, shape2) !== Constants.OVERLAP_SAME) return false;
+            shape1 = remainder;
+            shape2 = shapes2[++j];
+        }
+    }
+    return !shape1 && !shape2;
+}
+
+function markOverlappingChains(chain1, chain2, flag) {
+    if (chain1.length === 1 && chain2.length === 1) {
+        chain1[0].setOverlap(chain2[0]);
+        return;
+    }
+    // Removal still operates between all intersection points, so every edge in
+    // the matched span needs the flag, including edges at unrelated contacts.
+    for (const chain of [chain1, chain2]) {
+        for (const edge of chain) {
+            if (edge.overlap === undefined) edge.overlap = flag;
+        }
     }
 }
 
