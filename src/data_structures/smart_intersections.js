@@ -315,10 +315,13 @@ function matchingBoundaryChains(chain1, chain2, reverse) {
     // Compare matching portions without changing either polygon's edges. This
     // handles different subdivisions of segments and arcs, including full circles.
     while (shape1 && shape2) {
-        if (Utils.EQ(shape1.length, shape2.length)) {
-            if (!sameDirectedShape(shape1, shape2)) return false;
+        // Coordinate-wise equality can hold even when lengths differ by more
+        // than the tolerance. Accept that match before attempting a split.
+        if (sameDirectedShape(shape1, shape2)) {
             shape1 = shapes1[++i];
             shape2 = shapes2[++j];
+        } else if (Utils.EQ(shape1.length, shape2.length)) {
+            return false;
         } else if (shape1.length < shape2.length) {
             if (!shape2.contains(shape1.end)) return false;
             const [prefix, remainder] = shape2.split(shape1.end);
