@@ -105,6 +105,24 @@ describe('#Flatten.Circle', function() {
         let ip = circle1.intersect(circle2);
         expect(ip.length).to.equal(0);
     });
+    it('Can intersect circle with circle - touching from outside', function() {
+        const circle1 = new Circle(new Point(0, 0), 2);
+        const circle2 = new Circle(new Point(5, 0), 3);
+        expect(circle1.intersect(circle2)).to.deep.equal([{x:2,y:0}]);
+        expect(circle2.intersect(circle1)).to.deep.equal([{x:2,y:0}]);
+    });
+    it('Can intersect circle with circle - touching from inside, in both orders', function() {
+        const outer = new Circle(new Point(0, 0), 4);
+        const inner = new Circle(new Point(1, 0), 3);
+        expect(outer.intersect(inner)).to.deep.equal([{x:4,y:0}]);
+        expect(inner.intersect(outer)).to.deep.equal([{x:4,y:0}]);
+    });
+    it('Can intersect arc with arc - touching from inside, in both orders', function() {
+        const outer = new Arc(new Point(0, 0), 4, -Math.PI/2, Math.PI/2, true);
+        const inner = new Arc(new Point(1, 0), 3, -Math.PI/2, Math.PI/2, true);
+        expect(outer.intersect(inner)).to.deep.equal([{x:4,y:0}]);
+        expect(inner.intersect(outer)).to.deep.equal([{x:4,y:0}]);
+    });
     it('Can intersect circle with circle - same circle, one intersection, leftmost point', function() {
         let circle = new Circle(new Point(0, 0), 4);
         let ip = circle.intersect(circle.clone());
